@@ -14,14 +14,14 @@ A basic exemple is : how to copy a file ? , then the website will return you the
 
 The installation is in three steps
 
-#### Formating man pages
+#### Step 1 : Formating man pages
 
 The first step is to transform the man pages from their basic form (.gz) to a more human-readable version (.txt and .html)
 
-#### Indexing Man pages
+#### Step 2 : Indexing Man pages
 
 The second step is to create a table containing the man pages in postgreSQL
 
-#### Build the web interface
+#### Step 3 : Build the web interface
 
 The third step is to build an web page permitting to request the postgreSQL database.
