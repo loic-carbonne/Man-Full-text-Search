@@ -1,0 +1,24 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setleds - set the keyboard leds <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">setleds</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Setleds</span> reports and changes the led flag settings of a VT (namely NumLock, CapsLock and ScrollLock). Without arguments, <span Class="bold">setleds</span> prints the current settings. With arguments, it sets or clears the indicated flags (and leaves the others unchanged).  The settings before and after the change are reported if the -v flag is given. 
+<p class="level0">The led flag settings are specific for each VT (and the VT corresponding to stdin is used). 
+<p class="level0">By default (or with option -F), <span Class="bold">setleds</span> will only change the VT flags (and their setting may be reflected by the keyboard leds). 
+<p class="level0">With option -D, <span Class="bold">setleds</span> will change both the VT flags and their default settings (so that a subsequent reset will not undo the change). This might be useful for people who always want to have numlock set. 
+<p class="level0">With option -L, <span Class="bold">setleds</span> will not touch the VT flags, but only change the leds. From this moment on, the leds will no longer reflect the VT flags (but display whatever is put into them).  The command <span Class="bold">setleds -L</span> (without further arguments) will restore the situation in which the leds reflect the VT flags. 
+<p class="level0">One might use <span Class="bold">setleds</span> in /etc/rc to define the initial and default state of NumLock, e.g. by <br>
+<p class="level0">INITTY=/dev/tty[1-8] <br>for tty in $INITTY; do <br>
+<p class="level0">setleds -D +num &lt; $tty <br>
+<p class="level0">done 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-num +num Clear or set NumLock. (At present, the NumLock setting influences the interpretation of keypad keys. Pressing the NumLock key complements the NumLock setting.) 
+<p class="level0">-caps +caps Clear or set CapsLock. (At present, the CapsLock setting complements the Shift key when applied to letters. Pressing the CapsLock key complements the CapsLock setting.) 
+<p class="level0">-scroll +scroll Clear or set ScrollLock. (At present, pressing the ScrollLock key (or ^S/^Q) stops/starts console output.) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">In keyboard application mode the NumLock key does not influence the NumLock flag setting. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">loadkeys (1)</span>
+<p class="level0">

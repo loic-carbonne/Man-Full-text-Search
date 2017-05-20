@@ -1,0 +1,29 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aplaymidi - play Standard MIDI Files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">aplaymidi</span> -p client:port[,...] [-d delay] midifile ... 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">aplaymidi</span> is a command-line utility that plays the specified MIDI file(s) to one or more ALSA sequencer ports. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h, --help</span> Prints a list of options. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-V, --version</span> Prints the current version. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-l, --list</span> Prints a list of possible output ports. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-p, --port=client:port,...</span> Sets the sequencer port(s) to which the events in the MIDI file(s) are sent. 
+<p class="level0">A client can be specified by its number, its name, or a prefix of its name. A port is specified by its number; for port 0 of a client, the ":0" part of the port specification can be omitted. 
+<p class="level0">Multiple ports can be specified to allow playback of MIDI file(s) that contain events for multiple devices (ports), as specified by "Port Number" meta events. 
+<p class="level0">For compatibility with <span Class="bold">pmidi(1),</span> the port specification is taken from the <span Class="emphasis">ALSA_OUTPUT_PORTS</span> environment variable if none is given on the command line. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-d, --delay=seconds</span> Specifies how long to wait after the end of each MIDI file, to allow the last notes to die away. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">aplaymidi</span> handles "Port Number" meta events, but not "Port Name" meta events. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">pmidi(1) <br>playmidi(1) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Clemens Ladisch &lt;clemens@ladisch.de&gt; 

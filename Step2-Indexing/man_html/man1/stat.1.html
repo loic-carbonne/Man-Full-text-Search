@@ -1,0 +1,64 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">stat - display file or file system status <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">stat</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Display file or file system status. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--dereference</span> follow links 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--file-system</span> display file system status instead of file status 
+<p class="level0"><span Class="bold">-c</span>  <span Class="bold">--format</span>=<span Class="emphasis">FORMAT</span> use the specified FORMAT instead of the default; output a newline after each use of FORMAT 
+<p class="level0"><span Class="bold">--printf</span>=<span Class="emphasis">FORMAT</span> like <span Class="bold">--format</span>, but interpret backslash escapes, and do not output a mandatory trailing newline; if you want a newline, include en in FORMAT 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--terse</span> print the information in terse form 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">The valid format sequences for files (without <span Class="bold">--file-system</span>): 
+<p class="level0">%a access rights in octal 
+<p class="level0">%A access rights in human readable form 
+<p class="level0">%b number of blocks allocated (see %B) 
+<p class="level0">%B the size in bytes of each block reported by %b 
+<p class="level0">%C SELinux security context string 
+<p class="level0">%d device number in decimal 
+<p class="level0">%D device number in hex 
+<p class="level0">%f raw mode in hex 
+<p class="level0">%F file type 
+<p class="level0">%g group ID of owner 
+<p class="level0">%G group name of owner 
+<p class="level0">%h number of hard links 
+<p class="level0">%i inode number 
+<p class="level0">%m mount point 
+<p class="level0">%n file name 
+<p class="level0">%N quoted file name with dereference if symbolic link 
+<p class="level0">%o optimal I/O transfer size hint 
+<p class="level0">%s total size, in bytes 
+<p class="level0">%t major device type in hex, for character/block device special files 
+<p class="level0">%T minor device type in hex, for character/block device special files 
+<p class="level0">%u user ID of owner 
+<p class="level0">%U user name of owner 
+<p class="level0">%w time of file birth, human-readable; - if unknown 
+<p class="level0">%W time of file birth, seconds since Epoch; 0 if unknown 
+<p class="level0">%x time of last access, human-readable 
+<p class="level0">%X time of last access, seconds since Epoch 
+<p class="level0">%y time of last data modification, human-readable 
+<p class="level0">%Y time of last data modification, seconds since Epoch 
+<p class="level0">%z time of last status change, human-readable 
+<p class="level0">%Z time of last status change, seconds since Epoch 
+<p class="level0">Valid format sequences for file systems: 
+<p class="level0">%a free blocks available to non-superuser 
+<p class="level0">%b total data blocks in file system 
+<p class="level0">%c total file nodes in file system 
+<p class="level0">%d free file nodes in file system 
+<p class="level0">%f free blocks in file system 
+<p class="level0">%i file system ID in hex 
+<p class="level0">%l maximum length of filenames 
+<p class="level0">%n file name 
+<p class="level0">%s block size (for faster transfers) 
+<p class="level0">%S fundamental block size (for block counts) 
+<p class="level0">%t file system type in hex 
+<p class="level0">%T file system type in human readable form 
+<p class="level0">NOTE: your shell may have its own version of stat, which usually supersedes the version described here.  Please refer to your shell's documentation for details about the options it supports. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Michael Meskes. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report stat translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">stat(2) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/stat&gt; <br>or available locally via: info (aq(coreutils) stat invocation(aq 

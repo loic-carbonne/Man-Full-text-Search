@@ -1,0 +1,167 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">piconv -- iconv(1), reinvented in perl <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp; piconv [-f from_encoding] [-t to_encoding] &nbsp;        [-p|--perlqq|--htmlcref|--xmlcref] [-C N|-c] [-D] [-S scheme] &nbsp;        [-s string|file...] &nbsp; piconv -l &nbsp; piconv -r encoding_alias &nbsp; piconv -h 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">piconv</span> is perl version of <span Class="bold">iconv</span>, a character encoding converter widely available for various Unixen today.  This script was primarily a technology demonstrator for Perl 5.8.0, but you can use piconv in the place of iconv for virtually any case. 
+<p class="level0">piconv converts the character encoding of either s-1STDINs0 or files specified in the argument and prints out to s-1STDOUT.s0 
+<p class="level0">Here is the list of options.  Some options can be in short format (-f) or long (--from) one. 
+<p class="level0"><a name="-f--from"></a><span class="nroffip">-f,--from \fIfrom_encoding\fR 4</span> 
+<p class="level1">
+<p class="level1">Specifies the encoding you are converting from.  Unlike <span Class="bold">iconv</span>, this option can be omitted.  In such cases, the current locale is used. 
+<p class="level0"><a name="-t--to"></a><span class="nroffip">-t,--to \fIto_encoding\fR 4</span> 
+<p class="level1">
+<p class="level1">Specifies the encoding you are converting to.  Unlike <span Class="bold">iconv</span>, this option can be omitted.  In such cases, the current locale is used. 
+<p class="level1">Therefore, when both -f and -t are omitted, <span Class="bold">piconv</span> just acts like <span Class="bold">cat</span>. 
+<p class="level0"><a name="-s--string"></a><span class="nroffip">-s,--string \fIstring\fR 4</span> 
+<p class="level1">
+<p class="level1">uses <span Class="emphasis">string</span> instead of file for the source of text. 
+<p class="level0"><a name="-l--list"></a><span class="nroffip">-l,--list 4</span> 
+<p class="level1">
+<p class="level1">Lists all available encodings, one per line, in case-insensitive order.  Note that only the canonical names are listed; many aliases exist.  For example, the names are case-insensitive, and many standard and common aliases work, such as *(L"latin1*(R" for *(L"s-1ISO-8859-1*(R",s0 or *(L"ibm850*(R" instead of *(L"cp850*(R", or *(L"winlatin1*(R" for *(L"cp1252*(R".  See Encode::Supported for a full discussion. 
+<p class="level0"><a name="-r--resolve"></a><span class="nroffip">-r,--resolve \fIencoding_alias\fR 4</span> 
+<p class="level1">
+<p class="level1">Resolve <span Class="emphasis">encoding_alias</span> to Encode canonical encoding name. 
+<p class="level0"><a name="-C--check"></a><span class="nroffip">-C,--check \fIN\fR 4</span> 
+<p class="level1">
+<p class="level1">Check the validity of the stream if <span Class="emphasis">N</span> = 1.  When <span Class="emphasis">N</span> = -1, something interesting happens when it encounters an invalid character. 
+<p class="level0"><a name="-c"></a><span class="nroffip">-c 4</span> 
+<p class="level1">
+<p class="level1">Same as f(CW*(C`-C 1*(C'</span>. 
+<p class="level0"><a name="-p--perlqq"></a><span class="nroffip">-p,--perlqq 4</span> 
+<p class="level1">
+<p class="level1">Transliterate characters missing in encoding to ex{s-1HHHHs0} where s-1HHHHs0 is the hexadecimal Unicode code point. 
+<p class="level0"><a name="--htmlcref"></a><span class="nroffip">--htmlcref 4</span> 
+<p class="level1">
+<p class="level1">Transliterate characters missing in encoding to &&#35;NNN; where s-1NNNs0 is the decimal Unicode code point. 
+<p class="level0"><a name="--xmlcref"></a><span class="nroffip">--xmlcref 4</span> 
+<p class="level1">
+<p class="level1">Transliterate characters missing in encoding to &&#35;xHHHH; where s-1HHHHs0 is the hexadecimal Unicode code point. 
+<p class="level0"><a name="-h--help"></a><span class="nroffip">-h,--help 4</span> 
+<p class="level1">
+<p class="level1">Show usage. 
+<p class="level0"><a name="-D--debug"></a><span class="nroffip">-D,--debug 4</span> 
+<p class="level1">
+<p class="level1">Invokes debugging mode.  Primarily for Encode hackers. 
+<p class="level0"><a name="-S--scheme"></a><span class="nroffip">-S,--scheme \fIscheme\fR 4</span> 
+<p class="level1">
+<p class="level1">Selects which scheme is to be used for conversion.  Available schemes are as follows: 
+<p class="level2">
+<p class="level1"><a name="fromto"></a><span class="nroffip">from_to 4</span> 
+<p class="level2">
+<p class="level2">Uses Encode::from_to for conversion.  This is the default. 
+<p class="level1"><a name="decodeencode"></a><span class="nroffip">decode_encode 4</span> 
+<p class="level2">
+<p class="level2">Input strings are <span Class="emphasis">decode()</span>d then <span Class="emphasis">encode()</span>d.  A straight two-step implementation. 
+<p class="level1"><a name="perlio"></a><span class="nroffip">perlio 4</span> 
+<p class="level2">
+<p class="level2">The new perlIO layer is used.  s-1NI-Ss0' favorite. 
+<p class="level2">You should use this option if you are using s-1UTF-16s0 and others which linefeed is not $/. 
+<p class="level1">
+<p class="level2">
+<p class="level2">Like the <span Class="emphasis">-D</span> option, this is also for Encode hackers. 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">iconv</span>|(1) <span Class="emphasis">locale</span>|(3) Encode Encode::Supported Encode::Alias PerlIO 

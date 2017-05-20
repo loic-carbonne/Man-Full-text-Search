@@ -1,0 +1,36 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0"><span Class="bold">captoinfo</span> - convert a <span Class="emphasis">termcap</span> description into a <span Class="emphasis">terminfo</span> description <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">captoinfo</span> [<span Class="bold">-v</span><span Class="emphasis">n</span> <span Class="emphasis">width</span>]  [<span Class="bold">-V</span>] [<span Class="bold">-1</span>] [<span Class="bold">-w</span> <span Class="emphasis">width</span>] <span Class="emphasis">file</span> . . . <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">captoinfo</span> looks in each given text <span Class="emphasis">file</span> for <span Class="bold">termcap</span> descriptions. For each one found, an equivalent <span Class="bold">terminfo</span> description is written to standard output. Termcap <span Class="bold">tc</span> capabilities are translated directly to terminfo <span Class="bold">use</span> capabilities. 
+<p class="level0">If no <span Class="emphasis">file</span> is given, then the environment variable <span Class="bold">TERMCAP</span> is used for the filename or entry. If <span Class="bold">TERMCAP</span> is a full pathname to a file, only the terminal whose name is specified in the environment variable <span Class="bold">TERM</span> is extracted from that file. If the environment variable <span Class="bold">TERMCAP</span> is not set, then the file <span Class="bold">*d</span> is read. 
+<p class="level0"><span Class="bold">-v</span> print out tracing information on standard error as the program runs. 
+<p class="level0"><span Class="bold">-V</span> print out the version of the program in use on standard error and exit. 
+<p class="level0"><span Class="bold">-1</span> cause the fields to print out one to a line. Otherwise, the fields will be printed several to a line to a maximum width of 60 characters. 
+<p class="level0"><span Class="bold">-w</span> change the output to <span Class="emphasis">width</span> characters. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">*d Compiled terminal description database. <a name="TRANSLATIONS"></a><h2 class="nroffsh">TRANSLATIONS FROM NONSTANDARD CAPABILITIES</h2>
+<p class="level0">
+<p class="level0">Some obsolete nonstandard capabilities will automatically be translated into standard (SVr4/XSI Curses) terminfo capabilities by <span Class="bold">captoinfo</span>. Whenever one of these automatic translations is done, the program will issue an notification to stderr, inviting the user to check that it has not mistakenly translated a completely unknown and random capability and/or syntax error. 
+<p class="level0">
+<p class="level0">c c c c c c c c l l l l. Nonstd	Std	From	Terminfo name	name		capability _ BO	mr	AT&T	enter_reverse_mode CI	vi	AT&T	cursor_invisible CV	ve	AT&T	cursor_normal DS	mh	AT&T	enter_dim_mode EE	me	AT&T	exit_attribute_mode FE	LF	AT&T	label_on FL	LO	AT&T	label_off XS	mk	AT&T	enter_secure_mode EN	@7	XENIX	key_end GE	ae	XENIX	exit_alt_charset_mode GS	as	XENIX	enter_alt_charset_mode HM	kh	XENIX	key_home LD	kL	XENIX	key_dl PD	kN	XENIX	key_npage PN	po	XENIX	prtr_off PS	pf	XENIX	prtr_on PU	kP	XENIX	key_ppage RT	@8	XENIX	kent UP	ku	XENIX	kcuu1 KA	k;	Tek	key_f10 KB	F1	Tek	key_f11 KC	F2	Tek	key_f12 KD	F3	Tek	key_f13 KE	F4	Tek	key_f14 KF	F5	Tek	key_f15 BC	Sb	Tek	set_background FC	Sf	Tek	set_foreground HS	mh	Iris	enter_dim_mode 
+<p class="level0">
+<p class="level0">XENIX termcap also used to have a set of extension capabilities for forms drawing, designed to take advantage of the IBM PC high-half graphics. They were as follows: 
+<p class="level0">
+<p class="level0">c c l l. Cap	Graphic _ G2	upper left G3	lower left G1	upper right G4	lower right GR	pointing right GL	pointing left GU	pointing up GD	pointing down GH	horizontal line GV	vertical line GC	intersection G6	upper left G7	lower left G5	upper right G8	lower right Gr	tee pointing right Gr	tee pointing left Gu	tee pointing up Gd	tee pointing down Gh	horizontal line Gv	vertical line Gc	intersection GG	acs magic cookie count 
+<p class="level0">
+<p class="level0">If the single-line capabilities occur in an entry, they will automatically be composed into an <span Class="emphasis">acsc</span> string. The double-line capabilities and <span Class="bold">GG</span> are discarded with a warning message. 
+<p class="level0">IBM's AIX has a terminfo facility descended from SVr1 terminfo but incompatible with the SVr4 format. The following AIX extensions are automatically translated: 
+<p class="level0">c c l l. IBM	XSI _ ksel	kslt kbtab	kcbt font0	s0ds font1	s1ds font2	s2ds font3	s3ds 
+<p class="level0">
+<p class="level0">Additionally, the AIX <span Class="emphasis">box1</span> capability will be automatically translated to an <span Class="emphasis">acsc</span> string. 
+<p class="level0">Hewlett-Packard's terminfo library supports two nonstandard terminfo capabilities <span Class="emphasis">meml</span> (memory lock) and <span Class="emphasis">memu</span> (memory unlock). These will be discarded with a warning message. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This utility is actually a link to <span Class="bold">tic</span>(1), running in <span Class="emphasis">-I</span> mode. You can use other <span Class="bold">tic</span> options such as <span Class="bold">-f</span> and  <span Class="bold">-x</span>. 
+<p class="level0">The trace option is not identical to SVr4's. Under SVr4, instead of following the <span Class="bold">-v</span> with a trace level n, you repeat it n times. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">infocmp</span>(1), <span Class="bold">ncurses</span>(3NCURSES), <span Class="bold">terminfo</span>(*n) 
+<p class="level0">This describes <span Class="bold">ncurses</span> version 5.9 (patch 20140913). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Eric S. Raymond &lt;esr@snark.thyrsus.com&gt; and <br>Thomas E. Dickey &lt;dickey@invisible-island.net&gt; 

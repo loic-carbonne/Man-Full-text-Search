@@ -1,0 +1,62 @@
+COQ(1)                      General Commands Manual                     COQ(1)
+
+
+
+NAME
+       gallina - extracts specification from Coq vernacular files
+
+
+SYNOPSIS
+       gallina [ - ] [ -stdout ] [ -nocomments ] file ...
+
+
+DESCRIPTION
+       gallina takes Coq files as arguments and builds the corresponding spec-
+       ification files.  The Coq file foo.v gives bearth to the  specification
+       file foo.g. The suffix '.g' stands for Gallina.
+
+       For that purpose, gallina removes all commands that follow a "Theorem",
+       "Lemma", "Fact", "Remark" or "Goal" statement until it reaches  a  com-
+       mand  "Abort.",  "Save.", "Qed.", "Defined." or "Proof <...>.". It also
+       removes every "Hint", "Syntax", "Immediate"  or "Transparent" command.
+
+       Files without the .v suffix are ignored.
+
+
+
+OPTIONS
+       -stdout
+              Prints the result on standard output.
+
+       -      Coq source is taken on standard input. The result is printed  on
+              standard output.
+
+       -nocomments
+              Comments are removed in the *.g file.
+
+
+NOTES
+       Nested  comments  are  correctly  handled. In particular, every command
+       "Save." or "Abort." in a comment is not taken into account.
+
+
+
+BUGS
+       Please report any bug to coq@pauillac.inria.fr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Coq tools                        29 March 1995                          COQ(1)

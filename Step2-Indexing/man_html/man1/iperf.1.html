@@ -1,0 +1,49 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">iperf - perform network throughput tests <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">iperf -s [</span> <span Class="emphasis">options</span> <span Class="bold">]</span> 
+<p class="level0"><span Class="bold">iperf -c </span> <span Class="emphasis">server</span> <span Class="bold">[</span> <span Class="emphasis">options</span> <span Class="bold">]</span> 
+<p class="level0"><span Class="bold">iperf -u -s [</span> <span Class="emphasis">options</span> <span Class="bold">]</span> 
+<p class="level0"><span Class="bold">iperf -u -c </span> <span Class="emphasis">server</span> <span Class="bold">[</span> <span Class="emphasis">options</span> <span Class="bold">]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">iperf is a tool for performing network throughput measurements.  It can test either TCP or UDP throughput.  To perform an iperf test the user must establish both a server (to discard traffic) and a client (to generate traffic).   <a name="GENERAL"></a><h2 class="nroffsh">GENERAL OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">--format</span>[kmKM]   format to report: Kbits, Mbits, KBytes, MBytes 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>print a help synopsis 
+<p class="level0"><span Class="manpage">-i</span>, <span Class="manpage">--interval  \fIn\fR</span>pause <span Class="emphasis">n</span> seconds between periodic bandwidth reports 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--len  \fIn\fR[KM]</span>set length read/write buffer to <span Class="emphasis">n</span> (default 8 KB) 
+<p class="level0"><span Class="manpage">-m</span>, <span Class="manpage">--print_mss</span>print TCP maximum segment size (MTU - TCP/IP header) 
+<p class="level0"><span Class="manpage">-o</span>, <span Class="manpage">--output  &lt;filename&gt;</span>output the report or error message to this specified file 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--port  \fIn\fR</span>set server port to listen on/connect to to <span Class="emphasis">n</span> (default 5001) 
+<p class="level0"><span Class="manpage">-u</span>, <span Class="manpage">--udp</span>use UDP rather than TCP 
+<p class="level0"><span Class="manpage">-w</span>, <span Class="manpage">--window  \fIn\fR[KM]</span>TCP window size (socket buffer size) 
+<p class="level0"><span Class="manpage">-B</span>, <span Class="manpage">--bind  &lt;host&gt;</span>bind to &lt;host&gt;, an interface or multicast address 
+<p class="level0"><span Class="manpage">-C</span>, <span Class="manpage">--compatibility</span>for use with older versions does not sent extra msgs 
+<p class="level0"><span Class="manpage">-M</span>, <span Class="manpage">--mss  \fIn\fR</span>set TCP maximum segment size (MTU - 40 bytes) 
+<p class="level0"><span Class="manpage">-N</span>, <span Class="manpage">--nodelay</span>set TCP no delay, disabling Nagle's Algorithm 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--version</span>print version information and quit 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--IPv6Version</span>Set the domain to IPv6 
+<p class="level0"><span Class="manpage">-x</span>, <span Class="manpage">--reportexclude</span>[CDMSV]   exclude C(connection) D(data) M(multicast) S(settings) V(server) reports 
+<p class="level0"><span Class="manpage">-y</span>, <span Class="manpage">--reportstyle  C|c</span>if set to C or c report results as CSV (comma separated values) <a name="SERVER"></a><h2 class="nroffsh">SERVER SPECIFIC OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--server</span>run in server mode 
+<p class="level0"><span Class="manpage">-U</span>, <span Class="manpage">--single_udp</span>run in single threaded UDP mode 
+<p class="level0"><span Class="manpage">-D</span>, <span Class="manpage">--daemon</span>run the server as a daemon <a name="CLIENT"></a><h2 class="nroffsh">CLIENT SPECIFIC OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-b</span>, <span Class="manpage">--bandwidth  \fIn\fR[KM]</span>set target bandwidth to <span Class="emphasis">n</span> bits/sec (default 1 Mbit/sec). This setting requires UDP (-u). 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--client  &lt;host&gt;</span>run in client mode, connecting to &lt;host&gt; 
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--dualtest</span>Do a bidirectional test simultaneously 
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--num  \fIn\fR[KM]</span>number of bytes to transmit (instead of -t) 
+<p class="level0"><span Class="manpage">-r</span>, <span Class="manpage">--tradeoff</span>Do a bidirectional test individually 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--time  \fIn\fR</span>time in seconds to transmit for (default 10 secs) 
+<p class="level0"><span Class="manpage">-F</span>, <span Class="manpage">--fileinput  &lt;name&gt;</span>input the data to be transmitted from a file 
+<p class="level0"><span Class="manpage">-I</span>, <span Class="manpage">--stdin</span>input the data to be transmitted from stdin 
+<p class="level0"><span Class="manpage">-L</span>, <span Class="manpage">--listenport  \fIn\fR</span>port to receive bidirectional tests back on 
+<p class="level0"><span Class="manpage">-P</span>, <span Class="manpage">--parallel  \fIn\fR</span>number of parallel client threads to run 
+<p class="level0"><span Class="manpage">-T</span>, <span Class="manpage">--ttl  \fIn\fR</span>time-to-live, for multicast (default 1) 
+<p class="level0"><span Class="manpage">-Z</span>, <span Class="manpage">--linux-congestion  &lt;algo&gt;</span>set TCP congestion control algorithm (Linux only) <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">TCP_WINDOW_SIZE</span>Controls the size of TCP buffers. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">This section needs to be filled in. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Exit statuses are inconsistent. The threading implementation is rather heinous. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Iperf was originally written by Mark Gates and Alex Warshavsky. Man page and maintence by Jon Dugan &lt;jdugan at x1024 dot net&gt;. Other contributions from Ajay Tirumala, Jim Ferguson, Feng Qin, Kevin Gibbs, John Estabrook &lt;jestabro at ncsa.uiuc.edu&gt;, Andrew Gallatin &lt;gallatin at gmail.com&gt;, Stephen Hemminger &lt;shemminger at linux-foundation.org&gt; <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><a href="http://iperf.sourceforge.net/">http://iperf.sourceforge.net/</a> 

@@ -1,0 +1,72 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chage - change user password expiry information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chage</span> [<span Class="emphasis">options</span>] <span Class="emphasis">LOGIN</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">chage</span> command changes the number of days between password changes and the date of the last password change. This information is used by the system to determine when a user must change his/her password. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The options which apply to the <span Class="bold">chage</span> command are: 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--lastday</span>&nbsp;<span Class="emphasis">LAST_DAY</span> 
+<p class="level1">Set the number of days since January 1st, 1970 when the password was last changed. The date may also be expressed in the format YYYY-MM-DD (or the format more commonly used in your area). 
+<p class="level0">
+<p class="level0"><span Class="bold">-E</span>, <span Class="bold">--expiredate</span>&nbsp;<span Class="emphasis">EXPIRE_DATE</span> 
+<p class="level1">Set the date or number of days since January 1, 1970 on which the user*(Aqs account will no longer be accessible. The date may also be expressed in the format YYYY-MM-DD (or the format more commonly used in your area). A user whose account is locked must contact the system administrator before being able to use the system again. 
+<p class="level1">Passing the number <span Class="emphasis">-1</span> as the <span Class="emphasis">EXPIRE_DATE</span> will remove an account expiration date. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Display help message and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I</span>, <span Class="bold">--inactive</span>&nbsp;<span Class="emphasis">INACTIVE</span> 
+<p class="level1">Set the number of days of inactivity after a password has expired before the account is locked. The <span Class="emphasis">INACTIVE</span> option is the number of days of inactivity. A user whose account is locked must contact the system administrator before being able to use the system again. 
+<p class="level1">Passing the number <span Class="emphasis">-1</span> as the <span Class="emphasis">INACTIVE</span> will remove an account*(Aqs inactivity. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--list</span> 
+<p class="level1">Show account aging information. 
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--mindays</span>&nbsp;<span Class="emphasis">MIN_DAYS</span> 
+<p class="level1">Set the minimum number of days between password changes to <span Class="emphasis">MIN_DAYS</span>. A value of zero for this field indicates that the user may change his/her password at any time. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--maxdays</span>&nbsp;<span Class="emphasis">MAX_DAYS</span> 
+<p class="level1">Set the maximum number of days during which a password is valid. When <span Class="emphasis">MAX_DAYS</span> plus <span Class="emphasis">LAST_DAY</span> is less than the current day, the user will be required to change his/her password before being able to use his/her account. This occurrence can be planned for in advance by use of the <span Class="bold">-W</span> option, which provides the user with advance warning. 
+<p class="level1">Passing the number <span Class="emphasis">-1</span> as <span Class="emphasis">MAX_DAYS</span> will remove checking a password*(Aqs validity. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--root</span>&nbsp;<span Class="emphasis">CHROOT_DIR</span> 
+<p class="level1">Apply changes in the <span Class="emphasis">CHROOT_DIR</span> directory and use the configuration files from the <span Class="emphasis">CHROOT_DIR</span> directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span>, <span Class="bold">--warndays</span>&nbsp;<span Class="emphasis">WARN_DAYS</span> 
+<p class="level1">Set the number of days of warning before a password change is required. The <span Class="emphasis">WARN_DAYS</span> option is the number of days prior to the password expiring that a user will be warned his/her password is about to expire. 
+<p class="level0">
+<p class="level0">If none of the options are selected, <span Class="bold">chage</span> operates in an interactive fashion, prompting the user with the current values for all of the fields. Enter the new value to change the field, or leave the line blank to use the current value. The current value is displayed between a pair of <span Class="emphasis">[ ]</span> marks. <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">chage</span> program requires a shadow password file to be available. 
+<p class="level0">The <span Class="bold">chage</span> command is restricted to the root user, except for the <span Class="bold">-l</span> option, which may be used by an unprivileged user to determine when his/her password or account is due to expire. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">The following configuration variables in /etc/login.defs change the behavior of this tool: <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0">
+<p class="level0">/etc/shadow 
+<p class="level1">Secure user account information. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT VALUES</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">chage</span> command exits with the following values: 
+<p class="level0"><span Class="emphasis">0</span> 
+<p class="level1">success 
+<p class="level0">
+<p class="level0"><span Class="emphasis">1</span> 
+<p class="level1">permission denied 
+<p class="level0">
+<p class="level0"><span Class="emphasis">2</span> 
+<p class="level1">invalid command syntax 
+<p class="level0">
+<p class="level0"><span Class="emphasis">15</span> 
+<p class="level1">can*(Aqt find the shadow password file 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">passwd</span>(5), <span Class="bold">shadow</span>(5). 

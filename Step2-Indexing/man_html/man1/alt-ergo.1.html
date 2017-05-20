@@ -1,0 +1,63 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">Alt-Ergo - An automatic theorem prover dedicated to program verification 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">alt-ergo</span> [ <span Class="bold">options</span> ] <span Class="bold">file</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Alt-Ergo</span> is an automatic theorem prover.  It takes as inputs an arbitrary polymorphic and multi-sorted first-order formula written is a why like syntax. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> Help. Will give you the full list of command line options. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">A theory of functional arrays with integer indexes . This theory provides a built-in type ('a,'b) farray and a built-in syntax for manipulating arrays. 
+<p class="level0">For instance, given an abstract datatype tau and a functional array t of type (int, tau) farray declared as follows: 
+<p class="level0">type tau 
+<p class="level0">logic t : (int, tau) farray 
+<p class="level0">The expressions: 
+<p class="level0">t[i] denotes the value stored in t at index i 
+<p class="level0">t[i1&lt;-v1,...,in&lt;-vn] denotes an array which stores the same values as t for every index except possibly i1,...,in, where it stores value v1,...,vn. This expression is equivalent to ((t[i1&lt;-v1])[i2&lt;-v2])...[in&lt;-vn]. 
+<p class="level0">
+<p class="level0">Examples. 
+<p class="level0">t[0&lt;-v][1&lt;-w] 
+<p class="level0">t[0&lt;-v, 1&lt;-w] 
+<p class="level0">t[0&lt;-v, 1&lt;-w][1] 
+<p class="level0">
+<p class="level0">
+<p class="level0">A theory of enumeration types. 
+<p class="level0">For instance an enumeration type t with constructors A, B, C is defined as follows : 
+<p class="level0">type t = A | B | C 
+<p class="level0">Which means that all values of type t are equal to either A, B or C. And that all these constructors are distinct. 
+<p class="level0">
+<p class="level0">
+<p class="level0">A theory of polymorphic records. 
+<p class="level0">For instance a polymorphic record type 'a t with two labels a and b of type 'a and int respectively is defined as follows: 
+<p class="level0">type 'a t = { a : 'a; b : int } 
+<p class="level0">The expressions { a = 4; b = 5 } and { r with b = 3} denote records, while the dot notation r.a is used to access to labels. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Alt-Ergo (v. &gt;= 0.95) allows the user to force the type of terms using the syntax &lt;term&gt; : &lt;type&gt;. The example below illustrates the use of this new feature. 
+<p class="level0">type 'a list 
+<p class="level0">logic nil : 'b list 
+<p class="level0">logic f : 'c list -&gt; int 
+<p class="level0">goal g1 : f(nil) = f(nil) (* not valid because the two instances of nil may have different types *) 
+<p class="level0">goal g2 : f(nil:'d list) = f(nil:'d list) (* valid *) 
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">ERGOLIB</span> Alternative path for the Alt-Ergo library 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Sylvain Conchon <span Class="emphasis">&lt;conchon@lri.fr&gt;</span> and Evelyne Contejean <span Class="emphasis">&lt;contejea@lri.fr&gt;</span> 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Alt-Ergo web site: <span Class="emphasis">http://alt-ergo.lri.fr</span> 

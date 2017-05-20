@@ -1,0 +1,137 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-imap-send - Send a collection of patches from stdin to an IMAP folder <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git imap-send</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This command uploads a mailbox generated with <span Class="emphasis">git format-patch</span> into an IMAP drafts folder. This allows patches to be sent as other email is when using mail clients that cannot read mailbox files directly. The command also works with any general mailbox in which emails have the fields "From", "Date", and "Subject" in that order. 
+<p class="level0">Typical usage is something like: 
+<p class="level0">git format-patch --signoff --stdout --attach origin | git imap-send <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">To use the tool, imap.folder and either imap.tunnel or imap.host must be set to appropriate values. <a name="Variables"></a><h2 class="nroffsh">Variables</h2>
+<p class="level0">
+<p class="level0">imap.folder 
+<p class="level1">The folder to drop the mails into, which is typically the Drafts folder. For example: "INBOX.Drafts", "INBOX/Drafts" or "[Gmail]/Drafts". Required to use imap-send. 
+<p class="level0">
+<p class="level0">imap.tunnel 
+<p class="level1">Command used to setup a tunnel to the IMAP server through which commands will be piped instead of using a direct network connection to the server. Required when imap.host is not set to use imap-send. 
+<p class="level0">
+<p class="level0">imap.host 
+<p class="level1">A URL identifying the server. Use a imap:// prefix for non-secure connections and a imaps:// prefix for secure connections. Ignored when imap.tunnel is set, but required to use imap-send otherwise. 
+<p class="level0">
+<p class="level0">imap.user 
+<p class="level1">The username to use when logging in to the server. 
+<p class="level0">
+<p class="level0">imap.pass 
+<p class="level1">The password to use when logging in to the server. 
+<p class="level0">
+<p class="level0">imap.port 
+<p class="level1">An integer port number to connect to on the server. Defaults to 143 for imap:// hosts and 993 for imaps:// hosts. Ignored when imap.tunnel is set. 
+<p class="level0">
+<p class="level0">imap.sslverify 
+<p class="level1">A boolean to enable/disable verification of the server certificate used by the SSL/TLS connection. Default is true. Ignored when imap.tunnel is set. 
+<p class="level0">
+<p class="level0">imap.preformattedHTML 
+<p class="level1">A boolean to enable/disable the use of html encoding when sending a patch. An html encoded patch will be bracketed with &lt;pre&gt; and have a content type of text/html. Ironically, enabling this option causes Thunderbird to send the patch as a plain/text, format=fixed email. Default is false. 
+<p class="level0">
+<p class="level0">imap.authMethod 
+<p class="level1">Specify authenticate method for authentication with IMAP server. Current supported method is <span Class="emphasis">CRAM-MD5</span> only. 
+<p class="level0"><a name="Examples"></a><h2 class="nroffsh">Examples</h2>
+<p class="level0">
+<p class="level0">Using tunnel mode: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[imap]
+&nbsp;   folder = "INBOX.Drafts"
+&nbsp;   tunnel = "ssh -q -C user@example.com /usr/bin/imapd ./Maildir 2&gt; /dev/null"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Using direct mode: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[imap]
+&nbsp;   folder = "INBOX.Drafts"
+&nbsp;   host = imap://imap.example.com
+&nbsp;   user = bob
+&nbsp;   pass = p4ssw0rd
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Using direct mode with SSL: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[imap]
+&nbsp;   folder = "INBOX.Drafts"
+&nbsp;   host = imaps://imap.example.com
+&nbsp;   user = bob
+&nbsp;   pass = p4ssw0rd
+&nbsp;   port = 123
+&nbsp;   sslverify = false
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">To submit patches using GMail(cqs IMAP interface, first, edit your ~/.gitconfig to specify your account settings: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[imap]
+&nbsp;       folder = "[Gmail]/Drafts"
+&nbsp;       host = imaps://imap.gmail.com
+&nbsp;       user = user@gmail.com
+&nbsp;       port = 993
+&nbsp;       sslverify = false
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">You might need to instead use: folder = "[Google Mail]/Drafts" if you get an error that the "Folder doesn(cqt exist". 
+<p class="level0">Once the commits are ready to be sent, run the following command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git format-patch --cover-letter -M --stdout origin/master | git imap-send
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Just make sure to disable line wrapping in the email client (GMail(cqs web interface will wrap lines no matter what, so you need to use a real IMAP client). <a name="CAUTION"></a><h2 class="nroffsh">CAUTION</h2>
+<p class="level0">
+<p class="level0">It is still your responsibility to make sure that the email message sent by your email program meets the standards of your project. Many projects do not like patches to be attached. Some mail agents will transform patches (e.g. wrap lines, send them as format=flowed) in ways that make them fail. You will get angry flames ridiculing you if you don(cqt check this. 
+<p class="level0">Thunderbird in particular is known to be problematic. Thunderbird users may wish to visit this web page for more information: m[blue]<span Class="bold">http://kb.mozillazine.org/Plain_text_e-mail_-_Thunderbird&#35;Completely_plain_email</span>m[] <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-format-patch</span>(1), <span Class="bold">git-send-email</span>(1), mbox(5) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

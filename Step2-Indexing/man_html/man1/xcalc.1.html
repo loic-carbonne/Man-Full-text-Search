@@ -1,0 +1,126 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xcalc - scientific calculator for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xcalc</span> [-stipple] [-rpn] [-<span Class="emphasis">toolkitoption...</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">xcalc</span> is a scientific calculator desktop accessory that can emulate a TI-30 or an HP-10C. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">xcalc</span> accepts all of the standard toolkit command line options along with two additional options: 
+<p class="level0">
+<p class="level0"><span Class="bold">-stipple</span> This option indicates that the background of the calculator should be drawn using a stipple of the foreground and background colors.  On monochrome displays improves the appearance. 
+<p class="level0">
+<p class="level0"><span Class="bold">-rpn</span> This option indicates that Reverse Polish Notation should be used.  In this mode the calculator will look and behave like an HP-10C.  Without this flag, it will emulate a TI-30. <a name="OPERATION"></a><h2 class="nroffsh">OPERATION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Pointer Usage:</span> Operations may be performed with pointer button 1, or in some cases, with the keyboard. Many common calculator operations have keyboard accelerators. To quit, press pointer button 3 on the AC key of the TI calculator, or the ON key of the HP calculator. 
+<p class="level0"><span Class="emphasis">Calculator Key Usage (TI mode):</span> The numbered keys, the +/- key, and the +, -, *, /, and = keys all do exactly what you would expect them to.  It should be noted that the operators obey the standard rules of precedence.  Thus, entering "3+4*5=" results in "23", not "35".  The parentheses can be used to override this.  For example, "(1+2+3)*(4+5+6)=" results in "6*15=90". 
+<p class="level0">The entire number in the calculator display can be selected, in order to paste the result of a calculation into text. 
+<p class="level0">The action procedures associated with each function are given below.  These are useful if you are interested in defining a custom calculator. The action used for all digit keys is <span class="bold">digit(<span Class="emphasis">n</span>)</span>, where <span Class="emphasis">n</span> is the corresponding digit, 0..9. 
+<p class="level0"><span Class="bold">1/x</span> Replaces the number in the display with its reciprocal. The corresponding action procedure is <span Class="bold">reciprocal()</span>. 
+<p class="level0"><span Class="bold">x^2</span> Squares the number in the display. The corresponding action procedure is <span Class="bold">square()</span>. 
+<p class="level0"><span Class="bold">SQRT</span> Takes the square root of the number in the display. The corresponding action procedure is <span Class="bold">squareRoot()</span>. 
+<p class="level0"><span Class="bold">CE/C</span> When pressed once, clears the number in the display without clearing the state of the machine.  Allows you to re-enter a number if you make a mistake. Pressing it twice clears the state, also. The corresponding action procedure for TI mode is <span Class="bold">clear()</span>. 
+<p class="level0"><span Class="bold">AC</span> Clears the display, the state, and the memory.  Pressing it with the third pointer button turns off the calculator, in that it exits the program. The action procedure to clear the state is <span Class="bold">off()</span>; to quit, <span Class="bold">quit()</span>. 
+<p class="level0"><span Class="bold">INV</span> Invert function.  See the individual function keys for details. The corresponding action procedure is <span Class="bold">inverse()</span>. 
+<p class="level0"><span Class="bold">sin</span> Computes the sine of the number in the display, as interpreted by the current DRG mode (see DRG, below).  If inverted, it computes the arcsine. The corresponding action procedure is <span Class="bold">sine()</span>. 
+<p class="level0"><span Class="bold">cos</span> Computes the cosine, or arccosine when inverted. The corresponding action procedure is <span Class="bold">cosine()</span>. 
+<p class="level0"><span Class="bold">tan</span> Computes the tangent, or arctangent when inverted. The corresponding action procedure is <span Class="bold">tangent()</span>. 
+<p class="level0"><span Class="bold">DRG</span> Changes the DRG mode, as indicated by 'DEG', 'RAD', or 'GRAD' at the bottom of of the calculator ``liquid crystal'' display. When in 'DEG' mode, numbers in the display are taken as being degrees.  In 'RAD' mode, numbers are in radians, and in 'GRAD' mode, numbers are in grads.  When inverted, the DRG key has a feature of converting degrees to radians to grads and vice-versa.  Example:  put the calculator into 'DEG' mode, and enter "45 INV DRG".  The display should now show something along the lines of ".785398", which is 45 degrees converted to radians. The corresponding action procedure is <span Class="bold">degree()</span>. 
+<p class="level0"><span Class="bold">e</span> The constant 'e'.  (2.7182818...). The corresponding action procedure is <span Class="bold">e()</span>. 
+<p class="level0"><span Class="bold">EE</span> Used for entering exponential numbers.  For example, to get "-2.3E-4" you'd enter "2 . 3 +/- EE 4 +/-". The corresponding action procedure is <span Class="bold">scientific()</span>. 
+<p class="level0"><span Class="bold">log</span> Calculates the log (base 10) of the number in the display.  When inverted, it raises "10.0" to the number in the display. For example, entering "3 INV log" should result in "1000". The corresponding action procedure is <span Class="bold">logarithm()</span>. 
+<p class="level0"><span Class="bold">ln</span> Calculates the log (base e) of the number in the display.  When inverted, it raises "e" to the number in the display.  For example, entering "e ln" should result in "1". The corresponding action procedure is <span Class="bold">naturalLog()</span>. 
+<p class="level0"><span Class="bold">y^x</span> Raises the number on the left to the power of the number on the right.  For example "2 y^x 3 =" results in "8", which is 2^3.  For a further example, "(1+2+3) y^x (1+2) =" equals "6 y^x 3" which equals "216". The corresponding action procedure is <span Class="bold">power()</span>. 
+<p class="level0"><span Class="bold">PI</span> The constant 'pi'.  (3.1415927....) The corresponding action procedure is <span Class="bold">pi()</span>. 
+<p class="level0"><span Class="bold">x!</span> Computes the factorial of the number in the display.  The number in the display must be an integer in the range 0-500, though, depending on your math library, it might overflow long before that. The corresponding action procedure is <span Class="bold">factorial()</span>. 
+<p class="level0"><span Class="bold">(</span> Left parenthesis.  The corresponding action procedure for TI calculators is <span Class="bold">leftParen()</span>. 
+<p class="level0"><span Class="bold">)</span> Right parenthesis.  The corresponding action procedure for TI calculators is <span Class="bold">rightParen()</span>. 
+<p class="level0"><span Class="bold">/</span> Division.  The corresponding action procedure is <span Class="bold">divide()</span>. 
+<p class="level0"><span Class="bold">*</span> Multiplication.  The corresponding action procedure is <span Class="bold">multiply()</span>. 
+<p class="level0"><span Class="bold">-</span> Subtraction.  The corresponding action procedure is <span Class="bold">subtract()</span>. 
+<p class="level0"><span Class="bold">+</span> Addition.  The corresponding action procedure is <span Class="bold">add()</span>. 
+<p class="level0"><span Class="bold">=</span> Perform calculation.  The TI-specific action procedure is <span Class="bold">equal()</span>. 
+<p class="level0"><span Class="bold">STO</span> Copies the number in the display to the memory location. The corresponding action procedure is <span Class="bold">store()</span>. 
+<p class="level0"><span Class="bold">RCL</span> Copies the number from the memory location to the display. The corresponding action procedure is <span Class="bold">recall()</span>. 
+<p class="level0"><span Class="bold">SUM</span> Adds the number in the display to the number in the memory location. The corresponding action procedure is <span Class="bold">sum()</span>. 
+<p class="level0"><span Class="bold">EXC</span> Swaps the number in the display with the number in the memory location. The corresponding action procedure for the TI calculator is <span Class="bold">exchange()</span>. 
+<p class="level0"><span Class="bold">+/-</span> Negate; change sign.  The corresponding action procedure is <span Class="bold">negate()</span>. 
+<p class="level0"><span Class="bold">.</span> Decimal point.  The action procedure is <span Class="bold">decimal()</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Calculator Key Usage (RPN mode):</span> The number keys, CHS (change sign), +, -, *, /, and ENTR keys all do exactly what you would expect them to do.  Many of the remaining keys are the same as in TI mode.  The differences are detailed below.  The action procedure for the ENTR key is <span Class="bold">enter()</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">&lt;-</span> This is a backspace key that can be used if you make a mistake while entering a number.  It will erase digits from the display.  (See BUGS). Inverse backspace will clear the X register. The corresponding action procedure is <span Class="bold">back()</span>. 
+<p class="level0"><span Class="bold">ON</span> Clears the display, the state, and the memory.  Pressing it with the third pointer button turns off the calculator, in that it exits the program. To clear state, the action procedure is <span Class="bold">off</span>; to quit, <span Class="bold">quit()</span>. 
+<p class="level0"><span Class="bold">INV</span> Inverts the meaning of the function keys.  This would be the  <span Class="emphasis">f</span> key on an HP calculator, but <span Class="emphasis">xcalc</span> does not display multiple legends on each key.  See the individual function keys for details. 
+<p class="level0"><span Class="bold">10^x</span> Raises "10.0" to the number in the top of the stack. When inverted, it calculates the log (base 10) of the number in the display. The corresponding action procedure is <span Class="bold">tenpower()</span>. 
+<p class="level0"><span Class="bold">e^x</span> Raises "e" to the number in the top of the stack. When inverted, it calculates the log (base e) of the number in the display. The action procedure is <span Class="bold">epower()</span>. 
+<p class="level0"><span Class="bold">STO</span> Copies the number in the top of the stack to a memory location.  There are 10 memory locations.  The desired memory is specified by following this key with a digit key. 
+<p class="level0"><span Class="bold">RCL</span> Pushes the number from the specified memory location onto the stack. 
+<p class="level0"><span Class="bold">SUM</span> Adds the number on top of the stack to the number in the specified memory location. 
+<p class="level0"><span Class="bold">x:y</span> Exchanges the numbers in the top two stack positions, the X and Y registers. The corresponding action procedure is <span Class="bold">XexchangeY()</span>. 
+<p class="level0"><span Class="bold">R v</span> Rolls the stack downward.  When inverted, it rolls the stack upward. The corresponding action procedure is <span Class="bold">roll()</span>. 
+<p class="level0"><span Class="emphasis">blank</span> These keys were used for programming functions on the HP-10C.  Their functionality has not been duplicated in <span Class="emphasis">xcalc</span>. 
+<p class="level0">Finally, there are two additional action procedures: <span Class="bold">bell()</span>, which rings the bell; and <span Class="bold">selection()</span>, which performs a cut on the entire number in the calculator's ``liquid crystal'' display. <a name="ACCELERATORS"></a><h2 class="nroffsh">ACCELERATORS</h2>
+<p class="level0">
+<p class="level0">Accelerators are shortcuts for entering commands.  <span Class="emphasis">xcalc</span> provides some sample keyboard accelerators; also users can customize accelerators. The numeric keypad accelerators provided by <span Class="emphasis">xcalc</span> should be intuitively correct. The accelerators defined by <span Class="emphasis">xcalc</span> on the main keyboard are given below: 
+<p class="level0">
+<p class="level0">l l l l l. TI Key	HP Key	Keyboard Accelerator	TI Function	HP Function _ SQRT	SQRT	r	squareRoot()	squareRoot() AC	ON	space	clear()	clear() AC	&lt;-	Delete	clear()	back() AC	&lt;-	Backspace	clear()	back() AC	&lt;-	Control-H	clear()	back() AC		Clear	clear() AC	ON	q	quit()	quit() AC	ON	Control-C	quit()	quit() 
+<p class="level0">INV	i	i	inverse()	inverse() sin	s	s	sine()	sine() cos	c	c	cosine()	cosine() tan	t	t	tangent()	tangent() DRG	DRG	d	degree()	degree() 
+<p class="level0">e		e	e() ln	ln	l	naturalLog()	naturalLog() y^x	y^x	^	power()	power() 
+<p class="level0">PI	PI	p	pi()	pi() x!	x!	!	factorial()	factorial() (		(	leftParen() )		)	rightParen() 
+<p class="level0">/	/	/	divide()	divide() *	*	*	multiply()	multiply() -	-	-	subtract()	subtract() +	+	+	add()	add() =		=	equal() 
+<p class="level0">0..9	0..9	0..9	digit()	digit() 
+<p class="level0">+/-	CHS	n	negate()	negate() 
+<p class="level0">	x:y	x		XexchangeY() 	ENTR	Return		enter() 	ENTR	Linefeed		enter() 
+<p class="level0">
+<p class="level0"><a name="CUSTOMIZATION"></a><h2 class="nroffsh">CUSTOMIZATION</h2>
+<p class="level0">The application class name is XCalc. 
+<p class="level0"><span Class="emphasis">xcalc</span> has an enormous application defaults file which specifies the position, label, and function of each key on the calculator. It also gives translations to serve as keyboard accelerators. Because these resources are not specified in the source code, you can create a customized calculator by writing a private application defaults file, using the Athena Command and Form widget resources to specify the size and position of buttons, the label for each button, and the function of each button. 
+<p class="level0">The foreground and background colors of each calculator key can be individually specified. For the TI calculator, a classical color resource specification might be: 
+<p class="level0"><br>XCalc.ti.Command.background:	gray50 <br>XCalc.ti.Command.foreground:	white 
+<p class="level0">For each of buttons 20, 25, 30, 35, and 40, specify: <br>XCalc.ti.button20.background:	black <br>XCalc.ti.button20.foreground:	white 
+<p class="level0">For each of buttons 22, 23, 24, 27, 28, 29, 32, 33, 34, 37, 38, and 39: <br>XCalc.ti.button22.background:	white <br>XCalc.ti.button22.foreground:	black <a name="WIDGET"></a><h2 class="nroffsh">WIDGET HIERARCHY</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xcalc</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. <pre class="level0">
+XCalc xcalc
+&nbsp;       Form  ti  <span class="emphasis">or</span>  hp    <span class="emphasis">(the name depends on the mode)</span>
+&nbsp;               Form  bevel
+&nbsp;                       Form  screen
+&nbsp;                               Label  M
+&nbsp;                               Toggle  LCD
+&nbsp;                               Label  INV
+&nbsp;                               Label  DEG
+&nbsp;                               Label  RAD
+&nbsp;                               Label  GRAD
+&nbsp;                               Label  P
+&nbsp;               Command  button1
+&nbsp;               Command  button2
+&nbsp;               Command  button3
+<span class="emphasis">and so on, ...</span>
+&nbsp;               Command  button38
+&nbsp;               Command  button39
+&nbsp;               Command  button40
+</pre>
+
+<p class="level0"><a name="APPLICATION"></a><h2 class="nroffsh">APPLICATION RESOURCES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">rpn</span> (Class <span Class="bold">Rpn</span>) Specifies that the rpn mode should be used.  The default is TI mode. 
+<p class="level0"><span Class="bold">stipple</span> (Class <span Class="bold">Stipple</span>) Indicates that the background should be stippled.  The default is ``on'' for monochrome displays, and ``off'' for color displays. 
+<p class="level0"><span Class="bold">cursor</span> (Class <span Class="bold">Cursor</span>) The name of the symbol used to represent the pointer. The default is ``hand2''. 
+<p class="level0"><a name="COLORS"></a><h2 class="nroffsh">COLORS</h2>
+<p class="level0">If you would like xcalc to use its ti colors, include the following in the &#35;ifdef COLOR section of the file you read with xrdb: 
+<p class="level0">*customization:                 -color 
+<p class="level0"><br>This will cause xcalc to pick up the colors in the app-defaults color customization file: <span Class="emphasis">/etc/X11/app-defaults/XCalc-color .</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1), the Athena Widget Set <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">HP mode is not completely debugged.  In particular, the stack is not handled properly after errors. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1994 X Consortium <br>See <span Class="emphasis">X(7)</span> for a full statement of rights and permissions. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">John Bradley, University of Pennsylvania <br>Mark Rosenstein, MIT Project Athena <br>Donna Converse, MIT X Consortium 

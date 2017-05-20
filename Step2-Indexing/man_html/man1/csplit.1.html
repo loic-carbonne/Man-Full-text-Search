@@ -1,0 +1,27 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">csplit - split a file into sections determined by context lines <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">csplit</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE PATTERN</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Output pieces of FILE separated by PATTERN(s) to files 'xx00', 'xx01', ..., and output byte counts of each piece to standard output. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--suffix-format</span>=<span Class="emphasis">FORMAT</span> use sprintf FORMAT instead of %02d 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--prefix</span>=<span Class="emphasis">PREFIX</span> use PREFIX instead of 'xx' 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--keep-files</span> do not remove output files on errors 
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--suppress-matched</span> suppress the lines matching PATTERN 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--digits</span>=<span Class="emphasis">DIGITS</span> use specified number of digits instead of 2 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--quiet</span>, <span Class="bold">--silent</span> do not print counts of output file sizes 
+<p class="level0"><span Class="bold">-z</span>, <span Class="bold">--elide-empty-files</span> remove empty output files 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Read standard input if FILE is -.  Each PATTERN may be: 
+<p class="level0">INTEGER copy up to but not including specified line number 
+<p class="level0">/REGEXP/[OFFSET] copy up to but not including a matching line 
+<p class="level0">%REGEXP%[OFFSET] skip to, but not including a matching line 
+<p class="level0">{INTEGER} repeat the previous pattern specified number of times 
+<p class="level0">{*} repeat the previous pattern as many times as possible 
+<p class="level0">A line OFFSET is a required '+' or '-' followed by a positive integer. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Stuart Kemp and David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report csplit translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/csplit&gt; <br>or available locally via: info (aq(coreutils) csplit invocation(aq 

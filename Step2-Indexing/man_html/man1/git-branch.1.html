@@ -1,0 +1,201 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-branch - List, create, or delete branches <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git branch</span> [--color[=&lt;when&gt;] | --no-color] [-r | -a]
+&nbsp;       [--list] [-v [--abbrev=&lt;length&gt; | --no-abbrev]]
+&nbsp;       [--column[=&lt;options&gt;] | --no-column]
+&nbsp;       [(--merged | --no-merged | --contains) [&lt;commit&gt;]] [&lt;pattern&gt;...]
+<span class="emphasis">git branch</span> [--set-upstream | --track | --no-track] [-l] [-f] &lt;branchname&gt; [&lt;start-point&gt;]
+<span class="emphasis">git branch</span> (--set-upstream-to=&lt;upstream&gt; | -u &lt;upstream&gt;) [&lt;branchname&gt;]
+<span class="emphasis">git branch</span> --unset-upstream [&lt;branchname&gt;]
+<span class="emphasis">git branch</span> (-m | -M) [&lt;oldbranch&gt;] &lt;newbranch&gt;
+<span class="emphasis">git branch</span> (-d | -D) [-r] &lt;branchname&gt;...
+<span class="emphasis">git branch</span> --edit-description [&lt;branchname&gt;]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">If --list is given, or if there are no non-option arguments, existing branches are listed; the current branch will be highlighted with an asterisk. Option -r causes the remote-tracking branches to be listed, and option -a shows both local and remote branches. If a &lt;pattern&gt; is given, it is used as a shell wildcard to restrict the output to matching branches. If multiple patterns are given, a branch is shown if it matches any of the patterns. Note that when providing a &lt;pattern&gt;, you must use --list; otherwise the command is interpreted as branch creation. 
+<p class="level0">With --contains, shows only the branches that contain the named commit (in other words, the branches whose tip commits are descendants of the named commit). With --merged, only branches merged into the named commit (i.e. the branches whose tip commits are reachable from the named commit) will be listed. With --no-merged only branches not merged into the named commit will be listed. If the &lt;commit&gt; argument is missing it defaults to <span Class="emphasis">HEAD</span> (i.e. the tip of the current branch). 
+<p class="level0">The command(cqs second form creates a new branch head named &lt;branchname&gt; which points to the current <span Class="emphasis">HEAD</span>, or &lt;start-point&gt; if given. 
+<p class="level0">Note that this will create the new branch, but it will not switch the working tree to it; use "git checkout &lt;newbranch&gt;" to switch to the new branch. 
+<p class="level0">When a local branch is started off a remote-tracking branch, Git sets up the branch (specifically the branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge configuration entries) so that <span Class="emphasis">git pull</span> will appropriately merge from the remote-tracking branch. This behavior may be changed via the global branch.autosetupmerge configuration flag. That setting can be overridden by using the --track and --no-track options, and changed later using git branch --set-upstream-to. 
+<p class="level0">With a -m or -M option, &lt;oldbranch&gt; will be renamed to &lt;newbranch&gt;. If &lt;oldbranch&gt; had a corresponding reflog, it is renamed to match &lt;newbranch&gt;, and a reflog entry is created to remember the branch renaming. If &lt;newbranch&gt; exists, -M must be used to force the rename to happen. 
+<p class="level0">With a -d or -D option, &lt;branchname&gt; will be deleted. You may specify more than one branch for deletion. If the branch currently has a reflog then the reflog will also be deleted. 
+<p class="level0">Use -r together with -d to delete remote-tracking branches. Note, that it only makes sense to delete remote-tracking branches if they no longer exist in the remote repository or if <span Class="emphasis">git fetch</span> was configured not to fetch them again. See also the <span Class="emphasis">prune</span> subcommand of <span Class="bold">git-remote</span>(1) for a way to clean up all obsolete remote-tracking branches. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-d, --delete 
+<p class="level1">Delete a branch. The branch must be fully merged in its upstream branch, or in HEAD if no upstream was set with --track or --set-upstream. 
+<p class="level0">
+<p class="level0">-D 
+<p class="level1">Delete a branch irrespective of its merged status. 
+<p class="level0">
+<p class="level0">-l, --create-reflog 
+<p class="level1">Create the branch(cqs reflog. This activates recording of all changes made to the branch ref, enabling use of date based sha1 expressions such as "&lt;branchname&gt;@{yesterday}". Note that in non-bare repositories, reflogs are usually enabled by default by the core.logallrefupdates config option. 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">Reset &lt;branchname&gt; to &lt;startpoint&gt; if &lt;branchname&gt; exists already. Without -f<span Class="emphasis">git branch</span> refuses to change an existing branch. 
+<p class="level0">
+<p class="level0">-m, --move 
+<p class="level1">Move/rename a branch and the corresponding reflog. 
+<p class="level0">
+<p class="level0">-M 
+<p class="level1">Move/rename a branch even if the new branch name already exists. 
+<p class="level0">
+<p class="level0">--color[=&lt;when&gt;] 
+<p class="level1">Color branches to highlight current, local, and remote-tracking branches. The value must be always (the default), never, or auto. 
+<p class="level0">
+<p class="level0">--no-color 
+<p class="level1">Turn off branch colors, even when the configuration file gives the default to color output. Same as --color=never. 
+<p class="level0">
+<p class="level0">--column[=&lt;options&gt;], --no-column 
+<p class="level1">Display branch listing in columns. See configuration variable column.branch for option syntax.--column and --no-column without options are equivalent to <span Class="emphasis">always</span> and <span Class="emphasis">never</span> respectively. 
+<p class="level1">This option is only applicable in non-verbose mode. 
+<p class="level0">
+<p class="level0">-r, --remotes 
+<p class="level1">List or delete (if used with -d) the remote-tracking branches. 
+<p class="level0">
+<p class="level0">-a, --all 
+<p class="level1">List both remote-tracking branches and local branches. 
+<p class="level0">
+<p class="level0">--list 
+<p class="level1">Activate the list mode. git branch &lt;pattern&gt; would try to create a branch, use git branch --list &lt;pattern&gt; to list matching branches. 
+<p class="level0">
+<p class="level0">-v, -vv, --verbose 
+<p class="level1">When in list mode, show sha1 and commit subject line for each head, along with relationship to upstream branch (if any). If given twice, print the name of the upstream branch, as well (see also git remote show &lt;remote&gt;). 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Be more quiet when creating or deleting a branch, suppressing non-error messages. 
+<p class="level0">
+<p class="level0">--abbrev=&lt;length&gt; 
+<p class="level1">Alter the sha1(cqs minimum display length in the output listing. The default value is 7 and can be overridden by the core.abbrev config option. 
+<p class="level0">
+<p class="level0">--no-abbrev 
+<p class="level1">Display the full sha1s in the output listing rather than abbreviating them. 
+<p class="level0">
+<p class="level0">-t, --track 
+<p class="level1">When creating a new branch, set up branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge configuration entries to mark the start-point branch as "upstream" from the new branch. This configuration will tell git to show the relationship between the two branches in git status and git branch -v. Furthermore, it directs git pull without arguments to pull from the upstream when the new branch is checked out. 
+<p class="level1">This behavior is the default when the start point is a remote-tracking branch. Set the branch.autosetupmerge configuration variable to false if you want git checkout and git branch to always behave as if <span Class="emphasis">--no-track</span> were given. Set it to always if you want this behavior when the start-point is either a local or remote-tracking branch. 
+<p class="level0">
+<p class="level0">--no-track 
+<p class="level1">Do not set up "upstream" configuration, even if the branch.autosetupmerge configuration variable is true. 
+<p class="level0">
+<p class="level0">--set-upstream 
+<p class="level1">If specified branch does not exist yet or if --force has been given, acts exactly like --track. Otherwise sets up configuration like --track would when creating the branch, except that where branch points to is not changed. 
+<p class="level0">
+<p class="level0">-u &lt;upstream&gt;, --set-upstream-to=&lt;upstream&gt; 
+<p class="level1">Set up &lt;branchname&gt;*(Aqs tracking information so &lt;upstream&gt; is considered &lt;branchname&gt;*(Aqs upstream branch. If no &lt;branchname&gt; is specified, then it defaults to the current branch. 
+<p class="level0">
+<p class="level0">--unset-upstream 
+<p class="level1">Remove the upstream information for &lt;branchname&gt;. If no branch is specified it defaults to the current branch. 
+<p class="level0">
+<p class="level0">--edit-description 
+<p class="level1">Open an editor and edit the text to explain what the branch is for, to be used by various other commands (e.g. request-pull). 
+<p class="level0">
+<p class="level0">--contains [&lt;commit&gt;] 
+<p class="level1">Only list branches which contain the specified commit (HEAD if not specified). Implies --list. 
+<p class="level0">
+<p class="level0">--merged [&lt;commit&gt;] 
+<p class="level1">Only list branches whose tips are reachable from the specified commit (HEAD if not specified). Implies --list. 
+<p class="level0">
+<p class="level0">--no-merged [&lt;commit&gt;] 
+<p class="level1">Only list branches whose tips are not reachable from the specified commit (HEAD if not specified). Implies --list. 
+<p class="level0">
+<p class="level0">&lt;branchname&gt; 
+<p class="level1">The name of the branch to create or delete. The new branch name must pass all checks defined by <span Class="bold">git-check-ref-format</span>(1). Some of these checks may restrict the characters allowed in a branch name. 
+<p class="level0">
+<p class="level0">&lt;start-point&gt; 
+<p class="level1">The new branch head will point to this commit. It may be given as a branch name, a commit-id, or a tag. If this option is omitted, the current HEAD will be used instead. 
+<p class="level0">
+<p class="level0">&lt;oldbranch&gt; 
+<p class="level1">The name of an existing branch to rename. 
+<p class="level0">
+<p class="level0">&lt;newbranch&gt; 
+<p class="level1">The new name for an existing branch. The same restrictions as for &lt;branchname&gt; apply. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Start development from a known tag 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git clone git://git.kernel.org/pub/scm/.../linux-2.6 my2.6
+$ cd my2.6
+$ git branch my2.6.14 v2.6.14   <span class="bold">(1)</span>
+$ git checkout my2.6.14
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">1. </span>This step and the next one could be combined into a single step with "checkout -b my2.6.14 v2.6.14". <br>
+<p class="level0">
+<p class="level0">Delete an unneeded branch 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git clone git://git.kernel.org/.../git.git my.git
+$ cd my.git
+$ git branch -d -r origin/todo origin/html origin/man   <span class="bold">(1)</span>
+$ git branch -D test                                    <span class="bold">(2)</span>
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">1. </span>Delete the remote-tracking branches "todo", "html" and "man". The next <span Class="emphasis">fetch</span> or <span Class="emphasis">pull</span> will create them again unless you configure them not to. See <span Class="bold">git-fetch</span>(1). <br><span Class="bold">2. </span>Delete the "test" branch even if the "master" branch (or whichever branch is currently checked out) does not have all commits from the test branch. <br>
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">If you are creating a branch that you want to checkout immediately, it is easier to use the git checkout command with its -b option to create a branch and check it out with a single command. 
+<p class="level0">The options --contains, --merged and --no-merged serve three related but different purposes: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">--contains &lt;commit&gt; is used to find all branches which will need special attention if &lt;commit&gt; were to be rebased or amended, since those branches contain the specified &lt;commit&gt;. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">--merged is used to find all branches which can be safely deleted, since those branches are fully contained by HEAD. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">--no-merged is used to find branches which are candidates for merging into HEAD, since those branches are not fully contained by HEAD. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-check-ref-format</span>(1), <span Class="bold">git-fetch</span>(1), <span Class="bold">git-remote</span>(1), m[blue]<span Class="bold">(lqUnderstanding history: What is a branch?(rq</span>m[]s-2u[1]ds+2 in the Git User(cqs Manual. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">(lqUnderstanding history: What is a branch?(rq 
+<p class="level2">%file:///usr/share/doc/git/html/user-manual.html&#35;what-is-a-branch 
+<p class="level1">

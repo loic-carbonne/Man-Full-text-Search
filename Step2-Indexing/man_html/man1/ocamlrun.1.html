@@ -1,0 +1,61 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlrun - The OCaml bytecode interpreter 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlrun</span> [ <span Class="emphasis">options</span> ] <span Class="emphasis">filename argument ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="manpage">ocamlrun (1)</span>command executes bytecode files produced by the linking phase of the <span Class="manpage">ocamlc (1)</span>command. 
+<p class="level0">The first non-option argument is taken to be the name of the file containing the executable bytecode. (That file is searched in the executable path as well as in the current directory.) The remaining arguments are passed to the OCaml program, in the string array , <span Class="manpage">Sys.argv .</span>Element 0 of this array is the name of the bytecode executable file; elements 1 to <span Class="emphasis">n</span> are the remaining arguments. 
+<p class="level0">In most cases, the bytecode executable files produced by the <span Class="manpage">ocamlc (1)</span>command are self-executable, and manage to launch the <span Class="manpage">ocamlrun (1)</span>command on themselves automatically. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following command-line options are recognized by <span Class="manpage">ocamlrun (1).</span>
+<p class="level0"><span Class="bold">-b</span> When the program aborts due to an uncaught exception, print a detailed "back trace" of the execution, showing where the exception was raised and which function calls were outstanding at this point.  The back trace is printed only if the bytecode executable contains debugging information, i.e. was compiled and linked with the <span Class="bold">-g</span> option to <span Class="manpage">ocamlc (1)</span>set.  This option is equivalent to setting the <span Class="bold">b</span> flag in the OCAMLRUNPARAM environment variable (see below). 
+<p class="level0"><span Class="bold">-I \ dir</span> Search the directory <span Class="emphasis">dir</span> for dynamically-loaded libraries, in addition to the standard search path. 
+<p class="level0"><span Class="bold">-p</span> Print the names of the primitives known to this version of <span Class="manpage">ocamlrun (1)</span>and exit. 
+<p class="level0"><span Class="bold">-v</span> Direct the memory manager to print verbose messages on standard error. This is equivalent to setting <span Class="bold">v=63</span> in the OCAMLRUNPARAM environment variable (see below). 
+<p class="level0"><span Class="bold">-version</span> Print version string and exit. 
+<p class="level0"><span Class="bold">-vnum</span> Print short version number and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">The following environment variable are also consulted: 
+<p class="level0"><span Class="bold">CAML_LD_LIBRARY_PATH</span> Additional directories to search for dynamically-loaded libraries. 
+<p class="level0"><span Class="bold">OCAMLLIB</span> The directory containing the OCaml standard library.  (If <span Class="bold">OCAMLLIB</span> is not set, <span Class="bold">CAMLLIB</span> will be used instead.) Used to locate the ld.conf configuration file for dynamic loading.  If not set, default to the library directory specified when compiling OCaml. 
+<p class="level0"><span Class="bold">OCAMLRUNPARAM</span> Set the runtime system options and garbage collection parameters. (If OCAMLRUNPARAM is not set, CAMLRUNPARAM will be used instead.) This variable must be a sequence of parameter specifications. A parameter specification is an option letter followed by an = sign, a decimal number (or a hexadecimal number prefixed by <span Class="manpage">0x )</span>and an optional multiplier.  The options are documented below; the last six correspond to the fields of the <span Class="bold">control</span> record documented in <span Class="emphasis">The OCaml user's manual,</span> chapter "Standard Library", section "Gc". 
+<p class="level0"><span Class="bold">b</span> Trigger the printing of a stack backtrace when an uncaught exception aborts the program. This option takes no argument. 
+<p class="level0"><span Class="bold">p</span> Turn on debugging support for <span Class="manpage">ocamlyacc -generated</span>parsers.  When this option is on, the pushdown automaton that executes the parsers prints a trace of its actions.  This option takes no argument. 
+<p class="level0"><span Class="manpage">R</span>Turn on randomization of all hash tables by default (see the <span Class="bold">Hashtbl</span> module of the standard library). This option takes no argument. 
+<p class="level0"><span Class="manpage">h</span>The initial size of the major heap (in words). 
+<p class="level0"><span Class="manpage">a \ (allocation_policy)</span>The policy used for allocating in the OCaml heap.  Possible values are 0 for the next-fit policy, and 1 for the first-fit policy.  Next-fit is usually faster, but first-fit is better for avoiding fragmentation and the associated heap compactions. 
+<p class="level0"><span Class="manpage">s \ (minor_heap_size)</span>The size of the minor heap (in words). 
+<p class="level0"><span Class="manpage">i \ (major_heap_increment)</span>The default size increment for the major heap (in words). 
+<p class="level0"><span Class="manpage">o \ (space_overhead)</span>The major GC speed setting. 
+<p class="level0"><span Class="manpage">O \ (max_overhead)</span>The heap compaction trigger setting. 
+<p class="level0"><span Class="manpage">l \ (stack_limit)</span>The limit (in words) of the stack size. 
+<p class="level0"><span Class="manpage">v \ (verbose)</span>What GC messages to print to stderr.  This is a sum of values selected from the following: 
+<p class="level0"><span Class="bold">0x001</span> Start of major GC cycle. 
+<p class="level0"><span Class="bold">0x002</span> Minor collection and major GC slice. 
+<p class="level0"><span Class="bold">0x004</span> Growing and shrinking of the heap. 
+<p class="level0"><span Class="bold">0x008</span> Resizing of stacks and memory manager tables. 
+<p class="level0"><span Class="bold">0x010</span> Heap compaction. 
+<p class="level0"><span Class="manpage">0x020</span>Change of GC parameters. 
+<p class="level0"><span Class="manpage">0x040</span>Computation of major GC slice size. 
+<p class="level0"><span Class="manpage">0x080</span>Calling of finalisation functions. 
+<p class="level0"><span Class="manpage">0x100</span>Startup messages (loading the bytecode executable file, resolving shared libraries). 
+<p class="level0">The multiplier is <span Class="manpage">k</span>, <span Class="manpage">M</span>, <span Class="manpage">\ or</span>, <span Class="manpage">G</span>for multiplication by 2^10, 2^20, and 2^30 respectively. For example, on a 32-bit machine under bash, the command <span Class="bold">export OCAMLRUNPARAM='s=256k,v=1'</span> tells a subsequent <span Class="bold">ocamlrun</span> to set its initial minor heap size to 1 megabyte and to print a message at the start of each major GC cycle. 
+<p class="level0"><span Class="bold">CAMLRUNPARAM</span> If OCAMLRUNPARAM is not found in the environment, then CAMLRUNPARAM will be used instead.  If CAMLRUNPARAM is not found, then the default values will be used. 
+<p class="level0"><span Class="bold">PATH</span> List of directories searched to find the bytecode executable file. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamlc (1).</span><br><span Class="emphasis">The OCaml user's manual ,</span> chapter "Runtime system". 

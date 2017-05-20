@@ -1,0 +1,120 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">sed - stream editor for filtering and transforming text <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">sed</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">{script-only-if-no-other-script} </span>[<span Class="emphasis">input-file</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">*(Sd is a stream editor. A stream editor is used to perform basic text transformations on an input stream (a file or input from a pipeline). While in some ways similar to an editor which permits scripted edits (such as <span Class="emphasis">ed</span>), *(sd works by making only one pass over the input(s), and is consequently more efficient. But it is *(sd's ability to filter text in a pipeline which particularly distinguishes it from other types of editors. 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--quiet</span>, <span Class="bold">--silent</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">suppress automatic printing of pattern space 
+<p class="level1"><span Class="bold">-e</span> script, <span Class="bold">--expression</span>=<span Class="emphasis">script</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">add the script to the commands to be executed 
+<p class="level1"><span Class="bold">-f</span> script-file, <span Class="bold">--file</span>=<span Class="emphasis">script-file</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">add the contents of script-file to the commands to be executed 
+<p class="level1"><span Class="bold">--follow-symlinks</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">follow symlinks when processing in place 
+<p class="level1"><span Class="bold">-i[SUFFIX]</span>, <span Class="bold">--in-place</span>[=<span Class="emphasis">SUFFIX</span>] 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">edit files in place (makes backup if SUFFIX supplied) 
+<p class="level1"><span Class="bold">-l</span> N, <span Class="bold">--line-length</span>=<span Class="emphasis">N</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">specify the desired line-wrap length for the `l' command 
+<p class="level1"><span Class="bold">--posix</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">disable all GNU extensions. 
+<p class="level1"><span Class="bold">-r</span>, <span Class="bold">--regexp-extended</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">use extended regular expressions in the script. 
+<p class="level1"><span Class="bold">-s</span>, <span Class="bold">--separate</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">consider files as separate rather than as a single continuous long stream. 
+<p class="level1"><span Class="bold">-u</span>, <span Class="bold">--unbuffered</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">load minimal amounts of data from the input files and flush the output buffers more often 
+<p class="level1"><span Class="bold">-z</span>, <span Class="bold">--null-data</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">separate lines by NUL characters 
+<p class="level1"><span Class="bold">--help</span> display this help and exit 
+<p class="level1"><span Class="bold">--version</span> output version information and exit 
+<p class="level1">If no <span Class="bold">-e</span>, <span Class="bold">--expression</span>, <span Class="bold">-f</span>, or <span Class="bold">--file</span> option is given, then the first non-option argument is taken as the sed script to interpret.  All remaining arguments are names of input files; if no input files are specified, then the standard input is read. 
+<p class="level1">GNU sed home page: &lt;http://www.gnu.org/software/sed/&gt;. General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt;. E-mail bug reports to: &lt;bug-sed@gnu.org&gt;. Be sure to include the word ``sed'' somewhere in the ``Subject:'' field. <a name="COMMAND"></a><h2 class="nroffsh">COMMAND SYNOPSIS</h2>
+<p class="level0">This is just a brief synopsis of *(sd commands to serve as a reminder to those who already know *(sd; other documentation (such as the texinfo document) must be consulted for fuller descriptions. <a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Zero-address ``commands'' 
+<p class="level0">
+<p class="level0">Label for <span Class="bold">b</span> and <span Class="bold">t</span> commands. 
+<p class="level0">
+<p class="level0">The comment extends until the next newline (or the end of a <span Class="bold">-e</span> script fragment). 
+<p class="level0">} The closing bracket of a { } block. <a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Zero- or One- address commands 
+<p class="level0">= Print the current line number. 
+<p class="level0">a e 
+<p class="level0"><span Class="emphasis">text</span> Append <span Class="emphasis">text ,</span> which has each embedded newline preceded by a backslash. 
+<p class="level0">i e 
+<p class="level0"><span Class="emphasis">text</span> Insert <span Class="emphasis">text ,</span> which has each embedded newline preceded by a backslash. 
+<p class="level0">q [<span Class="emphasis">exit-code</span>] Immediately quit the *(sd script without processing any more input, except that if auto-print is not disabled the current pattern space will be printed.  The exit code argument is a GNU extension. 
+<p class="level0">Q [<span Class="emphasis">exit-code</span>] Immediately quit the *(sd script without processing any more input.  This is a GNU extension. 
+<p class="level0">
+<p class="level0">Append text read from <span Class="emphasis">filename .</span> 
+<p class="level0">
+<p class="level0">Append a line read from <span Class="emphasis">filename .</span> Each invocation of the command reads a line from the file. This is a GNU extension. <a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Commands which accept address ranges 
+<p class="level0">{ Begin a block of commands (end with a }). 
+<p class="level0">
+<p class="level0">Branch to <span Class="emphasis">label ;</span> if <span Class="emphasis">label</span> is omitted, branch to end of script. 
+<p class="level0">c e 
+<p class="level0"><span Class="emphasis">text</span> Replace the selected lines with <span Class="emphasis">text ,</span> which has each embedded newline preceded by a backslash. 
+<p class="level0">d Delete pattern space. Start next cycle. 
+<p class="level0">D If pattern space contains no newline, start a normal new cycle as if the d command was issued.  Otherwise, delete text in the pattern space up to the first newline, and restart cycle with the resultant pattern space, without reading a new line of input. 
+<p class="level0">h H Copy/append pattern space to hold space. 
+<p class="level0">g G Copy/append hold space to pattern space. 
+<p class="level0">l List out the current line in a ``visually unambiguous'' form. 
+<p class="level0">
+<p class="level0">List out the current line in a ``visually unambiguous'' form, breaking it at <span Class="emphasis">width</span> characters.  This is a GNU extension. 
+<p class="level0">n N Read/append the next line of input into the pattern space. 
+<p class="level0">p Print the current pattern space. 
+<p class="level0">P Print up to the first embedded newline of the current pattern space. 
+<p class="level0">
+<p class="level0">Attempt to match <span Class="emphasis">regexp</span> against the pattern space. If successful, replace that portion matched with <span Class="emphasis">replacement .</span> The <span Class="emphasis">replacement</span> may contain the special character <a class="bold" href="#">&</a> to refer to that portion of the pattern space which matched, and the special escapes e1 through e9 to refer to the corresponding matching sub-expressions in the <span Class="emphasis">regexp .</span> 
+<p class="level0">
+<p class="level0">If a s/// has done a successful substitution since the last input line was read and since the last t or T command, then branch to <span Class="emphasis">label ;</span> if <span Class="emphasis">label</span> is omitted, branch to end of script. 
+<p class="level0">
+<p class="level0">If no s/// has done a successful substitution since the last input line was read and since the last t or T command, then branch to <span Class="emphasis">label ;</span> if <span Class="emphasis">label</span> is omitted, branch to end of script.  This is a GNU extension. 
+<p class="level0">
+<p class="level0">Write the current pattern space to <span Class="emphasis">filename .</span> 
+<p class="level0">
+<p class="level0">Write the first line of the current pattern space to <span Class="emphasis">filename .</span> This is a GNU extension. 
+<p class="level0">x Exchange the contents of the hold and pattern spaces. 
+<p class="level0">
+<p class="level0">Transliterate the characters in the pattern space which appear in <span Class="emphasis">source</span> to the corresponding character in <span Class="emphasis">dest .</span> <a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Addresses *(Sd commands can be given with no addresses, in which case the command will be executed for all input lines; with one address, in which case the command will only be executed for input lines which match that address; or with two addresses, in which case the command will be executed for all input lines which match the inclusive range of lines starting from the first address and continuing to the second address. Three things to note about address ranges: the syntax is <span Class="emphasis">addr1 , addr2</span> (i.e., the addresses are separated by a comma); the line which <span Class="emphasis">addr1</span> matched will always be accepted, even if <span Class="emphasis">addr2</span> selects an earlier line; and if <span Class="emphasis">addr2</span> is a <span Class="emphasis">regexp ,</span> it will not be tested against the line that <span Class="emphasis">addr1</span> matched. 
+<p class="level0">After the address (or address-range), and before the command, a <a class="bold" href="#">!</a> may be inserted, which specifies that the command shall only be executed if the address (or address-range) does <span Class="bold">not</span> match. 
+<p class="level0">The following address types are supported: 
+<p class="level0"><span Class="emphasis">number</span> Match only the specified line <span Class="emphasis">number</span> (which increments cumulatively across files, unless the <span Class="bold">-s</span> option is specified on the command line). 
+<p class="level0"><span Class="emphasis">first ~ step</span> Match every <span Class="emphasis">step 'th</span> line starting with line <span Class="emphasis">first .</span> For example, ``sed -n 1~2p'' will print all the odd-numbered lines in the input stream, and the address 2~5 will match every fifth line, starting with the second. <span Class="emphasis">first</span> can be zero; in this case, *(sd operates as if it were equal to <span Class="emphasis">step .</span> (This is an extension.) 
+<p class="level0">$ Match the last line. 
+<p class="level0">
+<p class="level0">Match lines matching the regular expression <span Class="emphasis">regexp .</span> 
+<p class="level0"><span Class="bold">\ec regexp c</span> Match lines matching the regular expression <span Class="emphasis">regexp .</span> The <span Class="bold">c</span> may be any character. 
+<p class="level0">GNU *(sd also supports some special 2-address forms: 
+<p class="level0">
+<p class="level0">Start out in "matched first address" state, until <span Class="emphasis">addr2</span> is found. This is similar to 
+<p class="level0">except that if <span Class="emphasis">addr2</span> matches the very first line of input the 
+<p class="level0">form will be at the end of its range, whereas the 
+<p class="level0">form will still be at the beginning of its range. This works only when <span Class="emphasis">addr2</span> is a regular expression. 
+<p class="level0"><span Class="emphasis">addr1 ,+ N</span> Will match <span Class="emphasis">addr1</span> and the <span Class="emphasis">N</span> lines following <span Class="emphasis">addr1 .</span> 
+<p class="level0"><span Class="emphasis">addr1 ,~ N</span> Will match <span Class="emphasis">addr1</span> and the lines following <span Class="emphasis">addr1</span> until the next line whose input line number is a multiple of <span Class="emphasis">N .</span> <a name="REGULAR"></a><h2 class="nroffsh">REGULAR EXPRESSIONS</h2>
+<p class="level0">POSIX.2 BREs <span Class="emphasis">should</span> be supported, but they aren't completely because of performance problems. The <span Class="bold">\en</span> sequence in a regular expression matches the newline character, and similarly for <span Class="manpage">\ea</span>, <span Class="manpage">\et</span>and other sequences. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">E-mail bug reports to <span Class="manpage">bug-sed@gnu.org .</span>Also, please include the output of ``sed --version'' in the body of your report if at all possible. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Jay Fenlason, Tom Lord, Ken Pizzini, and Paolo Bonzini. GNU sed home page: &lt;http://www.gnu.org/software/sed/&gt;. General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt;. E-mail bug reports to: &lt;bug-sed@gnu.org&gt;. Be sure to include the word ``sed'' somewhere in the ``Subject:'' field. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2012 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">awk (1)</span>, <span Class="manpage">ed (1)</span>, <span Class="manpage">grep (1)</span>, <span Class="manpage">tr (1)</span>, <span Class="manpage">perlre (1)</span>sed.info, any of various books on *(sd, 
+<p class="level0">the *(sd FAQ (http://sed.sf.net/grabbag/tutorials/sedfaq.txt), <a href="http://sed.sf.net/grabbag/.">http://sed.sf.net/grabbag/.</a> 
+<p class="level0">The full documentation for <span Class="bold">sed</span> is maintained as a Texinfo manual.  If the <span Class="bold">info</span> and <span Class="bold">sed</span> programs are properly installed at your site, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">info sed</span> 
+<p class="level1">should give you access to the complete manual. 

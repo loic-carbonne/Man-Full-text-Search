@@ -1,0 +1,16 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">bzexe - compress executable files in place <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">bzexe</span> [ name ...  ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">bzexe</span> utility allows you to compress executables in place and have them automatically uncompress and execute when you run them (at a penalty in performance).  For example if you execute ``bzexe /bin/cat'' it will create the following two files: <pre class="level0">
+<br>&nbsp;   -r-xr-xr-x  1 root  bin   9644 Feb 11 11:16 /bin/cat
+&nbsp;   -r-xr-xr-x  1 bin   bin  24576 Nov 23 13:21 /bin/cat~
+</pre>
+
+<p class="level0">/bin/cat~ is the original file and /bin/cat is the self-uncompressing executable file.  You can remove /bin/cat~ once you are sure that /bin/cat works properly. 
+<p class="level0">This utility is most useful on systems with very small disks. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> Decompress the given executables instead of compressing them. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">bzip2(1), znew(1), zmore(1), zcmp(1), zforce(1) <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">The compressed executable is a shell script. This may create some security holes. In particular, the compressed executable relies on the PATH environment variable to find <span Class="emphasis">gzip</span> and some other utilities <span Class="emphasis">(tail, chmod, ln, sleep).</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="emphasis">bzexe </span> attempts to retain the original file attributes on the compressed executable, but you may have to fix them manually in some cases, using <span Class="emphasis">chmod</span> or <span Class="emphasis">chown.</span> 

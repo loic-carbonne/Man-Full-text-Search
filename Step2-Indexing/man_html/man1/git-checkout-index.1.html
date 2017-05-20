@@ -1,0 +1,159 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-checkout-index - Copy files from the index to the working tree <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git checkout-index</span> [-u] [-q] [-a] [-f] [-n] [--prefix=&lt;string&gt;]
+&nbsp;                  [--stage=&lt;number&gt;|all]
+&nbsp;                  [--temp]
+&nbsp;                  [-z] [--stdin]
+&nbsp;                  [--] [&lt;file&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Will copy all files listed from the index to the working directory (not overwriting existing files). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-u, --index 
+<p class="level1">update stat information for the checked out entries in the index file. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">be quiet if files exist or are not in the index 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">forces overwrite of existing files 
+<p class="level0">
+<p class="level0">-a, --all 
+<p class="level1">checks out all files in the index. Cannot be used together with explicit filenames. 
+<p class="level0">
+<p class="level0">-n, --no-create 
+<p class="level1">Don(cqt checkout new files, only refresh files already checked out. 
+<p class="level0">
+<p class="level0">--prefix=&lt;string&gt; 
+<p class="level1">When creating files, prepend &lt;string&gt; (usually a directory including a trailing /) 
+<p class="level0">
+<p class="level0">--stage=&lt;number&gt;|all 
+<p class="level1">Instead of checking out unmerged entries, copy out the files from named stage. &lt;number&gt; must be between 1 and 3. Note: --stage=all automatically implies --temp. 
+<p class="level0">
+<p class="level0">--temp 
+<p class="level1">Instead of copying the files to the working directory write the content to temporary files. The temporary name associations will be written to stdout. 
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">Instead of taking list of paths from the command line, read list of paths from the standard input. Paths are separated by LF (i.e. one path per line) by default. 
+<p class="level0">
+<p class="level0">-z 
+<p class="level1">Only meaningful with --stdin; paths are separated with NUL character instead of LF. 
+<p class="level0">
+<p class="level0">-- 
+<p class="level1">Do not interpret any more arguments as options. 
+<p class="level0">
+<p class="level0">The order of the flags used to matter, but not anymore. 
+<p class="level0">Just doing git checkout-index does nothing. You probably meant git checkout-index -a. And if you want to force it, you want git checkout-index -f -a. 
+<p class="level0">Intuitiveness is not the goal here. Repeatability is. The reason for the "no arguments means no work" behavior is that from scripts you are supposed to be able to do: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ find . -name *(Aq*.h*(Aq -print0 | xargs -0 git checkout-index -f --
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">which will force all existing *.h files to be replaced with their cached copies. If an empty command line implied "all", then this would force-refresh everything in the index, which was not the point. But since <span Class="emphasis">git checkout-index</span> accepts --stdin it would be faster to use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ find . -name *(Aq*.h*(Aq -print0 | git checkout-index -f -z --stdin
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The -- is just a good idea when you know the rest will be filenames; it will prevent problems with a filename of, for example, -a. Using -- is probably a good policy in scripts. <a name="USING"></a><h2 class="nroffsh">USING --TEMP OR --STAGE=ALL</h2>
+<p class="level0">
+<p class="level0">When --temp is used (or implied by --stage=all) <span Class="emphasis">git checkout-index</span> will create a temporary file for each index entry being checked out. The index will not be updated with stat information. These options can be useful if the caller needs all stages of all unmerged entries so that the unmerged files can be processed by an external merge tool. 
+<p class="level0">A listing will be written to stdout providing the association of temporary file names to tracked path names. The listing format has two variations: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">tempname TAB path RS 
+<p class="level1">The first format is what gets used when --stage is omitted or is not --stage=all. The field tempname is the temporary file name holding the file content and path is the tracked path name in the index. Only the requested entries are output. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">stage1temp SP stage2temp SP stage3tmp TAB path RS 
+<p class="level1">The second format is what gets used when --stage=all. The three stage temporary fields (stage1temp, stage2temp, stage3temp) list the name of the temporary file if there is a stage entry in the index or . if there is no stage entry. Paths which only have a stage 0 entry will always be omitted from the output. 
+<p class="level0">
+<p class="level0">In both formats RS (the record separator) is newline by default but will be the null byte if -z was passed on the command line. The temporary file names are always safe strings; they will never contain directory separators or whitespace characters. The path field is always relative to the current directory and the temporary file names are always relative to the top level directory. 
+<p class="level0">If the object being copied out to a temporary file is a symbolic link the content of the link will be written to a normal file. It is up to the end-user or the Porcelain to make use of this information. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To update and refresh only the files already checked out 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout-index -n -f -a && git update-index --ignore-missing --refresh
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">Using <span Class="emphasis">git checkout-index</span> to "export an entire tree" 
+<p class="level1">The prefix ability basically makes it trivial to use <span Class="emphasis">git checkout-index</span> as an "export as tree" function. Just read the desired tree into the index, and do: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout-index --prefix=git-export-dir/ -a
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">git checkout-index will "export" the index into the specified directory. 
+<p class="level1">The final "/" is important. The exported name is literally just prefixed with the specified string. Contrast this with the following example. 
+<p class="level0">
+<p class="level0">Export files with a prefix 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout-index --prefix=.merged- Makefile
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">This will check out the currently cached copy of Makefile into the file .merged-Makefile. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

@@ -1,0 +1,78 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">7z - A file archiver with highest compression ratio <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">7z</span> <span Class="manpage">[adeltux]</span>, <span Class="manpage">[-]</span>, <span Class="manpage">[SWITCH]</span>, <span Class="manpage">&lt;ARCHIVE_NAME&gt;</span>, <span Class="manpage">&lt;ARGUMENTS&gt;...</span>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">7-Zip is a file archiver with the highest compression ratio. The program supports 7z (that implements LZMA compression algorithm), LZMA2, XZ, ZIP, Zip64, CAB, RAR (if the non-free p7zip-rar package is installed), ARJ, GZIP, BZIP2, TAR, CPIO, RPM, ISO, most filesystem images and DEB formats. Compression ratio in the new 7z format is 30-50% better than ratio in ZIP format. 
+<p class="level0">7z uses plugins to handle archives. 
+<p class="level0"><a name="FUNCTION"></a><h2 class="nroffsh">FUNCTION LETTERS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">a</span> Add 
+<p class="level0"><span Class="bold">d</span> Delete 
+<p class="level0"><span Class="bold">e</span> Extract 
+<p class="level0"><span Class="bold">l</span> List 
+<p class="level0"><span Class="bold">t</span> Test 
+<p class="level0"><span Class="bold">u</span> Update 
+<p class="level0"><span Class="bold">x</span> eXtract with full paths 
+<p class="level0"><a name="SWITCHES"></a><h2 class="nroffsh">SWITCHES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-ai[r[-|0]]{@listfile|!wildcard}</span> Include archives 
+<p class="level0"><span Class="bold">-ax[r[-|0]]{@listfile|!wildcard}</span> eXclude archives 
+<p class="level0"><span Class="bold">-bd</span> Disable percentage indicator 
+<p class="level0"><span Class="bold">-i[r[-|0]]{@listfile|!wildcard}</span> Include filenames 
+<p class="level0"><span Class="bold">-l</span> don't store symlinks; store the files/directories they point to (CAUTION : the scanning stage can never end because of recursive symlinks like 'ln -s .. ldir') 
+<p class="level0"><span Class="bold">-m{Parameters}</span> Set Compression Method (see /usr/share/doc/p7zip-full/DOCS/MANUAL/switches/method.htm for a list of methods) 
+<p class="level0"><span Class="bold">-mhe=on|off</span> 7z format only : enables or disables archive header encryption (Default : off) 
+<p class="level0"><span Class="bold">-o{Directory}</span> Set Output directory 
+<p class="level0"><span Class="bold">-p{Password}</span> Set Password 
+<p class="level0"><span Class="bold">-r[-|0]</span> Recurse subdirectories (CAUTION: this flag does not do what you think, avoid using it) 
+<p class="level0"><span Class="bold">-sfx[{name}]</span> Create SFX archive 
+<p class="level0"><span Class="bold">-si</span> Read data from StdIn (eg: tar cf - directory | 7z a -si directory.tar.7z) 
+<p class="level0"><span Class="bold">-so</span> Write data to StdOut (eg: % echo foo | 7z a dummy -tgzip -si -so &gt; /dev/null) 
+<p class="level0"><span Class="bold">-slt</span> Sets technical mode for l (list) command 
+<p class="level0"><span Class="bold">-t{Type}</span> Type of archive (7z, zip, gzip, bzip2 or tar. 7z format is default) 
+<p class="level0"><span Class="bold">-v{Size}[b|k|m|g]</span> Create volumes 
+<p class="level0"><span Class="bold">-u[-][p#][q#][r#][x#][y#][z#][!newArchiveName]</span> Update options 
+<p class="level0"><span Class="bold">-w[path]</span> Set Working directory 
+<p class="level0"><span Class="bold">-x[r[-|0]]]{@listfile|!wildcard}</span> Exclude filenames 
+<p class="level0"><span Class="bold">-y</span> Assume Yes on all queries 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">7-Zip returns the following exit codes: 
+<p class="level1">
+<p class="level0"><a name="0"></a><span class="nroffip">0</span> 
+<p class="level1">Normal (no errors or warnings detected) 
+<p class="level0"><a name="1"></a><span class="nroffip">1</span> 
+<p class="level1">Warning (Non fatal error(s)). For example, some files cannot be read during compressing. So they were not compressed 
+<p class="level0"><a name="2"></a><span class="nroffip">2</span> 
+<p class="level1">Fatal error 
+<p class="level0"><a name="7"></a><span class="nroffip">7</span> 
+<p class="level1">Bad command line parameters 
+<p class="level0"><a name="8"></a><span class="nroffip">8</span> 
+<p class="level1">Not enough memory for operation 
+<p class="level0"><a name="255"></a><span class="nroffip">255</span> 
+<p class="level1">User stopped the process with control-C (or similar) <a name="Backup"></a><h2 class="nroffsh">Backup and limitations</h2>
+<p class="level0">DO NOT USE the 7-zip format for backup purpose on Linux/Unix because : &nbsp;- 7-zip does not store the owner/group of the file. 
+<p class="level0">
+<p class="level0">On Linux/Unix, in order to backup directories you must use tar : &nbsp;- to backup a directory  : tar cf - directory | 7za a -si directory.tar.7z &nbsp;- to restore your backup : 7za x -so directory.tar.7z | tar xf - 
+<p class="level0">If you want to send files and directories (not the owner of file) to others Unix/MacOS/Windows users, you can use the 7-zip format. 
+<p class="level0">&nbsp; example : 7za a directory.7z  directory 
+<p class="level0">
+<p class="level0">Do not use "-r" because this flag does not do what you think. 
+<p class="level0">Do not use directory/* because of ".*" files (example : "directory/*" does not match "directory/.profile") <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 1</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">7z a -t7z  -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on archive.7z  dir1</span> adds all files from directory "dir1" to archive archive.7z using "ultra settings" 
+<p class="level0"><span Class="bold">-t7z</span> 7z archive 
+<p class="level0"><span Class="bold">-m0=lzma</span> lzma method 
+<p class="level0"><span Class="bold">-mx=9</span> level of compression = 9 (Ultra) 
+<p class="level0"><span Class="bold">-mfb=64</span> number of fast bytes for LZMA = 64 
+<p class="level0"><span Class="bold">-md=32m</span> dictionary size = 32 megabytes 
+<p class="level0"><span Class="bold">-ms=on</span> solid archive = on <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 2</h2>
+<p class="level0">
+<p class="level0"><span Class="bold"></span> 7z a -sfx archive.exe dir1 add all files from directory "dir1" to SFX archive archive.exe (Remark : SFX archive MUST end with ".exe") <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 3</h2>
+<p class="level0">
+<p class="level0"><span Class="bold"></span> 7z a -mhe=on -pmy_password archive.7z a_directory add all files from directory "a_directory" to the archive "archive.7z" (with data and header archive encryption on) <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">7za(1), 7zr(1), bzip2(1), gzip(1), zip(1) 
+<p class="level0"><a name="HTML"></a><h2 class="nroffsh">HTML Documentation</h2>
+<p class="level0">/usr/share/doc/p7zip-full/DOCS/MANUAL/index.htm <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written for Debian by Mohammed Adnene Trojette. 

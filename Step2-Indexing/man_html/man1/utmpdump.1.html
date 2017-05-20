@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">utmpdump - dump UTMP and WTMP files in raw format <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="manpage">utmpdump  [options]</span>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">utmpdump</span> is a simple program to dump UTMP and WTMP files in raw format, so they can be examined. <span Class="bold">utmpdump</span> reads from stdin unless a <span Class="emphasis">filename</span> is passed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR, \fB--follow\fP</span> 
+<p class="level1">Output appended data as the file grows. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR, \fB--output\fP \fIfile\fR</span> 
+<p class="level1">Write command output to <span Class="emphasis">file</span> instead of standard output. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR, \fB--reverse\fP</span> 
+<p class="level1">Undump, write back edited login information into the utmp or wtmp files. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB--help\fP</span> 
+<p class="level1">Display help text and exit. 
+<p class="level0"><a name="fB-VfR"></a><span class="nroffip">\fB-V\fR, \fB--version\fP</span> 
+<p class="level1">Display version information and exit. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0"><span Class="bold">utmpdump</span> can be useful in cases of corrupted utmp or wtmp entries.  It can dump out utmp/wtmp to an ASCII file, which can then be edited to remove bogus entries, and reintegrated using: 
+<p class="level0">
+<p class="level1"><span Class="bold">utmpdump -r &lt; ascii_file &gt; wtmp</span> 
+<p class="level0">
+<p class="level0">But be warned, <span Class="bold">utmpdump</span> was written for debugging purposes only. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">You may <span Class="bold">not</span> use the <span Class="bold">-r</span> option, as the format for the utmp/wtmp files strongly depends on the input format.  This tool was <span Class="bold">not</span> written for normal use, but for debugging only. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Michael Krapp <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">last (1)</span>, <span Class="manpage">w (1)</span>, <span Class="manpage">who (1)</span>, <span Class="manpage">utmp (5)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The utmpdump command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

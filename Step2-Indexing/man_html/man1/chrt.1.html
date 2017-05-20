@@ -1,0 +1,36 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chrt - manipulate the real-time attributes of a process <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">chrt</span> 
+<p class="level0"><span Class="emphasis">command\  [ arg ]...</span> <br><span Class="bold">chrt</span> 
+<p class="level0"><span Class="bold">-p</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chrt</span> sets or retrieves the real-time scheduling attributes of an existing <span Class="emphasis">pid</span>, or runs <span Class="emphasis">command</span> with the given attributes.  Both policy (one of <span Class="manpage">SCHED_OTHER</span>, <span Class="manpage">SCHED_FIFO</span>, <span Class="manpage">SCHED_RR</span>, <span Class="manpage">SCHED_BATCH</span>or <span Class="manpage">SCHED_IDLE )</span>and priority can be set and retrieved. 
+<p class="level0">The <span Class="manpage">SCHED_BATCH</span>policy is supported since Linux 2.6.16.  The <span Class="manpage">SCHED_IDLE</span>policy is supported since Linux 2.6.23. 
+<p class="level0">The <span Class="manpage">SCHED_RESET_ON_FORK</span>flag for policies SCHED_RR and SCHED_FIFO is supported since Linux 2.6.31. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-a, --all-tasks</span> Set or retrieve the scheduling attributes of all the tasks (threads) for a given PID. 
+<p class="level0"><span Class="bold">-b, --batch</span> Set scheduling policy to , <span Class="manpage">SCHED_BATCH</span>(Linux specific). 
+<p class="level0"><span Class="bold">-f, --fifo</span> Set scheduling policy to <span Class="manpage">SCHED_FIFO .</span>
+<p class="level0"><span Class="bold">-i, --idle</span> Set scheduling policy to <span Class="manpage">SCHED_IDLE</span>(Linux specific). 
+<p class="level0"><span Class="bold">-m, --max</span> Show minimum and maximum valid priorities, then exit. 
+<p class="level0"><span Class="bold">-o, --other</span> Set policy scheduling policy to <span Class="manpage">SCHED_OTHER .</span>
+<p class="level0"><span Class="bold">-p, --pid</span> Operate on an existing PID and do not launch a new task. 
+<p class="level0"><span Class="bold">-r, --rr</span> Set scheduling policy to <span Class="manpage">SCHED_RR .</span>When policy is not defined the <span Class="bold">SCHED_RR</span> is used as default. 
+<p class="level0"><span Class="bold">-R, --reset-on-fork</span> Add <span Class="bold">SCHED_RESET_ON_FORK</span> flag to the <span Class="bold">SCHED_FIFO</span> or <span Class="bold">SCHED_RR</span> scheduling policy (Linux specific). 
+<p class="level0"><span Class="bold">-v, --verbose</span> Show status information. 
+<p class="level0"><span Class="bold">-h, --help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-V, --version</span> Display version information and exit. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">The default behavior is to run a new command: <span Class="bold">chrt</span> <span Class="emphasis">prio</span> <span Class="emphasis">command\  [ arguments ]</span> 
+<p class="level0">You can also retrieve the real-time attributes of an existing task: <span Class="bold">chrt -p</span> <span Class="emphasis">pid</span> 
+<p class="level0">Or set them: <span Class="bold">chrt -r -p</span> <span Class="emphasis">prio pid</span> <a name="PERMISSIONS"></a><h2 class="nroffsh">PERMISSIONS</h2>
+<p class="level0">A user must possess <span Class="manpage">CAP_SYS_NICE</span>to change the scheduling attributes of a process.  Any user can retrieve the scheduling information. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Only <span Class="manpage">SCHED_FIFO</span>, <span Class="manpage">SCHED_OTHER</span>and <span Class="manpage">SCHED_RR</span>are part of POSIX 1003.1b Process Scheduling. The other scheduling attributes may be ignored on some systems. 
+<p class="level0">Linux default scheduling policy is <span Class="manpage">SCHED_OTHER .</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Robert M. Love. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2004 Robert M. Love <br>This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">taskset (1)</span>, <span Class="manpage">nice (1)</span>, <span Class="manpage">renice (1)</span>
+<p class="level0">See <span Class="manpage">sched_setscheduler (2)</span>for a description of the Linux scheduling scheme. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The chrt command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

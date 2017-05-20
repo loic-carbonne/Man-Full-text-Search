@@ -1,0 +1,1139 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zip - package and compress (archive) files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">zip</span> 
+<p class="level0">[--longoption ...] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">[<span Class="emphasis">zipfile</span> [<span Class="emphasis">file</span> .|.|.]] [<span Class="bold">-xi</span> list] 
+<p class="level0"><span Class="bold">zipcloak</span> (see separate man page) 
+<p class="level0"><span Class="bold">zipnote</span> (see separate man page) 
+<p class="level0"><span Class="bold">zipsplit</span> (see separate man page) 
+<p class="level0">Note:  Command line processing in <span Class="emphasis">zip</span> has been changed to support long options and handle all options and arguments more consistently.  Some old command lines that depend on command line inconsistencies may no longer work. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">zip</span> is a compression and file packaging utility for Unix, VMS, MSDOS, OS/2, Windows 9x/NT/XP, Minix, Atari, Macintosh, Amiga, and Acorn RISC OS.  It is analogous to a combination of the Unix commands <span Class="emphasis">tar (1)</span> and <span Class="emphasis">compress (1)</span> and is compatible with PKZIP (Phil Katz's ZIP for MSDOS systems). 
+<p class="level0">A companion program 
+<p class="level0">unpacks <span Class="emphasis">zip</span> archives. The <span Class="emphasis">zip</span> and <span Class="emphasis">unzip (1)</span> programs can work with archives produced by PKZIP (supporting most PKZIP features up to PKZIP version 4.6), and PKZIP and PKUNZIP can work with archives produced by <span Class="emphasis">zip</span> (with some exceptions, notably streamed archives, but recent changes in the zip file standard may facilitate better compatibility). <span Class="emphasis">zip</span> version 3.0 is compatible with PKZIP 2.04 and also supports the Zip64 extensions of PKZIP 4.5 which allow archives as well as files to exceed the previous 2 GB limit (4 GB in some cases).  <span Class="emphasis">zip</span> also now supports <span Class="bold">bzip2</span> compression if the <span Class="bold">bzip2</span> library is included when <span Class="emphasis">zip</span> is compiled. Note that PKUNZIP 1.10 cannot extract files produced by PKZIP 2.04 or <span Class="emphasis">zip&nbsp;3.0</span>. You must use PKUNZIP 2.04g or <span Class="emphasis">unzip&nbsp;5.0p1</span> (or later versions) to extract them. 
+<p class="level0">See the <a class="bold" href="#EXAMPLES">EXAMPLES</a> section at the bottom of this page for examples of some typical uses of <span Class="emphasis">zip</span>. 
+<p class="level0"><span Class="bold">Large&nbsp;Archives&nbsp;and&nbsp;Zip64.</span> <span Class="emphasis">zip</span> automatically uses the Zip64 extensions when files larger than 4 GB are added to an archive, an archive containing Zip64 entries is updated (if the resulting archive still needs Zip64), the size of the archive will exceed 4 GB, or when the number of entries in the archive will exceed about 64K. Zip64 is also used for archives streamed from standard input as the size of such archives are not known in advance, but the option <span Class="bold">-fz-</span> can be used to force <span Class="emphasis">zip</span> to create PKZIP 2 compatible archives (as long as Zip64 extensions are not needed).  You must use a PKZIP 4.5 compatible unzip, such as <span Class="emphasis">unzip&nbsp;6.0</span> or later, to extract files using the Zip64 extensions. 
+<p class="level0">In addition, streamed archives, entries encrypted with standard encryption, or split archives created with the pause option may not be compatible with PKZIP as data descriptors are used and PKZIP at the time of this writing does not support data descriptors (but recent changes in the PKWare published zip standard now include some support for the data descriptor format <span Class="emphasis">zip</span> uses). 
+<p class="level0">
+<p class="level0"><span Class="bold">Mac OS X.</span>  Though previous Mac versions had their own <span Class="emphasis">zip</span> port, <span Class="emphasis">zip</span> supports Mac OS X as part of the Unix port and most Unix features apply.  References to "MacOS" below generally refer to MacOS versions older than OS X.  Support for some Mac OS features in the Unix Mac OS X port, such as resource forks, is expected in the next <span Class="emphasis">zip</span> release. 
+<p class="level0">
+<p class="level0">For a brief help on <span Class="emphasis">zip</span> and <span Class="emphasis">unzip</span>, run each without specifying any parameters on the command line. 
+<p class="level0"><a name="USE"></a><h2 class="nroffsh">USE</h2>
+<p class="level0">
+<p class="level0">The program is useful for packaging a set of files for distribution; for archiving files; and for saving disk space by temporarily compressing unused files or directories. 
+<p class="level0">The <span Class="emphasis">zip</span> program puts one or more compressed files into a single <span Class="emphasis">zip</span> archive, along with information about the files (name, path, date, time of last modification, protection, and check information to verify file integrity). An entire directory structure can be packed into a <span Class="emphasis">zip</span> archive with a single command. Compression ratios of 2:1 to 3:1 are common for text files. <span Class="emphasis">zip</span> has one compression method (deflation) and can also store files without compression.  (If <span Class="bold">bzip2</span> support is added, <span Class="emphasis">zip</span> can also compress using <span Class="bold">bzip2</span> compression, but such entries require a reasonably modern unzip to decompress.  When <span Class="bold">bzip2</span> compression is selected, it replaces deflation as the default method.) <span Class="emphasis">zip</span> automatically chooses the better of the two (deflation or store or, if <span Class="bold">bzip2</span> is selected, <span Class="bold">bzip2</span> or store) for each file to be compressed. 
+<p class="level0"><span Class="bold">Command&nbsp;format.</span>  The basic command format is 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">zip</span> options archive inpath inpath ... 
+<p class="level1">where <span Class="bold">archive</span> is a new or existing <span Class="emphasis">zip</span> archive and <span Class="bold">inpath</span> is a directory or file path optionally including wildcards. When given the name of an existing <span Class="emphasis">zip</span> archive, <span Class="emphasis">zip</span> will replace identically named entries in the <span Class="emphasis">zip</span> archive (matching the relative names as stored in the archive) or add entries for new names. For example, if <span Class="emphasis">foo.zip</span> exists and contains <span Class="emphasis">foo/file1</span> and <span Class="emphasis">foo/file2 ,</span> and the directory <span Class="emphasis">foo</span> contains the files <span Class="emphasis">foo/file1</span> and <span Class="emphasis">foo/file3 ,</span> then: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -r foo.zip foo</span> 
+<p class="level1">or more concisely 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -r foo foo</span> 
+<p class="level1">will replace <span Class="emphasis">foo/file1</span> in <span Class="emphasis">foo.zip</span> and add <span Class="emphasis">foo/file3</span> to <span Class="emphasis">foo.zip .</span> After this, <span Class="emphasis">foo.zip</span> contains <span Class="emphasis">foo/file1 ,</span> <span Class="emphasis">foo/file2 ,</span> and <span Class="emphasis">foo/file3 ,</span> with <span Class="emphasis">foo/file2</span> unchanged from before. 
+<p class="level1">So if before the zip command is executed <span Class="emphasis">foo.zip</span> has: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC foo/file1 foo/file2 
+<p class="level1">and directory foo has: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC file1 file3</span> 
+<p class="level1">then <span Class="emphasis">foo.zip</span> will have: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC foo/file1 foo/file2 foo/file3</span> 
+<p class="level1">where <span Class="emphasis">foo/file1</span> is replaced and <span Class="emphasis">foo/file3</span> is new. 
+<p class="level1"><span Class="bold">-@&nbsp;file&nbsp;lists.</span>  If a file list is specified as <span Class="bold">-@</span> [Not on MacOS], <span Class="emphasis">zip</span> takes the list of input files from standard input instead of from the command line.  For example, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -@ foo</span> 
+<p class="level1">will store the files listed one per line on stdin in <span Class="emphasis">foo.zip</span>. 
+<p class="level1">Under Unix, this option can be used to powerful effect in conjunction with the <span Class="emphasis">find</span>&nbsp;(1) command. For example, to archive all the C source files in the current directory and its subdirectories: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCfind . -name "*.[ch]" -print | zip source -@</span> 
+<p class="level1">(note that the pattern must be quoted to keep the shell from expanding it). 
+<p class="level1"><span Class="bold">Streaming&nbsp;input&nbsp;and&nbsp;output.</span> <span Class="emphasis">zip</span> will also accept a single dash ("-") as the zip file name, in which case it will write the zip file to standard output, allowing the output to be piped to another program. For example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -r - . | dd of=/dev/nrst0 obs=16k</span> 
+<p class="level1">would write the zip output directly to a tape with the specified block size for the purpose of backing up the current directory. 
+<p class="level1"><span Class="emphasis">zip</span> also accepts a single dash ("-") as the name of a file to be compressed, in which case it will read the file from standard input, allowing zip to take input from another program. For example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCtar cf - . | zip backup -</span> 
+<p class="level1">would compress the output of the tar command for the purpose of backing up the current directory. This generally produces better compression than the previous example using the -r option because <span Class="emphasis">zip</span> can take advantage of redundancy between files. The backup can be restored using the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCunzip -p backup | tar xf -</span> 
+<p class="level1">When no zip file name is given and stdout is not a terminal, <span Class="emphasis">zip</span> acts as a filter, compressing standard input to standard output. For example, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCtar cf - . | zip | dd of=/dev/nrst0 obs=16k</span> 
+<p class="level1">is equivalent to 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCtar cf - . | zip - - | dd of=/dev/nrst0 obs=16k</span> 
+<p class="level1"><span Class="emphasis">zip</span> archives created in this manner can be extracted with the program <span Class="emphasis">funzip</span> which is provided in the <span Class="emphasis">unzip</span> package, or by <span Class="emphasis">gunzip</span> which is provided in the <span Class="emphasis">gzip</span> package (but some <span Class="emphasis">gunzip</span> may not support this if <span Class="emphasis">zip</span> used the Zip64 extensions). For example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"></span>dd if=/dev/nrst0  ibs=16k | funzip | tar xvf -fC 
+<p class="level1">The stream can also be saved to a file and <span Class="emphasis">unzip</span> used. 
+<p class="level1">If Zip64 support for large files and archives is enabled and <span Class="emphasis">zip</span> is used as a filter, <span Class="emphasis">zip</span> creates a Zip64 archive that requires a PKZIP 4.5 or later compatible unzip to read it.  This is to avoid amgibuities in the zip file structure as defined in the current zip standard (PKWARE AppNote) where the decision to use Zip64 needs to be made before data is written for the entry, but for a stream the size of the data is not known at that point.  If the data is known to be smaller than 4 GB, the option <span Class="bold">-fz-</span> can be used to prevent use of Zip64, but <span Class="emphasis">zip</span> will exit with an error if Zip64 was in fact needed. <span Class="emphasis">zip&nbsp;3</span> and <span Class="emphasis">unzip&nbsp;6</span> and later can read archives with Zip64 entries.  Also, <span Class="emphasis">zip</span> removes the Zip64 extensions if not needed when archive entries are copied (see the <span Class="bold">-U</span> (<span Class="bold">--copy</span>) option). 
+<p class="level1">When directing the output to another file, note that all options should be before the redirection including <span Class="bold">-x</span>.  For example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"></span>zip archive "*.h" "*.c" -x donotinclude.h orthis.h &gt; tofilefC 
+<p class="level1"><span Class="bold">Zip&nbsp;files.</span>  When changing an existing <span Class="emphasis">zip</span> archive, <span Class="emphasis">zip</span> will write a temporary file with the new contents, and only replace the old one when the process of creating the new version has been completed without error. 
+<p class="level1">If the name of the <span Class="emphasis">zip</span> archive does not contain an extension, the extension <span Class="bold">.zip</span> is added. If the name already contains an extension other than <span Class="bold">.zip</span>, the existing extension is kept unchanged.  However, split archives (archives split over multiple files) require the <span Class="bold">.zip</span> extension on the last split. 
+<p class="level1"><span Class="bold">Scanning&nbsp;and&nbsp;reading&nbsp;files.</span> When <span Class="emphasis">zip</span> starts, it scans for files to process (if needed).  If this scan takes longer than about 5 seconds, <span Class="emphasis">zip</span> will display a "Scanning files" message and start displaying progress dots every 2 seconds or every so many entries processed, whichever takes longer.  If there is more than 2 seconds between dots it could indicate that finding each file is taking time and could mean a slow network connection for example. (Actually the initial file scan is a two-step process where the directory scan is followed by a sort and these two steps are separated with a space in the dots.  If updating an existing archive, a space also appears between the existing file scan and the new file scan.)  The scanning files dots are not controlled by the <span Class="bold">-ds</span> dot size option, but the dots are turned off by the <span Class="bold">-q</span> quiet option.  The <span Class="bold">-sf</span> show files option can be used to scan for files and get the list of files scanned without actually processing them. 
+<p class="level1">If <span Class="emphasis">zip</span> is not able to read a file, it issues a warning but continues.  See the <span Class="bold">-MM</span> option below for more on how <span Class="emphasis">zip</span> handles patterns that are not matched and files that are not readable. If some files were skipped, a warning is issued at the end of the zip operation noting how many files were read and how many skipped. 
+<p class="level1"><span Class="bold">Command&nbsp;modes.</span>  <span Class="emphasis">zip</span> now supports two distinct types of command modes, <span Class="bold">external</span> and <span Class="bold">internal</span>.  The <span Class="bold">external</span> modes (add, update, and freshen) read files from the file system (as well as from an existing archive) while the <span Class="bold">internal</span> modes (delete and copy) operate exclusively on entries in an existing archive. 
+<p class="level1">
+<p class="level1"><span Class="bold">add\ \ \ \ \ \ </span> Update existing entries and add new files.  If the archive does not exist create it.  This is the default mode. 
+<p class="level1"><span Class="bold">update\ (\fB-u)</span> Update existing entries if newer on the file system and add new files.  If the archive does not exist issue warning then create a new archive. 
+<p class="level1"><span Class="bold">freshen\ (\fB-f)</span> Update existing entries of an archive if newer on the file system. Does not add new files to the archive. 
+<p class="level1"><span Class="bold">delete\ (\fB-d)</span> Select entries in an existing archive and delete them. 
+<p class="level1"><span Class="bold">copy\ (\fB-U)</span> Select entries in an existing archive and copy them to a new archive. This new mode is similar to <span Class="bold">update</span> but command line patterns select entries in the existing archive rather than files from the file system and it uses the <span Class="bold">--out</span> option to write the resulting archive to a new file rather than update the existing archive, leaving the original archive unchanged. 
+<p class="level1">The new File Sync option (<span Class="bold">-FS</span>) is also considered a new mode, though it is similar to <span Class="bold">update</span>.  This mode synchronizes the archive with the files on the OS, only replacing files in the archive if the file time or size of the OS file is different, adding new files, and deleting entries from the archive where there is no matching file.  As this mode can delete entries from the archive, consider making a backup copy of the archive. 
+<p class="level1">Also see <span Class="bold">-DF</span> for creating difference archives. 
+<p class="level1">See each option description below for details and the <a class="bold" href="#EXAMPLES">EXAMPLES</a> section below for examples. 
+<p class="level1"><span Class="bold">Split&nbsp;archives.</span>  <span Class="emphasis">zip</span> version 3.0 and later can create split archives.  A <span Class="bold">split archive</span> is a standard zip archive split over multiple files.  (Note that split archives are not just archives split in to pieces, as the offsets of entries are now based on the start of each split.  Concatenating the pieces together will invalidate these offsets, but <span Class="emphasis">unzip</span> can usually deal with it.  <span Class="emphasis">zip</span> will usually refuse to process such a spliced archive unless the <span Class="bold">-FF</span> fix option is used to fix the offsets.) 
+<p class="level1">One use of split archives is storing a large archive on multiple removable media. For a split archive with 20 split files the files are typically named (replace ARCHIVE with the name of your archive) ARCHIVE.z01, ARCHIVE.z02, ..., ARCHIVE.z19, ARCHIVE.zip.  Note that the last file is the <span Class="bold">.zip</span> file.  In contrast, <span Class="bold">spanned archives</span> are the original multi-disk archive generally requiring floppy disks and using volume labels to store disk numbers.  <span Class="emphasis">zip</span> supports split archives but not spanned archives, though a procedure exists for converting split archives of the right size to spanned archives.  The reverse is also true, where each file of a spanned archive can be copied in order to files with the above names to create a split archive. 
+<p class="level1">Use <span Class="bold">-s</span> to set the split size and create a split archive.  The size is given as a number followed optionally by one of k (kB), m (MB), g (GB), or t (TB) (the default is m).  The <span Class="bold">-sp</span> option can be used to pause <span Class="emphasis">zip</span> between splits to allow changing removable media, for example, but read the descriptions and warnings for both <span Class="bold">-s</span> and <span Class="bold">-sp</span> below. 
+<p class="level1">Though <span Class="emphasis">zip</span> does not update split archives, <span Class="emphasis">zip</span> provides the new option <span Class="bold">-O</span> (<span Class="bold">--output-file</span> or <span Class="bold">--out</span>) to allow split archives to be updated and saved in a new archive.  For example, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip inarchive.zip foo.c bar.c --out outarchive.zip</span> 
+<p class="level1">reads archive <span Class="bold">inarchive.zip</span>, even if split, adds the files <span Class="bold">foo.c</span> and <span Class="bold">bar.c</span>, and writes the resulting archive to <span Class="bold">outarchive.zip</span>.  If <span Class="bold">inarchive.zip</span> is split then <span Class="bold">outarchive.zip</span> defaults to the same split size.  Be aware that if <span Class="bold">outarchive.zip</span> and any split files that are created with it already exist, these are always overwritten as needed without warning.  This may be changed in the future. 
+<p class="level1"><span Class="bold">Unicode.</span>  Though the zip standard requires storing paths in an archive using a specific character set, in practice zips have stored paths in archives in whatever the local character set is.  This creates problems when an archive is created or updated on a system using one character set and then extracted on another system using a different character set.  When compiled with Unicode support enabled on platforms that support wide characters, <span Class="emphasis">zip</span> now stores, in addition to the standard local path for backward compatibility, the UTF-8 translation of the path. This provides a common universal character set for storing paths that allows these paths to be fully extracted on other systems that support Unicode and to match as close as possible on systems that don't. 
+<p class="level1">On Win32 systems where paths are internally stored as Unicode but represented in the local character set, it's possible that some paths will be skipped during a local character set directory scan.  <span Class="emphasis">zip</span> with Unicode support now can read and store these paths.  Note that Win 9x systems and FAT file systems don't fully support Unicode. 
+<p class="level1">Be aware that console windows on Win32 and Unix, for example, sometimes don't accurately show all characters due to how each operating system switches in character sets for display.  However, directory navigation tools should show the correct paths if the needed fonts are loaded. 
+<p class="level1"><span Class="bold">Command line format.</span>  This version of <span Class="emphasis">zip</span> has updated command line processing and support for long options. 
+<p class="level1">Short options take the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC-s[-][s[-]...][value][=value][&nbsp;value]</span> 
+<p class="level1">where s is a one or two character short option.  A short option that takes a value is last in an argument and anything after it is taken as the value.  If the option can be negated and "-" immediately follows the option, the option is negated. Short options can also be given as separate arguments 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC-s[-][value][=value][&nbsp;value]&nbsp;-s[-][value][=value][&nbsp;value]&nbsp;...</span> 
+<p class="level1">Short options in general take values either as part of the same argument or as the following argument.  An optional = is also supported. So 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC-ttmmddyyyy</span> 
+<p class="level1">and 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC-tt=mmddyyyy</span> 
+<p class="level1">and 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC-tt mmddyyyy</span> 
+<p class="level1">all work.  The <span Class="bold">-x</span> and <span Class="bold">-i</span> options accept lists of values and use a slightly different format described below.  See the <span Class="bold">-x</span> and <span Class="bold">-i</span> options. 
+<p class="level1">Long options take the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC--longoption[-][=value][ value]</span> 
+<p class="level1">where the option starts with --, has a multicharacter name, can include a trailing dash to negate the option (if the option supports it), and can have a value (option argument) specified by preceding it with = (no spaces).  Values can also follow the argument.  So 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC--before-date=mmddyyyy</span> 
+<p class="level1">and 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC--before-date mmddyyyy</span> 
+<p class="level1">both work. 
+<p class="level1">Long option names can be shortened to the shortest unique abbreviation.  See the option descriptions below for which support long options.  To avoid confusion, avoid abbreviating a negatable option with an embedded dash ("-") at the dash if you plan to negate it (the parser would consider a trailing dash, such as for the option <span Class="bold">--some-option</span> using <span Class="bold">--some-</span> as the option, as part of the name rather than a negating dash).  This may be changed to force the last dash in <span Class="bold">--some-</span> to be negating in the future. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--ascii</span> [Systems using EBCDIC] Translate file to ASCII format. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-A</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--adjust-sfx</span> Adjust self-extracting executable archive. A self-extracting executable archive is created by prepending the SFX stub to an existing archive. The <span Class="bold">-A</span> option tells <span Class="emphasis">zip</span> to adjust the entry offsets stored in the archive to take into account this "preamble" data. 
+<p class="level0">Note: self-extracting archives for the Amiga are a special case. At present, only the Amiga port of <span Class="emphasis">zip</span> is capable of adjusting or updating these without corrupting them. -J can be used to remove the SFX stub if other updates need to be made. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-AC</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--archive-clear</span> [WIN32]  Once archive is created (and tested if <span Class="bold">-T</span> is used, which is recommended), clear the archive bits of files processed.  WARNING: Once the bits are cleared they are cleared.  You may want to use the <span Class="bold">-sf</span> show files option to store the list of files processed in case the archive operation must be repeated.  Also consider using the <span Class="bold">-MM</span> must match option.  Be sure to check out <span Class="bold">-DF</span> as a possibly better way to do incremental backups. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-AS</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--archive-set</span> [WIN32]  Only include files that have the archive bit set.  Directories are not stored when <span Class="bold">-AS</span> is used, though by default the paths of entries, including directories, are stored as usual and can be used by most unzips to recreate directories. 
+<p class="level0">The archive bit is set by the operating system when a file is modified and, if used with <span Class="bold">-AC</span>, <span Class="bold">-AS</span> can provide an incremental backup capability.  However, other applications can modify the archive bit and it may not be a reliable indicator of which files have changed since the last archive operation.  Alternative ways to create incremental backups are using <span Class="bold">-t</span> to use file dates, though this won't catch old files copied to directories being archived, and <span Class="bold">-DF</span> to create a differential archive. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-B</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--binary</span> [VM/CMS and MVS] force file to be read binary (default is text). 
+<p class="level0">
+<p class="level0"><span Class="bold">-Bn</span> [TANDEM] set Edit/Enscribe formatting options with n defined as 
+<p class="level1">bit  0: Don't add delimiter (Edit/Enscribe) 
+<p class="level0">
+<p class="level1">bit  1: Use LF rather than CR/LF as delimiter (Edit/Enscribe) 
+<p class="level0">
+<p class="level1">bit  2: Space fill record to maximum record length (Enscribe) 
+<p class="level0">
+<p class="level1">bit  3: Trim trailing space (Enscribe) 
+<p class="level0">
+<p class="level1">bit  8: Force 30K (Expand) large read for unstructured files 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-b\ path</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--temp-path\ path</span> Use the specified <span Class="emphasis">path</span> for the temporary <span Class="emphasis">zip</span> archive. For example: 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -b /tmp stuff *</span> 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will put the temporary <span Class="emphasis">zip</span> archive in the directory <span Class="emphasis">/tmp ,</span> copying over <span Class="emphasis">stuff.zip</span> to the current directory when done. This option is useful when updating an existing archive and the file system containing this old archive does not have enough space to hold both old and new archives at the same time.  It may also be useful when streaming in some cases to avoid the need for data descriptors.  Note that using this option may require <span Class="emphasis">zip</span> take additional time to copy the archive file when done to the destination file system. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-c</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--entry-comments</span> Add one-line comments for each file. File operations (adding, updating) are done first, and the user is then prompted for a one-line comment for each file. Enter the comment followed by return, or just return for no comment. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-C</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--preserve-case</span> [VMS]  Preserve case all on VMS.  Negating this option (<span Class="bold">-C-</span>) downcases. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-C2</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--preserve-case-2</span> [VMS]  Preserve case ODS2 on VMS.  Negating this option (<span Class="bold">-C2-</span>) downcases. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-C5</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--preserve-case-5</span> [VMS]  Preserve case ODS5 on VMS.  Negating this option (<span Class="bold">-C5-</span>) downcases. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-d</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--delete</span> Remove (delete) entries from a <span Class="emphasis">zip</span> archive. For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -d foo foo/tom/junk foo/harry/\* \*.o</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will remove the entry <span Class="emphasis">foo/tom/junk ,</span> all of the files that start with <span Class="emphasis">foo/harry/ ,</span> and all of the files that end with <span Class="bold">\&.o</span> (in any path). Note that shell pathname expansion has been inhibited with backslashes, so that <span Class="emphasis">zip</span> can see the asterisks, enabling <span Class="emphasis">zip</span> to match on the contents of the <span Class="emphasis">zip</span> archive instead of the contents of the current directory. (The backslashes are not used on MSDOS-based platforms.) Can also use quotes to escape the asterisks as in 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -d foo foo/tom/junk "foo/harry/*" "*.o"</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Not escaping the asterisks on a system where the shell expands wildcards could result in the asterisks being converted to a list of files in the current directory and that list used to delete entries from the archive. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Under MSDOS, <span Class="bold">-d</span> is case sensitive when it matches names in the <span Class="emphasis">zip</span> archive. This requires that file names be entered in upper case if they were zipped by PKZIP on an MSDOS system.  (We considered making this case insensitive on systems where paths were case insensitive, but it is possible the archive came from a system where case does matter and the archive could include both <span Class="bold">Bar</span> and <span Class="bold">bar</span> as separate files in the archive.)  But see the new option <span Class="bold">-ic</span> to ignore case in the archive. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-db</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-bytes</span> Display running byte counts showing the bytes zipped and the bytes to go. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-dc</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-counts</span> Display running count of entries zipped and entries to go. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-dd</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-dots</span> Display dots while each entry is zipped (except on ports that have their own progress indicator).  See <span Class="bold">-ds</span> below for setting dot size.  The default is a dot every 10 MB of input file processed.  The <span Class="bold">-v</span> option also displays dots (previously at a much higher rate than this but now <span Class="bold">-v</span> also defaults to 10 MB) and this rate is also controlled by <span Class="bold">-ds</span>. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-df</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--datafork</span> [MacOS] Include only data-fork of files zipped into the archive. Good for exporting files to foreign operating-systems. Resource-forks will be ignored at all. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-dg</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-globaldots</span> Display progress dots for the archive instead of for each file.  The command 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">&nbsp;   zip -qdgds 10m 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will turn off most output except dots every 10 MB. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-ds\ size</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--dot-size\ size</span> Set amount of input file processed for each dot displayed.  See <span Class="bold">-dd</span> to enable displaying dots.  Setting this option implies <span Class="bold">-dd</span>.  Size is in the format nm where n is a number and m is a multiplier.  Currently m can be k (KB), m (MB), g (GB), or t (TB), so if n is 100 and m is k, size would be 100k which is 100 KB.  The default is 10 MB. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="bold">-v</span> option also displays dots and now defaults to 10 MB also.  This rate is also controlled by this option.  A size of 0 turns dots off. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This option does not control the dots from the "Scanning files" message as <span Class="emphasis">zip</span> scans for input files.  The dot size for that is fixed at 2 seconds or a fixed number of entries, whichever is longer. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-du</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-usize</span> Display the uncompressed size of each entry. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-dv</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--display-volume</span> Display the volume (disk) number each entry is being read from, if reading an existing archive, and being written to. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-D</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--no-dir-entries</span> Do not create entries in the <span Class="emphasis">zip</span> archive for directories.  Directory entries are created by default so that their attributes can be saved in the zip archive. The environment variable ZIPOPT can be used to change the default options. For example under Unix with sh: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">ZIPOPT="-D"; export ZIPOPT 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">(The variable ZIPOPT can be used for any option, including <span Class="bold">-i</span> and <span Class="bold">-x</span> using a new option format detailed below, and can include several options.) The option <span Class="bold">-D</span> is a shorthand for <span Class="bold">-x</span> "*/" but the latter previously could not be set as default in the ZIPOPT environment variable as the contents of ZIPOPT gets inserted near the beginning of the command line and the file list had to end at the end of the line. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This version of <span Class="emphasis">zip</span> does allow <span Class="bold">-x</span> and <span Class="bold">-i</span> options in ZIPOPT if the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC <span Class="manpage">-x \ file\ file\ ... \ @\fP</span>
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">is used, where the @ (an argument that is just @) terminates the list. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-DF</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--difference-archive</span> Create an archive that contains all new and changed files since the original archive was created.  For this to work, the input file list and current directory must be the same as during the original <span Class="emphasis">zip</span> operation. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">For example, if the existing archive was created using 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foofull . 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">from the <span Class="emphasis">bar</span> directory, then the command 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foofull . -DF --out foonew 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">also from the <span Class="emphasis">bar</span> directory creates the archive <span Class="emphasis">foonew</span> with just the files not in <span Class="emphasis">foofull</span> and the files where the size or file time of the files do not match those in <span Class="emphasis">foofull</span>. 
+<p class="level1">Note that the timezone environment variable TZ should be set according to the local timezone in order for this option to work correctly.  A change in timezone since the original archive was created could result in no times matching and all files being included. 
+<p class="level1">A possible approach to backing up a directory might be to create a normal archive of the contents of the directory as a full backup, then use this option to create incremental backups. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-e</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--encrypt</span> Encrypt the contents of the <span Class="emphasis">zip</span> archive using a password which is entered on the terminal in response to a prompt (this will not be echoed; if standard error is not a tty, <span Class="emphasis">zip</span> will exit with an error). The password prompt is repeated to save the user from typing errors. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-E</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--longnames</span> [OS/2] Use the .LONGNAME Extended Attribute (if found) as filename. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-f</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--freshen</span> Replace (freshen) an existing entry in the <span Class="emphasis">zip</span> archive only if it has been modified more recently than the version already in the <span Class="emphasis">zip</span> archive; unlike the update option 
+<p class="level1">this will not add files that are not already in the <span Class="emphasis">zip</span> archive. For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -f foo</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This command should be run from the same directory from which the original <span Class="emphasis">zip</span> command was run, since paths stored in <span Class="emphasis">zip</span> archives are always relative. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that the timezone environment variable TZ should be set according to the local timezone in order for the <span Class="bold">-f</span>, <span Class="bold">-u</span> and <span Class="bold">-o</span> options to work correctly. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The reasons behind this are somewhat subtle but have to do with the differences between the Unix-format file times (always in GMT) and most of the other operating systems (always local time) and the necessity to compare the two. A typical TZ value is ``MET-1MEST'' (Middle European time with automatic adjustment for ``summertime'' or Daylight Savings Time). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The format is TTThhDDD, where TTT is the time zone such as MET, hh is the difference between GMT and local time such as -1 above, and DDD is the time zone when daylight savings time is in effect.  Leave off the DDD if there is no daylight savings time.  For the US Eastern time zone EST5EDT. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-F</span> 
+<p class="level1"><span Class="bold">--fix\ \ \ \ \ \ </span> 
+<p class="level1"><span Class="bold">-FF</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--fixfix\ \ </span> Fix the <span Class="emphasis">zip</span> archive. The <span Class="bold">-F</span> option can be used if some portions of the archive are missing, but requires a reasonably intact central directory. The input archive is scanned as usual, but <span Class="emphasis">zip</span> will ignore some problems.  The resulting archive should be valid, but any inconsistent entries will be left out. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">When doubled as in <span Class="bold">-FF</span>, the archive is scanned from the beginning and <span Class="emphasis">zip</span> scans for special signatures to identify the limits between the archive members. The single <span Class="bold">-F</span> is more reliable if the archive is not too much damaged, so try this option first. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If the archive is too damaged or the end has been truncated, you must use <span Class="bold">-FF</span>.  This is a change from <span Class="emphasis">zip&nbsp;2.32</span>, where the <span Class="bold">-F</span> option is able to read a truncated archive.  The <span Class="bold">-F</span> option now more reliably fixes archives with minor damage and the <span Class="bold">-FF</span> option is needed to fix archives where <span Class="bold">-F</span> might have been sufficient before. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Neither option will recover archives that have been incorrectly transferred in ascii mode instead of binary. After the repair, the <span Class="bold">-t</span> option of <span Class="emphasis">unzip</span> may show that some files have a bad CRC. Such files cannot be recovered; you can remove them from the archive using the <span Class="bold">-d</span> option of <span Class="emphasis">zip</span>. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that <span Class="bold">-FF</span> may have trouble fixing archives that include an embedded zip archive that was stored (without compression) in the archive and, depending on the damage, it may find the entries in the embedded archive rather than the archive itself.  Try <span Class="bold">-F</span> first as it does not have this problem. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The format of the fix commands have changed.  For example, to fix the damaged archive <span Class="emphasis">foo.zip</span>, 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -F foo --out foofix 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">tries to read the entries normally, copying good entries to the new archive <span Class="emphasis">foofix.zip</span>.  If this doesn't work, as when the archive is truncated, or if some entries you know are in the archive are missed, then try 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -FF foo --out foofixfix 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">and compare the resulting archive to the archive created by <span Class="bold">-F</span>.  The <span Class="bold">-FF</span> option may create an inconsistent archive.  Depending on what is damaged, you can then use the <span Class="bold">-F</span> option to fix that archive. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">A split archive with missing split files can be fixed using <span Class="bold">-F</span> if you have the last split of the archive (the <span Class="bold">.zip</span> file). If this file is missing, you must use <span Class="bold">-FF</span> to fix the archive, which will prompt you for the splits you have. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Currently the fix options can't recover entries that have a bad checksum or are otherwise damaged. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-FI</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--fifo</span> [Unix]  Normally <span Class="emphasis">zip</span> skips reading any FIFOs (named pipes) encountered, as <span Class="emphasis">zip</span> can hang if the FIFO is not being fed.  This option tells <span Class="emphasis">zip</span> to read the contents of any FIFO it finds. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-FS</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--filesync</span> Synchronize the contents of an archive with the files on the OS. Normally when an archive is updated, new files are added and changed files are updated but files that no longer exist on the OS are not deleted from the archive.  This option enables a new mode that checks entries in the archive against the file system.  If the file time and file size of the entry matches that of the OS file, the entry is copied from the old archive instead of being read from the file system and compressed.  If the OS file has changed, the entry is read and compressed as usual.  If the entry in the archive does not match a file on the OS, the entry is deleted.  Enabling this option should create archives that are the same as new archives, but since existing entries are copied instead of compressed, updating an existing archive with <span Class="bold">-FS</span> can be much faster than creating a new archive.  Also consider using <span Class="bold">-u</span> for updating an archive. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">For this option to work, the archive should be updated from the same directory it was created in so the relative paths match.  If few files are being copied from the old archive, it may be faster to create a new archive instead. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that the timezone environment variable TZ should be set according to the local timezone in order for this option to work correctly.  A change in timezone since the original archive was created could result in no times matching and recompression of all files. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This option deletes files from the archive.  If you need to preserve the original archive, make a copy of the archive first or use the <span Class="bold">--out</span> option to output the updated archive to a new file. Even though it may be slower, creating a new archive with a new archive name is safer, avoids mismatches between archive and OS paths, and is preferred. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-g</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--grow \ \ \ \ \ \ </span> Grow (append to) the specified <span Class="emphasis">zip</span> archive, instead of creating a new one. If this operation fails, <span Class="emphasis">zip</span> attempts to restore the archive to its original state. If the restoration fails, the archive might become corrupted. This option is ignored when there's no existing archive or when at least one archive member must be updated or deleted. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-h</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">-?</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--help \ \ \ \ \ \ </span> Display the <span Class="emphasis">zip</span> help information (this also appears if <span Class="emphasis">zip</span> is run with no arguments). 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-h2</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--more-help</span> Display extended help including more on command line format, pattern matching, and more obscure options. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-i\ files</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--include\ files</span> Include only the specified files, as in: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i \*.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which will include only the files that end in <a class="emphasis" href="#">\& .c</a> in the current directory and its subdirectories. (Note for PKZIP users: the equivalent command is 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCpkzip -rP foo *.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">PKZIP does not allow recursion in directories other than the current one.) The backslash avoids the shell filename substitution, so that the name matching is performed by <span Class="emphasis">zip</span> at all directory levels. [This is for Unix and other systems where &nbsp; escapes the next character.  For other systems where the shell does not process * do not use &nbsp;and the above is 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i *.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Examples are for Unix unless otherwise specified.]  So to include dir, a directory directly under the current directory, use 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i dir/\* 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">or 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i "dir/*" 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">to match paths such as dir/a and dir/b/file.c [on ports without wildcard expansion in the shell such as MSDOS and Windows 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i dir/* 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">is used.]  Note that currently the trailing / is needed for directories (as in 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . -i dir/ 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">to include directory dir). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The long option form of the first example is 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo . --include \*.c 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">and does the same thing as the short option form. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Though the command syntax used to require <span Class="bold">-i</span> at the end of the command line, this version actually allows <span Class="bold">-i</span> (or <span Class="bold">--include</span>) anywhere.  The list of files terminates at the next argument starting with <span Class="bold">-</span>, the end of the command line, or the list terminator <a class="bold" href="#">@</a> (an argument that is just @).  So the above can be given as 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -i \*.c @ -r foo .</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">for example.  There must be a space between the option and the first file of a list.  For just one file you can use the single value form 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -i\*.c -r foo .</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">(no space between option and value) or 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip --include=\*.c -r foo .</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">as additional examples.  The single value forms are not recommended because they can be confusing and, in particular, the <span Class="bold">-ifile</span> format can cause problems if the first letter of <span Class="bold">file</span> combines with <span Class="bold">i</span> to form a two-letter option starting with <span Class="bold">i</span>.  Use <span Class="bold">-sc</span> to see how your command line will be parsed. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Also possible: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo  . -i@include.lst</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which will only include the files in the current directory and its subdirectories that match the patterns in the file include.lst. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Files to <span Class="bold">-i</span> and <span Class="bold">-x</span> are patterns matching internal archive paths.  See <span Class="bold">-R</span> for more on patterns. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-I</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--no-image</span> [Acorn RISC OS] Don't scan through Image files.  When used, <span Class="emphasis">zip</span> will not consider Image files (eg. DOS partitions or Spark archives when SparkFS is loaded) as directories but will store them as single files. 
+<p class="level1">For example, if you have SparkFS loaded, zipping a Spark archive will result in a zipfile containing a directory (and its content) while using the 'I' option will result in a zipfile containing a Spark archive. Obviously this second case will also be obtained (without the 'I' option) if SparkFS isn't loaded. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-ic</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--ignore-case</span> [VMS, WIN32] Ignore case when matching archive entries.  This option is only available on systems where the case of files is ignored.  On systems with case-insensitive file systems, case is normally ignored when matching files on the file system but is not ignored for -f (freshen), -d (delete), -U (copy), and similar modes when matching against archive entries (currently -f ignores case on VMS) because archive entries can be from systems where case does matter and names that are the same except for case can exist in an archive.  The <span Class="bold">-ic</span> option makes all matching case insensitive. This can result in multiple archive entries matching a command line pattern. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-j</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--junk-paths</span> Store just the name of a saved file (junk the path), and do not store directory names. By default, <span Class="emphasis">zip</span> will store the full path (relative to the current directory). 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-jj</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--absolute-path</span> [MacOS] record Fullpath (+ Volname). The complete path including volume will be stored. By default the relative path will be stored. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-J</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--junk-sfx</span> Strip any prepended data (e.g. a SFX stub) from the archive. 
+<p class="level1">
+<p class="level1"><span Class="bold">-k</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--DOS-names</span> Attempt to convert the names and paths to conform to MSDOS, store only the MSDOS attribute (just the user write attribute from Unix), and mark the entry as made under MSDOS (even though it was not); for compatibility with PKUNZIP under MSDOS which cannot handle certain names such as those with two dots. 
+<p class="level1">
+<p class="level1"><span Class="bold">-l</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--to-crlf</span> Translate the Unix end-of-line character LF into the MSDOS convention CR LF. This option should not be used on binary files. This option can be used on Unix if the zip file is intended for PKUNZIP under MSDOS. If the input files already contain CR LF, this option adds an extra CR. This is to ensure that <span Class="bold">unzip -a</span> on Unix will get back an exact copy of the original file, to undo the effect of <span Class="bold">zip -l</span>.  See <span Class="bold">-ll</span> for how binary files are handled. 
+<p class="level1">
+<p class="level1"><span Class="bold">-la</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--log-append</span> Append to existing logfile.  Default is to overwrite. 
+<p class="level1">
+<p class="level1"><span Class="bold">-lf\ logfilepath</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--logfile-path\ logfilepath</span> Open a logfile at the given path.  By default any existing file at that location is overwritten, but the <span Class="bold">-la</span> option will result in an existing file being opened and the new log information appended to any existing information. Only warnings and errors are written to the log unless the <span Class="bold">-li</span> option is also given, then all information messages are also written to the log. 
+<p class="level1">
+<p class="level1"><span Class="bold">-li</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--log-info</span> Include information messages, such as file names being zipped, in the log. The default is to only include the command line, any warnings and errors, and the final status. 
+<p class="level1">
+<p class="level1"><span Class="bold">-ll</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--from-crlf</span> Translate the MSDOS end-of-line CR LF into Unix LF. This option should not be used on binary files. This option can be used on MSDOS if the zip file is intended for unzip under Unix.  If the file is converted and the file is later determined to be binary a warning is issued and the file is probably corrupted.  In this release if <span Class="bold">-ll</span> detects binary in the first buffer read from a file, <span Class="emphasis">zip</span> now issues a warning and skips line end conversion on the file.  This check seems to catch all binary files tested, but the original check remains and if a converted file is later determined to be binary that warning is still issued.  A new algorithm is now being used for binary detection that should allow line end conversion of text files in <span Class="bold">UTF-8</span> and similar encodings. 
+<p class="level1">
+<p class="level1"><span Class="bold">-L</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--license</span> Display the <span Class="emphasis">zip</span> license. 
+<p class="level1">
+<p class="level1"><span Class="bold">-m</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--move \ \ \ </span> Move the specified files into the <span Class="emphasis">zip</span> archive; actually, this deletes the target directories/files after making the specified <span Class="emphasis">zip</span> archive. If a directory becomes empty after removal of the files, the directory is also removed. No deletions are done until <span Class="emphasis">zip</span> has created the archive without error. This is useful for conserving disk space, but is potentially dangerous so it is recommended to use it in combination with <span Class="bold">-T</span> to test the archive before removing all input files. 
+<p class="level1">
+<p class="level1"><span Class="bold">-MM</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--must-match</span> All input patterns must match at least one file and all input files found must be readable.  Normally when an input pattern does not match a file the "name not matched" warning is issued and when an input file has been found but later is missing or not readable a missing or not readable warning is issued.  In either case <span Class="emphasis">zip</span> continues creating the archive, with missing or unreadable new files being skipped and files already in the archive remaining unchanged. After the archive is created, if any files were not readable <span Class="emphasis">zip</span> returns the OPEN error code (18 on most systems) instead of the normal success return (0 on most systems).  With <span Class="bold">-MM</span> set, <span Class="emphasis">zip</span> exits as soon as an input pattern is not matched (whenever the "name not matched" warning would be issued) or when an input file is not readable.  In either case <span Class="emphasis">zip</span> exits with an OPEN error and no archive is created. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This option is useful when a known list of files is to be zipped so any missing or unreadable files will result in an error.  It is less useful when used with wildcards, but <span Class="emphasis">zip</span> will still exit with an error if any input pattern doesn't match at least one file and if any matched files are unreadable.  If you want to create the archive anyway and only need to know if files were skipped, don't use <span Class="bold">-MM</span> and just check the return code.  Also <span Class="bold">-lf</span> could be useful. 
+<p class="level1">
+<p class="level1"><span Class="bold">-n\ suffixes</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--suffixes\ suffixes</span> Do not attempt to compress files named with the given <span Class="bold">suffixes</span>. Such files are simply stored (0% compression) in the output zip file, so that <span Class="emphasis">zip</span> doesn't waste its time trying to compress them. The suffixes are separated by either colons or semicolons.  For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -rn .Z:.zip:.tiff:.gif:.snd  foo foo</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will copy everything from <span Class="emphasis">foo</span> into <span Class="emphasis">foo.zip ,</span> but will store any files that end in <span Class="emphasis">.Z ,</span> <span Class="emphasis">.zip ,</span> <span Class="emphasis">.tiff ,</span> <span Class="emphasis">.gif ,</span> or <span Class="emphasis">.snd</span> without trying to compress them (image and sound files often have their own specialized compression methods). By default, <span Class="emphasis">zip</span> does not compress files with extensions in the list <span Class="emphasis">.Z:.zip:.zoo:.arc:.lzh:.arj.</span> Such files are stored directly in the output archive. The environment variable ZIPOPT can be used to change the default options. For example under Unix with csh: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">setenv ZIPOPT "-n .gif:.zip" 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">To attempt compression on all files, use: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -n : foo 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The maximum compression option <span Class="bold">-9</span> also attempts compression on all files regardless of extension. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">On Acorn RISC OS systems the suffixes are actually filetypes (3 hex digit format). By default, <span Class="emphasis">zip</span> does not compress files with filetypes in the list DDC:D96:68E (i.e. Archives, CFS files and PackDir files). 
+<p class="level1">
+<p class="level1"><span Class="bold">-nw</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--no-wild</span> Do not perform internal wildcard processing (shell processing of wildcards is still done by the shell unless the arguments are escaped).  Useful if a list of paths is being read and no wildcard substitution is desired. 
+<p class="level1">
+<p class="level1"><span Class="bold">-N</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--notes</span> [Amiga, MacOS] Save Amiga or MacOS filenotes as zipfile comments. They can be restored by using the -N option of <span Class="emphasis">unzip</span>. If -c is used also, you are prompted for comments only for those files that do not have filenotes. 
+<p class="level1">
+<p class="level1"><span Class="bold">-o</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--latest-time</span> Set the "last modified" time of the <span Class="emphasis">zip</span> archive to the latest (oldest) "last modified" time found among the entries in the <span Class="emphasis">zip</span> archive. This can be used without any other operations, if desired. For example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -o foo</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will change the last modified time of <span Class="bold">foo.zip</span> to the latest time of the entries in <span Class="manpage">foo.zip .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">-O output-file</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--output-file output-file</span> Process the archive changes as usual, but instead of updating the existing archive, output the new archive to output-file.  Useful for updating an archive without changing the existing archive and the input archive must be a different file than the output archive. 
+<p class="level1">This option can be used to create updated split archives. It can also be used with <span Class="bold">-U</span> to copy entries from an existing archive to a new archive.  See the <a class="bold" href="#EXAMPLES">EXAMPLES</a> section below. 
+<p class="level1">Another use is converting <span Class="emphasis">zip</span> files from one split size to another.  For instance, to convert an archive with 700 MB CD splits to one with 2 GB DVD splits, can use: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -s 2g cd-split.zip --out dvd-split.zip 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which uses copy mode.  See <span Class="bold">-U</span> below.  Also: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -s 0 split.zip --out unsplit.zip 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will convert a split archive to a single-file archive. 
+<p class="level1">Copy mode will convert stream entries (using data descriptors and which should be compatible with most unzips) to normal entries (which should be compatible with all unzips), except if standard encryption was used.  For archives with encrypted entries, <span Class="emphasis">zipcloak</span> will decrypt the entries and convert them to normal entries. 
+<p class="level1">
+<p class="level1"><span Class="bold">-p</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--paths</span> Include relative file paths as part of the names of files stored in the archive. This is the default.  The <span Class="bold">-j</span> option junks the paths and just stores the names of the files. 
+<p class="level1">
+<p class="level1"><span Class="bold">-P\ password</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--password\ password</span> Use <span Class="emphasis">password</span> to encrypt zipfile entries (if any).  <span class="bold">THIS IS INSECURE!</span>  Many multi-user operating systems provide ways for any user to see the current command line of any other user; even on stand-alone systems there is always the threat of over-the-shoulder peeking.  Storing the plaintext password as part of a command line in an automated script is even worse. Whenever possible, use the non-echoing, interactive prompt to enter passwords. (And where security is truly important, use strong encryption such as Pretty Good Privacy instead of the relatively weak standard encryption provided by zipfile utilities.) 
+<p class="level1">
+<p class="level1"><span Class="bold">-q</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--quiet</span> Quiet mode; eliminate informational messages and comment prompts. (Useful, for example, in shell scripts and background tasks). 
+<p class="level1">
+<p class="level1"><span Class="bold">-Qn</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--Q-flag\ n</span> [QDOS] store information about the file in the file header with n defined as 
+<p class="level2">bit  0: Don't add headers for any file 
+<p class="level1">
+<p class="level2">bit  1: Add headers for all files 
+<p class="level1">
+<p class="level2">bit  2: Don't wait for interactive key press on exit 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-r</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--recurse-paths</span> Travel the directory structure recursively; for example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -r foo.zip foo 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">or more concisely 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -r foo foo 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">In this case, all the files and directories in <span Class="bold">foo</span> are saved in a <span Class="emphasis">zip</span> archive named <span Class="bold">foo.zip</span>, including files with names starting with <a class="bold" href="#">"."</a>, since the recursion does not use the shell's file-name substitution mechanism. If you wish to include only a specific subset of the files in directory <span Class="bold">foo</span> and its subdirectories, use the <span Class="bold">-i</span> option to specify the pattern of files to be included. You should not use <span Class="bold">-r</span> with the name <a class="bold" href="#">".*"</a>, since that matches <a class="bold" href="#">".."</a> which will attempt to zip up the parent directory (probably not what was intended). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Multiple source directories are allowed as in 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo1 foo2</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which first zips up <span Class="bold">foo1</span> and then <span Class="bold">foo2</span>, going down each directory. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that while wildcards to <span Class="bold">-r</span> are typically resolved while recursing down directories in the file system, any <span class="bold">-RfN, <span Class="bold">-x</span>, and <span Class="bold">-i</span> wildcards are applied to internal archive pathnames once the directories are scanned. To have wildcards apply to files in subdirectories when recursing on Unix and similar systems where the shell does wildcard substitution, either escape all wildcards or put all arguments with wildcards in quotes.  This lets <span Class="emphasis">zip</span> see the wildcards and match files in subdirectories using them as it recurses. 
+<p class="level1">
+<p class="level1"><span Class="bold">-R</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--recurse-patterns</span> Travel the directory structure recursively starting at the current directory; for example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -R foo "*.c"</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">In this case, all the files matching <span Class="bold">*.c</span> in the tree starting at the current directory are stored into a <span Class="emphasis">zip</span> archive named <span Class="bold">foo.zip</span>. Note that <span Class="bold">*.c</span> will match <span Class="bold">file.c</span>, <span Class="bold">a/file.c</span> and <span Class="bold">a/b/.c</span>.  More than one pattern can be listed as separate arguments. Note for PKZIP users: the equivalent command is 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCpkzip -rP foo *.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Patterns are relative file paths as they appear in the archive, or will after zipping, and can have optional wildcards in them.  For example, given the current directory is <span Class="bold">foo</span> and under it are directories <span Class="bold">foo1</span> and <span Class="bold">foo2</span> and in <span Class="bold">foo1</span> is the file <span Class="bold">bar.c</span>, 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -R foo/*</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will zip up <span Class="bold">foo</span>, <span Class="bold">foo/foo1</span>, <span Class="bold">foo/foo1/bar.c</span>, and <span Class="bold">foo/foo2</span>. 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -R */bar.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will zip up <span Class="bold">foo/foo1/bar.c</span>.  See the note for <span Class="bold">-r</span> on escaping wildcards. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-RE</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--regex</span> [WIN32]  Before <span Class="emphasis">zip</span> <span Class="emphasis">3.0</span>, regular expression list matching was enabled by default on Windows platforms.  Because of confusion resulting from the need to escape "[" and "]" in names, it is now off by default for Windows so "[" and "]" are just normal characters in names.  This option enables [] matching again. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-s\ splitsize</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--split-size\ splitsize</span> Enable creating a split archive and set the split size.  A split archive is an archive that could be split over many files.  As the archive is created, if the size of the archive reaches the specified split size, that split is closed and the next split opened.  In general all splits but the last will be the split size and the last will be whatever is left.  If the entire archive is smaller than the split size a single-file archive is created. 
+<p class="level1">Split archives are stored in numbered files.  For example, if the output archive is named <span Class="bold">archive</span> and three splits are required, the resulting archive will be in the three files <span Class="bold">archive.z01</span>, <span Class="bold">archive.z02</span>, and <span Class="bold">archive.zip</span>.  Do not change the numbering of these files or the archive will not be readable as these are used to determine the order the splits are read. 
+<p class="level1">Split size is a number optionally followed by a multiplier.  Currently the number must be an integer.  The multiplier can currently be one of <span Class="bold">k</span> (kilobytes), <span Class="bold">m</span> (megabytes), <span Class="bold">g</span> (gigabytes), or <span Class="bold">t</span> (terabytes).  As 64k is the minimum split size, numbers without multipliers default to megabytes.  For example, to create a split archive called <span Class="bold">foo</span> with the contents of the <span Class="bold">bar</span> directory with splits of 670 MB that might be useful for burning on CDs, the command: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -s 670m -r foo bar 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">could be used. 
+<p class="level1">Currently the old splits of a split archive are not excluded from a new archive, but they can be specifically excluded.  If possible, keep the input and output archives out of the path being zipped when creating split archives. 
+<p class="level1">Using <span Class="bold">-s</span> without <span Class="bold">-sp</span> as above creates all the splits where <span Class="bold">foo</span> is being written, in this case the current directory.  This split mode updates the splits as the archive is being created, requiring all splits to remain writable, but creates split archives that are readable by any unzip that supports split archives.  See <span Class="bold">-sp</span> below for enabling split pause mode which allows splits to be written directly to removable media. 
+<p class="level1">The option <span Class="bold">-sv</span> can be used to enable verbose splitting and provide details of how the splitting is being done.  The <span Class="bold">-sb</span> option can be used to ring the bell when <span Class="emphasis">zip</span> pauses for the next split destination. 
+<p class="level1">Split archives cannot be updated, but see the <span Class="bold">-O</span> (<span Class="bold">--out</span>) option for how a split archive can be updated as it is copied to a new archive. A split archive can also be converted into a single-file archive using a split size of 0 or negating the <span Class="bold">-s</span> option: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -s 0 split.zip --out single.zip 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Also see <span Class="bold">-U</span> (<span Class="bold">--copy</span>) for more on using copy mode. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sb</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--split-bell</span> If splitting and using split pause mode, ring the bell when <span Class="emphasis">zip</span> pauses for each split destination. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sc</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--show-command</span> Show the command line starting <span Class="emphasis">zip</span> as processed and exit.  The new command parser permutes the arguments, putting all options and any values associated with them before any non-option arguments.  This allows an option to appear anywhere in the command line as long as any values that go with the option go with it.  This option displays the command line as <span Class="emphasis">zip</span> sees it, including any arguments from the environment such as from the <span Class="bold">ZIPOPT</span> variable.  Where allowed, options later in the command line can override options earlier in the command line. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sf</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--show-files</span> Show the files that would be operated on, then exit.  For instance, if creating a new archive, this will list the files that would be added.  If the option is negated, <span Class="bold">-sf-</span>, output only to an open log file.  Screen display is not recommended for large lists. 
+<p class="level1">
+<p class="level1"><span Class="bold">-so</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--show-options</span> Show all available options supported by <span Class="emphasis">zip</span> as compiled on the current system. As this command reads the option table, it should include all options.  Each line includes the short option (if defined), the long option (if defined), the format of any value that goes with the option, if the option can be negated, and a small description.  The value format can be no value, required value, optional value, single character value, number value, or a list of values.  The output of this option is not intended to show how to use any option but only show what options are available. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sp</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--split-pause</span> If splitting is enabled with <span Class="bold">-s</span>, enable split pause mode.  This creates split archives as <span Class="bold">-s</span> does, but stream writing is used so each split can be closed as soon as it is written and <span Class="emphasis">zip</span> will pause between each split to allow changing split destination or media. 
+<p class="level1">Though this split mode allows writing splits directly to removable media, it uses stream archive format that may not be readable by some unzips.  Before relying on splits created with <span Class="bold">-sp</span>, test a split archive with the unzip you will be using. 
+<p class="level1">To convert a stream split archive (created with <span Class="bold">-sp</span>) to a standard archive see the <span Class="bold">--out</span> option. 
+<p class="level1">
+<p class="level1"><span Class="bold">-su</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--show-unicode</span> As <span Class="bold">-sf</span>, but also show Unicode version of the path if exists. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sU</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--show-just-unicode</span> As <span Class="bold">-sf</span>, but only show Unicode version of the path if exists, otherwise show the standard version of the path. 
+<p class="level1">
+<p class="level1"><span Class="bold">-sv</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--split-verbose</span> Enable various verbose messages while splitting, showing how the splitting is being done. 
+<p class="level1">
+<p class="level1"><span Class="bold">-S</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--system-hidden</span> [MSDOS, OS/2, WIN32 and ATARI] Include system and hidden files. 
+<p class="level2">[MacOS] Includes finder invisible files, which are ignored otherwise. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-t\ mmddyyyy</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--from-date\ mmddyyyy</span> Do not operate on files modified prior to the specified date, where <span Class="bold">mm</span> is the month (00-12), <span Class="bold">dd</span> is the day of the month (01-31), and <span Class="bold">yyyy</span> is the year. The <span Class="emphasis">ISO\ 8601</span> date format <span Class="bold">yyyy-mm-dd</span> is also accepted. For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -rt 12071991 infamy foo</span> 
+<p class="level2">fCzip -rt 1991-12-07 infamy foo</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will add all the files in <span Class="bold">foo</span> and its subdirectories that were last modified on or after 7 December 1991, to the <span Class="emphasis">zip</span> archive <span Class="manpage">infamy.zip .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">-tt\ mmddyyyy</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--before-date\ mmddyyyy</span> Do not operate on files modified after or at the specified date, where <span Class="bold">mm</span> is the month (00-12), <span Class="bold">dd</span> is the day of the month (01-31), and <span Class="bold">yyyy</span> is the year. The <span Class="emphasis">ISO\ 8601</span> date format <span Class="bold">yyyy-mm-dd</span> is also accepted. For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -rtt 11301995 infamy foo</span> 
+<p class="level2">fCzip -rtt 1995-11-30 infamy foo</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will add all the files in <span Class="bold">foo</span> and its subdirectories that were last modified before 30 November 1995, to the <span Class="emphasis">zip</span> archive <span Class="manpage">infamy.zip .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">-T</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--test\ \ \ \ </span> Test the integrity of the new zip file. If the check fails, the old zip file is unchanged and (with the <span Class="bold">-m</span> option) no input files are removed. 
+<p class="level1">
+<p class="level1"><span Class="bold">-TT\ cmd</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--unzip-command\ cmd</span> Use command cmd instead of 'unzip -tqq' to test an archive when the <span Class="bold">-T</span> option is used.  On Unix, to use a copy of unzip in the current directory instead of the standard system unzip, could use: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fC zip archive file1 file2 -T -TT "./unzip -tqq"</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">In cmd, {} is replaced by the name of the temporary archive, otherwise the name of the archive is appended to the end of the command. The return code is checked for success (0 on Unix). 
+<p class="level1">
+<p class="level1"><span Class="bold">-u</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--update</span> Replace (update) an existing entry in the <span Class="emphasis">zip</span> archive only if it has been modified more recently than the version already in the <span Class="emphasis">zip</span> archive. For example: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -u stuff *</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will add any new files in the current directory, and update any files which have been modified since the <span Class="emphasis">zip</span> archive <span Class="emphasis">stuff.zip</span> was last created/modified (note that <span Class="emphasis">zip</span> will not try to pack <span Class="emphasis">stuff.zip</span> into itself when you do this). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that the <span Class="bold">-u</span> option with no input file arguments acts like the <span Class="bold">-f</span> (freshen) option. 
+<p class="level1">
+<p class="level1"><span Class="bold">-U</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--copy-entries</span> Copy entries from one archive to another.  Requires the <span Class="bold">--out</span> option to specify a different output file than the input archive.  Copy mode is the reverse of <span Class="bold">-d</span> delete.  When delete is being used with <span Class="bold">--out</span>, the selected entries are deleted from the archive and all other entries are copied to the new archive, while copy mode selects the files to include in the new archive.  Unlike <span Class="bold">-u</span> update, input patterns on the command line are matched against archive entries only and not the file system files.  For instance, 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip inarchive "*.c" --copy --out outarchive</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">copies entries with names ending in <span Class="bold">.c</span> from <span Class="bold">inarchive</span> to <span Class="bold">outarchive</span>.  The wildcard must be escaped on some systems to prevent the shell from substituting names of files from the file system which may have no relevance to the entries in the archive. 
+<p class="level1">If no input files appear on the command line and <span Class="bold">--out</span> is used, copy mode is assumed: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip inarchive --out outarchive</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This is useful for changing split size for instance.  Encrypting and decrypting entries is not yet supported using copy mode.  Use <span Class="emphasis">zipcloak</span> for that. 
+<p class="level1">
+<p class="level1"><span Class="bold">-UN\ v</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--unicode\ v</span> Determine what <span Class="emphasis">zip</span> should do with Unicode file names. <span Class="emphasis">zip&nbsp;3.0</span>, in addition to the standard file path, now includes the UTF-8 translation of the path if the entry path is not entirely 7-bit ASCII.  When an entry is missing the Unicode path, <span Class="emphasis">zip</span> reverts back to the standard file path.  The problem with using the standard path is this path is in the local character set of the zip that created the entry, which may contain characters that are not valid in the character set being used by the unzip.  When <span Class="emphasis">zip</span> is reading an archive, if an entry also has a Unicode path, <span Class="emphasis">zip</span> now defaults to using the Unicode path to recreate the standard path using the current local character set. 
+<p class="level1">This option can be used to determine what <span Class="emphasis">zip</span> should do with this path if there is a mismatch between the stored standard path and the stored UTF-8 path (which can happen if the standard path was updated).  In all cases, if there is a mismatch it is assumed that the standard path is more current and <span Class="emphasis">zip</span> uses that.  Values for <span Class="bold">v</span> are 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">q - quit if paths do not match 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">w - warn, continue with standard path 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">i - ignore, continue with standard path 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">n - no Unicode, do not use Unicode paths 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default is to warn and continue. 
+<p class="level1">Characters that are not valid in the current character set are escaped as <span Class="bold">&#35;Uxxxx</span> and <span Class="bold">&#35;Lxxxxxx</span>, where x is an ASCII character for a hex digit.  The first is used if a 16-bit character number is sufficient to represent the Unicode character and the second if the character needs more than 16 bits to represent it's Unicode character code.  Setting <span Class="bold">-UN</span> to 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">e - escape 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">as in 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip archive -sU -UN=e</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">forces <span Class="emphasis">zip</span> to escape all characters that are not printable 7-bit ASCII. 
+<p class="level1">Normally <span Class="emphasis">zip</span> stores UTF-8 directly in the standard path field on systems where UTF-8 is the current character set and stores the UTF-8 in the new extra fields otherwise.  The option 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">u - UTF-8 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">as in 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip archive dir -r -UN=UTF8</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">forces <span Class="emphasis">zip</span> to store UTF-8 as native in the archive.  Note that storing UTF-8 directly is the default on Unix systems that support it. This option could be useful on Windows systems where the escaped path is too large to be a valid path and the UTF-8 version of the path is smaller, but native UTF-8 is not backward compatible on Windows systems. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-v</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--verbose</span> Verbose mode or print diagnostic version info. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Normally, when applied to real operations, this option enables the display of a progress indicator during compression (see <span Class="bold">-dd</span> for more on dots) and requests verbose diagnostic info about zipfile structure oddities. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">However, when <span Class="bold">-v</span> is the only command line argument a diagnostic screen is printed instead.  This should now work even if stdout is redirected to a file, allowing easy saving of the information for sending with bug reports to Info-ZIP.  The version screen provides the help screen header with program name, version, and release date, some pointers to the Info-ZIP home and distribution sites, and shows information about the target environment (compiler type and version, OS version, compilation date and the enabled optional features used to create the <span Class="emphasis">zip</span> executable). 
+<p class="level1">
+<p class="level1"><span Class="bold">-V</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--VMS-portable</span> [VMS] Save VMS file attributes. (Files are  truncated at EOF.)   When a -V archive is unpacked on a non-VMS system,  some file types (notably Stream_LF text files  and  pure binary files  like fixed-512) should be extracted intact.  Indexed files and file types with embedded record sizes (notably variable-length record types) will probably be seen as corrupt elsewhere. 
+<p class="level1">
+<p class="level1"><span Class="bold">-VV</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--VMS-specific</span> [VMS] Save VMS file attributes, and  all allocated blocks in a file,  including  any  data beyond EOF. Useful for moving ill-formed files  among  VMS systems.   When a -VV archive is unpacked on a non-VMS system, almost all files will appear corrupt. 
+<p class="level1">
+<p class="level1"><span Class="bold">-w</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--VMS-versions</span> [VMS] Append the version number of the files to the name, including multiple versions of files.  Default is to use only the most recent version of a specified file. 
+<p class="level1">
+<p class="level1"><span Class="bold">-ww</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--VMS-dot-versions</span> [VMS] Append the version number of the files to the name, including multiple versions of files, using the .nnn format. Default is to use only the most recent version of a specified file. 
+<p class="level1">
+<p class="level1"><span Class="bold">-ws</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--wild-stop-dirs</span> Wildcards match only at a directory level.  Normally <span Class="emphasis">zip</span> handles paths as strings and given the paths 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">/foo/bar/dir/file1.c 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">/foo/bar/file2.c 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">an input pattern such as 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">/foo/bar/* 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">normally would match both paths, the * matching <span Class="bold">dir/file1.c</span> and <span Class="bold">file2.c</span>.  Note that in the first case a directory boundary (/) was crossed in the match.  With <span Class="bold">-ws</span> no directory bounds will be included in the match, making wildcards local to a specific directory level.  So, with <span Class="bold">-ws</span> enabled, only the second path would be matched. 
+<p class="level1">When using <span Class="bold">-ws</span>, use ** to match across directory boundaries as * does normally. 
+<p class="level1">
+<p class="level1"><span Class="bold">-x\ files</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--exclude\ files</span> Explicitly exclude the specified files, as in: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo -x \*.o</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which will include the contents of <span Class="bold">foo</span> in <span Class="bold">foo.zip</span> while excluding all the files that end in <span Class="bold">.o</span>. The backslash avoids the shell filename substitution, so that the name matching is performed by <span Class="emphasis">zip</span> at all directory levels. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Also possible: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo -x@exclude.lst</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which will include the contents of <span Class="bold">foo</span> in <span Class="bold">foo.zip</span> while excluding all the files that match the patterns in the file <span Class="bold">exclude.lst</span>. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The long option forms of the above are 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo --exclude \*.o</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">and 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo --exclude @exclude.lst</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Multiple patterns can be specified, as in: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo -x \*.o \*.c</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If there is no space between <span Class="bold">-x</span> and the pattern, just one value is assumed (no list): 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -r foo foo -x\*.o</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">See <span Class="bold">-i</span> for more on include and exclude. 
+<p class="level1">
+<p class="level1"><span Class="bold">-X</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--no-extra</span> Do not save extra file attributes (Extended Attributes on OS/2, uid/gid and file times on Unix).  The zip format uses extra fields to include additional information for each entry.  Some extra fields are specific to particular systems while others are applicable to all systems. Normally when <span Class="emphasis">zip</span> reads entries from an existing archive, it reads the extra fields it knows, strips the rest, and adds the extra fields applicable to that system.  With <span Class="bold">-X</span>, <span Class="emphasis">zip</span> strips all old fields and only includes the Unicode and Zip64 extra fields (currently these two extra fields cannot be disabled). 
+<p class="level1">Negating this option, <span Class="bold">-X-</span>, includes all the default extra fields, but also copies over any unrecognized extra fields. 
+<p class="level1">
+<p class="level1"><span Class="bold">-y</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--symlinks</span> For UNIX and VMS (V8.3 and later), store symbolic links as such in the <span Class="emphasis">zip</span> archive, instead of compressing and storing the file referred to by the link.  This can avoid multiple copies of files being included in the archive as <span Class="emphasis">zip</span> recurses the directory trees and accesses files directly and by links. 
+<p class="level1">
+<p class="level1"><span Class="bold">-z</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--archive-comment</span> Prompt for a multi-line comment for the entire <span Class="emphasis">zip</span> archive. The comment is ended by a line containing just a period, or an end of file condition (^D on Unix, ^Z on MSDOS, OS/2, and VMS). The comment can be taken from a file: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -z foo &lt; foowhat</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-Z\ cm</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--compression-method\ cm</span> Set the default compression method.  Currently the main methods supported by <span Class="emphasis">zip</span> are <span Class="bold">store</span> and <span Class="bold">deflate</span>.  Compression method can be set to: 
+<p class="level1"><span Class="bold">store</span> - Setting the compression method to <span Class="bold">store</span> forces <span Class="emphasis">zip</span> to store entries with no compression.  This is generally faster than compressing entries, but results in no space savings. This is the same as using <span Class="bold">-0</span> (compression level zero). 
+<p class="level1"><span Class="bold">deflate</span> - This is the default method for <span Class="emphasis">zip</span>.  If <span Class="emphasis">zip</span> determines that storing is better than deflation, the entry will be stored instead. 
+<p class="level1"><span Class="bold">bzip2</span> - If <span Class="bold">bzip2</span> support is compiled in, this compression method also becomes available.  Only some modern unzips currently support the <span Class="bold">bzip2</span> compression method, so test the unzip you will be using before relying on archives using this method (compression method 12). 
+<p class="level1">For example, to add <span Class="bold">bar.c</span> to archive <span Class="bold">foo</span> using <span Class="bold">bzip2</span> compression: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -Z bzip2 foo bar.c 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The compression method can be abbreviated: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">zip -Zb foo bar.c 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-#</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">(-0, -1, -2, -3, -4, -5, -6, -7, -8, -9)</span> Regulate the speed of compression using the specified digit <a class="manpage" href="#">#</a>where <span Class="bold">-0</span> indicates no compression (store all files), <span Class="bold">-1</span> indicates the fastest compression speed (less compression) and <span Class="bold">-9</span> indicates the slowest compression speed (optimal compression, ignores the suffix list). The default compression level is <span Class="manpage">-6.</span>
+<p class="level1">Though still being worked, the intention is this setting will control compression speed for all compression methods.  Currently only deflation is controlled. 
+<p class="level1">
+<p class="level1"><span Class="bold">-!</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--use-privileges</span> [WIN32] Use privileges (if granted) to obtain all aspects of WinNT security. 
+<p class="level1">
+<p class="level1"><span Class="bold">-@</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--names-stdin</span> Take the list of input files from standard input. Only one filename per line. 
+<p class="level1">
+<p class="level1"><span Class="bold">-$</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--volume-label</span> [MSDOS, OS/2, WIN32] Include the volume label for the drive holding the first file to be compressed.  If you want to include only the volume label or to force a specific drive, use the drive name as first file name, as in: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip -$ foo a: c:bar</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">The simplest example: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip stuff *</span> 
+<p class="level1">creates the archive <span Class="emphasis">stuff.zip</span> (assuming it does not exist) and puts all the files in the current directory in it, in compressed form (the <span Class="bold">.zip</span> suffix is added automatically, unless the archive name contains a dot already; this allows the explicit specification of other suffixes). 
+<p class="level1">Because of the way the shell on Unix does filename substitution, files starting with "." are not included; to include these as well: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip stuff .* *</span> 
+<p class="level1">Even this will not include any subdirectories from the current directory. 
+<p class="level1">To zip up an entire directory, the command: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -r foo foo</span> 
+<p class="level1">creates the archive <span Class="emphasis">foo.zip ,</span> containing all the files and directories in the directory <span Class="emphasis">foo</span> that is contained within the current directory. 
+<p class="level1">You may want to make a <span Class="emphasis">zip</span> archive that contains the files in <span Class="emphasis">foo ,</span> without recording the directory name, <span Class="emphasis">foo .</span> You can use the <span Class="bold">-j</span> option to leave off the paths, as in: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -j foo foo/*</span> 
+<p class="level1">If you are short on disk space, you might not have enough room to hold both the original directory and the corresponding compressed <span Class="emphasis">zip</span> archive. In this case, you can create the archive in steps using the <span Class="bold">-m</span> option. If <span Class="emphasis">foo</span> contains the subdirectories <span Class="emphasis">tom ,</span> <span Class="emphasis">dick ,</span> and <span Class="emphasis">harry ,</span> you can: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -rm foo foo/tom</span> <br>fCzip -rm foo foo/dick</span> <br>fCzip -rm foo foo/harry</span> 
+<p class="level1">where the first command creates <span Class="emphasis">foo.zip ,</span> and the next two add to it. At the completion of each <span Class="emphasis">zip</span> command, the last created archive is deleted, making room for the next <span Class="emphasis">zip</span> command to function. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">Use <span Class="bold">-s</span> to set the split size and create a split archive.  The size is given as a number followed optionally by one of k (kB), m (MB), g (GB), or t (TB). The command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip -s 2g -r split.zip foo</span> 
+<p class="level1">creates a split archive of the directory foo with splits no bigger than 2&nbsp;GB each.  If foo contained 5&nbsp;GB of contents and the contents were stored in the split archive without compression (to make this example simple), this would create three splits, split.z01 at 2&nbsp;GB, split.z02 at 2&nbsp;GB, and split.zip at a little over 1&nbsp;GB. 
+<p class="level1">The <span Class="bold">-sp</span> option can be used to pause <span Class="emphasis">zip</span> between splits to allow changing removable media, for example, but read the descriptions and warnings for both <span Class="bold">-s</span> and <span Class="bold">-sp</span> below. 
+<p class="level1">Though <span Class="emphasis">zip</span> does not update split archives, <span Class="emphasis">zip</span> provides the new option <span Class="bold">-O</span> (<span Class="bold">--output-file</span>) to allow split archives to be updated and saved in a new archive.  For example, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip inarchive.zip foo.c bar.c --out outarchive.zip</span> 
+<p class="level1">reads archive <span Class="bold">inarchive.zip</span>, even if split, adds the files <span Class="bold">foo.c</span> and <span Class="bold">bar.c</span>, and writes the resulting archive to <span Class="bold">outarchive.zip</span>.  If <span Class="bold">inarchive.zip</span> is split then <span Class="bold">outarchive.zip</span> defaults to the same split size.  Be aware that <span Class="bold">outarchive.zip</span> and any split files that are created with it are always overwritten without warning.  This may be changed in the future. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="PATTERN"></a><h2 class="nroffsh">PATTERN MATCHING</h2>
+<p class="level0">This section applies only to Unix. Watch this space for details on MSDOS and VMS operation. However, the special wildcard characters <a class="bold" href="#">*</a> and <a class="bold" href="#">[]</a> below apply to at least MSDOS also. 
+<p class="level0">The Unix shells (<span Class="emphasis">sh</span>, <span Class="emphasis">csh</span>, <span Class="emphasis">bash</span>, and others) normally do filename substitution (also called "globbing") on command arguments. Generally the special characters are: 
+<p class="level0"><a class="bold" href="#">?</a> match any single character 
+<p class="level0"><a class="bold" href="#">*</a> match any number of characters (including none) 
+<p class="level0"><a class="bold" href="#">[]</a> match any character in the range indicated within the brackets (example: [a-f], [0-9]).  This form of wildcard matching allows a user to specify a list of characters between square brackets and if any of the characters match the expression matches.  For example: 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">fCzip archive "*.[hc]"</span> 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">would archive all files in the current directory that end in <span Class="bold">.h</span> or <span Class="bold">.c</span>. 
+<p class="level1">Ranges of characters are supported: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip archive "[a-f]*"</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">would add to the archive all files starting with "a" through "f". 
+<p class="level1">Negation is also supported, where any character in that position not in the list matches.  Negation is supported by adding <a class="bold" href="#">!</a> or <a class="bold" href="#">^</a> to the beginning of the list: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">fCzip archive "*.[!o]"</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">matches files that don't end in ".o". 
+<p class="level1">On WIN32, [] matching needs to be turned on with the -RE option to avoid the confusion that names with [ or ] have caused. 
+<p class="level1">
+<p class="level1">When these characters are encountered (without being escaped with a backslash or quotes), the shell will look for files relative to the current path that match the pattern, and replace the argument with a list of the names that matched. 
+<p class="level1">The <span Class="emphasis">zip</span> program can do the same matching on names that are in the <span Class="emphasis">zip</span> archive being modified or, in the case of the <span Class="bold">-x</span> (exclude) or <span Class="bold">-i</span> (include) options, on the list of files to be operated on, by using backslashes or quotes to tell the shell not to do the name expansion. In general, when <span Class="emphasis">zip</span> encounters a name in the list of files to do, it first looks for the name in the file system.  If it finds it, it then adds it to the list of files to do. If it does not find it, it looks for the name in the <span Class="emphasis">zip</span> archive being modified (if it exists), using the pattern matching characters described above, if present.  For each match, it will add that name to the list of files to be processed, unless this name matches one given with the <span Class="bold">-x</span> option, or does not match any name given with the <span Class="bold">-i</span> option. 
+<p class="level1">The pattern matching includes the path, and so patterns like \*.o match names that end in ".o", no matter what the path prefix is. Note that the backslash must precede every special character (i.e. ?*[]), or the entire argument must be enclosed in double quotes (""). 
+<p class="level1">In general, use backslashes or double quotes for paths that have wildcards to make <span Class="emphasis">zip</span> do the pattern matching for file paths, and always for paths and strings that have spaces or wildcards for <span Class="bold">-i</span>, <span Class="bold">-x</span>, <span Class="bold">-R</span>, <span Class="bold">-d</span>, and <span Class="bold">-U</span> and anywhere <span Class="emphasis">zip</span> needs to process the wildcards. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">The following environment variables are read and used by <span Class="emphasis">zip</span> as described. 
+<p class="level0"><span Class="bold">ZIPOPT\ \ </span> contains default options that will be used when running <span Class="emphasis">zip</span>.  The contents of this environment variable will get added to the command line just after the <span Class="bold">zip</span> command. 
+<p class="level0"><span Class="bold">ZIP\ \ \ \ \ </span> [Not on RISC OS and VMS] see ZIPOPT 
+<p class="level0"><span Class="bold">Zip$Options</span> [RISC OS] see ZIPOPT 
+<p class="level0"><span Class="bold">Zip$Exts</span> [RISC OS] contains extensions separated by a : that will cause native filenames with one of the specified extensions to be added to the zip file with basename and extension swapped. 
+<p class="level0"><span Class="bold">ZIP_OPTS</span> [VMS] see ZIPOPT <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">compress(1), shar(1), tar(1), unzip(1), gzip(1) <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">The exit status (or error level) approximates the exit codes defined by PKWARE and takes on the following values, except under VMS: 
+<p class="level1">
+<p class="level0"><a name="0"></a><span class="nroffip">0</span> 
+<p class="level1">normal; no errors or warnings detected. 
+<p class="level0"><a name="2"></a><span class="nroffip">2</span> 
+<p class="level1">unexpected end of zip file. 
+<p class="level0"><a name="3"></a><span class="nroffip">3</span> 
+<p class="level1">a generic error in the zipfile format was detected.  Processing may have completed successfully anyway; some broken zipfiles created by other archivers have simple work-arounds. 
+<p class="level0"><a name="4"></a><span class="nroffip">4</span> 
+<p class="level1"><span Class="emphasis">zip</span> was unable to allocate memory for one or more buffers during program initialization. 
+<p class="level0"><a name="5"></a><span class="nroffip">5</span> 
+<p class="level1">a severe error in the zipfile format was detected.  Processing probably failed immediately. 
+<p class="level0"><a name="6"></a><span class="nroffip">6</span> 
+<p class="level1">entry too large to be processed (such as input files larger than 2 GB when not using Zip64 or trying to read an existing archive that is too large) or entry too large to be split with <span Class="emphasis">zipsplit</span> 
+<p class="level0"><a name="7"></a><span class="nroffip">7</span> 
+<p class="level1">invalid comment format 
+<p class="level0"><a name="8"></a><span class="nroffip">8</span> 
+<p class="level1"><span Class="emphasis">zip</span> -T failed or out of memory 
+<p class="level0"><a name="9"></a><span class="nroffip">9</span> 
+<p class="level1">the user aborted <span Class="emphasis">zip</span> prematurely with control-C (or similar) 
+<p class="level0"><a name="10"></a><span class="nroffip">10</span> 
+<p class="level1"><span Class="emphasis">zip</span> encountered an error while using a temp file 
+<p class="level0"><a name="11"></a><span class="nroffip">11</span> 
+<p class="level1">read or seek error 
+<p class="level0"><a name="12"></a><span class="nroffip">12</span> 
+<p class="level1"><span Class="emphasis">zip</span> has nothing to do 
+<p class="level0"><a name="13"></a><span class="nroffip">13</span> 
+<p class="level1">missing or empty zip file 
+<p class="level0"><a name="14"></a><span class="nroffip">14</span> 
+<p class="level1">error writing to a file 
+<p class="level0"><a name="15"></a><span class="nroffip">15</span> 
+<p class="level1"><span Class="emphasis">zip</span> was unable to create a file to write to 
+<p class="level0"><a name="16"></a><span class="nroffip">16</span> 
+<p class="level1">bad command line parameters 
+<p class="level0"><a name="18"></a><span class="nroffip">18</span> 
+<p class="level1"><span Class="emphasis">zip</span> could not open a specified file to read 
+<p class="level0"><a name="19"></a><span class="nroffip">19</span> 
+<p class="level1"><span Class="emphasis">zip</span> was compiled with options not supported on this system 
+<p class="level0">
+<p class="level0">VMS interprets standard Unix (or PC) return values as other, scarier-looking things, so <span Class="emphasis">zip</span> instead maps them into VMS-style status codes.  In general, <span Class="emphasis">zip</span> sets VMS Facility = 1955 (0x07A3), Code = 2* Unix_status, and an appropriate Severity (as specified in ziperr.h).  More details are included in the VMS-specific documentation.  See [.vms]NOTES.TXT and [.vms]vms_msg_gen.c. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="emphasis">zip</span> 3.0 is not compatible with PKUNZIP 1.10. Use <span Class="emphasis">zip</span> 1.1 to produce <span Class="emphasis">zip</span> files which can be extracted by PKUNZIP 1.10. 
+<p class="level0"><span Class="emphasis">zip</span> files produced by <span Class="emphasis">zip</span> 3.0 must not be <span Class="emphasis">updated</span> by <span Class="emphasis">zip</span> 1.1 or PKZIP 1.10, if they contain encrypted members or if they have been produced in a pipe or on a non-seekable device. The old versions of <span Class="emphasis">zip</span> or PKZIP would create an archive with an incorrect format. The old versions can list the contents of the zip file but cannot extract it anyway (because of the new compression algorithm). If you do not use encryption and use regular disk files, you do not have to care about this problem. 
+<p class="level0">Under VMS, not all of the odd file formats are treated properly. Only stream-LF format <span Class="emphasis">zip</span> files are expected to work with <span Class="emphasis">zip .</span> Others can be converted using Rahul Dhesi's BILF program. This version of <span Class="emphasis">zip</span> handles some of the conversion internally. When using Kermit to transfer zip files from VMS to MSDOS, type "set file type block" on VMS.  When transferring from MSDOS to VMS, type "set file type fixed" on VMS.  In both cases, type "set file type binary" on MSDOS. 
+<p class="level0">Under some older VMS versions, <span Class="emphasis">zip</span> may hang for file specifications that use DECnet syntax <span Class="emphasis">foo::*.*.</span> 
+<p class="level0">On OS/2, zip cannot match some names, such as those including an exclamation mark or a hash sign.  This is a bug in OS/2 itself: the 32-bit DosFindFirst/Next don't find such names.  Other programs such as GNU tar are also affected by this bug. 
+<p class="level0">Under OS/2, the amount of Extended Attributes displayed by DIR is (for compatibility) the amount returned by the 16-bit version of DosQueryPathInfo(). Otherwise OS/2 1.3 and 2.0 would report different EA sizes when DIRing a file. However, the structure layout returned by the 32-bit DosQueryPathInfo() is a bit different, it uses extra padding bytes and link pointers (it's a linked list) to have all fields on 4-byte boundaries for portability to future RISC OS/2 versions. Therefore the value reported by <span Class="emphasis">zip</span> (which uses this 32-bit-mode size) differs from that reported by DIR. <span Class="emphasis">zip</span> stores the 32-bit format for portability, even the 16-bit MS-C-compiled version running on OS/2 1.3, so even this one shows the 32-bit-mode size. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Copyright (C) 1997-2008 Info-ZIP. 
+<p class="level0">Currently distributed under the Info-ZIP license. 
+<p class="level0">Copyright (C) 1990-1997 Mark Adler, Richard B. Wales, Jean-loup Gailly, Onno van der Linden, Kai Uwe Rommel, Igor Mandrichenko, John Bush and Paul Kienitz. 
+<p class="level0">Original copyright: 
+<p class="level0">Permission is granted to any individual or institution to use, copy, or redistribute this software so long as all of the original files are included, that it is not sold for profit, and that this copyright notice is retained. 
+<p class="level0">LIKE ANYTHING ELSE THAT'S FREE, ZIP AND ITS ASSOCIATED UTILITIES ARE PROVIDED AS IS AND COME WITH NO WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED. IN NO EVENT WILL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DAMAGES RESULTING FROM THE USE OF THIS SOFTWARE. 
+<p class="level0">Please send bug reports and comments using the web page at: <span Class="emphasis">www.info-zip.org .</span> For bug reports, please include the version of <span Class="emphasis">zip</span> (see <span Class="emphasis">zip&nbsp;-h</span>), the make options used to compile it (see <span Class="emphasis">zip&nbsp;-v</span>), the machine and operating system in use, and as much additional information as possible. <a name="ACKNOWLEDGEMENTS"></a><h2 class="nroffsh">ACKNOWLEDGEMENTS</h2>
+<p class="level0">Thanks to R. P. Byrne for his <span Class="emphasis">Shrink.Pas</span> program, which inspired this project, and from which the shrink algorithm was stolen; to Phil Katz for placing in the public domain the <span Class="emphasis">zip</span> file format, compression format, and .ZIP filename extension, and for accepting minor changes to the file format; to Steve Burg for clarifications on the deflate format; to Haruhiko Okumura and Leonid Broukhis for providing some useful ideas for the compression algorithm; to Keith Petersen, Rich Wales, Hunter Goatley and Mark Adler for providing a mailing list and <span Class="emphasis">ftp</span> site for the Info-ZIP group to use; and most importantly, to the Info-ZIP group itself (listed in the file <span Class="emphasis">infozip.who )</span> without whose tireless testing and bug-fixing efforts a portable <span Class="emphasis">zip</span> would not have been possible. Finally we should thank (blame) the first Info-ZIP moderator, David Kirschbaum, for getting us into this mess in the first place. The manual page was rewritten for Unix by R. P. C. Rodgers and updated by E. Gordon for <span Class="emphasis">zip</span> 3.0. 

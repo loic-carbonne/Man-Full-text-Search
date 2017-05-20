@@ -1,0 +1,37 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">timeout - run a command with a time limit <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">timeout</span> [<span Class="emphasis">OPTION</span>] <span Class="emphasis">DURATION COMMAND </span>[<span Class="emphasis">ARG</span>]... <br><span Class="bold">timeout</span> [<span Class="emphasis">OPTION</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Start COMMAND, and kill it if still running after DURATION. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">--preserve-status</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">exit with the same status as COMMAND, even when the 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">command times out 
+<p class="level1"><span Class="bold">--foreground</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">when not running timeout directly from a shell prompt, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">allow COMMAND to read from the TTY and get TTY signals; in this mode, children of COMMAND will not be timed out 
+<p class="level1"><span Class="bold">-k</span>, <span Class="bold">--kill-after</span>=<span Class="emphasis">DURATION</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">also send a KILL signal if COMMAND is still running 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">this long after the initial signal was sent 
+<p class="level1"><span Class="bold">-s</span>, <span Class="bold">--signal</span>=<span Class="emphasis">SIGNAL</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">specify the signal to be sent on timeout; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">SIGNAL may be a name like 'HUP' or a number; see 'kill <span Class="bold">-l</span>' for a list of signals 
+<p class="level1"><span Class="bold">--help</span> display this help and exit 
+<p class="level1"><span Class="bold">--version</span> output version information and exit 
+<p class="level1">DURATION is a floating point number with an optional suffix: 's' for seconds (the default), 'm' for minutes, 'h' for hours or 'd' for days. 
+<p class="level1">If the command times out, and <span Class="bold">--preserve-status</span> is not set, then exit with status 124.  Otherwise, exit with the status of COMMAND.  If no signal is specified, send the TERM signal upon timeout.  The TERM signal kills any process that does not block or catch that signal.  It may be necessary to use the KILL (9) signal, since this signal cannot be caught, in which case the exit status is 128+9 rather than 124. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Some platforms don't curently support timeouts beyond 2038 <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Padraig Brady. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report timeout translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">kill(1) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/timeout&gt; <br>or available locally via: info (aq(coreutils) timeout invocation(aq 

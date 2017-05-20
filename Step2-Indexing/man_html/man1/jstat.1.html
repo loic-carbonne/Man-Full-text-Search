@@ -1,0 +1,675 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jstat - Java Virtual Machine Statistics Monitoring Tool 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstat</span> [ f2generalOption</span> | f2outputOptions</span> f2vmid</span> [f2interval</span>[s|ms] [f2count</span>]] ]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">generalOption  A single general command-line option (-help or -options)  
+<p class="level1">outputOptions  One or more output options, consisting of a single f2statOption</span>, plus any of the -t, -h, and -J options.  
+<p class="level1">vmid  Virtual machine identifier, a string indicating the target Java virtual machine (JVM). The general syntax is  <pre class="level1">
+f3
+[</span>f4protocol</span>f3:][//]</span>f4lvmid</span>[@f2hostname</span>[:f2port</span>]/f2servername</span>]
+</pre>
+
+<p class="level1">The syntax of the vmid string largely corresponds to the syntax of a URI. The f2vmid</span> can vary from a simple integer representing a local JVM to a more complex construction specifying a communications protocol, port number, and other implementation-specific values. See Virtual Machine Identifier for details.  
+<p class="level1">interval[s|ms]  Sampling interval in the specified units, seconds (s) or milliseconds (ms). Default units are milliseconds. Must be a positive integer. If specified, f3jstat</span> will produce its output at each interval.  
+<p class="level1">count  Number of samples to display. Default value is infinity; that is, f3jstat</span> displays statistics until the target JVM terminates or the f3jstat</span> command is terminated. Must be a positive integer.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jstat</span> tool displays performance statistics for an instrumented HotSpot Java virtual machine (JVM). The target JVM is identified by its virtual machine identifier, or f2vmid</span> option described below. 
+<p class="level0">
+<p class="level0">f3NOTE</span>: This utility is unsupported and may not be available in future versions of the JDK. It is not currently available on Windows 98 and Windows ME. platforms. <br>
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">VIRTUAL MACHINE IDENTIFIER 
+<p class="level0">
+<p class="level0">The syntax of the f2vmid</span> string largely corresponds to the syntax of a URI: 
+<p class="level0"><pre class="level0">
+f3
+[</span>f4protocol</span>f3:][//]</span>f4lvmid</span>[@f2hostname</span>][:f2port</span>][/f2servername</span>]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">protocol  The communications protocol. If the f2protocol</span> is omitted and a f2hostname</span> is not specified, the default protocol is a platform specific optimized local protocol. If the f2protocol</span> is omitted and a f2hostname</span> is specified, then the default protocol is f3rmi</span>.  
+<p class="level1">lvmid  The local virtual machine identifier for the target JVM. The f2lvmid</span> is a platform-specific value that uniquely identifies a JVM on a system. The f2lvmid</span> is the only required component of a virtual machine identifier. The f2lvmid</span> is typically, but not necessarily, the operating system's process identifier for the target JVM process. You can use the jps(1) command to determine the f2lvmid</span>. Also, you can determine f2lvmid</span> on Unix platforms with the f3ps</span> command, and on Windows with the Windows Task Manager.  
+<p class="level1">hostname  A hostname or IP address indicating the target host. If f2hostname</span> is omitted, then the target host is the local host.  
+<p class="level1">port  The default port for communicating with the remote server. If the f2hostname</span> is omitted or the f2protocol</span> specifies an optimized, local protocol, then f2port</span> is ignored. Otherwise, treatment of the f2port</span> parameter is implementation specific. For the default f3rmi</span> protocol, the f2port</span> indicates the port number for the rmiregistry on the remote host. If f2port</span> is omitted, and f2protocol</span> indicates f3rmi</span>, then the default rmiregistry port (1099) is used.  
+<p class="level1">servername  The treatment of this parameter depends on implementation. For the optimized local protocol, this field is ignored. For the f3rmi</span> protocol, it represents the name of the RMI remote object on the remote host.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jstat</span> command supports two types of options, general options and output options. General options cause f3jstat</span> to display simple usage and version information. Output options determine the content and format of the statistical output. <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3NOTE</span>: All options, and their functionality are subject to change or removal in future releases. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">GENERAL OPTIONS 
+<p class="level0">
+<p class="level0">If you specify one of the general options, you cannot specify any other option or parameter. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-help  Display help message.  
+<p class="level1">-options  Display list of statistics options. See the Output Options section below.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">OUTPUT OPTIONS 
+<p class="level0">
+<p class="level0">If you do not specify a general option, then you can specify output options. Output options determine the content and format of f3jstat</span>'s output, and consist of a single f2statOption</span>, plus any of the other output options (-h, -t, and -J). The f2statOption</span> must come first. 
+<p class="level0">
+<p class="level0">Output is formatted as a table, with columns are separated by spaces. A header row with titles describes the columns. Use the f3-h</span> option to set the frequency at which the header is displayed. Column header names are generally consistent between the different options. In general, if two options provide a column with the same name, then the data source for the two columns are the same. 
+<p class="level0">
+<p class="level0">Use the f3-t</span> option to display a time stamp column, labeled f2Timestamp</span> as the first column of output. The f2Timestamp</span> column contains the elapsed time, in seconds, since startup of the target JVM. The resolution of the time stamp is dependent on various factors and is subject to variation due to delayed thread scheduling on heavily loaded systems. 
+<p class="level0">
+<p class="level0">Use the f2interval</span> and f2count</span> parameters to determine how frequently and how many times, respectively, f3jstat</span> displays its output. 
+<p class="level0">
+<p class="level0">f3NOTE</span>: You are advised not to write scripts to parse f3jstat's</span> output since the format may change in future releases. If you choose to write scripts that parse f3jstat</span> output, expect to modify them for future releases of this tool. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-statOption  Determines the statistics information that f3jstat</span> displays. The following table lists the available options. Use the f3-options</span> general option to display the list of options for a particular platform installation. <br><br>
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+<br>Statistics on the behavior of the class loader.
+<br><br>Statistics of the behavior of the HotSpot Just-in-Time compiler.
+<br><br>Statistics of the behavior of the garbage collected heap.
+<br><br>Statistics of the capacities of the generations and their corresponding spaces.
+<br><br>Summary of garbage collection statistics (same as f3-gcutil</span>), with the cause of the last and current (if applicable) garbage collection events.
+<br><br>Statistics of the behavior of the new generation.
+<br><br>Statistics of the sizes of the new generations and its corresponding spaces.
+<br><br>Statistics of the behavior of the old and permanent generations.
+<br><br>Statistics of the sizes of the old generation.
+<br><br>Statistics of the sizes of the permanent generation.
+<br><br>Summary of garbage collection statistics.
+<br><br>HotSpot compilation method statistics.
+<br><pre class="level1">
+<pre class="level1">
+h'|n(40u'f3Option</span>h'|n(41u'f3Displays...</span>
+h'|n(40u'classh'|n(41u'
+h'|n(40u'compilerh'|n(41u'
+h'|n(40u'gch'|n(41u'
+h'|n(40u'gccapacityh'|n(41u'
+h'|n(40u'gccauseh'|n(41u'
+h'|n(40u'gcnewh'|n(41u'
+h'|n(40u'gcnewcapacityh'|n(41u'
+h'|n(40u'gcoldh'|n(41u'
+h'|n(40u'gcoldcapacityh'|n(41u'
+h'|n(40u'gcpermcapacityh'|n(41u'
+h'|n(40u'gcutilh'|n(41u'
+h'|n(40u'printcompilationh'|n(41u'
+-h n 
+Display a column header every f2n</span> samples (output rows), where f2n</span> is a positive integer. Default value is 0, which displays the column header above the first row of data. 
+-t 
+Display a timestamp column as the first column of output. The timestamp is the time since the start time of the target JVM. 
+-JjavaOption 
+Pass f2javaOption</span> to the f3java</span> application launcher. For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes. For a complete list of options, see java(1) 
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">STATOPTIONS AND OUTPUT 
+<p class="level0">
+<p class="level0">The following tables summarize the columns that f3jstat</span> outputs for each f2statOption</span>. <br>
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-class Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Number of classes unloaded.
+<br><br>Number of Kbytes unloaded.
+<br><br>Time spent performing class load and unload operations.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Class Loader Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'Loadedh'|n(41u'Number of classes loaded.
+h'|n(40u'Bytesh'|n(41u'Number of Kbytes loaded.
+h'|n(40u'Unloadedh'|n(41u'
+h'|n(40u'Bytesh'|n(41u'
+h'|n(40u'Timeh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-compiler Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Number of compilation tasks performed.
+<br><br>Number of compilation tasks that failed.
+<br><br>Number of compilation tasks that were invalidated.
+<br><br>Time spent performing compilation tasks.
+<br><br>Compile type of the last failed compilation.
+<br><br>Class name and method for the last failed compilation.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'HotSpot Just-In-Time Compiler Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'Compiledh'|n(41u'
+h'|n(40u'Failedh'|n(41u'
+h'|n(40u'Invalidh'|n(41u'
+h'|n(40u'Timeh'|n(41u'
+h'|n(40u'FailedTypeh'|n(41u'
+h'|n(40u'FailedMethodh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gc Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Current survivor space 0 capacity (KB).
+<br><br>Current survivor space 1 capacity (KB).
+<br><br>Survivor space 0 utilization (KB).
+<br><br>Survivor space 1 utilization (KB).
+<br><br>Current eden space capacity (KB).
+<br><br>Eden space utilization (KB).
+<br><br>Current old space capacity (KB).
+<br><br>Old space utilization (KB).
+<br><br>Current permanent space capacity (KB).
+<br><br>Permanent space utilization (KB).
+<br><br>Number of young generation GC Events.
+<br><br>Young generation garbage collection time.
+<br><br>Full garbage collection time.
+<br><br>Total garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Garbage-collected heap statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'S0Ch'|n(41u'
+h'|n(40u'S1Ch'|n(41u'
+h'|n(40u'S0Uh'|n(41u'
+h'|n(40u'S1Uh'|n(41u'
+h'|n(40u'ECh'|n(41u'
+h'|n(40u'EUh'|n(41u'
+h'|n(40u'OCh'|n(41u'
+h'|n(40u'OUh'|n(41u'
+h'|n(40u'PCh'|n(41u'
+h'|n(40u'PUh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'YGCTh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of full GC events.
+h'|n(40u'FGCTh'|n(41u'
+h'|n(40u'GCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gccapacity Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Minimum new generation capacity (KB).
+<br><br>Maximum new generation capacity (KB).
+<br><br>Current new generation capacity (KB).
+<br><br>Current survivor space 0 capacity (KB).
+<br><br>Current survivor space 1 capacity (KB).
+<br><br>Current eden space capacity (KB).
+<br><br>Minimum old generation capacity (KB).
+<br><br>Maximum old generation capacity (KB).
+<br><br>Current old generation capacity (KB).
+<br><br>Current old space capacity (KB).
+<br><br>Minimum permanent generation capacity (KB).
+<br><br>Maximum Permanent generation capacity (KB).
+<br><br>Current Permanent generation capacity (KB).
+<br><br>Current Permanent space capacity (KB).
+<br><br>Number of Young generation GC Events.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Memory Pool Generation and Space Capacitiesh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'NGCMNh'|n(41u'
+h'|n(40u'NGCMXh'|n(41u'
+h'|n(40u'NGCh'|n(41u'
+h'|n(40u'S0Ch'|n(41u'
+h'|n(40u'S1Ch'|n(41u'
+h'|n(40u'ECh'|n(41u'
+h'|n(40u'OGCMNh'|n(41u'
+h'|n(40u'OGCMXh'|n(41u'
+h'|n(40u'OGCh'|n(41u'
+h'|n(40u'OCh'|n(41u'
+h'|n(40u'PGCMNh'|n(41u'
+h'|n(40u'PGCMXh'|n(41u'
+h'|n(40u'PGCh'|n(41u'
+h'|n(40u'PCh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of Full GC Events.
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gccause Option 
+<p class="level0">
+<p class="level0">This option displays the same summary of garbage collection statistics as the f3-gcutil</span> option, but includes the causes of the last garbage collection event and (if applicable) the current garbage collection event. In addition to the columns listed for f3-gcutil</span>, this option adds the following columns: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Cause of last Garbage Collection.
+<br><br>Cause of current Garbage Collection.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Garbage Collection Statistics, Including GC Eventsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'LGCCh'|n(41u'
+h'|n(40u'GCCh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcnew Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Current survivor space 0 capacity (KB).
+<br><br>Current survivor space 1 capacity (KB).
+<br><br>Survivor space 0 utilization (KB).
+<br><br>Survivor space 1 utilization (KB).
+<br><br>Maximum tenuring threshold.
+<br><br>Desired survivor size (KB).
+<br><br>Current eden space capacity (KB).
+<br><br>Eden space utilization (KB).
+<br><br>Number of young generation GC events.
+<br><br>Young generation garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'New Generation Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'S0Ch'|n(41u'
+h'|n(40u'S1Ch'|n(41u'
+h'|n(40u'S0Uh'|n(41u'
+h'|n(40u'S1Uh'|n(41u'
+h'|n(40u'TTh'|n(41u'Tenuring threshold.
+h'|n(40u'MTTh'|n(41u'
+h'|n(40u'DSSh'|n(41u'
+h'|n(40u'ECh'|n(41u'
+h'|n(40u'EUh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'YGCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcnewcapacity Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Minimum new generation capacity (KB).
+<br><br>Maximum new generation capacity (KB).
+<br><br>Current new generation capacity (KB).
+<br><br>Maximum survivor space 0 capacity (KB).
+<br><br>Current survivor space 0 capacity (KB).
+<br><br>Maximum survivor space 1 capacity (KB).
+<br><br>Current survivor space 1 capacity (KB).
+<br><br>Maximum eden space capacity (KB).
+<br><br>Current eden space capacity (KB).
+<br><br>Number of young generation GC events.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'New Generation Space Size Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'NGCMNh'|n(41u'
+h'|n(40u'NGCMXh'|n(41u'
+h'|n(40u'NGCh'|n(41u'
+h'|n(40u'S0CMXh'|n(41u'
+h'|n(40u'S0Ch'|n(41u'
+h'|n(40u'S1CMXh'|n(41u'
+h'|n(40u'S1Ch'|n(41u'
+h'|n(40u'ECMXh'|n(41u'
+h'|n(40u'ECh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of Full GC Events.
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcold Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Current permanent space capacity (KB).
+<br><br>Permanent space utilization (KB).
+<br><br>Current old space capacity (KB).
+<br><br>old space utilization (KB).
+<br><br>Number of young generation GC events.
+<br><br>Full garbage collection time.
+<br><br>Total garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Old and Permanent Generation Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'PCh'|n(41u'
+h'|n(40u'PUh'|n(41u'
+h'|n(40u'OCh'|n(41u'
+h'|n(40u'OUh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of full GC events.
+h'|n(40u'FGCTh'|n(41u'
+h'|n(40u'GCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcoldcapacity Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Minimum old generation capacity (KB).
+<br><br>Maximum old generation capacity (KB).
+<br><br>Current old generation capacity (KB).
+<br><br>Current old space capacity (KB).
+<br><br>Number of young generation GC events.
+<br><br>Full garbage collection time.
+<br><br>Total garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Old Generation Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'OGCMNh'|n(41u'
+h'|n(40u'OGCMXh'|n(41u'
+h'|n(40u'OGCh'|n(41u'
+h'|n(40u'OCh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of full GC events.
+h'|n(40u'FGCTh'|n(41u'
+h'|n(40u'GCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcpermcapacity Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Minimum permanent generation capacity (KB).
+<br><br>Maximum permanent generation capacity (KB).
+<br><br>Current permanent generation capacity (KB).
+<br><br>Current permanent space capacity (KB).
+<br><br>Number of young generation GC events.
+<br><br>Full garbage collection time.
+<br><br>Total garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Permanent Generation Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'PGCMNh'|n(41u'
+h'|n(40u'PGCMXh'|n(41u'
+h'|n(40u'PGCh'|n(41u'
+h'|n(40u'PCh'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of full GC events.
+h'|n(40u'FGCTh'|n(41u'
+h'|n(40u'GCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-gcutil Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Survivor space 0 utilization as a percentage of the space's current capacity.
+<br><br>Survivor space 1 utilization as a percentage of the space's current capacity.
+<br><br>Eden space utilization as a percentage of the space's current capacity.
+<br><br>Old space utilization as a percentage of the space's current capacity.
+<br><br>Permanent space utilization as a percentage of the space's current capacity.
+<br><br>Number of young generation GC events.
+<br><br>Young generation garbage collection time.
+<br><br>Full garbage collection time.
+<br><br>Total garbage collection time.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'Summary of Garbage Collection Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'S0h'|n(41u'
+h'|n(40u'S1h'|n(41u'
+h'|n(40u'Eh'|n(41u'
+h'|n(40u'Oh'|n(41u'
+h'|n(40u'Ph'|n(41u'
+h'|n(40u'YGCh'|n(41u'
+h'|n(40u'YGCTh'|n(41u'
+h'|n(40u'FGCh'|n(41u'Number of full GC events.
+h'|n(40u'FGCTh'|n(41u'
+h'|n(40u'GCTh'|n(41u'
+&nbsp;
+</pre>
+<a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">-printcompilation Option 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Number of compilation tasks performed by the most recently compiled method.
+<br><br>Number of bytes of bytecode of the most recently compiled method.
+<br><br>Compilation type of the most recently compiled method.
+<br><br>Class name and method name identifying the most recently compiled method. Class name uses "/" instead of "." as namespace separator. Method name is the method within the given class. The format for these two fields is consistent with the HotSpot - f3XX:+PrintComplation</span> option.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'HotSpot Compiler Method Statisticsh'|n(41u'
+h'|n(40u'f3Column</span>h'|n(41u'f3Description</span>
+h'|n(40u'Compiledh'|n(41u'
+h'|n(40u'Sizeh'|n(41u'
+h'|n(40u'Typeh'|n(41u'
+h'|n(40u'Methodh'|n(41u'
+&nbsp;
+</pre>
+<a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">This section presents some examples of monitoring a local JVM with a f2lvmid</span> of 21891. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Using the gcutil option 
+<p class="level0">
+<p class="level0">This example attaches to f2lvmid</span> 21891 and takes 7 samples at 250 millisecond intervals and displays the output as specified by the f3-gcutil</span> option. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstat -gcutil 21891 250 7</span>
+<br>&nbsp;
+&nbsp; S0     S1     E      O      P     YGC    YGCT    FGC    FGCT     GCT
+<br>&nbsp;
+&nbsp;12.44   0.00  27.20   9.49  96.70    78    0.176     5    0.495    0.672
+<br>&nbsp;
+&nbsp;12.44   0.00  62.16   9.49  96.70    78    0.176     5    0.495    0.672
+<br>&nbsp;
+&nbsp;12.44   0.00  83.97   9.49  96.70    78    0.176     5    0.495    0.672
+<br>&nbsp;
+&nbsp; 0.00   7.74   0.00   9.51  96.70    79    0.177     5    0.495    0.673
+<br>&nbsp;
+&nbsp; 0.00   7.74  23.37   9.51  96.70    79    0.177     5    0.495    0.673
+<br>&nbsp;
+&nbsp; 0.00   7.74  43.82   9.51  96.70    79    0.177     5    0.495    0.673
+<br>&nbsp;
+&nbsp; 0.00   7.74  58.11   9.51  96.71    79    0.177     5    0.495    0.673
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The output of this example shows that a young generation collection occurred between the 3rd and 4th sample. The collection took 0.001 seconds and promoted objects from the eden space (E) to the old space (O), resulting in an increase of old space utilization from 9.49% to 9.51%. Before the collection, the survivor space was 12.44% utilized, but after this collection it is only 7.74% utilized. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Repeating the column header string 
+<p class="level0">
+<p class="level0">This example attaches to f2lvmid</span> 21891 and takes samples at 250 millisecond intervals and displays the output as specified by f3-gcutil</span> option. In addition, it uses the f3-h3</span> option to output the column header after every 3 lines of data. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstat -gcnew -h3 21891 250</span>
+<br>&nbsp;
+&nbsp;S0C    S1C    S0U    S1U   TT MTT  DSS      EC       EU     YGC     YGCT
+<br>&nbsp;
+&nbsp; 64.0   64.0    0.0   31.7 31  31   32.0    512.0    178.6    249    0.203
+<br>&nbsp;
+&nbsp; 64.0   64.0    0.0   31.7 31  31   32.0    512.0    355.5    249    0.203
+<br>&nbsp;
+&nbsp; 64.0   64.0   35.4    0.0  2  31   32.0    512.0     21.9    250    0.204
+<br>&nbsp;
+&nbsp;S0C    S1C    S0U    S1U   TT MTT  DSS      EC       EU     YGC     YGCT
+<br>&nbsp;
+&nbsp; 64.0   64.0   35.4    0.0  2  31   32.0    512.0    245.9    250    0.204
+<br>&nbsp;
+&nbsp; 64.0   64.0   35.4    0.0  2  31   32.0    512.0    421.1    250    0.204
+<br>&nbsp;
+&nbsp; 64.0   64.0    0.0   19.0 31  31   32.0    512.0     84.4    251    0.204
+<br>&nbsp;
+&nbsp;S0C    S1C    S0U    S1U   TT MTT  DSS      EC       EU     YGC     YGCT
+<br>&nbsp;
+&nbsp; 64.0   64.0    0.0   19.0 31  31   32.0    512.0    306.7    251    0.204
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">In addition to showing the repeating header string, this example shows that between the 2nd and 3rd samples, a young GC occurred. Its duration was 0.001 seconds. The collection found enough live data that the survivor space 0 utilization (S0U) would would have exceeded the desired survivor Size (DSS). As a result, objects were promoted to the old generation (not visible in this output), and the tenuring threshold (TT) was lowered from 31 to 2. 
+<p class="level0">
+<p class="level0">Another collection occurs between the 5th and 6th samples. This collection found very few survivors and returned the tenuring threshold to 31. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Including a time stamp for each sample 
+<p class="level0">
+<p class="level0">This example attaches to f2lvmid</span> 21891 and takes 3 samples at 250 millisecond intervals. The f3-t</span> option is used to generate a time stamp for each sample in the first column. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstat -gcoldcapacity -t 21891 250 3</span>
+<br>&nbsp;
+Timestamp          OGCMN        OGCMX         OGC           OC       YGC   FGC    FGCT    GCT
+<br>&nbsp;
+&nbsp;         150.1       1408.0      60544.0      11696.0      11696.0   194    80    2.874   3.799
+<br>&nbsp;
+&nbsp;         150.4       1408.0      60544.0      13820.0      13820.0   194    81    2.938   3.863
+<br>&nbsp;
+&nbsp;         150.7       1408.0      60544.0      13820.0      13820.0   194    81    2.938   3.863
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2Timestamp</span> column reports the elapsed time in seconds since the start of the target JVM. In addition, the f3-gcoldcapacity</span> output shows the old generation capacity (OGC) and the old space capacity (OC) increasing as the heap expands to meet allocation and/or promotion demands. The old generation capacity (OGC) has grown to from 11696 KB to 13820 KB after the 81st Full GC (FGC). The maximum capacity of the generation (and space) is 60544 KB (OGCMX), so it still has room to expand. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Monitor instrumentation for a remote JVM 
+<p class="level0">
+<p class="level0">This example attaches to f2lvmid</span> 40496 on the system named f2remote.domain</span> using the f3-gcutil</span> option, with samples taken every second indefinitely. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstat -gcutil 40496@remote.domain 1000</span>
+<br>&nbsp;
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2lvmid</span> is combined with the name of the remote host to construct a f2vmid</span> of f240496@remote.domain</span>. This f2vmid</span> results in the use of the f3rmi</span> protocol to communicate to the default f3jstatd</span> server on the remote host. The f3jstatd</span> server is located using the f3rmiregistry</span> on f2remote.domain</span> that is bound to the default f3rmiregistry</span> port (port 1099). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o java(1) - the Java Application Launcher  
+<p class="level1">o jps(1) - the Java Process Status Application  
+<p class="level1">o jstatd(1) - the jvmstat daemon  
+<p class="level1">o rmiregistry(1) - the Java Remote Object Registry  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

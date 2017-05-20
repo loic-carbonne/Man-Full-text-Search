@@ -1,0 +1,71 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">bison - GNU Project parser generator (yacc replacement) <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">bison</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Bison</span> is a parser generator in the style of <span Class="emphasis">yacc (1).</span> It should be upwardly compatible with input files designed for <span Class="emphasis">yacc .</span> 
+<p class="level0">Input files should follow the <span Class="emphasis">yacc</span> convention of ending in <span Class="manpage">.y .</span>Unlike <span Class="emphasis">yacc ,</span> the generated files do not have fixed names, but instead use the prefix of the input file. Moreover, if you need to put <span Class="emphasis">C++</span> code in the input file, you can end his name by a C++-like extension (.ypp or .y++), then bison will follow your extension to name the output file (.cpp or .c++). For instance, a grammar description file named <span Class="bold">parse.yxx</span> would produce the generated parser in a file named <span Class="manpage">parse.tab.cxx</span>instead of <span Class="emphasis">yacc 's</span> <span Class="bold">y.tab.c</span> or old <span Class="emphasis">Bison</span> version's <span Class="manpage">parse.tab.c .</span>
+<p class="level0">This description of the options that can be given to <span Class="emphasis">bison</span> is adapted from the node <span Class="bold">Invocation</span> in the <span Class="bold">bison.texi</span> manual, which should be taken as authoritative. 
+<p class="level0"><span Class="emphasis">Bison</span> supports both traditional single-letter options and mnemonic long option names.  Long option names are indicated with <span Class="bold">--</span> instead of <span Class="manpage">- .</span>Abbreviations for option names are allowed as long as they are unique.  When a long option takes an argument, like <span Class="manpage">--file-prefix</span>connect the option name and the argument with <a class="manpage" href="#">= .</a>
+<p class="level0">Generate a deterministic LR or generalized LR (GLR) parser employing LALR(1), IELR(1), or canonical LR(1) parser tables.  IELR(1) and canonical LR(1) support is experimental. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. The same is true for optional arguments. <a name="Operation"></a><h2 class="nroffsh">Operation modes:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> output version information and exit 
+<p class="level0"><span Class="bold">--print-localedir</span> output directory containing locale-dependent data 
+<p class="level0"><span Class="bold">--print-datadir</span> output directory containing skeletons and XSLT 
+<p class="level0"><span Class="bold">-y</span>, <span Class="bold">--yacc</span> emulate POSIX Yacc 
+<p class="level0"><span Class="bold">-W</span>, <span Class="bold">--warnings</span>[=<span Class="emphasis">CATEGORY</span>] report the warnings falling in CATEGORY 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--feature</span>[=<a class="emphasis" href="#FEATURE">FEATURE</a>] activate miscellaneous features <a name="Parser"></a><h2 class="nroffsh">Parser:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--language</span>=<span Class="emphasis">LANGUAGE</span> specify the output programming language 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--skeleton</span>=<span Class="emphasis">FILE</span> specify the skeleton to use 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--debug</span> instrument the parser for tracing same as '-Dparse.trace' 
+<p class="level0"><span Class="bold">--locations</span> enable location support 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--define=NAME</span>[=<span Class="emphasis">VALUE</span>] similar to '%define NAME "VALUE"' 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--force-define=NAME</span>[=<span Class="emphasis">VALUE</span>] override '%define NAME "VALUE"' 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--name-prefix</span>=<span Class="emphasis">PREFIX</span> prepend PREFIX to the external symbols deprecated by '-Dapi.prefix=PREFIX' 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--no-lines</span> don't generate '&#35;line' directives 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--token-table</span> include a table of token names <a name="Output"></a><h2 class="nroffsh">Output:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--defines</span>[=<span Class="emphasis">FILE</span>] also produce a header file 
+<p class="level0"><span Class="bold">-d</span> likewise but cannot specify FILE (for POSIX Yacc) 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--report</span>=<a class="emphasis" href="#THINGS">THINGS</a> also produce details on the automaton 
+<p class="level0"><span Class="bold">--report-file</span>=<span Class="emphasis">FILE</span> write report to FILE 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> same as '--report=state' 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--file-prefix</span>=<span Class="emphasis">PREFIX</span> specify a PREFIX for output files 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output</span>=<span Class="emphasis">FILE</span> leave output to FILE 
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--graph</span>[=<span Class="emphasis">FILE</span>] also output a graph of the automaton 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--xml</span>[=<span Class="emphasis">FILE</span>] also output an XML report of the automaton (the XML schema is experimental) <a name="Warning"></a><h2 class="nroffsh">Warning categories include:</h2>
+<p class="level0">
+<p class="level0">'midrule-values' unset or unused midrule values 
+<p class="level0">'yacc' incompatibilities with POSIX Yacc 
+<p class="level0">'conflicts-sr' S/R conflicts (enabled by default) 
+<p class="level0">'conflicts-rr' R/R conflicts (enabled by default) 
+<p class="level0">'deprecated' obsolete constructs 
+<p class="level0">'empty-rule' empty rules without %empty 
+<p class="level0">'precedence' useless precedence and associativity 
+<p class="level0">'other' all other warnings (enabled by default) 
+<p class="level0">'all' all the warnings except 'yacc' 
+<p class="level0">'no-CATEGORY' turn off warnings in CATEGORY 
+<p class="level0">'none' turn off all the warnings 
+<p class="level0">'error[=CATEGORY]' treat warnings as errors <a name="THINGS"></a><h2 class="nroffsh">THINGS is a list of comma separated words that can include:</h2>
+<p class="level0">
+<p class="level0">'state' describe the states 
+<p class="level0">'itemset' complete the core item sets with their closure 
+<p class="level0">'lookahead' explicitly associate lookahead tokens to items 
+<p class="level0">'solved' describe shift/reduce conflicts solving 
+<p class="level0">'all' include all the above information 
+<p class="level0">'none' disable the report <a name="FEATURE"></a><h2 class="nroffsh">FEATURE is a list of comma separated words that can include:</h2>
+<p class="level0">
+<p class="level0">'caret' show errors with carets 
+<p class="level0">'all' all of the above 
+<p class="level0">'none' disable all of the above <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Robert Corbett and Richard Stallman. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to &lt;bug-bison@gnu.org&gt;. <br>GNU Bison home page: &lt;http://www.gnu.org/software/bison/&gt;. <br>General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt;. 
+<p class="level0"><br>Report translation bugs to &lt;http://translationproject.org/team/&gt;. <br>For complete documentation, run: info bison. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2013 Free Software Foundation, Inc. <br>This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">lex (1)</span>, <span Class="manpage">flex (1)</span>, <span Class="manpage">yacc (1).</span>
+<p class="level0">The full documentation for <span Class="bold">bison</span> is maintained as a Texinfo manual.  If the <span Class="bold">info</span> and <span Class="bold">bison</span> programs are properly installed at your site, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">info bison</span> 
+<p class="level1">should give you access to the complete manual. 

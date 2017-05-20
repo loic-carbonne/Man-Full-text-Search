@@ -1,0 +1,254 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gold - The GNU ELF linker <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ld.gold</span> [<span Class="emphasis">,options/</span>] <span Class="emphasis">,file/</span>... <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> Report usage information 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--version</span> Report version information 
+<p class="level0"><span Class="bold">-V</span> Report version and target information 
+<p class="level0"><span Class="bold">--add-needed</span> Not supported 
+<p class="level0"><span Class="bold">--no-add-needed</span> Do not copy DT_NEEDED tags from shared libraries 
+<p class="level0"><span Class="bold">--allow-multiple-definition</span> Allow multiple definitions of symbols 
+<p class="level0"><span Class="bold">--no-allow-multiple-definition</span> Do not allow multiple definitions 
+<p class="level0"><span Class="bold">--allow-shlib-undefined</span> Allow unresolved references in shared libraries 
+<p class="level0"><span Class="bold">--no-allow-shlib-undefined</span> Do not allow unresolved references in shared libraries 
+<p class="level0"><span Class="bold">--as-needed</span> Only set DT_NEEDED for shared libraries if used 
+<p class="level0"><span Class="bold">--no-as-needed</span> Always DT_NEEDED for shared libraries 
+<p class="level0"><span Class="bold">-assert</span> [ignored] Ignored 
+<p class="level0"><span Class="bold">-b</span> [elf,binary], <span Class="bold">--format</span> [elf,binary] Set input format 
+<p class="level0"><span Class="bold">-Bdynamic</span>                   <span Class="bold">-l</span> searches for shared libraries 
+<p class="level0"><span Class="bold">-Bstatic</span>                    <span Class="bold">-l</span> does not search for shared libraries 
+<p class="level0"><span Class="bold">-dy</span> alias for <span Class="bold">-Bdynamic</span> 
+<p class="level0"><span Class="bold">-dn</span> alias for <span Class="bold">-Bstatic</span> 
+<p class="level0"><span Class="bold">-Bgroup</span> Use group name lookup rules for shared library 
+<p class="level0"><span Class="bold">-Bsymbolic</span> Bind defined symbols locally 
+<p class="level0"><span Class="bold">-Bsymbolic-functions</span> Bind defined function symbols locally 
+<p class="level0"><span Class="bold">--build-id</span> [=STYLE] Generate build ID note 
+<p class="level0"><span Class="bold">--build-id-chunk-size-for-treehash</span> SIZE Chunk size for '--build-id=tree' 
+<p class="level0"><span Class="bold">--build-id-min-file-size-for-treehash</span> SIZE Minimum output file size for '--build-id=tree' to work differently than '--build-id=sha1' 
+<p class="level0"><span Class="bold">--check-sections</span> Check segment addresses for overlaps (default) 
+<p class="level0"><span Class="bold">--no-check-sections</span> Do not check segment addresses for overlaps 
+<p class="level0"><span Class="bold">--compress-debug-sections</span> [none,zlib] Compress .debug_* sections in the output file 
+<p class="level0"><span Class="bold">--copy-dt-needed-entries</span> Not supported 
+<p class="level0"><span Class="bold">--no-copy-dt-needed-entries</span> Do not copy DT_NEEDED tags from shared libraries 
+<p class="level0"><span Class="bold">--cref</span> Output cross reference table 
+<p class="level0"><span Class="bold">--no-cref</span> Do not output cross reference table 
+<p class="level0"><span Class="bold">--ctors-in-init-array</span> Use DT_INIT_ARRAY for all constructors (default) 
+<p class="level0"><span Class="bold">--no-ctors-in-init-array</span> Handle constructors as directed by compiler 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--define-common</span> Define common symbols 
+<p class="level0"><span Class="bold">--no-define-common</span> Do not define common symbols 
+<p class="level0"><span Class="bold">-dc</span> Alias for <span Class="bold">-d</span> 
+<p class="level0"><span Class="bold">-dp</span> Alias for <span Class="bold">-d</span> 
+<p class="level0"><span Class="bold">--debug</span> [all,files,script,task][,...] Turn on debugging 
+<p class="level0"><span Class="bold">--defsym</span> SYMBOL=EXPRESSION Define a symbol 
+<p class="level0"><span Class="bold">--demangle</span> [=STYLE] Demangle C++ symbols in log messages 
+<p class="level0"><span Class="bold">--no-demangle</span> Do not demangle C++ symbols in log messages 
+<p class="level0"><span Class="bold">--detect-odr-violations</span> Look for violations of the C++ One Definition Rule 
+<p class="level0"><span Class="bold">--no-detect-odr-violations</span> Do not look for violations of the C++ One Definition Rule 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--discard-all</span> Delete all local symbols 
+<p class="level0"><span Class="bold">-X</span>, <span Class="bold">--discard-locals</span> Delete all temporary local symbols 
+<p class="level0"><span Class="bold">--dynamic-list-data</span> Add data symbols to dynamic symbols 
+<p class="level0"><span Class="bold">--dynamic-list-cpp-new</span> Add C++ operator new/delete to dynamic symbols 
+<p class="level0"><span Class="bold">--dynamic-list-cpp-typeinfo</span> Add C++ typeinfo to dynamic symbols 
+<p class="level0"><span Class="bold">--dynamic-list</span> FILE Read a list of dynamic symbols 
+<p class="level0"><span Class="bold">-e</span> ADDRESS, <span Class="bold">--entry</span> ADDRESS Set program start address 
+<p class="level0"><span Class="bold">--exclude-libs</span> lib,lib ... Exclude libraries from automatic export 
+<p class="level0"><span Class="bold">-E</span>, <span Class="bold">--export-dynamic</span> Export all dynamic symbols 
+<p class="level0"><span Class="bold">--no-export-dynamic</span> Do not export all dynamic symbols (default) 
+<p class="level0"><span Class="bold">--export-dynamic-symbol</span> SYMBOL Export SYMBOL to dynamic symbol table 
+<p class="level0"><span Class="bold">-EB</span> Link big-endian objects. 
+<p class="level0"><span Class="bold">-EL</span> Link little-endian objects. 
+<p class="level0"><span Class="bold">--eh-frame-hdr</span> Create exception frame header 
+<p class="level0"><span Class="bold">--no-enum-size-warning</span> (ARM only) Do not warn about objects with incompatible enum sizes 
+<p class="level0"><span Class="bold">-f</span> SHLIB, <span Class="bold">--auxiliary</span> SHLIB Auxiliary filter for shared object symbol table 
+<p class="level0"><span Class="bold">-F</span> SHLIB, <span Class="bold">--filter</span> SHLIB Filter for shared object symbol table 
+<p class="level0"><span Class="bold">--fatal-warnings</span> Treat warnings as errors 
+<p class="level0"><span Class="bold">--no-fatal-warnings</span> Do not treat warnings as errors 
+<p class="level0"><span Class="bold">-fini</span> SYMBOL Call SYMBOL at unload-time 
+<p class="level0"><span Class="bold">--fix-cortex-a8</span> (ARM only) Fix binaries for Cortex-A8 erratum. 
+<p class="level0"><span Class="bold">--no-fix-cortex-a8</span> (ARM only) Do not fix binaries for Cortex-A8 erratum. 
+<p class="level0"><span Class="bold">--fix-arm1176</span> (ARM only) Fix binaries for ARM1176 erratum. 
+<p class="level0"><span Class="bold">--no-fix-arm1176</span> (ARM only) Do not fix binaries for ARM1176 erratum. 
+<p class="level0"><span Class="bold">--merge-exidx-entries</span> (ARM only) Merge exidx entries in debuginfo. 
+<p class="level0"><span Class="bold">--no-merge-exidx-entries</span> (ARM only) Do not merge exidx entries in debuginfo. 
+<p class="level0"><span Class="bold">--fix-v4bx</span> (ARM only) Rewrite BX rn as MOV pc, rn for ARMv4 
+<p class="level0"><span Class="bold">--fix-v4bx-interworking</span> (ARM only) Rewrite BX rn branch to ARMv4 interworking veneer 
+<p class="level0"><span Class="bold">-g</span> Ignored 
+<p class="level0"><span Class="bold">--gdb-index</span> Generate .gdb_index section 
+<p class="level0"><span Class="bold">--no-gdb-index</span> Do not generate .gdb_index section 
+<p class="level0"><span Class="bold">--gnu-unique</span> Enable STB_GNU_UNIQUE symbol binding (default) 
+<p class="level0"><span Class="bold">--no-gnu-unique</span> Disable STB_GNU_UNIQUE symbol binding 
+<p class="level0"><span Class="bold">-h</span> FILENAME, <span Class="bold">-soname</span> FILENAME Set shared library name 
+<p class="level0"><span Class="bold">--hash-bucket-empty-fraction</span> FRACTION Min fraction of empty buckets in dynamic hash 
+<p class="level0"><span Class="bold">--hash-style</span> [sysv,gnu,both] Dynamic hash style 
+<p class="level0"><span Class="bold">-I</span> PROGRAM, <span Class="bold">--dynamic-linker</span> PROGRAM Set dynamic linker path 
+<p class="level0"><span Class="bold">--incremental</span> Do an incremental link if possible; otherwise, do a full link and prepare output for incremental linking 
+<p class="level0"><span Class="bold">--no-incremental</span> Do a full link (default) 
+<p class="level0"><span Class="bold">--incremental-full</span> Do a full link and prepare output for incremental linking 
+<p class="level0"><span Class="bold">--incremental-update</span> Do an incremental link; exit if not possible 
+<p class="level0"><span Class="bold">--incremental-base</span> FILE Set base file for incremental linking (default is output file) 
+<p class="level0"><span Class="bold">--incremental-changed</span> Assume files changed 
+<p class="level0"><span Class="bold">--incremental-unchanged</span> Assume files didn't change 
+<p class="level0"><span Class="bold">--incremental-unknown</span> Use timestamps to check files (default) 
+<p class="level0"><span Class="bold">--incremental-startup-unchanged</span> Assume startup files unchanged (files preceding this option) 
+<p class="level0"><span Class="bold">--incremental-patch</span> PERCENT Amount of extra space to allocate for patches 
+<p class="level0"><span Class="bold">-init</span> SYMBOL Call SYMBOL at load-time 
+<p class="level0"><span Class="bold">--just-symbols</span> FILE Read only symbol values from FILE 
+<p class="level0"><span Class="bold">--map-whole-files</span> Map whole files to memory (default on 64-bit hosts) 
+<p class="level0"><span Class="bold">--no-map-whole-files</span> Map relevant file parts to memory (default on 32-bit hosts) 
+<p class="level0"><span Class="bold">--keep-files-mapped</span> Keep files mapped across passes (default) 
+<p class="level0"><span Class="bold">--no-keep-files-mapped</span> Release mapped files after each pass 
+<p class="level0"><span Class="bold">--ld-generated-unwind-info</span> Generate unwind information for PLT (default) 
+<p class="level0"><span Class="bold">--no-ld-generated-unwind-info</span> Do not generate unwind information for PLT 
+<p class="level0"><span Class="bold">-l</span> LIBNAME, <span Class="bold">--library</span> LIBNAME Search for library LIBNAME 
+<p class="level0"><span Class="bold">-L</span> DIR, <span Class="bold">--library-path</span> DIR Add directory to search path 
+<p class="level0"><span Class="bold">--text-reorder</span> Enable text section reordering for GCC section names (default) 
+<p class="level0"><span Class="bold">--no-text-reorder</span> Disable text section reordering for GCC section names 
+<p class="level0"><span Class="bold">-nostdlib</span> Only search directories specified on the command line. 
+<p class="level0"><span Class="bold">--rosegment</span> Put read-only non-executable sections in their own segment 
+<p class="level0"><span Class="bold">--rosegment-gap</span> OFFSET Set offset between executable and read-only segments 
+<p class="level0"><span Class="bold">-m</span> EMULATION Set GNU linker emulation; obsolete 
+<p class="level0"><span Class="bold">--mmap-output-file</span> Map the output file for writing (default). 
+<p class="level0"><span Class="bold">--no-mmap-output-file</span> Do not map the output file for writing. 
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--print-map</span> Write map file on standard output 
+<p class="level0"><span Class="bold">-Map</span> MAPFILENAME Write map file 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--nmagic</span> Do not page align data 
+<p class="level0"><span Class="bold">-N</span>, <span Class="bold">--omagic</span> Do not page align data, do not make text readonly 
+<p class="level0"><span Class="bold">--no-omagic</span> Page align data, make text readonly 
+<p class="level0"><span Class="bold">--enable-new-dtags</span> Enable use of DT_RUNPATH and DT_FLAGS 
+<p class="level0"><span Class="bold">--disable-new-dtags</span> Disable use of DT_RUNPATH and DT_FLAGS 
+<p class="level0"><span Class="bold">--noinhibit-exec</span> Create an output file even if errors occur 
+<p class="level0"><span Class="bold">--no-undefined</span> Report undefined symbols (even with <span Class="bold">--shared</span>) 
+<p class="level0"><span Class="bold">-o</span> FILE, <span Class="bold">--output</span> FILE Set output file name 
+<p class="level0"><span Class="bold">-O</span> LEVEL, <span Class="bold">-optimize</span> LEVEL Optimize output file size 
+<p class="level0"><span Class="bold">--oformat</span> [binary] Set output format 
+<p class="level0"><span Class="bold">-p</span> (ARM only) Ignore for backward compatibility 
+<p class="level0"><span Class="bold">-pie</span> Create a position independent executable 
+<p class="level0"><span Class="bold">-no-pie</span> Do not create a position independent executable 
+<p class="level0"><span Class="bold">--pic-executable</span> Create a position independent executable 
+<p class="level0"><span Class="bold">--no-pic-executable</span> Do not create a position independent executable 
+<p class="level0"><span Class="bold">-no-pipeline-knowledge</span> (ARM only) Ignore for backward compatibility 
+<p class="level0"><span Class="bold">--plt-align</span> [=P2ALIGN] (PowerPC64 only) Align PLT call stubs to fit cache lines 
+<p class="level0"><span Class="bold">--plt-static-chain</span> (PowerPC64 only) PLT call stubs should load r11 
+<p class="level0"><span Class="bold">--no-plt-static-chain</span> (PowerPC64 only) PLT call stubs should not load r11 
+<p class="level0"><span Class="bold">--plt-thread-safe</span> (PowerPC64 only) PLT call stubs with load-load barrier 
+<p class="level0"><span Class="bold">--no-plt-thread-safe</span> (PowerPC64 only) PLT call stubs without barrier 
+<p class="level0"><span Class="bold">--plugin</span> PLUGIN Load a plugin library 
+<p class="level0"><span Class="bold">--plugin-opt</span> OPTION Pass an option to the plugin 
+<p class="level0"><span Class="bold">--posix-fallocate</span> Use posix_fallocate to reserve space in the output file (default). 
+<p class="level0"><span Class="bold">--no-posix-fallocate</span> Use fallocate or ftruncate to reserve space. 
+<p class="level0"><span Class="bold">--preread-archive-symbols</span> Preread archive symbols when multi-threaded 
+<p class="level0"><span Class="bold">--print-output-format</span> Print default output format 
+<p class="level0"><span Class="bold">--print-symbol-counts</span> FILENAME Print symbols defined and used for each input 
+<p class="level0"><span Class="bold">-Qy</span> Ignored for SVR4 compatibility 
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--emit-relocs</span> Generate relocations in output 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">-relocatable</span> Generate relocatable output 
+<p class="level0"><span Class="bold">-i</span> Synonym for <span Class="bold">-r</span> 
+<p class="level0"><span Class="bold">--relax</span> Relax branches on certain targets 
+<p class="level0"><span Class="bold">--retain-symbols-file</span> FILE keep only symbols listed in this file 
+<p class="level0"><span Class="bold">-R</span> DIR Add DIR to runtime search path 
+<p class="level0"><span Class="bold">-rpath</span> DIR Add DIR to runtime search path 
+<p class="level0"><span Class="bold">--rpath-link</span> DIR Add DIR to link time shared library search path 
+<p class="level0"><span Class="bold">--section-ordering-file</span> FILENAME Layout sections in the order specified. 
+<p class="level0"><span Class="bold">--section-start</span> SECTION=ADDRESS Set address of section 
+<p class="level0"><span Class="bold">--sort-common</span> [={ascending,descending}] Sort common symbols by alignment 
+<p class="level0"><span Class="bold">--sort-section</span> [none,name] Sort sections by name.  '--no-text-reorder' will override '--sort-section=name' for .text 
+<p class="level0"><span Class="bold">--spare-dynamic-tags</span> COUNT Dynamic tag slots to reserve (default 5) 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--strip-all</span> Strip all symbols 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--strip-debug</span> Strip debugging information 
+<p class="level0"><span Class="bold">--strip-debug-non-line</span> Emit only debug line number information 
+<p class="level0"><span Class="bold">--strip-debug-gdb</span> Strip debug symbols that are unused by gdb (at least versions &lt;= 7.4) 
+<p class="level0"><span Class="bold">--strip-lto-sections</span> Strip LTO intermediate code sections 
+<p class="level0"><span Class="bold">--stub-group-size</span> SIZE (ARM, PowerPC only) The maximum distance from instructions in a group of sections to their stubs.  Negative values mean stubs are always after (PowerPC before) the group.  1 means use default size. 
+<p class="level0"><span Class="bold">--no-keep-memory</span> Use less memory and more disk I/O (included only for compatibility with GNU ld) 
+<p class="level0"><span Class="bold">-G</span>, <span Class="bold">-shared</span> Generate shared library 
+<p class="level0"><span Class="bold">-Bshareable</span> Generate shared library 
+<p class="level0"><span Class="bold">--split-stack-adjust-size</span> SIZE Stack size when <span Class="bold">-fsplit-stack</span> function calls non-split 
+<p class="level0"><span Class="bold">-static</span> Do not link against shared libraries 
+<p class="level0"><span Class="bold">--icf</span> [none,all,safe] Identical Code Folding. '--icf=safe' Folds ctors, dtors and functions whose pointers are definitely not taken. 
+<p class="level0"><span Class="bold">--icf-iterations</span> COUNT Number of iterations of ICF (default 2) 
+<p class="level0"><span Class="bold">--print-icf-sections</span> List folded identical sections on stderr 
+<p class="level0"><span Class="bold">--no-print-icf-sections</span> Do not list folded identical sections 
+<p class="level0"><span Class="bold">--keep-unique</span> SYMBOL Do not fold this symbol during ICF 
+<p class="level0"><span Class="bold">--gc-sections</span> Remove unused sections 
+<p class="level0"><span Class="bold">--no-gc-sections</span> Don't remove unused sections (default) 
+<p class="level0"><span Class="bold">--print-gc-sections</span> List removed unused sections on stderr 
+<p class="level0"><span Class="bold">--no-print-gc-sections</span> Do not list removed unused sections 
+<p class="level0"><span Class="bold">--stats</span> Print resource usage statistics 
+<p class="level0"><span Class="bold">--sysroot</span> DIR Set target system root directory 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--trace</span> Print the name of each input file 
+<p class="level0"><span Class="bold">-T</span> FILE, <span Class="bold">--script</span> FILE Read linker script 
+<p class="level0"><span Class="bold">--threads</span> Run the linker multi-threaded 
+<p class="level0"><span Class="bold">--no-threads</span> Do not run the linker multi-threaded 
+<p class="level0"><span Class="bold">--thread-count</span> COUNT Number of threads to use 
+<p class="level0"><span Class="bold">--thread-count-initial</span> COUNT Number of threads to use in initial pass 
+<p class="level0"><span Class="bold">--thread-count-middle</span> COUNT Number of threads to use in middle pass 
+<p class="level0"><span Class="bold">--thread-count-final</span> COUNT Number of threads to use in final pass 
+<p class="level0"><span Class="bold">-Tbss</span> ADDRESS Set the address of the bss segment 
+<p class="level0"><span Class="bold">-Tdata</span> ADDRESS Set the address of the data segment 
+<p class="level0"><span Class="bold">-Ttext</span> ADDRESS Set the address of the text segment 
+<p class="level0"><span Class="bold">-Ttext-segment</span> ADDRESS Set the address of the text segment 
+<p class="level0"><span Class="bold">-Trodata-segment</span> ADDRESS Set the address of the rodata segment 
+<p class="level0"><span Class="bold">--toc-optimize</span> (PowerPC64 only) Optimize TOC code sequences 
+<p class="level0"><span Class="bold">--no-toc-optimize</span> (PowerPC64 only) Don't optimize TOC code sequences 
+<p class="level0"><span Class="bold">--toc-sort</span> (PowerPC64 only) Sort TOC and GOT sections 
+<p class="level0"><span Class="bold">--no-toc-sort</span> (PowerPC64 only) Don't sort TOC and GOT sections 
+<p class="level0"><span Class="bold">-u</span> SYMBOL, <span Class="bold">--undefined</span> SYMBOL Create undefined reference to SYMBOL 
+<p class="level0"><span Class="bold">--unresolved-symbols</span> ignore-all,report-all,ignore-in-object-files,ignore-in-shared-libs How to handle unresolved symbols 
+<p class="level0"><span Class="bold">--verbose</span> Synonym for <span Class="bold">--debug</span>=<span Class="emphasis">,files/</span> 
+<p class="level0"><span Class="bold">--version-script</span> FILE Read version script 
+<p class="level0"><span Class="bold">--warn-common</span> Warn about duplicate common symbols 
+<p class="level0"><span Class="bold">--no-warn-common</span> Do not warn about duplicate common symbols (default) 
+<p class="level0"><span Class="bold">--warn-constructors</span> Ignored 
+<p class="level0"><span Class="bold">--no-warn-constructors</span> Ignored 
+<p class="level0"><span Class="bold">--warn-execstack</span> Warn if the stack is executable 
+<p class="level0"><span Class="bold">--no-warn-execstack</span> Do not warn if the stack is executable (default) 
+<p class="level0"><span Class="bold">--no-warn-mismatch</span> Don't warn about mismatched input files 
+<p class="level0"><span Class="bold">--warn-multiple-gp</span> Ignored 
+<p class="level0"><span Class="bold">--warn-search-mismatch</span> Warn when skipping an incompatible library 
+<p class="level0"><span Class="bold">--no-warn-search-mismatch</span> Don't warn when skipping an incompatible library 
+<p class="level0"><span Class="bold">--warn-shared-textrel</span> Warn if text segment is not shareable 
+<p class="level0"><span Class="bold">--no-warn-shared-textrel</span> Do not warn if text segment is not shareable (default) 
+<p class="level0"><span Class="bold">--warn-unresolved-symbols</span> Report unresolved symbols as warnings 
+<p class="level0"><span Class="bold">--error-unresolved-symbols</span> Report unresolved symbols as errors 
+<p class="level0"><span Class="bold">--no-wchar-size-warning</span> (ARM only) Do not warn about objects with incompatible wchar_t sizes 
+<p class="level0"><span Class="bold">--whole-archive</span> Include all archive contents 
+<p class="level0"><span Class="bold">--no-whole-archive</span> Include only needed archive contents 
+<p class="level0"><span Class="bold">--wrap</span> SYMBOL Use wrapper functions for SYMBOL 
+<p class="level0"><span Class="bold">-y</span> SYMBOL, <span Class="bold">--trace-symbol</span> SYMBOL Trace references to symbol 
+<p class="level0"><span Class="bold">--undefined-version</span> Allow unused version in script (default) 
+<p class="level0"><span Class="bold">--no-undefined-version</span> Do not allow unused version in script 
+<p class="level0"><span Class="bold">-Y</span> PATH Default search path for Solaris compatibility 
+<p class="level0">-(, <span Class="bold">--start-group</span> Start a library search group 
+<p class="level0">-), <span Class="bold">--end-group</span> End a library search group 
+<p class="level0"><span Class="bold">--start-lib</span> Start a library 
+<p class="level0"><span Class="bold">--end-lib</span> End a library 
+<p class="level0"><span Class="bold">-fuse-ld</span> Ignored for GCC linker option compatibility 
+<p class="level0"><span Class="bold">-z</span> combreloc Sort dynamic relocs 
+<p class="level0"><span Class="bold">-z</span> nocombreloc Do not sort dynamic relocs 
+<p class="level0"><span Class="bold">-z</span> common-page-size=SIZE Set common page size to SIZE 
+<p class="level0"><span Class="bold">-z</span> defs Report undefined symbols (even with <span Class="bold">--shared</span>) 
+<p class="level0"><span Class="bold">-z</span> execstack Mark output as requiring executable stack 
+<p class="level0"><span Class="bold">-z</span> initfirst Mark DSO to be initialized first at runtime 
+<p class="level0"><span Class="bold">-z</span> interpose Mark object to interpose all DSOs but executable 
+<p class="level0"><span Class="bold">-z</span> lazy Mark object for lazy runtime binding (default) 
+<p class="level0"><span Class="bold">-z</span> loadfltr Mark object requiring immediate process 
+<p class="level0"><span Class="bold">-z</span> max-page-size=SIZE Set maximum page size to SIZE 
+<p class="level0"><span Class="bold">-z</span> muldefs Allow multiple definitions of symbols 
+<p class="level0"><span Class="bold">-z</span> nocopyreloc Do not create copy relocs 
+<p class="level0"><span Class="bold">-z</span> nodefaultlib Mark object not to use default search paths 
+<p class="level0"><span Class="bold">-z</span> nodelete Mark DSO non-deletable at runtime 
+<p class="level0"><span Class="bold">-z</span> nodlopen Mark DSO not available to dlopen 
+<p class="level0"><span Class="bold">-z</span> nodump Mark DSO not available to dldump 
+<p class="level0"><span Class="bold">-z</span> noexecstack Mark output as not requiring executable stack 
+<p class="level0"><span Class="bold">-z</span> now Mark object for immediate function binding 
+<p class="level0"><span Class="bold">-z</span> origin Mark DSO to indicate that needs immediate $ORIGIN processing at runtime 
+<p class="level0"><span Class="bold">-z</span> relro Where possible mark variables read-only after relocation 
+<p class="level0"><span Class="bold">-z</span> norelro Don't mark variables read-only after relocation 
+<p class="level0"><span Class="bold">-z</span> text Do not permit relocations in read-only segments 
+<p class="level0"><span Class="bold">-z</span> notext Permit relocations in read-only segments (default) 
+<p class="level0"><span Class="bold">-z</span> textoff Permit relocations in read-only segments (default) 
+<p class="level0"><span Class="bold">-z</span> buildd Dummy z option 
+<p class="level0">ld.gold: supported targets: elf32-i386 elf32-i386-freebsd elf32-i386-nacl elf32-x86-64 elf32-x86-64-freebsd elf32-x86-64-nacl elf64-x86-64 elf64-x86-64-freebsd elf64-x86-64-nacl ld.gold: supported emulations: elf_i386 elf_i386_nacl elf32_x86_64 elf32_x86_64_nacl elf_x86_64 elf_x86_64_nacl <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to &lt;http://www.sourceware.org/bugzilla/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. This program is free software; you may redistribute it under the terms of the GNU General Public License version 3 or (at your option) a later version. This program has absolutely no warranty. 

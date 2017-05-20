@@ -1,0 +1,207 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-notes - Add or inspect object notes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git notes</span> [list [&lt;object&gt;]]
+<span class="emphasis">git notes</span> add [-f] [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
+<span class="emphasis">git notes</span> copy [-f] ( --stdin | &lt;from-object&gt; &lt;to-object&gt; )
+<span class="emphasis">git notes</span> append [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
+<span class="emphasis">git notes</span> edit [&lt;object&gt;]
+<span class="emphasis">git notes</span> show [&lt;object&gt;]
+<span class="emphasis">git notes</span> merge [-v | -q] [-s &lt;strategy&gt; ] &lt;notes-ref&gt;
+<span class="emphasis">git notes</span> merge --commit [-v | -q]
+<span class="emphasis">git notes</span> merge --abort [-v | -q]
+<span class="emphasis">git notes</span> remove [--ignore-missing] [--stdin] [&lt;object&gt;...]
+<span class="emphasis">git notes</span> prune [-n | -v]
+<span class="emphasis">git notes</span> get-ref
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Adds, removes, or reads notes attached to objects, without touching the objects themselves. 
+<p class="level0">By default, notes are saved to and read from refs/notes/commits, but this default can be overridden. See the OPTIONS, CONFIGURATION, and ENVIRONMENT sections below. If this ref does not exist, it will be quietly created when it is first needed to store a note. 
+<p class="level0">A typical use of notes is to supplement a commit message without changing the commit itself. Notes can be shown by <span Class="emphasis">git log</span> along with the original commit message. To distinguish these notes from the message stored in the commit object, the notes are indented like the message, after an unindented line saying "Notes (&lt;refname&gt;):" (or "Notes:" for refs/notes/commits). 
+<p class="level0">Notes can also be added to patches prepared with git format-patch by using the --notes option. Such notes are added as a patch commentary after a three dash separator line. 
+<p class="level0">To change which notes are shown by <span Class="emphasis">git log</span>, see the "notes.displayRef" configuration in <span Class="bold">git-log</span>(1). 
+<p class="level0">See the "notes.rewrite.&lt;command&gt;" configuration for a way to carry notes across commands that rewrite commits. <a name="SUBCOMMANDS"></a><h2 class="nroffsh">SUBCOMMANDS</h2>
+<p class="level0">
+<p class="level0">list 
+<p class="level1">List the notes object for a given object. If no object is given, show a list of all note objects and the objects they annotate (in the format "&lt;note object&gt; &lt;annotated object&gt;"). This is the default subcommand if no subcommand is given. 
+<p class="level0">
+<p class="level0">add 
+<p class="level1">Add notes for a given object (defaults to HEAD). Abort if the object already has notes (use -f to overwrite existing notes). However, if you(cqre using add interactively (using an editor to supply the notes contents), then - instead of aborting - the existing notes will be opened in the editor (like the edit subcommand). 
+<p class="level0">
+<p class="level0">copy 
+<p class="level1">Copy the notes for the first object onto the second object. Abort if the second object already has notes, or if the first object has none (use -f to overwrite existing notes to the second object). This subcommand is equivalent to: git notes add [-f] -C $(git notes list &lt;from-object&gt;) &lt;to-object&gt; 
+<p class="level1">In --stdin mode, take lines in the format 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;from-object&gt; SP &lt;to-object&gt; [ SP &lt;rest&gt; ] LF
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">on standard input, and copy the notes from each &lt;from-object&gt; to its corresponding &lt;to-object&gt;. (The optional &lt;rest&gt; is ignored so that the command can read the input given to the post-rewrite hook.) 
+<p class="level0">
+<p class="level0">append 
+<p class="level1">Append to the notes of an existing object (defaults to HEAD). Creates a new notes object if needed. 
+<p class="level0">
+<p class="level0">edit 
+<p class="level1">Edit the notes for a given object (defaults to HEAD). 
+<p class="level0">
+<p class="level0">show 
+<p class="level1">Show the notes for a given object (defaults to HEAD). 
+<p class="level0">
+<p class="level0">merge 
+<p class="level1">Merge the given notes ref into the current notes ref. This will try to merge the changes made by the given notes ref (called "remote") since the merge-base (if any) into the current notes ref (called "local"). 
+<p class="level1">If conflicts arise and a strategy for automatically resolving conflicting notes (see the -s/--strategy option) is not given, the "manual" resolver is used. This resolver checks out the conflicting notes in a special worktree (.git/NOTES_MERGE_WORKTREE), and instructs the user to manually resolve the conflicts there. When done, the user can either finalize the merge with <span Class="emphasis">git notes merge --commit</span>, or abort the merge with <span Class="emphasis">git notes merge --abort</span>. 
+<p class="level0">
+<p class="level0">remove 
+<p class="level1">Remove the notes for given objects (defaults to HEAD). When giving zero or one object from the command line, this is equivalent to specifying an empty note message to the edit subcommand. 
+<p class="level0">
+<p class="level0">prune 
+<p class="level1">Remove all notes for non-existing/unreachable objects. 
+<p class="level0">
+<p class="level0">get-ref 
+<p class="level1">Print the current notes ref. This provides an easy way to retrieve the current notes ref (e.g. from scripts). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">When adding notes to an object that already has notes, overwrite the existing notes (instead of aborting). 
+<p class="level0">
+<p class="level0">-m &lt;msg&gt;, --message=&lt;msg&gt; 
+<p class="level1">Use the given note message (instead of prompting). If multiple -m options are given, their values are concatenated as separate paragraphs. Lines starting with &#35; and empty lines other than a single line between paragraphs will be stripped out. 
+<p class="level0">
+<p class="level0">-F &lt;file&gt;, --file=&lt;file&gt; 
+<p class="level1">Take the note message from the given file. Use <span Class="emphasis">-</span> to read the note message from the standard input. Lines starting with &#35; and empty lines other than a single line between paragraphs will be stripped out. 
+<p class="level0">
+<p class="level0">-C &lt;object&gt;, --reuse-message=&lt;object&gt; 
+<p class="level1">Take the given blob object (for example, another note) as the note message. (Use git notes copy &lt;object&gt; instead to copy notes between objects.) 
+<p class="level0">
+<p class="level0">-c &lt;object&gt;, --reedit-message=&lt;object&gt; 
+<p class="level1">Like <span Class="emphasis">-C</span>, but with <span Class="emphasis">-c</span> the editor is invoked, so that the user can further edit the note message. 
+<p class="level0">
+<p class="level0">--ref &lt;ref&gt; 
+<p class="level1">Manipulate the notes tree in &lt;ref&gt;. This overrides <span Class="emphasis">GIT_NOTES_REF</span> and the "core.notesRef" configuration. The ref is taken to be in refs/notes/ if it is not qualified. 
+<p class="level0">
+<p class="level0">--ignore-missing 
+<p class="level1">Do not consider it an error to request removing notes from an object that does not have notes attached to it. 
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">Also read the object names to remove notes from from the standard input (there is no reason you cannot combine this with object names from the command line). 
+<p class="level0">
+<p class="level0">-n, --dry-run 
+<p class="level1">Do not remove anything; just report the object names whose notes would be removed. 
+<p class="level0">
+<p class="level0">-s &lt;strategy&gt;, --strategy=&lt;strategy&gt; 
+<p class="level1">When merging notes, resolve notes conflicts using the given strategy. The following strategies are recognized: "manual" (default), "ours", "theirs", "union" and "cat_sort_uniq". See the "NOTES MERGE STRATEGIES" section below for more information on each notes merge strategy. 
+<p class="level0">
+<p class="level0">--commit 
+<p class="level1">Finalize an in-progress <span Class="emphasis">git notes merge</span>. Use this option when you have resolved the conflicts that <span Class="emphasis">git notes merge</span> stored in .git/NOTES_MERGE_WORKTREE. This amends the partial merge commit created by <span Class="emphasis">git notes merge</span> (stored in .git/NOTES_MERGE_PARTIAL) by adding the notes in .git/NOTES_MERGE_WORKTREE. The notes ref stored in the .git/NOTES_MERGE_REF symref is updated to the resulting commit. 
+<p class="level0">
+<p class="level0">--abort 
+<p class="level1">Abort/reset a in-progress <span Class="emphasis">git notes merge</span>, i.e. a notes merge with conflicts. This simply removes all files related to the notes merge. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">When merging notes, operate quietly. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">When merging notes, be more verbose. When pruning notes, report all object names whose notes are removed. 
+<p class="level0"><a name="DISCUSSION"></a><h2 class="nroffsh">DISCUSSION</h2>
+<p class="level0">
+<p class="level0">Commit notes are blobs containing extra information about an object (usually information to supplement a commit(cqs message). These blobs are taken from notes refs. A notes ref is usually a branch which contains "files" whose paths are the object names for the objects they describe, with some directory separators included for performance reasons s-2u[1]ds+2. 
+<p class="level0">Every notes change creates a new commit at the specified notes ref. You can therefore inspect the history of the notes by invoking, e.g., git log -p notes/commits. Currently the commit message only records which operation triggered the update, and the commit authorship is determined according to the usual rules (see <span Class="bold">git-commit</span>(1)). These details may change in the future. 
+<p class="level0">It is also permitted for a notes ref to point directly to a tree object, in which case the history of the notes can be read with git log -p -g &lt;refname&gt;. <a name="NOTES"></a><h2 class="nroffsh">NOTES MERGE STRATEGIES</h2>
+<p class="level0">
+<p class="level0">The default notes merge strategy is "manual", which checks out conflicting notes in a special work tree for resolving notes conflicts (.git/NOTES_MERGE_WORKTREE), and instructs the user to resolve the conflicts in that work tree. When done, the user can either finalize the merge with <span Class="emphasis">git notes merge --commit</span>, or abort the merge with <span Class="emphasis">git notes merge --abort</span>. 
+<p class="level0">"ours" automatically resolves conflicting notes in favor of the local version (i.e. the current notes ref). 
+<p class="level0">"theirs" automatically resolves notes conflicts in favor of the remote version (i.e. the given notes ref being merged into the current notes ref). 
+<p class="level0">"union" automatically resolves notes conflicts by concatenating the local and remote versions. 
+<p class="level0">"cat_sort_uniq" is similar to "union", but in addition to concatenating the local and remote versions, this strategy also sorts the resulting lines, and removes duplicate lines from the result. This is equivalent to applying the "cat | sort | uniq" shell pipeline to the local and remote versions. This strategy is useful if the notes follow a line-based format where one wants to avoid duplicated lines in the merge result. Note that if either the local or remote version contain duplicate lines prior to the merge, these will also be removed by this notes merge strategy. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">You can use notes to add annotations with information that was not available at the time a commit was written. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git notes add -m *(AqTested-by: Johannes Sixt &lt;j6t@kdbg.org&gt;*(Aq 72a144e2
+$ git show -s 72a144e
+[...]
+&nbsp;   Signed-off-by: Junio C Hamano &lt;gitster@pobox.com&gt;
+&nbsp;
+Notes:
+&nbsp;   Tested-by: Johannes Sixt &lt;j6t@kdbg.org&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">In principle, a note is a regular Git blob, and any kind of (non-)format is accepted. You can binary-safely create notes from arbitrary files using <span Class="emphasis">git hash-object</span>: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ cc *.c
+$ blob=$(git hash-object -w a.out)
+$ git notes --ref=built add -C "$blob" HEAD
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">(You cannot simply use git notes --ref=built add -F a.out HEAD because that is not binary-safe.) Of course, it doesn(cqt make much sense to display non-text-format notes with <span Class="emphasis">git log</span>, so if you use such notes, you(cqll probably need to write some special-purpose tools to do something useful with them. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">core.notesRef 
+<p class="level1">Notes ref to read and manipulate instead of refs/notes/commits. Must be an unabbreviated ref name. This setting can be overridden through the environment and command line. 
+<p class="level0">
+<p class="level0">notes.displayRef 
+<p class="level1">Which ref (or refs, if a glob or specified more than once), in addition to the default set by core.notesRef or <span Class="emphasis">GIT_NOTES_REF</span>, to read notes from when showing commit messages with the <span Class="emphasis">git log</span> family of commands. This setting can be overridden on the command line or by the <span Class="emphasis">GIT_NOTES_DISPLAY_REF</span> environment variable. See <span Class="bold">git-log</span>(1). 
+<p class="level0">
+<p class="level0">notes.rewrite.&lt;command&gt; 
+<p class="level1">When rewriting commits with &lt;command&gt; (currently amend or rebase), if this variable is false, git will not copy notes from the original to the rewritten commit. Defaults to true. See also "notes.rewriteRef" below. 
+<p class="level1">This setting can be overridden by the <span Class="emphasis">GIT_NOTES_REWRITE_REF</span> environment variable. 
+<p class="level0">
+<p class="level0">notes.rewriteMode 
+<p class="level1">When copying notes during a rewrite, what to do if the target commit already has a note. Must be one of overwrite, concatenate, and ignore. Defaults to concatenate. 
+<p class="level1">This setting can be overridden with the GIT_NOTES_REWRITE_MODE environment variable. 
+<p class="level0">
+<p class="level0">notes.rewriteRef 
+<p class="level1">When copying notes during a rewrite, specifies the (fully qualified) ref whose notes should be copied. May be a glob, in which case notes in all matching refs will be copied. You may also specify this configuration several times. 
+<p class="level1">Does not have a default value; you must configure this variable to enable note rewriting. 
+<p class="level1">Can be overridden with the <span Class="emphasis">GIT_NOTES_REWRITE_REF</span> environment variable. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">GIT_NOTES_REF</span> 
+<p class="level1">Which ref to manipulate notes from, instead of refs/notes/commits. This overrides the core.notesRef setting. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">GIT_NOTES_DISPLAY_REF</span> 
+<p class="level1">Colon-delimited list of refs or globs indicating which refs, in addition to the default from core.notesRef or <span Class="emphasis">GIT_NOTES_REF</span>, to read notes from when showing commit messages. This overrides the notes.displayRef setting. 
+<p class="level1">A warning will be issued for refs that do not exist, but a glob that does not match any refs is silently ignored. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">GIT_NOTES_REWRITE_MODE</span> 
+<p class="level1">When copying notes during a rewrite, what to do if the target commit already has a note. Must be one of overwrite, concatenate, and ignore. This overrides the core.rewriteMode setting. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">GIT_NOTES_REWRITE_REF</span> 
+<p class="level1">When rewriting commits, which notes to copy from the original to the rewritten commit. Must be a colon-delimited list of refs or globs. 
+<p class="level1">If not set in the environment, the list of notes to copy depends on the notes.rewrite.&lt;command&gt; and notes.rewriteRef settings. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(7) suite <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Permitted pathnames have the form <span Class="emphasis">ab</span>/<span Class="emphasis">cd</span>/<span Class="emphasis">ef</span>/<a class="emphasis" href="#">...</a>/<span Class="emphasis">abcdef...</span>: a sequence of directory names of two hexadecimal digits each followed by a filename with the rest of the object ID. 
+<p class="level1">

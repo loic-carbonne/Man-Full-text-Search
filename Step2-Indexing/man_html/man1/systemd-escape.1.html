@@ -1,0 +1,93 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-escape - Escape strings for usage in system unit names <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-escape </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a><span Class="bold"> </span><span Class="bold">[STRING...]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-escape</span> may be used to escape strings for inclusion in systemd unit names. The command may be used to escape and to undo escaping of strings. 
+<p class="level0">The command takes any number of strings on the command line, and will process them individually, one after the other. It will output them separated by spaces to stdout. 
+<p class="level0">By default this command will escape the strings passed, unless <span Class="bold">--unescape</span> is passed which results in the inverse operation being applied. If <span Class="bold">--mangle</span> a special mode of escaping is applied instead, which assumes a string to be already escaped but will escape everything that appears obviously non-escaped. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--suffix=</span> 
+<p class="level1">Appends the specified unit type suffix to the escaped string. Takes one of the unit types supported by systemd, such as ".service" or ".mount". May not be used in conjunction with <span Class="bold">--template=</span>, <span Class="bold">--unescape</span> or <span Class="bold">--mangle</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--template=</span> 
+<p class="level1">Inserts the escaped strings in a unit name template. Takes a unit name template such as foobar@.service May not be used in conjunction with <span Class="bold">--suffix=</span>, <span Class="bold">--unescape</span> or <span Class="bold">--mangle</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--path</span>, <span Class="bold">-p</span> 
+<p class="level1">When escaping or unescaping a string, assume it refers to a file system path. This enables special processing of the initial "/" of the path. 
+<p class="level0">
+<p class="level0"><span Class="bold">--unescape</span> 
+<p class="level1">Instead of escaping the specified strings, undo the escaping, reversing the operation. May not be used in conjunction with <span Class="bold">--suffix=</span>, <span Class="bold">--template=</span> or <span Class="bold">--mangle</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--mangle</span> 
+<p class="level1">Like <span Class="bold">--escape</span>, but only escape characters that are obviously not escaped yet, and possibly automatically append an appropriate unit type suffix to the string. May not be used in conjunction with <span Class="bold">--suffix=</span>, <span Class="bold">--template=</span> or <span Class="bold">--unescape</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Escape a single string: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemd-escape *(AqHallöchen, Meister*(Aq
+Hallexc3exb6chenex2cex20Meister
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To undo escaping on a single string: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemd-escape -u *(AqHallexc3exb6chenex2cex20Meister*(Aq
+Hallöchen, Meister
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To generate the mount unit for a path: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemd-escape -p --suffix=mount "/tmp//waldi/foobar/"
+tmp-waldi-foobar.mount
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To generate instance names of three strings 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemd-escape --template=systemd-nspawn@.service *(AqMy Container 1*(Aq *(Aqcontainerb*(Aq *(Aqcontainer/III*(Aq
+systemd-nspawn@Myex20Containerex201.service systemd-nspawn@containerb.service systemd-nspawn@container-III.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1) 

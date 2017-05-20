@@ -1,0 +1,29 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-trigger - a package trigger utility 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-trigger</span> 
+<p class="level0"><br><span Class="bold">dpkg-trigger</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-trigger</span> is a tool to explicitly activate triggers and check for its support on the running <span Class="bold">dpkg</span>. 
+<p class="level0">This can be used by maintainer scripts in complex and conditional situations where the file triggers, or the declarative <span Class="bold">activate</span> triggers control file directive, are insufficiently rich. It can also be used for testing and by system administrators (but note that the triggers won't actually be run by <span Class="bold">dpkg-trigger</span>). 
+<p class="level0">Unrecognized trigger name syntaxes are an error for <span Class="bold">dpkg-trigger</span>. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">--check-supported</span>Check if the running <span Class="bold">dpkg</span> supports triggers (usually called from a postinst). Will exit <span Class="bold">0</span> if a triggers-capable <span Class="bold">dpkg</span> has run, or <span Class="bold">1</span> with an error message to stderr if not. Normally, however, it is better just to activate the desired trigger with <span Class="bold">dpkg-trigger</span>. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="bold">--version</span> Show the version and exit. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--admindir= dir</span> Change the location of the <span Class="bold">dpkg</span> database. The default location is <span Class="emphasis">/var/lib/dpkg</span>. 
+<p class="level0"><span Class="manpage">--by-package=\fIpackage\fR</span>Override trigger awaiter (normally set by <span Class="bold">dpkg</span> through the <span Class="bold">DPKG_MAINTSCRIPT_PACKAGE</span> environment variable of the maintainer scripts, naming the package to which the script belongs, and this will be used by default). 
+<p class="level0"><span Class="manpage">--no-await</span>This option arranges that the calling package T (if any) need not await the processing of this trigger; the interested package(s) I, will not be added to T's trigger processing awaited list and T's status is unchanged. T may be considered installed even though I may not yet have processed the trigger. 
+<p class="level0"><span Class="manpage">--await</span>This option does the inverse of <span Class="bold">--no-await</span>. It is currently the default behavior. 
+<p class="level0"><span Class="manpage">--no-act</span>Just test, do not actually change anything. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DPKG_ADMINDIR</span> If set and the <span Class="bold">--admindir</span> option has not been specified, it will be used as the <span Class="bold">dpkg</span> data directory. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dpkg (1)</span>, <span Class="manpage">deb-triggers (5)</span>, <span Class="manpage">/usr/share/doc/dpkg-dev/triggers.txt.gz .</span>

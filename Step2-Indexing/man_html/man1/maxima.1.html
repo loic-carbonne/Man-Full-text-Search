@@ -1,0 +1,117 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">Maxima - Common Lisp version of MACSYMA symbolic mathematics package released under the GNU Public License 
+<p class="level0">Xmaxima - A graphical version of Maxima <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">maxima</span> [<span Class="emphasis">options</span>] 
+<p class="level0"><span Class="bold">xmaxima </span> [<span Class="emphasis">options</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Maxima is a version of the MIT-developed MACSYMA system, modified to run under *(Cl.  It is an interactive expert system and programming environment for symbolic and numerical mathematical manipulation.  Written in *(Li, it allows differentiation, integration, solution of linear or polynomial equations, factoring of polynomials, expansion of functions in Laurent or Taylor series, computation of Poisson series, matrix and tensor manipulations, and two- and three-dimensional graphics. Procedures may be written using an ALGOL-like syntax, and both *(Li-like functions and pattern matching facilities are provided. Files containing Maxima objects may be read from and written to disk files. Pre-written Maxima commands may be read from a file and executed, allowing batch-mode use. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span> <span Class="emphasis">file</span>, <span Class="bold">--batch=</span><span Class="emphasis">file</span> Process <span Class="emphasis">file</span> in noninteractive mode. 
+<p class="level0"><span Class="bold">--batch-lisp=</span><span Class="emphasis">file</span> Process Lisp file <span Class="emphasis">file</span> in noninteractive mode. 
+<p class="level0"><span Class="bold">--batch-string=</span><span Class="emphasis">string</span> Process <span Class="emphasis">string</span> in noninteractive mode. 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--directories</span> Display Maxima directory information. 
+<p class="level0"><span Class="bold">--disable-readline</span> Disable readline support. 
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--enable-lisp-debugger</span> Enable Lisp debugger. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display a brief usage summary. 
+<p class="level0"><span Class="bold">--init=</span><span Class="emphasis">string</span> Load the Maxima and Lisp initialization files </span><span Class="emphasis">string</span>.mac and </span><span Class="emphasis">string</span>.lisp at startup. 
+<p class="level0"><span Class="bold">--init-mac=</span><span Class="emphasis">file</span> Load the Maxima initialization file </span><span Class="emphasis">file</span> at startup. 
+<p class="level0"><span Class="bold">--init-lisp=</span><span Class="emphasis">file</span> Load the Lisp initialization file </span><span Class="emphasis">file</span> at startup. 
+<p class="level0"><span Class="bold">-l</span> <span Class="emphasis">lisp</span>, <span Class="bold">--lisp=</span><span Class="emphasis">lisp</span>  Use Lisp implementation <span Class="emphasis">lisp</span>. Use <span Class="bold">--list-avail</span> to see the list of possible values. 
+<p class="level0"><span Class="bold">--list-avail</span> List the available Lisp and Maxima versions. 
+<p class="level0"><span Class="bold">-p</span> <span Class="emphasis">lisp_file</span>, <span Class="bold">--preload-lisp=</span><span Class="emphasis">lisp_file</span> Preload <span Class="emphasis">lisp_file</span>. 
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> Suppress Maxima start-up message. 
+<p class="level0"><span Class="bold">-r</span> <span Class="emphasis">string</span>, <span Class="bold">--run-string=</span><span Class="emphasis">string</span> Process <span Class="emphasis">string</span> in interactive mode. 
+<p class="level0"><span Class="bold">-s</span> <span Class="emphasis">port</span>, <span Class="bold">--server=</span><span Class="emphasis">port</span> Connect Maxima to server on <span Class="emphasis">port</span>. Note that this does not create a Maxima server; Maxima is the client. 
+<p class="level0"><span Class="bold">-u</span> <span Class="emphasis">version</span>, <span Class="bold">--use-version=</span><span Class="emphasis">version</span>  Launch Maxima version <span Class="emphasis">version</span>. Use <span Class="bold">--list-avail</span> to see the list of possible values. 
+<p class="level0"><span Class="bold">--userdir=</span><span Class="emphasis">directory</span>  Use <span Class="emphasis">directory</span> for user directory (default is $HOME/maxima for Windows, $HOME/.maxima for others) 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> Print extra information from the Maxima wrapper script. 
+<p class="level0"><span Class="bold">--version</span> Print the (default) installed version. 
+<p class="level0"><span Class="bold">--very-quiet</span> Suppress expression labels and the Maxima start-up message. 
+<p class="level0"><span Class="bold">-X</span> <span Class="emphasis">Lisp options</span>, <span Class="bold">--lisp-options=</span><span Class="emphasis">Lisp options</span> Options to be given to the underlying Lisp. <a name="INTRODUCTORY"></a><h2 class="nroffsh">INTRODUCTORY INSTRUCTIONS</h2>
+<p class="level0">Upon initialization, <span Class="emphasis">maxima</span> prints a startup message, then a command line prompt: 
+<p class="level0"><span Class="bold">(%i1)</span> 
+<p class="level0">All Maxima commands must be concluded with either: 
+<p class="level0">1) a semicolon (in which case the result of the command is echoed on a display line, prefaced by <span Class="bold">%o</span> with an appended sequence number), or 
+<p class="level0">2) a dollar sign (which suppresses printing of a display line). 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">(%i1) diff(sin(x),x); 
+<p class="level0">(%o1)                         cos(x) 
+<p class="level0">(%i2) integrate(%o1,x); 
+<p class="level0">(%o2)                         sin(x) 
+<p class="level0">The user types in commands which create <span Class="emphasis">Maxima objects</span> (such as functions and system variables) and which manipulate these objects. 
+<p class="level0">On UNIX it may be preferable to run Maxima under Gnu Emacs or XEmacs. You can do this by invoking shell mode in <span Class="emphasis">emacs ,</span> and then invoking <span Class="emphasis">maxima .</span> Preferably, install <span Class="emphasis">maxima.el</span> from the distribution and use the command: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">M-x maxima</span> 
+<p class="level1">The main advantage of working inside <span Class="emphasis">emacs</span> is that it provides a complete history of input/output. If you execute the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">display2d: false</span> 
+<p class="level1">you will be able to use your output as input, by simply killing and yanking. 
+<p class="level1">*(Li is built into Maxima. The function to_lisp() enters the Lisp read-eval-print loop. The *(Li function (run) may be used to return to Maxima. Alternatively, single *(Li commands may be invoked by starting a command line with <span Class="bold">:lisp</span>.  <a name="BUILT-IN"></a><h2 class="nroffsh">BUILT-IN HELP</h2>
+<p class="level0">The reference manual can be accessed from the Maxima input prompt. A description of a given command can be obtained by typing the command 
+<p class="level0"><span Class="bold">describe(command);</span> 
+<p class="level0">or, simply, 
+<p class="level0"><a class="bold" href="#"> ? command</a> 
+<p class="level0">searches the list of functions for the string <span Class="emphasis">command</span>. Demonstration files provide complete examples of problems solved with Maxima, and may be accessed with the command <span Class="bold">demo(command);</span>. A library of user-contributed command files is also provided (the <span Class="emphasis">share library ),</span> directed toward a variety of problems. <a name="OTHER"></a><h2 class="nroffsh">OTHER DOCUMENTATION</h2>
+<p class="level0">The reference manual is provided in both info and html formats. <a name="COMMAND"></a><h2 class="nroffsh">COMMAND PRIMER</h2>
+<p class="level0">
+<p class="level0">This list includes only commands which the beginner might find useful to know about prior to studying the reference manual and other texts. 
+<p class="level0"><span Class="bold">batch(myfile);</span> Execute the contents of file <span Class="emphasis">myfile ,</span> which is assumed to contain Maxima commands. 
+<p class="level0"><span Class="bold">closefile(myfile);</span> Close session file opened by a writefile command (see below). 
+<p class="level0"><span Class="bold">demo(myfile);</span> Execute the contents of file <span Class="emphasis">myfile ,</span> which is assumed to contain Maxima commands, one line at a time. 
+<p class="level0"><span Class="bold">ev(infolists);</span> Print the contents of all of the available information lists. 
+<p class="level0"><span Class="bold">functions;</span> Print a list of the names of currently defined functions. 
+<p class="level0"><span Class="bold">infolists;</span> Print a list of the various available information lists. 
+<p class="level0"><span Class="bold">kill(objectlist);</span> Eliminate the object(s) contained within parentheses; <span Class="emphasis">kill(all)</span> Delete all objects created by the user, restoring Maxima to its initial state. 
+<p class="level0"><span Class="bold">quit();</span> Leave Maxima. 
+<p class="level0"><span Class="bold">reset();</span> Reset all Maxima control parameters to their default states. 
+<p class="level0"><span Class="bold">values;</span> Print a list of the names of currently assigned scalar values. 
+<p class="level0"><span Class="bold">writefile(myfile);</span> Write record of session to file <span Class="emphasis">myfile ;</span> only one file at a time can be open, and the <span Class="emphasis">closefile</span> command must be invoked prior to leaving Maxima to flush the buffer. <a name="PLOTTING"></a><h2 class="nroffsh">PLOTTING COMMANDS</h2>
+<p class="level0">Maxima is capable of producing 2- and 3-dimensional plots. Here is a simple 2-dimensional example 
+<p class="level0"><span Class="bold">plot2d (sin(x), [x, -2*%pi, 2*%pi]);</span> 
+<p class="level0">and a simple 3-dimensional example 
+<p class="level0"><span Class="bold">plot3d (2^(-u^2 + v^2), [u, -5, 5], [v, -7, 7]);</span> 
+<p class="level0">By default plots are made by the <a class="emphasis" href="#"></a> gnuplot plotting package. Plots can be made by other means; see "? plot_options". For more information about plotting, see "? plot". <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">\*(Pr/lib/maxima/\*(Vr/binary-\fIlisp\fR</span> Compiled files for lisp implementation <span Class="emphasis">lisp</span> 
+<p class="level0"><span Class="emphasis">\*(Pr/info</span> primary documentation directory, containing info files which are used for the 'describe' command, and also for viewing under emacs or other info viewer. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/doc/html</span> HTML version of info documentation. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/demo</span> Maxima demo files. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/emacs</span> Elisp files for use with Emacs or XEmacs. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/share</span> Contributed external packages. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/doc/share</span> Documentation for contributed external packages. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/src</span> Complete Maxima source. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/tests</span> Test suite. 
+<p class="level0"><span Class="emphasis">\*(Pr/share/maxima/\*(Vr/xmaxima</span> Xmaxima support files. 
+<p class="level0"><span Class="emphasis">\*(Pr/libexec/maxima/\*(Vr/</span> Maxima utility scripts. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">MAXIMA_USERDIR</span> Points to a directory for user customization files. Maxima's default search paths include <span Class="bold">MAXIMA_USERDIR</span>. Default value: <span Class="bold">$HOME/.maxima</span>. 
+<p class="level0"><span Class="bold">MAXIMA_PREFIX</span> Maxima looks for its input files in the directory configured at compile time, *(Pr. Maxima can be relocated to a different directory as long as the <span Class="emphasis">maxima</span> script maintains the same relative position with respect to the Maxima input files. If, for some reason, the <span Class="emphasis">maxima</span> script needs to be relocated independently, <span Class="bold">MAXIMA_PREFIX</span> needs to be set to point to the top of the tree holding the input files. 
+<p class="level0"><span Class="bold">MAXIMA_DIRECTORY</span> <span Class="bold">MAXIMA_DIRECTORY</span> is equivalent to <span Class="bold">MAXIMA_PREFIX</span>. It is included only for backward compatibility with older versions of Maxima. 
+<p class="level0">Maxima uses several other environment variables for communication between the <span Class="emphasis">maxima</span> script and the lisp image. All such variables start with <span Class="emphasis">MAXIMA_</span>. They should not need to be modified by the user. <a name="CUSTOMIZATION"></a><h2 class="nroffsh">CUSTOMIZATION FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">maximarc</span> <span Class="bold">maximarc</span> is sourced by the <span Class="emphasis">maxima</span> script at startup. It should be located in <span Class="bold">$MAXIMA_USERDIR</span> (see above). <span Class="bold">maximarc</span> can be used, <span Class="emphasis">e.g.</span>, to change the user's default lisp implementation choice to CMUCL by including the line "MAXIMA_LISP=cmucl". 
+<p class="level0"><span Class="bold">maxima-init.lisp</span> At startup, Maxima will load the lisp file <span Class="bold">maxima-init.lisp</span> if it is found in the search path. For user customization, <span Class="bold">maxima-init.lisp</span> should be placed in the <span Class="bold">$MAXIMA_USERDIR</span> (see above). Since Maxima typically has a system <span Class="bold">maxima-init.lisp</span> in the Maxima share directory, the user may want to copy the contents of the system <span Class="bold">maxima-init.lisp</span> into his/her custom file. Alternatively, the user can load a Lisp initialization file with another name or location by means of the <span Class="bold">--init-lisp</span> or <span Class="bold">--init</span> command-line options. 
+<p class="level0"><span Class="bold">maxima-init.mac</span> At startup, Maxima will load the file <span Class="bold">maxima-init.mac</span> if it is found in the search path.  For user customization, <span Class="bold">maxima-init.mac</span> should be placed in the <span Class="bold">$MAXIMA_USERDIR</span> (see above). Alternatively, the user can load a Maxima initialization file with another name or location by means of the <span Class="bold">--init-mac</span> or <span Class="bold">--init</span> command-line options. <a name="REFERENCES"></a><h2 class="nroffsh">REFERENCES</h2>
+<p class="level0">Old Reference:   <span Class="emphasis">MACSYMA Reference Manual</span> (volumes 1 and 2). The Mathlab Group, Laboratory for Computer Science, MIT. Version 10. January 1983. 
+<p class="level0">Newer references:  <span Class="emphasis">http://maxima.sourceforge.net</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Maxima is a complex system. It includes both known and unknown bugs. Use at your own risk. The Maxima bug database is available at 
+<p class="level0"><a href="http://sourceforge.net/tracker/?atid=104933&group_id=4933&func=browse">http://sourceforge.net/tracker/?atid=104933&group_id=4933&func=browse</a> 
+<p class="level0">New bug reports are always appreciated. Please include the output of the Maxima function "build_info()" with the report. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">MACSYMA (Project MAC's SYmbolic MAnipulation System) was developed by the Mathlab group of the MIT Laboratory for Computer Science (originally known as Project MAC), during the years 1969-1972.  Their work was supported by grants NSG 1323 of the National Aeronautics and Space Administration, N00014-77-C-0641 of the Office of Naval Research, ET-78-C-02-4687 of the U.S. Department of Energy, and F49620-79-C-020 of the U.S. Air Force.  MACSYMA was further modified for use under the UNIX operating system (for use on DEC VAX computers and Sun workstations), by Richard Fateman and colleagues at the University of California at Berkeley; this version of MACSYMA is known as VAXIMA.  The present version stems from a re-working of the public domain MIT MACSYMA for *(Ky, prepared by William Schelter, University of Texas at Austin until his passing away in 2001.  It contains numerous additions, extensions and enhancements of the original.  The original version of this manual page was written by R. P. C. Rodgers, UCSF School of Pharmacy, San Francisco, CA 94143 (rodgers@maxwell.mmwb.ucsf.edu) in 1989. It was extensively revised by James Amundson in 2002. 
+<p class="level0">Maxima is now developed and maintained by the Maxima project at &lt;http://maxima.sourceforge.net&gt;. 

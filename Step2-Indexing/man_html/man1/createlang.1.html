@@ -1,0 +1,91 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">createlang - install a PostgreSQL procedural language <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">createlang</span> [<span Class="emphasis">connection-option</span>...] <span Class="emphasis">langname</span> [<span Class="emphasis">dbname</span>] 
+<p class="level0"><span Class="bold">createlang</span> [<span Class="emphasis">connection-option</span>...] <span Class="bold">--list</span> | <span Class="bold">-l</span>  [<span Class="emphasis">dbname</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createlang is a utility for adding a procedural language to a PostgreSQL database. 
+<p class="level0">
+<p class="level0">createlang is just a wrapper around the CREATE EXTENSION (<span Class="bold">CREATE_EXTENSION</span>(7)) SQL command. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level1"><span Class="bold">Caution</span> 
+<p class="level1"><br>
+<p class="level1">
+<p class="level1">createlang is deprecated and may be removed in a future PostgreSQL release. Direct use of the <span Class="bold">CREATE EXTENSION</span> command is recommended instead. 
+<p class="level1">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createlang accepts the following command-line arguments: 
+<p class="level0"><span Class="emphasis">langname</span> 
+<p class="level1">Specifies the name of the procedural language to be installed. (This name is lower-cased.) 
+<p class="level0">
+<p class="level0"><span Class="bold">[-d]</span><span Class="bold"> </span><span class="bold"><span Class="emphasis">dbname</span></span> <br><span Class="bold">[--dbname=]</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the database to which the language should be added. The default is to use the database with the same name as the current system user. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Display SQL commands as they are executed. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span> <br><span Class="bold">--list</span> 
+<p class="level1">Show a list of already installed languages in the target database. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the createlang version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about createlang command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">createlang also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force createlang to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since createlang will automatically prompt for a password if the server demands password authentication. However, createlang will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATABASE</span> <br><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">Most error messages are self-explanatory. If not, run createlang with the <span Class="bold">--echo</span> option and see the respective SQL command for details. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Use <span Class="bold">droplang</span>(1) to remove a language. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To install the language pltcl into the database template1: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createlang pltcl template1</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Note that installing the language into template1 will cause it to be automatically installed into subsequently-created databases as well. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">droplang</span>(1), CREATE EXTENSION (<span Class="bold">CREATE_EXTENSION</span>(7)), CREATE LANGUAGE (<span Class="bold">CREATE_LANGUAGE</span>(7)) 

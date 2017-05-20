@@ -1,0 +1,376 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xpdf - Portable Document Format (PDF) file viewer for X (version 3.03) <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xpdf</span> [options] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">Xpdf</span> is a viewer for Portable Document Format (PDF) files.  (These are also sometimes also called 'Acrobat' files, from the name of Adobe's PDF software.)  Xpdf runs under the X Window System on UNIX, VMS, and OS/2. 
+<p class="level0">To run xpdf, simply type: 
+<p class="level0">
+<p class="level1">xpdf file.pdf 
+<p class="level0">
+<p class="level0">where <span Class="emphasis">file.pdf</span> is your PDF file.  The file name can be followed by a number specifying the page which should be displayed first, e.g.: 
+<p class="level0">
+<p class="level1">xpdf file.pdf 18 
+<p class="level0">
+<p class="level0">You can also give a named destination, prefixed with '+' in place of the page number.  (This is only useful with PDF files that provide named destination targets.) 
+<p class="level0">You can also start xpdf without opening any files: 
+<p class="level0">
+<p class="level1">xpdf 
+<p class="level0">
+<p class="level0">Various compressed formats (gz, bz2, xz, and Z) are also supported, for example:: 
+<p class="level0">
+<p class="level1">xpdf file.pdf.gz 
+<p class="level0">
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION FILE</h2>
+<p class="level0">Xpdf reads a configuration file at startup.  It first tries to find the user's private config file, ~/.xpdfrc.  If that doesn't exist, it looks for a system-wide config file, /etc/xpdf/xpdfrc.  See the <span Class="manpage">xpdfrc (5)</span>man page for details. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Many of the following options can be set with configuration file commands or X resources.  These are listed in square brackets with the description of the corresponding command line option. 
+<p class="level0"><span Class="bold">-g  geometry</span> Set the initial window geometry. 
+<p class="level0">is equivalent.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-title  title</span> Set the window title.  By default, the title will be "xpdf: foo.pdf". 
+<p class="level0">
+<p class="level0"><span Class="bold">-cmap</span> Install a private colormap.  This is ignored on TrueColor visuals. 
+<p class="level0">
+<p class="level0"><span Class="bold">-rgb  number</span> Set the size of largest RGB cube xpdf will try to allocate.  The default is 5 (for a 5x5x5 cube); set to a smaller number to conserve color table entries.  This is ignored with private colormaps and on TrueColor visuals. 
+<p class="level0">
+<p class="level0"><span Class="bold">-rv</span> Set reverse video mode.  This reverses the colors of everything except images.  It may not always produce great results for PDF files which do weird things with color.  This also causes the paper color to default to black. 
+<p class="level0">
+<p class="level0"><span Class="bold">-papercolor  color</span> Set the "paper color", i.e., the background of the page display.  This will not work too well with PDF files that do things like filling in white behind the text. 
+<p class="level0">
+<p class="level0"><span Class="bold">-mattecolor  color</span> Set the matte color, i.e., the color used for background outside the actual page area.  (There is a separate setting, Xpdf.fullScreenMatteColor, for full-screen mode.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-z  zoom</span> Set the initial zoom factor.  A number specifies a zoom percentage, where 100 means 72 dpi.  You may also specify &acute;page', to fit the page to the window size, or &acute;width', to fit the page width to the window width, or &acute;height', to fit the page height to the window height 
+<p class="level0">
+<p class="level0"><span Class="bold">-cont</span> Start in continuous view mode, i.e., with one vertical scroll bar for the whole document. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t1lib  yes | no</span> Enable or disable t1lib (a Type 1 font rasterizer).  This defaults to "yes". 
+<p class="level0">
+<p class="level0"><span Class="bold">-freetype  yes | no</span> Enable or disable FreeType (a TrueType / Type 1 font rasterizer). This defaults to "yes". 
+<p class="level0">
+<p class="level0"><span Class="bold">-aa  yes | no</span> Enable or disable font anti-aliasing.  This defaults to "yes". 
+<p class="level0">
+<p class="level0"><span Class="bold">-aaVector  yes | no</span> Enable or disable vector anti-aliasing.  This defaults to "yes". 
+<p class="level0">
+<p class="level0"><span Class="bold">-ps  PS-file</span> Set the default file name for PostScript output (i.e., the name which will appear in the print dialog).  This can also be of the form '|command' to pipe the PostScript through a command. 
+<p class="level0">
+<p class="level0"><span Class="bold">-paper  size</span> Set the paper size to one of "letter", "legal", "A4", or "A3".  This can also be set to "match", which will set the paper size to match the size specified in the PDF file. 
+<p class="level0">
+<p class="level0"><span Class="bold">-paperw  size</span> Set the paper width, in points. 
+<p class="level0">
+<p class="level0"><span Class="bold">-paperh  size</span> Set the paper height, in points. 
+<p class="level0">
+<p class="level0"><span Class="bold">-level1</span> Generate Level 1 PostScript.  The resulting PostScript files will be significantly larger (if they contain images), but will print on Level 1 printers.  This also converts all images to black and white. 
+<p class="level0">
+<p class="level0"><span Class="bold">-enc  encoding-name</span> Sets the encoding to use for text output.  The <span Class="emphasis">encoding-name</span> must be defined with the unicodeMap command (see <span Class="manpage">xpdfrc (5)).</span>This defaults to "Latin1" (which is a built-in encoding). 
+<p class="level0">
+<p class="level0"><span Class="bold">-eol  unix | dos | mac</span> Sets the end-of-line convention to use for text output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-opw  password</span> Specify the owner password for the PDF file.  Providing this will bypass all security restrictions. 
+<p class="level0"><span Class="bold">-upw  password</span> Specify the user password for the PDF file. 
+<p class="level0"><span Class="bold">-fullscreen</span> Open xpdf in full-screen mode, useful for presentations. 
+<p class="level0"><span Class="bold">-remote  name</span> Start/contact xpdf remote server with specified name (see the <a class="bold" href="#REMOTE">REMOTE SERVER MODE</a> section below). 
+<p class="level0"><span Class="bold">-exec  command</span> Execute a command (see the <a class="bold" href="#COMMANDS">COMMANDS</a> section below) in an xpdf remote server window (with -remote only). 
+<p class="level0"><span Class="bold">-reload</span> Reload xpdf remote server window (with -remote only). 
+<p class="level0"><span Class="bold">-raise</span> Raise xpdf remote server window (with -remote only). 
+<p class="level0"><span Class="bold">-quit</span> Kill xpdf remote server (with -remote only). 
+<p class="level0"><span Class="bold">-cmd</span> Print commands as they're executed (useful for debugging). 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> Don't print any messages or errors. 
+<p class="level0">
+<p class="level0"><span Class="bold">-cfg  config-file</span> Read <span Class="emphasis">config-file</span> in place of ~/.xpdfrc or the system-wide config file. 
+<p class="level0"><span Class="bold">-v</span> Print copyright and version information. 
+<p class="level0"><span Class="bold">-h</span> Print usage information. 
+<p class="level0">and <span Class="bold">--help</span> are equivalent.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-m  file1 file2 ...</span> Open multiple pdf files: <span Class="emphasis">file1 file2 ...</span> etc.  NOTE: The list of files is terminated once an argument starting with a dash is encountered.  In order to view file names starting with a dash, simply append "./". <span Class="bold">-m</span> may be used multiple times. 
+<p class="level0">Several other standard X options and resources will work as expected: 
+<p class="level0"><span Class="bold">-display  display</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-fg  color</span> 
+<p class="level0">is equivalent.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-bg  color</span> 
+<p class="level0">is equivalent.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-font  font</span> 
+<p class="level0">is equivalent.) 
+<p class="level0">
+<p class="level0">The color and font options only affect the user interface elements, not the PDF display (the 'paper'). 
+<p class="level0">The following X resources do not have command line option equivalents: 
+<p class="level0"><span Class="bold">Xpdf.toolTipEnable</span> Enables (if set to true) or disables (if set to false) the tool-tips on the toolbar buttons. 
+<p class="level0"><span Class="bold">Xpdf.fullScreenMatteColor</span> Sets the matte color to be used in full-screen mode.  The default setting is "black". <a name="CONTROLS"></a><h2 class="nroffsh">CONTROLS</h2>
+<p class="level0"><a name="On-screen"></a><h2 class="nroffsh">On-screen controls, at the bottom of the xpdf window</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">left/right arrow buttons</span> Move to the previous/next page. 
+<p class="level0"><span Class="bold">double left/right arrow buttons</span> Move backward or forward by ten pages. 
+<p class="level0"><span Class="bold">dashed left/right arrow buttons</span> Move backward or forward along the history path. 
+<p class="level0"><span Class="bold">'Page' entry box</span> Move to a specific page number.  Click in the box to activate it, type the page number, then hit return. 
+<p class="level0"><span Class="bold">zoom popup menu</span> Change the zoom factor (see the description of the -z option above). 
+<p class="level0"><span Class="bold">binoculars button</span> Find a text string. 
+<p class="level0"><span Class="bold">print button</span> Bring up a dialog for generating a PostScript file.  The dialog has options to set the pages to be printed and the PostScript file name. The file name can be '-' for stdout or '|command' to pipe the PostScript through a command, e.g., '|lpr'. 
+<p class="level0"><span Class="bold">'?' button</span> Bring up the 'about xpdf' window. 
+<p class="level0"><span Class="bold">link info</span> The space between the '?' and 'Quit' buttons is used to show the URL or external file name when the mouse is over a link. 
+<p class="level0"><span Class="bold">'Quit' button</span> Quit xpdf. 
+<p class="level0"><a name="Menu"></a><h2 class="nroffsh">Menu</h2>
+<p class="level0">Pressing the right mouse button will post a popup menu with the following commands: 
+<p class="level0"><span Class="bold">Open...</span> Open a new PDF file via a file requester. 
+<p class="level0"><span Class="bold">Open in new window...</span> Create a new window and open a new PDF file via a file requester. 
+<p class="level0"><span Class="bold">Reload</span> Reload the current PDF file.  Note that Xpdf will reload the file automatically (on a page change or redraw) if it has changed since it was last loaded. 
+<p class="level0"><span Class="bold">Save as...</span> Save the current file via a file requester. 
+<p class="level0"><span Class="bold">Continuous view</span> Toggles between single page and continuous view modes. 
+<p class="level0"><span Class="bold">Rotate counterclockwise</span> Rotate the page 90 degrees counterclockwise. 
+<p class="level0"><span Class="bold">Rotate clockwise</span> Rotate the page 90 degrees clockwise.  The two rotate commands are intended primarily for PDF files where the rotation isn't correctly specified in the file. 
+<p class="level0"><span Class="bold">Zoom to selection</span> Zoom in to the currently selected rectangle. 
+<p class="level0"><span Class="bold">Close</span> Close the current window.  If this is the only open window, the document is closed, but the window is left open (i.e., this menu command won't quit xpdf). 
+<p class="level0"><span Class="bold">Quit</span> Quit xpdf. 
+<p class="level0"><a name="Outline"></a><h2 class="nroffsh">Outline</h2>
+<p class="level0">If the PDF contains an outline (a.k.a., bookmarks), there will be an outline pane on the left side of the window.  The width of the outline pane is adjustable with a vertical split bar via the knob near its bottom end. 
+<p class="level0"><a name="Text"></a><h2 class="nroffsh">Text selection</h2>
+<p class="level0">Dragging the mouse with the left button held down will highlight an arbitrary rectangle.  Any text inside this rectangle will be copied to the X selection buffer. 
+<p class="level0"><a name="Links"></a><h2 class="nroffsh">Links</h2>
+<p class="level0">Clicking on a hyperlink will jump to the link's destination.  A link to another PDF document will make xpdf load that document.  A 'launch' link to an executable program will display a dialog, and if you click 'ok', execute the program.  URL links call an external command (see the <a class="bold" href="#WEB">WEB BROWSERS</a> section below). 
+<p class="level0"><a name="Panning"></a><h2 class="nroffsh">Panning</h2>
+<p class="level0">Dragging the mouse with the middle button held down pans the window. 
+<p class="level0"><a name="Key"></a><h2 class="nroffsh">Key bindings</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">o</span> Open a new PDF file via a file requester. 
+<p class="level0"><span Class="bold">r</span> Reload the current PDF file.  Note that Xpdf will reload the file automatically (on a page change or redraw) if it has changed since it was last loaded. 
+<p class="level0"><span Class="bold">control-L</span> Redraw the current page. 
+<p class="level0"><span Class="bold">control-W</span> Close the current window. 
+<p class="level0"><span Class="bold">f or control-F</span> Find a text string. 
+<p class="level0"><span Class="bold">control-G</span> Find next occurrence. 
+<p class="level0"><span Class="bold">control-P</span> Print. 
+<p class="level0"><span Class="bold">n</span> Move to the next page.  Scrolls to the top of the page, unless scroll lock is turned on. 
+<p class="level0"><span Class="bold">p</span> Move to the previous page.  Scrolls to the top of the page, unless scroll lock is turned on. 
+<p class="level0"><span Class="manpage">&lt;Space&gt;  or  &lt;PageDown&gt;  or  &lt;Next&gt;</span>Scroll down on the current page; if already at bottom, move to next page. 
+<p class="level0"><span Class="manpage">&lt;Backspace&gt;  or  &lt;Delete&gt;  or  &lt;PageUp&gt;  or  &lt;Previous&gt;</span>Scroll up on the current page; if already at top, move to previous page. 
+<p class="level0"><span Class="bold">v</span> Move forward along the history path. 
+<p class="level0"><span Class="bold">b</span> Move backward along the history path. 
+<p class="level0"><span Class="bold">&lt;Home&gt;</span> Scroll to top of current page. 
+<p class="level0"><span Class="bold">&lt;End&gt;</span> Scroll to bottom of current page. 
+<p class="level0"><span Class="bold">control-&lt;Home&gt;</span> Scroll to first page of document. 
+<p class="level0"><span Class="bold">control-&lt;End&gt;</span> Scroll to last page of document. 
+<p class="level0"><span Class="bold">arrows</span> Scroll the current page. 
+<p class="level0"><span Class="bold">g</span> Activate the page number text field ("goto page"). 
+<p class="level0"><span Class="bold">0</span> Set the zoom factor to 125% (ready for increment and decrement). 
+<p class="level0"><span Class="bold">+</span> Zoom in (increment the zoom factor by 1). 
+<p class="level0"><span Class="bold">-</span> Zoom out (decrement the zoom factor by 1). 
+<p class="level0"><span Class="bold">z</span> Set the zoom factor to 'page' (fit page to window). 
+<p class="level0"><span Class="bold">w</span> Set the zoom factor to 'width' (fit page width to window). 
+<p class="level0"><span Class="bold">h</span> Set the zoom factor to 'height' (fit page height to window). 
+<p class="level0"><span Class="bold">alt-F</span> Toggle full-screen mode. 
+<p class="level0"><span Class="bold">q</span> Quit xpdf. <a name="WEB"></a><h2 class="nroffsh">WEB BROWSERS</h2>
+<p class="level0">If you want to run xpdf automatically from netscape or mosaic (and probably other browsers) when you click on a link to a PDF file, you need to edit (or create) the files <span Class="emphasis">.mime.types</span> and <span Class="emphasis">.mailcap</span> in your home directory.  In <span Class="emphasis">.mime.types</span> add the line: 
+<p class="level0">
+<p class="level1">application/pdf pdf 
+<p class="level0">
+<p class="level0">In <span Class="emphasis">.mailcap</span> add the lines: 
+<p class="level0">
+<p class="level1">&#35; Use xpdf to view PDF files. 
+<p class="level0">
+<p class="level1">application/pdf; xpdf -q %s 
+<p class="level0">
+<p class="level0">Make sure that xpdf is on your executable search path. 
+<p class="level0">When you click on a URL link in a PDF file, xpdf will execute the command specified by the urlCommand config file option, replacing an occurrence of '%s' with the URL.  For example, to call netscape with the URL, add this line to your config file: 
+<p class="level0">
+<p class="level1">urlCommand "netscape -remote 'openURL(%s)'" 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">Xpdf's key and mouse bindings are user-configurable, using the bind and unbind options in the config file (see <span Class="manpage">xpdfrc (5)).</span>The bind command allows you to bind a key or mouse button to a sequence of one or more commands. <a name="Available"></a><h2 class="nroffsh">Available Commands</h2>
+<p class="level0">The following commands are supported: 
+<p class="level0"><span Class="bold">gotoPage( page )</span> Go to the specified page. 
+<p class="level0"><span Class="bold">gotoPageNoScroll( page )</span> Go to the specified page, with the current relative scroll position. 
+<p class="level0"><span Class="bold">gotoDest( dest )</span> Go to a named destination. 
+<p class="level0"><span Class="bold">gotoLastPage</span> Go to the last page in the PDF file. 
+<p class="level0"><span Class="bold">gotoLastPageNoScroll</span> Go to the last page in the PDF file, with the current relative scroll position. 
+<p class="level0"><span Class="bold">nextPage</span> Go to the next page. 
+<p class="level0"><span Class="bold">nextPageNoScroll</span> Go to the next page, with the current relative scroll position. 
+<p class="level0"><span Class="bold">prevPage</span> Go to the previous page. 
+<p class="level0"><span Class="bold">prevPageNoScroll</span> Go to the previous page, with the current relative scroll position. 
+<p class="level0"><span Class="bold">pageUp</span> Scroll up by one screenful. 
+<p class="level0"><span Class="bold">pageDown</span> Scroll down by one screenful. 
+<p class="level0"><span Class="bold">scrollLeft( n )</span> Scroll left by <span Class="emphasis">n</span> pixels. 
+<p class="level0"><span Class="bold">scrollRight( n )</span> Scroll right by <span Class="emphasis">n</span> pixels. 
+<p class="level0"><span Class="bold">scrollUp( n )</span> Scroll up by <span Class="emphasis">n</span> pixels. 
+<p class="level0"><span Class="bold">scrollDown( n )</span> Scroll down by <span Class="emphasis">n</span> pixels. 
+<p class="level0"><span Class="bold">scrollUpPrevPage( n )</span> Scroll up by <span Class="emphasis">n</span> pixels, moving to the previous page if appropriate. 
+<p class="level0"><span Class="bold">scrollDownPrevPage( n )</span> Scroll down by <span Class="emphasis">n</span> pixels, moving to the next page if appropriate. 
+<p class="level0"><span Class="bold">scrollToTopEdge</span> Scroll to the top edge of the current page, with no horizontal movement. 
+<p class="level0"><span Class="bold">scrollToBottomEdge</span> Scroll to the bottom edge of the current page, with no horizontal movement. 
+<p class="level0"><span Class="bold">scrollToLeftEdge</span> Scroll to the left edge of the current page, with no vertical movement. 
+<p class="level0"><span Class="bold">scrollToRightEdge</span> Scroll to the right edge of the current page, with no vertical movement. 
+<p class="level0"><span Class="bold">scrollToTopLeft</span> Scroll to the top-left corner of the current page. 
+<p class="level0"><span Class="bold">scrollToBottomRight</span> Scroll to the bottom-right corner of the current page. 
+<p class="level0"><span Class="bold">goForward</span> Move forward along the history path. 
+<p class="level0"><span Class="bold">goBackward</span> Move backward along the history path. 
+<p class="level0"><span Class="bold">zoomPercent( z )</span> Set the zoom factor to <span Class="emphasis">z %.</span> 
+<p class="level0"><span Class="bold">zoomFitPage</span> Set the zoom factor to fit-page. 
+<p class="level0"><span Class="bold">zoomFitWidth</span> Set the zoom factor to fit-width. 
+<p class="level0"><span Class="bold">zoomFitHeight</span> Set the zoom factor to fit-height. 
+<p class="level0"><span Class="bold">zoomIn</span> Zoom in - go to the next higher zoom factor. 
+<p class="level0"><span Class="bold">zoomOut</span> Zoom out - go the next lower zoom factor. 
+<p class="level0"><span Class="bold">rotateCW</span> Rotate the page 90 degrees clockwise. 
+<p class="level0"><span Class="bold">rotateCCW</span> Rotate the page 90 degrees counterclockwise. 
+<p class="level0"><span Class="bold">setSelection( pg , ulx , uly , lrx , lry )</span> Set the selection to the specified coordinates on the specified page. 
+<p class="level0"><span Class="bold">continuousMode</span> Go to continuous view mode. 
+<p class="level0"><span Class="bold">singlePageMode</span> Go to single-page view mode. 
+<p class="level0"><span Class="bold">toggleContinuousMode</span> Toggle between continuous and single page view modes. 
+<p class="level0"><span Class="bold">fullScreenMode</span> Go to full-screen mode. 
+<p class="level0"><span Class="bold">windowMode</span> Go to window (non-full-screen) mode. 
+<p class="level0"><span Class="bold">toggleFullScreenMode</span> Toggle between full-screen and window modes. 
+<p class="level0"><span Class="bold">open</span> Open a PDF file in this window, using the open dialog. 
+<p class="level0"><span Class="bold">openInNewWin</span> Open a PDF file in a new window, using the open dialog. 
+<p class="level0"><span Class="bold">openFile( file )</span> Open a specified PDF file in this window. 
+<p class="level0"><span Class="bold">openFileInNewWin( file )</span> Open a specified PDF file in a new window. 
+<p class="level0"><span Class="bold">openFileAtDest( file , dest )</span> Open a specified PDF file in this window and go to a named destination. 
+<p class="level0"><span Class="bold">openFileAtDestInNewWin( file , dest )</span> Open a specified PDF file in a new window and go to a named destination. 
+<p class="level0"><span Class="bold">reload</span> Reload the current PDF file. 
+<p class="level0"><span Class="bold">redraw</span> Redraw the window. 
+<p class="level0"><span Class="bold">raise</span> Raise the window to the front. 
+<p class="level0"><span Class="bold">closeWindow</span> Close the window. 
+<p class="level0"><span Class="bold">run( external-command-string )</span> Run an external command.  The following escapes are allowed in the command string: <pre class="level0">
+&nbsp;
+&nbsp;   %f =&gt; PDF file name (or an empty string if no
+&nbsp;         file is open)
+&nbsp;   %b =&gt; PDF file base name, i.e., file name minus
+&nbsp;         the extension (or an empty string if no
+&nbsp;         file is open)
+&nbsp;   %u =&gt; link URL (or an empty string if not over
+&nbsp;         a URL link)
+&nbsp;   %p =&gt; current page number (or an empty string if
+&nbsp;         no file is open)
+&nbsp;   %x =&gt; selection upper-left x coordinate
+&nbsp;         (or 0 if there is no selection)
+&nbsp;   %y =&gt; selection upper-left y coordinate
+&nbsp;         (or 0 if there is no selection)
+&nbsp;   %X =&gt; selection lower-right x coordinate
+&nbsp;         (or 0 if there is no selection)
+&nbsp;   %Y =&gt; selection lower-right y coordinate
+&nbsp;         (or 0 if there is no selection)
+&nbsp;   %i =&gt; page containing the mouse pointer
+&nbsp;   %j =&gt; x coordinate of the mouse pointer
+&nbsp;   %k =&gt; y coordinate of the mouse pointer
+&nbsp;   %% =&gt; %
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="bold">openOutline</span> Open the outline pane. 
+<p class="level0"><span Class="bold">closeOutline</span> Close the outline pane. 
+<p class="level0"><span Class="bold">toggleOutline</span> Toggle the outline pane between open and closed. 
+<p class="level0"><span Class="bold">scrollOutlineDown( n )</span> Scroll the outline down by <span Class="emphasis">n</span> increments. 
+<p class="level0"><span Class="bold">scrollOutlineUp( n )</span> Scroll the outline up by <span Class="emphasis">n</span> increments. 
+<p class="level0"><span Class="bold">focusToDocWin</span> Set the keyboard focus to the main document window. 
+<p class="level0"><span Class="bold">focusToPageNum</span> Set the keyboard focus to the page number text box. 
+<p class="level0"><span Class="bold">find</span> Open the 'find' dialog. 
+<p class="level0"><span Class="bold">findNext</span> Finds the next occurrence of the search string (no dialog). 
+<p class="level0"><span Class="bold">print</span> Open the 'print' dialog. 
+<p class="level0"><span Class="bold">about</span> Open the 'about' dialog. 
+<p class="level0"><span Class="bold">quit</span> Quit from xpdf. 
+<p class="level0">The following commands depend on the current mouse position: 
+<p class="level0"><span Class="bold">startSelection</span> Start a selection, which will be extended as the mouse moves. 
+<p class="level0"><span Class="bold">endSelection</span> End a selection. 
+<p class="level0"><span Class="bold">startPan</span> Start a pan, which will scroll the document as the mouse moves 
+<p class="level0"><span Class="bold">endPan</span> End a pan. 
+<p class="level0"><span Class="bold">postPopupMenu</span> Display the popup menu. 
+<p class="level0"><span Class="bold">followLink</span> Follow a hyperlink (does nothing if the mouse is not over a link). 
+<p class="level0"><span Class="bold">followLinkInNewWin</span> Follow a hyperlink, opening PDF files in a new window (does nothing if the mouse is not over a link).  For links to non-PDF files, this command is identical to followLink. 
+<p class="level0"><span Class="bold">followLinkNoSel</span> Same as followLink, but does nothing if there is a non-empty selection. (This is useful as a mouse button binding.) 
+<p class="level0"><span Class="bold">followLinkInNewWinNoSel</span> Same as followLinkInNewWin, but does nothing if there is a non-empty selection.  (This is useful as a mouse button binding.) <a name="Default"></a><h2 class="nroffsh">Default Bindings</h2>
+<p class="level0">The default mouse bindings are as follows: <pre class="level0">
+&nbsp;
+&nbsp;   bind mousePress1    any         startSelection
+&nbsp;   bind mouseRelease1  any         endSelection followLinkNoSel
+&nbsp;   bind mousePress2    any         startPan
+&nbsp;   bind mouseRelease2  any         endPan
+&nbsp;   bind mousePress3    any         postPopupMenu
+&nbsp;   bind mousePress4    any         scrollUpPrevPage(16)
+&nbsp;   bind mousePress5    any         scrollDownNextPage(16)
+&nbsp;   bind mousePress6    any         scrollLeft(16)
+&nbsp;   bind mousePress7    any         scrollRight(16)
+&nbsp;
+</pre>
+
+<p class="level0">The default key bindings are as follows: <pre class="level0">
+&nbsp;
+&nbsp;   bind ctrl-home      any         gotoPage(1)
+&nbsp;   bind home           any         scrollToTopLeft
+&nbsp;   bind ctrl-end       any         gotoLastPage
+&nbsp;   bind end            any         scrollToBottomRight
+&nbsp;   bind pgup           any         pageUp
+&nbsp;   bind backspace      any         pageUp
+&nbsp;   bind delete         any         pageUp
+&nbsp;   bind pgdn           any         pageDown
+&nbsp;   bind space          any         pageDown
+&nbsp;   bind left           any         scrollLeft(16)
+&nbsp;   bind right          any         scrollRight(16)
+&nbsp;   bind up             any         scrollUp(16)
+&nbsp;   bind down           any         scrollDown(16)
+&nbsp;   bind o              any         open
+&nbsp;   bind O              any         open
+&nbsp;   bind r              any         reload
+&nbsp;   bind R              any         reload
+&nbsp;   bind f              any         find
+&nbsp;   bind F              any         find
+&nbsp;   bind ctrl-f         any         find
+&nbsp;   bind ctrl-g         any         findNext
+&nbsp;   bind ctrl-p         any         print
+&nbsp;   bind n              scrLockOff  nextPage
+&nbsp;   bind N              scrLockOff  nextPage
+&nbsp;   bind n              scrLockOn   nextPageNoScroll
+&nbsp;   bind N              scrLockOn   nextPageNoScroll
+&nbsp;   bind p              scrLockOff  prevPage
+&nbsp;   bind P              scrLockOff  prevPage
+&nbsp;   bind p              scrLockOn   prevPageNoScroll
+&nbsp;   bind P              scrLockOn   prevPageNoScroll
+&nbsp;   bind v              any         goForward
+&nbsp;   bind b              any         goBackward
+&nbsp;   bind g              any         focusToPageNum
+&nbsp;   bind 0              any         zoomPercent(125)
+&nbsp;   bind +              any         zoomIn
+&nbsp;   bind -              any         zoomOut
+&nbsp;   bind z              any         zoomFitPage
+&nbsp;   bind w              any         zoomFitWidth
+&nbsp;   bind h              any         zoomFitHeight
+&nbsp;   bind alt-f          any         toggleFullScreenMode
+&nbsp;   bind ctrl-l         any         redraw
+&nbsp;   bind ctrl-w         any         closeWindow
+&nbsp;   bind ?              any         about
+&nbsp;   bind q              any         quit
+&nbsp;   bind Q              any         quit
+&nbsp;
+</pre>
+
+<p class="level0">Previous versions of xpdf included a "viKeys" X resource.  It is no longer available, but the following bindings are equivalent: <pre class="level0">
+&nbsp;
+&nbsp;   bind h any scrollLeft(16)
+&nbsp;   bind l any scrollRight(16)
+&nbsp;   bind k any scrollUp(16)
+&nbsp;   bind j any scrollDown(16)
+&nbsp;
+</pre>
+
+<p class="level0"><a name="REMOTE"></a><h2 class="nroffsh">REMOTE SERVER MODE</h2>
+<p class="level0">Xpdf can be started in remote server mode by specifying a server name (in addition to the file name and page number).  For example: 
+<p class="level0">
+<p class="level1">xpdf -remote myServer file.pdf 
+<p class="level0">
+<p class="level0">If there is currently no xpdf running in server mode with the name 'myServer', a new xpdf window will be opened.  If another command: 
+<p class="level0">
+<p class="level1">xpdf -remote myServer another.pdf 9 
+<p class="level0">
+<p class="level0">is issued, a new copy of xpdf will not be started.  Instead, the first xpdf (the server) will load <span Class="emphasis">another.pdf</span> and display page nine.  If the file name is the same: 
+<p class="level0">
+<p class="level1">xpdf -remote myServer another.pdf 4 
+<p class="level0">
+<p class="level0">the xpdf server will simply display the specified page. 
+<p class="level0">The -raise option tells the server to raise its window; it can be specified with or without a file name and page number. 
+<p class="level0">The -quit option tells the server to close its window and exit. <a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">The Xpdf tools use the following exit codes: 
+<p class="level0">0 No error. 
+<p class="level0">1 Error opening a PDF file. 
+<p class="level0">2 Error opening an output file. 
+<p class="level0">3 Error related to PDF permissions. 
+<p class="level0">99 Other error. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">The xpdf software and documentation are copyright 1996-2011 Glyph & Cog, LLC. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">pdftops (1)</span>, <span Class="manpage">pdftotext (1)</span>, <span Class="manpage">pdfinfo (1)</span>, <span Class="manpage">pdffonts (1)</span>, <span Class="manpage">pdfdetach (1)</span>, <span Class="manpage">pdftoppm (1)</span>, <span Class="manpage">pdfimages (1)</span>, <span Class="manpage">xpdfrc (5)</span><br><span Class="bold">http://www.foolabs.com/xpdf/</span> 

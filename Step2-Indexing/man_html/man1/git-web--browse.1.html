@@ -1,0 +1,242 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-web--browse - Git helper script to launch a web browser <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git web--browse</span> [OPTIONS] URL/FILE ...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This script tries, as much as possible, to display the URLs and FILEs that are passed as arguments, as HTML pages in new tabs on an already opened web browser. 
+<p class="level0">The following browsers (or commands) are currently supported: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">firefox (this is the default under X Window when not using KDE) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">iceweasel 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">seamonkey 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">iceape 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">chromium (also supported as chromium-browser) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">google-chrome (also supported as chrome) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">konqueror (this is the default under KDE, see <a class="emphasis" href="#Note">Note about konqueror</a> below) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">opera 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">w3m (this is the default outside graphical environments) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">elinks 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">links 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">lynx 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">dillo 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">open (this is the default under Mac OS X GUI) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">start (this is the default under MinGW) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">cygstart (this is the default under Cygwin) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">xdg-open 
+<p class="level0">
+<p class="level0">Custom commands may also be specified. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-b &lt;browser&gt;, --browser=&lt;browser&gt; 
+<p class="level1">Use the specified browser. It must be in the list of supported browsers. 
+<p class="level0">
+<p class="level0">-t &lt;browser&gt;, --tool=&lt;browser&gt; 
+<p class="level1">Same as above. 
+<p class="level0">
+<p class="level0">-c &lt;conf.var&gt;, --config=&lt;conf.var&gt; 
+<p class="level1">CONF.VAR is looked up in the Git config files. If it(cqs set, then its value specifies the browser that should be used. 
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION VARIABLES</h2>
+<p class="level0"><a name="CONFVAR"></a><h2 class="nroffsh">CONF\&.VAR (from -c option) and web\&.browser</h2>
+<p class="level0">
+<p class="level0">The web browser can be specified using a configuration variable passed with the -c (or --config) command-line option, or the <span Class="emphasis">web.browser</span> configuration variable if the former is not used. <a name="browsertoolpath"></a><h2 class="nroffsh">browser\&.&lt;tool&gt;\&.path</h2>
+<p class="level0">
+<p class="level0">You can explicitly provide a full path to your preferred browser by setting the configuration variable <span Class="emphasis">browser.&lt;tool&gt;.path</span>. For example, you can configure the absolute path to firefox by setting <span Class="emphasis">browser.firefox.path</span>. Otherwise, <span Class="emphasis">git web--browse</span> assumes the tool is available in PATH. <a name="browsertoolcmd"></a><h2 class="nroffsh">browser\&.&lt;tool&gt;\&.cmd</h2>
+<p class="level0">
+<p class="level0">When the browser, specified by options or configuration variables, is not among the supported ones, then the corresponding <span Class="emphasis">browser.&lt;tool&gt;.cmd</span> configuration variable will be looked up. If this variable exists then <span Class="emphasis">git web--browse</span> will treat the specified tool as a custom command and will use a shell eval to run the command with the URLs passed as arguments. <a name="NOTE"></a><h2 class="nroffsh">NOTE ABOUT KONQUEROR</h2>
+<p class="level0">
+<p class="level0">When <span Class="emphasis">konqueror</span> is specified by a command-line option or a configuration variable, we launch <span Class="emphasis">kfmclient</span> to try to open the HTML man page on an already opened konqueror in a new tab if possible. 
+<p class="level0">For consistency, we also try such a trick if <span Class="emphasis">browser.konqueror.path</span> is set to something like <span Class="emphasis">A_PATH_TO/konqueror</span>. That means we will try to launch <span Class="emphasis">A_PATH_TO/kfmclient</span> instead. 
+<p class="level0">If you really want to use <span Class="emphasis">konqueror</span>, then you can use something like the following: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [web]
+&nbsp;               browser = konq
+&nbsp;
+&nbsp;       [browser "konq"]
+&nbsp;               cmd = A_PATH_TO/konqueror
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Note"></a><h2 class="nroffsh">Note about git-config --global</h2>
+<p class="level0">
+<p class="level0">Note that these configuration variables should probably be set using the <span Class="emphasis">--global</span> flag, for example like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git config --global web.browser firefox
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">as they are probably more user specific than repository specific. See <span Class="bold">git-config</span>(1) for more information about this. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

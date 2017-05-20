@@ -1,0 +1,61 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xclipboard - X clipboard client <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xclipboard</span> [ <span Class="emphasis">-toolkitoption</span> ... ] [ <span Class="bold">-w</span> ] [ <span Class="bold">-nw</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xclipboard</span> program is used to collect and display text selections that are sent to the CLIPBOARD by other clients.  It is typically used to save CLIPBOARD selections for later use.  It stores each CLIPBOARD selection as a separate string, each of which can be selected.  Each time CLIPBOARD is asserted by another application, <span Class="emphasis">xclipboard</span> transfers the contents of that selection to a new buffer and displays it in the text window. Buffers are never automatically deleted, so you'll want to use the delete button to get rid of useless items. 
+<p class="level0">Since <span Class="emphasis">xclipboard</span> uses a Text Widget to display the contents of the clipboard, text sent to the CLIPBOARD may be re-selected for use in other applications.  <span Class="emphasis">xclipboard</span> also responds to requests for the CLIPBOARD selection from other clients by sending the entire contents of the currently displayed buffer. 
+<p class="level0">An <span Class="emphasis">xclipboard</span> window has the following buttons across the top: 
+<p class="level0"><span Class="emphasis">quit</span> When this button is pressed, <span Class="emphasis">xclipboard</span> exits. 
+<p class="level0"><span Class="emphasis">delete</span> When this button is pressed, the current buffer is deleted and the next one displayed. 
+<p class="level0"><span Class="emphasis">new</span> Creates a new buffer with no contents.  Useful in constructing a new CLIPBOARD selection by hand. 
+<p class="level0"><span Class="emphasis">save</span> Displays a File Save dialog box. Pressing the Accept button saves the currently displayed buffer to the file specified in the text field. 
+<p class="level0"><span Class="emphasis">next</span> Displays the next buffer in the list. 
+<p class="level0"><span Class="emphasis">previous</span> Displays the previous buffer. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The <span Class="emphasis">xclipboard</span> program accepts all of the standard X Toolkit command line options as well as the following: 
+<p class="level0"><span Class="bold">-w</span> This option indicates that lines of text that are too long to be displayed on one line in the clipboard should wrap around to the following lines. 
+<p class="level0"><span Class="bold">-nw</span> This option indicates that long lines of text should not wrap around.  This is the default behavior. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xclipboard</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+XClipboard  xclipboard
+&nbsp;       Form  form
+&nbsp;               Command  Quit
+&nbsp;               Command  delete
+&nbsp;               Command  new
+&nbsp;               Command  Save
+&nbsp;               Command  next
+&nbsp;               Command  prev
+&nbsp;               Label  index
+&nbsp;               Text  text
+&nbsp;       TransientShell  fileDialogShell
+&nbsp;               Dialog  fileDialog
+&nbsp;                       Label  label
+&nbsp;                       Command  accept
+&nbsp;                       Command  cancel
+&nbsp;                       Text value
+&nbsp;       TransientShell  failDialogShell
+&nbsp;               Dialog  failDialog
+&nbsp;                       Label  label
+&nbsp;                       Command  continue
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="SENDINGRETRIEVING"></a><h2 class="nroffsh">SENDING/RETRIEVING CLIPBOARD CONTENTS</h2>
+<p class="level0">Text is copied to the clipboard whenever a client asserts ownership of the <span Class="bold">CLIPBOARD</span> selection.  Text is copied from the clipboard whenever a client requests the contents of the <span Class="bold">CLIPBOARD</span> selection.  Examples of event bindings that a user may wish to include in a resource configuration file to use the clipboard are: 
+<p class="level0"><pre class="level0">
+*VT100.Translations: &#35;override \
+&nbsp;       &lt;Btn3Up&gt;:       select-end(CLIPBOARD) \n\
+&nbsp;       &lt;Btn2Up&gt;:       insert-selection(PRIMARY,CLIPBOARD) \n\
+&nbsp;       &lt;Btn2Down&gt;:     ignore ()
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xcutsel(1), xterm(1), individual client documentation for how to make a selection and send it to the CLIPBOARD. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/XClipboard</span> specifies required resources <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Ralph R. Swick, DEC/MIT Project Athena <br>Chris D. Peterson, MIT X Consortium <br>Keith Packard, MIT X Consortium 

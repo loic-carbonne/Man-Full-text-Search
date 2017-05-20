@@ -1,0 +1,36 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-gencontrol - generate Debian control files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-gencontrol</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-gencontrol</span> reads information from an unpacked Debian source tree and generates a binary package control file (which defaults to debian/tmp/DEBIAN/control); during this process it will simplify the relation fields. 
+<p class="level0">Thus <span Class="manpage">Pre-Depends</span>, <span Class="manpage">Depends</span>, <span Class="manpage">Recommends  and  Suggests</span>are simplified in this order by removing dependencies which are known to be true according to the stronger dependencies already parsed. It will also remove any self-dependency (in fact it will remove any dependency which evaluates to true given the current version of the package as installed). Logically it keeps the intersection of multiple dependencies on the same package. The order of dependencies is preserved as best as possible: if any dependency must be discarded due to another dependency appearing further in the field, the superseding dependency will take the place of the discarded one. 
+<p class="level0">The other relation fields 
+<p class="level0">are also simplified individually by computing the union of the various dependencies when a package is listed multiple times in the field. 
+<p class="level0"><span Class="bold">dpkg-gencontrol</span> also adds an entry for the binary package to <span Class="manpage">debian/files .</span>
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-v version</span> Sets the version number of the binary package which will be generated. 
+<p class="level0"><span Class="bold">-V name = value</span> Set an output substitution variable. See <span Class="bold">deb-substvars</span>(5) for discussion of output substitution. 
+<p class="level0"><span Class="bold">-T substvars-file</span> Read substitution variables in <span Class="emphasis">substvars-file ;</span> the default is <span Class="manpage">debian/substvars .</span>This option can be used multiple times to read substitution variables from multiple files. 
+<p class="level0"><span Class="bold">-D field = value</span> Override or add an output control file field. 
+<p class="level0"><span Class="bold">-U field</span> Remove an output control file field. 
+<p class="level0"><span Class="bold">-c control-file</span> Specifies the main source control file to read information from. The default is <span Class="manpage">debian/control .</span>
+<p class="level0"><span Class="bold">-l changelog-file</span> Specifies the changelog file to read information from. The default is <span Class="manpage">debian/changelog .</span>
+<p class="level0"><span Class="bold">-f files-list-file</span> Read or write the list of files to be uploaded here, rather than using <span Class="manpage">debian/files .</span>
+<p class="level0"><span Class="bold">-F changelog-format</span> Specifies the format of the changelog. See <span Class="bold">dpkg-parsechangelog</span>(1) for information about alternative formats. 
+<p class="level0"><span Class="bold">-p package</span> Generate information for the binary package <span Class="emphasis">package .</span> If the source control file lists only one binary package then this option may be omitted; otherwise it is essential to select which binary package's information to generate. 
+<p class="level0"><span Class="bold">-n filename</span> Assume the filename of the package will be <span Class="emphasis">filename</span> instead of the normal package_version_arch.deb filename. 
+<p class="level0"><span Class="manpage">-is</span>, <span Class="manpage">-ip</span>, <span Class="manpage">-isp</span>These options are ignored for compatibility with older versions of the dpkg build scripts but are now deprecated. Previously they were used to tell <span Class="bold">dpkg-gencontrol</span> to include the Section and Priority fields in the control file. This is now the default behaviour. If you want to get the old behaviour you can use the <span Class="bold">-U</span> option to delete the fields from the control file. 
+<p class="level0"><span Class="bold">-P package-build-dir</span> Tells <span Class="bold">dpkg-source</span> that the package is being built in <span Class="emphasis">package-build-dir</span> instead of <span Class="manpage">debian/tmp .</span>This value is used to find the default value of the <span Class="bold">Installed-Size</span> substitution variable and control file field (using <span Class="manpage">du )</span>and for the default location of the output file. 
+<p class="level0"><span Class="manpage">-O [\fIfilename\fP]</span>Print the control file to standard output (or <span Class="emphasis">filename</span> if specified), rather than to <span Class="bold">debian/tmp/DEBIAN/control</span> (or 
+<p class="level0">if <span Class="bold">-P</span> was used). 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="manpage">--version</span>Show the version and exit. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debian/control</span> The main source control information file, giving version-independent information about the source package and the binary packages it can produce. 
+<p class="level0"><span Class="bold">debian/files</span> The list of generated files which are part of the upload being prepared. <span Class="bold">dpkg-gencontrol</span> adds the presumed filenames of binary packages whose control files it generates here. 

@@ -1,0 +1,58 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">nsenter - run program with namespaces of other processes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">nsenter</span> [options] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Enters the namespaces of one or more other processes and then executes the specified program.  Enterable namespaces are: 
+<p class="level0"><span Class="bold">mount namespace</span> Mounting and unmounting filesystems will not affect the rest of the system 
+<p class="level0">flag), except for filesystems which are explicitly marked as shared (with <span Class="bold">mount --make-:shared</span>; see <span Class="emphasis">/proc:/self:/mountinfo</span> for the <span Class="bold">shared</span> flag). 
+<p class="level0"><span Class="bold">UTS namespace</span> Setting hostname or domainname will not affect the rest of the system. 
+<p class="level0">flag) 
+<p class="level0"><span Class="bold">IPC namespace</span> The process will have an independent namespace for System V message queues, semaphore sets and shared memory segments. 
+<p class="level0">flag) 
+<p class="level0"><span Class="bold">network namespace</span> The process will have independent IPv4 and IPv6 stacks, IP routing tables, firewall rules, the <span Class="emphasis">/proc\:/net</span> and <span Class="emphasis">/sys\:/class\:/net</span> directory trees, sockets, etc. 
+<p class="level0">flag) 
+<p class="level0"><span Class="bold">PID namespace</span> Children will have a set of PID to process mappings separate from the <span Class="bold">nsenter</span> process 
+<p class="level0">flag). <span Class="bold">nsenter</span> will fork by default if changing the PID namespace, so that the new program and its children share the same PID namespace and are visible to each other. If <span Class="bold">--no-fork</span> is used, the new program will be exec'ed without forking. 
+<p class="level0"><span Class="bold">user namespace</span> The process will have a distinct set of UIDs, GIDs and capabilities. 
+<p class="level0">flag) 
+<p class="level0">See <span Class="bold">clone</span>(2) for the exact semantics of the flags. 
+<p class="level0">If <span Class="emphasis">program</span> is not given, then ``${SHELL}'' is run (default: /bin:/sh). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--target</span> <span Class="emphasis">pid</span> Specify a target process to get contexts from.  The paths to the contexts specified by <span Class="emphasis">pid</span> are: 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 20</span> 
+<p class="level1">
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/mnt the mount namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/uts the UTS namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/ipc the IPC namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/net the network namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/pid the PID namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/ns/user the user namespace 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/root the root directory 
+<p class="level1">/proc/<span Class="emphasis">pid</span>/cwd the working directory respectively 
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--mount</span>[=<span Class="emphasis">file</span>] Enter the mount namespace.  If no file is specified, enter the mount namespace of the target process.  If file is specified, enter the mount namespace specified by file. 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--uts</span>[=<span Class="emphasis">file</span>] Enter the UTS namespace.  If no file is specified, enter the UTS namespace of the target process.  If file is specified, enter the UTS namespace specified by file. 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ipc</span>[=<span Class="emphasis">file</span>] Enter the IPC namespace.  If no file is specified, enter the IPC namespace of the target process.  If file is specified, enter the IPC namespace specified by file. 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--net</span>[=<span Class="emphasis">file</span>] Enter the network namespace.  If no file is specified, enter the network namespace of the target process.  If file is specified, enter the network namespace specified by file. 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--pid</span>[=<span Class="emphasis">file</span>] Enter the PID namespace.  If no file is specified, enter the PID namespace of the target process.  If file is specified, enter the PID namespace specified by file. 
+<p class="level0"><span Class="bold">-U</span>, <span Class="bold">--user</span>[=<span Class="emphasis">file</span>] Enter the user namespace.  If no file is specified, enter the user namespace of the target process.  If file is specified, enter the user namespace specified by file.  See also the <span Class="bold">--setuid</span> and <span Class="bold">--setgid</span> options. 
+<p class="level0"><span Class="bold">-G</span>, <span Class="bold">--setgid</span> <span Class="emphasis">gid</span> Set the group ID which will be used in the entered user namespace. 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--setuid</span> <span Class="emphasis">uid</span> Set the user ID which will be used in the entered user namespace. 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--root</span>[=<span Class="emphasis">directory</span>] Set the root directory.  If no directory is specified, set the root directory to the root directory of the target process.  If directory is specified, set the root directory to the specified directory. 
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--wd</span>[=<span Class="emphasis">directory</span>] Set the working directory.  If no directory is specified, set the working directory to the working directory of the target process.  If directory is specified, set the working directory to the specified directory. 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--no-fork</span> Do not fork before exec'ing the specified program.  By default, when entering a PID namespace, <span Class="bold">nsenter</span> calls <span Class="bold">fork</span> before calling <span Class="bold">exec</span> so that any children will also be in the newly entered PID namespace. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information and exit. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">setns (2)</span>, <span Class="manpage">clone (2)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Eric Biederman 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The nsenter command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

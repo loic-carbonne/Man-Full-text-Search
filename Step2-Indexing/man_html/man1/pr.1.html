@@ -1,0 +1,38 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pr - convert text files for printing <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pr</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Paginate or columnate FILE(s) for printing. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0">+FIRST_PAGE[:LAST_PAGE], <span Class="bold">--pages</span>=<span Class="emphasis">FIRST_PAGE[</span>:LAST_PAGE] begin [stop] printing with page FIRST_[LAST_]PAGE 
+<p class="level0"><span Class="bold">-COLUMN</span>, <span Class="bold">--columns</span>=<span Class="emphasis">COLUMN</span> output COLUMN columns and print columns down, unless <span Class="bold">-a</span> is used. Balance number of lines in the columns on each page 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--across</span> print columns across rather than down, used together with <span Class="bold">-COLUMN</span> 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--show-control-chars</span> use hat notation (^G) and octal backslash notation 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--double-space</span> double space the output 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--date-format</span>=<span Class="emphasis">FORMAT</span> use FORMAT for the header date 
+<p class="level0"><span Class="bold">-e[CHAR[WIDTH]]</span>, <span Class="bold">--expand-tabs</span>[=<span Class="emphasis">CHAR[WIDTH]</span>] expand input CHARs (TABs) to tab WIDTH (8) 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">-f</span>, <span Class="bold">--form-feed</span> use form feeds instead of newlines to separate pages (by a 3-line page header with <span Class="bold">-F</span> or a 5-line header and trailer without <span Class="bold">-F</span>) 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--header</span>=<span Class="emphasis">HEADER</span> use a centered HEADER instead of filename in page header, <span Class="bold">-h</span> "" prints a blank line, don't use <span Class="bold">-h</span>"" 
+<p class="level0"><span Class="bold">-i[CHAR[WIDTH]]</span>, <span Class="bold">--output-tabs</span>[=<span Class="emphasis">CHAR[WIDTH]</span>] replace spaces with CHARs (TABs) to tab WIDTH (8) 
+<p class="level0"><span Class="bold">-J</span>, <span Class="bold">--join-lines</span> merge full lines, turns off <span Class="bold">-W</span> line truncation, no column alignment, <span Class="bold">--sep-string</span>[=<span Class="emphasis">STRING</span>] sets separators 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--length</span>=<span Class="emphasis">PAGE_LENGTH</span> set the page length to PAGE_LENGTH (66) lines (default number of lines of text 56, and with <span Class="bold">-F</span> 63) 
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--merge</span> print all files in parallel, one in each column, truncate lines, but join lines of full length with <span Class="bold">-J</span> 
+<p class="level0"><span Class="bold">-n[SEP[DIGITS]]</span>, <span Class="bold">--number-lines</span>[=<span Class="emphasis">SEP[DIGITS]</span>] number lines, use DIGITS (5) digits, then SEP (TAB), default counting starts with 1st line of input file 
+<p class="level0"><span Class="bold">-N</span>, <span Class="bold">--first-line-number</span>=<span Class="emphasis">NUMBER</span> start counting with NUMBER at 1st line of first page printed (see +FIRST_PAGE) 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--indent</span>=<span Class="emphasis">MARGIN</span> offset each line with MARGIN (zero) spaces, do not affect <span Class="bold">-w</span> or <span Class="bold">-W</span>, MARGIN will be added to PAGE_WIDTH 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--no-file-warnings</span> omit warning when a file cannot be opened 
+<p class="level0"><span Class="bold">-s[CHAR]</span>, <span Class="bold">--separator</span>[=<span Class="emphasis">CHAR</span>] separate columns by a single character, default for CHAR is the &lt;TAB&gt; character without <span Class="bold">-w</span> and 'no char' with <span Class="bold">-w</span>. <span Class="bold">-s[CHAR]</span> turns off line truncation of all 3 column options (<span Class="bold">-COLUMN</span>|-a <span Class="bold">-COLUMN</span>|-m) except <span Class="bold">-w</span> is set 
+<p class="level0"><span Class="bold">-S[STRING]</span>, <span Class="bold">--sep-string</span>[=<span Class="emphasis">STRING</span>] separate columns by STRING, without <span Class="bold">-S</span>: Default separator &lt;TAB&gt; with <span Class="bold">-J</span> and &lt;space&gt; otherwise (same as <span Class="bold">-S</span>" "), no effect on column options 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--omit-header</span> omit page headers and trailers 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--omit-pagination</span> omit page headers and trailers, eliminate any pagination by form feeds set in input files 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--show-nonprinting</span> use octal backslash notation 
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--width</span>=<span Class="emphasis">PAGE_WIDTH</span> set page width to PAGE_WIDTH (72) characters for multiple text-column output only, <span Class="bold">-s[char]</span> turns off (72) 
+<p class="level0"><span Class="bold">-W</span>, <span Class="bold">--page-width</span>=<span Class="emphasis">PAGE_WIDTH</span> set page width to PAGE_WIDTH (72) characters always, truncate lines, except <span Class="bold">-J</span> option is set, no interference with <span Class="bold">-S</span> or <span Class="bold">-s</span> 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0"><span Class="bold">-t</span> is implied if PAGE_LENGTH &lt;= 10.  With no FILE, or when FILE is -, read standard input. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Pete TerMaat and Roland Huebner. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report pr translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/pr&gt; <br>or available locally via: info (aq(coreutils) pr invocation(aq 

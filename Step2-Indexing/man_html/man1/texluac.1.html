@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">luatex, texlua, texluac - An extended version of pdfTeX using Lua as an embedded scripting language 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">luatex</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br><span Class="bold">luatex</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">\e FIRST-LINE</span> <br><span Class="bold">luatex</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">& FMT</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Run the lua*(TX typesetter on <span Class="emphasis">TEXNAME ,</span> usually creating <span Class="emphasis">TEXNAME\fB.pdf\fP .</span> Any remaining <span Class="emphasis">COMMANDS</span> are processed as lua*(TX input, after <span Class="emphasis">TEXNAME</span> is read. 
+<p class="level0">Alternatively, if the first non-option argument begins with a backslash, interpret all non-option arguments as a line of lua*(TX input. 
+<p class="level0">Alternatively, if the first non-option argument begins with a <span Class="bold">&</span>, the next word is taken as the <span Class="emphasis">FMT</span> to read, overriding all else. Any remaining arguments are processed as above. 
+<p class="level0">If no arguments or options are specified, prompt for input. 
+<p class="level0">If called as <span Class="bold">texlua</span> it acts as lua interpreter. If called as <span Class="bold">texluac</span> it acts as lua bytecode compiler. 
+<p class="level0">Lua*(TX is an extended version of pdf*(TX with Unicode and OpenType font support, embeded <span Class="bold">Lua</span> scripting language, the <span Class="bold">e-*(TX</span> and <span Class="bold">Omega</span> extensions, as well as integrated MetaPost engine, that can create <span Class="emphasis">PDF</span> files as well as <span Class="emphasis">DVI</span> files. For more information about luatex, see <a href="http://www.luatex.org,">http://www.luatex.org,</a> you can read Lua*(TX manual using texdoc utility (<span Class="bold">texdoc luatex</span>). 
+<p class="level0">All Lua*(TX text input and output is considered to be Unicode text. 
+<p class="level0">In <span Class="emphasis">DVI</span> mode, lua*(TX can be used as a complete replacement for the *(TX engine. 
+<p class="level0">In <span Class="emphasis">PDF</span> mode, lua*(TX can natively handle the <span Class="emphasis">PDF</span>, <span Class="emphasis">JPG</span>, <span Class="emphasis">JBIG2</span>, and <span Class="emphasis">PNG</span> graphics formats.  lua*(TX cannot include PostScript or Encapsulated PostScript (EPS) graphics files; first convert them to PDF using <span Class="bold">epstopdf</span> (1). 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">When the Lua*(TX executable starts, it looks for the <span Class="bold">--lua</span> commandline option. If there is no <span Class="bold">--lua</span> option, the commandline is interpreted in a similar fashion as in traditional pdf*(TX and Aleph. But if the option is present, Lua*(TX will enter an alternative mode of commandline parsing in comparison to the standard web2c programs. The presence of <span Class="bold">--lua</span> makes most of other options unreliable, because the lua initialization file can disable kpathsea and/or hook functions into various callbacks. 
+<p class="level0">Here is the list of possibly affected switches/functionality, and why: 
+<p class="level0"><span Class="bold">--lua= FILE</span> The lua initialization file. 
+<p class="level0">The following two options alter the executable behaviour: 
+<p class="level0"><span Class="bold">--luaonly</span> Start Lua*(TX as a Lua interpreter. In this mode, it will set Lua's <span Class="emphasis">arg[0]</span> to the found script name, pushing preceding options in negative values and the rest of the commandline in the positive values, just like the Lua interpreter. Lua*(TX will exit immediately after executing the specified Lua script. 
+<p class="level0"><span Class="bold">--luaconly</span> Start Lua*(TX as a Lua byte compiler. In this mode, Lua*(TX is exactly like <span Class="bold">luac</span> from the standalone Lua distribution, except that it does not have the <span Class="bold">-l</span> switch, and that it accepts (but ignores) the <span Class="bold">--luaconly</span> switch. 
+<p class="level0">Then the regular web2c options: 
+<p class="level0"><span Class="bold">--debug-format</span> <br>Debug format loading. 
+<p class="level0"><span Class="bold">--draftmode</span> Sets epdfdraftmode so lua*(TX doesn't write a PDF and doesn't read any included images, thus speeding up execution. 
+<p class="level0"><span Class="bold">--enable-write18</span> <br>Synonym for <span Class="bold">--shell-escape</span>. 
+<p class="level0"><span Class="bold">--disable-write18</span> <br>Synonym for <span Class="bold">--no-shell-escape</span>. 
+<p class="level0"><span Class="bold">--shell-escape</span> <br>Enable the <span Class="bold">\ewrite18{ command }</span> construct, and Lua functions <span Class="bold">os.execute()</span>, <span Class="bold">os.exec()</span>, <span Class="bold">os.spawn()</span>, and <span Class="bold">io.popen()</span>.  The <span Class="emphasis">command</span> can be any shell command.  This construct is normally disallowed for security reasons. 
+<p class="level0"><span Class="bold">--no-shell-escape</span> <br>Disable the <span Class="bold">\ewrite18{ command }</span> construct and the other Lua functions, even if it is enabled in the <span Class="emphasis">texmf.cnf</span> file. 
+<p class="level0"><span Class="bold">--shell-restricted</span> Enable restricted version of <span Class="bold">ewrite18</span>, <span Class="bold">os.execute()</span>, <span Class="bold">os.exec()</span>, <span Class="bold">os.spawn()</span>, and <span Class="bold">io.popen()</span>, only commands listed in <span Class="emphasis">texmf.cnf</span> file are allowed. 
+<p class="level0"><span Class="bold">--file-line-error</span> Print error messages in the form <span Class="emphasis">file:line:error</span> which is similar to the way many compilers format them. 
+<p class="level0"><span Class="bold">--no-file-line-error</span> Disable printing error messages in the <span Class="emphasis">file:line:error</span> style. 
+<p class="level0"><span Class="bold">--fmt= FORMAT</span> Use <span Class="emphasis">FORMAT</span> as the name of the format to be used, instead of the name by which lua*(TX was called or a <span Class="emphasis">%&</span> line. 
+<p class="level0"><span Class="bold">--help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">--ini</span> Start in <span Class="emphasis">INI</span> mode, which is used to dump formats.  The <span Class="emphasis">INI</span> mode can be used for typesetting, but no format is preloaded, and basic initializations like setting catcodes may be required. 
+<p class="level0"><span Class="bold">--interaction= MODE</span> Sets the interaction mode.  The <span Class="emphasis">MODE</span> can be either <span Class="emphasis">batchmode ,</span> <span Class="emphasis">nonstopmode ,</span> <span Class="emphasis">scrollmode ,</span> and <span Class="emphasis">errorstopmode .</span> The meaning of these modes is the same as that of the corresponding ecommands. 
+<p class="level0"><span Class="bold">--jobname= NAME</span> Use <a class="emphasis" href="#NAME">NAME</a> for the job name, instead of deriving it from the name of the input file. 
+<p class="level0"><span Class="bold">--kpathsea-debug= BITMASK</span> Sets path searching debugging flags according to the <span Class="emphasis">BITMASK</span>. See the <span Class="emphasis">Kpathsea</span> manual for details. 
+<p class="level0"><span Class="bold">--mktex= FMT</span> Enable mktex<span Class="emphasis">FMT</span> generation, where <span Class="emphasis">FMT</span> must be either <span Class="emphasis">tex</span> or <span Class="emphasis">tfm</span>. 
+<p class="level0"><span Class="bold">--nosocket</span> Disable the luasocket (network) library. 
+<p class="level0">
+<p class="level0"><span Class="bold">--output-comment= STRING</span> In <span Class="emphasis">DVI</span> mode, use <span Class="emphasis">STRING</span> for the <span Class="emphasis">DVI</span> file comment instead of the date.  This option is ignored in<span Class="emphasis">PDF</span> mode. 
+<p class="level0"><span Class="bold">--output-directory= DIRECTORY</span> Write output files in <span Class="emphasis">DIRECTORY</span> instead of the current directory. Look up input files in <span Class="emphasis">DIRECTORY</span> first, then along the normal search path. 
+<p class="level0"><span Class="bold">--output-format= FORMAT</span> Set the output format mode, where <span Class="emphasis">FORMAT</span> must be either <span Class="emphasis">pdf</span> or <span Class="emphasis">dvi</span>. This also influences the set of graphics formats understood by lua*(TX. 
+<p class="level0"><span Class="bold">--progname= NAME</span> Pretend to be program <a class="emphasis" href="#NAME">NAME</a> (only for kpathsea). 
+<p class="level0"><span Class="bold">--recorder</span> Enable the filename recorder. This leaves a trace of the files opened for input and output in a file with extension <span Class="emphasis">.fls</span>. 
+<p class="level0"><span Class="bold">--safer</span> Disable some Lua commands that can easily be abused by a malicious document. 
+<p class="level0"><span Class="bold">--synctex= NUMBER</span> Enable/disable Sync*(TX extension. 
+<p class="level0"><span Class="bold">--version</span> Print version information and exit. 
+<p class="level0"><span Class="bold">--credits</span> Print credits and version details. 
+<p class="level0">The following options are ignored: 
+<p class="level0"><span Class="manpage">--8bit</span>, <span Class="manpage">\  --etex</span>, <span Class="manpage">\  --parse-first-line</span>, <span Class="manpage">\  --no-parse-first-line</span>These are always on. 
+<p class="level0"><span Class="manpage">--default-translate-file=\fITCXNAME\fP</span>, <span Class="manpage">\  --translate-file=\fITCXNAME\fP</span>These are always off. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">pdftex (1)</span>, <span Class="manpage">etex (1)</span>, <span Class="manpage">aleph (1)</span>, <span Class="manpage">omega (1)</span>, <span Class="manpage">lua (1).</span>
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">The primary authors of Lua*(TX are Hartmut Henkel, Taco Hoekwater, and Hans Hagen, with help from Martin Schr[:o]der, Karel Skoupy, and Han The Thanh. 
+<p class="level0">*(TX was designed by Donald E. Knuth, who implemented it using his *(WB system for Pascal programs. It was ported to Unix at Stanford by Howard Trickey, and at Cornell by Pavel Curtis. The version now offered with the Unix *(TX distribution is that generated by the *(WB to C system (<span Class="bold">web2c</span>), originally written by Tomas Rokicki and Tim Morgan. 

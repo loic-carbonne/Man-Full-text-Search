@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xlsfonts - server font list displayer for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xlsfonts</span> [<span class="bold">-display <span Class="bold">host:dpy</span></span>] [<span Class="bold">-l</span>] [<span Class="bold">-ll</span>] [<span Class="bold">-lll</span>] [<span Class="bold">-m</span>] [<span Class="bold">-C</span>] [<span Class="bold">-1</span>] [<span class="bold">-w <span Class="bold">width</span></span>] [<span class="bold">-n <span Class="bold">columns</span></span>] [<span Class="bold">-u</span>] [<span Class="bold">-o</span>] [<span class="bold">-fn <span Class="bold">pattern</span></span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">xlsfonts lists the fonts that match the given pattern. The wildcard character "*" may be used to match any sequence of characters (including none), and "?" to match any single character. If no pattern is given, "*" is assumed. 
+<p class="level0">The "*" and "?" characters must be quoted to prevent them from being expanded by the shell. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span class="bold">-display <span class="emphasis">host:dpy<span Class="bold"></span> This option specifies the X server to contact. 
+<p class="level0"><span class="bold">-d <span class="emphasis">host:dpy<span Class="bold"></span> Same as <span class="bold">-display <span class="emphasis">host:dpy<span Class="bold"></span>. 
+<p class="level0"><span Class="bold">-l</span> Lists some attributes of the font on one line in addition to its name. 
+<p class="level0"><span Class="bold">-ll</span> Lists font properties in addition to <span Class="bold">-l</span> output. 
+<p class="level0"><span Class="bold">-lll</span> Lists character metrics in addition to <span Class="bold">-ll</span> output. 
+<p class="level0"><span Class="bold">-m</span> This option indicates that long listings should also print the minimum and maximum bounds of each font. 
+<p class="level0"><span Class="bold">-C</span> This option indicates that listings should use multiple columns. This is the same as <span Class="bold">-n 0</span>. 
+<p class="level0"><span Class="bold">-1</span> This option indicates that listings should use a single column. This is the same as <span Class="bold">-n 1</span>. 
+<p class="level0"><span class="bold">-w <span class="emphasis">width<span Class="bold"></span> This option specifies the width in characters that should be used in figuring out how many columns to print. The default is 79. 
+<p class="level0"><span class="bold">-n <span class="emphasis">columns<span Class="bold"></span> This option specifies the number of columns to use in displaying the output. By default, it will attempt to fit as many columns of font names into the number of character specified by <span Class="bold">-w</span> width. 
+<p class="level0"><span Class="bold">-u</span> This option indicates that the output should be left unsorted. 
+<p class="level0"><span Class="bold">-o</span> This option indicates that xlsfonts should do an OpenFont (and QueryFont, if appropriate) rather than a ListFonts. This is useful if ListFonts or ListFontsWithInfo fail to list a known font (as is the case with some scaled font systems). 
+<p class="level0"><span class="bold">-fn <span class="emphasis">pattern<span Class="bold"></span> This option specifies the font name pattern to match. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">X</span>(7), <span Class="bold">Xserver</span>(1), <span Class="bold">xset</span>(1), <span Class="bold">xfd</span>(1), X Logical Font Description Conventions <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> <span Class="bold">DISPLAY</span> must be set to get the default host and display to use. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Doing ``xlsfonts -l'' can tie up your server for a very long time. This is really a bug with single-threaded non-preemptable servers, not with this program. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Mark Lillibridge 
+<p class="level0">Jim Fulton 
+<p class="level0">Phil Karlton 
+<p class="level0">Roland Mainz 
+<p class="level0">

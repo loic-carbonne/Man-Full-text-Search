@@ -1,0 +1,123 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">rmic - The Java RMI Compiler 
+<p class="level0">
+<p class="level0">f3rmic</span> generates stub, skeleton, and tie classes for remote objects using either the JRMP or IIOP protocols. Also generates OMG IDL. 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+rmic [ </span>f3options</span>f3 ] </span>f4package-qualified-class-name(s)</span>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3rmic</span> compiler generates stub and skeleton class files (JRMP protocol) and stub and tie class files (IIOP protocol) for remote objects. These classes files are generated from compiled Java programming language classes that are remote object implementation classes. A remote implementation class is a class that implements the interface f2java.rmi.Remote</span>. The class names in the f3rmic</span> command must be for classes that have been compiled successfully with the f3javac</span> command and must be fully package qualified. For example, running f3rmic</span> on the class file name f2HelloImpl</span> as shown here: 
+<p class="level0"><pre class="level0">
+f3
+rmic hello.HelloImpl
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">creates the f2HelloImpl_Stub.class</span> file in the f2hello</span> subdirectory (named for the class's package). 
+<p class="level0">
+<p class="level0">A f2skeleton</span> for a remote object is a JRMP protocol server-side entity that has a method that dispatches calls to the actual remote object implementation. 
+<p class="level0">
+<p class="level0">A f2tie</span> for a remote object is a server-side entity similar to a skeleton, but which communicates with the client using the IIOP protocol. 
+<p class="level0">
+<p class="level0">A f2stub</span> is a client-side proxy for a remote object which is responsible for communicating method invocations on remote objects to the server where the actual remote object implementation resides. A client's reference to a remote object, therefore, is actually a reference to a local stub. 
+<p class="level0">
+<p class="level0">By default, f3rmic</span> generates stub classes that use the 1.2 JRMP stub protocol version only, as if the f2-v1.2</span> option had been specified. (Note that the f2-vcompat</span> option was the default in releases prior to 5.0.) Use the f2-iiop</span> option to generate stub and tie classes for the IIOP protocol. 
+<p class="level0">
+<p class="level0">A stub implements only the remote interfaces, not any local interfaces that the remote object also implements. Because a JRMP stub implements the same set of remote interfaces as the remote object itself, a client can use the Java programming language's built-in operators for casting and type checking. For IIOP, the f2PortableRemoteObject.narrow</span> method must be used. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-bootclasspath path  Overrides location of bootstrap class files  
+<p class="level1">-classpath path  Specifies the path f3rmic</span> uses to look up classes. This option overrides the default or the CLASSPATH environment variable if it is set. Directories are separated by colons. Thus the general format for f2path</span> is:  <pre class="level1">
+f3
+</span>
+</pre>
+
+<p class="level1">For example:  <pre class="level1">
+f3
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">-d directory  Specifies the root destination directory for the generated class hierarchy. You can use this option to specify a destination directory for the stub, skeleton, and tie files. For example, the command  <pre class="level1">
+f3
+% rmic -d /java/classes foo.MyClass
+</span>
+</pre>
+
+<p class="level1">would place the stub and skeleton classes derived from f2MyClass</span> into the directory f2/java/classes/foo</span>. If the f2-d</span> option is not specified, the default behavior is as if f2"-d&nbsp;."</span> were specified: the package hierarchy of the target class is created in the current directory, and stub/tie/skeleton files are placed within it. (Note that in some previous versions of f3rmic</span>, if f2-d</span> was not specified, then the package hierarchy was f2not</span> created, and all of the output files were placed directly in the current directory.) <br>&nbsp;  
+<p class="level1">-extdirs path  Overrides location of installed extensions  
+<p class="level1">-g  Enables generation of all debugging information, including local variables. By default, only line number information is generated.  
+<p class="level1">-idl  Causes f2rmic</span> to generate OMG IDL for the classes specified and any classes referenced. IDL provides a purely declarative, programming language-independent way of specifying an object's API. The IDL is used as a specification for methods and data that can be written in and invoked from any language that provides CORBA bindings. This includes Java and C++ among others. See the  
+<p class="level1">f2Java Language to IDL Mapping</span> @ 
+<p class="level1"><a href="http://www.omg.org/technology/documents/formal/java_language_mapping_to_omg_idl.htm">http://www.omg.org/technology/documents/formal/java_language_mapping_to_omg_idl.htm</a> (OMG) document for a complete description. <br><br>When the f2-idl</span> option is used, other options also include:  
+<p class="level2">
+<p class="level2">-always or -alwaysgenerate  Forces re-generation even when existing stubs/ties/IDL are newer than the input class.  
+<p class="level2">-factory  Uses factory keyword in generated IDL.  
+<p class="level2">-idlModule&nbsp; fromJavaPackage[.class]&nbsp; toIDLModule  Specifies IDLEntity package mapping. For example:&nbsp; f2-idlModule foo.bar my::real::idlmod</span>.  
+<p class="level2">-idlFile&nbsp; fromJavaPackage[.class]&nbsp; toIDLFile  Specifies IDLEntity file mapping. For example:&nbsp; f2-idlFile test.pkg.X TEST16.idl</span>.&nbsp;  
+<p class="level1">
+<p class="level1">-iiop  Causes f2rmic</span> to generate IIOP stub and tie classes, rather than JRMP stub and skeleton classes. A stub class is a local proxy for a remote object and is used by clients to send calls to a server. Each remote interface requires a stub class, which implements that remote interface. A client's reference to a remote object is actually a reference to a stub. Tie classes are used on the server side to process incoming calls, and dispatch the calls to the proper implementation class. Each implementation class requires a tie class. <br><br>Invoking f2rmic</span> with the f2-iiop</span> generates stubs and ties that conform to this naming convention:  <pre class="level1">
+f3
+_&lt;implementationName&gt;_stub.class
+_&lt;interfaceName&gt;_tie.class
+</span>
+</pre>
+
+<p class="level1">When the f2-iiop</span> option is used, other options also include:  
+<p class="level2">
+<p class="level2">-always or -alwaysgenerate  Forces re-generation even when existing stubs/ties/IDL are newer than the input class.  
+<p class="level2">-nolocalstubs  Do not create stubs optimized for same-process clients and servers.  
+<p class="level2">-noValueMethods  Must be used with the f2-idl</span> option. Prevents addition of f2valuetype</span> methods and initializers to emitted IDL. These methods and initializers are optional for f2valuetype</span>s, and are generated unless the f2-noValueMethods</span> option is specified when using the f2-idl</span> option.  
+<p class="level2">-poa  Changes the inheritance from f2org.omg.CORBA_2_3.portable.ObjectImpl</span> to f2org.omg.PortableServer.Servant</span>. The f2PortableServer</span> module for the  
+<p class="level2">f2Portable Object Adapter</span> @ 
+<p class="level2"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/idl/POA.html">http://docs.oracle.com/javase/7/docs/technotes/guides/idl/POA.html</a> (POA) defines the native f2Servant</span> type. In the Java programming language, the f2Servant</span> type is mapped to the Java f2org.omg.PortableServer.Servant</span> class. It serves as the base class for all POA servant implementations and provides a number of methods that may be invoked by the application programmer, as well as methods which are invoked by the POA itself and may be overridden by the user to control aspects of servant behavior. Based on the OMG IDL to Java Language Mapping Specification, CORBA V 2.3.1 ptc/00-01-08.pdf.  
+<p class="level1">
+<p class="level1">-J  Used in conjunction with any f2java</span> option, it passes the option following the f2-J</span> (no spaces between the -J and the option) on to the f2java</span> interpreter.  
+<p class="level1">-keep or -keepgenerated  Retains the generated f2.java</span> source files for the stub, skeleton, and/or tie classes and writes them to the same directory as the f2.class</span> files.  
+<p class="level1">-nowarn  Turns off warnings. If used the compiler does not print out any warnings.  
+<p class="level1">-nowrite  Does not write compiled classes to the file system.  
+<p class="level1">-vcompat  Generates stub and skeleton classes compatible with both the 1.1 and 1.2 JRMP stub protocol versions. (This option was the default in releases prior to 5.0.) The generated stub classes will use the 1.1 stub protocol version when loaded in a JDK 1.1 virtual machine and will use the 1.2 stub protocol version when loaded into a 1.2 (or later) virtual machine. The generated skeleton classes will support both 1.1 and 1.2 stub protocol versions. The generated classes are relatively large in order to support both modes of operation.  
+<p class="level1">-verbose  Causes the compiler and linker to print out messages about what classes are being compiled and what class files are being loaded.  
+<p class="level1">-v1.1  Generates stub and skeleton classes for the 1.1 JRMP stub protocol version only. Note that this option is only useful for generating stub classes that are serialization-compatible with pre-existing, statically-deployed stub classes that were generated by the f3rmic</span> tool from JDK 1.1 and that cannot be upgraded (and dynamic class loading is not being used).  
+<p class="level1">-v1.2  (default) Generates stub classes for the 1.2 JRMP stub protocol version only. No skeleton classes are generated with this option because skeleton classes are not used with the 1.2 stub protocol version. The generated stub classes will not work if they are loaded into a JDK 1.1 virtual machine.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">CLASSPATH  Used to provide the system a path to user-defined classes. Directories are separated by colons. For example,  <pre class="level1">
+f3
+</span>
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">java(1), javac(1),  
+<p class="level0">f2CLASSPATH</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;classpath">http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;classpath</a> 
+<p class="level0">
+<p class="level0">

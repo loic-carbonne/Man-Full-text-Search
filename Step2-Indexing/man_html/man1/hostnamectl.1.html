@@ -1,0 +1,57 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">hostnamectl - Control the system hostname <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">hostnamectl</span> [OPTIONS...] {COMMAND} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">hostnamectl</span> may be used to query and change the system hostname and related settings. 
+<p class="level0">This tool distinguishes three different hostnames: the high-level "pretty" hostname which might include all kinds of special characters (e.g. "Lennart*(Aqs Laptop"), the static hostname which is used to initialize the kernel hostname at boot (e.g. "lennarts-laptop"), and the transient hostname which is a default received from network configuration. If a static hostname is set, and is valid (something other than localhost), then the transient hostname is not used. 
+<p class="level0">Note that the pretty hostname has little restrictions on the characters used, while the static and transient hostnames are limited to the usually accepted characters of Internet domain names. 
+<p class="level0">The static hostname is stored in /etc/hostname, see <span Class="bold">hostname</span>(5) for more information. The pretty hostname, chassis type, and icon name are stored in /etc/machine-info, see <span Class="bold">machine-id</span>(5). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--no-ask-password</span> 
+<p class="level1">Do not query the user for authentication for privileged operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">--static</span>, <span Class="bold">--transient</span>, <span Class="bold">--pretty</span> 
+<p class="level1">If <span Class="bold">status</span> is used (or no explicit command is given) and one of those fields is given, <span Class="bold">hostnamectl</span> will print out just this selected hostname. 
+<p class="level1">If used with <span Class="bold">set-hostname</span>, only the selected hostname(s) will be updated. When more than one of those options is used, all the specified hostnames will be updated. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">status</span> 
+<p class="level1">Show current system hostname and related information. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-hostname </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> 
+<p class="level1">Set the system hostname to <a class="emphasis" href="#NAME">NAME</a>. By default, this will alter the pretty, the static, and the transient hostname alike; however, if one or more of <span Class="bold">--static</span>, <span Class="bold">--transient</span>, <span Class="bold">--pretty</span> are used, only the selected hostnames are changed. If the pretty hostname is being set, and static or transient are being set as well, the specified hostname will be simplified in regards to the character set used before the latter are updated. This is done by replacing spaces with "-" and removing special characters. This ensures that the pretty and the static hostname are always closely related while still following the validity rules of the specific name. This simplification of the hostname string is not done if only the transient and/or static host names are set, and the pretty host name is left untouched. 
+<p class="level1">Pass the empty string "" as the hostname to reset the selected hostnames to their default (usually "localhost"). 
+<p class="level0">
+<p class="level0"><span Class="bold">set-icon-name </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> 
+<p class="level1">Set the system icon name to <a class="emphasis" href="#NAME">NAME</a>. The icon name is used by some graphical applications to visualize this host. The icon name should follow the m[blue]<span Class="bold">Icon Naming Specification</span>m[]s-2u[1]ds+2. 
+<p class="level1">Pass an empty string to reset the icon name to the default value, which is determined from chassis type (see below) and possibly other parameters. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-chassis </span><span class="bold"><span Class="emphasis">TYPE</span></span> 
+<p class="level1">Set the chassis type to <span Class="emphasis">TYPE</span>. The chassis type is used by some graphical applications to visualize the host or alter user interaction. Currently, the following chassis types are defined: "desktop", "laptop", "server", "tablet", "handset", "watch", as well as the special chassis types "vm" and "container" for virtualized systems that lack an immediate physical chassis. 
+<p class="level1">Pass an empty string to reset the chassis type to the default value which is determined from the firmware and possibly other parameters. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">hostname</span>(1), <span Class="bold">hostname</span>(5), <span Class="bold">machine-info</span>(5), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd-hostnamed.service</span>(8) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Icon Naming Specification 
+<p class="level2">%http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html 
+<p class="level1">

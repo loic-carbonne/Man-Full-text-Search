@@ -1,0 +1,71 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">localectl - Control the system locale and keyboard layout settings <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">localectl</span> [OPTIONS...] {COMMAND} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">localectl</span> may be used to query and change the system locale and keyboard layout settings. 
+<p class="level0">The system locale controls the language settings of system services and of the UI before the user logs in, such as the display manager, as well as the default for users after login. 
+<p class="level0">The keyboard settings control the keyboard layout used on the text console and of the graphical UI before the user logs in, such as the display manager, as well as the default for users after login. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--no-ask-password</span> 
+<p class="level1">Do not query the user for authentication for privileged operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-convert</span> 
+<p class="level1">If <span Class="bold">set-keymap</span> or <span Class="bold">set-x11-keymap</span> is invoked and this option is passed, then the keymap will not be converted from the console to X11, or X11 to console, respectively. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">status</span> 
+<p class="level1">Show current settings of the system locale and keyboard mapping. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-locale LOCALE...</span> 
+<p class="level1">Set the system locale. This takes one or more assignments such as "LANG=de_DE.utf8", "LC_MESSAGES=en_GB.utf8", and so on. See <span Class="bold">locale</span>(7) for details on the available settings and their meanings. Use <span Class="bold">list-locales</span> for a list of available locales (see below). 
+<p class="level0">
+<p class="level0"><span Class="bold">list-locales</span> 
+<p class="level1">List available locales useful for configuration with <span Class="bold">set-locale</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-keymap MAP [TOGGLEMAP]</span> 
+<p class="level1">Set the system keyboard mapping for the console. This takes a keyboard mapping name (such as "de" or "us"), and possibly a second one to define a toggle keyboard mapping. Unless <span Class="bold">--no-convert</span> is passed, the selected setting is also applied to the default keyboard mapping of X11, after converting it to the closest matching X11 keyboard mapping. Use <span Class="bold">list-keymaps</span> for a list of available keyboard mappings (see below). 
+<p class="level0">
+<p class="level0"><span Class="bold">list-keymaps</span> 
+<p class="level1">List available keyboard mappings for the console, useful for configuration with <span Class="bold">set-keymap</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-x11-keymap LAYOUT [MODEL] [VARIANT] [OPTIONS]</span> 
+<p class="level1">Set the system default keyboard mapping for X11. This takes a keyboard mapping name (such as "de" or "us"), and possibly a model, variant and options, see <span Class="bold">kbd</span>(4) for details. Unless <span Class="bold">--no-convert</span> is passed, the selected setting is also applied to the system console keyboard mapping, after converting it to the closest matching console keyboard mapping. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-x11-keymap-models</span>, <span Class="bold">list-x11-keymap-layouts</span>, <span Class="bold">list-x11-keymap-variants [LAYOUT]</span>, <span Class="bold">list-x11-keymap-options</span> 
+<p class="level1">List available X11 keymap models, layouts, variants and options, useful for configuration with <span Class="bold">set-keymap</span>. The command <span Class="bold">list-x11-keymap-variants</span> optionally takes a layout parameter to limit the output to the variants suitable for the specific layout. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">locale</span>(7), <span Class="bold">locale.conf</span>(5), <span Class="bold">vconsole.conf</span>(5), <span Class="bold">loadkeys</span>(1), <span Class="bold">kbd</span>(4), m[blue]<span Class="bold">The XKB Configuration Guide</span>m[]s-2u[1]ds+2, <span Class="bold">systemctl</span>(1), <span Class="bold">systemd-localed.service</span>(8) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">The XKB Configuration Guide 
+<p class="level2">%http://www.x.org/releases/current/doc/xorg-docs/input/XKB-Config.html 
+<p class="level1">

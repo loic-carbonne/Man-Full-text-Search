@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-scansources - create Sources index files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-scansources</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">&gt;</span> <span Class="emphasis">Sources</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-scansources</span> scans the given <span Class="emphasis">binary-dir</span> for <span Class="emphasis">.dsc</span> files. These are used to create a Debian source index, which is output to stdout. 
+<p class="level0">The <span Class="emphasis">override-file</span>, if given, is used to set priorities in the resulting index records and to override the maintainer field given in the <span Class="emphasis">.dsc</span> files. The file can be compressed. See <span Class="manpage">deb-override (5)</span>for the format of this file. Note: Since the override file is indexed by binary, not source packages, there's a bit of a problem here. The current implementation uses the highest priority of all the binary packages produced by a <span Class="emphasis">.dsc</span> file for the priority of the source package, and the override entry for the first binary package listed in the <span Class="emphasis">.dsc</span> file to modify maintainer information. This might change. 
+<p class="level0">The <span Class="emphasis">path-prefix</span>, if given, is prepended to the directory field in the generated source index. You generally use this to make the directory fields contain the path from the top of the Debian archive hierarchy. 
+<p class="level0">
+<p class="level0"><span Class="bold">Note:</span> If you want to access the generated Sources file with <span Class="manpage">apt (8)</span>you will probably need to compress the file with <span Class="manpage">gzip (1)</span>(generating a Sources.gz file). apt ignores uncompressed Sources files except on local access (i.e. <span Class="bold">file://</span> sources). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--no-sort\fR 4</span> 
+<p class="level1">Don't sort the index records. Normally they are sorted by source package name. 
+<p class="level1">
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR, \fB--extra-override\fR \fIfile\fP 4</span> 
+<p class="level1">Scan <span Class="emphasis">file</span> to find supplementary overrides (the file can be compressed). See <span Class="manpage">deb-extra-override (5)</span>for more information on its format. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR, \fB--source-override\fR \fIfile\fR 4</span> 
+<p class="level1">Use <span Class="emphasis">file</span> as the source override file (the file can be compressed). The default is the name of the override file you specified with <span Class="emphasis">.src</span> appended. 
+<p class="level1">The source override file is in a different format from the binary override file. It contains only two whitespace separated fields, the first is the source package name and the second is the section. Blank lines and comment lines are ignored in the normal manner. If a package appears in both files the source override takes precedence for setting the section. 
+<p class="level0"><a name="fB--debugfR"></a><span class="nroffip">\fB--debug\fR 4</span> 
+<p class="level1">Turn debugging on. 
+<p class="level0"><a name="fB--helpfR"></a><span class="nroffip">\fB--help\fR 4</span> 
+<p class="level1">Show the usage message and exit. 
+<p class="level0"><a name="fB--versionfR"></a><span class="nroffip">\fB--version\fR 4</span> 
+<p class="level1">Show the version and exit. 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">deb-override (5)</span>, <span Class="manpage">deb-extra-override (5)</span>, <span Class="manpage">dpkg-scanpackages (1).</span>

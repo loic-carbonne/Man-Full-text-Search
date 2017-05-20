@@ -1,0 +1,302 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">apt-ftparchive - Utility to generate index files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-ftparchive</span> [<span Class="bold">-dsq</span>] [<span Class="bold">--md5</span>] [<span Class="bold">--delink</span>] [<span Class="bold">--readonly</span>] [<span Class="bold">--contents</span>] [<span Class="bold">--arch&nbsp;</span><span class="bold"><span Class="emphasis">architecture</span></span>] [<span Class="bold">-o=</span><span class="bold"><span Class="emphasis">config_string</span></span>] [<span Class="bold">-c=</span><span class="bold"><span Class="emphasis">config_file</span></span>] {packages&nbsp;<span Class="emphasis">path</span>...&nbsp;[<span Class="emphasis">override-file</span>&nbsp;[<span Class="emphasis">pathprefix</span>]]  | sources&nbsp;<span Class="emphasis">path</span>...&nbsp;[<span Class="emphasis">override-file</span>&nbsp;[<span Class="emphasis">pathprefix</span>]]  | contents&nbsp;<span Class="emphasis">path</span>  | release&nbsp;<span Class="emphasis">path</span>  | generate&nbsp;<span Class="emphasis">config_file</span>&nbsp;<span Class="emphasis">section</span>...  | clean&nbsp;<span Class="emphasis">config_file</span>  | {-v&nbsp;|&nbsp;--version} | {-h&nbsp;|&nbsp;--help}} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-ftparchive</span> is the command line tool that generates the index files that APT uses to access a distribution source. The index files should be generated on the origin site based on the content of that site. 
+<p class="level0"><span Class="bold">apt-ftparchive</span> is a superset of the <span Class="bold">dpkg-scanpackages</span>(1) program, incorporating its entire functionality via the packages command. It also contains a contents file generator, contents, and an elaborate means to *(Aqscript*(Aq the generation process for a complete archive. 
+<p class="level0">Internally <span Class="bold">apt-ftparchive</span> can make use of binary databases to cache the contents of a .deb file and it does not rely on any external programs aside from <span Class="bold">gzip</span>(1). When doing a full generate it automatically performs file-change checks and builds the desired compressed output files. 
+<p class="level0">Unless the <span Class="bold">-h</span>, or <span Class="bold">--help</span> option is given, one of the commands below must be present. 
+<p class="level0"><span Class="bold">packages</span> 
+<p class="level1">The packages command generates a package file from a directory tree. It takes the given directory and recursively searches it for .deb files, emitting a package record to stdout for each. This command is approximately equivalent to <span Class="bold">dpkg-scanpackages</span>(1). 
+<p class="level1">The option <span Class="bold">--db</span> can be used to specify a binary caching DB. 
+<p class="level0">
+<p class="level0"><span Class="bold">sources</span> 
+<p class="level1">The sources command generates a source index file from a directory tree. It takes the given directory and recursively searches it for .dsc files, emitting a source record to stdout for each. This command is approximately equivalent to <span Class="bold">dpkg-scansources</span>(1). 
+<p class="level1">If an override file is specified then a source override file will be looked for with an extension of .src. The --source-override option can be used to change the source override file that will be used. 
+<p class="level0">
+<p class="level0"><span Class="bold">contents</span> 
+<p class="level1">The contents command generates a contents file from a directory tree. It takes the given directory and recursively searches it for .deb files, and reads the file list from each file. It then sorts and writes to stdout the list of files matched to packages. Directories are not written to the output. If multiple packages own the same file then each package is separated by a comma in the output. 
+<p class="level1">The option <span Class="bold">--db</span> can be used to specify a binary caching DB. 
+<p class="level0">
+<p class="level0"><span Class="bold">release</span> 
+<p class="level1">The release command generates a Release file from a directory tree. It recursively searches the given directory for uncompressed Packages and Sources files and ones compressed with <span Class="bold">gzip</span>, <span Class="bold">bzip2</span> or <span Class="bold">lzma</span> as well as Release and md5sum.txt files by default (APT::FTPArchive::Release::Default-Patterns). Additional filename patterns can be added by listing them in APT::FTPArchive::Release::Patterns. It then writes to stdout a Release file containing an MD5, SHA1 and SHA256 digest for each file. 
+<p class="level1">Values for the additional metadata fields in the Release file are taken from the corresponding variables under APT::FTPArchive::Release, e.g. APT::FTPArchive::Release::Origin. The supported fields are: Origin, Label, Suite, Version, Codename, Date, Valid-Until, Architectures, Components, Description. 
+<p class="level0">
+<p class="level0"><span Class="bold">generate</span> 
+<p class="level1">The generate command is designed to be runnable from a cron script and builds indexes according to the given config file. The config language provides a flexible means of specifying which index files are built from which directories, as well as providing a simple means of maintaining the required settings. 
+<p class="level0">
+<p class="level0"><span Class="bold">clean</span> 
+<p class="level1">The clean command tidies the databases used by the given configuration file by removing any records that are no longer necessary. 
+<p class="level0"><a name="THE"></a><h2 class="nroffsh">THE GENERATE CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">The generate command uses a configuration file to describe the archives that are going to be generated. It follows the typical ISC configuration format as seen in ISC tools like bind 8 and dhcpd. <span Class="bold">apt.conf</span>(5) contains a description of the syntax. Note that the generate configuration is parsed in sectional manner, but <span Class="bold">apt.conf</span>(5) is parsed in a tree manner. This only effects how the scope tag is handled. 
+<p class="level0">The generate configuration has four separate sections, each described below. <a name="Dir"></a><h2 class="nroffsh">Dir Section</h2>
+<p class="level0">
+<p class="level0">The Dir section defines the standard directories needed to locate the files required during the generation process. These directories are prepended certain relative paths defined in later sections to produce a complete an absolute path. 
+<p class="level0"><span Class="bold">ArchiveDir</span> 
+<p class="level1">Specifies the root of the FTP archive, in a standard Debian configuration this is the directory that contains the ls-LR and dist nodes. 
+<p class="level0">
+<p class="level0"><span Class="bold">OverrideDir</span> 
+<p class="level1">Specifies the location of the override files. 
+<p class="level0">
+<p class="level0"><span Class="bold">CacheDir</span> 
+<p class="level1">Specifies the location of the cache files. 
+<p class="level0">
+<p class="level0"><span Class="bold">FileListDir</span> 
+<p class="level1">Specifies the location of the file list files, if the FileList setting is used below. 
+<p class="level0"><a name="Default"></a><h2 class="nroffsh">Default Section</h2>
+<p class="level0">
+<p class="level0">The Default section specifies default values, and settings that control the operation of the generator. Other sections may override these defaults with a per-section setting. 
+<p class="level0"><span Class="bold">Packages::Compress</span> 
+<p class="level1">Sets the default compression schemes to use for the package index files. It is a string that contains a space separated list of at least one of: *(Aq.*(Aq (no compression), *(Aqgzip*(Aq and *(Aqbzip2*(Aq. The default for all compression schemes is *(Aq. gzip*(Aq. 
+<p class="level0">
+<p class="level0"><span Class="bold">Packages::Extensions</span> 
+<p class="level1">Sets the default list of file extensions that are package files. This defaults to *(Aq.deb*(Aq. 
+<p class="level0">
+<p class="level0"><span Class="bold">Sources::Compress</span> 
+<p class="level1">This is similar to Packages::Compress except that it controls the compression for the Sources files. 
+<p class="level0">
+<p class="level0"><span Class="bold">Sources::Extensions</span> 
+<p class="level1">Sets the default list of file extensions that are source files. This defaults to *(Aq.dsc*(Aq. 
+<p class="level0">
+<p class="level0"><span Class="bold">Contents::Compress</span> 
+<p class="level1">This is similar to Packages::Compress except that it controls the compression for the Contents files. 
+<p class="level0">
+<p class="level0"><span Class="bold">Translation::Compress</span> 
+<p class="level1">This is similar to Packages::Compress except that it controls the compression for the Translation-en master file. 
+<p class="level0">
+<p class="level0"><span Class="bold">DeLinkLimit</span> 
+<p class="level1">Specifies the number of kilobytes to delink (and replace with hard links) per run. This is used in conjunction with the per-section External-Links setting. 
+<p class="level0">
+<p class="level0"><span Class="bold">FileMode</span> 
+<p class="level1">Specifies the mode of all created index files. It defaults to 0644. All index files are set to this mode with no regard to the umask. 
+<p class="level0">
+<p class="level0"><span Class="bold">LongDescription</span> 
+<p class="level1">Specifies whether long descriptions should be included in the Packages file or split out into a master Translation-en file. 
+<p class="level0"><a name="TreeDefault"></a><h2 class="nroffsh">TreeDefault Section</h2>
+<p class="level0">
+<p class="level0">Sets defaults specific to Tree sections. All of these variables are substitution variables and have the strings $(DIST), $(SECTION) and $(ARCH) replaced with their respective values. 
+<p class="level0"><span Class="bold">MaxContentsChange</span> 
+<p class="level1">Sets the number of kilobytes of contents files that are generated each day. The contents files are round-robined so that over several days they will all be rebuilt. 
+<p class="level0">
+<p class="level0"><span Class="bold">ContentsAge</span> 
+<p class="level1">Controls the number of days a contents file is allowed to be checked without changing. If this limit is passed the mtime of the contents file is updated. This case can occur if the package file is changed in such a way that does not result in a new contents file [override edit for instance]. A hold off is allowed in hopes that new .debs will be installed, requiring a new file anyhow. The default is 10, the units are in days. 
+<p class="level0">
+<p class="level0"><span Class="bold">Directory</span> 
+<p class="level1">Sets the top of the .deb directory tree. Defaults to $(DIST)/$(SECTION)/binary-$(ARCH)/ 
+<p class="level0">
+<p class="level0"><span Class="bold">SrcDirectory</span> 
+<p class="level1">Sets the top of the source package directory tree. Defaults to $(DIST)/$(SECTION)/source/ 
+<p class="level0">
+<p class="level0"><span Class="bold">Packages</span> 
+<p class="level1">Sets the output Packages file. Defaults to $(DIST)/$(SECTION)/binary-$(ARCH)/Packages 
+<p class="level0">
+<p class="level0"><span Class="bold">Sources</span> 
+<p class="level1">Sets the output Sources file. Defaults to $(DIST)/$(SECTION)/source/Sources 
+<p class="level0">
+<p class="level0"><span Class="bold">Translation</span> 
+<p class="level1">Sets the output Translation-en master file with the long descriptions if they should be not included in the Packages file. Defaults to $(DIST)/$(SECTION)/i18n/Translation-en 
+<p class="level0">
+<p class="level0"><span Class="bold">InternalPrefix</span> 
+<p class="level1">Sets the path prefix that causes a symlink to be considered an internal link instead of an external link. Defaults to $(DIST)/$(SECTION)/ 
+<p class="level0">
+<p class="level0"><span Class="bold">Contents</span> 
+<p class="level1">Sets the output Contents file. Defaults to $(DIST)/$(SECTION)/Contents-$(ARCH). If this setting causes multiple Packages files to map onto a single Contents file (as is the default) then <span Class="bold">apt-ftparchive</span> will integrate those package files together automatically. 
+<p class="level0">
+<p class="level0"><span Class="bold">Contents::Header</span> 
+<p class="level1">Sets header file to prepend to the contents output. 
+<p class="level0">
+<p class="level0"><span Class="bold">BinCacheDB</span> 
+<p class="level1">Sets the binary cache database to use for this section. Multiple sections can share the same database. 
+<p class="level0">
+<p class="level0"><span Class="bold">FileList</span> 
+<p class="level1">Specifies that instead of walking the directory tree, <span Class="bold">apt-ftparchive</span> should read the list of files from the given file. Relative files names are prefixed with the archive directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">SourceFileList</span> 
+<p class="level1">Specifies that instead of walking the directory tree, <span Class="bold">apt-ftparchive</span> should read the list of files from the given file. Relative files names are prefixed with the archive directory. This is used when processing source indexes. 
+<p class="level0"><a name="Tree"></a><h2 class="nroffsh">Tree Section</h2>
+<p class="level0">
+<p class="level0">The Tree section defines a standard Debian file tree which consists of a base directory, then multiple sections in that base directory and finally multiple Architectures in each section. The exact pathing used is defined by the Directory substitution variable. 
+<p class="level0">The Tree section takes a scope tag which sets the $(DIST) variable and defines the root of the tree (the path is prefixed by ArchiveDir). Typically this is a setting such as dists/jessie. 
+<p class="level0">All of the settings defined in the TreeDefault section can be used in a Tree section as well as three new variables. 
+<p class="level0">When processing a Tree section <span Class="bold">apt-ftparchive</span> performs an operation similar to: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+for i in Sections do 
+&nbsp;  for j in Architectures do
+&nbsp;     Generate for DIST=scope SECTION=i ARCH=j
+&nbsp;    
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">Sections</span> 
+<p class="level1">This is a space separated list of sections which appear under the distribution; typically this is something like main contrib non-free 
+<p class="level0">
+<p class="level0"><span Class="bold">Architectures</span> 
+<p class="level1">This is a space separated list of all the architectures that appear under search section. The special architecture *(Aqsource*(Aq is used to indicate that this tree has a source archive. 
+<p class="level0">
+<p class="level0"><span Class="bold">LongDescription</span> 
+<p class="level1">Specifies whether long descriptions should be included in the Packages file or split out into a master Translation-en file. 
+<p class="level0">
+<p class="level0"><span Class="bold">BinOverride</span> 
+<p class="level1">Sets the binary override file. The override file contains section, priority and maintainer address information. 
+<p class="level0">
+<p class="level0"><span Class="bold">SrcOverride</span> 
+<p class="level1">Sets the source override file. The override file contains section information. 
+<p class="level0">
+<p class="level0"><span Class="bold">ExtraOverride</span> 
+<p class="level1">Sets the binary extra override file. 
+<p class="level0">
+<p class="level0"><span Class="bold">SrcExtraOverride</span> 
+<p class="level1">Sets the source extra override file. 
+<p class="level0"><a name="BinDirectory"></a><h2 class="nroffsh">BinDirectory Section</h2>
+<p class="level0">
+<p class="level0">The bindirectory section defines a binary directory tree with no special structure. The scope tag specifies the location of the binary directory and the settings are similar to the Tree section with no substitution variables or SectionArchitecture settings. 
+<p class="level0"><span Class="bold">Packages</span> 
+<p class="level1">Sets the Packages file output. 
+<p class="level0">
+<p class="level0"><span Class="bold">Sources</span> 
+<p class="level1">Sets the Sources file output. At least one of Packages or Sources is required. 
+<p class="level0">
+<p class="level0"><span Class="bold">Contents</span> 
+<p class="level1">Sets the Contents file output (optional). 
+<p class="level0">
+<p class="level0"><span Class="bold">BinOverride</span> 
+<p class="level1">Sets the binary override file. 
+<p class="level0">
+<p class="level0"><span Class="bold">SrcOverride</span> 
+<p class="level1">Sets the source override file. 
+<p class="level0">
+<p class="level0"><span Class="bold">ExtraOverride</span> 
+<p class="level1">Sets the binary extra override file. 
+<p class="level0">
+<p class="level0"><span Class="bold">SrcExtraOverride</span> 
+<p class="level1">Sets the source extra override file. 
+<p class="level0">
+<p class="level0"><span Class="bold">BinCacheDB</span> 
+<p class="level1">Sets the cache DB. 
+<p class="level0">
+<p class="level0"><span Class="bold">PathPrefix</span> 
+<p class="level1">Appends a path to all the output paths. 
+<p class="level0">
+<p class="level0"><span Class="bold">FileList</span>, <span Class="bold">SourceFileList</span> 
+<p class="level1">Specifies the file list file. 
+<p class="level0"><a name="THE"></a><h2 class="nroffsh">THE BINARY OVERRIDE FILE</h2>
+<p class="level0">
+<p class="level0">The binary override file is fully compatible with <span Class="bold">dpkg-scanpackages</span>(1). It contains four fields separated by spaces. The first field is the package name, the second is the priority to force that package to, the third is the section to force that package to and the final field is the maintainer permutation field. 
+<p class="level0">The general form of the maintainer field is: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+old [// oldn]* =&gt; new
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">or simply, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+new
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The first form allows a double-slash separated list of old email addresses to be specified. If any of those are found then new is substituted for the maintainer field. The second form unconditionally substitutes the maintainer field. <a name="THE"></a><h2 class="nroffsh">THE SOURCE OVERRIDE FILE</h2>
+<p class="level0">
+<p class="level0">The source override file is fully compatible with <span Class="bold">dpkg-scansources</span>(1). It contains two fields separated by spaces. The first field is the source package name, the second is the section to assign it. <a name="THE"></a><h2 class="nroffsh">THE EXTRA OVERRIDE FILE</h2>
+<p class="level0">
+<p class="level0">The extra override file allows any arbitrary tag to be added or replaced in the output. It has three columns, the first is the package, the second is the tag and the remainder of the line is the new value. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">All command line options may be set using the configuration file, the descriptions indicate the configuration option to set. For boolean options you can override the config file by using something like <span Class="bold">-f-</span>,<span Class="bold">--no-f</span>, <span Class="bold">-f=no</span> or several other variations. 
+<p class="level0"><span Class="bold">--md5</span>, <span Class="bold">--sha1</span>, <span Class="bold">--sha256</span> 
+<p class="level1">Generate the given checksum. These options default to on, when turned off the generated index files will not have the checksum fields where possible. Configuration Items: APT::FTPArchive::<span Class="emphasis">Checksum</span> and APT::FTPArchive::<span Class="emphasis">Index</span>::<span Class="emphasis">Checksum</span> where <span Class="emphasis">Index</span> can be Packages, Sources or Release and <span Class="emphasis">Checksum</span> can be MD5, SHA1 or SHA256. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--db</span> 
+<p class="level1">Use a binary caching DB. This has no effect on the generate command. Configuration Item: APT::FTPArchive::DB. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Quiet; produces output suitable for logging, omitting progress indicators. More q*(Aqs will produce more quiet up to a maximum of 2. You can also use <span Class="bold">-q=&#35;</span> to set the quiet level, overriding the configuration file. Configuration Item: quiet. 
+<p class="level0">
+<p class="level0"><span Class="bold">--delink</span> 
+<p class="level1">Perform Delinking. If the External-Links setting is used then this option actually enables delinking of the files. It defaults to on and can be turned off with <span Class="bold">--no-delink</span>. Configuration Item: APT::FTPArchive::DeLinkAct. 
+<p class="level0">
+<p class="level0"><span Class="bold">--contents</span> 
+<p class="level1">Perform contents generation. When this option is set and package indexes are being generated with a cache DB then the file listing will also be extracted and stored in the DB for later use. When using the generate command this option also allows the creation of any Contents files. The default is on. Configuration Item: APT::FTPArchive::Contents. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--source-override</span> 
+<p class="level1">Select the source override file to use with the sources command. Configuration Item: APT::FTPArchive::SourceOverride. 
+<p class="level0">
+<p class="level0"><span Class="bold">--readonly</span> 
+<p class="level1">Make the caching databases read only. Configuration Item: APT::FTPArchive::ReadOnlyDB. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--arch</span> 
+<p class="level1">Accept in the packages and contents commands only package files matching *_arch.deb or *_all.deb instead of all package files in the given path. Configuration Item: APT::FTPArchive::Architecture. 
+<p class="level0">
+<p class="level0"><span Class="bold">APT::FTPArchive::AlwaysStat</span> 
+<p class="level1"><span Class="bold">apt-ftparchive</span>(1) caches as much as possible of metadata in a cachedb. If packages are recompiled and/or republished with the same version again, this will lead to problems as the now outdated cached metadata like size and checksums will be used. With this option enabled this will no longer happen as it will be checked if the file was changed. Note that this option is set to "false" by default as it is not recommend to upload multiply versions/builds of a package with the same versionnumber, so in theory nobody will have these problems and therefore all these extra checks are useless. 
+<p class="level0">
+<p class="level0"><span Class="bold">APT::FTPArchive::LongDescription</span> 
+<p class="level1">This configuration option defaults to "true" and should only be set to "false" if the Archive generated with <span Class="bold">apt-ftparchive</span>(1) also provides Translation files. Note that the Translation-en master file can only be created in the generate command. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Show a short usage summary. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--version</span> 
+<p class="level1">Show the program version. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--config-file</span> 
+<p class="level1">Configuration File; Specify a configuration file to use. The program will read the default configuration file and then this configuration file. If configuration settings need to be set before the default configuration files are parsed specify a file with the <span Class="bold">APT_CONFIG</span> environment variable. See <span Class="bold">apt.conf</span>(5) for syntax information. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--option</span> 
+<p class="level1">Set a Configuration Option; This will set an arbitrary configuration option. The syntax is <span Class="bold">-o Foo::Bar=bar</span>. <span Class="bold">-o</span> and <span Class="bold">--option</span> can be used multiple times to set different options. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To create a compressed Packages file for a directory containing binary packages (.deb): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+<span class="bold">apt-ftparchive</span> packages <span class="emphasis">directory</span> | <span class="bold">gzip</span> &gt; Packages.gz
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt.conf</span>(5) <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-ftparchive</span> returns zero on normal operation, decimal 100 on error. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">m[blue]<span Class="bold">APT bug page</span>m[]s-2u[1]ds+2. If you wish to report a bug in APT, please see /usr/share/doc/debian/bug-reporting.txt or the <span Class="bold">reportbug</span>(1) command. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Jason Gunthorpe</span> 
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">APT team</span> 
+<p class="level1">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">APT bug page 
+<p class="level2">%http://bugs.debian.org/src:apt 
+<p class="level1">

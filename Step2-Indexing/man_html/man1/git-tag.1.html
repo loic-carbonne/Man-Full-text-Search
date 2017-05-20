@@ -1,0 +1,233 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-tag - Create, list, delete or verify a tag object signed with GPG <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git tag</span> [-a | -s | -u &lt;key-id&gt;] [-f] [-m &lt;msg&gt; | -F &lt;file&gt;]
+&nbsp;       &lt;tagname&gt; [&lt;commit&gt; | &lt;object&gt;]
+<span class="emphasis">git tag</span> -d &lt;tagname&gt;...
+<span class="emphasis">git tag</span> [-n[&lt;num&gt;]] -l [--contains &lt;commit&gt;] [--points-at &lt;object&gt;]
+&nbsp;       [--column[=&lt;options&gt;] | --no-column] [&lt;pattern&gt;...]
+&nbsp;       [&lt;pattern&gt;...]
+<span class="emphasis">git tag</span> -v &lt;tagname&gt;...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Add a tag reference in refs/tags/, unless -d/-l/-v is given to delete, list or verify tags. 
+<p class="level0">Unless -f is given, the named tag must not yet exist. 
+<p class="level0">If one of -a, -s, or -u &lt;key-id&gt; is passed, the command creates a <span Class="emphasis">tag</span> object, and requires a tag message. Unless -m &lt;msg&gt; or -F &lt;file&gt; is given, an editor is started for the user to type in the tag message. 
+<p class="level0">If -m &lt;msg&gt; or -F &lt;file&gt; is given and -a, -s, and -u &lt;key-id&gt; are absent, -a is implied. 
+<p class="level0">Otherwise just a tag reference for the SHA-1 object name of the commit object is created (i.e. a lightweight tag). 
+<p class="level0">A GnuPG signed tag object will be created when -s or -u &lt;key-id&gt; is used. When -u &lt;key-id&gt; is not used, the committer identity for the current user is used to find the GnuPG key for signing. The configuration variable gpg.program is used to specify custom GnuPG binary. 
+<p class="level0">Tag objects (created with -a, -s, or -u) are called "annotated" tags; they contain a creation date, the tagger name and e-mail, a tagging message, and an optional GnuPG signature. Whereas a "lightweight" tag is simply a name for an object (usually a commit object). 
+<p class="level0">Annotated tags are meant for release while lightweight tags are meant for private or temporary object labels. For this reason, some git commands for naming objects (like git describe) will ignore lightweight tags by default. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-a, --annotate 
+<p class="level1">Make an unsigned, annotated tag object 
+<p class="level0">
+<p class="level0">-s, --sign 
+<p class="level1">Make a GPG-signed tag, using the default e-mail address(cqs key. 
+<p class="level0">
+<p class="level0">-u &lt;key-id&gt;, --local-user=&lt;key-id&gt; 
+<p class="level1">Make a GPG-signed tag, using the given key. 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">Replace an existing tag with the given name (instead of failing) 
+<p class="level0">
+<p class="level0">-d, --delete 
+<p class="level1">Delete existing tags with the given names. 
+<p class="level0">
+<p class="level0">-v, --verify 
+<p class="level1">Verify the gpg signature of the given tag names. 
+<p class="level0">
+<p class="level0">-n&lt;num&gt; 
+<p class="level1">&lt;num&gt; specifies how many lines from the annotation, if any, are printed when using -l. The default is not to print any annotation lines. If no number is given to -n, only the first line is printed. If the tag is not annotated, the commit message is displayed instead. 
+<p class="level0">
+<p class="level0">-l &lt;pattern&gt;, --list &lt;pattern&gt; 
+<p class="level1">List tags with names that match the given pattern (or all if no pattern is given). Running "git tag" without arguments also lists all tags. The pattern is a shell wildcard (i.e., matched using fnmatch(3)). Multiple patterns may be given; if any of them matches, the tag is shown. 
+<p class="level0">
+<p class="level0">--sort=&lt;type&gt; 
+<p class="level1">Sort in a specific order. Supported type is "refname" (lexicographic order), "version:refname" or "v:refname" (tag names are treated as versions). Prepend "-" to reverse sort order. When this option is not given, the sort order defaults to the value configured for the <span Class="emphasis">tag.sort</span> variable if it exists, or lexicographic order otherwise. See <span Class="bold">git-config</span>(1). 
+<p class="level0">
+<p class="level0">--column[=&lt;options&gt;], --no-column 
+<p class="level1">Display tag listing in columns. See configuration variable column.tag for option syntax.--column and --no-column without options are equivalent to <span Class="emphasis">always</span> and <span Class="emphasis">never</span> respectively. 
+<p class="level1">This option is only applicable when listing tags without annotation lines. 
+<p class="level0">
+<p class="level0">--contains [&lt;commit&gt;] 
+<p class="level1">Only list tags which contain the specified commit (HEAD if not specified). 
+<p class="level0">
+<p class="level0">--points-at &lt;object&gt; 
+<p class="level1">Only list tags of the given object. 
+<p class="level0">
+<p class="level0">-m &lt;msg&gt;, --message=&lt;msg&gt; 
+<p class="level1">Use the given tag message (instead of prompting). If multiple -m options are given, their values are concatenated as separate paragraphs. Implies -a if none of -a, -s, or -u &lt;key-id&gt; is given. 
+<p class="level0">
+<p class="level0">-F &lt;file&gt;, --file=&lt;file&gt; 
+<p class="level1">Take the tag message from the given file. Use <span Class="emphasis">-</span> to read the message from the standard input. Implies -a if none of -a, -s, or -u &lt;key-id&gt; is given. 
+<p class="level0">
+<p class="level0">--cleanup=&lt;mode&gt; 
+<p class="level1">This option sets how the tag message is cleaned up. The <span Class="emphasis">&lt;mode&gt;</span> can be one of <span Class="emphasis">verbatim</span>, <span Class="emphasis">whitespace</span> and <span Class="emphasis">strip</span>. The <span Class="emphasis">strip</span> mode is default. The <span Class="emphasis">verbatim</span> mode does not change message at all, <span Class="emphasis">whitespace</span> removes just leading/trailing whitespace lines and <span Class="emphasis">strip</span> removes both whitespace and commentary. 
+<p class="level0">
+<p class="level0">&lt;tagname&gt; 
+<p class="level1">The name of the tag to create, delete, or describe. The new tag name must pass all checks defined by <span Class="bold">git-check-ref-format</span>(1). Some of these checks may restrict the characters allowed in a tag name. 
+<p class="level0">
+<p class="level0">&lt;commit&gt;, &lt;object&gt; 
+<p class="level1">The object that the new tag will refer to, usually a commit. Defaults to HEAD. 
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">By default, <span Class="emphasis">git tag</span> in sign-with-default mode (-s) will use your committer identity (of the form "Your Name &lt;your@email.address&gt;") to find a key. If you want to use a different default key, you can specify it in the repository configuration as follows: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[user]
+&nbsp;   signingkey = &lt;gpg-key-id&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DISCUSSION"></a><h2 class="nroffsh">DISCUSSION</h2>
+<p class="level0"><a name="On"></a><h2 class="nroffsh">On Re-tagging</h2>
+<p class="level0">
+<p class="level0">What should you do when you tag a wrong commit and you would want to re-tag? 
+<p class="level0">If you never pushed anything out, just re-tag it. Use "-f" to replace the old one. And you(cqre done. 
+<p class="level0">But if you have pushed things out (or others could just read your repository directly), then others will have already seen the old tag. In that case you can do one of two things: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">The sane thing. Just admit you screwed up, and use a different name. Others have already seen one tag-name, and if you keep the same name, you may be in the situation that two people both have "version X", but they actually have <span Class="emphasis">different</span> "X"*(Aqs. So just call it "X.1" and be done with it. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">The insane thing. You really want to call the new version "X" too, <span Class="emphasis">even though</span> others have already seen the old one. So just use <span Class="emphasis">git tag -f</span> again, as if you hadn(cqt already published the old one. 
+<p class="level0">
+<p class="level0">However, Git does <span Class="bold">not</span> (and it should not) change tags behind users back. So if somebody already got the old tag, doing a <span Class="emphasis">git pull</span> on your tree shouldn(cqt just make them overwrite the old one. 
+<p class="level0">If somebody got a release tag from you, you cannot just change the tag for them by updating your own one. This is a big security issue, in that people MUST be able to trust their tag-names. If you really want to do the insane thing, you need to just fess up to it, and tell people that you messed up. You can do that by making a very public announcement saying: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Ok, I messed up, and I pushed out an earlier version tagged as X. I
+then fixed something, and retagged the *fixed* tree as X again.
+&nbsp;
+If you got the wrong tag, and want the new one, please delete
+the old one and fetch the new one by doing:
+&nbsp;
+&nbsp;       git tag -d X
+&nbsp;       git fetch origin tag X
+&nbsp;
+to get my updated tag.
+&nbsp;
+You can test which tag you have by doing
+&nbsp;
+&nbsp;       git rev-parse X
+&nbsp;
+which should return 0123456789abcdef.. if you have the new version.
+&nbsp;
+Sorry for the inconvenience.
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Does this seem a bit complicated? It <span Class="bold">should</span> be. There is no way that it would be correct to just "fix" it automatically. People need to know that their tags might have been changed. <a name="On"></a><h2 class="nroffsh">On Automatic following</h2>
+<p class="level0">
+<p class="level0">If you are following somebody else(cqs tree, you are most likely using remote-tracking branches (refs/heads/origin in traditional layout, or refs/remotes/origin/master in the separate-remote layout). You usually want the tags from the other end. 
+<p class="level0">On the other hand, if you are fetching because you would want a one-shot merge from somebody else, you typically do not want to get tags from there. This happens more often for people near the toplevel but not limited to them. Mere mortals when pulling from each other do not necessarily want to automatically get private anchor point tags from the other person. 
+<p class="level0">Often, "please pull" messages on the mailing list just provide two pieces of information: a repo URL and a branch name; this is designed to be easily cut&pasted at the end of a <span Class="emphasis">git fetch</span> command line: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Linus, please pull from
+&nbsp;
+&nbsp;       git://git..../proj.git master
+&nbsp;
+to get the following updates...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">becomes: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git pull git://git..../proj.git master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">In such a case, you do not want to automatically follow the other person(cqs tags. 
+<p class="level0">One important aspect of Git is its distributed nature, which largely means there is no inherent "upstream" or "downstream" in the system. On the face of it, the above example might seem to indicate that the tag namespace is owned by the upper echelon of people and that tags only flow downwards, but that is not the case. It only shows that the usage pattern determines who are interested in whose tags. 
+<p class="level0">A one-shot pull is a sign that a commit history is now crossing the boundary between one circle of people (e.g. "people who are primarily interested in the networking part of the kernel") who may have their own set of tags (e.g. "this is the third release candidate from the networking group to be proposed for general consumption with 2.6.21 release") to another circle of people (e.g. "people who integrate various subsystem improvements"). The latter are usually not interested in the detailed tags used internally in the former group (that is what "internal" means). That is why it is desirable not to follow tags automatically in this case. 
+<p class="level0">It may well be that among networking people, they may want to exchange the tags internal to their group, but in that workflow they are most likely tracking each other(cqs progress by having remote-tracking branches. Again, the heuristic to automatically follow such tags is a good thing. <a name="On"></a><h2 class="nroffsh">On Backdating Tags</h2>
+<p class="level0">
+<p class="level0">If you have imported some changes from another VCS and would like to add tags for major releases of your work, it is useful to be able to specify the date to embed inside of the tag object; such data in the tag object affects, for example, the ordering of tags in the gitweb interface. 
+<p class="level0">To set the date used in future tag objects, set the environment variable GIT_COMMITTER_DATE (see the later discussion of possible values; the most common form is "YYYY-MM-DD HH:MM"). 
+<p class="level0">For example: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ GIT_COMMITTER_DATE="2006-10-02 10:31" git tag -s v1.0.1
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DATE"></a><h2 class="nroffsh">DATE FORMATS</h2>
+<p class="level0">
+<p class="level0">The GIT_AUTHOR_DATE, GIT_COMMITTER_DATE environment variables support the following date formats: 
+<p class="level0">Git internal format 
+<p class="level1">It is &lt;unix timestamp&gt; &lt;time zone offset&gt;, where &lt;unix timestamp&gt; is the number of seconds since the UNIX epoch. &lt;time zone offset&gt; is a positive or negative offset from UTC. For example CET (which is 2 hours ahead UTC) is +0200. 
+<p class="level0">
+<p class="level0"><a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> 
+<p class="level1">The standard email format as described by <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>, for example Thu, 07 Apr 2005 22:13:13 +0200. 
+<p class="level0">
+<p class="level0">ISO 8601 
+<p class="level1">Time and date specified by the ISO 8601 standard, for example 2005-04-07T22:13:13. The parser accepts a space instead of the T character as well. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Note</span> 
+<p class="level2"><br>In addition, the date part is accepted in the following formats: YYYY.MM.DD, MM/DD/YYYY and DD.MM.YYYY. 
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-check-ref-format</span>(1). <span Class="bold">git-config</span>(1). <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

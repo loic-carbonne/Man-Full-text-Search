@@ -1,0 +1,62 @@
+OCAMLPROF(1)                General Commands Manual               OCAMLPROF(1)
+
+
+
+NAME
+       ocamlprof - The OCaml profiler
+
+
+SYNOPSIS
+       ocamlprof [ options ] filename ...
+
+
+DESCRIPTION
+       The  ocamlprof command prints execution counts gathered during the exe-
+       cution of a OCaml program instrumented with ocamlcp(1).
+
+       It produces a source listing of the program modules given as  arguments
+       where execution counts have been inserted as comments. For instance,
+
+       ocamlprof foo.ml
+
+       prints the source code for the foo module, with comments indicating how
+       many times the functions in this module have  been  called.  Naturally,
+       this information is accurate only if the source file has not been modi-
+       fied since the profiling execution took place.
+
+
+OPTIONS
+       -f dumpfile
+              Specifies an alternate dump file of profiling information.
+
+       -F string
+              Specifies an additional  string  to  be  output  with  profiling
+              information.   By  default,  ocamlprof(1) will annotate programs
+              with comments of the form (* n *) where n is the  counter  value
+              for  a  profiling point. With option -F s the annotation will be
+              (* sn *)
+
+       -impl filename
+              Compile the file filename as an implementation file, even if its
+              extension is not .ml.
+
+       -intf filename
+              Compile  the  file  filename  as  an interface file, even if its
+              extension is not .mli.
+
+       -version
+              Print version string and exit.
+
+       -vnum  Print short version number and exit.
+
+       -help or --help
+              Display a short usage summary and exit.
+
+
+SEE ALSO
+       ocamlcp(1).
+       The OCaml user's manual, chapter "Profiling".
+
+
+
+                                                                  OCAMLPROF(1)

@@ -1,0 +1,47 @@
+
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">funzip - filter for extracting from a ZIP archive in a pipe 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">funzip</span> [<span Class="bold">-password</span>] [<span Class="emphasis">input[.zip|.gz]</span>] <a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0"><a name="fI-passwordfP"></a><span class="nroffip">[\fI-password\fP]</span> 
+<p class="level1">Optional password to be used if ZIP archive is encrypted.  Decryption may not be supported at some sites.  See DESCRIPTION for more details. 
+<p class="level0"><a name="fIinputzipgzfP"></a><span class="nroffip">[\fIinput[.zip|.gz]\fP]</span> 
+<p class="level1">Optional input archive file specification. See DESCRIPTION for details. 
+<p class="level1"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">funzip</span> without a file argument acts as a filter; that is, it assumes that a ZIP archive (or a <span Class="emphasis">gzip</span>'d(1) file) is being piped into standard input, and it extracts the first member from the archive to stdout. When stdin comes from a tty device, <span Class="emphasis">funzip</span> assumes that this cannot be a stream of (binary) compressed data and shows a short help text, instead. If there is a file argument, then input is read from the specified file instead of from stdin. 
+<p class="level0">A password for encrypted zip files can be specified on the command line (preceding the file name, if any) by prefixing the password with a dash.  Note that this constitutes a security risk on many systems; currently running processes are often visible via simple commands (e.g., <span Class="emphasis">ps</span>(1) under Unix), and command-line histories can be read. If the first entry of the zip file is encrypted and no password is specified on the command line, then the user is prompted for a password and the password is not echoed on the console. 
+<p class="level0">Given the limitation on single-member extraction, <span Class="emphasis">funzip</span> is most useful in conjunction with a secondary archiver program such as <span Class="emphasis">tar</span>(1). The following section includes an example illustrating this usage in the case of disk backups to tape. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">To use <span Class="emphasis">funzip</span> to extract the first member file of the archive test.zip and to pipe it into <span Class="emphasis">more</span>(1): 
+<p class="level0">
+<p class="level0">funzip test.zip | more 
+<p class="level0">
+<p class="level0">To use <span Class="emphasis">funzip</span> to test the first member file of test.zip (any errors will be reported on standard error): 
+<p class="level0">
+<p class="level0">funzip test.zip &gt; /dev/null 
+<p class="level0">
+<p class="level0">To use <span Class="emphasis">zip</span> and <span Class="emphasis">funzip</span> in place of <span Class="emphasis">compress</span>(1) and <span Class="emphasis">zcat</span>(1) (or <span Class="emphasis">gzip</span>(1) and <span Class="emphasis">gzcat</span>(1)) for tape backups: 
+<p class="level0">
+<p class="level0">tar cf - . | zip -7 | dd of=/dev/nrst0 obs=8k dd if=/dev/nrst0 ibs=8k | funzip | tar xf - 
+<p class="level0">
+<p class="level0">(where, for example, nrst0 is a SCSI tape drive). 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">When piping an encrypted file into <span Class="emphasis">more</span> and allowing <span Class="emphasis">funzip</span> to prompt for password, the terminal may sometimes be reset to a non-echo mode.  This is apparently due to a race condition between the two programs; <span Class="emphasis">funzip</span> changes the terminal mode to non-echo before <span Class="emphasis">more</span> reads its state, and <span Class="emphasis">more</span> then ``restores'' the terminal to this mode before exiting.  To recover, run <span Class="emphasis">funzip</span> on the same file but redirect to /dev/null rather than piping into more; after prompting again for the password, <span Class="emphasis">funzip</span> will reset the terminal properly. 
+<p class="level0">There is presently no way to extract any member but the first from a ZIP archive.  This would be useful in the case where a ZIP archive is included within another archive.  In the case where the first member is a directory, <span Class="emphasis">funzip</span> simply creates the directory and exits. 
+<p class="level0">The functionality of <span Class="emphasis">funzip</span> should be incorporated into <span Class="emphasis">unzip</span> itself (future release). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">gzip</span>(1), <span Class="emphasis">unzip</span>(1), <span Class="emphasis">unzipsfx</span>(1), <span Class="emphasis">zip</span>(1), <span Class="emphasis">zipcloak</span>(1), <span Class="emphasis">zipinfo</span>(1), <span Class="emphasis">zipnote</span>(1), <span Class="emphasis">zipsplit</span>(1) 
+<p class="level0"><a name="URL"></a><h2 class="nroffsh">URL</h2>
+<p class="level0">The Info-ZIP home page is currently at 
+<p class="level0">fChttp://www.info-zip.org/pub/infozip/</span> 
+<p class="level0">or 
+<p class="level0">fCftp://ftp.info-zip.org/pub/infozip/</span> . 
+<p class="level0">
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Mark Adler (Info-ZIP) 

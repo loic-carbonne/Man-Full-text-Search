@@ -1,0 +1,15 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">lzmainfo - show information stored in the .lzma file header <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">lzmainfo</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">lzmainfo</span> shows information stored in the <span Class="bold">.lzma</span> file header. It reads the first 13 bytes from the specified <span Class="emphasis">file ,</span> decodes the header, and prints it to standard output in human readable format. If no <span Class="emphasis">files</span> are given or <span Class="emphasis">file</span> is <span Class="manpage">-</span>standard input is read. 
+<p class="level0">Usually the most interesting information is the uncompressed size and the dictionary size. Uncompressed size can be shown only if the file is in the non-streamed <span Class="bold">.lzma</span> format variant. The amount of memory required to decompress the file is a few dozen kilobytes plus the dictionary size. 
+<p class="level0"><span Class="bold">lzmainfo</span> is included in XZ Utils primarily for backward compatibility with LZMA Utils. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">0</span> All is good. 
+<p class="level0"><span Class="bold">1</span> An error occurred. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">lzmainfo</span> uses <span Class="bold">MB</span> while the correct suffix would be <span Class="bold">MiB</span> (2^20 bytes). This is to keep the output compatible with LZMA Utils. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xz (1)</span>

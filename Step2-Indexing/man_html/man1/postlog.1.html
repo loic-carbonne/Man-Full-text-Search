@@ -1,0 +1,63 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postlog - Postfix-compatible logging utility <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="bold">postlog</span> [<span Class="bold">-iv</span>] [<span class="bold">-c <span Class="emphasis">config_dir</span>] [<span class="bold">-p <span class="emphasis">priority<span class="bold">] [<span class="bold">-t <span Class="emphasis">tag</span>] [<span Class="emphasis">text...</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postlog</span>(1) command implements a Postfix-compatible logging interface for use in, for example, shell scripts. 
+<p class="level0">By default, <span Class="bold">postlog</span>(1) logs the <span Class="emphasis">text</span> given on the command line as one record. If no <span Class="emphasis">text</span> is specified on the command line, <span Class="bold">postlog</span>(1) reads from standard input and logs each input line as one record. 
+<p class="level0">Logging is sent to <span Class="bold">syslogd</span>(8); when the standard error stream is connected to a terminal, logging is sent there as well. 
+<p class="level0">The following options are implemented: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">Read the <span Class="bold">main.cf</span> configuration file in the named directory instead of the default configuration directory. 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR</span> 
+<p class="level1">Include the process ID in the logging tag. 
+<p class="level0"><a name="fB-p"></a><span class="nroffip">\fB-p \fIpriority\fR</span> 
+<p class="level1">Specifies the logging severity: <span Class="bold">info</span> (default), <span Class="bold">warn</span>, <span Class="bold">error</span>, <span Class="bold">fatal</span>, or <span Class="bold">panic</span>. 
+<p class="level0"><a name="fB-t"></a><span class="nroffip">\fB-t \fItag\fR</span> 
+<p class="level1">Specifies the logging tag, that is, the identifying name that appears at the beginning of each logging record. A default tag is used when none is specified. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="MAILCONFIG"></a><span class="nroffip">MAIL_CONFIG</span> 
+<p class="level1">Directory with the <span Class="bold">main.cf</span> file. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. 
+<p class="level0">The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+postconf(5), configuration parameters
+syslogd(8), syslog daemon
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

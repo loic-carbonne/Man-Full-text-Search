@@ -1,0 +1,134 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">podchecker - check the syntax of POD format documentation files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">podchecker</span> [<span Class="bold">-help</span>] [<span Class="bold">-man</span>] [<span Class="bold">-(no)warnings</span>] [<span Class="emphasis">file</span>&nbsp;...] <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS AND ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-helpfR"></a><span class="nroffip">\fB-help\fR 8</span> 
+<p class="level1">
+<p class="level1">Print a brief help message and exit. 
+<p class="level0"><a name="fB-manfR"></a><span class="nroffip">\fB-man\fR 8</span> 
+<p class="level1">
+<p class="level1">Print the manual page and exit. 
+<p class="level0"><a name="fB-warningsfR"></a><span class="nroffip">\fB-warnings\fR \fB-nowarnings\fR 8</span> 
+<p class="level1">
+<p class="level1">Turn on/off printing of warnings. Repeating <span Class="bold">-warnings</span> increases the warning level, i.e. more warnings are printed. Currently increasing to level two causes flagging of unescaped *(L"&lt;,&gt;*(R" characters. 
+<p class="level0"><a name="fIfilefR"></a><span class="nroffip">\fIfile\fR 8</span> 
+<p class="level1">
+<p class="level1">The pathname of a s-1PODs0 file to syntax-check (defaults to standard input). <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">podchecker</span> will read the given input files looking for s-1PODs0 syntax errors in the s-1PODs0 documentation and will print any errors it find to s-1STDERR.s0 At the end, it will print a status message indicating the number of errors found. 
+<p class="level0">Directories are ignored, an appropriate warning message is printed. 
+<p class="level0"><span Class="bold">podchecker</span> invokes the <span class="bold">f(BIpodchecker()<span Class="bold"></span> function exported by <span Class="bold">Pod::Checker</span> Please see *(L"<span Class="emphasis">podchecker()</span>*(R" in Pod::Checker for more details. <a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">podchecker</span> returns a 0 (zero) exit status if all specified s-1PODs0 files are ok. <a name="ERRORS"></a><h2 class="nroffsh">ERRORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">podchecker</span> returns the exit status 1 if at least one of the given s-1PODs0 files has syntax errors. 
+<p class="level0">The status 2 indicates that at least one of the specified  files does not contain <span Class="emphasis">any</span> s-1PODs0 commands. 
+<p class="level0">Status 1 overrides status 2. If you want unambiguous results, call <span Class="bold">podchecker</span> with one single argument only. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Pod::Parser and Pod::Checker <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Please report bugs using &lt;http://rt.cpan.org&gt;. 
+<p class="level0">Brad Appleton &lt;bradapp@enteract.com&gt;, Marek Rouchal &lt;marekr@cpan.org&gt; 
+<p class="level0">Based on code for <span class="bold">f(BIPod::Text::pod2text<span Class="bold">|(1)</span> written by Tom Christiansen &lt;tchrist@mox.perl.com&gt; 

@@ -1,0 +1,156 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">emacs - GNU project Emacs 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">emacs</span> [ <span Class="emphasis">command-line switches</span> ] [ <span Class="emphasis">files ...\&</span> ] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">GNU Emacs</span> is a version of <a class="emphasis" href="#Emacs">Emacs ,</a> written by the author of the original (PDP-10) <a class="emphasis" href="#Emacs">Emacs ,</a> Richard Stallman. The user functionality of GNU Emacs encompasses everything other editors do, and it is easily extensible since its editing commands are written in Lisp. 
+<p class="level0">The primary documentation of GNU Emacs is in the GNU Emacs Manual, which you can read using Info, either from Emacs or as a standalone program. Please look there for complete and up-to-date documentation. This man page is updated only when someone volunteers to do so. 
+<p class="level0"><a class="emphasis" href="#Emacs">Emacs</a> has an extensive interactive help facility, but the facility assumes that you know how to manipulate <a class="emphasis" href="#Emacs">Emacs</a> windows and buffers. CTRL-h or F1 enters the Help facility. Help Tutorial (CTRL-h t) starts an interactive tutorial to quickly teach beginners the fundamentals of <a class="emphasis" href="#Emacs">Emacs.</a> Help Apropos (CTRL-h a) helps you find a command with a name matching a given pattern, Help Key (CTRL-h k) describes a given key sequence, and Help Function (CTRL-h f) describes a given Lisp function. 
+<p class="level0"><span Class="emphasis">GNU Emacs 's</span> many special packages handle mail reading (RMail) and sending (Mail), outline editing (Outline), compiling (Compile), running subshells within <a class="emphasis" href="#Emacs">Emacs</a> windows (Shell), running a Lisp read-eval-print loop (Lisp-Interaction-Mode), automated psychotherapy (Doctor), and much more. 
+<p class="level0"><a name="Emacs"></a><h2 class="nroffsh">Emacs Options</h2>
+<p class="level0">The following options are of general interest: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">file</span> Edit <span Class="emphasis">file .</span> 
+<p class="level1"><span Class="bold">--file  file,  --find-file  file,  --visit  file</span> The same as specifying <span Class="emphasis">file</span> directly as an argument. 
+<p class="level1"><a class="bold" href="#">+ number</a> Go to the line specified by <span Class="emphasis">number</span> (do not insert a space between the "+" sign and the number). This applies only to the next file specified. 
+<p class="level1"><a class="bold" href="#">+ line:column</a> Go to the specified <span Class="emphasis">line</span> and <span Class="emphasis">column .</span> 
+<p class="level1"><span Class="bold">--chdir  directory</span> Change to <span Class="emphasis">directory .</span> 
+<p class="level1"><span Class="manpage">-q</span>, <span Class="manpage">--no-init-file</span>Do not load an init file. 
+<p class="level1"><span Class="manpage">-nl</span>, <span Class="manpage">--no-shared-memory</span>Do not use shared memory. 
+<p class="level1"><span Class="bold">--no-site-file</span> Do not load the site-wide startup file. 
+<p class="level1"><span Class="manpage">-nsl</span>, <span Class="manpage">--no-site-lisp</span>Do not add site-lisp directories to load-path. 
+<p class="level1"><span Class="bold">--no-desktop</span> Do not load a saved desktop. 
+<p class="level1"><span Class="manpage">-Q</span>, <span Class="manpage">--quick</span>Similar to "-q --no-site-file --no-splash".  Also, avoid processing X resources. 
+<p class="level1"><span Class="bold">--no-splash</span> Do not display a splash screen during start-up. 
+<p class="level1"><span Class="bold">--debug-init</span> Enable <a class="emphasis" href="#Emacs">Emacs</a> Lisp debugger during the processing of the user init file <span Class="manpage">~/.emacs .</span>This is useful for debugging problems in the init file. 
+<p class="level1"><span Class="bold">-u  user,  --user  user</span> Load <span Class="emphasis">user 's</span> init file. 
+<p class="level1"><span Class="bold">-t  file,  --terminal  file</span> Use specified <span Class="emphasis">file</span> as the terminal instead of using stdin/stdout. This must be the first argument specified in the command line. 
+<p class="level1"><span Class="bold">--daemon</span> Start Emacs as a daemon, enabling the Emacs server and disconnecting from the terminal.  You can then use the emacsclient command to connect to the server (see , <span Class="manpage">emacsclient (1)).</span>
+<p class="level1"><span Class="bold">--version</span> Display <a class="emphasis" href="#Emacs">Emacs</a> version information and exit. 
+<p class="level1"><span Class="bold">--help</span> Display this help and exit. 
+<p class="level0">
+<p class="level0">The following options are Lisp-oriented (these options are processed in the order encountered): 
+<p class="level1">
+<p class="level1"><span Class="bold">-f  function,  --funcall  function</span> Execute the lisp function <span Class="emphasis">function .</span> 
+<p class="level1"><span Class="bold">-l  file,  --load  file</span> Load the lisp code in the file <span Class="emphasis">file .</span> 
+<p class="level1"><span Class="bold">--eval  expr,  --execute  expr</span> Evaluate the Lisp expression <span Class="emphasis">expr .</span> 
+<p class="level0">
+<p class="level0">The following options are useful when running <a class="emphasis" href="#Emacs">Emacs</a> as a batch editor: 
+<p class="level1">
+<p class="level1"><span Class="bold">--batch</span> Edit in batch mode. The editor will send messages to stderr. You must use -l and -f options to specify files to execute and functions to call. 
+<p class="level1"><span Class="bold">--script  file</span> Run <span Class="emphasis">file</span> as an Emacs Lisp script. 
+<p class="level1"><span Class="bold">--insert  file</span> Insert contents of <span Class="emphasis">file</span> into the current buffer. 
+<p class="level1"><span Class="bold">--kill</span> Exit <a class="emphasis" href="#Emacs">Emacs</a> while in batch mode. 
+<p class="level1"><span Class="bold">-L  dir,  --directory  dir</span> Add <span Class="emphasis">dir</span> to the list of directories <a class="emphasis" href="#Emacs">Emacs</a> searches for Lisp files. 
+<p class="level0">
+<p class="level0"><a name="Using"></a><h2 class="nroffsh">Using Emacs with X</h2>
+<p class="level0"><a class="emphasis" href="#Emacs">Emacs</a> has been tailored to work well with the X window system. If you run <a class="emphasis" href="#Emacs">Emacs</a> from under X windows, it will create its own X window to display in. You will probably want to start the editor as a background process so that you can continue using your original window. 
+<p class="level0"><a class="emphasis" href="#Emacs">Emacs</a> can be started with the following X switches: 
+<p class="level1">
+<p class="level1"><span Class="bold">--name  name</span> Specify the name which should be assigned to the initial <a class="emphasis" href="#Emacs">Emacs</a> window. This controls looking up X resources as well as the window title. 
+<p class="level1"><span Class="bold">-T  name,  --title  name</span> Specify the title for the initial X window. 
+<p class="level1"><span Class="manpage">-r</span>, <span Class="manpage">-rv</span>, <span Class="manpage">--reverse-video</span>Display the <a class="emphasis" href="#Emacs">Emacs</a> window in reverse video. 
+<p class="level1"><span Class="bold">-fn  font,  --font  font</span> Set the <a class="emphasis" href="#Emacs">Emacs</a> window's font to that specified by <span Class="emphasis">font .</span> You will find the various <span Class="emphasis">X</span> fonts in the <span Class="emphasis">/usr/lib/X11/fonts</span> directory. Note that <a class="emphasis" href="#Emacs">Emacs</a> will only accept fixed width fonts. Under the X11 Release 4 font-naming conventions, any font with the value "m" or "c" in the eleventh field of the font name is a fixed width font. Furthermore, fonts whose name are of the form <span Class="emphasis">width x height</span> are generally fixed width, as is the font <span Class="emphasis">fixed .</span> See <span Class="manpage">xlsfonts (1)</span>for more information. 
+<p class="level1">When you specify a font, be sure to put a space between the switch and the font name. 
+<p class="level1"><span Class="bold">--xrm  resources</span> Set additional X resources. 
+<p class="level1"><span Class="bold">--color, --color= mode</span> Override color mode for character terminals; <span Class="emphasis">mode</span> defaults to `auto', and can also be `never', `auto', `always', or a mode name like `ansi8'. 
+<p class="level1"><span Class="bold">-bw  pixels,  --border-width  pixels</span> Set the <a class="emphasis" href="#Emacs">Emacs</a> window's border width to the number of pixels specified by <span Class="emphasis">pixels .</span> Defaults to one pixel on each side of the window. 
+<p class="level1"><span Class="bold">-ib  pixels,  --internal-border  pixels</span> Set the window's internal border width to the number of pixels specified by <span Class="emphasis">pixels .</span> Defaults to one pixel of padding on each side of the window. 
+<p class="level1"><span Class="bold">-g  geometry,  --geometry  geometry</span> Set the <a class="emphasis" href="#Emacs">Emacs</a> window's width, height, and position as specified. The geometry specification is in the standard X format; see <span Class="manpage">X (7)</span>for more information. The width and height are specified in characters; the default is 80 by 24. See the Emacs manual, section "Options for Window Size and Position", for information on how window sizes interact with selecting or deselecting the tool bar and menu bar. 
+<p class="level1"><span Class="bold">-lsp  pixels,  --line-spacing  pixels</span> Additional space to put between lines. 
+<p class="level1"><span Class="manpage">-vb</span>, <span Class="manpage">--vertical-scroll-bars</span>Enable vertical scrollbars. 
+<p class="level1"><span Class="manpage">-fh</span>, <span Class="manpage">--fullheight</span>Make the first frame as high as the screen. 
+<p class="level1"><span Class="manpage">-fs</span>, <span Class="manpage">--fullscreen</span>Make the first frame fullscreen. 
+<p class="level1"><span Class="manpage">-fw</span>, <span Class="manpage">--fullwidth</span>Make the first frame as wide as the screen. 
+<p class="level1"><span Class="manpage">-mm</span>, <span Class="manpage">--maximized</span>Maximize the first frame, like "-fw -fh". 
+<p class="level1"><span Class="bold">-fg  color,  --foreground-color  color</span> On color displays, set the color of the text. 
+<p class="level1">Use the command <span Class="emphasis">M-x list-colors-display</span> for a list of valid color names. 
+<p class="level1"><span Class="bold">-bg  color,  --background-color  color</span> On color displays, set the color of the window's background. 
+<p class="level1"><span Class="bold">-bd  color,  --border-color  color</span> On color displays, set the color of the window's border. 
+<p class="level1"><span Class="bold">-cr  color,  --cursor-color  color</span> On color displays, set the color of the window's text cursor. 
+<p class="level1"><span Class="bold">-ms  color,  --mouse-color  color</span> On color displays, set the color of the window's mouse cursor. 
+<p class="level1"><span Class="bold">-d  displayname,  --display  displayname</span> Create the <a class="emphasis" href="#Emacs">Emacs</a> window on the display specified by <span Class="emphasis">displayname .</span> Must be the first option specified in the command line. 
+<p class="level1"><span Class="manpage">-nbi</span>, <span Class="manpage">--no-bitmap-icon</span>Do not use picture of gnu for Emacs icon. 
+<p class="level1"><span Class="bold">--iconic</span> Start <a class="emphasis" href="#Emacs">Emacs</a> in iconified state. 
+<p class="level1"><span Class="manpage">-nbc</span>, <span Class="manpage">--no-blinking-cursor</span>Disable blinking cursor. 
+<p class="level1"><span Class="bold">--parent-id  xid</span> Set parent window. 
+<p class="level1"><span Class="manpage">-nw</span>, <span Class="manpage">--no-window-system</span>Tell <a class="emphasis" href="#Emacs">Emacs</a> not to create a graphical frame. If you use this switch when invoking <a class="emphasis" href="#Emacs">Emacs</a> from an <span Class="manpage">xterm (1)</span>window, display is done in that window. 
+<p class="level1"><span Class="manpage">-D</span>, <span Class="manpage">--basic-display</span>This option disables many display features; use it for debugging Emacs. 
+<p class="level0">
+<p class="level0">You can set <span Class="emphasis">X</span> default values for your <a class="emphasis" href="#Emacs">Emacs</a> windows in your <span Class="emphasis">\.Xresources</span> file (see <span Class="manpage">xrdb (1)).</span>Use the following format: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">where <span Class="emphasis">value</span> specifies the default value of <span Class="emphasis">keyword .</span> <a class="emphasis" href="#Emacs">Emacs</a> lets you set default values for the following keywords: 
+<p class="level2">
+<p class="level2"><span Class="manpage">background  (class  Background )</span>For color displays, sets the window's background color. 
+<p class="level2"><span Class="manpage">bitmapIcon  (class  BitmapIcon )</span>If <span Class="manpage">bitmapIcon 's</span>value is set to <span Class="emphasis">on ,</span> the window will iconify into the "kitchen sink." 
+<p class="level2"><span Class="manpage">borderColor  (class  BorderColor )</span>For color displays, sets the color of the window's border. 
+<p class="level2"><span Class="manpage">borderWidth  (class  BorderWidth )</span>Sets the window's border width in pixels. 
+<p class="level2"><span Class="manpage">cursorColor  (class  Foreground )</span>For color displays, sets the color of the window's text cursor. 
+<p class="level2"><span Class="manpage">cursorBlink  (class  CursorBlink )</span>Specifies whether to make the cursor blink. The default is <span Class="emphasis">on .</span> Use <span Class="emphasis">off</span> or <span Class="emphasis">false</span> to turn cursor blinking off. 
+<p class="level2"><span Class="manpage">font  (class  Font )</span>Sets the window's text font. 
+<p class="level2"><span Class="manpage">foreground  (class  Foreground )</span>For color displays, sets the window's text color. 
+<p class="level2"><span Class="manpage">fullscreen  (class  Fullscreen )</span>The desired fullscreen size. The value can be one of <span Class="emphasis">fullboth ,</span> <span Class="emphasis">maximized ,</span> <span Class="emphasis">fullwidth ,</span> or <span Class="emphasis">fullheight ,</span> which correspond to the command-line options `-fs', `-mm', `-fw', and `-fh', respectively. Note that this applies to the initial frame only. 
+<p class="level2"><span Class="manpage">geometry  (class  Geometry )</span>Sets the geometry of the <a class="emphasis" href="#Emacs">Emacs</a> window (as described above). 
+<p class="level2"><span Class="manpage">iconName  (class  Title )</span>Sets the icon name for the <a class="emphasis" href="#Emacs">Emacs</a> window icon. 
+<p class="level2"><span Class="manpage">internalBorder  (class  BorderWidth )</span>Sets the window's internal border width in pixels. 
+<p class="level2"><span Class="manpage">lineSpacing  (class  LineSpacing )</span>Additional space ("leading") between lines, in pixels. 
+<p class="level2"><span Class="manpage">menuBar  (class  MenuBar )</span>Gives frames menu bars if <span Class="emphasis">on ;</span> don't have menu bars if <span Class="emphasis">off .</span> See the Emacs manual, sections "Lucid Resources" and "Motif Resources", for how to control the appearance of the menu bar if you have one. 
+<p class="level2"><span Class="manpage">minibuffer  (class  Minibuffer )</span>If <span Class="emphasis">none ,</span> don't make a minibuffer in this frame. It will use a separate minibuffer frame instead. 
+<p class="level2"><span Class="manpage">paneFont  (class  Font )</span>Font name for menu pane titles, in non-toolkit versions of <a class="emphasis" href="#Emacs">Emacs .</a> 
+<p class="level2"><span Class="manpage">pointerColor  (class  Foreground )</span>For color displays, sets the color of the window's mouse cursor. 
+<p class="level2"><span Class="manpage">privateColormap  (class  PrivateColormap )</span>If <span Class="emphasis">on ,</span> use a private color map, in the case where the "default visual" of class <span Class="bold">PseudoColor</span> and <a class="bold" href="#Emacs">Emacs</a> is using it. 
+<p class="level2"><span Class="manpage">reverseVideo  (class  ReverseVideo )</span>If <span Class="manpage">reverseVideo 's</span>value is set to <span Class="emphasis">on ,</span> the window will be displayed in reverse video. 
+<p class="level2"><span Class="manpage">screenGamma  (class ScreenGamma )</span>Gamma correction for colors, equivalent to the frame parameter `screen-gamma'. 
+<p class="level2"><span Class="manpage">scrollBarWidth  (class ScrollBarWidth )</span>The scroll bar width in pixels, equivalent to the frame parameter `scroll-bar-width'. 
+<p class="level2"><span Class="manpage">selectionFont  (class  SelectionFont )</span>Font name for pop-up menu items, in non-toolkit versions of <a class="emphasis" href="#Emacs">Emacs .</a> (For toolkit versions, see the Emacs manual, sections "Lucid Resources" and "Motif Resources".) 
+<p class="level2"><span Class="manpage">selectionTimeout  (class  SelectionTimeout )</span>Number of milliseconds to wait for a selection reply. A value of 0 means wait as long as necessary. 
+<p class="level2"><span Class="manpage">synchronous  (class  Synchronous )</span>Run Emacs in synchronous mode if <span Class="emphasis">on .</span> Synchronous mode is useful for debugging X problems. 
+<p class="level2"><span Class="manpage">title  (class  Title )</span>Sets the title of the <a class="emphasis" href="#Emacs">Emacs</a> window. 
+<p class="level2"><span Class="manpage">toolBar  (class  ToolBar )</span>Number of lines to reserve for the tool bar. 
+<p class="level2"><span Class="manpage">useXIM  (class  UseXIM )</span>Turns off use of X input methods (XIM) if <span Class="emphasis">false</span> or <span Class="emphasis">off .</span> 
+<p class="level2"><span Class="manpage">verticalScrollBars  (class  ScrollBars )</span>Gives frames scroll bars if <span Class="emphasis">on ;</span> suppresses scroll bars if <span Class="emphasis">off .</span> 
+<p class="level2"><span Class="manpage">visualClass  (class  VisualClass )</span>Specify the "visual" that X should use. This tells X how to handle colors. The value should start with one of <span Class="emphasis">TrueColor ,</span> <span Class="emphasis">PseudoColor ,</span> <span Class="emphasis">DirectColor ,</span> <span Class="emphasis">StaticColor ,</span> <span Class="emphasis">GrayScale ,</span> and <span Class="emphasis">StaticGray ,</span> followed by <span Class="bold">- depth,</span> where <span Class="emphasis">depth</span> is the number of color planes. 
+<p class="level1">
+<p class="level1"><a name="MANUALS"></a><h2 class="nroffsh">MANUALS</h2>
+<p class="level0">You can order printed copies of the GNU Emacs Manual from the Free Software Foundation, which develops GNU software. See the online store at &lt;http://shop.fsf.org/&gt;. <br>Your local administrator might also have copies available. As with all software and publications from FSF, everyone is permitted to make and distribute copies of the Emacs manual. The Texinfo source to the manual is also included in the Emacs source distribution. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">/usr/local/share/info (em files for the Info documentation browser. The complete text of the Emacs reference manual is included in a convenient tree structured form. Also includes the Emacs Lisp Reference Manual, useful to anyone wishing to write programs in the Emacs Lisp extension language, and the Introduction to Programming in Emacs Lisp. 
+<p class="level0">/usr/local/share/emacs/$VERSION/lisp (em Lisp source files and compiled files that define most editing commands. Some are preloaded; others are autoloaded from this directory when used. 
+<p class="level0">/usr/local/libexec/emacs/$VERSION/$ARCH (em various programs that are used with GNU Emacs. 
+<p class="level0">/usr/local/share/emacs/$VERSION/etc (em various files of information. 
+<p class="level0">/usr/local/share/emacs/$VERSION/etc/DOC.* (em contains the documentation strings for the Lisp primitives and preloaded Lisp functions of GNU Emacs. They are stored here to reduce the size of Emacs proper. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">There is a mailing list, bug-gnu-emacs@gnu.org, for reporting Emacs bugs and fixes. But before reporting something as a bug, please try to be sure that it really is a bug, not a misunderstanding or a deliberate feature. We ask you to read the section ``Reporting Bugs'' in the Emacs manual for hints on how and when to report bugs. Also, include the version number of the Emacs you are running in <span Class="emphasis">every</span> bug report that you send in. Bugs tend actually to be fixed if they can be isolated, so it is in your interest to report them in such a way that they can be easily reproduced. 
+<p class="level0">Do not expect a personal answer to a bug report. The purpose of reporting bugs is to get them fixed for everyone in the next release, if possible. For personal assistance, consult the service directory at &lt;http://www.fsf.org/resources/service/&gt; for a list of people who offer it. 
+<p class="level0">Please do not send anything but bug reports to this mailing list. For other Emacs lists, see &lt;http://savannah.gnu.org/mail/?group=emacs&gt;. 
+<p class="level0">
+<p class="level0"><a name="UNRESTRICTIONS"></a><h2 class="nroffsh">UNRESTRICTIONS</h2>
+<p class="level0"><a class="emphasis" href="#Emacs">Emacs</a> is free; anyone may redistribute copies of <a class="emphasis" href="#Emacs">Emacs</a> to anyone under the terms stated in the GNU General Public License, a copy of which accompanies each copy of <a class="emphasis" href="#Emacs">Emacs</a> and which also appears in the reference manual. 
+<p class="level0">Copies of <a class="emphasis" href="#Emacs">Emacs</a> may sometimes be received packaged with distributions of Unix systems, but it is never included in the scope of any license covering those systems. Such inclusion violates the terms on which distribution is permitted. In fact, the primary purpose of the GNU General Public License is to prohibit anyone from attaching any other restrictions to redistribution of <a class="emphasis" href="#Emacs">Emacs .</a> 
+<p class="level0">Richard Stallman encourages you to improve and extend <a class="emphasis" href="#Emacs">Emacs ,</a> and urges that you contribute your extensions to the GNU library. Eventually GNU (Gnu's Not Unix) will be a complete replacement for Unix. Everyone will be free to use, copy, study and change the GNU system. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">emacsclient (1)</span>, <span Class="manpage">etags (1)</span>, <span Class="manpage">X (7)</span>, <span Class="manpage">xlsfonts (1)</span>, <span Class="manpage">xterm (1)</span>, <span Class="manpage">xrdb (1)</span>
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0"><a class="emphasis" href="#Emacs">Emacs</a> was written by Richard Stallman and the Free Software Foundation. For detailed credits and acknowledgments, see the GNU Emacs manual. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="COPYING"></a><h2 class="nroffsh">COPYING</h2>
+<p class="level0">Copyright 
+<p class="level0">
+<p class="level0">1995, 1999-2014 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this document provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this document under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this document into another language, under the above conditions for modified versions, except that this permission notice may be stated in a translation approved by the Free Software Foundation. 
+<p class="level0">

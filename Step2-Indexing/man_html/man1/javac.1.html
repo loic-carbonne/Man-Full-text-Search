@@ -1,0 +1,695 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">javac - Java programming language compiler 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+&nbsp;       </span>f3javac</span> [ options ] [ sourcefiles ] [ classes ] [ @argfiles ]
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Arguments may be in any order. 
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Command-line options.  
+<p class="level1">sourcefiles  One or more source files to be compiled (such as MyClass.java).  
+<p class="level1">classes  One or more classes to be processed for annotations (such as MyPackage.MyClass).  
+<p class="level1">@argfiles  One or more files that lists options and source files. The f2-J</span> options are not allowed in these files.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3javac</span> tool reads class and interface definitions, written in the Java programming language, and compiles them into bytecode class files. It can also process annotations in Java source files and classes. 
+<p class="level0">
+<p class="level0">There are two ways to pass source code file names to f3javac</span>: 
+<p class="level0">
+<p class="level1">
+<p class="level1">o For a small number of source files, simply list the file names on the command line.  
+<p class="level1">o For a large number of source files, list the file names in a file, separated by blanks or line breaks. Then use the list file name on the f3javac</span> command line, preceded by an f3@</span> character.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Source code file names must have f2.java</span> suffixes, class file names must have f2.class</span> suffixes, and both source and class files must have root names that identify the class. For example, a class called f2MyClass</span> would be written in a source file called f2MyClass.java</span> and compiled into a bytecode class file called f2MyClass.class</span>. 
+<p class="level0">
+<p class="level0">Inner class definitions produce additional class files. These class files have names combining the inner and outer class names, such as f2MyClass$MyInnerClass.class</span>. 
+<p class="level0">
+<p class="level0">You should arrange source files in a directory tree that reflects their package tree. For example, if you keep all your source files in f3/workspace</span>, the source code for f2com.mysoft.mypack.MyClass</span> should be in f3/workspace/com/mysoft/mypack/MyClass.java</span>. 
+<p class="level0">
+<p class="level0">By default, the compiler puts each class file in the same directory as its source file. You can specify a separate destination directory with f3-d</span> (see Options, below). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The compiler has a set of standard options that are supported on the current development environment and will be supported in future releases. An additional set of non-standard options are specific to the current virtual machine and compiler implementations and are subject to change in the future. Non-standard options begin with f3-X</span>. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Standard Options 
+<p class="level0">
+<p class="level1">
+<p class="level1">-Akey[=value]  Options to pass to annotation processors. These are not interpreted by javac directly, but are made available for use by individual processors. f2key</span> should be one or more identifiers separated by ".".  
+<p class="level1">-cp path or -classpath path  Specify where to find user class files, and (optionally) annotation processors and source files. This class path overrides the user class path in the f3CLASSPATH</span> environment variable. If neither f3CLASSPATH</span>, f3-cp</span> nor f3-classpath</span> is specified, the user class path consists of the current directory. See Setting the Class Path for more details. <br><br>&gt;If the f3-sourcepath</span> option is not specified, the user class path is also searched for source files. <br><br>If the f3-processorpath</span> option is not specified, the class path is also searched for annotation processors.  
+<p class="level1">-Djava.ext.dirs=directories  Override the location of installed extensions.  
+<p class="level1">-Djava.endorsed.dirs=directories  Override the location of endorsed standards path.  
+<p class="level1">-d directory  Set the destination directory for class files. The directory must already exist; f3javac</span> will not create it. If a class is part of a package, f3javac</span> puts the class file in a subdirectory reflecting the package name, creating directories as needed. For example, if you specify f3-d /home/myclasses</span> and the class is called f2com.mypackage.MyClass</span>, then the class file is called f2/home/myclasses/com/mypackage/MyClass.class</span>. <br><br>If f3-d</span> is not specified, f3javac</span> puts each class files in the same directory as the source file from which it was generated. <br><br>f3Note:</span> The directory specified by f3-d</span> is not automatically added to your user class path.  
+<p class="level1">-deprecation  Show a description of each use or override of a deprecated member or class. Without f3-deprecation</span>, f3javac</span> shows a summary of the source files that use or override deprecated members or classes. f3-deprecation</span> is shorthand for f3-Xlint:deprecation</span>.  
+<p class="level1">-encoding encoding  Set the source file encoding name, such as f2EUC-JP and UTF-8</span>. If f3-encoding</span> is not specified, the platform default converter is used.   
+<p class="level1">-endorseddirs directories  Override the location of endorsed standards path.  
+<p class="level1">-extdirs directories  Overrides the location of the f2ext</span> directory. The f2directories</span> variable is a colon-separated list of directories. Each JAR archive in the specified directories is searched for class files. All JAR archives found are automatically part of the class path. <br><br>If you are cross-compiling (compiling classes against bootstrap and extension classes of a different Java platform implementation), this option specifies the directories that contain the extension classes. See Cross-Compilation Options for more information.  
+<p class="level1">-g  Generate all debugging information, including local variables. By default, only line number and source file information is generated.  
+<p class="level1">-g:none  Do not generate any debugging information.  
+<p class="level1">-g:{keyword list}  Generate only some kinds of debugging information, specified by a comma separated list of keywords. Valid keywords are:  
+<p class="level2">
+<p class="level2">source  Source file debugging information  
+<p class="level2">lines  Line number debugging information  
+<p class="level2">vars  Local variable debugging information  
+<p class="level1">
+<p class="level1">-help  Print a synopsis of standard options.  
+<p class="level1">-implicit:{class,none}  Controls the generation of class files for implicitly loaded source files. To automatically generate class files, use f3-implicit:class</span>. To suppress class file generation, use f3-implicit:none</span>. If this option is not specified, the default is to automatically generate class files. In this case, the compiler will issue a warning if any such class files are generated when also doing annotation processing. The warning will not be issued if this option is set explicitly. See Searching For Types.   
+<p class="level1">-Joption  Pass f2option</span> to the f3java</span> launcher called by f3javac</span>. For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes. It is a common convention for f3-J</span> to pass options to the underlying VM executing applications written in Java. <br><br>f3Note:</span> f3CLASSPATH</span>, f3-classpath</span>, f3-bootclasspath</span>, and f3-extdirs</span> do f2not</span> specify the classes used to run f3javac</span>. Fiddling with the implementation of the compiler in this way is usually pointless and always risky. If you do need to do this, use the f3-J</span> option to pass through options to the underlying f3java</span> launcher.  
+<p class="level1">-nowarn  Disable warning messages. This has the same meaning as f3-Xlint:none</span>.  
+<p class="level1">-proc: {none,only}  Controls whether annotation processing and/or compilation is done. f3-proc:none</span> means that compilation takes place without annotation processing. f3-proc:only</span> means that only annotation processing is done, without any subsequent compilation.  
+<p class="level1">-processor class1[,class2,class3...]  Names of the annotation processors to run. This bypasses the default discovery process.  
+<p class="level1">-processorpath path  Specify where to find annotation processors; if this option is not used, the class path will be searched for processors.  
+<p class="level1">-s dir  Specify the directory where to place generated source files. The directory must already exist; f3javac</span> will not create it. If a class is part of a package, the compiler puts the source file in a subdirectory reflecting the package name, creating directories as needed. For example, if you specify f3-s /home/mysrc</span> and the class is called f2com.mypackage.MyClass</span>, then the source file will be placed in f2/home/mysrc/com/mypackage/MyClass.java</span>.  
+<p class="level1">-source release  Specifies the version of source code accepted. The following values for f2release</span> are allowed:  
+<p class="level2">
+<p class="level2">1.3  The compiler does f2not</span> support assertions, generics, or other language features introduced after Java SE 1.3.  
+<p class="level2">1.4  The compiler accepts code containing assertions, which were introduced in Java SE 1.4.  
+<p class="level2">1.5  The compiler accepts code containing generics and other language features introduced in Java SE 5.  
+<p class="level2">5  Synonym for 1.5.  
+<p class="level2">1.6  No language changes were introduced in Java SE 6. However, encoding errors in source files are now reported as errors instead of warnings as in previous releases of Java SE.  
+<p class="level2">6  Synonym for 1.6.  
+<p class="level2">1.7  This is the default value. The compiler accepts code with features introduced in Java SE 7.  
+<p class="level2">7  Synonym for 1.7.  
+<p class="level1">
+<p class="level1">-sourcepath sourcepath  Specify the source code path to search for class or interface definitions. As with the user class path, source path entries are separated by colons (f3:</span>) and can be directories, JAR archives, or ZIP archives. If packages are used, the local path name within the directory or archive must reflect the package name. <br><br>f3Note:</span> Classes found through the class path may be subject to automatic recompilation if their sources are also found. See Searching For Types.  
+<p class="level1">-verbose  Verbose output. This includes information about each class loaded and each source file compiled.  
+<p class="level1">-version  Print version information.   
+<p class="level1">-Werror  Terminate compilation if warnings occur.  
+<p class="level1">-X  Display information about non-standard options and exit.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Cross-Compilation Options 
+<p class="level0">
+<p class="level0">By default, classes are compiled against the bootstrap and extension classes of the platform that f3javac</span> shipped with. But f3javac</span> also supports f2cross-compiling</span>, where classes are compiled against a bootstrap and extension classes of a different Java platform implementation. It is important to use f3-bootclasspath</span> and f3-extdirs</span> when cross-compiling; see Cross-Compilation Example below. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-target version  Generate class files that target a specified version of the VM. Class files will run on the specified target and on later versions, but not on earlier versions of the VM. Valid targets are f31.1</span>, f31.2</span>, f31.3</span>, f31.4</span>, f31.5</span> (also f35</span>), f31.6</span> (also f36</span>), and f31.7</span> (also f37</span>).  
+<p class="level1">The default for f3-target</span> depends on the value of f3-source</span>:  
+<p class="level2">
+<p class="level2">o If -source is f3not specified</span>, the value of -target is f31.7</span>  
+<p class="level2">o If -source is f31.2</span>, the value of -target is f31.4</span>  
+<p class="level2">o If -source is f31.3</span>, the value of -target is f31.4</span>  
+<p class="level2">o If -source is f31.5</span>, the value of -target is f31.7</span>  
+<p class="level2">o If -source is f31.6</span>, the value of -target is f31.7</span>  
+<p class="level2">o For f3all other values</span> of -source, the value of f3-target</span> is the value of f3-source</span>.  
+<p class="level1">
+<p class="level1">-bootclasspath bootclasspath  Cross-compile against the specified set of boot classes. As with the user class path, boot class path entries are separated by colons (f3:</span>) and can be directories, JAR archives, or ZIP archives.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Non-Standard Options 
+<p class="level0">
+<p class="level1">
+<p class="level1">-Xbootclasspath/p:path  Prepend to the bootstrap class path.  
+<p class="level1">-Xbootclasspath/a:path  Append to the bootstrap class path.  
+<p class="level1">-Xbootclasspath/:path  Override location of bootstrap class files.  
+<p class="level1">-Xlint  Enable all recommended warnings. In this release, enabling all available warnings is recommended.  
+<p class="level1">-Xlint:all  Enable all recommended warnings. In this release, enabling all available warnings is recommended.  
+<p class="level1">-Xlint:none  Disable all warnings.  
+<p class="level1">-Xlint:name  Enable warning f2name</span>. See the section Warnings That Can Be Enabled or Disabled with -Xlint Option for a list of warnings you can enable with this option.  
+<p class="level1">-Xlint:-name  Disable warning f2name</span>. See the section Warnings That Can Be Enabled or Disabled with -Xlint Option for a list of warnings you can disable with this option.  
+<p class="level1">-Xmaxerrs number  Set the maximum number of errors to print.  
+<p class="level1">-Xmaxwarns number  Set the maximum number of warnings to print.  
+<p class="level1">-Xstdout filename  Send compiler messages to the named file. By default, compiler messages go to f2System.err</span>.  
+<p class="level1">-Xprefer:{newer,source}  Specify which file to read when both a source file and class file are found for a type. (See Searching For Types). If f2-Xprefer:newer</span> is used, it reads the newer of the source or class file for a type (default). If the f2-Xprefer:source</span> option is used, it reads source file. Use f2-Xprefer:source</span> when you want to be sure that any annotation processors can access annotations declared with a retention policy of f2SOURCE</span>.   
+<p class="level1">-Xpkginfo:{always,legacy,nonempty}  Specify handling of package-info files  
+<p class="level1">-Xprint  Print out textual representation of specified types for debugging purposes; perform neither annotation processing nor compilation. The format of the output may change.  
+<p class="level1">-XprintProcessorInfo  Print information about which annotations a processor is asked to process.  
+<p class="level1">-XprintRounds  Print information about initial and subsequent annotation processing rounds.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Warnings That Can Be Enabled or Disabled with -Xlint Option 
+<p class="level0">
+<p class="level0">Enable warning f2name</span> with the option f3-Xlint:</span>f2name</span>, where f2name</span> is one of the following warning names. Similarly, you can disable warning f2name</span> with the option f3-Xlint:-</span>f2name</span>: 
+<p class="level0">
+<p class="level1">
+<p class="level1">cast  Warn about unnecessary and redundant casts. For example:  <pre class="level1">
+f3
+String s = (String)"Hello!"
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">classfile  Warn about issues related to classfile contents.  
+<p class="level1">deprecation  Warn about use of deprecated items. For example:  <pre class="level1">
+f3
+&nbsp;   java.util.Date myDate = new java.util.Date();
+&nbsp;   int currentDay = myDate.getDay();
+</span>
+</pre>
+
+<p class="level1">The method f2java.util.Date.getDay</span> has been deprecated since JDK 1.1.  
+<p class="level1">dep-ann  Warn about items that are documented with an f2@deprecated</span> Javadoc comment, but do not have a f2@Deprecated</span> annotation. For example:  <pre class="level1">
+f3
+&nbsp; /**
+&nbsp;  * @deprecated As of Java SE 7, replaced by {@link &#35;newMethod()}
+&nbsp;  */
+&nbsp;
+&nbsp; public static void deprecatedMethood() { }
+&nbsp;
+&nbsp; public static void newMethod() { }
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">divzero  Warn about division by constant integer 0. For example:  <pre class="level1">
+f3
+&nbsp;   int divideByZero = 42 / 0;
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">empty  Warn about empty statements after f2if</span> statements. For example:  <pre class="level1">
+f3
+class E {
+&nbsp;   void m() {
+&nbsp;       if (true) ;
+&nbsp;   }
+}
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">fallthrough  Check f2switch</span> blocks for fall-through cases and provide a warning message for any that are found. Fall-through cases are cases in a f2switch</span> block, other than the last case in the block, whose code does not include a f2break</span> statement, allowing code execution to "fall through" from that case to the next case. For example, the code following the f2case 1</span> label in this f2switch</span> block does not end with a f2break</span> statement:  <pre class="level1">
+f3
+switch (x) {
+case 1:
+&nbsp;      System.out.println("1");
+&nbsp;      //  No break statement here.
+case 2:
+&nbsp;      System.out.println("2");
+}
+</span>
+</pre>
+
+<p class="level1">If the f2-Xlint:fallthrough</span> flag were used when compiling this code, the compiler would emit a warning about "possible fall-through into case," along with the line number of the case in question.  
+<p class="level1">finally  Warn about f2finally</span> clauses that cannot complete normally. For example:  <pre class="level1">
+f3
+&nbsp; public static int m() {
+&nbsp;   try {
+&nbsp;     throw new NullPointerException();
+&nbsp;   } catch (NullPointerException e) {
+&nbsp;     System.err.println("Caught NullPointerException.");
+&nbsp;     return 1;
+&nbsp;   } finally {
+&nbsp;     return 0;
+&nbsp;   }
+&nbsp; }
+</span>
+</pre>
+
+<p class="level1">The compiler generates a warning for f2finally</span> block in this example. When this method is called, it returns a value of f20</span>, not f21</span>. A f2finally</span> block always executes when the f2try</span> block exits. In this example, if control is transferred to the f2catch</span>, then the method exits. However, the f2finally</span> block must be executed, so it is executed, even though control has already been transferred outside the method.  
+<p class="level1">options  Warn about issues relating to the use of command line options. See Cross-Compilation Example for an example of this kind of warning.  
+<p class="level1">overrides  Warn about issues regarding method overrides. For example, consider the following two classes:  <pre class="level1">
+f3
+public class ClassWithVarargsMethod {
+&nbsp; void varargsMethod(String... s) { }
+}
+</span>
+</pre>
+
+<p class="level1"><pre class="level1">
+f3
+public class ClassWithOverridingMethod extends ClassWithVarargsMethod {
+&nbsp; @Override
+&nbsp; void varargsMethod(String[] s) { }
+}
+</span>
+</pre>
+
+<p class="level1">The compiler generates a warning similar to the following: <br><br>f2warning: [override] varargsMethod(String[]) in ClassWithOverridingMethod overrides varargsMethod(String...) in ClassWithVarargsMethod; overriding method is missing '...'</span> <br><br>When the compiler encounters a varargs method, it translates the varargs formal parameter into an array. In the method f2ClassWithVarargsMethod.varargsMethod</span>, the compiler translates the varargs formal parameter f2String... s</span> to the formal parameter f2String[] s</span>, an array, which matches the formal parameter of the method f2ClassWithOverridingMethod.varargsMethod</span>. Consequently, this example compiles.  
+<p class="level1">path  Warn about invalid path elements and nonexistent path directories on the command line (with regards to the class path, the source path, and other paths). Such warnings cannot be suppressed with the f2@SuppressWarnings</span> annotation. For example:  <pre class="level1">
+f3
+javac -Xlint:path -classpath /nonexistentpath Example.java
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">processing  Warn about issues regarding annotation processing. The compiler generates this warning if you have a class that has an annotation, and you use an annotation processor that cannot handle that type of exception. For example, the following is a simple annotation processor: <br><br>f3Source file </span>f4AnnoProc.java</span>:  <pre class="level1">
+f3
+import java.util.*;
+import javax.annotation.processing.*;
+import javax.lang.model.*;
+import javax.lang.model.element.*;
+&nbsp;
+@SupportedAnnotationTypes("NotAnno")
+public class AnnoProc extends AbstractProcessor {
+&nbsp;   public boolean process(Set&lt;? extends TypeElement&gt; elems, RoundEnvironment renv) {
+&nbsp;       return true;
+&nbsp;   }
+&nbsp;
+&nbsp;   public SourceVersion getSupportedSourceVersion() {
+&nbsp;       return SourceVersion.latest();
+&nbsp;   }
+}
+</span>
+</pre>
+
+<p class="level1">f3Source file </span>f4AnnosWithoutProcessors.java</span>f3:</span>  <pre class="level1">
+f3
+@interface Anno { }
+&nbsp;
+@Anno
+class AnnosWithoutProcessors { }
+</span>
+</pre>
+
+<p class="level1">The following commands compile the annotation processor f2AnnoProc</span>, then run this annotation processor against the source file f2AnnosWithoutProcessors.java</span>:  <pre class="level1">
+f3
+% </span>f3javac AnnoProc.java</span>
+% f3javac -cp . -Xlint:processing -processor AnnoProc -proc:only AnnosWithoutProcessors.java</span>
+</pre>
+
+<p class="level1">When the compiler runs the annotation processor against the source file f2AnnosWithoutProcessors.java</span>, it generates the following warning: <br><br>f2warning: [processing] No processor claimed any of these annotations: Anno</span> <br><br>To resolve this issue, you can rename the annotation defined and used in the class f2AnnosWithoutProcessors</span> from f2Anno</span> to f2NotAnno</span>.  
+<p class="level1">rawtypes  Warn about unchecked operations on raw types. The following statement generates a f2rawtypes</span> warning:  <pre class="level1">
+f3
+void countElements(List l) { ... }
+</span>
+</pre>
+
+<p class="level1">The following does not generate a f2rawtypes</span> warning:  <pre class="level1">
+f3
+void countElements(List&lt;?&gt; l) { ... }
+</span>
+</pre>
+
+<p class="level1">f2List</span> is a raw type. However, f2List&lt;?&gt;</span> is a unbounded wildcard parameterized type. Because f2List</span> is a parameterized interface, you should always specify its type argument. In this example, the f2List</span> formal argument is specified with a unbounded wildcard (f2?</span>) as its formal type parameter, which means that the f2countElements</span> method can accept any instantiation of the f2List</span> interface.  
+<p class="level1">serial  Warn about missing f2serialVersionUID</span> definitions on serializable classes. For example:  <pre class="level1">
+f3
+public class PersistentTime implements Serializable
+{
+&nbsp; private Date time;
+&nbsp;
+&nbsp;  public PersistentTime() {
+&nbsp;    time = Calendar.getInstance().getTime();
+&nbsp;  }
+&nbsp;
+&nbsp;  public Date getTime() {
+&nbsp;    return time;
+&nbsp;  }
+}
+</span>
+</pre>
+
+<p class="level1">The compiler generates the following warning: <br><br>f2warning: [serial] serializable class PersistentTime has no definition of serialVersionUID</span> <br><br>If a serializable class does not explicitly declare a field named f2serialVersionUID</span>, then the serialization runtime will calculate a default f2serialVersionUID</span> value for that class based on various aspects of the class, as described in the Java Object Serialization Specification. However, it is strongly recommended that all serializable classes explicitly declare f2serialVersionUID</span> values because the default process of computing f2serialVersionUID</span> vales is highly sensitive to class details that may vary depending on compiler implementations, and can thus result in unexpected f2InvalidClassExceptions</span> during deserialization. Therefore, to guarantee a consistent f2serialVersionUID</span> value across different Java compiler implementations, a serializable class must declare an explicit f2serialVersionUID</span> value.  
+<p class="level1">static  Warn about issues relating to use of statics. For example:  <pre class="level1">
+f3
+class XLintStatic {
+&nbsp;   static void m1() { }
+&nbsp;   void m2() { this.m1(); }
+}
+</span>
+</pre>
+
+<p class="level1">The compiler generates the following warning:  <pre class="level1">
+f3
+warning: [static] static method should be qualified by type name, XLintStatic, instead of by an expression
+</span>
+</pre>
+
+<p class="level1">To resolve this issue, you can call the static method f2m1</span> as follows:  <pre class="level1">
+f3
+XLintStatic.m1();
+</span>
+</pre>
+
+<p class="level1">Alternatively, you can remove the f2static</span> keyword from the declaration of the method f2m1</span>.  
+<p class="level1">try  Warn about issues relating to use of f2try</span> blocks, including try-with-resources statements. For example, a warning is generated for the following statement because the resource f2ac</span> declared in the f2try</span> statement is not used:  <pre class="level1">
+f3
+try ( AutoCloseable ac = getResource() ) {
+&nbsp;   // do nothing
+}
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">unchecked  Give more detail for unchecked conversion warnings that are mandated by the Java Language Specification. For example:  <pre class="level1">
+f3
+&nbsp;   List l = new ArrayList&lt;Number&gt;();
+&nbsp;   List&lt;String&gt; ls = l;       // unchecked warning
+</span>
+</pre>
+
+<p class="level1">During type erasure, the types f2ArrayList&lt;Number&gt;</span> and f2List&lt;String&gt;</span> become f2ArrayList</span> and f2List</span>, respectively. <br><br>The variable f2ls</span> has the parameterized type f2List&lt;String&gt;</span>. When the f2List</span> referenced by f2l</span> is assigned to f2ls</span>, the compiler generates an unchecked warning; the compiler is unable to determine at compile time, and moreover knows that the JVM will not be able to determine at runtime, if f2l</span> refers to a f2List&lt;String&gt;</span> type; it does not. Consequently, heap pollution occurs. <br><br>In detail, a heap pollution situation occurs when the f2List</span> object f2l</span>, whose static type is f2List&lt;Number&gt;</span>, is assigned to another f2List</span> object, f2ls</span>, that has a different static type, f2List&lt;String&gt;</span>. However, the compiler still allows this assignment. It must allow this assignment to preserve backwards compatibility with versions of Java SE that do not support generics. Because of type erasure, f2List&lt;Number&gt;</span> and f2List&lt;String&gt;</span> both become f2List</span>. Consequently, the compiler allows the assignment of the object f2l</span>, which has a raw type of f2List</span>, to the object f2ls</span>.  
+<p class="level1">varargs  Warn about unsafe usages of variable arguments (varargs) methods, in particular, those that contain non-reifiable arguments. For example:  <pre class="level1">
+f3
+public class ArrayBuilder {
+&nbsp; public static &lt;T&gt; void addToList (List&lt;T&gt; listArg, T... elements) {
+&nbsp;   for (T x : elements) {
+&nbsp;     listArg.add(x);
+&nbsp;   }
+&nbsp; }
+}
+</span>
+</pre>
+
+<p class="level1">The compiler generates the following warning for the definition of the method f2ArrayBuilder.addToList</span>:  <pre class="level1">
+f3
+warning: [varargs] Possible heap pollution from parameterized vararg type T
+</span>
+</pre>
+
+<p class="level1">When the compiler encounters a varargs method, it translates the varargs formal parameter into an array. However, the Java programming language does not permit the creation of arrays of parameterized types. In the method f2ArrayBuilder.addToList</span>, the compiler translates the varargs formal parameter f2T... elements</span> to the formal parameter f2T[] elements</span>, an array. However, because of type erasure, the compiler converts the varargs formal parameter to f2Object[] elements</span>. Consequently, there is a possibility of heap pollution.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="COMMAND"></a><h2 class="nroffsh">COMMAND LINE ARGUMENT FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">To shorten or simplify the javac command line, you can specify one or more files that themselves contain arguments to the f2javac</span> command (except f2-J</span> options). This enables you to create javac commands of any length on any operating system. 
+<p class="level0">
+<p class="level0">An argument file can include javac options and source filenames in any combination. The arguments within a file can be space-separated or newline-separated. If a filename contains embedded spaces, put the whole filename in double quotes. 
+<p class="level0">
+<p class="level0">Filenames within an argument file are relative to the current directory, not the location of the argument file. Wildcards (*) are not allowed in these lists (such as for specifying f2*.java</span>). Use of the 'f2@</span>' character to recursively interpret files is not supported. The f2-J</span> options are not supported because they are passed to the launcher, which does not support argument files. 
+<p class="level0">
+<p class="level0">When executing javac, pass in the path and name of each argument file with the 'f2@</span>' leading character. When javac encounters an argument beginning with the character `f2@</span>', it expands the contents of that file into the argument list. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Example - Single Arg File 
+<p class="level0">
+<p class="level0">You could use a single argument file named "f2argfile</span>" to hold all javac arguments: 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac @argfile</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This argument file could contain the contents of both files shown in the next example. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Example - Two Arg Files 
+<p class="level0">
+<p class="level0">You can create two argument files -- one for the javac options and the other for the source filenames: (Notice the following lists have no line-continuation characters.) 
+<p class="level0">
+<p class="level0">Create a file named "f2options</span>" containing: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;    -d classes
+&nbsp;    -g
+&nbsp;    -sourcepath /java/pubs/ws/1.3/src/share/classes
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Create a file named "f2classes</span>" containing: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;    MyClass1.java
+&nbsp;    MyClass2.java
+&nbsp;    MyClass3.java
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">You would then run f3javac</span> with: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp; % </span>f3javac @options @classes</span>
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Example - Arg Files with Paths 
+<p class="level0">
+<p class="level0">The argument files can have paths, but any filenames inside the files are relative to the current working directory (not f2path1</span> or f2path2</span>): 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac @path1/options @path2/classes</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ANNOTATION"></a><h2 class="nroffsh">ANNOTATION PROCESSING</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3javac</span> provides direct support for annotation processing, superseding the need for the separate annotation processing tool, f3apt</span>. 
+<p class="level0">
+<p class="level0">The API for annotation processors is defined in the f2javax.annotation.processing</span> and f2javax.lang.model</span> packages and subpackages. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Overview of annotation processing 
+<p class="level0">
+<p class="level0">Unless annotation processing is disabled with the f3-proc:none</span> option, the compiler searches for any annotation processors that are available. The search path can be specified with the f3-processorpath</span> option; if it is not given, the user class path is used. Processors are located by means of service provider-configuration files named f2META-INF/services/javax.annotation.processing.Processor</span> on the search path. Such files should contain the names of any annotation processors to be used, listed one per line. Alternatively, processors can be specified explicitly, using the f3-processor</span> option. 
+<p class="level0">
+<p class="level0">After scanning the source files and classes on the command line to determine what annotations are present, the compiler queries the processors to determine what annotations they process. When a match is found, the processor will be invoked. A processor may "claim" the annotations it processes, in which case no further attempt is made to find any processors for those annotations. Once all annotations have been claimed, the compiler does not look for additional processors. 
+<p class="level0">
+<p class="level0">If any processors generate any new source files, another round of annotation processing will occur: any newly generated source files will be scanned, and the annotations processed as before. Any processors invoked on previous rounds will also be invoked on all subsequent rounds. This continues until no new source files are generated. 
+<p class="level0">
+<p class="level0">After a round occurs where no new source files are generated, the annotation processors will be invoked one last time, to give them a chance to complete any work they may need to do. Finally, unless the f3-proc:only</span> option is used, the compiler will compile the original and all the generated source files. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Implicitly loaded source files 
+<p class="level0">
+<p class="level0">To compile a set of source files, the compiler may need to implicitly load additional source files. (See Searching For Types). Such files are currently not subject to annotation processing. By default, the compiler will give a warning if annotation processing has occurred and any implicitly loaded source files are compiled. See the -implicit option for ways to suppress the warning. 
+<p class="level0"><a name="SEARCHING"></a><h2 class="nroffsh">SEARCHING FOR TYPES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">When compiling a source file, the compiler often needs information about a type whose definition did not appear in the source files given on the command line. The compiler needs type information for every class or interface used, extended, or implemented in the source file. This includes classes and interfaces not explicitly mentioned in the source file but which provide information through inheritance. 
+<p class="level0">
+<p class="level0">For example, when you subclass f3java.applet.Applet</span>, you are also using f3Applet's</span> ancestor classes: f3java.awt.Panel</span>, f3java.awt.Container</span>, f3java.awt.Component</span>, and f3java.lang.Object</span>. 
+<p class="level0">
+<p class="level0">When the compiler needs type information, it looks for a source file or class file which defines the type. The compiler searches for class files first in the bootstrap and extension classes, then in the user class path (which by default is the current directory). The user class path is defined by setting the f3CLASSPATH</span> environment variable or by using the f3-classpath</span> command line option. (For details, see Setting the Class Path). 
+<p class="level0">
+<p class="level0">If you set the -sourcepath option, the compiler searches the indicated path for source files; otherwise the compiler searches the user class path for both class files and source files. 
+<p class="level0">
+<p class="level0">You can specify different bootstrap or extension classes with the f3-bootclasspath</span> and f3-extdirs</span> options; see Cross-Compilation Options below. 
+<p class="level0">
+<p class="level0">A successful type search may produce a class file, a source file, or both. If both are found, you can use the -Xprefer option to instruct the compiler which to use. If f3newer</span> is given, the compiler will use the newer of the two files. If f3source</span> is given, it will use the source file. The default is f3newer</span>. 
+<p class="level0">
+<p class="level0">If a type search finds a source file for a required type, either by itself, or as a result of the setting for f3-Xprefer</span>, the compiler will read the source file to get the information it needs. In addition, it will by default compile the source file as well. You can use the -implicit option to specify the behavior. If f3none</span> is given, no class files will be generated for the source file. If f3class</span> is given, class files will be generated for the source file. 
+<p class="level0">
+<p class="level0">The compiler may not discover the need for some type information until after annotation processing is complete. If the type information is found in a source file and no f3-implicit</span> option is given, the compiler will give a warning that the file is being compiled without being subject to annotation processing. To disable the warning, either specify the file on the command line (so that it will be subject to annotation processing) or use the f3-implicit</span> option to specify whether or not class files should be generated for such source files. 
+<p class="level0"><a name="PROGRAMMATIC"></a><h2 class="nroffsh">PROGRAMMATIC INTERFACE</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3javac</span> supports the new Java Compiler API defined by the classes and interfaces in the f2javax.tools</span> package. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Example 
+<p class="level0">
+<p class="level0">To perform a compilation using arguments as you would give on the command line, you can use the following: 
+<p class="level0"><pre class="level0">
+f3
+JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
+int rc = javac.run(null, null, null, args);
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This will write any diagnostics to the standard output stream, and return the exit code that f3javac</span> would give when invoked from the command line. 
+<p class="level0">
+<p class="level0">You can use other methods on the f2javax.tools.JavaCompiler</span> interface to handle diagnostics, control where files are read from and written to, and so on. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Old Interface 
+<p class="level0">
+<p class="level0">f3Note:</span> This API is retained for backwards compatibility only; all new code should use the Java Compiler API, described above. 
+<p class="level0">
+<p class="level0">The f2com.sun.tools.javac.Main</span> class provides two static methods to invoke the compiler from a program: 
+<p class="level0"><pre class="level0">
+f3
+public static int compile(String[] args);
+public static int compile(String[] args, PrintWriter out);
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2args</span> parameter represents any of the command line arguments that would normally be passed to the javac program and are outlined in the above Synopsis section. 
+<p class="level0">
+<p class="level0">The f2out</span> parameter indicates where the compiler's diagnostic output is directed. 
+<p class="level0">
+<p class="level0">The return value is equivalent to the exit value from f3javac</span>. 
+<p class="level0">
+<p class="level0">Note that all f3other</span> classes and methods found in a package whose name starts with f2com.sun.tools.javac</span> (informally known as sub-packages of f2com.sun.tools.javac</span>) are strictly internal and subject to change at any time. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Compiling a Simple Program 
+<p class="level0">
+<p class="level0">One source file, f2Hello.java</span>, defines a class called f3greetings.Hello</span>. The f2greetings</span> directory is the package directory both for the source file and the class file and is off the current directory. This allows us to use the default user class path. It also makes it unnecessary to specify a separate destination directory with f3-d</span>. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3ls</span>
+greetings/
+% f3ls greetings</span>
+Hello.java
+% f3cat greetings/Hello.java</span>
+package greetings;
+&nbsp;
+public class Hello {
+&nbsp;   public static void main(String[] args) {
+&nbsp;       for (int i=0; i &lt; args.length; i++) {
+&nbsp;           System.out.println("Hello " + args[i]);
+&nbsp;       }
+&nbsp;   }
+}
+% f3javac greetings/Hello.java</span>
+% f3ls greetings</span>
+Hello.class   Hello.java
+% f3java greetings.Hello World Universe Everyone</span>
+Hello World
+Hello Universe
+Hello Everyone
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Compiling Multiple Source Files 
+<p class="level0">
+<p class="level0">This example compiles all the source files in the package f2greetings</span>. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3ls</span>
+greetings/
+% f3ls greetings</span>
+Aloha.java         GutenTag.java      Hello.java         Hi.java
+% f3javac greetings/*.java</span>
+% f3ls greetings</span>
+Aloha.class         GutenTag.class      Hello.class         Hi.class
+Aloha.java          GutenTag.java       Hello.java          Hi.java
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Specifying a User Class Path 
+<p class="level0">
+<p class="level0">Having changed one of the source files in the previous example, we recompile it: 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3pwd</span>
+/examples
+% f3javac greetings/Hi.java</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Since f2greetings.Hi</span> refers to other classes in the f2greetings</span> package, the compiler needs to find these other classes. The example above works, because our default user class path happens to be the directory containing the package directory. But suppose we want to recompile this file and not worry about which directory we're in? Then we need to add f2/examples</span> to the user class path. We can do this by setting f3CLASSPATH</span>, but here we'll use the f3-classpath</span> option. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac -classpath /examples /examples/greetings/Hi.java</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If we change f2greetings.Hi</span> again, to use a banner utility, that utility also needs to be accessible through the user class path. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac -classpath /examples:/lib/Banners.jar &nbsp;
+&nbsp;           /examples/greetings/Hi.java</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">To execute a class in f2greetings</span>, we need access both to f2greetings</span> and to the classes it uses. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3java -classpath /examples:/lib/Banners.jar greetings.Hi</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Separating Source Files and Class Files 
+<p class="level0">
+<p class="level0">It often makes sense to keep source files and class files in separate directories, especially on large projects. We use f3-d</span> to indicate the separate class file destination. Since the source files are not in the user class path, we use f3-sourcepath</span> to help the compiler find them. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3ls</span>
+classes/  lib/      src/
+% f3ls src</span>
+farewells/
+% f3ls src/farewells</span>
+Base.java      GoodBye.java
+% f3ls lib</span>
+Banners.jar
+% f3ls classes</span>
+% f3javac -sourcepath src -classpath classes:lib/Banners.jar &nbsp;
+&nbsp;           src/farewells/GoodBye.java -d classes</span>
+% f3ls classes</span>
+farewells/
+% f3ls classes/farewells</span>
+Base.class      GoodBye.class
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3Note:</span> The compiler compiled f2src/farewells/Base.java</span>, even though we didn't specify it on the command line. To trace automatic compiles, use the f3-verbose</span> option. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Cross-Compilation Example 
+<p class="level0">
+<p class="level0">The following example uses f3javac</span> to compile code that will run on a 1.6 VM. 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac -source 1.6 -target 1.6 -bootclasspath jdk1.6.0/lib/rt.jar &nbsp;
+&nbsp;           -extdirs "" OldCode.java</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2-source 1.6</span> option specifies that version 1.6 (or 6) of the Java programming language be used to compile f2OldCode.java</span>. The option f3-target 1.6</span> option ensures that the generated class files will be compatible with 1.6 VMs. Note that in most cases, the value of the f3-target</span> option is the value of the f3-source</span> option; in this example, you can omit the f3-target</span> option. 
+<p class="level0">
+<p class="level0">You must specify the f3-bootclasspath</span> option to specify the correct version of the bootstrap classes (the f2rt.jar</span> library). If not, the compiler generates a warning: 
+<p class="level0"><pre class="level0">
+f3
+% </span>f3javac -source 1.6 OldCode.java</span>
+warning: [options] bootstrap class path not set in conjunction with -source 1.6
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you do not specify the correct version of bootstrap classes, the compiler will use the old language rules (in this example, it will use version 1.6 of the Java programming language) combined with the new bootstrap classes, which can result in class files that do not work on the older platform (in this case, Java SE 6) because reference to non-existent methods can get included. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o 
+<p class="level1">f2The javac Guide</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/javac/index.html">http://docs.oracle.com/javase/7/docs/technotes/guides/javac/index.html</a>  
+<p class="level1">o java(1) - the Java Application Launcher  
+<p class="level1">o jdb(1) - Java Application Debugger  
+<p class="level1">o javah(1) - C Header and Stub File Generator  
+<p class="level1">o javap(1) - Class File Disassembler  
+<p class="level1">o javadoc(1) - API Documentation Generator  
+<p class="level1">o jar(1) - JAR Archive Tool  
+<p class="level1">o 
+<p class="level1">f2The Java Extensions Framework</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/extensions/index.html">http://docs.oracle.com/javase/7/docs/technotes/guides/extensions/index.html</a>  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,179 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-grep - Print lines matching a pattern <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git grep</span> [-a | --text] [-I] [--textconv] [-i | --ignore-case] [-w | --word-regexp]
+&nbsp;          [-v | --invert-match] [-h|-H] [--full-name]
+&nbsp;          [-E | --extended-regexp] [-G | --basic-regexp]
+&nbsp;          [-P | --perl-regexp]
+&nbsp;          [-F | --fixed-strings] [-n | --line-number]
+&nbsp;          [-l | --files-with-matches] [-L | --files-without-match]
+&nbsp;          [(-O | --open-files-in-pager) [&lt;pager&gt;]]
+&nbsp;          [-z | --null]
+&nbsp;          [-c | --count] [--all-match] [-q | --quiet]
+&nbsp;          [--max-depth &lt;depth&gt;]
+&nbsp;          [--color[=&lt;when&gt;] | --no-color]
+&nbsp;          [--break] [--heading] [-p | --show-function]
+&nbsp;          [-A &lt;post-context&gt;] [-B &lt;pre-context&gt;] [-C &lt;context&gt;]
+&nbsp;          [-W | --function-context]
+&nbsp;          [-f &lt;file&gt;] [-e] &lt;pattern&gt;
+&nbsp;          [--and|--or|--not|(|)|-e &lt;pattern&gt;...]
+&nbsp;          [ [--[no-]exclude-standard] [--cached | --no-index | --untracked] | &lt;tree&gt;...]
+&nbsp;          [--] [&lt;pathspec&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Look for specified patterns in the tracked files in the work tree, blobs registered in the index file, or blobs in given tree objects. Patterns are lists of one or more search expressions separated by newline characters. An empty string as search expression matches all lines. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">grep.lineNumber 
+<p class="level1">If set to true, enable <span Class="emphasis">-n</span> option by default. 
+<p class="level0">
+<p class="level0">grep.patternType 
+<p class="level1">Set the default matching behavior. Using a value of <span Class="emphasis">basic</span>, <span Class="emphasis">extended</span>, <span Class="emphasis">fixed</span>, or <span Class="emphasis">perl</span> will enable the <span Class="emphasis">--basic-regexp</span>, <span Class="emphasis">--extended-regexp</span>, <span Class="emphasis">--fixed-strings</span>, or <span Class="emphasis">--perl-regexp</span> option accordingly, while the value <span Class="emphasis">default</span> will return to the default matching behavior. 
+<p class="level0">
+<p class="level0">grep.extendedRegexp 
+<p class="level1">If set to true, enable <span Class="emphasis">--extended-regexp</span> option by default. This option is ignored when the <span Class="emphasis">grep.patternType</span> option is set to a value other than <span Class="emphasis">default</span>. 
+<p class="level0">
+<p class="level0">grep.fullName 
+<p class="level1">If set to true, enable <span Class="emphasis">--full-name</span> option by default. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--cached 
+<p class="level1">Instead of searching tracked files in the working tree, search blobs registered in the index file. 
+<p class="level0">
+<p class="level0">--no-index 
+<p class="level1">Search files in the current directory that is not managed by Git. 
+<p class="level0">
+<p class="level0">--untracked 
+<p class="level1">In addition to searching in the tracked files in the working tree, search also in untracked files. 
+<p class="level0">
+<p class="level0">--no-exclude-standard 
+<p class="level1">Also search in ignored files by not honoring the .gitignore mechanism. Only useful with --untracked. 
+<p class="level0">
+<p class="level0">--exclude-standard 
+<p class="level1">Do not pay attention to ignored files specified via the .gitignore mechanism. Only useful when searching files in the current directory with --no-index. 
+<p class="level0">
+<p class="level0">-a, --text 
+<p class="level1">Process binary files as if they were text. 
+<p class="level0">
+<p class="level0">--textconv 
+<p class="level1">Honor textconv filter settings. 
+<p class="level0">
+<p class="level0">--no-textconv 
+<p class="level1">Do not honor textconv filter settings. This is the default. 
+<p class="level0">
+<p class="level0">-i, --ignore-case 
+<p class="level1">Ignore case differences between the patterns and the files. 
+<p class="level0">
+<p class="level0">-I 
+<p class="level1">Don(cqt match the pattern in binary files. 
+<p class="level0">
+<p class="level0">--max-depth &lt;depth&gt; 
+<p class="level1">For each &lt;pathspec&gt; given on command line, descend at most &lt;depth&gt; levels of directories. A negative value means no limit. This option is ignored if &lt;pathspec&gt; contains active wildcards. In other words if "a*" matches a directory named "a*", "*" is matched literally so --max-depth is still effective. 
+<p class="level0">
+<p class="level0">-w, --word-regexp 
+<p class="level1">Match the pattern only at word boundary (either begin at the beginning of a line, or preceded by a non-word character; end at the end of a line or followed by a non-word character). 
+<p class="level0">
+<p class="level0">-v, --invert-match 
+<p class="level1">Select non-matching lines. 
+<p class="level0">
+<p class="level0">-h, -H 
+<p class="level1">By default, the command shows the filename for each match. -h option is used to suppress this output. -H is there for completeness and does not do anything except it overrides -h given earlier on the command line. 
+<p class="level0">
+<p class="level0">--full-name 
+<p class="level1">When run from a subdirectory, the command usually outputs paths relative to the current directory. This option forces paths to be output relative to the project top directory. 
+<p class="level0">
+<p class="level0">-E, --extended-regexp, -G, --basic-regexp 
+<p class="level1">Use POSIX extended/basic regexp for patterns. Default is to use basic regexp. 
+<p class="level0">
+<p class="level0">-P, --perl-regexp 
+<p class="level1">Use Perl-compatible regexp for patterns. Requires libpcre to be compiled in. 
+<p class="level0">
+<p class="level0">-F, --fixed-strings 
+<p class="level1">Use fixed strings for patterns (don(cqt interpret pattern as a regex). 
+<p class="level0">
+<p class="level0">-n, --line-number 
+<p class="level1">Prefix the line number to matching lines. 
+<p class="level0">
+<p class="level0">-l, --files-with-matches, --name-only, -L, --files-without-match 
+<p class="level1">Instead of showing every matched line, show only the names of files that contain (or do not contain) matches. For better compatibility with <span Class="emphasis">git diff</span>, --name-only is a synonym for --files-with-matches. 
+<p class="level0">
+<p class="level0">-O [&lt;pager&gt;], --open-files-in-pager [&lt;pager&gt;] 
+<p class="level1">Open the matching files in the pager (not the output of <span Class="emphasis">grep</span>). If the pager happens to be "less" or "vi", and the user specified only one pattern, the first file is positioned at the first match automatically. 
+<p class="level0">
+<p class="level0">-z, --null 
+<p class="level1">Output e0 instead of the character that normally follows a file name. 
+<p class="level0">
+<p class="level0">-c, --count 
+<p class="level1">Instead of showing every matched line, show the number of lines that match. 
+<p class="level0">
+<p class="level0">--color[=&lt;when&gt;] 
+<p class="level1">Show colored matches. The value must be always (the default), never, or auto. 
+<p class="level0">
+<p class="level0">--no-color 
+<p class="level1">Turn off match highlighting, even when the configuration file gives the default to color output. Same as --color=never. 
+<p class="level0">
+<p class="level0">--break 
+<p class="level1">Print an empty line between matches from different files. 
+<p class="level0">
+<p class="level0">--heading 
+<p class="level1">Show the filename above the matches in that file instead of at the start of each shown line. 
+<p class="level0">
+<p class="level0">-p, --show-function 
+<p class="level1">Show the preceding line that contains the function name of the match, unless the matching line is a function name itself. The name is determined in the same way as <span Class="emphasis">git diff</span> works out patch hunk headers (see <span Class="emphasis">Defining a custom hunk-header</span> in <span Class="bold">gitattributes</span>(5)). 
+<p class="level0">
+<p class="level0">-&lt;num&gt;, -C &lt;num&gt;, --context &lt;num&gt; 
+<p class="level1">Show &lt;num&gt; leading and trailing lines, and place a line containing -- between contiguous groups of matches. 
+<p class="level0">
+<p class="level0">-A &lt;num&gt;, --after-context &lt;num&gt; 
+<p class="level1">Show &lt;num&gt; trailing lines, and place a line containing -- between contiguous groups of matches. 
+<p class="level0">
+<p class="level0">-B &lt;num&gt;, --before-context &lt;num&gt; 
+<p class="level1">Show &lt;num&gt; leading lines, and place a line containing -- between contiguous groups of matches. 
+<p class="level0">
+<p class="level0">-W, --function-context 
+<p class="level1">Show the surrounding text from the previous line containing a function name up to the one before the next function name, effectively showing the whole function in which the match was found. 
+<p class="level0">
+<p class="level0">-f &lt;file&gt; 
+<p class="level1">Read patterns from &lt;file&gt;, one per line. 
+<p class="level0">
+<p class="level0">-e 
+<p class="level1">The next parameter is the pattern. This option has to be used for patterns starting with - and should be used in scripts passing user input to grep. Multiple patterns are combined by <span Class="emphasis">or</span>. 
+<p class="level0">
+<p class="level0">--and, --or, --not, ( ... ) 
+<p class="level1">Specify how multiple patterns are combined using Boolean expressions. --or is the default operator. --and has higher precedence than --or. -e has to be used for all patterns. 
+<p class="level0">
+<p class="level0">--all-match 
+<p class="level1">When giving multiple pattern expressions combined with --or, this flag is specified to limit the match to files that have lines to match all of them. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Do not output matched lines; instead, exit with status 0 when there is a match and with non-zero status when there isn(cqt. 
+<p class="level0">
+<p class="level0">&lt;tree&gt;... 
+<p class="level1">Instead of searching tracked files in the working tree, search blobs in the given trees. 
+<p class="level0">
+<p class="level0">-- 
+<p class="level1">Signals the end of options; the rest of the parameters are &lt;pathspec&gt; limiters. 
+<p class="level0">
+<p class="level0">&lt;pathspec&gt;... 
+<p class="level1">If given, limit the search to paths matching at least one pattern. Both leading paths match and glob(7) patterns are supported. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git grep *(Aqtime_t*(Aq -- *(Aq*.[ch]*(Aq 
+<p class="level1">Looks for time_t in all tracked .c and .h files in the working directory and its subdirectories. 
+<p class="level0">
+<p class="level0">git grep -e *(Aq&#35;define*(Aq --and e( -e MAX_PATH -e PATH_MAX e) 
+<p class="level1">Looks for a line that has &#35;define and either MAX_PATH or PATH_MAX. 
+<p class="level0">
+<p class="level0">git grep --all-match -e NODE -e Unexpected 
+<p class="level1">Looks for a line that has NODE or Unexpected in files that have lines that match both. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

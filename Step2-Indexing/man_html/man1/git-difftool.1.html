@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-difftool - Show changes using common diff tools <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git difftool</span> [&lt;options&gt;] [&lt;commit&gt; [&lt;commit&gt;]] [--] [&lt;path&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">git difftool</span> is a Git command that allows you to compare and edit files between revisions using common diff tools. <span Class="emphasis">git difftool</span> is a frontend to <span Class="emphasis">git diff</span> and accepts the same options and arguments. See <span Class="bold">git-diff</span>(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-d, --dir-diff 
+<p class="level1">Copy the modified files to a temporary location and perform a directory diff on them. This mode never prompts before launching the diff tool. 
+<p class="level0">
+<p class="level0">-y, --no-prompt 
+<p class="level1">Do not prompt before launching a diff tool. 
+<p class="level0">
+<p class="level0">--prompt 
+<p class="level1">Prompt before each invocation of the diff tool. This is the default behaviour; the option is provided to override any configuration settings. 
+<p class="level0">
+<p class="level0">-t &lt;tool&gt;, --tool=&lt;tool&gt; 
+<p class="level1">Use the diff tool specified by &lt;tool&gt;. Valid values include emerge, kompare, meld, and vimdiff. Run git difftool --tool-help for the list of valid &lt;tool&gt; settings. 
+<p class="level1">If a diff tool is not specified, <span Class="emphasis">git difftool</span> will use the configuration variable diff.tool. If the configuration variable diff.tool is not set, <span Class="emphasis">git difftool</span> will pick a suitable default. 
+<p class="level1">You can explicitly provide a full path to the tool by setting the configuration variable difftool.&lt;tool&gt;.path. For example, you can configure the absolute path to kdiff3 by setting difftool.kdiff3.path. Otherwise, <span Class="emphasis">git difftool</span> assumes the tool is available in PATH. 
+<p class="level1">Instead of running one of the known diff tools, <span Class="emphasis">git difftool</span> can be customized to run an alternative program by specifying the command line to invoke in a configuration variable difftool.&lt;tool&gt;.cmd. 
+<p class="level1">When <span Class="emphasis">git difftool</span> is invoked with this tool (either through the -t or --tool option or the diff.tool configuration variable) the configured command line will be invoked with the following variables available: $LOCAL is set to the name of the temporary file containing the contents of the diff pre-image and $REMOTE is set to the name of the temporary file containing the contents of the diff post-image. $MERGED is the name of the file which is being compared. $BASE is provided for compatibility with custom merge tool commands and has the same value as $MERGED. 
+<p class="level0">
+<p class="level0">--tool-help 
+<p class="level1">Print a list of diff tools that may be used with --tool. 
+<p class="level0">
+<p class="level0">--[no-]symlinks 
+<p class="level1"><span Class="emphasis">git difftool</span>*(Aqs default behavior is create symlinks to the working tree when run in --dir-diff mode and the right-hand side of the comparison yields the same content as the file in the working tree. 
+<p class="level1">Specifying --no-symlinks instructs <span Class="emphasis">git difftool</span> to create copies instead. --no-symlinks is the default on Windows. 
+<p class="level0">
+<p class="level0">-x &lt;command&gt;, --extcmd=&lt;command&gt; 
+<p class="level1">Specify a custom command for viewing diffs. <span Class="emphasis">git-difftool</span> ignores the configured defaults and runs $command $LOCAL $REMOTE when this option is specified. Additionally, $BASE is set in the environment. 
+<p class="level0">
+<p class="level0">-g, --gui 
+<p class="level1">When <span Class="emphasis">git-difftool</span> is invoked with the -g or --gui option the default diff tool will be read from the configured diff.guitool variable instead of diff.tool. 
+<p class="level0">
+<p class="level0">See <span Class="bold">git-diff</span>(1) for the full list of supported options. <a name="CONFIG"></a><h2 class="nroffsh">CONFIG VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">git difftool</span> falls back to <span Class="emphasis">git mergetool</span> config variables when the difftool equivalents have not been defined. 
+<p class="level0">diff.tool 
+<p class="level1">The default diff tool to use. 
+<p class="level0">
+<p class="level0">diff.guitool 
+<p class="level1">The default diff tool to use when --gui is specified. 
+<p class="level0">
+<p class="level0">difftool.&lt;tool&gt;.path 
+<p class="level1">Override the path for the given tool. This is useful in case your tool is not in the PATH. 
+<p class="level0">
+<p class="level0">difftool.&lt;tool&gt;.cmd 
+<p class="level1">Specify the command to invoke the specified diff tool. 
+<p class="level1">See the --tool=&lt;tool&gt; option above for more details. 
+<p class="level0">
+<p class="level0">difftool.prompt 
+<p class="level1">Prompt before each invocation of the diff tool. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-diff</span>(1) 
+<p class="level1">Show changes between commits, commit and working tree, etc 
+<p class="level0">
+<p class="level0"><span Class="bold">git-mergetool</span>(1) 
+<p class="level1">Run merge conflict resolution tools to resolve merge conflicts 
+<p class="level0">
+<p class="level0"><span Class="bold">git-config</span>(1) 
+<p class="level1">Get and set repository or global options 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

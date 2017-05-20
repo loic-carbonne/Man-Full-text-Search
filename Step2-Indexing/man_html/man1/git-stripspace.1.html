@@ -1,0 +1,131 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-stripspace - Remove unnecessary whitespace <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git stripspace</span> [-s | --strip-comments] &lt; input
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Clean the input in the manner used by Git for text such as commit messages, notes, tags and branch descriptions. 
+<p class="level0">With no arguments, this will: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">remove trailing whitespace from all lines 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">collapse multiple consecutive empty lines into one empty line 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">remove empty lines from the beginning and end of the input 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">add a missing <span Class="emphasis">en</span> to the last line if necessary. 
+<p class="level0">
+<p class="level0">In the case where the input consists entirely of whitespace characters, no output will be produced. 
+<p class="level0"><span Class="bold">NOTE</span>: This is intended for cleaning metadata, prefer the --whitespace=fix mode of <span Class="bold">git-apply</span>(1) for correcting whitespace of patches or files in the repository. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-s, --strip-comments 
+<p class="level1">Skip and remove all lines starting with comment character (default <span Class="emphasis">&#35;</span>). 
+<p class="level0">
+<p class="level0">-c, --comment-lines 
+<p class="level1">Prepend comment character and blank to each line. Lines will automatically be terminated with a newline. On empty lines, only the comment character will be prepended. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Given the following noisy input with <span Class="emphasis">$</span> indicating the end of a line: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+|A brief introduction   $
+|   $
+|$
+|A new paragraph$
+|&#35; with a commented-out line    $
+|explaining lots of stuff.$
+|$
+|&#35; An old paragraph, also commented-out. $
+|      $
+|The end.$
+|  $
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Use <span Class="emphasis">git stripspace</span> with no arguments to obtain: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+|A brief introduction$
+|$
+|A new paragraph$
+|&#35; with a commented-out line$
+|explaining lots of stuff.$
+|$
+|&#35; An old paragraph, also commented-out.$
+|$
+|The end.$
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Use <span Class="emphasis">git stripspace --strip-comments</span> to obtain: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+|A brief introduction$
+|$
+|A new paragraph$
+|explaining lots of stuff.$
+|$
+|The end.$
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

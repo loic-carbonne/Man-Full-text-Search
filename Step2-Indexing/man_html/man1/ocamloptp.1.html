@@ -1,0 +1,36 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlcp, ocamloptp - The OCaml profiling compilers 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlcp</span> [ <span Class="emphasis">ocamlc options</span> ] [ <span Class="bold">-P \ flags</span> ] <span Class="emphasis">filename ...</span> 
+<p class="level0"><span Class="bold">ocamloptp</span> [ <span Class="emphasis">ocamlopt options</span> ] [ <span Class="bold">-P \ flags</span> ] <span Class="emphasis">filename ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">ocamlcp</span> and <span Class="bold">ocamloptp</span> commands are front-ends to <span Class="manpage">ocamlc (1)</span>and <span Class="manpage">ocamlopt (1)</span>that instrument the source code, adding code to record how many times functions are called, branches of conditionals are taken, etc. Execution of instrumented code produces an execution profile in the file ocamlprof.dump, which can be read using <span Class="manpage">ocamlprof (1).</span>
+<p class="level0"><span Class="bold">ocamlcp</span> accepts the same arguments and options as <span Class="manpage">ocamlc (1)</span>and <span Class="bold">ocamloptp</span> accepts the same arguments and options as <span Class="manpage">ocamlopt (1).</span>There is only one exception: in both cases, the <span Class="bold">-pp</span> option is not supported.  If you need to preprocess your source files, you will have to do it separately before calling <span Class="bold">ocamlcp</span> or <span Class="manpage">ocamloptp .</span>
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">In addition to the <span Class="manpage">ocamlc (1)</span>or <span Class="manpage">ocamlopt (1)</span>options, <span Class="bold">ocamlcp</span> and <span Class="bold">ocamloptp</span> accept one option to control the kind of profiling information, the <span Class="bold">-P \ letters</span> option. The <span Class="emphasis">letters</span> indicate which parts of the program should be profiled: 
+<p class="level0"><span Class="bold">a</span> all options 
+<p class="level0"><span Class="bold">f</span> function calls : a count point is set at the beginning of each function body 
+<p class="level0"><span Class="bold">i</span> <span Class="manpage">if \ ... \ then \ ... \ else :</span>count points are set in both <span Class="manpage">then \ and \ else</span>branches 
+<p class="level0"><span Class="bold">l</span> <span Class="manpage">while</span>, <span Class="manpage">\ for</span>loops: a count point is set at the beginning of the loop body 
+<p class="level0"><span Class="bold">m</span> <span Class="bold">match</span> branches: a count point is set at the beginning of the body of each branch of a pattern-matching 
+<p class="level0"><span Class="bold">t</span> <span Class="manpage">try \ ... \ with</span>branches: a count point is set at the beginning of the body of each branch of an exception catcher 
+<p class="level0">
+<p class="level0">For instance, compiling with <span Class="bold">ocamlcp -P film</span> profiles function calls, <span Class="manpage">if \ ... \ then \ ... \ else \ ...</span>loops, and pattern matching. 
+<p class="level0">Calling <span Class="manpage">ocamlcp (1)</span>or <span Class="manpage">ocamloptp (1)</span>without the <span Class="bold">-P</span> option defaults to <span Class="manpage">-P\ fm</span>meaning that only function calls and pattern matching are profiled. 
+<p class="level0">Note: for compatibility with previous versions, <span Class="manpage">ocamlcp (1)</span>also accepts the option <span Class="bold">-p</span> with the same argument and meaning as <span Class="manpage">-P .</span>
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamlc (1)</span>, <span Class="manpage">ocamlopt (1)</span>, <span Class="manpage">ocamlprof (1).</span><br><span Class="emphasis">The OCaml user's manual ,</span> chapter "Profiling". 

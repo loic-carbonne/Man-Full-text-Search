@@ -1,0 +1,201 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pybuild - invokes various build systems for requested Python versions in order to build modules and extensions 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pybuild [ACTION] [BUILD SYSTEM ARGUMENTS] [DIRECTORIES] [OPTIONS] 
+<p class="level0">
+<p class="level0"><a name="DEBHELPER"></a><h2 class="nroffsh">DEBHELPER COMMAND SEQUENCER INTEGRATION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build depend on <span Class="emphasis">dh-python</span>, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build depend on <span Class="emphasis">python3-all</span>, <span Class="emphasis">python-all-dbg</span>, <span Class="emphasis">pypy</span>, etc. (for all supported Python interpreters, pybuild will use it to create a list of interpreters to build for), 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">add <span Class="emphasis">--buildsystem=pybuild</span> to dh(aqs arguments in debian/rules, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">if more than one binary package is build: add debian/python-foo.install files, or <span Class="emphasis">export PYBUILD_NAME=modulename</span> (modulename will be used to guess binary package prefixes), or <span Class="emphasis">export PYBUILD_DESTDIR</span> env. variables in debian/rules 
+<p class="level1">
+<p class="level1">debian/rules file example: 
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;! /usr/bin/make -f
+export PYBUILD_NAME=foo
+%:
+&nbsp;      dh $@ --with python2,python3 --buildsystem=pybuild
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Most options can be set (in addition to command line) via environment variables. PyBuild will check: 
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">PYBUILD_OPTION_VERSIONED_INTERPRETER (f.e. PYBUILD_CLEAN_ARGS_python3.2) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">PYBUILD_OPTION_INTERPRETER (f.e. PYBUILD_CONFIGURE_ARGS_python3-dbg) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">PYBUILD_OPTION (f.e. PYBUILD_INSTALL_ARGS) 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="optional"></a><h2 class="nroffsh">optional arguments</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h,\fB  --help</span> show this help message and exit 
+<p class="level0"><span Class="bold">-v,\fB  --verbose</span> turn verbose mode on 
+<p class="level0"><span Class="bold">-q,\fB  --quiet</span> doesn(aqt show external command(aqs output 
+<p class="level0"><span Class="bold">-q\fB q,\fB \ --really-quiet</span> be quiet 
+<p class="level0"><span Class="bold">--version</span> show program(aqs version number and exit 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ACTION"></a><h2 class="nroffsh">ACTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The default is to build, install and test the library using detected build system version by version. Selecting one of following actions, will invoke given action for all versions - one by one - which (contrary to the default action) in some build systems can overwrite previous results. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--detect</span> return the name of detected build system 
+<p class="level0"><span Class="bold">--clean</span> clean files using auto-detected build system specific methods 
+<p class="level0"><span Class="bold">--configure</span> invoke configure step for all requested Python versions 
+<p class="level0"><span Class="bold">--build</span> invoke build step for all requested Python versions 
+<p class="level0"><span Class="bold">--install</span> invoke install step for all requested Python versions 
+<p class="level0"><span Class="bold">--test</span> invoke tests for auto-detected build system 
+<p class="level0"><span Class="bold">--list-systems</span> list available build systems and exit 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="TESTS"></a><h2 class="nroffsh">TESTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">unittest(aqs discover from standard library (available in Python 2.7 and &gt;= 3.2) is used in test step by default. 
+<p class="level0">
+<p class="level0"><span Class="bold">--test-nose</span> use nose module in test step, remember to add python-nose and/or python3-nose to Build-Depends 
+<p class="level0"><span Class="bold">--test-pytest</span> use pytest module in test step, remember to add python-pytest and/or python3-pytest to Build-Depends 
+<p class="level0"><span Class="bold">--test-tox</span> use tox command in test step, remember to add python-tox to Build-Depends. Requires tox.ini file 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="BUILD"></a><h2 class="nroffsh">BUILD SYSTEM ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Additional arguments passed to the build system. --system=custom requires complete command. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--before-clean \ COMMAND</span> invoked before the clean command 
+<p class="level0"><span Class="bold">--clean-args \ ARGUMENTS</span> arguments added to clean command generated by build system plugin 
+<p class="level0"><span Class="bold">--after-clean \ COMMAND</span> invoked after the clean command 
+<p class="level0"><span Class="bold">--before-configure \ COMMAND</span> invoked before the configure command 
+<p class="level0"><span Class="bold">--configure-args \ ARGUMENTS</span> arguments added to configure command generated by build system plugin 
+<p class="level0"><span Class="bold">--after-configure \ COMMAND</span> invoked after the configure command 
+<p class="level0"><span Class="bold">--before-build \ COMMAND</span> invoked before the build command 
+<p class="level0"><span Class="bold">--build-args \ ARGUMENTS</span> arguments added to build command generated by build system plugin 
+<p class="level0"><span Class="bold">--after-build \ COMMAND</span> invoked after the build command 
+<p class="level0"><span Class="bold">--before-install \ COMMAND</span> invoked before the install command 
+<p class="level0"><span Class="bold">--install-args \ ARGUMENTS</span> arguments added to install command generated by build system plugin 
+<p class="level0"><span Class="bold">--after-install \ COMMAND</span> invoked after the install command 
+<p class="level0"><span Class="bold">--before-test \ COMMAND</span> invoked before the test command 
+<p class="level0"><span Class="bold">--test-args \ ARGUMENTS</span> arguments added to test command generated by build system plugin 
+<p class="level0"><span Class="bold">--after-test \ COMMAND</span> invoked after the test command 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="variables"></a><h2 class="nroffsh">variables that can be used in \fIARGUMENTS\fP and \fICOMMAND\fP</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{version}</span> will be replaced with current Python version, you can also use <span Class="emphasis">{version.major}</span>, <span Class="emphasis">{version.minor}</span>, etc. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{interpreter}</span> will be replaced with current interpreter, you can also use <span Class="emphasis">{interpreter.include_dir}</span> 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{dir}</span> will be replaced with sources directory, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{destdir}</span> will be replaced with destination directory, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{home_dir}</span> will be replaced with temporary HOME directory, where plugins can keep their data (.pybuild/interpreter_version/ by default), 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{build_dir}</span> will be replaced with build directory 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{install_dir}</span> will be replaced with install directory. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{package}</span> will be replaced with suggested package name, if --name (or PYBUILD_NAME) is set to <span Class="emphasis">foo</span>, this variable will be replaced to <span Class="emphasis">python-foo</span>, <span Class="emphasis">python3-foo</span> or <span Class="emphasis">pypy-foo</span> depending on interpreter which is used in given iteration. 
+<p class="level1"><a name="DIRECTORIES"></a><h2 class="nroffsh">DIRECTORIES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-d \ DIR,\fB \ --dir \ DIR</span> set source files directory - base for other relative dirs [by default: current working directory] 
+<p class="level0"><span Class="bold">--dest-dir \ DIR</span> set destination directory [default: debian/tmp] 
+<p class="level0"><span Class="bold">--ext-dest-dir \ DIR</span> set destination directory for .so files 
+<p class="level0"><span Class="bold">--ext-pattern \ PATTERN</span> regular expression for files that should be moved if --ext-destdir is set [default: <span Class="emphasis">.so(.[^/]*)?$</span>] 
+<p class="level0"><span Class="bold">--install-dir \ DIR</span> set installation directory [default: .../dist-packages] 
+<p class="level0"><span Class="bold">--name \ NAME</span> use this name to guess destination directories (depending on interpreter, "foo" sets debian/python-foo, debian/python3-foo, debian/python3-foo-dbg, etc.) 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="variables"></a><h2 class="nroffsh">variables that can be used in \fIDIR\fP</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{version}</span> will be replaced with current Python version, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">{interpreter}</span> will be replaced with selected interpreter. 
+<p class="level1"><a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-s \ SYSTEM,\fB \ --system \ SYSTEM</span> select a build system [default: auto-detection] 
+<p class="level0"><span Class="bold">-p \ VERSIONS,\fB \ --pyver \ VERSIONS</span> build for Python VERSIONS. This option can be used multiple times. Versions can be separated by space character. The default is all Python 3.X supported versions. 
+<p class="level0"><span Class="bold">-i \ INTERPRETER,\fB \ --interpreter \ INTERPRETER</span> change interpreter [default: python{version}] 
+<p class="level0"><span Class="bold">--disable \ ITEMS</span> disable action, interpreter, version or any mix of them. Note that f.e. python3 and python3-dbg are two different interpreters, --disable test/python3 doesn(aqt disable python3-dbg(aqs tests. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="disable"></a><h2 class="nroffsh">disable examples</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">--disable test/python2.5-dbg</span> - disables tests for python2.5-dbg 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">--disable (aq2.4 2.7(aq</span> - disables all actions for version 2.4 and 2.7 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">PYBUILD_DISABLE_python2=1</span> - disables all actions for Python 2.X 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">PYBUILD_DISABLE_python3.3=test</span> - disables tests for Python 3.3 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">PYBUILD_DISABLE=test/python3.3</span> - same as above 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">PYBUILD_DISABLE=configure/python3 2.4 pypy</span> - disables configure action for all python3 interpreters, all actions for version 2.4, and all actions for pypy 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">dh_python2(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">dh_python3(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">%https://wiki.debian.org/Python/Pybuild</span> 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">%http://deb.li/pybuild</span> - most recent version of this document 
+<p class="level1"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Piotr Ożarowski, 2012-2013 
+<p class="level0">

@@ -1,0 +1,18 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">cvt - calculate VESA CVT mode lines <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">cvt</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">h-resolution</span> <span Class="emphasis">v-resolution</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Cvt</span> is a utility for calculating VESA Coordinated Video Timing modes.  Given the desired horizontal and vertical resolutions, a modeline adhering to the CVT standard is printed. This modeline can be included in Xorg <span Class="bold">xorg.conf(5)</span> 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">refresh</span>Provide a vertical refresh rate in Hz.  The CVT standard prefers either 50.0, 60.0, 75.0 or 85.0Hz.  The default is 60.0Hz. 
+<p class="level0"><span Class="manpage">-v | --verbose</span>Warn verbosely when a given mode does not completely correspond with CVT standards. 
+<p class="level0"><span Class="manpage">-r | --reduced</span>Create a mode with reduced blanking.  This allows for higher frequency signals, with a lower or equal dotclock. Not for Cathode Ray Tube based displays though. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">xorg.conf(5), gtf(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Luc Verhaegen. 
+<p class="level0">This program is based on the Coordinated Video Timing sample implementation written by Graham Loveridge. This file is publicly available at &lt;http://www.vesa.org/Public/CVT/CVTd6r1.xls&gt;. CVT is a VESA trademark. 

@@ -1,0 +1,40 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mktexpk - create a PK file for a font <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mktexpk</span> 
+<p class="level0"><span Class="emphasis">font</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Kpathsea: A library for path searching .</span> 
+<p class="level0"><span Class="bold">mktexpk</span> is used to generate a <span Class="emphasis">pk</span> file from the *(MF source files or type1 sources for <span Class="emphasis">font ,</span> if possible. 
+<p class="level0">If <span Class="emphasis">redirect</span> is given, it must be string of the form <span Class="bold">&gt;& n</span> where <span Class="emphasis">n</span> is the number of the file descriptor which is to receive, instead of standard output, the name of the generated file. 
+<p class="level0"><span Class="bold">mktexpk</span> is typically called by other programs, rather than from the command line. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="bold">mktexpk</span> accepts the following options: 
+<p class="level0"><span Class="bold">--bdpi \ num</span> Set the base device resolution. 
+<p class="level0"><span Class="bold">--dpi \ num</span> Generate the font at resolution <span Class="emphasis">num .</span> 
+<p class="level0"><span Class="bold">--help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">--mag \ mag</span> The *(MF magnification that corresponds to the combination of <span Class="emphasis">bdpi</span> and <span Class="emphasis">dpi</span> that has been specified. 
+<p class="level0"><span Class="bold">--mfmode \ mode</span> The *(MF mode to use. 
+<p class="level0"><span Class="bold">--destdir \ dir</span> A directory name. If the directory is absolute, it is used as-is. Otherwise, it is appended to the root destination directory set in the script. 
+<p class="level0"><span Class="bold">--version</span> Print version information and exit. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">If the <span Class="emphasis">mode</span> is not specified, <span Class="bold">mktexpk</span> tries to determine it from <span Class="emphasis">bdpi .</span> The manner in which this is done is primitive.  Since <span Class="emphasis">bpdi</span> doesn't provide sufficient information to uniquely determine a <span Class="emphasis">mode</span> it is strongly recommended that it be specified explicitly. 
+<p class="level0">If the <span Class="emphasis">mode</span> and <span Class="emphasis">bpdi</span> don't match, the <span Class="emphasis">mode</span> is discarded. 
+<p class="level0">The <span Class="emphasis">dpi</span> parameter is redundant, but is not checked for consistency.  Worse, the program will fail if the wrong <span Class="emphasis">dpi</span> is specified. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">mktexmf (1)</span>, <span Class="manpage">mktextfm (1).</span>

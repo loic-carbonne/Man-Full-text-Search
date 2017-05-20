@@ -1,0 +1,158 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">json_pp - JSON::PP command utility <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   json_pp [-v] [-f from_format] [-t to_format] [-json_opt options_to_json] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">json_pp converts between some input and output formats (one of them is s-1JSONs0). This program was copied from json_xs and modified. 
+<p class="level0">The default input format is json and the default output format is json with pretty option. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="-f"></a><h2 class="nroffsh">-f</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   -f from_format 
+<p class="level0">
+<p class="level0">Reads a data in the given format from s-1STDIN.s0 
+<p class="level0">Format types: 
+<p class="level0"><a name="json"></a><span class="nroffip">json 4</span> 
+<p class="level1">
+<p class="level1">as s-1JSONs0 
+<p class="level0"><a name="eval"></a><span class="nroffip">eval 4</span> 
+<p class="level1">
+<p class="level1">as Perl code <a name="-t"></a><h2 class="nroffsh">-t</h2>
+<p class="level0">
+<p class="level0">Writes a data in the given format to s-1STDOUT.s0 
+<p class="level0"><a name="null"></a><span class="nroffip">null 4</span> 
+<p class="level1">
+<p class="level1">no action. 
+<p class="level0"><a name="json"></a><span class="nroffip">json 4</span> 
+<p class="level1">
+<p class="level1">as s-1JSONs0 
+<p class="level0"><a name="dumper"></a><span class="nroffip">dumper 4</span> 
+<p class="level1">
+<p class="level1">as Data::Dumper <a name="-jsonopt"></a><h2 class="nroffsh">-json_opt</h2>
+<p class="level0">
+<p class="level0">options to s-1JSON::PPs0 
+<p class="level0">Acceptable options are: 
+<p class="level0">
+<p class="level0">&nbsp;   ascii latin1 utf8 pretty indent space_before space_after relaxed canonical allow_nonref &nbsp;   allow_singlequote allow_barekey allow_bignum loose escape_slash 
+<p class="level0"><a name="-v"></a><h2 class="nroffsh">-v</h2>
+<p class="level0">
+<p class="level0">Verbose option, but currently no action in fact. <a name="-V"></a><h2 class="nroffsh">-V</h2>
+<p class="level0">
+<p class="level0">Prints version and exits. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   $ perl -e*(Aqprint q|{"foo":"XX","bar":1234567890000000000000000}|*(Aq |e &nbsp;      json_pp -f json -t dumper -json_opt pretty,utf8,allow_bignum 
+<p class="level0">&nbsp;   $VAR1 = { &nbsp;             *(Aqbar*(Aq =&gt; bless( { &nbsp;                               *(Aqvalue*(Aq =&gt; [ &nbsp;                                            *(Aq0000000*(Aq, &nbsp;                                            *(Aq0000000*(Aq, &nbsp;                                            *(Aq5678900*(Aq, &nbsp;                                            *(Aq1234*(Aq &nbsp;                                          ], &nbsp;                               *(Aqsign*(Aq =&gt; *(Aq+*(Aq &nbsp;                             }, *(AqMath::BigInt*(Aq ), &nbsp;             *(Aqfoo*(Aq =&gt; "ex{3042}ex{3044}" &nbsp;           }; 
+<p class="level0">&nbsp;   $ perl -e*(Aqprint q|{"foo":"XX","bar":1234567890000000000000000}|*(Aq |e &nbsp;      json_pp -f json -t dumper -json_opt pretty 
+<p class="level0">&nbsp;   $VAR1 = { &nbsp;             *(Aqbar*(Aq =&gt; *(Aq1234567890000000000000000*(Aq, &nbsp;             *(Aqfoo*(Aq =&gt; "ex{e3}ex{81}ex{82}ex{e3}ex{81}ex{84}" &nbsp;           }; 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">s-1JSON::PPs0, json_xs <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Makamaka Hannyaharamitu, &lt;makamaka[at]cpan.org&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT AND LICENSE</h2>
+<p class="level0">
+<p class="level0">Copyright 2010 by Makamaka Hannyaharamitu 
+<p class="level0">This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself. 

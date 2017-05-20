@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kill - send a signal to a process <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">kill</span> [options] &lt;pid&gt; [...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The default signal for kill is TERM.  Use <span Class="bold">-l</span> or <span Class="bold">-L</span> to list available signals.  Particularly useful signals include HUP, INT, KILL, STOP, CONT, and 0.  Alternate signals may be specified in three ways: <span Class="manpage">-9</span>, <span Class="manpage">-SIGKILL</span>or <span Class="manpage">-KILL .</span>Negative PID values may be used to choose whole process groups; see the PGID column in ps command output.  A PID of <span Class="bold">-1</span> is special; it indicates all processes except the kill process itself and init. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">&lt;pid&gt; [...]</span> Send signal to every &lt;pid&gt; listed. 
+<p class="level0"><span Class="bold">-&lt;signal&gt;</span> 
+<p class="level0"><span Class="bold">-s &lt;signal&gt;</span> 
+<p class="level0"><span Class="bold">--signal &lt;signal&gt;</span> Specify the <span Class="bold">signal</span> to be sent.  The signal can be specified by using name or number. The behavior of signals is explained in <span Class="manpage">signal (7)</span>manual page. 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--list</span> [<span Class="emphasis">signal</span>] List signal names.  This option has optional argument, which will convert signal number to signal name, or other way round. 
+<p class="level0"><span Class="manpage">-L</span>, <span Class="manpage">\ --table</span>List signal names in a nice table. 
+<p class="level0">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Your shell (command line interpreter) may have a built-in kill command.  You may need to run the command described here as /bin/kill to solve the conflict. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">kill -9 -1</span> Kill all processes you can kill. 
+<p class="level0"><span Class="bold">kill -l 11</span> Translate number 11 into a signal name. 
+<p class="level0"><span Class="bold">kill -L</span> List the available signal choices in a nice table. 
+<p class="level0"><span Class="bold">kill 123 543 2341 3453</span> Send the default signal, SIGTERM, to all those processes. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">kill (2)</span>, <span Class="manpage">killall (1)</span>, <span Class="manpage">nice (1)</span>, <span Class="manpage">pkill (1)</span>, <span Class="manpage">renice (1)</span>, <span Class="manpage">signal (7)</span>, <span Class="manpage">skill (1)</span><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">This command meets appropriate standards. The <span Class="bold">-L</span> flag is Linux-specific. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Albert Cahalan 
+<p class="level0">wrote kill in 1999 to replace a bsdutils one that was not standards compliant.  The util-linux one might also work correctly. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Please send bug reports to 
+<p class="level0">
+<p class="level0">

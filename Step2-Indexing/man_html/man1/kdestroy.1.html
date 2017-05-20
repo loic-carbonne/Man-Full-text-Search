@@ -1,0 +1,42 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kdestroy - destroy Kerberos tickets 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">kdestroy</span> [<span Class="bold">-A</span>] [<span Class="bold">-q</span>] [<span Class="bold">-c</span> <span Class="emphasis">cache_name</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The kdestroy utility destroys the user(aqs active Kerberos authorization tickets by overwriting and deleting the credentials cache that contains them.  If the credentials cache is not specified, the default credentials cache is destroyed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-A</span> Destroys all caches in the collection, if a cache collection is available. 
+<p class="level0"><span Class="bold">\fB-q</span> Run quietly.  Normally kdestroy beeps if it fails to destroy the user(aqs tickets.  The <span Class="bold">-q</span> flag suppresses this behavior. 
+<p class="level0"><span Class="bold">\fB-c cache_name</span> Use <span Class="emphasis">cache_name</span> as the credentials (ticket) cache name and location; if this option is not used, the default cache name and location are used. 
+<p class="level0">The default credentials cache may vary between systems.  If the <span Class="bold">KRB5CCNAME</span> environment variable is set, its value is used to name the default ticket cache. 
+<p class="level0"><a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">
+<p class="level0">Most installations recommend that you place the kdestroy command in your .logout file, so that your tickets are destroyed automatically when you log out. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">kdestroy uses the following environment variable: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBKRB5CCNAME</span> Location of the default Kerberos 5 credentials (ticket) cache, in the form <span Class="emphasis">type</span>:<span Class="emphasis">residual</span>.  If no <span Class="emphasis">type</span> prefix is present, the <span Class="bold">FILE</span> type is assumed.  The type of the default cache may determine the availability of a cache collection; for instance, a default cache of type <span Class="bold">DIR</span> causes caches within the directory to be present in the collection. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fBFILE:/tmp/krb5cc_%{uid}</span> Default location of Kerberos 5 credentials cache 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">kinit(1)</span>, <span Class="emphasis">klist(1)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

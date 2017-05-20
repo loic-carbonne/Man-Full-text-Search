@@ -1,0 +1,997 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">#35;  Setup //////////////////////////////////////////////////////////////// #35;  ** Comment out '.nr' or set to 0 to eliminate WIDTH fiddlin' ! 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">#35;  ** we use single quote char (') a lot, so change the no-break ctrl char 
+<p class="level0">
+<p class="level0">#35;                      Our own Bullet style(s) -------------------------- 
+<p class="level0"><a name="o"></a><span class="nroffip">o 3</span> 
+<p class="level1">
+<p class="level1">#35;                      Commonly used strings (for consistency) ---------- #35;                           - our em-dashes 
+<p class="level1">
+<p class="level1">#35;                           - our program name (makes great grammar) 
+<p class="level1">
+<p class="level1">#35;                           - other misc strs for consistent usage 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">#35;                           - Note: our 'Command Line' used in 2 places #35;                           ( and managed to fit in an 80x24 terminal ) 
+<p class="level1">-<span Class="bold">u</span>|<span Class="bold">U</span> user -<span Class="bold">p</span> pid -<a class="bold" href="#o">o</a> fld -<span Class="bold">w</span> [cols] </span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">#35;                      Reference to the various widths/sizes ------------ #35;                           - the max screen width limit 
+<p class="level1">#35;                           - the header width w/ all fields 
+<p class="level1">#35;                           - pid monitoring limit 
+<p class="level1">#35;                      Xref's that depend on/mention other stuff -------- 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">top - display Linux processes 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">*(WE *(CL 
+<p class="level0">
+<p class="level0">The traditional switches '-' and whitespace are optional. 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The *(WE program provides a dynamic real-time view of a running system. It can display<span Class="bold"> system</span> summary information as well as a list of *(TT currently being managed by the Linux kernel. The types of system summary information shown and the types, order and size of information displayed for processes are all user configurable and that configuration can be made persistent across restarts. 
+<p class="level0">The program provides a limited interactive interface for process manipulation as well as a much more extensive interface for personal configuration *(Em encompassing every aspect of its operation. And while *(WE is referred to throughout this document, you are free to name the program anything you wish. That new name, possibly an alias, will then be reflected on *(We's display and used when reading and writing a *(CF. 
+<p class="level0"><a name="OVERVIEW"></a><h2 class="nroffsh">OVERVIEW</h2>
+<p class="level0"><a name="Documentation"></a><h2 class="nroffsh">Documentation</h2>
+<p class="level0">The remaining Table of Contents 
+<p class="level0"><pre class="level0">
+&nbsp;   1. COMMAND-LINE Options
+&nbsp;   2. SUMMARY Display
+&nbsp;      a. UPTIME and LOAD Averages
+&nbsp;      b. TASK and CPU States
+&nbsp;      c. MEMORY Usage
+&nbsp;   3. FIELDS / Columns Display
+&nbsp;      a. DESCRIPTIONS of Fields
+&nbsp;      b. MANAGING Fields
+&nbsp;   4. INTERACTIVE Commands
+&nbsp;      a. GLOBAL Commands
+&nbsp;      b. SUMMARY AREA Commands
+&nbsp;      c. TASK AREA Commands
+&nbsp;         1. Appearance
+&nbsp;         2. Content
+&nbsp;         3. Size
+&nbsp;         4. Sorting
+&nbsp;      d. COLOR Mapping
+&nbsp;   5. ALTERNATE-DISPLAY Provisions
+&nbsp;      a. WINDOWS Overview
+&nbsp;      b. COMMANDS for Windows
+&nbsp;      c. SCROLLING a Window
+&nbsp;      d. SEARCHING in a Window
+&nbsp;      e. FILTERING in a Window
+&nbsp;   6. FILES
+&nbsp;      a. SYSTEM Configuration File
+&nbsp;      b. PERSONAL Configuration File
+&nbsp;      c. ADDING INSPECT Entries
+&nbsp;   7. STUPID TRICKS Sampler
+&nbsp;      a. Kernel Magic
+&nbsp;      b. Bouncing Windows
+&nbsp;      c. The Big Bird Window
+&nbsp;      d. The Ol' Switcheroo
+&nbsp;   8. BUGS, 9. HISTORY Former top, 10. AUTHOR, 11. SEE Also
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="Operation"></a><h2 class="nroffsh">Operation</h2>
+<p class="level0">When operating *(We, the two most important keys are the help ('h' or '?') key and quit ('q') key. Alternatively, you could simply use the traditional interrupt key ('^C') when you're done. 
+<p class="level0">When started for the first time, you'll be presented with these traditional elements on the main *(We screen: 1) Summary Area; 2) Fields/Columns Header; 3) Task Area. Each of these will be explored in the sections that follow. There is also an Input/Message line between the Summary Area and Columns Header which needs no further explanation. 
+<p class="level0">The main *(We screen is <span Class="emphasis">generally</span> quite adaptive to changes in terminal dimensions under X-Windows. Other *(We screens may be less so, especially those with static text. It ultimately depends, however, on your particular window manager and terminal emulator. There may be occasions when their view of terminal size and current contents differs from *(We's view, which is always based on operating system calls. 
+<p class="level0">Following any re-size operation, if a *(We screen is corrupted, appears incomplete or disordered, simply typing something innocuous like a punctuation character or cursor motion key will usually restore it. In extreme cases, the following sequence almost certainly will: <pre class="level0">
+&nbsp;      <span class="emphasis">key/cmd  objective </span>
+&nbsp;      ^Z       <span class="bold">suspend</span> *(We
+&nbsp;      fg       <span class="bold">resume</span> *(We
+&nbsp;      &lt;Left&gt;   force a screen <span class="bold">redraw</span> (if necessary)
+</pre>
+
+<p class="level0">
+<p class="level0">But if the display is still corrupted, there is one more step you could try. Insert this command after *(We has been suspended but before resuming it. <pre class="level0">
+&nbsp;      <span class="emphasis">key/cmd  objective </span>
+&nbsp;      reset    restore your <span class="bold">terminal settings</span>
+</pre>
+
+<p class="level0">
+<p class="level0">*(NT the width of *(We's display will be limited to *(WX positions. Displaying all fields requires *(WF characters. Remaining screen width is usually allocated to any variable width columns currently visible. The variable width columns, such as COMMAND, are noted in topic 3a. DESCRIPTIONS of Fields. Actual output width may also be influenced by the -w switch, which is discussed in topic 1. COMMAND-LINE Options. 
+<p class="level0">Lastly, some of *(We's screens or functions require the use of cursor motion keys like the standard *(KAs plus the Home, End, PgUp and PgDn keys. If your terminal or emulator does not provide those keys, the following combinations are accepted as alternatives: <pre class="level0">
+&nbsp;     <span class="emphasis"> key      equivalent-key-combinations </span>
+&nbsp;      Up       alt +<span class="bold"> \</span>      or  alt +<span class="bold"> k </span>
+&nbsp;      Down     alt +<span class="bold"> /</span>      or  alt +<span class="bold"> j </span>
+&nbsp;      Left     alt +<span class="bold"> &lt;</span>      or  alt +<span class="bold"> h </span>
+&nbsp;      Right    alt +<span class="bold"> &gt;</span>      or  alt +<span class="bold"> l </span>(lower case L)
+&nbsp;      PgUp     alt +<span class="bold"> Up</span>     or  alt + ctrl +<span class="bold"> k </span>
+&nbsp;      PgDn     alt +<span class="bold"> Down</span>   or  alt + ctrl +<span class="bold"> j </span>
+&nbsp;      Home     alt +<span class="bold"> Left</span>   or  alt + ctrl +<span class="bold"> h </span>
+&nbsp;      End      alt +<span class="bold"> Right</span>  or  alt + ctrl +<span class="bold"> l </span>
+</pre>
+
+<p class="level0">
+<p class="level0">The <span Class="bold">Up</span> and <span Class="bold">Down</span> *(KAs have special significance when prompted for line input terminated with the &lt;Enter&gt; key. Those keys, or their aliases, can be used to retrieve previous input lines which can then be edited and re-input. And there are four additional keys available with line oriented input. <pre class="level0">
+&nbsp;     <span class="emphasis"> key      special-significance </span>
+&nbsp;      Up       recall <span class="bold">older</span> strings for re-editing
+&nbsp;      Down     recall <span class="bold">newer</span> strings or <span class="bold">erase</span> entire line
+&nbsp;      Insert   toggle between <span class="bold">insert</span> and <span class="bold">overtype</span> modes
+&nbsp;      Delete   character <span class="bold">removed</span> at cursor, moving others left
+&nbsp;      Home     jump to <span class="bold">beginning</span> of input line
+&nbsp;      End      jump to <span class="bold">end</span> of input line
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="Startup"></a><h2 class="nroffsh">Startup Defaults</h2>
+<p class="level0">The following startup defaults assume no *(CF, thus no user customizations. Even so, items shown with an *(AK could be overridden through the command-line. All are explained in detail in the sections that follow. 
+<p class="level0"><pre class="level0">
+&nbsp;   <span class="emphasis">Global-defaults</span>
+&nbsp;      'A' - Alt display      Off (full-screen)
+&nbsp;    * 'd' - Delay time       3.0 seconds
+&nbsp;    * 'H' - Threads mode     Off (summarize as tasks)
+&nbsp;      'I' - Irix mode        On&nbsp;&nbsp;(no, 'solaris' smp)
+&nbsp;    * 'p' - PID monitoring   Off (show all processes)
+&nbsp;    * 's' - Secure mode      Off (unsecured)
+&nbsp;      'B' - Bold enable      On&nbsp;&nbsp;(yes, bold globally)
+&nbsp;   <span class="emphasis">Summary-Area-defaults</span>
+&nbsp;      'l' - Load Avg/Uptime  On&nbsp;&nbsp;(thus program name)
+&nbsp;      't' - Task/Cpu states  On&nbsp;&nbsp;(1+1 lines, see '1')
+&nbsp;      'm' - Mem/Swap usage   On&nbsp;&nbsp;(2 lines worth)
+&nbsp;      '1' - Single Cpu       On&nbsp;&nbsp;(thus 1 line if smp)
+&nbsp;   <span class="emphasis">Task-Area-defaults</span>
+&nbsp;      'b' - Bold hilite      On&nbsp;&nbsp;(not 'reverse')
+&nbsp;    * 'c' - Command line     Off (name, not cmdline)
+&nbsp;    * 'i' - Idle tasks       On&nbsp;&nbsp;(show all tasks)
+&nbsp;      'J' - Num align right  On&nbsp;&nbsp;(not left justify)
+&nbsp;      'j' - Str align right  Off (not right justify)
+&nbsp;      'R' - Reverse sort     On&nbsp;&nbsp;(pids high-to-low)
+&nbsp;    * 'S' - Cumulative time  Off (no, dead children)
+&nbsp;    * 'u' - User filter      Off (show euid only)
+&nbsp;    * 'U' - User filter      Off (show any uid)
+&nbsp;      'x' - Column hilite    Off (no, sort field)
+&nbsp;      'y' - Row hilite       On&nbsp;&nbsp;(yes, running tasks)
+&nbsp;      'z' - color/mono       Off (no, colors)
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="1"></a><h2 class="nroffsh">1. COMMAND-LINE Options</h2>
+<p class="level0">The command-line syntax for *(We consists of: 
+<p class="level0">&nbsp; *(CL 
+<p class="level0">The typically mandatory switches ('-') and even whitespace are completely optional. 
+<p class="level0">
+<p class="level0">-<span Class="bold">h</span> | -<span Class="bold">v</span>&nbsp;&nbsp;:<span Class="emphasis">Help/Version </span> Show library version and the usage prompt, then quit. 
+<p class="level0">
+<p class="level0">-<span Class="bold">b</span>&nbsp;&nbsp;:<span Class="emphasis">Batch-mode</span> operation </span> Starts *(We in 'Batch' mode, which could be useful for sending output from *(We to other programs or to a file. In this mode, *(We will not accept input and runs until the iterations limit you've set with the '-n' *(CO or until killed. 
+<p class="level0">
+<p class="level0">-<span Class="bold">c</span>&nbsp;&nbsp;:<span Class="emphasis">Command-line/Program-name</span> toggle </span> Starts *(We with the last remembered 'c' state reversed. Thus, if *(We was displaying command lines, now that field will show program names, and visa versa. *(XC 'c' *(CI for additional information. 
+<p class="level0">
+<p class="level0">-<span Class="bold">d</span>&nbsp;&nbsp;:<span Class="emphasis">Delay-time</span> interval as:&nbsp;&nbsp;<span Class="bold">-d ss.t</span> (<span Class="emphasis">secs</span>.<span Class="emphasis">tenths</span>) </span> Specifies the delay between screen updates, and overrides the corresponding value in one's personal *(CF or the startup default. Later this can be changed with the 'd' or 's' *(CIs. 
+<p class="level0">Fractional seconds are honored, but a negative number is not allowed. In all cases, however, such changes are prohibited if *(We is running in 'Secure mode', except for root (unless the 's' *(CO was used). For additional information on 'Secure mode' *(Xt 6a. SYSTEM Configuration File. 
+<p class="level0">
+<p class="level0">-<span Class="bold">H</span>&nbsp;&nbsp;:<span Class="emphasis">Threads-mode</span> operation </span> Instructs *(We to display individual threads. Without this *(CO a summation of all threads in each process is shown. Later this can be changed with the 'H' *(CI. 
+<p class="level0">
+<p class="level0">-<span Class="bold">i</span>&nbsp;&nbsp;:<span Class="emphasis">Idle-process</span> toggle </span> Starts *(We with the last remembered 'i' state reversed. When this toggle is *F, tasks that have not used any *(PU since the last update will not be displayed. For additional information regarding this toggle *(Xt 4c. TASK AREA Commands, SIZE. 
+<p class="level0">
+<p class="level0">-<span Class="bold">n</span>&nbsp;&nbsp;:<span Class="emphasis">Number-of-iterations</span> limit as:<span Class="bold">&nbsp;&nbsp;-n number </span> Specifies the maximum number of iterations, or frames, *(We should produce before ending. 
+<p class="level0">
+<p class="level0">-<a class="bold" href="#o">o</a>&nbsp;&nbsp;:<span Class="emphasis">Override-sort-field</span> as:<span Class="bold">&nbsp;&nbsp;-o fieldname </span> Specifies the name of the field on which tasks will be sorted, independent of what is reflected in the configuration file. You can prepend a '+' or '-' to the field name to also override the sort direction. A leading '+' will force sorting high to low, whereas a '-' will ensure a low to high ordering. 
+<p class="level0">This option exists primarily to support automated/scripted batch mode operation. 
+<p class="level0">
+<p class="level0">-<span Class="bold">O</span>&nbsp;&nbsp;:<span Class="emphasis">Output-field-names </span> This option acts as a form of help for the above -o option. It will cause *(We to print each of the available field names on a separate line, then quit. Such names are subject to nls translation. 
+<p class="level0">
+<p class="level0">-<span Class="bold">p</span>&nbsp;&nbsp;:<span Class="emphasis">Monitor-PIDs</span> mode as:<span Class="bold">&nbsp;&nbsp;-pN1 -pN2 ...</span>&nbsp;&nbsp;or<span Class="bold">&nbsp;&nbsp;-pN1,N2,N3 ... </span> Monitor only processes with specified process IDs. This option can be given up to *(WP times, or you can provide a comma delimited list with up to *(WP pids. Co-mingling both approaches is permitted. 
+<p class="level0">A pid value of zero will be treated as the process id of the *(We program itself once it is running. 
+<p class="level0">This is a *(CO only and should you wish to return to normal operation, it is not necessary to quit and restart *(We *(Em just issue any of these *(CIs: '=', 'u' or 'U'. 
+<p class="level0">The 'p', 'u' and 'U' *(COs are mutually exclusive. 
+<p class="level0">
+<p class="level0">-<span Class="bold">s</span>&nbsp;&nbsp;:<span Class="emphasis">Secure-mode</span> operation </span> Starts *(We with secure mode forced, even for root. This mode is far better controlled through the system *(CF (*(Xt 6. FILES). 
+<p class="level0">
+<p class="level0">-<span Class="bold">S</span>&nbsp;&nbsp;:<span Class="emphasis">Cumulative-time</span> toggle </span> Starts *(We with the last remembered 'S' state reversed. When 'Cumulative time' mode is *O, each process is listed with the *(Pu time that it and its dead children have used. *(XC 'S' *(CI for additional information regarding this mode. 
+<p class="level0">
+<p class="level0">-<span Class="bold">u</span> | -<span Class="bold">U</span>&nbsp;&nbsp;:<span Class="emphasis">User-filter-mode</span> as:&nbsp;&nbsp;<span Class="bold">-u</span> | <span Class="bold">-U number</span> or<span Class="bold"> name </span> Display only processes with a user id or user name matching that given. The '-u' option matches on <span Class="emphasis"> effective</span> user whereas the '-U' option matches on<span Class="emphasis"> any</span> user (real, effective, saved, or filesystem). 
+<p class="level0">Prepending an exclamation point ('!') to the user id or name instructs top to display only processes with users not matching the one provided. 
+<p class="level0">The 'p', 'u' and 'U' *(COs are mutually exclusive. 
+<p class="level0">
+<p class="level0">-<span Class="bold">w</span>&nbsp;&nbsp;:<span Class="emphasis">Output-width-override</span> as:&nbsp;&nbsp;<span Class="bold">-w</span> [<span Class="bold"> number</span> ] </span> In 'Batch' mode, when used without an argument *(We will format output using the COLUMNS= and LINES= environment variables, if set. Otherwise, width will be fixed at the maximum *(WX columns. With an argument, output width can be decreased or increased (up to *(WX) but the number of rows is considered unlimited. 
+<p class="level0">In normal display mode, when used without an argument *(We will<span Class="emphasis"> attempt</span> to format output using the COLUMNS= and LINES= environment variables, if set. With an argument, output width can only be decreased, not increased. Whether using environment variables or an argument with -w, when<span Class="emphasis"> not</span> in 'Batch' mode actual terminal dimensions can never be exceeded. 
+<p class="level0">*(NT Without the use of this *(CO, output width is always based on the terminal at which *(We was invoked whether or not in 'Batch' mode. 
+<p class="level0"><a name="2"></a><h2 class="nroffsh">2. SUMMARY Display</h2>
+<p class="level0">Each of the following three areas are individually controlled through one or more *(CIs. *(XT 4b. SUMMARY AREA Commands for additional information regarding these provisions. 
+<p class="level0"><a name="2a"></a><h2 class="nroffsh">2a. UPTIME and LOAD Averages</h2>
+<p class="level0">This portion consists of a single line containing: <pre class="level0">
+&nbsp;   <span class="bold">program</span> or<span class="bold"> window</span> name, depending on display mode
+&nbsp;   current time and length of time since last boot
+&nbsp;   total number of users
+&nbsp;   system load avg over the last 1, 5 and 15 minutes
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="2b"></a><h2 class="nroffsh">2b. TASK and CPU States</h2>
+<p class="level0">This portion consists of a minimum of two lines. In an SMP environment, additional lines can reflect individual *(PU state percentages. 
+<p class="level0">Line 1 shows total<span Class="bold"> tasks</span> or<span Class="bold"> threads</span>, depending on the state of the Threads-mode toggle. That total is further classified as: <pre class="level0">
+&nbsp;   running; sleeping; stopped; zombie
+</pre>
+
+<p class="level0">
+<p class="level0">Line 2 shows *(PU state percentages based on the interval since the last refresh.  Where two labels are shown below, those for more recent kernel versions are shown first. <pre class="level0">
+&nbsp;   <span class="bold">us</span>,<span class="bold"> user</span>    : time running un-niced user processes
+&nbsp;   <span class="bold">sy</span>,<span class="bold"> system</span>  : time running kernel processes
+&nbsp;   <span class="bold">ni</span>,<span class="bold"> nice</span>    : time running niced user processes
+&nbsp;   <span class="bold">wa</span>,<span class="bold"> IO-wait</span> : time waiting for I/O completion
+&nbsp;   <span class="bold">hi</span> : time spent servicing hardware interrupts
+&nbsp;   <span class="bold">si</span> : time spent servicing software interrupts
+&nbsp;   <span class="bold">st</span> : time stolen from this vm by the hypervisor
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="2c"></a><h2 class="nroffsh">2c. MEMORY Usage</h2>
+<p class="level0">This portion consists of two lines which may express values in kibibytes (KiB) through exbibytes (EiB) depending on the scaling factor enforced with the 'E' *(CI. 
+<p class="level0">Line 1 reflects *(MP, classified as: <pre class="level0">
+&nbsp;   total, used, free and buffers
+</pre>
+
+<p class="level0">
+<p class="level0">Line 2 reflects mostly *(MV, classified as: <pre class="level0">
+&nbsp;   total, used, free and cached (which is *(MP)
+</pre>
+
+<p class="level0">
+<p class="level0">This table may help in interpreting the scaled values displayed: <pre class="level0">
+&nbsp;   KiB = kibibyte = 1024 bytes
+&nbsp;   MiB = mebibyte = 1024 KiB = 1,048,576 bytes
+&nbsp;   GiB = gibibyte = 1024 MiB = 1,073,741,824 bytes
+&nbsp;   TiB = tebibyte = 1024 GiB = 1,099,511,627,776 bytes
+&nbsp;   PiB = pebibyte = 1024 TiB = 1,125,899,906,842,624 bytes
+&nbsp;   EiB = exbibyte = 1024 PiB = 1,152,921,504,606,846,976 bytes
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="3"></a><h2 class="nroffsh">3. FIELDS / Columns</h2>
+<p class="level0"><a name="3a"></a><h2 class="nroffsh">3a. DESCRIPTIONS of Fields</h2>
+<p class="level0">Listed below are *(We's available process fields (columns). They are shown in strict ascii alphabetical order. You may customize their position and whether or not they are displayable with the 'f' or 'F' (Fields Management) *(CIs. 
+<p class="level0">Any field is selectable as the sort field, and you control whether they are sorted high-to-low or low-to-high. For additional information on sort provisions *(Xt 4c. TASK AREA Commands, SORTING. 
+<p class="level0">The fields related to *(MP or *(MV reference '(KiB)' as the default, unsuffixed display mode. Such fields can, however, be scaled differently via the 'e' *(CI. 
+<p class="level0">
+<p class="level0">&nbsp;1.<span Class="bold"> %CPU *(Em *(PU Usage </span> The task's share of the elapsed *(PU time since the last screen update, expressed as a percentage of total *(PU time. 
+<p class="level0">In a true SMP environment, if a process is multi-threaded and *(We is <span Class="emphasis">not</span> operating in Threads mode, amounts greater than 100% may be reported. You toggle Threads mode with the 'H' *(CI. 
+<p class="level0">Also for multi-processor environments, if 'Irix mode' is *F, *(We will operate in 'Solaris mode' where a task's *(Pu usage will be divided by the total number of *(PUs. You toggle 'Irix/Solaris' modes with the 'I' *(CI. 
+<p class="level0">
+<p class="level0">&nbsp;2.<span Class="bold"> %MEM *(Em Memory Usage (RES) </span> A task's currently used share of available *(MP. 
+<p class="level0">
+<p class="level0">&nbsp;3.<span Class="bold"> CGROUPS *(Em Control Groups </span> The names of the control group(s) to which a process belongs, or '-' if not applicable for that process. 
+<p class="level0">Control Groups provide for allocating resources (cpu, memory, network bandwidth, etc.) among installation-defined groups of processes. They enable fine-grained control over allocating, denying, prioritizing, managing and monitoring those resources. 
+<p class="level0">Many different hierarchies of cgroups can exist simultaneously on a system and each hierarchy is attached to one or more subsystems. A subsystem represents a single resource. 
+<p class="level0">*(NT The 'CGROUPS' field, unlike most columns, is not fixed-width. When displayed, it plus any other variable width columns will be allocated all remaining screen width (up to the maximum *(WX characters). Even so, such variable width fields could still suffer truncation. *(XT 5c. SCROLLING a Window for additional information on accessing any truncated data. 
+<p class="level0">
+<p class="level0">&nbsp;4.<span Class="bold"> CODE *(Em Code Size (KiB) </span> The amount of *(MP devoted to executable code, also known as the 'text resident set' size or TRS. 
+<p class="level0">
+<p class="level0">&nbsp;5.<span class="bold"> COMMAND *(Em Command<span Class="bold"> Name</span> or Command<span Class="bold"> Line </span> Display the command line used to start a task or the name of the associated program. You toggle between command<span Class="emphasis"> line</span> and<span Class="emphasis"> name</span> with 'c', which is both a *(CO and an *(CI. 
+<p class="level0">When you've chosen to display command lines, processes without a command line (like kernel threads) will be shown with only the program name in brackets, as in this example: &nbsp;   </span>[kthreadd] 
+<p class="level0">This field may also be impacted by the 'forest view' display mode. *(XC 'V' *(CI for additional information regarding that mode. 
+<p class="level0">*(NT The 'COMMAND' field, unlike most columns, is not fixed-width. When displayed, it plus any other variable width columns will be allocated all remaining screen width (up to the maximum *(WX characters). Even so, such variable width fields could still suffer truncation. This is especially true for this field when command lines are being displayed (the 'c' *(CI.) *(XT 5c. SCROLLING a Window for additional information on accessing any truncated data. 
+<p class="level0">
+<p class="level0">&nbsp;6.<span Class="bold"> DATA *(Em Data + Stack Size (KiB) </span> The amount of *(MP devoted to other than executable code, also known as the 'data resident set' size or DRS. 
+<p class="level0">
+<p class="level0">&nbsp;7.<span Class="bold"> ENVIRON *(Em Environment variables </span> Display all of the environment variables, if any, as seen by the respective processes. These variables will be displayed in their raw native order, not the sorted order you are accustomed to seeing with an unqualified 'set'. 
+<p class="level0">*(NT The 'ENVIRON' field, unlike most columns, is not fixed-width. When displayed, it plus any other variable width columns will be allocated all remaining screen width (up to the maximum *(WX characters). Even so, such variable width fields could still suffer truncation. This is especially true for this field. *(XT 5c. SCROLLING a Window for additional information on accessing any truncated data. 
+<p class="level0">
+<p class="level0">&nbsp;8.<span Class="bold"> Flags *(Em Task Flags </span> This column represents the task's current scheduling flags which are expressed in hexadecimal notation and with zeros suppressed. These flags are officially documented in &lt;linux/sched.h&gt;. 
+<p class="level0">
+<p class="level0">&nbsp;9.<span Class="bold"> GID *(Em Group Id </span> The<span Class="emphasis"> effective</span> group ID. 
+<p class="level0">
+<p class="level0">10.<span Class="bold"> GROUP *(Em Group Name </span> The<span Class="emphasis"> effective</span> group name. 
+<p class="level0">
+<p class="level0">11.<span Class="bold"> NI *(Em Nice Value </span> The nice value of the task. A negative nice value means higher priority, whereas a positive nice value means lower priority. Zero in this field simply means priority will not be adjusted in determining a task's dispatch-ability. 
+<p class="level0">
+<p class="level0">12.<span Class="bold"> P *(Em Last used *(PU (SMP) </span> A number representing the last used processor. In a true SMP environment this will likely change frequently since the kernel intentionally uses weak affinity. Also, the very act of running *(We may break this weak affinity and cause more processes to change *(PUs more often (because of the extra demand for *(Pu time). 
+<p class="level0">
+<p class="level0">13.<span Class="bold"> PGRP *(Em Process Group Id </span> Every process is member of a unique process group which is used for distribution of signals and by terminals to arbitrate requests for their input and output. When a process is created (forked), it becomes a member of the process group of its parent. By convention, this value equals the process ID (*(Xa PID) of the first member of a process group, called the process group leader. 
+<p class="level0">
+<p class="level0">14.<span Class="bold"> PID *(Em Process Id </span> The task's unique process ID, which periodically wraps, though never restarting at zero. In kernel terms, it is a dispatchable entity defined by a 'task_struct'. 
+<p class="level0">This value may also be used as: a process group ID (*(Xa PGRP); a session ID for the session leader (*(Xa SID); a thread group ID for the thread group leader (*(Xa TGID); and a TTY process group ID for the process group leader (*(Xa TPGID). 
+<p class="level0">
+<p class="level0">15.<span Class="bold"> PPID *(Em Parent Process Id </span> The process ID (pid) of a task's parent. 
+<p class="level0">
+<p class="level0">16.<span Class="bold"> PR *(Em Priority </span> The scheduling priority of the task. If you see 'rt' in this field, it means the task is running under 'real time' scheduling priority. 
+<p class="level0">Under linux, real time priority is somewhat misleading since traditionally the operating itself was not preemptible. And while the 2.6 kernel can be made mostly preemptible, it is not always so. 
+<p class="level0">
+<p class="level0">17.<span Class="bold"> RES *(Em Resident Memory Size (KiB) </span> The non-swapped *(MP a task has used. 
+<p class="level0">
+<p class="level0">18.<span Class="bold"> RUID *(Em Real User Id </span> The<span Class="emphasis"> real</span> user ID. 
+<p class="level0">
+<p class="level0">19.<span Class="bold"> RUSER *(Em Real User Name </span> The<span Class="emphasis"> real</span> user name. 
+<p class="level0">
+<p class="level0">20.<span Class="bold"> S *(Em Process Status </span> The status of the task which can be one of: &nbsp;   <span Class="bold">D</span> = uninterruptible sleep &nbsp;   <span Class="bold">R</span> = running &nbsp;   <span Class="bold">S</span> = sleeping &nbsp;   <span Class="bold">T</span> = traced or stopped &nbsp;   <span Class="bold">Z</span> = zombie 
+<p class="level0">Tasks shown as running should be more properly thought of as 'ready to run' *(Em their task_struct is simply represented on the Linux run-queue. Even without a true SMP machine, you may see numerous tasks in this state depending on *(We's delay interval and nice value. 
+<p class="level0">
+<p class="level0">21.<span Class="bold"> SHR *(Em Shared Memory Size (KiB) </span> The amount of *(MS available to a task, not all of which is typically resident. It simply reflects memory that could be potentially shared with other processes. 
+<p class="level0">
+<p class="level0">22.<span Class="bold"> SID *(Em Session Id </span> A session is a collection of process groups (*(Xa PGRP), usually established by the login shell. A newly forked process joins the session of its creator. By convention, this value equals the process ID (*(Xa PID) of the first member of the session, called the session leader, which is usually the login shell. 
+<p class="level0">
+<p class="level0">23.<span Class="bold"> SUID *(Em Saved User Id </span> The<span Class="emphasis"> saved</span> user ID. 
+<p class="level0">
+<p class="level0">24.<span Class="bold"> SUPGIDS *(Em Supplementary Group IDs </span> The IDs of any supplementary group(s) established at login or inherited from a task's parent. They are displayed in a comma delimited list. 
+<p class="level0">*(NT The 'SUPGIDS' field, unlike most columns, is not fixed-width. When displayed, it plus any other variable width columns will be allocated all remaining screen width (up to the maximum *(WX characters). Even so, such variable width fields could still suffer truncation. *(XT 5c. SCROLLING a Window for additional information on accessing any truncated data. 
+<p class="level0">
+<p class="level0">25.<span Class="bold"> SUPGRPS *(Em Supplementary Group Names </span> The names of any supplementary group(s) established at login or inherited from a task's parent. They are displayed in a comma delimited list. 
+<p class="level0">*(NT The 'SUPGRPS' field, unlike most columns, is not fixed-width. When displayed, it plus any other variable width columns will be allocated all remaining screen width (up to the maximum *(WX characters). Even so, such variable width fields could still suffer truncation. *(XT 5c. SCROLLING a Window for additional information on accessing any truncated data. 
+<p class="level0">
+<p class="level0">26.<span Class="bold"> SUSER *(Em Saved User Name </span> The<span Class="emphasis"> saved</span> user name. 
+<p class="level0">
+<p class="level0">27.<span Class="bold"> SWAP *(Em Swapped Size (KiB) </span> The non-resident portion of a task's address space. 
+<p class="level0">
+<p class="level0">28.<span Class="bold"> TGID *(Em Thread Group Id </span> The ID of the thread group to which a task belongs. It is the PID of the thread group leader. In kernel terms, it represents those tasks that share an 'mm_struct'. 
+<p class="level0">
+<p class="level0">29.<span Class="bold"> TIME *(Em *(PU Time </span> Total *(PU time the task has used since it started. When 'Cumulative mode' is *O, each process is listed with the *(Pu time that it and its dead children have used. You toggle 'Cumulative mode' with 'S', which is both a *(CO and an *(CI. *(XC 'S' *(CI for additional information regarding this mode. 
+<p class="level0">
+<p class="level0">30.<span Class="bold"> TIME+ *(Em *(PU Time, hundredths </span> The same as 'TIME', but reflecting more granularity through hundredths of a second. 
+<p class="level0">
+<p class="level0">31.<span Class="bold"> TPGID *(Em Tty Process Group Id </span> The process group ID of the foreground process for the connected tty, or -1 if a process is not connected to a terminal. By convention, this value equals the process ID (*(Xa PID) of the process group leader (*(Xa PGRP). 
+<p class="level0">
+<p class="level0">32.<span Class="bold"> TTY *(Em Controlling Tty </span> The name of the controlling terminal. This is usually the device (serial port, pty, etc.) from which the process was started, and which it uses for input or output. However, a task need not be associated with a terminal, in which case you'll see '?' displayed. 
+<p class="level0">
+<p class="level0">33.<span Class="bold"> UID *(Em User Id </span> The<span Class="emphasis"> effective</span> user ID of the task's owner. 
+<p class="level0">
+<p class="level0">34.<span Class="bold"> USED *(Em Memory in Use (KiB) </span> This field represents the non-swapped *(MP a task has used (RES) plus the non-resident portion of its address space (SWAP). 
+<p class="level0">
+<p class="level0">35.<span Class="bold"> USER *(Em User Name </span> The<span Class="emphasis"> effective</span> user name of the task's owner. 
+<p class="level0">
+<p class="level0">36.<span Class="bold"> VIRT *(Em Virtual Memory Size (KiB) </span> The total amount of *(MV used by the task. It includes all code, data and shared libraries plus pages that have been swapped out and pages that have been mapped but not used. 
+<p class="level0">
+<p class="level0">37.<span Class="bold"> WCHAN *(Em Sleeping in Function </span> Depending on the availability of the kernel link map ('System.map'), this field will show the name or the address of the kernel function in which the task is currently sleeping. Running tasks will display a dash ('-') in this column. 
+<p class="level0">By displaying this field, *(We's own working set could be increased by over 700Kb, depending on the kernel version. Should that occur, your only means of reducing that overhead will be to stop and restart *(We. 
+<p class="level0">
+<p class="level0">38.<span Class="bold"> nDRT *(Em Dirty Pages Count </span> The number of pages that have been modified since they were last written to *(AS. Dirty pages must be written to *(AS before the corresponding physical memory location can be used for some other virtual page. 
+<p class="level0">
+<p class="level0">39.<span Class="bold"> nMaj *(Em Major Page Fault Count </span> The number of<span Class="bold"> major</span> page faults that have occurred for a task. A page fault occurs when a process attempts to read from or write to a virtual page that is not currently present in its address space. A major page fault is when *(AS access is involved in making that page available. 
+<p class="level0">
+<p class="level0">40.<span Class="bold"> nMin *(Em Minor Page Fault count </span> The number of<span Class="bold"> minor</span> page faults that have occurred for a task. A page fault occurs when a process attempts to read from or write to a virtual page that is not currently present in its address space. A minor page fault does not involve *(AS access in making that page available. 
+<p class="level0">
+<p class="level0">41.<span Class="bold"> nTH *(Em Number of Threads </span> The number of threads associated with a process. 
+<p class="level0">
+<p class="level0">42.<span Class="bold"> nsIPC *(Em IPC namespace </span> The Inode of the namespace used to isolate interprocess communication (IPC) resources such as System V IPC objects and POSIX message queues. 
+<p class="level0">
+<p class="level0">43.<span Class="bold"> nsMNT *(Em MNT namespace </span> The Inode of the namespace used to isolate filesystem mount points thus offering different views of the filesystem hierarchy. 
+<p class="level0">
+<p class="level0">44.<span Class="bold"> nsNET *(Em NET namespace </span> The Inode of the namespace used to isolate resources such as network devices, IP addresses, IP routing, port numbers, etc. 
+<p class="level0">
+<p class="level0">45.<span Class="bold"> nsPID *(Em PID namespace </span> The Inode of the namespace used to isolate process ID numbers meaning they need not remain unique. Thus, each such namespace could have its own 'init' (PID &#35;1) to manage various initialization tasks and reap orphaned child processes. 
+<p class="level0">
+<p class="level0">46.<span Class="bold"> nsUSER *(Em USER namespace </span> The Inode of the namespace used to isolate the user and group ID numbers. Thus, a process could have a normal unprivileged user ID outside a user namespace while having a user ID of 0, with full root privileges, inside that namespace. 
+<p class="level0">
+<p class="level0">47.<span Class="bold"> nsUTS *(Em UTS namespace </span> The Inode of the namespace used to isolate hostname and NIS domain name. UTS simply means "UNIX Time-sharing System". 
+<p class="level0">
+<p class="level0">48.<span Class="bold"> vMj *(Em Major Page Fault Count Delta</span> The number of<span Class="bold"> major</span> page faults that have occurred since the last update (see nMaj). 
+<p class="level0">
+<p class="level0">49.<span Class="bold"> vMn *(Em Minor Page Fault Count Delta</span> The number of<span Class="bold"> minor</span> page faults that have occurred since the last update (see nMin). 
+<p class="level0">
+<p class="level0"><a name="3b"></a><h2 class="nroffsh">3b. MANAGING Fields</h2>
+<p class="level0">After pressing the *(CI 'f' or 'F' (Fields Management) you will be presented with a screen showing: 1) the *(CW name; 2) the designated sort field; 3) all fields in their current order along with descriptions. Entries marked with an asterisk are the currently displayed fields, screen width permitting. 
+<p class="level0">
+<p class="level1">
+<p class="level1">As the on screen instructions indicate, you navigate among the fields with the<span Class="bold"> Up</span> and<span Class="bold"> Down</span> *(KAs. The PgUp, PgDn, Home and End keys can also be used to quickly reach the first or last available field. 
+<p class="level1">
+<p class="level1">The<span Class="bold"> Right</span> *(KA selects a field for repositioning and the<span Class="bold"> Left</span> *(KA or the &lt;<span Class="bold">Enter</span>&gt; key commits that field's placement. 
+<p class="level1">
+<p class="level1">The '<span Class="bold">d</span>' key or the &lt;<span Class="bold">Space</span>&gt; bar toggles a field's display status, and thus the presence or absence of the asterisk. 
+<p class="level1">
+<p class="level1">The '<span Class="bold">s</span>' key designates a field as the sort field. *(XT 4c. TASK AREA Commands, SORTING for additional information regarding your selection of a sort field. 
+<p class="level1">
+<p class="level1">The '<span Class="bold">a</span>' and '<span Class="bold">w</span>' keys can be used to cycle through all available windows and the '<span Class="bold">q</span>' or &lt;<span Class="bold">Esc</span>&gt; keys exit Fields Management. 
+<p class="level2">
+<p class="level2">
+<p class="level2">The Fields Management screen can also be used to change the *(CG in either *(FM or *(AM. Whatever was targeted when 'q' or &lt;Esc&gt; was pressed will be made current as you return to the *(We display. *(XT 5. ALTERNATE-DISPLAY Provisions and the 'g' *(CI for insight into *(CWs and *(FGs. 
+<p class="level2">
+<p class="level2">*(NT Any window that has been scrolled<span Class="emphasis"> horizontally</span> will be reset if any field changes are made via the Fields Management screen. Any<span Class="emphasis"> vertical</span> scrolled position, however, will not be affected. *(XT 5c. SCROLLING a Window for additional information regarding vertical and horizontal scrolling. 
+<p class="level2"><a name="4"></a><h2 class="nroffsh">4. INTERACTIVE Commands</h2>
+<p class="level0">Listed below is a brief index of commands within categories. Some commands appear more than once *(Em their meaning or scope may vary depending on the context in which they are issued. 
+<p class="level0"><pre class="level0">
+&nbsp; 4a.<span class="emphasis"> Global-Commands </span>
+&nbsp;       &lt;Ent/Sp&gt; ?, =, 0,
+&nbsp;       A, B, d, E, e, g, h, H, I, k, q, r, s, W, X, Y, Z
+&nbsp; 4b.<span class="emphasis"> Summary-Area-Commands </span>
+&nbsp;       C, l, t, m, 1, 2, 3
+&nbsp; 4c.<span class="emphasis"> Task-Area-Commands </span>
+&nbsp;       Appearance:  b, J, j, x, y, z
+&nbsp;       Content:     c, f, F, o, O, S, u, U, V
+&nbsp;       Size:        &#35;, i, n
+&nbsp;       Sorting:     &lt;, &gt;, f, F, R
+&nbsp; 4d.<span class="emphasis"> Color-Mapping </span>
+&nbsp;       &lt;Ret&gt;, a, B, b, H, M, q, S, T, w, z, 0 - 7
+&nbsp; 5b.<span class="emphasis"> Commands-for-Windows </span>
+&nbsp;       -, _, =, +, A, a, g, G, w
+&nbsp; 5c.<span class="emphasis"> Scrolling-a-Window </span>
+&nbsp;       C, Up, Dn, Left, Right, PgUp, PgDn, Home, End
+&nbsp; 5d.<span class="emphasis"> Searching-in-a-Window </span>
+&nbsp;       L, &
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="4a"></a><h2 class="nroffsh">4a. GLOBAL Commands</h2>
+<p class="level0">The global *(CIs are<span Class="bold"> always</span> available</span> in both *(FM and *(AM. However, some of these *(CIs are<span Class="bold"> not available</span> when running in 'Secure mode'. 
+<p class="level0">If you wish to know in advance whether or not your *(We has been secured, simply ask for help and view the system summary on the second line. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&lt;<span Class="bold">Enter</span>&gt; or &lt;<span Class="bold">Space</span>&gt;&nbsp;&nbsp;:<span Class="emphasis">Refresh-Display </span> These commands awaken *(We and following receipt of any input the entire display will be repainted. They also force an update of any hotplugged *(Pu or *(MP changes. 
+<p class="level0">Use either of these keys if you have a large delay interval and wish to see current status, 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<a class="bold" href="#">?</a> | <span Class="bold">h</span>&nbsp;&nbsp;:<span Class="emphasis">Help </span> There are two help levels available. The first will provide a reminder of all the basic *(CIs. If *(We is<span Class="emphasis"> secured</span>, that screen will be abbreviated. 
+<p class="level0">Typing 'h' or '?' on that help screen will take you to help for those *(CIs applicable to *(AM. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<a class="bold" href="#">=</a>&nbsp;&nbsp;:<span Class="emphasis">Exit-Task-Limits </span> Removes restrictions on which tasks are shown. This command will reverse any 'i' (idle tasks) and 'n' (max tasks) commands that might be active. It also provides for an exit from pid monitoring, 'user' filtering and 'other' filtering. See the '-p' *(CO for a discussion of PID monitoring, the 'U' or 'u' *(CIs for user filtering and the 'O' or 'o' *(CIs for 'other' filtering. 
+<p class="level0">Additionally, any window that has been scrolled will be reset with this command. *(XT 5c. SCROLLING a Window for additional information regarding vertical and horizontal scrolling. 
+<p class="level0">When operating in *(AM this command has a broader meaning. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">0</span>&nbsp;&nbsp;:<span Class="emphasis">Zero-Suppress</span> toggle </span> This command determines whether zeros are shown or suppressed for many of the fields in a *(TW. Fields like UID, GID, NI, PR or P are not affected by this toggle. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">A</span>&nbsp;&nbsp;:<span Class="emphasis">Alternate-Display-Mode</span> toggle </span> This command will switch between *(FM and *(AM. *(XT 5. ALTERNATE-DISPLAY Provisions and the 'g' *(CI for insight into *(CWs and *(FGs. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">B</span>&nbsp;&nbsp;:<span Class="emphasis">Bold-Disable/Enable</span> toggle </span> This command will influence use of the 'bold' terminfo capability and alters<span Class="bold"> both</span> the *(SA and *(TA for the *(CW. While it is intended primarily for use with dumb terminals, it can be applied anytime. 
+<p class="level0">*(NT When this toggle is *O and *(We is operating in monochrome mode, the<span Class="bold"> entire display</span> will appear as normal text. Thus, unless the 'x' and/or 'y' toggles are using reverse for emphasis, there will be no visual confirmation that they are even on. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">d</span> | <span Class="bold">s</span>&nbsp;&nbsp;:<span Class="emphasis">Change-Delay-Time-interval </span> You will be prompted to enter the delay time, in seconds, between display updates. 
+<p class="level0">Fractional seconds are honored, but a negative number is not allowed. Entering 0 causes (nearly) continuous updates, with an unsatisfactory display as the system and tty driver try to keep up with *(We's demands. The delay value is inversely proportional to system loading, so set it with care. 
+<p class="level0">If at any time you wish to know the current delay time, simply ask for help and view the system summary on the second line. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">E</span>&nbsp;&nbsp;:<span Class="emphasis">Extend-Memory-Scale</span> in Summary Area With this command you can cycle through the available *(SA memory scaling which ranges from KiB (kibibytes or 1,024 bytes) through EiB (exbibytes or 1,152,921,504,606,846,976 bytes). 
+<p class="level0">If you see a '+' between a displayed number and the following label, it means that *(We was forced to truncate some portion of that number. By raising the scaling factor, such truncation can be avoided. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">e</span>&nbsp;&nbsp;:<span Class="emphasis">Extend-Memory-Scale</span> in Task Windows With this command you can cycle through the available *(TW memory scaling which ranges from KiB (kibibytes or 1,024 bytes) through PiB (pebibytes or 1,125,899,906,842,624 bytes). 
+<p class="level0">While *(We will try to honor the selected target range, additional scaling might still be necessary in order to accommodate current values. If you wish to see a more homogeneous result in the memory columns, raising the scaling range will usually accomplish that goal. Raising it too high, however, is likely to produce an all zero result which cannot be suppressed with the '0' *(CI. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">g</span>&nbsp;&nbsp;:<span Class="emphasis">Choose-Another-Window/Field-Group </span> You will be prompted to enter a number between 1 and 4 designating the *(FG which should be made the *(CW. You will soon grow comfortable with these 4 windows, especially after experimenting with *(AM. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">H</span>&nbsp;&nbsp;:<span Class="emphasis">Threads-mode</span> toggle </span> When this toggle is *O, individual threads will be displayed for all processes in all visible *(TWs. Otherwise, *(We displays a summation of all threads in each process. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">I</span>&nbsp;&nbsp;:<span Class="emphasis">Irix/Solaris-Mode</span> toggle </span> When operating in 'Solaris mode' ('I' toggled *F), a task's *(Pu usage will be divided by the total number of *(PUs. After issuing this command, you'll be told the new state of this toggle. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">k</span>&nbsp;&nbsp;:<span Class="emphasis">Kill-a-task </span> You will be prompted for a PID and then the signal to send. 
+<p class="level0">Entering no PID or a negative number will be interpreted as the default shown in the prompt (the first task displayed). A PID value of zero means the *(We program itself. 
+<p class="level0">The default signal, as reflected in the prompt, is SIGTERM. However, you can send any signal, via number or name. 
+<p class="level0">If you wish to abort the kill process, do one of the following depending on your progress: <pre class="level0">
+&nbsp;   1) at the pid prompt, type an invalid number
+&nbsp;   2) at the signal prompt, type 0 (or any invalid signal)
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">q</span>&nbsp;&nbsp;:<span Class="emphasis">Quit </span> 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">r</span>&nbsp;&nbsp;:<span Class="emphasis">Renice-a-Task </span> You will be prompted for a PID and then the value to nice it to. 
+<p class="level0">Entering no PID or a negative number will be interpreted as the default shown in the prompt (the first task displayed). A PID value of zero means the *(We program itself. 
+<p class="level0">A positive nice value will cause a process to lose priority. Conversely, a negative nice value will cause a process to be viewed more favorably by the kernel. As a general rule, ordinary users can only increase the nice value and are prevented from lowering it. 
+<p class="level0">If you wish to abort the renice process, do one of the following depending on your progress: <pre class="level0">
+&nbsp;   1) at the pid prompt, type an invalid number
+&nbsp;   2) at the nice prompt, type &lt;Enter&gt; with no input
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">W</span>&nbsp;&nbsp;:<span Class="emphasis">Write-the-Configuration-File </span> This will save all of your options and toggles plus the current display mode and delay time. By issuing this command just before quitting *(We, you will be able restart later in exactly that same state. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">X</span>&nbsp;&nbsp;:<span Class="emphasis">Extra-Fixed-Width </span> Some fields are fixed width and not scalable. As such, they are subject to truncation which would be indicated by a '+' in the last position. 
+<p class="level0">This *(CI can be used to alter the widths of the following fields: 
+<p class="level0"><pre class="level0">
+&nbsp;  <span class="emphasis"> field  default    field  default    field  default </span>
+&nbsp;   GID       5       GROUP     8       WCHAN    10
+&nbsp;   RUID      5       RUSER     8       nsIPC    10
+&nbsp;   SUID      5       SUSER     8       nsMNT    10
+&nbsp;   UID       5       USER      8       nsNET    10
+&nbsp;                     TTY       8       nsPID    10
+&nbsp;                                       nsUSR    10
+&nbsp;                                       nsUTS    10
+</pre>
+
+<p class="level0">
+<p class="level0">You will be prompted for the amount to be added to the default widths shown above. Entering zero forces a return to those defaults. 
+<p class="level0">If you enter a negative number, *(We will automatically increase the column size as needed until there is no more truncated data. You can accelerate this process by reducing the delay interval or holding down the &lt;Space&gt; bar. 
+<p class="level0">*(NT Whether explicitly or automatically increased, the widths for these fields are never decreased by *(We. To narrow them you must specify a smaller number or restore the defaults. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">Y</span>&nbsp;&nbsp;:<span Class="emphasis">Inspect-Other-Output </span> After issuing the 'Y' *(CI, you will be prompted for a target PID. Typing a value or accepting the default results in a separate screen. That screen can be used to view a variety of files or piped command output while the normal *(We iterative display is paused. 
+<p class="level0">*(NT This *(CI is only fully realized when supporting entries have been manually added to the end of the *(We *(CF. For details on creating those entries, *(Xt 6c. ADDING INSPECT Entries. 
+<p class="level0">Most of the keys used to navigate the Inspect feature are reflected in its header prologue. There are, however, additional keys available once you have selected a particular file or command. They are familiar to anyone who has used the pager 'less' and are summarized here for future reference. 
+<p class="level0"><pre class="level0">
+&nbsp;  <span class="emphasis"> key      function </span>
+&nbsp;   '='      alternate status-line, file or pipeline
+&nbsp;   '/'      find, equivalent to 'L' locate
+&nbsp;   'n'      find next, equivalent to '&' locate next
+&nbsp;   &lt;Space&gt;  scroll down, equivalent to &lt;PgDn&gt;
+&nbsp;   'b'      scroll up, equivalent to &lt;PgUp&gt;
+&nbsp;   'g'      first line, equivalent to &lt;Home&gt;
+&nbsp;   'G'      last line, equivalent to &lt;End&gt;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">Z</span>&nbsp;&nbsp;:<span Class="emphasis">Change-Color-Mapping </span> This key will take you to a separate screen where you can change the colors for the *(CW, or for all windows. For details regarding this *(CI *(Xt 4d. COLOR Mapping. 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip">* 3</span> 
+<p class="level1">The commands shown with an *(AK are not available in 'Secure mode', nor will they be shown on the level-1 help screen. 
+<p class="level1"><a name="4b"></a><h2 class="nroffsh">4b. SUMMARY AREA Commands</h2>
+<p class="level0">The *(SA *(CIs are<span Class="bold"> always available</span> in both *(FM and *(AM. They affect the beginning lines of your display and will determine the position of messages and prompts. 
+<p class="level0">These commands always impact just the *(CG. *(XT 5. ALTERNATE-DISPLAY Provisions and the 'g' *(CI for insight into *(CWs and *(FGs. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">C</span>&nbsp;&nbsp;:<span Class="emphasis">Show-scroll-coordinates</span> toggle </span> Toggle an informational message which is displayed whenever the message line is not otherwise being used. For additional information *(Xt 5c. SCROLLING a Window. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">l</span>&nbsp;&nbsp;:<span Class="emphasis">Load-Average/Uptime</span> toggle </span> This is also the line containing the program name (possibly an alias) when operating in *(FM or the *(CW name when operating in *(AM. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">t</span>&nbsp;&nbsp;:<span Class="emphasis">Task/Cpu-States</span> toggle </span> This command affects from 2 to many *(SA lines, depending on the state of the '1', '2' or '3' *(CTs and whether or not *(We is running under true SMP. 
+<p class="level0">This portion of the *(SA is also influenced by the 'H' *(CI toggle, as reflected in the total label which shows either 'Tasks' or 'Threads'. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">m</span>&nbsp;&nbsp;:<span Class="emphasis">Memory/Swap-Usage</span> toggle </span> This command affects the two *(SA lines dealing with physical and virtual memory. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<a class="bold" href="#1">1</a>&nbsp;&nbsp;:<span Class="emphasis">Single/Separate-Cpu-States</span> toggle </span> This command affects how the 't' command's Cpu States portion is shown. Although this toggle exists primarily to serve massively-parallel SMP machines, it is not restricted to solely SMP environments. 
+<p class="level0">When you see '%Cpu(s):' in the *(SA, the '1' toggle is *O and all *(Pu information is gathered in a single line. Otherwise, each *(Pu is displayed separately as: '%Cpu0, %Cpu1, ...' up to available screen height. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<a class="bold" href="#2">2</a>&nbsp;&nbsp;:<span Class="emphasis">NUMA-Nodes/Cpu-Summary</span> toggle </span> This command toggles between the '1' command cpu summary display (only) or a summary display plus the cpu usage statistics for each NUMA Node. It is only available if a system has the requisite NUMA support. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<a class="bold" href="#3">3</a>&nbsp;&nbsp;:<span Class="emphasis">Expand-NUMA-Node </span> You will be invited to enter a number representing a NUMA Node. Thereafter, a node summary plus the statistics for each cpu in that node will be shown until either the '1' or '2' *(CT is pressed. This *(CI is only available if a system has the requisite NUMA support. 
+<p class="level0">
+<p class="level0">*(NT If the entire *(SA has been toggled *F for any window, you would be left with just the<span Class="bold"> message line</span>. In that way, you will have maximized available task rows but (temporarily) sacrificed the program name in *(FM or the *(CW name when in *(AM. 
+<p class="level0"><a name="4c"></a><h2 class="nroffsh">4c. TASK AREA Commands</h2>
+<p class="level0">The *(TA *(CIs are<span Class="bold"> always</span> available in *(FM. 
+<p class="level0">The *(TA *(CIs are<span Class="bold"> never available</span> in *(AM<span Class="emphasis"> if</span> the *(CW's *(TD has been toggled *F (*(Xt 5. ALTERNATE-DISPLAY Provisions). 
+<p class="level0">
+<p class="level0"><span Class="bold">APPEARANCE of \*(TW</span> 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">J</span>&nbsp;&nbsp;:<span Class="emphasis">Justify-Numeric-Columns</span> toggle </span> Alternates between right-justified (the default) and left-justified numeric data. If the numeric data completely fills the available column, this *(CT may impact the column header only. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">j</span>&nbsp;&nbsp;:<span Class="emphasis">Justify-Character-Columns</span> toggle </span> Alternates between left-justified (the default) and right-justified character data. If the character data completely fills the available column, this *(CT may impact the column header only. 
+<p class="level0">
+<p class="level0">
+<p class="level1">The following commands will also be influenced by the state of the global 'B' (bold enable) toggle. 
+<p class="level2">
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">b</span>&nbsp;&nbsp;:<span Class="emphasis">Bold/Reverse</span> toggle </span> This command will impact how the 'x' and 'y' toggles are displayed. Further, it will only be available when at least one of those toggles is *O. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">x</span>&nbsp;&nbsp;:<span Class="emphasis">Column-Highlight</span> toggle </span> Changes highlighting for the current sort field. If you forget which field is being sorted this command can serve as a quick visual reminder, providing the sort field is being displayed. The sort field might<span Class="emphasis"> not</span> be visible because: &nbsp;   1) there is insufficient<span Class="emphasis"> Screen Width </span> &nbsp;   2) the 'f' *(CI turned it *F 
+<p class="level2">*(NT Whenever 'Searching' and/or 'Other Filtering' is active in a window, column highlighting is temporarily disabled. *(XC notes at the end of topics 5d. SEARCHING and 5e. FILTERING for an explanation why. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">y</span>&nbsp;&nbsp;:<span Class="emphasis">Row-Highlight</span> toggle </span> Changes highlighting for "running" tasks. For additional insight into this task state, *(Xt 3a. DESCRIPTIONS of Fields, the 'S' field (Process Status). 
+<p class="level2">Use of this provision provides important insight into your system's health. The only costs will be a few additional tty escape sequences. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">z</span>&nbsp;&nbsp;:<span Class="emphasis">Color/Monochrome</span> toggle </span> Switches the *(CW between your last used color scheme and the older form of black-on-white or white-on-black. This command will alter<span Class="bold"> both</span> the *(SA and *(TA but does not affect the state of the 'x', 'y' or 'b' toggles. 
+<p class="level2">
+<p class="level2"><span Class="bold">CONTENT of \*(TW</span> 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">c</span>&nbsp;&nbsp;:<span Class="emphasis">Command-Line/Program-Name</span> toggle </span> This command will be honored whether or not the 'COMMAND' column is currently visible. Later, should that field come into view, the change you applied will be seen. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">f</span> | <span Class="bold">F</span>&nbsp;&nbsp;:<span Class="emphasis">Fields-Management </span> These keys display a separate screen where you can change which fields are displayed, their order and also designate the sort field. For additional information on these *(CIs *(Xt 3b. MANAGING Fields. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<a class="bold" href="#o">o</a> | <span Class="bold">O</span>&nbsp;&nbsp;:<span Class="emphasis">Other-Filtering </span> You will be prompted for the selection criteria which then determines which tasks will be shown in the *(CW. Your criteria can be made case sensitive or case can be ignored. And you determine if *(We should include or exclude matching tasks. 
+<p class="level2">*(XT 5e. FILTERING in a window for details on these and additional related *(CIs. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">S</span>&nbsp;&nbsp;:<span Class="emphasis">Cumulative-Time-Mode</span> toggle </span> When 'Cumulative mode' is *O, each process is listed with the *(Pu time that it and its dead children have used. 
+<p class="level2">When *F, programs that fork into many separate tasks will appear less demanding. For programs like 'init' or a shell this is appropriate but for others, like compilers, perhaps not. Experiment with two *(TWs sharing the same sort field but with different 'S' states and see which representation you prefer. 
+<p class="level2">After issuing this command, you'll be informed of the new state of this toggle. If you wish to know in advance whether or not 'Cumulative mode' is in effect, simply ask for help and view the window summary on the second line. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">u</span> | <span Class="bold">U</span>&nbsp;&nbsp;:<span Class="emphasis">Show-Specific-User-Only </span> You will be prompted for the<span Class="bold"> uid</span> or<span Class="bold"> name</span> of the user to display. The '-u' option matches on <span Class="bold"> effective</span> user whereas the '-U' option matches on<span Class="bold"> any</span> user (real, effective, saved, or filesystem). 
+<p class="level2">Thereafter, in that *(TW only matching users will be shown, or possibly no processes will be shown. Prepending an exclamation point ('!') to the user id or name instructs top to display only processes with users not matching the one provided. 
+<p class="level2">Different *(TWs can be used to filter different users. Later, if you wish to monitor all users again in the *(CW, re-issue this command but just press &lt;Enter&gt; at the prompt. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">V</span>&nbsp;&nbsp;:<span Class="emphasis">Forest-View-Mode</span> toggle </span> In this mode, processes are reordered according to their parents and the layout of the COMMAND column resembles that of a tree. In forest view mode it is still possible to toggle between program name and command line (*(Xc 'c' *(CI) or between processes and threads (*(Xc 'H' *(CI). 
+<p class="level2">*(NT Typing any key affecting the sort order will exit forest view mode in the *(CW. *(XT 4c. TASK AREA Commands, SORTING for information on those keys. 
+<p class="level2">
+<p class="level2"><span Class="bold">SIZE of \*(TW</span> 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">i</span>&nbsp;&nbsp;:<span Class="emphasis">Idle-Process</span> toggle </span> Displays all tasks or just active tasks. When this toggle is *F, tasks that have not used any *(PU since the last update will not be displayed. However, due to the granularity of the %CPU and TIME+ fields, some processes may still be displayed that<span Class="emphasis"> appear</span> to have used<span Class="emphasis"> no</span> *(PU. 
+<p class="level2">If this command is applied to the last *(TD when in *(AM, then it will not affect the window's size, as all prior *(TDs will have already been painted. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">n</span> | <span Class="bold">&#35;</span>&nbsp;&nbsp;:<span Class="emphasis">Set-Maximum-Tasks </span> You will be prompted to enter the number of tasks to display. The lessor of your number and available screen rows will be used. 
+<p class="level2">When used in *(AM, this is the command that gives you precise control over the size of each currently visible *(TD, except for the very last. It will not affect the last window's size, as all prior *(TDs will have already been painted. 
+<p class="level2">*(NT If you wish to increase the size of the last visible *(TD when in *(AM, simply decrease the size of the *(TD(s) above it. 
+<p class="level2">
+<p class="level2"><span Class="bold">SORTING of \*(TW</span> For compatibility, this *(We supports most of the former *(We sort keys. Since this is primarily a service to former *(We users, these commands do not appear on any help screen. <pre class="level2">
+&nbsp; <span class="emphasis"> command   sorted-field                  supported </span>
+&nbsp;    A         start time (non-display)     <span class="bold"> No </span>
+&nbsp;    M         %MEM                          Yes
+&nbsp;    N         PID                           Yes
+&nbsp;    P         %CPU                          Yes
+&nbsp;    T         TIME+                         Yes
+</pre>
+
+<p class="level2">
+<p class="level2">Before using any of the following sort provisions, *(We suggests that you temporarily turn on column highlighting using the 'x' *(CI. That will help ensure that the actual sort environment matches your intent. 
+<p class="level2">The following *(CIs will<span Class="bold"> only</span> be honored when the current sort field is<span Class="bold"> visible</span>. The sort field might<span Class="emphasis"> not</span> be visible because: &nbsp;    1) there is insufficient<span Class="emphasis"> Screen Width </span> &nbsp;    2) the 'f' *(CI turned it *F 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">&lt;</span>&nbsp;&nbsp;:<span Class="emphasis">Move-Sort-Field-Left </span> Moves the sort column to the left unless the current sort field is the first field being displayed. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">&gt;</span>&nbsp;&nbsp;:<span Class="emphasis">Move-Sort-Field-Right </span> Moves the sort column to the right unless the current sort field is the last field being displayed. 
+<p class="level2">
+<p class="level2">
+<p class="level2">The following *(CIs will<span Class="bold"> always</span> be honored whether or not the current sort field is visible. 
+<p class="level2">
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">f</span> | <span Class="bold">F</span>&nbsp;&nbsp;:<span Class="emphasis">Fields-Management </span> These keys display a separate screen where you can change which field is used as the sort column, among other functions. This can be a convenient way to simply verify the current sort field, when running *(We with column highlighting turned *F. 
+<p class="level2">
+<p class="level2">&nbsp;&nbsp;&nbsp;<span Class="bold">R</span>&nbsp;&nbsp;:<span Class="emphasis">Reverse/Normal-Sort-Field</span> toggle </span> Using this *(CI you can alternate between high-to-low and low-to-high sorts. 
+<p class="level2">
+<p class="level2">
+<p class="level2">*(NT Field sorting uses internal values, not those in column display. Thus, the TTY and WCHAN fields will violate strict ASCII collating sequence. 
+<p class="level2">
+<p class="level2"><a name="4d"></a><h2 class="nroffsh">4d. COLOR Mapping</h2>
+<p class="level0">When you issue the 'Z' *(CI, you will be presented with a separate screen. That screen can be used to change the colors in just the *(CW or in all four windows before returning to the *(We display. 
+<p class="level0">
+<p class="level0">The following *(CIs are available. <pre class="level0">
+&nbsp;   <span class="bold">4</span> upper case letters to select a<span class="bold"> target </span>
+&nbsp;   <span class="bold">8</span> numbers to select a<span class="bold"> color </span>
+&nbsp;   normal toggles available </span>
+&nbsp;       'B'       :bold disable/enable
+&nbsp;       'b'       :running tasks "bold"/reverse
+&nbsp;       'z'       :color/mono
+&nbsp;   other commands available </span>
+&nbsp;       'a'/'w'   :apply, then go to next/prior
+&nbsp;       &lt;Enter&gt;   :apply and exit
+&nbsp;       'q'       :abandon current changes and exit
+</pre>
+
+<p class="level0">
+<p class="level0">If you use 'a' or 'w' to cycle the targeted window, you will have applied the color scheme that was displayed when you left that window. You can, of course, easily return to any window and reapply different colors or turn colors *F completely with the 'z' toggle. 
+<p class="level0">The Color Mapping screen can also be used to change the *(CG in either *(FM or *(AM. Whatever was targeted when 'q' or &lt;Enter&gt; was pressed will be made current as you return to the *(We display. 
+<p class="level0"><a name="5"></a><h2 class="nroffsh">5. ALTERNATE-DISPLAY Provisions</h2>
+<p class="level0"><a name="5a"></a><h2 class="nroffsh">5a. WINDOWS Overview</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Field Groups/Windows:</span> In *(FM there is a single window represented by the entire screen. That single window can still be changed to display 1 of 4 different<span class="bold"> field groups</span> (*(Xc 'g' *(CI, repeated below). Each of the 4 *(FGs has a unique separately configurable<span Class="bold"> *(SA </span> and its own configurable<span Class="bold"> *(TA</span>. 
+<p class="level0">In *(AM, those 4 underlying *(FGs can now be made visible simultaneously, or can be turned *F individually at your command. 
+<p class="level0">The *(SA will always exist, even if it's only the message line. At any given time only<span Class="emphasis"> one</span> *(SA can be displayed. However, depending on your commands, there could be from<span Class="emphasis"> zero </span> to<span Class="emphasis"> four</span> separate *(TDs currently showing on the screen. 
+<p class="level0">
+<p class="level0"><span Class="bold">Current Window:</span> The *(CW is the window associated with the *(SA and the window to which task related commands are always directed. Since in *(AM you can toggle the *(TD *F, some commands might be restricted for the *(CW. 
+<p class="level0">A further complication arises when you have toggled the first *(SA line *F. With the loss of the window name (the 'l' toggled line), you'll not easily know what window is the *(CW. 
+<p class="level0"><a name="5b"></a><h2 class="nroffsh">5b. COMMANDS for Windows</h2>
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">-</span> | <a class="bold" href="#">_</a>&nbsp;&nbsp;:<span Class="emphasis">Show/Hide-Window(s)</span> toggles </span> The '-' key turns the *(CW's *(TD *O and *F. When *O, that *(TA will show a minimum of the columns header you've established with the 'f' *(CI. It will also reflect any other *(TA options/toggles you've applied yielding zero or more tasks. 
+<p class="level0">The '_' key does the same for all *(TDs. In other words, it switches between the currently visible *(TD(s) and any *(TD(s) you had toggled *F. If all 4 *(TDs are currently visible, this *(CI will leave the *(SA as the only display element. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<a class="bold" href="#">=</a> | <a class="bold" href="#">+</a>&nbsp;&nbsp;:<span Class="emphasis">Equalize-(reinitialize)-Window(s) </span> The '=' key forces the *(CW's *(TD to be visible. It also reverses any 'i' (idle tasks), 'n' (max tasks), 'u'/'U' (user filter) and 'o'/'O' (other filter) commands that might be active. Also, if the window had been scrolled, it will be reset with this command. *(XT 5c. SCROLLING a Window for additional information regarding vertical and horizontal scrolling. 
+<p class="level0">The '+' key does the same for all windows. The four *(TDs will reappear, evenly balanced. They will also have retained any customizations you had previously applied, except for the 'i' (idle tasks), 'n' (max tasks), 'u'/'U' (user filter), 'o'/'O' (other filter) and scrolling *(CIs. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">A</span>&nbsp;&nbsp;:<span Class="emphasis">Alternate-Display-Mode</span> toggle </span> This command will switch between *(FM and *(AM. 
+<p class="level0">The first time you issue this command, all four *(TDs will be shown. Thereafter when you switch modes, you will see only the *(TD(s) you've chosen to make visible. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">a</span> | <span Class="bold">w</span>&nbsp;&nbsp;:<span Class="emphasis">Next-Window-Forward/Backward </span> This will change the *(CW, which in turn changes the window to which commands are directed. These keys act in a circular fashion so you can reach any desired *(CW using either key. 
+<p class="level0">Assuming the window name is visible (you have not toggled 'l' *F), whenever the *(CW name loses its emphasis/color, that's a reminder the *(TD is *F and many commands will be restricted. 
+<p class="level0">
+<p class="level0">*&nbsp;&nbsp;<span Class="bold">g</span>&nbsp;&nbsp;:<span Class="emphasis">Choose-Another-Window/Field-Group </span> You will be prompted to enter a number between 1 and 4 designating the *(FG which should be made the *(CW. 
+<p class="level0">In *(FM, this command is necessary to alter the *(CW. In *(AM, it is simply a less convenient alternative to the 'a' and 'w' commands. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;&nbsp;<span Class="bold">G</span>&nbsp;&nbsp;:<span Class="emphasis">Change-Window/Field-Group-Name </span> You will be prompted for a new name to be applied to the *(CW. It does not require that the window name be visible (the 'l' toggle to be *O). 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip">* 3</span> 
+<p class="level1">The *(CIs shown with an *(AK have use beyond *(AM. <pre class="level1">
+&nbsp;   &acute;=', 'A', 'g'  are always available
+&nbsp;   &acute;a', 'w'       act the same with color mapping
+&nbsp;   &nbsp;              and fields management
+</pre>
+
+<p class="level1">
+<p class="level1"><a name="5c"></a><h2 class="nroffsh">5c. SCROLLING a Window</h2>
+<p class="level0">Typically a *(TW is a partial view into a systems's total tasks/threads which shows only some of the available fields/columns. With these *(KSs, you can move that view vertically or horizontally to reveal any desired task or column. 
+<p class="level0">
+<p class="level0"><span Class="bold">Up</span>,<span Class="bold">PgUp</span>&nbsp;&nbsp;:<span Class="emphasis">Scroll-Tasks </span> Move the view up toward the first task row, until the first task is displayed at the top of the *(CW. The <span Class="emphasis">Up</span> *(KA moves a single line while <span Class="emphasis">PgUp</span> scrolls the entire window. 
+<p class="level0">
+<p class="level0"><span Class="bold">Down</span>,<span Class="bold">PgDn</span>&nbsp;&nbsp;:<span Class="emphasis">Scroll-Tasks </span> Move the view down toward the last task row, until the last task is the only task displayed at the top of the *(CW. The <span Class="emphasis">Down</span> *(KA moves a single line while <span Class="emphasis">PgDn</span> scrolls the entire window. 
+<p class="level0">
+<p class="level0"><span Class="bold">Left</span>,<span Class="bold">Right</span>&nbsp;&nbsp;:<span Class="emphasis">Scroll-Columns </span> Move the view of displayable fields horizontally one column at a time. 
+<p class="level0">*(NT As a reminder, some fields/columns are not fixed-width but allocated all remaining screen width when visible. When scrolling right or left, that feature may produce some unexpected results initially. 
+<p class="level0">Additionally, there are special provisions for any variable width field when positioned as the last displayed field. Once that field is reached via the right arrow key, and is thus the only column shown, you can continue scrolling horizontally within such a field. *(XC 'C' *(CI below for additional information. 
+<p class="level0">
+<p class="level0"><span Class="bold">Home</span>&nbsp;&nbsp;:<span Class="emphasis">Jump-to-Home-Position </span> Reposition the display to the un-scrolled coordinates. 
+<p class="level0">
+<p class="level0"><span Class="bold">End</span>&nbsp;&nbsp;:<span Class="emphasis">Jump-to-End-Position </span> Reposition the display so that the rightmost column reflects the last displayable field and the bottom task row represents the last task. 
+<p class="level0">*(NT From this position it is still possible to scroll<span Class="emphasis"> down</span> and<span Class="emphasis"> right</span> using the *(KAs. This is true until a single column and a single task is left as the only display element. 
+<p class="level0">
+<p class="level0"><span Class="bold">C</span>&nbsp;&nbsp;:<span Class="emphasis">Show-scroll-coordinates</span> toggle </span> Toggle an informational message which is displayed whenever the message line is not otherwise being used. That message will take one of two forms depending on whether or not a variable width column has also been scrolled. 
+<p class="level0"><pre class="level0">
+&nbsp; <span class="bold">scroll coordinates: y = n/n (tasks), x = n/n (fields)</span>
+&nbsp; </span>scroll coordinates: y = n/n (tasks), x = n/n (fields)<span class="bold"> + nn</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The coordinates shown as <span Class="bold">n</span>/<span Class="bold">n</span> are relative to the upper left corner of the *(CW. The additional '<span Class="bold">+&nbsp;nn</span>' represents the displacement into a variable width column when it has been scrolled horizontally. Such displacement occurs in normal 8 character tab stop amounts via the right and left arrow keys. 
+<p class="level0">
+<p class="level1">
+<p class="level1"><span Class="bold">y = n/n (tasks) </span> The first <span Class="bold">n</span> represents the topmost visible task and is controlled by *(KSs. The second <span Class="bold">n</span> is updated automatically to reflect total tasks. 
+<p class="level1">
+<p class="level1"><span Class="bold">x = n/n (fields) </span> The first <span Class="bold">n</span> represents the leftmost displayed column and is controlled by *(KSs. The second <span Class="bold">n</span> is the total number of displayable fields and is established with the '<span Class="bold">f</span>' *(CI. 
+<p class="level2">
+<p class="level2">
+<p class="level2">The above *(CIs are<span Class="bold"> always</span> available in *(FM but<span Class="bold"> never</span> available in *(AM if the *(CW's *(TD has been toggled *F. 
+<p class="level2">*(NT When any form of filtering is active, you can expect some slight aberrations when scrolling since not all tasks will be visible. This is particularly apparent when using the Up/Down *(KAs. 
+<p class="level2"><a name="5d"></a><h2 class="nroffsh">5d. SEARCHING in a Window</h2>
+<p class="level0">You can use these *(CIs to locate a task row containing a particular value. 
+<p class="level0">
+<p class="level0"><span Class="bold">L</span>&nbsp;&nbsp;:<span Class="emphasis">Locate-a-string</span> You will be prompted for the case-sensitive string to locate starting from the current window coordinates. There are no restrictions on search string content. 
+<p class="level0">Searches are not limited to values from a single field or column. All of the values displayed in a task row are allowed in a search string. You may include spaces, numbers, symbols and even forest view artwork. 
+<p class="level0">Keying &lt;Enter&gt; with no input will effectively disable the '&' key until a new search string is entered. 
+<p class="level0">
+<p class="level0"><a class="bold" href="#">&</a>&nbsp;&nbsp;:<span Class="emphasis">Locate-next</span> Assuming a search string has been established, *(We will attempt to locate the next occurrence. 
+<p class="level0">
+<p class="level0">When a match is found, the current window is repositioned vertically so the task row containing that string is first. The scroll coordinates message can provide confirmation of such vertical repositioning (*(Xc 'C' *(CI). Horizontal scrolling, however, is never altered via searching. 
+<p class="level0">The availability of a matching string will be influenced by the following factors. 
+<p class="level1">
+<p class="level1">a. Which fields are displayable from the total available, *(Xt 3b. MANAGING Fields. 
+<p class="level1">b. Scrolling a window vertically and/or horizontally, *(Xt 5c. SCROLLING a Window. 
+<p class="level1">c. The state of the command/command-line toggle, *(Xc 'c' *(CI. 
+<p class="level1">d. The stability of the chosen sort column, for example PID is good but %CPU bad. 
+<p class="level2">
+<p class="level2">
+<p class="level2">If a search fails, restoring the *(CW home (unscrolled) position, scrolling horizontally, displaying command-lines or choosing a more stable sort field could yet produce a successful '&' search. 
+<p class="level2">The above *(CIs are<span Class="bold"> always</span> available in *(FM but<span Class="bold"> never</span> available in *(AM if the *(CW's *(TD has been toggled *F. 
+<p class="level2">*(NT Whenever a search key is typed, *(We will turn column highlighting *F to prevent false matches on internal non-display escape sequences. Such highlighting will be restored when a window's search string is empty. *(XC 'x' *(CI for additional information on sort column highlighting. 
+<p class="level2"><a name="5e"></a><h2 class="nroffsh">5e. FILTERING in a Window</h2>
+<p class="level0">You can use the 'Other Filter' feature to establish selection criteria which will then determine which tasks are shown in the *(CW. 
+<p class="level0">Establishing a filter requires: 1) a field name; 2) an operator; and 3) a selection value, as a minimum. This is the most complex of *(We's user input requirements so, when you make a mistake, command recall will be your friend. Remember the Up/Down *(KAs or their aliases when prompted for input. 
+<p class="level0"><span Class="bold">Filter Basics</span> 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">field names are case sensitive and spelled as in the header 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">selection values need not comprise the full displayed field 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">a selection is either case insensitive or sensitive to case 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">the default is inclusion, prepending '!' denotes exclusions 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">multiple selection criteria can be applied to a *(TW 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">inclusion and exclusion criteria can be used simultaneously 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">the 1 equality and 2 relational filters can be freely mixed 
+<p class="level0"><a name=""></a><span class="nroffip">   .   6</span> 
+<p class="level1">separate unique filters are maintained for each *(TW 
+<p class="level0">
+<p class="level0">If a field is not turned on or is not currently in view, then your selection criteria will not affect the display. Later, should a filtered field become visible, the selection criteria will then be applied. 
+<p class="level0"><span Class="bold">Keyboard Summary</span> 
+<p class="level0">&nbsp;&nbsp;<a class="bold" href="#o">o</a>&nbsp;&nbsp;:<span Class="emphasis">Other-Filter</span> (lower case) You will be prompted to establish a filter that <span Class="bold">ignores case</span> when matching. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;<span Class="bold">O</span>&nbsp;&nbsp;:<span Class="emphasis">Other-Filter</span> (upper case) You will be prompted to establish a <span Class="bold">case sensitive</span> filter. 
+<p class="level0">
+<p class="level0">&nbsp;<span Class="bold">^O</span>&nbsp;&nbsp;:<span Class="emphasis">Show-Active-Filters</span> (Ctrl key + 'o') This can serve as a reminder of which filters are active in the *(CW. A summary will be shown on the message line until you press the &lt;Enter&gt; key. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;<a class="bold" href="#">=</a>&nbsp;&nbsp;:<span Class="emphasis">Reset-Filtering</span> in current window This clears all of your selection criteria in the *(CW. It also has additional impact so please *(Xt 4a. GLOBAL Commands. 
+<p class="level0">
+<p class="level0">&nbsp;&nbsp;<a class="bold" href="#">+</a>&nbsp;&nbsp;:<span Class="emphasis">Reset-Filtering</span> in all windows This clears the selection criteria in all windows, assuming you are in *(AM. As with the '=' *(CI, it too has additional consequences so you might wish to *(Xt 5b. COMMANDS for Windows. 
+<p class="level-1">
+<p class="level-1"><span Class="bold">Input Requirements</span> 
+<p class="level0">
+<p class="level0">When prompted for selection criteria, the data you provide must take one of two forms. There are 3 required pieces of information, with a 4th as optional. These examples use spaces for clarity but your input generally would not. <pre class="level0">
+&nbsp;       &#35;1           <span class="bold">&#35;2</span>  &#35;3              ( required )
+&nbsp;       Field-Name   ?   include-if-value
+&nbsp;    <span class="bold">!</span>  Field-Name   ?   <span class="bold">exclude</span>-if-value
+&nbsp;    &#35;4                                  ( optional )
+</pre>
+
+<p class="level0">
+<p class="level0">Items &#35;1, &#35;3 and &#35;4 should be self-explanatory. Item <span Class="bold">&#35;2</span> represents both a required <span Class="emphasis">delimiter</span> and the <span Class="emphasis">operator</span> which must be one of either equality ('=') or relation ('&lt;' or '&gt;'). 
+<p class="level0">The '=' equality operator requires only a partial match and that can reduce your 'if-value' input requirements. The '&gt;' or '&lt;' relational operators always employ string comparisons, even with numeric fields. They are designed to work with a field's default <span Class="emphasis">justification</span> and with homogeneous data. When some field's numeric amounts have been subjected to <span Class="emphasis">scaling</span> while others have not, that data is no longer homogeneous. 
+<p class="level0">If you establish a relational filter and you <span Class="bold">have</span> changed the default 'Numeric' or 'Character' <span Class="emphasis">justification</span>, that filter is likely to fail. When a relational filter is applied to a memory field and you <span Class="bold">have not</span> changed the <span Class="emphasis">scaling</span>, it may produce misleading results. This happens, for example, because '100.0m' (MiB) would appear greater than '1.000g' (GiB) when compared as strings. 
+<p class="level0">If your filtered results appear suspect, simply altering justification or scaling may yet achieve the desired objective. See the 'j', 'J' and 'e' *(CIs for additional information. 
+<p class="level-1">
+<p class="level-1"><span Class="bold">Potential Problems</span> 
+<p class="level0">
+<p class="level0">These <span Class="bold">GROUP</span> filters could produce the exact same results or the second one might not display anything at all, just a blank *(TW. <pre class="level0">
+&nbsp;    GROUP=root        ( only the same results when )
+&nbsp;    GROUP=ROOT        ( invoked via lower case 'o' )
+</pre>
+
+<p class="level0">
+<p class="level0">Either of these <span Class="bold">RES</span> filters might yield inconsistent and/or misleading results, depending on the current memory scaling factor. Or both filters could produce the exact same results. <pre class="level0">
+&nbsp;    RES&gt;9999          ( only the same results when )
+&nbsp;    !RES&lt;10000        ( memory scaling is at 'KiB' )
+</pre>
+
+<p class="level0">
+<p class="level0">This <span Class="bold">nMin</span> filter illustrates a problem unique to scalable fields. This particular field can display a maximum of 4 digits, beyond which values are automatically scaled to KiB or above. So while amounts greater than 9999 exist, they will appear as 2.6m, 197k, etc. <pre class="level0">
+&nbsp;    nMin&gt;9999         ( always a blank *(TW )
+</pre>
+
+<p class="level0">
+<p class="level-1">
+<p class="level-1"><span Class="bold">Potential Solutions</span> 
+<p class="level0">
+<p class="level0">These examples illustrate how 'Other Filtering' can be creatively applied to achieve almost any desired result. Single quotes are sometimes shown to delimit the spaces which are part of a filter or to represent a request for status (^O) accurately. But if you used them with if-values in real life, no matches would be found. 
+<p class="level0">Assuming field <span Class="bold">nTH</span> is displayed, the first filter will result in only multi-threaded processes being shown. It also reminds us that a trailing space is part of every displayed field. The second filter achieves the exact same results with less typing. <pre class="level0">
+&nbsp;    !nTH=' 1 '                ( ' for clarity only )
+&nbsp;    nTH&gt;1                     ( same with less i/p )
+</pre>
+
+<p class="level0">
+<p class="level0">With Forest View mode active and the <span Class="bold">COMMAND</span> column in view, this filter effectively collapses child processes so that just 3 levels are shown. <pre class="level0">
+&nbsp;    !COMMAND='       `- '     ( ' for clarity only )
+</pre>
+
+<p class="level0">
+<p class="level0">The final two filters appear as in response to the status request key (^O). In reality, each filter would have required separate input. The <span Class="bold">PR</span> example shows the two concurrent filters necessary to display tasks with priorities of 20 or more, since some might be negative. Then by exploiting trailing spaces, the <span Class="bold">nMin</span> series of filters could achieve the failed '9999' objective discussed above. <pre class="level0">
+&nbsp;    'PR&gt;20' + '!PR=-'         ( 2 for right result )
+&nbsp;    '!nMin=0 ' + '!nMin=1 ' + '!nMin=2 ' + '!nMin=3 ' ...
+</pre>
+
+<p class="level0">
+<p class="level-1">
+<p class="level-1">*(NT When 'Other Filtering' is active, *(We turns column highlighting *F to prevent false matches on internal non-display escape sequences. Such highlighting will be restored when a window is no longer subject to filtering. *(XC 'x' *(CI for additional information on sort column highlighting. 
+<p class="level-1"><a name="6"></a><h2 class="nroffsh">6. FILES</h2>
+<p class="level0"><a name="6a"></a><h2 class="nroffsh">6a. SYSTEM Configuration File</h2>
+<p class="level0">The presence of this file will influence which version of the 'help' screen is shown to an ordinary user. More importantly, it will limit what ordinary users are allowed to do when *(We is running. They will not be able to issue the following commands. <pre class="level0">
+&nbsp;   k        Kill a task
+&nbsp;   r        Renice a task
+&nbsp;   d or s   Change delay/sleep interval
+</pre>
+
+<p class="level0">
+<p class="level0">The system *(CF is<span Class="bold"> not</span> created by *(We. Rather, you create this file manually and place it in the <span Class="emphasis">/etc </span> directory. Its name must be 'toprc' and must have no leading '.' (period). It must have only two lines. 
+<p class="level0">Here is an example of the contents of<span Class="emphasis"> /etc/toprc</span>: <pre class="level0">
+&nbsp;   s        &#35; line 1: 'secure' mode switch
+&nbsp;   5.0      &#35; line 2: 'delay'&nbsp;&nbsp;interval in seconds
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="6b"></a><h2 class="nroffsh">6b. PERSONAL Configuration File</h2>
+<p class="level0">This file is written as '$HOME/.your-name-4-*(We' + 'rc'. Use the 'W' *(CI to create it or update it. 
+<p class="level0">Here is the general layout: <pre class="level0">
+&nbsp;   global   &#35; line  1: the program name/alias notation
+&nbsp;     "      &#35; line  2: id,altscr,irixps,delay,curwin
+&nbsp;   per ea   &#35; line  a: winname,fieldscur
+&nbsp;   window   &#35; line  b: winflags,sortindx,maxtasks
+&nbsp;     "      &#35; line  c: summclr,msgsclr,headclr,taskclr
+&nbsp;   global   &#35; line 15: fixed-width incr
+&nbsp;     "      &#35; any remaining lines are devoted to the
+&nbsp;     "      &#35; generalized 'inspect' provisions
+&nbsp;     "      &#35; discussed below
+</pre>
+
+<p class="level0">
+<p class="level0">If the $HOME variable is not present, *(We will try to write the personal *(CF to the current directory, subject to permissions. 
+<p class="level0"><a name="6c"></a><h2 class="nroffsh">6c. ADDING INSPECT Entries</h2>
+<p class="level0">To exploit the 'Y' *(CI, you must add entries at the<span Class="bold"> end</span> of the *(We personal *(CF. Such entries simply reflect a file to be read or command/pipeline to be executed whose results will then be displayed in a separate scrollable, searchable window. 
+<p class="level0">If you don't know the location or name of your *(We rcfile, use the 'W' *(CI to rewrite it and note those details. 
+<p class="level0">Inspect entries can be added with a redirected echo or by editing the *(CF. Redirecting an echo risks overwriting the rcfile should it replace (&gt;) rather than append (&gt;&gt;) to that file. Conversely, when using an editor care must be taken not to corrupt existing lines, some of which will contain unprintable data or unusual characters. 
+<p class="level0">Those Inspect entries beginning with a '&#35;' character are ignored, regardless of content. Otherwise they consist of the following 3 elements, each of which<span Class="emphasis"> must</span> be separated by a tab character (thus 2 '\t' total): 
+<p class="level0"><pre class="level0">
+&nbsp; .type:  literal 'file' or 'pipe'
+&nbsp; .name:  selection shown on the Inspect screen
+&nbsp; .fmts:  string representing a path or command
+</pre>
+
+<p class="level0">
+<p class="level0">The two types of Inspect entries are<span Class="emphasis"> not</span> interchangeable. Those designated '<span Class="bold">file</span>' will be accessed using fopen and must reference a single file in the '.fmts' element. Entries specifying '<span Class="bold">pipe</span>' will employ popen, their '.fmts' element could contain many pipelined commands and, none can be interactive. 
+<p class="level0">If the file or pipeline represented in your '.fmts' deals with the specific PID input or accepted when prompted, then the format string must also contain the '<span Class="bold">%d</span>' specifier, as these examples illustrate. 
+<p class="level0"><pre class="level0">
+&nbsp; .fmts=  /proc/<span class="emphasis">%d</span>/numa_maps
+&nbsp; .fmts=  lsof -P -p<span class="emphasis"> %d</span>
+</pre>
+
+<p class="level0">
+<p class="level0">For '<span Class="bold">pipe</span>' type entries only, you may also wish to redirect stderr to stdout for a more comprehensive result. Thus the format string becomes: 
+<p class="level0"><pre class="level0">
+&nbsp; .fmts=  pmap -x %d<span class="emphasis"> 2&gt;&1</span>
+</pre>
+
+<p class="level0">
+<p class="level0">Here are examples of both types of Inspect entries as they might appear in the rcfile. The first entry will be ignored due to the initial '&#35;' character. For clarity, the pseudo tab depictions (^I) are surrounded by an extra space but the actual tabs would not be. <pre class="level0">
+&nbsp;
+&nbsp; &#35; pipe ^I Sockets ^I lsof -n -P -i 2&gt;&1
+&nbsp; pipe ^I Open Files ^I lsof -P -p %d 2&gt;&1
+&nbsp; file ^I NUMA Info ^I /proc/%d/numa_maps
+&nbsp; pipe ^I Log ^I tail -n100 /var/log/syslog | sort -Mr
+</pre>
+
+<p class="level0">
+<p class="level0">Except for the commented entry above, these next examples show what could be echoed to achieve similar results, assuming the rcfile name was '.toprc'. However, due to the embedded tab characters, each of these lines should be preceded by '<span Class="bold">/bin/echo -e</span>', not just a simple an 'echo', to enable backslash interpretation regardless of which shell you use. 
+<p class="level0"><pre class="level0">
+&nbsp; "pipe\tOpen Files\tlsof -P -p %d 2&gt;&1" &gt;&gt; ~/.toprc
+&nbsp; "file\tNUMA Info\t/proc/%d/numa_maps" &gt;&gt; ~/.toprc
+&nbsp; "pipe\tLog\ttail -n200 /var/log/syslog | sort -Mr" &gt;&gt; ~/.toprc
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="bold">Caution</span>: If any inspect entry you create produces output with unprintable characters they will be displayed in either the ^C notation or hexadecimal &lt;FF&gt; form, depending on their value. This applies to tab characters as well, which will show as '^I'. If you want a truer representation, any embedded tabs should be expanded. 
+<p class="level0"><pre class="level0">
+&nbsp; &#35; next would have contained '\t' ...
+&nbsp; &#35; file ^I &lt;your_name&gt; ^I /proc/%d/status
+&nbsp; &#35; but this will eliminate embedded '\t' ...
+&nbsp; pipe ^I &lt;your_name&gt; ^I cat /proc/%d/status | expand -
+</pre>
+
+<p class="level0">
+<p class="level0">The above example takes what could have been a 'file' entry but employs a 'pipe' instead so as to expand the embedded tabs. 
+<p class="level0">*(NT While '<span Class="bold">pipe</span>' type entries have been discussed in terms of pipelines and commands, there is nothing to prevent you from including <span Class="emphasis"> shell scripts</span> as well. Perhaps even newly created scripts designed specifically for the 'Y' *(CI. 
+<p class="level0">Lastly, as the number of your Inspect entries grows over time, the 'Options:' row will be truncated when screen width is exceeded. That does not affect operation other than to make some selections invisible. 
+<p class="level0">However, if some choices are lost to truncation but you want to see more options, there is an easy solution hinted at below. 
+<p class="level0"><pre class="level0">
+&nbsp; Inspection Pause at pid ...
+&nbsp; Use:  left/right then &lt;Enter&gt; ...
+&nbsp; Options:  help  1  2  3  4  5  6  7  8  9  10  11 ...
+</pre>
+
+<p class="level0">
+<p class="level0">The entries in the *(We rcfile would have a number for the '.name' element and the 'help' entry would identify a shell script you've written explaining what those numbered selections actually mean. In that way, many more choices can be made visible. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="7"></a><h2 class="nroffsh">7. STUPID TRICKS Sampler</h2>
+<p class="level0">Many of these 'tricks' work best when you give *(We a scheduling boost. So plan on starting him with a nice value of -10, assuming you've got the authority. 
+<p class="level0"><a name="7a"></a><h2 class="nroffsh">7a. Kernel Magic</h2>
+<p class="level0">For these stupid tricks, *(We needs *(FM. 
+<p class="level0">
+<p class="level0">The user interface, through prompts and help, intentionally implies that the delay interval is limited to tenths of a second. However, you're free to set any desired delay. If you want to see Linux at his scheduling best, try a delay of .09 seconds or less. 
+<p class="level0">For this experiment, under x-windows open an xterm and maximize it. Then do the following: <pre class="level0">
+&nbsp; . provide a scheduling boost and tiny delay via:
+&nbsp;     nice -n -10 *(We -d.09
+&nbsp; . keep sorted column highlighting *F so as to
+&nbsp;   minimize path length
+&nbsp; . turn *O reverse row highlighting for emphasis
+&nbsp; . try various sort columns (TIME/MEM work well),
+&nbsp;   and normal or reverse sorts to bring the most
+&nbsp;   active processes into view
+</pre>
+
+<p class="level0">
+<p class="level0">What you'll see is a very busy Linux doing what he's always done for you, but there was no program available to illustrate this. 
+<p class="level0">
+<p class="level0">Under an xterm using 'white-on-black' colors, on *(We's Color Mapping screen set the task color to black and be sure that task highlighting is set to bold, not reverse. Then set the delay interval to around .3 seconds. 
+<p class="level0">After bringing the most active processes into view, what you'll see are the ghostly images of just the currently running tasks. 
+<p class="level0">
+<p class="level0">Delete the existing rcfile, or create a new symlink. Start this new version then type 'T' (a secret key, *(Xt 4c. Task Area Commands, SORTING) followed by 'W' and 'q'. Finally, restart the program with -d0 (zero delay). 
+<p class="level0">Your display will be refreshed at three times the rate of the former *(We, a 300% speed advantage. As *(We climbs the TIME ladder, be as patient as you can while speculating on whether or not *(We will ever reach the *(We. 
+<p class="level0"><a name="7b"></a><h2 class="nroffsh">7b. Bouncing Windows</h2>
+<p class="level0">For these stupid tricks, *(We needs *(AM. 
+<p class="level0">
+<p class="level0">With 3 or 4 *(TDs visible, pick any window other than the last and turn idle processes *F using the 'i' *(CT. Depending on where you applied 'i', sometimes several *(TDs are bouncing and sometimes it's like an accordion, as *(We tries his best to allocate space. 
+<p class="level0">
+<p class="level0">Set each window's summary lines differently: one with no memory ('m'); another with no states ('t'); maybe one with nothing at all, just the message line. Then hold down 'a' or 'w' and watch a variation on bouncing windows *(Em hopping windows. 
+<p class="level0">
+<p class="level0">Display all 4 windows and for each, in turn, set idle processes to *F using the 'i' *(CT. You've just entered the "extreme bounce" zone. 
+<p class="level0"><a name="7c"></a><h2 class="nroffsh">7c. The Big Bird Window</h2>
+<p class="level0">This stupid trick also requires *(AM. 
+<p class="level0">
+<p class="level0">Display all 4 windows and make sure that 1:Def is the *(CW. Then, keep increasing window size with the 'n' *(CI until all the other *(TDs are "pushed out of the nest". 
+<p class="level0">When they've all been displaced, toggle between all visible/invisible windows using the '_' *(CT. Then ponder this: <br>&nbsp;  is *(We fibbing or telling honestly your imposed truth? 
+<p class="level0"><a name="7d"></a><h2 class="nroffsh">7d. The Ol' Switcheroo</h2>
+<p class="level0">This stupid trick works best without *(AM, since justification is active on a per window basis. 
+<p class="level0">
+<p class="level0">Start *(We and make COMMAND the last (rightmost) column displayed. If necessary, use the 'c' *(CT to display command lines and ensure that forest view mode is active with the 'V' *(CT. 
+<p class="level0">Then use the up/down arrow keys to position the display so that some truncated command lines are shown ('+' in last position). You may have to resize your xterm to produce truncation. 
+<p class="level0">Lastly, use the 'j' *(CT to make the COMMAND column right justified. 
+<p class="level0">Now use the right arrow key to reach the COMMAND column. Continuing with the right arrow key, watch closely the direction of travel for the command lines being shown. 
+<p class="level0"><br>&nbsp;  some lines travel left, while others travel right 
+<p class="level0">&nbsp;  eventually all lines will Switcheroo, and move right 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="8"></a><h2 class="nroffsh">8. BUGS</h2>
+<p class="level0">To report bugs, follow the instructions at: &nbsp;   <a href="http://www.debian.org/Bugs/Reporting">http://www.debian.org/Bugs/Reporting</a> 
+<p class="level0"><a name="9"></a><h2 class="nroffsh">9. HISTORY Former top</h2>
+<p class="level0">The original *(We was written by Roger Binns, based on Branko Lankester's &lt;lankeste@fwi.uva.nl&gt; ps program. 
+<p class="level0">Robert Nation &lt;nation@rocket.sanders.lockheed.com&gt; adapted it for the proc file system. 
+<p class="level0">Helmut Geyer &lt;Helmut.Geyer@iwr.uni-heidelberg.de&gt; added support for configurable fields. 
+<p class="level0">Plus many other individuals contributed over the years. 
+<p class="level0"><a name="10"></a><h2 class="nroffsh">10. AUTHOR</h2>
+<p class="level0">This entirely new and enhanced replacement was written by: &nbsp;   Jim Warner, &lt;james.warner@comcast.net&gt; 
+<p class="level0">&nbsp;  ( as a means to learn Linux, can you believe it? ) &nbsp;  ( & he accidentally learned a little groff, too! ) &nbsp;  ( then after ten years he did it all over again! ) 
+<p class="level0">With invaluable help from: &nbsp;   Craig Small, &lt;csmall@enc.com.au&gt; &nbsp;   Albert Cahalan, &lt;albert@users.sf.net&gt; 
+<p class="level0">&nbsp;" ---------------------------------------------------------------------- <a name="11"></a><h2 class="nroffsh">11. SEE Also</h2>
+<p class="level0"><span Class="manpage">free (1)</span>, <span Class="manpage">ps (1)</span>, <span Class="manpage">uptime (1)</span>, <span Class="manpage">atop (1)</span>, <span Class="manpage">slabtop (1)</span>, <span Class="manpage">vmstat (8)</span>, <span Class="manpage">w (1).</span>

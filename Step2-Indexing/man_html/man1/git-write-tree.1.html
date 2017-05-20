@@ -1,0 +1,27 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-write-tree - Create a tree object from the current index <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git write-tree</span> [--missing-ok] [--prefix=&lt;prefix&gt;/]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Creates a tree object using the current index. The name of the new tree object is printed to standard output. 
+<p class="level0">The index must be in a fully merged state. 
+<p class="level0">Conceptually, <span Class="emphasis">git write-tree</span> sync()s the current index contents into a set of tree files. In order to have that match what is actually in your directory right now, you need to have done a <span Class="emphasis">git update-index</span> phase before you did the <span Class="emphasis">git write-tree</span>. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--missing-ok 
+<p class="level1">Normally <span Class="emphasis">git write-tree</span> ensures that the objects referenced by the directory exist in the object database. This option disables this check. 
+<p class="level0">
+<p class="level0">--prefix=&lt;prefix&gt;/ 
+<p class="level1">Writes a tree object that represents a subdirectory &lt;prefix&gt;. This can be used to write the tree object for a subproject that is in the named subdirectory. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

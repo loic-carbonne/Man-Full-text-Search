@@ -1,0 +1,35 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-machine-id-setup - Initialize the machine ID in /etc/machine-id <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-machine-id-setup</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-machine-id-setup</span> may be used by system installer tools to initialize the machine ID stored in /etc/machine-id at install time with a randomly generated ID. See <span Class="bold">machine-id</span>(5) for more information about this file. 
+<p class="level0">This tool will execute no operation if /etc/machine-id is already initialized. 
+<p class="level0">If a valid D-Bus machine ID is already configured for the system, the D-Bus machine ID is copied and used to initialize the machine ID in /etc/machine-id. 
+<p class="level0">If run inside a KVM virtual machine and a UUID is passed via the <span Class="bold">-uuid</span> option, this UUID is used to initialize the machine ID instead of a randomly generated one. The caller must ensure that the UUID passed is sufficiently unique and is different for every booted instanced of the VM. 
+<p class="level0">Similarly, if run inside a Linux container environment and a UUID is set for the container this is used to initialize the machine ID. For details see the documentation of the m[blue]<span Class="bold">Container Interface</span>m[]s-2u[1]ds+2. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--root=</span><span class="bold"><span Class="emphasis">root</span></span> 
+<p class="level1">Takes a directory path as an argument. All paths will be prefixed with the given alternate <span Class="emphasis">root</span> path, including config search paths. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">machine-id</span>(5), <span Class="bold">dbus-uuidgen</span>(1) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Container Interface 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface 
+<p class="level1">

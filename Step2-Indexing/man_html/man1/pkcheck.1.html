@@ -1,0 +1,49 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pkcheck - Check whether a process is authorized <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkcheck</span> [<span Class="bold">--version</span>] [<span Class="bold">--help</span>] 
+<p class="level0"><span Class="bold">pkcheck</span> [<span Class="bold">--list-temp</span>] 
+<p class="level0"><span Class="bold">pkcheck</span> [<span Class="bold">--revoke-temp</span>] 
+<p class="level0"><span Class="bold">pkcheck</span> <span Class="bold">--action-id</span>&nbsp;<span Class="emphasis">action</span> {<span Class="bold">--process</span>&nbsp;{&nbsp;<span Class="emphasis">pid</span>&nbsp;|&nbsp;<span Class="emphasis">pid,pid-start-time</span>&nbsp;|&nbsp;<span Class="emphasis">pid,pid-start-time,uid</span>&nbsp;} | <span Class="bold">--system-bus-name</span>&nbsp;<span Class="emphasis">busname</span>} [<span Class="bold">--allow-user-interaction</span>] [<span Class="bold">--enable-internal-agent</span>] [<span Class="bold">--detail</span>&nbsp;<span Class="emphasis">key</span>&nbsp;<span Class="emphasis">value</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkcheck</span> is used to check whether a process, specified by either <span Class="bold">--process</span> (see below) or <span Class="bold">--system-bus-name</span>, is authorized for <span Class="emphasis">action</span>. The <span Class="bold">--detail</span> option can be used zero or more times to pass details about <span Class="emphasis">action</span>. If <span Class="bold">--allow-user-interaction</span> is passed, <span Class="bold">pkcheck</span> blocks while waiting for authentication. 
+<p class="level0">The invocation <span Class="bold">pkcheck --list-temp</span> will list all temporary authorizations for the current session and <span Class="bold">pkcheck --revoke-temp</span> will revoke all temporary authorizations for the current session. 
+<p class="level0">This command is a simple wrapper around the PolicyKit D-Bus interface; see the D-Bus interface documentation for details. <a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">
+<p class="level0">If the specified process is authorized, <span Class="bold">pkcheck</span> exits with a return value of 0. If the authorization result contains any details, these are printed on standard output as key/value pairs using environment style reporting, e.g. first the key followed by a an equal sign, then the value followed by a newline. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+KEY1=VALUE1
+KEY2=VALUE2
+KEY3=VALUE3
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Octects that are not in [a-zA-Z0-9_] are escaped using octal codes prefixed with <span Class="emphasis">e</span>. For example, the UTF-8 string <span Class="emphasis">føl,你好</span> will be printed as <span Class="emphasis">fe303e270le54e344e275e240e345e245e275</span>. 
+<p class="level0">If the specificied process is not authorized, <span Class="bold">pkcheck</span> exits with a return value of 1 and a diagnostic message is printed on standard error. Details are printed on standard output. 
+<p class="level0">If the specificied process is not authorized because no suitable authentication agent is available or if the <span Class="bold">--allow-user-interaction</span> wasn*(Aqt passed, <span Class="bold">pkcheck</span> exits with a return value of 2 and a diagnostic message is printed on standard error. Details are printed on standard output. 
+<p class="level0">If the specificied process is not authorized because the authentication dialog / request was dismissed by the user, <span Class="bold">pkcheck</span> exits with a return value of 3 and a diagnostic message is printed on standard error. Details are printed on standard output. 
+<p class="level0">If an error occured while checking for authorization, <span Class="bold">pkcheck</span> exits with a return value of 127 with a diagnostic message printed on standard error. 
+<p class="level0">If one or more of the options passed are malformed, <span Class="bold">pkcheck</span> exits with a return value of 126. If stdin is a tty, then this manual page is also shown. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Do not use either the bare <span Class="emphasis">pid</span> or <span Class="emphasis">pid,start-time</span> syntax forms for <span Class="bold">--process</span>. There are race conditions in both. New code should always use <span Class="emphasis">pid,pid-start-time,uid</span>. The value of <span Class="emphasis">start-time</span> can be determined by consulting e.g. the <span Class="bold">proc</span>(5) file system depending on the operating system. If fewer than 3 arguments are passed, <span Class="bold">pkcheck</span> will attempt to look up them up internally, but note that this may be racy. 
+<p class="level0">If your program is a daemon with e.g. a custom Unix domain socket, you should determine the <span Class="emphasis">uid</span> parameter via operating system mechanisms such as PEERCRED. <a name="AUTHENTICATION"></a><h2 class="nroffsh">AUTHENTICATION AGENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkcheck</span>, like any other PolicyKit application, will use the authentication agent registered for the process in question. However, if no authentication agent is available, then <span Class="bold">pkcheck</span> can register its own textual authentication agent if the option <span Class="bold">--enable-internal-agent</span> is passed. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help from many others. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to either the distribution or the polkit-devel mailing list, see the link m[blue]<span Class="bold">%http://lists.freedesktop.org/mailman/listinfo/polkit-devel</span>m[] on how to subscribe. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">polkit</span>(8), <span Class="bold">pkaction</span>(1), <span Class="bold">pkexec</span>(1), <span Class="bold">pkttyagent</span>(1) 

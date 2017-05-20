@@ -1,0 +1,138 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">vacuumdb - garbage-collect and analyze a PostgreSQL database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">vacuumdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] [&nbsp;<span Class="bold">--table</span>&nbsp;|&nbsp;<span Class="bold">-t</span>&nbsp;<span Class="emphasis">table</span>&nbsp;[(&nbsp;<span Class="emphasis">column</span>&nbsp;[,...]&nbsp;)]&nbsp;]...  [<span Class="emphasis">dbname</span>] 
+<p class="level0"><span Class="bold">vacuumdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] <span Class="bold">--all</span> | <span Class="bold">-a</span>  <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">vacuumdb is a utility for cleaning a PostgreSQL database. vacuumdb will also generate internal statistics used by the PostgreSQL query optimizer. 
+<p class="level0">
+<p class="level0">vacuumdb is a wrapper around the SQL command <span Class="bold">VACUUM</span>(7). There is no effective difference between vacuuming and analyzing databases via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">vacuumdb accepts the following command-line arguments: 
+<p class="level0"><span Class="bold">-a</span> <br><span Class="bold">--all</span> 
+<p class="level1">Vacuum all databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">[-d]</span><span Class="bold"> </span><span class="bold"><span Class="emphasis">dbname</span></span> <br><span Class="bold">[--dbname=]</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to be cleaned or analyzed. If this is not specified and <span Class="bold">-a</span> (or <span Class="bold">--all</span>) is not used, the database name is read from the environment variable <span Class="bold">PGDATABASE</span>. If that is not set, the user name specified for the connection is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that vacuumdb generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span> <br><span Class="bold">--full</span> 
+<p class="level1">Perform (lqfull(rq vacuuming. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F</span> <br><span Class="bold">--freeze</span> 
+<p class="level1">Aggressively (lqfreeze(rq tuples. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> <br><span Class="bold">--quiet</span> 
+<p class="level1">Do not display progress messages. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t </span><span class="bold"><span Class="emphasis">table</span></span><span Class="bold"> [ (</span><span class="bold"><span Class="emphasis">column</span></span><span Class="bold"> [,...]) ]</span> <br><span Class="bold">--table=</span><span class="bold"><span Class="emphasis">table</span></span><span Class="bold"> [ (</span><span class="bold"><span Class="emphasis">column</span></span><span Class="bold"> [,...]) ]</span> 
+<p class="level1">Clean or analyze <span Class="emphasis">table</span> only. Column names can be specified only in conjunction with the <span Class="bold">--analyze</span> or <span Class="bold">--analyze-only</span> options. Multiple tables can be vacuumed by writing multiple <span Class="bold">-t</span> switches. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Tip</span> 
+<p class="level2"><br>If you specify columns, you probably have to escape the parentheses from the shell. (See examples below.) 
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">Print detailed information during processing. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the vacuumdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-z</span> <br><span Class="bold">--analyze</span> 
+<p class="level1">Also calculate statistics for use by the optimizer. 
+<p class="level0">
+<p class="level0"><span Class="bold">-Z</span> <br><span Class="bold">--analyze-only</span> 
+<p class="level1">Only calculate statistics for use by the optimizer (no vacuum). 
+<p class="level0">
+<p class="level0"><span Class="bold">--analyze-in-stages</span> 
+<p class="level1">Only calculate statistics for use by the optimizer (no vacuum), like <span Class="bold">--analyze-only</span>. Run several (currently three) stages of analyze with different configuration settings, to produce usable statistics faster. 
+<p class="level1">This option is useful to analyze a database that was newly populated from a restored dump or by <span Class="bold">pg_upgrade</span>. This option will try to create some statistics as fast as possible, to make the database usable, and then produce full statistics in the subsequent stages. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about vacuumdb command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">vacuumdb also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force vacuumdb to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since vacuumdb will automatically prompt for a password if the server demands password authentication. However, vacuumdb will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0"><span Class="bold">--maintenance-db=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to discover what other databases should be vacuumed. If not specified, the postgres database will be used, and if that does not exist, template1 will be used. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATABASE</span> <br><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see <span Class="bold">VACUUM</span>(7) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">vacuumdb might need to connect several times to the PostgreSQL server, asking for a password each time. It is convenient to have a ~/.pgpass file in such cases. See Section 31.15, (lqThe Password File(rq, in the documentation for more information. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To clean the database test: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">vacuumdb test</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To clean and analyze for the optimizer a database named bigdb: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">vacuumdb --analyze bigdb</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To clean a single table foo in a database named xyzzy, and analyze a single column bar of the table for the optimizer: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">vacuumdb --analyze --verbose --table *(Aqfoo(bar)*(Aq xyzzy</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">VACUUM</span>(7) 

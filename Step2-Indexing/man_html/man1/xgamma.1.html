@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xgamma - Alter a monitor's gamma correction through the X server <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xgamma</span> [-display <span Class="emphasis">display</span>] [-screen <span Class="emphasis">screen</span>] [-quiet] [-gamma f.f | [[-rgamma f.f] [-ggamma f.f] [-bgamma f.f]]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xgamma</span> allows X users to query and alter the gamma correction of a monitor via the X video mode extension (XFree86-VidModeExtension). 
+<p class="level0">Note that the <span Class="bold">xgamma</span> utility is obsolete and deficient, <span Class="bold">xrandr</span> should be used with drivers that support the <span Class="bold">XRandr</span> extension. 
+<p class="level0">If no value for the gamma correction is given via the <span Class="emphasis">-gamma</span> or <span Class="emphasis">-rgamma / -ggamma / -bgamma</span> options, <span Class="bold">xgamma</span> prints the current gamma correction of the display. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-display display</span> This argument allows you to specify the server to connect to; see <span Class="emphasis">X(7)</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-screen screen</span> When multiple displays are configured as a single logical display, this option allows you to select the screen you wish to change. 
+<p class="level0">
+<p class="level0"><span Class="bold">-quiet</span> Silence the normal output of <span Class="bold">xgamma</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-help</span> Print out the `Usage:' command syntax summary. 
+<p class="level0">
+<p class="level0"><span Class="bold">-gamma f.f</span> The gamma correction can either be defined as a single value, or separately for the red, green and blue components. This argument specifies the gamma correction as a single value. 
+<p class="level0">
+<p class="level0"><span Class="bold">-rgamma f.f</span> This argument specifies the red component of the gamma correction. 
+<p class="level0">
+<p class="level0"><span Class="bold">-ggamma f.f</span> This argument specifies the green component of the gamma correction. 
+<p class="level0">
+<p class="level0"><span Class="bold">-bgamma f.f</span> This argument specifies the blue component of the gamma correction. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> To get default host and display number. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">This client changes the internal values of the gamma correction for the Xserver. Whether or not these values are respected depends on the video drivers. 
+<p class="level0">The gamma values are passed to the Xserver with 3 decimal places of accuracy. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">xvidtune(1), xrandr(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Kaleb S. Keithley, X Consortium. <br>David Dawes, David Bateman 

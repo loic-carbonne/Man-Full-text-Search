@@ -1,0 +1,39 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-cgls - Recursively show control group contents <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-cgls</span> [OPTIONS...] [CGROUP...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-cgls</span> recursively shows the contents of the selected Linux control group hierarchy in a tree. If arguments are specified, shows all member processes of the specified control groups plus all their subgroups and their members. The control groups may either be specified by their full file paths or are assumed in the systemd control group hierarchy. If no argument is specified and the current working directory is beneath the control group mount point /sys/fs/cgroup, shows the contents of the control group the working directory refers to. Otherwise, the full systemd control group hierarchy is shown. 
+<p class="level0">By default, empty control groups are not shown. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--all</span> 
+<p class="level1">Do not hide empty control groups in the output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--full</span> 
+<p class="level1">Do not ellipsize process tree members. 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span> 
+<p class="level1">Include kernel threads in output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M </span><span class="bold"><span Class="emphasis">MACHINE</span></span>, <span Class="bold">--machine=</span><span class="bold"><span Class="emphasis">MACHINE</span></span> 
+<p class="level1">Limit control groups shown to the part corresponding to the container <span Class="emphasis">MACHINE</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd-cgtop</span>(1), <span Class="bold">systemd-nspawn</span>(1), <span Class="bold">ps</span>(1) 

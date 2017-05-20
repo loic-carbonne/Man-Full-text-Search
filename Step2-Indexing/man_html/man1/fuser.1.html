@@ -1,0 +1,73 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">fuser - identify processes using files or sockets <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">fuser</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">space ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">] <span Class="emphasis">name  ...</span> <br><span Class="bold">fuser</span> 
+<p class="level0"><br><span Class="bold">fuser</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">fuser</span> displays the PIDs of processes using the specified files or file systems.  In the default display mode, each file name is followed by a letter denoting the type of access: 
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">c</span> current directory. 
+<p class="level1"><span Class="bold">e</span> executable being run. 
+<p class="level1"><span Class="bold">f</span> open file. <span Class="bold">f</span> is omitted in default display mode. 
+<p class="level1"><span Class="bold">F</span> open file for writing. <span Class="bold">F</span> is omitted in default display mode. 
+<p class="level1"><span Class="bold">r</span> root directory. 
+<p class="level1"><span Class="bold">m</span> mmap'ed file or shared library. 
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">fuser</span> returns a non-zero return code if none of the specified files is accessed or in case of a fatal error.  If at least one access has been found, <span Class="bold">fuser</span> returns zero. 
+<p class="level0">In order to look up processes using TCP and UDP sockets, the corresponding name space has to be selected with the <span Class="bold">-n</span> option. By default <span Class="bold">fuser</span> will look in both IPv6 and IPv4 sockets.  To change the default, behavior, use the <span Class="bold">-4</span> and <span Class="bold">-6</span> options.  The socket(s) can be specified by the local and remote port, and the remote address.  All fields are optional, but commas in front of missing fields must be present: 
+<p class="level0"><span Class="bold">[</span><span Class="emphasis">lcl_port</span><span Class="bold">][</span>,<span Class="bold">[</span><span Class="emphasis">rmt_host</span><span Class="bold">][</span>,<span class="bold">[<span Class="emphasis">rmt_port</span><span class="bold">]]] 
+<p class="level0">Either symbolic or numeric values can be used for IP addresses and port numbers. 
+<p class="level0"><span Class="bold">fuser</span> outputs only the PIDs to stdout, everything else is sent to stderr. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> Show all files specified on the command line.  By default, only files that are accessed by at least one process are shown. 
+<p class="level0"><span Class="bold">-c</span> Same as -m option, used for POSIX compatibility. 
+<p class="level0"><span Class="bold">-f</span> Silently ignored, used for POSIX compatibility. 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--kill</span> Kill processes accessing the file.  Unless changed with <span Class="bold">-</span><span Class="emphasis">SIGNAL</span>, SIGKILL is sent.  An <span Class="bold">fuser</span> process never kills itself, but may kill other <span Class="bold">fuser</span> processes.  The effective user ID of the process executing <span Class="bold">fuser</span> is set to its real user ID before attempting to kill. 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--interactive</span> Ask the user for confirmation before killing a process. This option is silently ignored if <span Class="bold">-k</span> is not present too. 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--list-signals</span> List all known signal names. 
+<p class="level0"><span Class="bold">-m</span> <a class="emphasis" href="#NAME">NAME</a>, <span Class="bold">--mount</span> <a class="emphasis" href="#NAME">NAME</a> <a class="emphasis" href="#NAME">NAME</a> specifies a file on a mounted file system or a block device that is mounted.  All processes accessing files on that file system are listed. If a directory file is specified, it is automatically changed to <a class="emphasis" href="#NAME">NAME /.</a> to use any file system that might be mounted on that directory. 
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--ismountpoint</span> Request will be fulfilled only if <a class="emphasis" href="#NAME">NAME</a> specifies a mountpoint.  This is an invaluable seatbelt which prevents you from killing the machine if <a class="emphasis" href="#NAME">NAME</a> happens to not be a filesystem. 
+<p class="level0"><span Class="bold">-w</span> Kill only processes which have write access.  This option is silently ignored if <span Class="bold">-k</span> is not present too. 
+<p class="level0"><span class="bold">-n <span Class="emphasis">SPACE</span>, <span Class="bold">--namespace</span> <span Class="emphasis">SPACE</span> Select a different name space.  The name spaces <span Class="bold">file</span> (file names, the default), <span Class="bold">udp</span> (local UDP ports), and <span Class="bold">tcp</span> (local TCP ports) are supported.  For ports, either the port number or the symbolic name can be specified.  If there is no ambiguity, the shortcut notation <span class="emphasis">name<span class="bold">/<span Class="emphasis">space</span> (e.g. <span class="emphasis">80<span class="bold">/<span Class="emphasis">tcp</span>) can be used. 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--silent</span> Silent operation. <span Class="bold">-u</span> and <span Class="bold">-v</span> are ignored in this mode. <span Class="bold">-a</span> must not be used with <span Class="manpage">-s .</span>
+<p class="level0"><span class="bold">-<span Class="emphasis">SIGNAL</span> Use the specified signal instead of SIGKILL when killing processes. Signals can be specified either by name (e.g. <span Class="manpage">-HUP ) or by</span>number (e.g. <span Class="manpage">-1 ).</span>This option is silently ignored if the <span Class="bold">-k</span> option is not used. 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--user</span> Append the user name of the process owner to each PID. 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> 
+<p class="level0">Verbose mode.  Processes are shown in a <span Class="manpage">ps -like</span>style.  The fields PID, USER and COMMAND are similar to <span Class="manpage">ps .</span>ACCESS shows how the process accesses the file.  Verbose mode will also show when a particular file is being access as a mount point, knfs export or swap file.  In this case <span Class="bold">kernel</span> is shown instead of the PID. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information. 
+<p class="level0"><span Class="bold">-4</span>, <span Class="bold">--ipv4</span> Search only for IPv4 sockets.  This option must not be used with the <span Class="bold">-6</span> option and only has an effect with the tcp and udp namespaces. 
+<p class="level0"><span Class="bold">-6</span>, <span Class="bold">--ipv6</span> Search only for IPv6 sockets.  This option must not be used with the <span Class="bold">-4</span> option and only has an effect with the tcp and udp namespaces. 
+<p class="level0"><a name="fB-fR"></a><span class="nroffip">\fB-\fR</span> 
+<p class="level1">Reset all options and set the signal back to SIGKILL. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/proc location of the proc file system <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">fuser -km /home</span> kills all processes accessing the file system /home in any way. 
+<p class="level0"><span class="bold">if fuser -s /dev/ttyS1; then :; else <span class="emphasis">something<span Class="bold">; fi</span> invokes <span Class="emphasis">something</span> if no other process is using /dev/ttyS1. 
+<p class="level0"><span Class="bold">fuser telnet/tcp</span> shows all processes at the (local) TELNET port. <a name="RESTRICTIONS"></a><h2 class="nroffsh">RESTRICTIONS</h2>
+<p class="level0">Processes accessing the same file or file system several times in the same way are only shown once. 
+<p class="level0">If the same object is specified several times on the command line, some of those entries may be ignored. 
+<p class="level0"><span Class="bold">fuser</span> may only be able to gather partial information unless run with privileges.  As a consequence, files opened by processes belonging to other users may not be listed and executables may be classified as mapped only. 
+<p class="level0">Installing <span Class="bold">fuser</span> SUID root will avoid problems associated with partial information, but may be undesirable for security and privacy reasons. 
+<p class="level0"><span Class="bold">udp</span> and <span Class="bold">tcp</span> name spaces, and UNIX domain sockets can't be searched with kernels older than 1.3.78. 
+<p class="level0">Accesses by the kernel are only shown with the <span Class="bold">-v</span> option. 
+<p class="level0">The <span Class="bold">-k</span> option only works on processes.  If the user is the kernel, <span Class="bold">fuser</span> will print an advice, but take no action beyond that. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">fuser -m /dev/sgX will show (or kill with the -k flag) all processes, even if you don't have that device configured.  There may be other devices it does this for too. 
+<p class="level0"><span Class="bold">fuser</span> cannot report on any processes that it doesn't have permission to look at the file descriptor table for.  The most common time this problem occurs is when looking for TCP or UDP sockets when running <span Class="bold">fuser</span> as a non-root user.  In this case <span Class="bold">fuser</span> will report no access 
+<p class="level0">The mount -m option will match any file within the save device as the specified file, use the -M option as well if you mean to specify only the mount point. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">kill (1)</span>, <span Class="manpage">killall (1)</span>, <span Class="manpage">lsof (8)</span>, <span Class="manpage">pkill (1)</span>, <span Class="manpage">ps (1)</span>, <span Class="manpage">kill (2).</span>

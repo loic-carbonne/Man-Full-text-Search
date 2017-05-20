@@ -1,0 +1,52 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">lscpu - display information about the CPU architecture <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">lscpu</span> 
+<p class="level0"><br><span Class="bold">lscpu</span> <span Class="manpage">-h | -V</span><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">lscpu</span> gathers CPU architecture information from sysfs and /proc/cpuinfo.  The command output can be optimized for parsing or for easy readability by humans. The information includes, for example, the number of CPUs, threads, cores, sockets, and Non-Uniform Memory Access (NUMA) nodes.  There is also information about the CPU caches and cache sharing, family, model, bogoMIPS, byte order, and stepping. 
+<p class="level0">Options that result in an output table have a <span Class="emphasis">list</span> argument.  Use this argument to customize the command output.  Specify a comma-separated list of column labels to limit the output table to only the specified columns, arranged in the specified order.  See <a class="bold" href="#COLUMNS">COLUMNS</a> for a list of valid column labels.  The column labels are not case sensitive. 
+<p class="level0">Not all columns are supported on all architectures.  If an unsupported column is specified, <span Class="bold">lscpu</span> prints the column but does not provide any data for it. 
+<p class="level0"><a name="COLUMNS"></a><h2 class="nroffsh">COLUMNS</h2>
+<p class="level0">Note that topology elements (core, socket, etc.) use sequential unique ID starting from zero, but CPU logical numbers follow kernel where is no guarantee of the sequential numbering. 
+<p class="level0"><span Class="bold">CPU</span> The logical CPU number of a CPU as used by the Linux kernel. 
+<p class="level0"><span Class="bold">CORE</span> The logical core number.  A core can contain several CPUs. 
+<p class="level0"><span Class="bold">SOCKET</span> The logical socket number.  A socket can contain several cores. 
+<p class="level0"><span Class="bold">BOOK</span> The logical book number.  A book can contain several sockets. 
+<p class="level0"><span Class="bold">NODE</span> The logical NUMA node number.  A node may contain several books. 
+<p class="level0"><span Class="bold">CACHE</span> Information about how caches are shared between CPUs. 
+<p class="level0"><span Class="bold">ADDRESS</span> The physical address of a CPU. 
+<p class="level0"><span Class="bold">ONLINE</span> Indicator that shows whether the Linux instance currently makes use of the CPU. 
+<p class="level0"><span Class="bold">CONFIGURED</span> Indicator that shows if the hypervisor has allocated the CPU to the virtual hardware on which the Linux instance runs.  CPUs that are configured can be set online by the Linux instance. This column contains data only if your hardware system and hypervisor support dynamic CPU resource allocation. 
+<p class="level0"><span Class="bold">POLARIZATION</span> This column contains data for Linux instances that run on virtual hardware with a hypervisor that can switch the CPU dispatching mode (polarization).  The polarization can be: 
+<p class="level1">
+<p class="level1"><span Class="bold">horizontal</span> The workload is spread across all available CPUs. 
+<p class="level1"><span Class="bold">vertical</span> The workload is concentrated on few CPUs. 
+<p class="level1">For vertical polarization, the column also shows the degree of concentration, high, medium, or low.  This column contains data only if your hardware system and hypervisor support CPU polarization. 
+<p class="level1"><span Class="bold">MMHZ</span> Maximum megaherz value for the cpu.  Useful when lscpu is used as hardware inventory information gathering tool.  Notice that the megahertz value is dynamic, and driven by CPU governor depending on current resource need. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--all</span>Include lines for online and offline CPUs in the output (default for <span Class="bold">-e</span>). This option may only be specified together with option <span Class="bold">-e</span> or <span Class="bold">-p</span>. 
+<p class="level0"><span Class="manpage">-b</span>, <span Class="manpage">--online</span>Limit the output to online CPUs (default for <span Class="bold">-p</span>). This option may only be specified together with option <span Class="bold">-e</span> or <span Class="bold">-p</span>. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--offline</span>Limit the output to offline CPUs. This option may only be specified together with option <span Class="bold">-e</span> or <span Class="bold">-p</span>. 
+<p class="level0"><span Class="manpage">-e</span>, <span Class="manpage">--extended [=\fIlist\fP]</span>Display the CPU information in human readable format. 
+<p class="level0">If the <span Class="emphasis">list</span> argument is omitted, all columns for which data is available are included in the command output. 
+<p class="level0">When specifying the <span Class="emphasis">list</span> argument, the string of option, equal sign (=), and <span Class="emphasis">list</span> must not contain any blanks or other whitespace. Examples: '<span Class="bold">-e=cpu,node</span>' or '<span Class="bold">--extended=cpu,node</span>'. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--parse [=\fIlist\fP]</span>Optimize the command output for easy parsing. 
+<p class="level0">If the <span Class="emphasis">list</span> argument is omitted, the command output is compatible with earlier versions of <span Class="bold">lscpu</span>.  In this compatible format, two commas are used to separate CPU cache columns.  If no CPU caches are identified the cache column is omitted. <br>If the <span Class="emphasis">list</span> argument is used, cache columns are separated with a colon (:). 
+<p class="level0">When specifying the <span Class="emphasis">list</span> argument, the string of option, equal sign (=), and <span Class="emphasis">list</span> must not contain any blanks or other whitespace. Examples: '<span Class="bold">-p=cpu,node</span>' or '<span Class="bold">--parse=cpu,node</span>'. 
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--sysroot  \fIdirectory\fP</span>Gather CPU data for a Linux instance other than the instance from which the <span Class="bold">lscpu</span> command is issued.  The specified <span Class="emphasis">directory</span> is the system root of the Linux instance to be inspected. 
+<p class="level0"><span Class="manpage">-x</span>, <span Class="manpage">--hex</span>Use hexadecimal masks for CPU sets (for example 0x3).  The default is to print the sets in list format (for example 0,1). 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information and exit. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The basic overview of CPU family, model, etc. is always based on the first CPU only. 
+<p class="level0">Sometimes in Xen Dom0 the kernel reports wrong data. 
+<p class="level0">On virtual hardware the number of cores per socket, etc. can be wrong. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Cai Qian &lt;qcai@redhat.com&gt;
+Karel Zak &lt;kzak@redhat.com&gt;
+Heiko Carstens &lt;heiko.carstens@de.ibm.com&gt;
+</pre>
+
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">chcpu (8)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The lscpu command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

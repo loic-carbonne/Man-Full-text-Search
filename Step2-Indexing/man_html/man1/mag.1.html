@@ -1,0 +1,34 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mag - computes fontsizes and magsteps <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS </h2>
+<p class="level0"><span Class="bold"></span> mag [-<span class="bold">R<span Class="emphasis">dpi</span></span>] magstep . . . 
+<p class="level0"><span Class="bold"></span> mag [-<span Class="bold">r</span>] [-<span Class="bold">R</span><span Class="emphasis">dpi</span>] fontsize . . . 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">delim $$ 
+<p class="level0">This tool calculates fontsizes given magsteps.  TeXfonts are provided as true sized fonts or as magnifications.  The fontsize of a true sized font equals the resolution of the printer (ex.  300).  The fontsize of a font magnified $n$ <span Class="emphasis">magsteps</span> equals: 
+<p class="level0">1.2 sup{n} times 300 delim off 
+<p class="level0">rounded to its nearest integer value.  Fontnames for TeX fonts normally consists of the name (<span Class="emphasis">cmr</span>), pointsize (<span Class="emphasis">10</span>), type (<span Class="emphasis">pk</span>) and fontsize (<span Class="emphasis">360</span>), for example: <span Class="emphasis">cmr10.360pk</span>.  
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">The result of <span Class="emphasis">mag -R240 -2 0 0.5 1</span> will be:  
+<p class="level0">167 240 263 288  
+<p class="level0">
+<p class="level0">The inverse function is computed with the <span Class="emphasis">-r</span> option. The result of <span Class="emphasis">mag -r -R240 167 240 263 288</span> will be the fontsteps: 
+<p class="level0">-2 0 0.5 1 
+<p class="level0">
+<p class="level0">The UNIX shells allow command substitution. One can write: 
+<p class="level0">mag -r -R240 `mag -R240 -2 0 0.5 1` 
+<p class="level0">
+<p class="level0"><a name="DATE"></a><h2 class="nroffsh">DATE</h2>
+<p class="level0">18 December, 1989 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Piet Tutelaers
+University of Technology Eindhoven
+&lt;rcpt@urc.tue.nl&gt;
+&nbsp;

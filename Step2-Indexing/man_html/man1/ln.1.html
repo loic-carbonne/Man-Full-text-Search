@@ -1,0 +1,34 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ln - make links between files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ln</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">-T</span>] <span Class="emphasis">TARGET LINK_NAME   (1st form)</span> <br><span Class="bold">ln</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">TARGET                  (2nd form)</span> <br><span Class="bold">ln</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">TARGET</span>... <span Class="emphasis">DIRECTORY     (3rd form)</span> <br><span Class="bold">ln</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">-t DIRECTORY TARGET</span>...  <span Class="emphasis">(4th form)</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">In the 1st form, create a link to TARGET with the name LINK_NAME. In the 2nd form, create a link to TARGET in the current directory. In the 3rd and 4th forms, create links to each TARGET in DIRECTORY. Create hard links by default, symbolic links with <span Class="bold">--symbolic</span>. By default, each destination (name of new link) should not already exist. When creating hard links, each TARGET must exist.  Symbolic links can hold arbitrary text; if later resolved, a relative link is interpreted in relation to its parent directory. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">--backup</span>[=<span Class="emphasis">CONTROL</span>] make a backup of each existing destination file 
+<p class="level0"><span Class="bold">-b</span> like <span Class="bold">--backup</span> but does not accept an argument 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">-F</span>, <span Class="bold">--directory</span> allow the superuser to attempt to hard link directories (note: will probably fail due to system restrictions, even for the superuser) 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> remove existing destination files 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--interactive</span> prompt whether to remove destinations 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--logical</span> dereference TARGETs that are symbolic links 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--no-dereference</span> treat LINK_NAME as a normal file if it is a symbolic link to a directory 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--physical</span> make hard links directly to symbolic links 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--relative</span> create symbolic links relative to link location 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--symbolic</span> make symbolic links instead of hard links 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--suffix</span>=<span Class="emphasis">SUFFIX</span> override the usual backup suffix 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--target-directory</span>=<span Class="emphasis">DIRECTORY</span> specify the DIRECTORY in which to create the links 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--no-target-directory</span> treat LINK_NAME as a normal file always 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> print name of each linked file 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">The backup suffix is '~', unless set with <span Class="bold">--suffix</span> or SIMPLE_BACKUP_SUFFIX. The version control method may be selected via the <span Class="bold">--backup</span> option or through the VERSION_CONTROL environment variable.  Here are the values: 
+<p class="level0">none, off never make backups (even if <span Class="bold">--backup</span> is given) 
+<p class="level0">numbered, t make numbered backups 
+<p class="level0">existing, nil numbered if numbered backups exist, simple otherwise 
+<p class="level0">simple, never always make simple backups 
+<p class="level0">Using <span Class="bold">-s</span> ignores <span Class="bold">-L</span> and <span Class="bold">-P</span>.  Otherwise, the last option specified controls behavior when a TARGET is a symbolic link, defaulting to <span Class="bold">-P</span>. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Mike Parker and David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report ln translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">link(2), symlink(2) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/ln&gt; <br>or available locally via: info (aq(coreutils) ln invocation(aq 

@@ -1,0 +1,63 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">whiptail - display dialog boxes from shell scripts <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">whiptail</span> [ <span Class="bold">--title</span> <span Class="emphasis">title</span> ] [ <span Class="bold">--backtitle</span> <span Class="emphasis">backtitle</span> ] [ <span Class="bold">--clear</span> ] [ <span Class="bold">--default-item</span> <span Class="emphasis">string</span> ] [ <span Class="bold">--defaultno</span> ] [ <span Class="bold">--fb</span> ] [ <span Class="bold">--nocancel</span> ] [ <span Class="bold">--yes-button</span> <span Class="emphasis">text</span> ] [ <span Class="bold">--no-button</span> <span Class="emphasis">text</span> ] [ <span Class="bold">--ok-button</span> <span Class="emphasis">text</span> ] [ <span Class="bold">--cancel-button</span> <span Class="emphasis">text</span> ] [ <span Class="bold">--noitem</span> [ ] <span Class="bold">--output-fd</span> <span Class="emphasis">fd</span> ] [ <span Class="bold">--separate-output</span> ] [ <span Class="bold">--scrolltext</span> ] [ <span Class="bold">--topleft</span> ] <span Class="bold">box-options</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">whiptail</span> is a program that will let you present a variety of questions or display messages using dialog boxes from a shell script. Currently, these types of dialog boxes are implemented:  
+<p class="level0"><span Class="manpage">yes/no  box</span>, <span Class="manpage">menu  box</span>, <span Class="manpage">input  box</span>, <span Class="manpage">message  box</span>, <span Class="manpage">text  box</span>, <span Class="manpage">info  box</span>, <span Class="manpage">checklist  box</span>, <span Class="manpage">radiolist  box  gauge  box</span>, <span Class="manpage">and</span>, <span Class="manpage">password  box.</span><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--clear</span> The screen will be cleared to the <span Class="manpage">screen attribute  on exit.</span>This doesn't work in an xterm (and descendants) if alternate screen switching is enabled, because in that case slang writes to (and clears) an alternate screen. 
+<p class="level0"><span Class="bold">--defaultno</span> The dialog box will open with the cursor over the  <span Class="manpage">No  button.</span>
+<p class="level0"><span Class="bold">--default-item  string</span> Set  the default item in a menu box. Normally the first item in the box is the default. 
+<p class="level0"><span Class="bold">--fb</span>, <span Class="bold">--fullbuttons</span> Use full buttons. (By default,  <span Class="bold">whiptail</span> uses compact buttons).  
+<p class="level0"><span Class="bold">--nocancel</span> The dialog box won't have a  <span Class="manpage">Cancel  button.</span>
+<p class="level0"><span Class="bold">--yes-button  text</span> Set the text of the <span Class="manpage">Yes  button.</span>
+<p class="level0"><span Class="bold">--no-button  text</span> Set the text of the <span Class="manpage">No  button.</span>
+<p class="level0"><span Class="bold">--ok-button  text</span> Set the text of the <span Class="manpage">Ok  button.</span>
+<p class="level0"><span Class="bold">--cancel-button  text</span> Set the text of the <span Class="manpage">Cancel  button.</span>
+<p class="level0"><span Class="bold">--noitem</span> The menu, checklist and radiolist widgets will display tags only, not the item strings. The menu widget still needs some items specified, but checklist and radiolist expect only tag and status. 
+<p class="level0"><span Class="bold">--notags</span> Don't display tags in the menu, checklist and radiolist widgets. 
+<p class="level0"><span Class="bold">--separate-output</span> For checklist widgets, output result one line at a time, with no quoting.  This facilitates parsing by another program. 
+<p class="level0"><span Class="bold">--output-fd   fd </span> Direct output to the given file descriptor.  Most  <span Class="bold">whiptail</span> scripts write to standard error, but  error  messages  may  also  be written there, depending on your script. 
+<p class="level0"><span Class="bold">--title  title</span> Specifies a <span Class="emphasis">title</span> string to be displayed at the top of the dialog box. 
+<p class="level0"><span Class="bold">--backtitle  backtitle</span> Specifies a <span Class="emphasis">backtitle</span> string to be displayed on the backdrop, at the top of the screen. 
+<p class="level0"><span Class="bold">--scrolltext</span> Force the display of a vertical scrollbar. 
+<p class="level0"><span Class="bold">--topleft</span> Put window in top-left corner. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Print a help message and exit. 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--version</span> Print version information and exit. 
+<p class="level0"><span Class="bold">Box Options</span> 
+<p class="level0"><span Class="bold">--yesno  text height width</span> 
+<p class="level0"><span Class="emphasis">height</span> rows by <span Class="emphasis">width</span> columns will be displayed. The string specified by <span Class="emphasis">text</span> is displayed inside the dialog box. If this string is too long to be fit in one line, it will be automatically divided into multiple lines at appropriate places. The <span Class="emphasis">text</span> string may also contain the sub-string <span Class="emphasis"></span> "en" or newline characters <span Class="emphasis">`\en'</span> to control line breaking explicitly.  This dialog box is useful for asking questions that require the user to answer either yes or no. 
+<p class="level0">button, in which the user can switch between by pressing the <span Class="emphasis">TAB  key.</span> 
+<p class="level0"><span Class="bold">--msgbox  text height width</span> 
+<p class="level0">The only difference between a <span Class="bold">message</span> box and a <span Class="bold">yes/no</span> box is that a <span Class="bold">message</span> box has only a single <span Class="bold">OK</span> button. You can use this dialog box to display any message you like. After reading the message, the user can press the <span Class="emphasis">ENTER</span> key so that <span Class="bold">whiptail</span> will exit and the calling shell script can continue its operation. 
+<p class="level0"><span Class="bold">--infobox  text height width</span> 
+<p class="level0">However, in this case, <span Class="bold">whiptail</span> will exit immediately after displaying the message to the user. The screen is not cleared when <span Class="bold">whiptail</span> exits, so that the message will remain on the screen until the calling shell script clears it later. This is useful when you want to inform the user that some operations are carrying on that may require some time to finish. 
+<p class="level0"><span Class="bold">--inputbox  text height width [init]</span> 
+<p class="level0">require the user to input a string as the answer. If init is supplied it is used to initialize the input string. When inputing the string, the <span Class="emphasis">BACKSPACE</span> key can be used to correct typing errors. If the input string is longer than the width of the dialog box, the input field will be scrolled. On exit, the input string will be printed on <span Class="emphasis">stderr .</span> 
+<p class="level0"><span Class="bold">--passwordbox  text height width [init]</span> 
+<p class="level0">enters is not displayed. This is useful when prompting for passwords or other sensitive information. Be aware that if anything is passed in "init", it will be visible in the system's process table to casual snoopers. Also, it is very confusing to the user to provide them with a default password they cannot see. For these reasons, using "init" is highly discouraged. 
+<p class="level0"><span Class="bold">--textbox  file height width</span> 
+<p class="level0">dialog box. It is like a simple text file viewer. The user can move through the file by using the <span Class="emphasis">UP/DOWN ,  PGUP/PGDN</span> 
+<p class="level0">If the lines are too long to be displayed in the box, the <span Class="emphasis">LEFT/RIGHT</span> keys can be used to scroll the text region horizontally. For more convenience, forward and backward searching functions are also provided. 
+<p class="level0"><a name="fB--menu"></a><span class="nroffip">\fB--menu \fItext height width menu-height \fR[ \fItag item \fR] \fI...</span> 
+<p class="level1">As its name suggests, a <span Class="bold">menu</span> box is a dialog box that can be used to present a list of choices in the form of a menu for the user to choose. Each menu entry consists of a <span Class="emphasis">tag  string and an  item  string. The</span> <span Class="emphasis">tag</span> gives the entry a name to distinguish it from the other entries in the menu. The <span Class="emphasis">item</span> is a short description of the option that the entry represents. The user can move between the menu entries by pressing the <span Class="emphasis">UP/DOWN</span> keys, the first letter of the <span Class="emphasis">tag</span> as a hot-key. There are <span Class="emphasis">menu-height</span> entries displayed in the menu at one time, but the menu will be scrolled if there are more entries than that. When <span Class="bold">whiptail</span> exits, the <span Class="emphasis">tag</span> of the chosen menu entry will be printed on <span Class="emphasis">stderr .</span> 
+<p class="level0"><a name="fB--checklist"></a><span class="nroffip">\fB--checklist \fItext height width list-height \fR[ \fItag item status \fR] \fI...</span> 
+<p class="level1">
+<p class="level1">multiple entries presented in the form of a menu. You can select and deselect items using the SPACE key.   The initial on/off state of each entry is specified by <span Class="emphasis">status .</span> On exit, a list of the <span Class="emphasis">tag</span> strings of those entries that are turned on will be printed on <span Class="emphasis">stderr .</span> 
+<p class="level1">
+<p class="level0"><a name="fB--radiolist"></a><span class="nroffip">\fB--radiolist \fItext height width list-height \fR [ \fItag item status \fR] \fI...</span> 
+<p class="level1">
+<p class="level1">that you can indicate which entry is currently selected, by setting its <span Class="emphasis">status  to  on .</span> 
+<p class="level1">
+<p class="level0"><a name="fB--gauge"></a><span class="nroffip">\fB--gauge \fItext height width percent\fR</span> 
+<p class="level1">
+<p class="level1">The meter indicates a percentage.  New percentages are read from standard input, one integer per line.  The meter is updated to reflect each new percentage.  If stdin is XXX, the first following line is a percentage and subsequent lines up to another XXX are used for a new prompt. The gauge exits when EOF is reached on stdin. 
+<p class="level1"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">whiptail interprets arguments starting with a dash "-" as being arguments. To avoid this, and start some text in, for example, a menubox item, with a  dash, whiptail honours the getopt convention of accepting the special argument "--" which means that all following arguments with dashes are to be treated verbatim and not parsed as options. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">Exit status is 0 if <span Class="manpage">whiptail  is exited by pressing the  Yes  or  OK</span>button, and 1 if the <span Class="manpage">No  or  Cancel</span>button is pressed. Otherwise, if errors occur inside <span Class="bold">whiptail</span> or <span Class="bold">whiptail</span> is exited by pressing the <span Class="emphasis">ESC</span> key, the exit status is -1. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Based on the man page for dialog(1) by: 
+<p class="level0">Savio Lam (lam836@cs.cuhk.hk) - version 0.3 
+<p class="level0">Stuart Herbert (S.Herbert@sheffield.ac.uk) - patch for version 0.4 
+<p class="level0">Modifications for whiptail by: 
+<p class="level0">Enrique Zanardi (ezanard@debian.org) 
+<p class="level0">Alastair McKinstry (mckinstry@debian.org) 

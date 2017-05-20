@@ -1,0 +1,166 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ksu - Kerberized super-user 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">ksu</span> [ <span Class="emphasis">target_user</span> ] [ <span Class="bold">-n</span> <span Class="emphasis">target_principal_name</span> ] [ <span Class="bold">-c</span> <span Class="emphasis">source_cache_name</span> ] [ <span Class="bold">-k</span> ] [ <span Class="bold">-D</span> ] [ <span Class="bold">-r</span> time ] [ <span Class="bold">-pf</span> ] [ <span Class="bold">-l</span> <span Class="emphasis">lifetime</span> ] [ <span Class="bold">-z | Z</span> ] [ <span Class="bold">-q</span> ] [ <span Class="bold">-e</span> <span Class="emphasis">command</span> [ args ...  ] ] [ <span Class="bold">-a</span> [ args ...  ] ] <a name="REQUIREMENTS"></a><h2 class="nroffsh">REQUIREMENTS</h2>
+<p class="level0">
+<p class="level0">Must have Kerberos version 5 installed to compile ksu.  Must have a Kerberos version 5 server running to use ksu. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">ksu is a Kerberized version of the su program that has two missions: one is to securely change the real and effective user ID to that of the target user, and the other is to create a new security context. 
+<p class="level0"><a name="Note"></a><span class="nroffip">Note</span> 
+<p class="level1">For the sake of clarity, all references to and attributes of the user invoking the program will start with "source" (e.g., "source user", "source cache", etc.). 
+<p class="level1">Likewise, all references to and attributes of the target account will start with "target". 
+<p class="level0"><a name="AUTHENTICATION"></a><h2 class="nroffsh">AUTHENTICATION</h2>
+<p class="level0">
+<p class="level0">To fulfill the first mission, ksu operates in two phases: authentication and authorization.  Resolving the target principal name is the first step in authentication.  The user can either specify his principal name with the <span Class="bold">-n</span> option (e.g., <span Class="bold">-n jqpublic@USC.EDU</span>) or a default principal name will be assigned using a heuristic described in the OPTIONS section (see <span Class="bold">-n</span> option).  The target user name must be the first argument to ksu; if not specified root is the default.  If <span Class="bold">.</span> is specified then the target user will be the source user (e.g., <span Class="bold">ksu .</span>).  If the source user is root or the target user is the source user, no authentication or authorization takes place.  Otherwise, ksu looks for an appropriate Kerberos ticket in the source cache. 
+<p class="level0">The ticket can either be for the end-server or a ticket granting ticket (TGT) for the target principal(aqs realm.  If the ticket for the end-server is already in the cache, it(aqs decrypted and verified.  If it(aqs not in the cache but the TGT is, the TGT is used to obtain the ticket for the end-server.  The end-server ticket is then verified. If neither ticket is in the cache, but ksu is compiled with the <span Class="bold">GET_TGT_VIA_PASSWD</span> define, the user will be prompted for a Kerberos password which will then be used to get a TGT.  If the user is logged in remotely and does not have a secure channel, the password may be exposed.  If neither ticket is in the cache and <span Class="bold">GET_TGT_VIA_PASSWD</span> is not defined, authentication fails. <a name="AUTHORIZATION"></a><h2 class="nroffsh">AUTHORIZATION</h2>
+<p class="level0">
+<p class="level0">This section describes authorization of the source user when ksu is invoked without the <span Class="bold">-e</span> option.  For a description of the <span Class="bold">-e</span> option, see the OPTIONS section. 
+<p class="level0">Upon successful authentication, ksu checks whether the target principal is authorized to access the target account.  In the target user(aqs home directory, ksu attempts to access two authorization files: <span Class="emphasis">.k5login(5)</span> and .k5users.  In the .k5login file each line contains the name of a principal that is authorized to access the account. 
+<p class="level0">
+<p class="level0"><span Class="bold">For example:</span> 
+<p class="level0"><pre class="level0">
+jqpublic@USC.EDU
+jqpublic/secure@USC.EDU
+jqpublic/admin@USC.EDU
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The format of .k5users is the same, except the principal name may be followed by a list of commands that the principal is authorized to execute (see the <span Class="bold">-e</span> option in the OPTIONS section for details). 
+<p class="level0">Thus if the target principal name is found in the .k5login file the source user is authorized to access the target account.  Otherwise ksu looks in the .k5users file.  If the target principal name is found without any trailing commands or followed only by <span Class="bold">*</span> then the source user is authorized.  If either .k5login or .k5users exist but an appropriate entry for the target principal does not exist then access is denied.  If neither file exists then the principal will be granted access to the account according to the aname-&gt;lname mapping rules.  Otherwise, authorization fails. <a name="EXECUTION"></a><h2 class="nroffsh">EXECUTION OF THE TARGET SHELL</h2>
+<p class="level0">
+<p class="level0">Upon successful authentication and authorization, ksu proceeds in a similar fashion to su.  The environment is unmodified with the exception of USER, HOME and SHELL variables.  If the target user is not root, USER gets set to the target user name.  Otherwise USER remains unchanged.  Both HOME and SHELL are set to the target login(aqs default values.  In addition, the environment variable <span Class="bold">KRB5CCNAME</span> gets set to the name of the target cache.  The real and effective user ID are changed to that of the target user.  The target user(aqs shell is then invoked (the shell name is specified in the password file).  Upon termination of the shell, ksu deletes the target cache (unless ksu is invoked with the <span Class="bold">-k</span> option).  This is implemented by first doing a fork and then an exec, instead of just exec, as done by su. <a name="CREATING"></a><h2 class="nroffsh">CREATING A NEW SECURITY CONTEXT</h2>
+<p class="level0">
+<p class="level0">ksu can be used to create a new security context for the target program (either the target shell, or command specified via the <span Class="bold">-e</span> option).  The target program inherits a set of credentials from the source user.  By default, this set includes all of the credentials in the source cache plus any additional credentials obtained during authentication.  The source user is able to limit the credentials in this set by using <span Class="bold">-z</span> or <span Class="bold">-Z</span> option.  <span Class="bold">-z</span> restricts the copy of tickets from the source cache to the target cache to only the tickets where client == the target principal name.  The <span Class="bold">-Z</span> option provides the target user with a fresh target cache (no creds in the cache).  Note that for security reasons, when the source user is root and target user is non-root, <span Class="bold">-z</span> option is the default mode of operation. 
+<p class="level0">While no authentication takes place if the source user is root or is the same as the target user, additional tickets can still be obtained for the target cache.  If <span Class="bold">-n</span> is specified and no credentials can be copied to the target cache, the source user is prompted for a Kerberos password (unless <span Class="bold">-Z</span> specified or <span Class="bold">GET_TGT_VIA_PASSWD</span> is undefined).  If successful, a TGT is obtained from the Kerberos server and stored in the target cache.  Otherwise, if a password is not provided (user hit return) ksu continues in a normal mode of operation (the target cache will not contain the desired TGT).  If the wrong password is typed in, ksu fails. 
+<p class="level0"><a name="Note"></a><span class="nroffip">Note</span> 
+<p class="level1">During authentication, only the tickets that could be obtained without providing a password are cached in in the source cache. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-n target_principal_name</span> Specify a Kerberos target principal name.  Used in authentication and authorization phases of ksu. 
+<p class="level0">If ksu is invoked without <span Class="bold">-n</span>, a default principal name is assigned via the following heuristic: 
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">Case 1: source user is non-root. 
+<p class="level1">If the target user is the source user the default principal name is set to the default principal of the source cache.  If the cache does not exist then the default principal name is set to <span Class="bold">target_user@local_realm</span>.  If the source and target users are different and neither <span Class="bold">~target_user/.k5users</span> nor <span Class="bold">~target_user/.k5login</span> exist then the default principal name is <span Class="bold">target_user_login_name@local_realm</span>.  Otherwise, starting with the first principal listed below, ksu checks if the principal is authorized to access the target account and whether there is a legitimate ticket for that principal in the source cache.  If both conditions are met that principal becomes the default target principal, otherwise go to the next principal. 
+<p class="level1">
+<p class="level0"><a name="a"></a><span class="nroffip">a. 3</span> 
+<p class="level1">default principal of the source cache 
+<p class="level0"><a name="b"></a><span class="nroffip">b. 3</span> 
+<p class="level1">target_user@local_realm 
+<p class="level0"><a name="c"></a><span class="nroffip">c. 3</span> 
+<p class="level1">source_user@local_realm 
+<p class="level1">
+<p class="level1">If a-c fails try any principal for which there is a ticket in the source cache and that is authorized to access the target account.  If that fails select the first principal that is authorized to access the target account from the above list.  If none are authorized and ksu is configured with <span Class="bold">PRINC_LOOK_AHEAD</span> turned on, select the default principal as follows: 
+<p class="level1">For each candidate in the above list, select an authorized principal that has the same realm name and first part of the principal name equal to the prefix of the candidate.  For example if candidate a) is <span Class="bold">jqpublic@ISI.EDU</span> and <span Class="bold">jqpublic/secure@ISI.EDU</span> is authorized to access the target account then the default principal is set to <span Class="bold">jqpublic/secure@ISI.EDU</span>. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">Case 2: source user is root. 
+<p class="level1">If the target user is non-root then the default principal name is <span Class="bold">target_user@local_realm</span>.  Else, if the source cache exists the default principal name is set to the default principal of the source cache.  If the source cache does not exist, default principal name is set to <span Class="bold">roote@local_realm</span>. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-c</span> <span Class="emphasis">source_cache_name</span> 
+<p class="level1">
+<p class="level1">Specify source cache name (e.g., <span Class="bold">-c FILE:/tmp/my_cache</span>).  If <span Class="bold">-c</span> option is not used then the name is obtained from <span Class="bold">KRB5CCNAME</span> environment variable.  If <span Class="bold">KRB5CCNAME</span> is not defined the source cache name is set to <span Class="bold">krb5cc_&lt;source uid&gt;</span>. The target cache name is automatically set to <span class="bold">krb5cc_&lt;target uid&gt;.(gen_sym())</span>, where gen_sym generates a new number such that the resulting cache does not already exist.  For example: 
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+krb5cc_1984.2
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">\fB-k</span> Do not delete the target cache upon termination of the target shell or a command (<span Class="bold">-e</span> command).  Without <span Class="bold">-k</span>, ksu deletes the target cache. 
+<p class="level1"><span Class="bold">\fB-D</span> Turn on debug mode. 
+<p class="level1"><span Class="bold">\fB-z</span> Restrict the copy of tickets from the source cache to the target cache to only the tickets where client == the target principal name.  Use the <span Class="bold">-n</span> option if you want the tickets for other then the default principal.  Note that the <span Class="bold">-z</span> option is mutually exclusive with the <span Class="bold">-Z</span> option. 
+<p class="level1"><span Class="bold">\fB-Z</span> Don(aqt copy any tickets from the source cache to the target cache. Just create a fresh target cache, where the default principal name of the cache is initialized to the target principal name.  Note that the <span Class="bold">-Z</span> option is mutually exclusive with the <span Class="bold">-z</span> option. 
+<p class="level1"><span Class="bold">\fB-q</span> Suppress the printing of status messages. 
+<p class="level1">
+<p class="level1">Ticket granting ticket options: 
+<p class="level1">
+<p class="level1"><span Class="bold">\fB-l lifetime \fB-r time \fB-pf</span> The ticket granting ticket options only apply to the case where there are no appropriate tickets in the cache to authenticate the source user.  In this case if ksu is configured to prompt users for a Kerberos password (<span Class="bold">GET_TGT_VIA_PASSWD</span> is defined), the ticket granting ticket options that are specified will be used when getting a ticket granting ticket from the Kerberos server. 
+<p class="level1"><span Class="bold">\fB-l lifetime</span> (<span Class="emphasis">duration</span> string.)  Specifies the lifetime to be requested for the ticket; if this option is not specified, the default ticket lifetime (12 hours) is used instead. 
+<p class="level1"><span Class="bold">\fB-r time</span> (<span Class="emphasis">duration</span> string.)  Specifies that the <span Class="bold">renewable</span> option should be requested for the ticket, and specifies the desired total lifetime of the ticket. 
+<p class="level1"><span Class="bold">\fB-p</span> specifies that the <span Class="bold">proxiable</span> option should be requested for the ticket. 
+<p class="level1"><span Class="bold">\fB-f</span> option specifies that the <span Class="bold">forwardable</span> option should be requested for the ticket. 
+<p class="level1"><span Class="bold">\fB-e command [args ...]</span> ksu proceeds exactly the same as if it was invoked without the <span Class="bold">-e</span> option, except instead of executing the target shell, ksu executes the specified command. Example of usage: 
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+ksu bob -e ls -lag
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">The authorization algorithm for <span Class="bold">-e</span> is as follows: 
+<p class="level1">If the source user is root or source user == target user, no authorization takes place and the command is executed.  If source user id != 0, and <span Class="bold">~target_user/.k5users</span> file does not exist, authorization fails.  Otherwise, <span Class="bold">~target_user/.k5users</span> file must have an appropriate entry for target principal to get authorized. 
+<p class="level1">The .k5users file format: 
+<p class="level1">A single principal entry on each line that may be followed by a list of commands that the principal is authorized to execute.  A principal name followed by a <span Class="bold">*</span> means that the user is authorized to execute any command.  Thus, in the following example: 
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+jqpublic@USC.EDU ls mail /local/kerberos/klist
+jqpublic/secure@USC.EDU *
+jqpublic/admin@USC.EDU
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">jqpublic@USC.EDU</span> is only authorized to execute <span Class="bold">ls</span>, <span Class="bold">mail</span> and <span Class="bold">klist</span> commands.  <span Class="bold">jqpublic/secure@USC.EDU</span> is authorized to execute any command.  <span Class="bold">jqpublic/admin@USC.EDU</span> is not authorized to execute any command.  Note, that <span Class="bold">jqpublic/admin@USC.EDU</span> is authorized to execute the target shell (regular ksu, without the <span Class="bold">-e</span> option) but <span Class="bold">jqpublic@USC.EDU</span> is not. 
+<p class="level1">The commands listed after the principal name must be either a full path names or just the program name.  In the second case, <span Class="bold">CMD_PATH</span> specifying the location of authorized programs must be defined at the compilation time of ksu.  Which command gets executed? 
+<p class="level1">If the source user is root or the target user is the source user or the user is authorized to execute any command (<span Class="bold">*</span> entry) then command can be either a full or a relative path leading to the target program.  Otherwise, the user must specify either a full path or just the program name. 
+<p class="level1"><span Class="bold">\fB-a args</span> Specify arguments to be passed to the target shell.  Note that all flags and parameters following -a will be passed to the shell, thus all options intended for ksu must precede <span Class="bold">-a</span>. 
+<p class="level1">The <span Class="bold">-a</span> option can be used to simulate the <span Class="bold">-e</span> option if used as follows: 
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+-a -c [command [arguments]].
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-c</span> is interpreted by the c-shell to execute the command. 
+<p class="level1"><a name="INSTALLATION"></a><h2 class="nroffsh">INSTALLATION INSTRUCTIONS</h2>
+<p class="level0">
+<p class="level0">ksu can be compiled with the following four flags: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBGET_TGT_VIA_PASSWD</span> In case no appropriate tickets are found in the source cache, the user will be prompted for a Kerberos password.  The password is then used to get a ticket granting ticket from the Kerberos server.  The danger of configuring ksu with this macro is if the source user is logged in remotely and does not have a secure channel, the password may get exposed. 
+<p class="level0"><span Class="bold">\fBPRINC_LOOK_AHEAD</span> During the resolution of the default principal name, <span Class="bold">PRINC_LOOK_AHEAD</span> enables ksu to find principal names in the .k5users file as described in the OPTIONS section (see <span Class="bold">-n</span> option). 
+<p class="level0"><span Class="bold">\fBCMD_PATH</span> Specifies a list of directories containing programs that users are authorized to execute (via .k5users file). 
+<p class="level0"><span Class="bold">\fBHAVE_GETUSERSHELL</span> If the source user is non-root, ksu insists that the target user(aqs shell to be invoked is a "legal shell".  <span Class="emphasis">getusershell(3)</span> is called to obtain the names of "legal shells".  Note that the target user(aqs shell is obtained from the passwd file. 
+<p class="level0"><span Class="bold">Sample configuration:</span> 
+<p class="level0"><pre class="level0">
+KSU_OPTS = -DGET_TGT_VIA_PASSWD -DPRINC_LOOK_AHEAD -DCMD_PATH=(aq"/bin /usr/ucb /local/bin"
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">ksu should be owned by root and have the set user id bit turned on. 
+<p class="level0">ksu attempts to get a ticket for the end server just as Kerberized telnet and rlogin.  Thus, there must be an entry for the server in the Kerberos database (e.g., <span Class="bold">host/nii.isi.edu@ISI.EDU</span>).  The keytab file must be in an appropriate location. <a name="SIDE"></a><h2 class="nroffsh">SIDE EFFECTS</h2>
+<p class="level0">
+<p class="level0">ksu deletes all expired tickets from the source cache. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR OF KSU</h2>
+<p class="level0">
+<p class="level0">GENNADY (ARI) MEDVINSKY <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

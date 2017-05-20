@@ -1,0 +1,70 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jhat - Java Heap Analysis Tool 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jhat</span> [ f2options</span> ] &lt;heap-dump-file&gt;
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Options, if used, should follow immediately after the command name.  
+<p class="level1">heap-dump-file  Java binary heap dump file to be browsed. For a dump file that contains multiple heap dumps, you may specify which dump in the file by appending "&#35;&lt;number&gt; to the file name, i.e. "foo.hprof&#35;3".  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jhat</span> command parses a java heap dump file and launches a webserver. jhat enables you to browse heap dumps using your favorite webbrowser. jhat supports pre-designed queries (such as 'show all instances of a known class "Foo"') as well as f3OQL</span> (f3O</span>bject f3Q</span>uery f3L</span>anguage) - a SQL-like query language to query heap dumps. Help on OQL is available from the OQL help page shown by jhat. With the default port, OQL help is available at <a href="http://localhost:7000/oqlhelp/">http://localhost:7000/oqlhelp/</a> 
+<p class="level0">
+<p class="level0">There are several ways to generate a java heap dump: 
+<p class="level0">
+<p class="level1">
+<p class="level1">o Use jmap(1) -dump option to obtain a heap dump at runtime;  
+<p class="level1">o Use jconsole(1) option to obtain a heap dump via  
+<p class="level1">f2HotSpotDiagnosticMXBean</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/jre/api/management/extension/com/sun/management/HotSpotDiagnosticMXBean.html">http://docs.oracle.com/javase/7/docs/jre/api/management/extension/com/sun/management/HotSpotDiagnosticMXBean.html</a> at runtime;  
+<p class="level1">o Heap dump will be generated when OutOfMemoryError is thrown by specifying -XX:+HeapDumpOnOutOfMemoryError VM option;  
+<p class="level1">o Use hprof.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3NOTE:</span> This tool is f3experimental</span> and may f3not</span> be available in future versions of the JDK. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-stack false/true  Turn off tracking object allocation call stack. Note that if allocation site information is not available in the heap dump, you have to set this flag to false. Default is true.  
+<p class="level1">-refs false/true  Turn off tracking of references to objects. Default is true. By default, back pointers (objects pointing to a given object a.k.a referrers or in-coming references) are calculated for all objects in the heap.  
+<p class="level1">-port port-number  Set the port for the jhat's HTTP server. Default is 7000.  
+<p class="level1">-exclude exclude-file  Specify a file that lists data members that should be excluded from the "reachable objects" query. For example, if the file lists f2java.lang.String.value</span>, then, whenever list of objects reachable from a specific object "o" are calculated, reference paths involving f2java.lang.String.value</span> field will not considered.  
+<p class="level1">-baseline baseline-dump-file  Specify a baseline heap dump. Objects in both heap dumps with the same object ID will be marked as not being "new". Other objects will be marked as "new". This is useful while comparing two different heap dumps.  
+<p class="level1">-debug int  Set debug level for this tool. 0 means no debug output. Set higher values for more verbose modes.  
+<p class="level1">-version  Report version number and exit.  
+<p class="level1">-h  Output help message and exit.  
+<p class="level1">-help  Output help message and exit.  
+<p class="level1">-J&lt;flag&gt;  Pass &lt;flag&gt; to the Java virtual machine on which jhat is run. For example, -J-Xmx512m to use a maximum heap size of 512MB.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o jmap(1)  
+<p class="level1">o jconsole(1)  
+<p class="level1">o hprof - Heap and CPU profiling tool  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">script - make typescript of terminal session <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">script</span> [options] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">script</span> makes a typescript of everything displayed on your terminal.  It is useful for students who need a hardcopy record of an interactive session as proof of an assignment, as the typescript file can be printed out later with <span Class="manpage">lpr (1).</span>
+<p class="level0">If the argument <span Class="emphasis">file</span> is given, <span Class="bold">script</span> saves the dialogue in this <span Class="emphasis">file .</span> If no filename is given, the dialogue is saved in the file <span Class="manpage">typescript .</span><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--append</span> Append the output to <span Class="emphasis">file</span> or to <span Class="manpage">typescript</span>retaining the prior contents. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--command</span> <span Class="emphasis">command</span> Run the <span Class="emphasis">command</span> rather than an interactive shell.  This makes it easy for a script to capture the output of a program that behaves differently when its stdout is not a tty. 
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--return</span> Return the exit code of the child process.  Uses the same format as bash termination on signal termination exit code is 128+n. 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--flush</span> Flush output after each write.  This is nice for telecooperation: one person does `mkfifo foo; script -f foo', and another can supervise real-time what is being done using `cat foo'. 
+<p class="level0"><span Class="bold">--force</span> Allow the default output destination, i.e. the typescript file, to be a hard or symbolic link.  The command will follow a symbolic link. 
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> Be quiet (do not write start and done messages to either standard output or the typescript file). 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--timing</span>[=<span Class="emphasis">file</span>] Output timing data to standard error, or to <span Class="emphasis">file</span> when given.  This data contains two fields, separated by a space.  The first field indicates how much time elapsed since the previous output.  The second field indicates how many characters were output this time.  This information can be used to replay typescripts with realistic typing and output delays. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information and exit. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">The script ends when the forked shell exits (a <span Class="emphasis">control-D</span> for the Bourne shell 
+<p class="level0">and <span Class="emphasis">exit ,</span> <span Class="emphasis">logout</span> or <span Class="emphasis">control-d</span> (if <span Class="emphasis">ignoreeof</span> is not set) for the C-shell, <span Class="manpage">csh (1)).</span>
+<p class="level0">Certain interactive commands, such as <span Class="manpage">vi (1)</span>create garbage in the typescript file. <span Class="bold">script</span> works best with commands that do not manipulate the screen, the results are meant to emulate a hardcopy terminal. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The following environment variable is utilized by <span Class="manpage">script :</span>
+<p class="level0"><span Class="bold">SHELL</span> If the variable <span Class="bold">SHELL</span> exists, the shell forked by <span Class="bold">script</span> will be that shell.  If <span Class="bold">SHELL</span> is not set, the Bourne shell is assumed.  (Most shells set this variable automatically). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">csh (1)</span>(for the <span Class="emphasis">history</span> mechanism), <span Class="manpage">scriptreplay (1).</span><a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">The <span Class="bold">script</span> command appeared in 3.0BSD. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">script</span> places <span Class="emphasis">everything</span> in the log file, including linefeeds and backspaces.  This is not what the naive user expects. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The script command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

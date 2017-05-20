@@ -1,0 +1,155 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-show-ref - List references in a local repository <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git show-ref</span> [-q|--quiet] [--verify] [--head] [-d|--dereference]
+&nbsp;            [-s|--hash[=&lt;n&gt;]] [--abbrev[=&lt;n&gt;]] [--tags]
+&nbsp;            [--heads] [--] [&lt;pattern&gt;...]
+<span class="emphasis">git show-ref</span> --exclude-existing[=&lt;pattern&gt;] &lt; ref-list
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Displays references available in a local repository along with the associated commit IDs. Results can be filtered using a pattern and tags can be dereferenced into object IDs. Additionally, it can be used to test whether a particular ref exists. 
+<p class="level0">By default, shows the tags, heads, and remote refs. 
+<p class="level0">The --exclude-existing form is a filter that does the inverse, it shows the refs from stdin that don(cqt exist in the local repository. 
+<p class="level0">Use of this utility is encouraged in favor of directly accessing files under the .git directory. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--head 
+<p class="level1">Show the HEAD reference, even if it would normally be filtered out. 
+<p class="level0">
+<p class="level0">--tags, --heads 
+<p class="level1">Limit to "refs/heads" and "refs/tags", respectively. These options are not mutually exclusive; when given both, references stored in "refs/heads" and "refs/tags" are displayed. 
+<p class="level0">
+<p class="level0">-d, --dereference 
+<p class="level1">Dereference tags into object IDs as well. They will be shown with "^{}" appended. 
+<p class="level0">
+<p class="level0">-s, --hash[=&lt;n&gt;] 
+<p class="level1">Only show the SHA-1 hash, not the reference name. When combined with --dereference the dereferenced tag will still be shown after the SHA-1. 
+<p class="level0">
+<p class="level0">--verify 
+<p class="level1">Enable stricter reference checking by requiring an exact ref path. Aside from returning an error code of 1, it will also print an error message if <span Class="emphasis">--quiet</span> was not specified. 
+<p class="level0">
+<p class="level0">--abbrev[=&lt;n&gt;] 
+<p class="level1">Abbreviate the object name. When using --hash, you do not have to say --hash --abbrev; --hash=n would do. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Do not print any results to stdout. When combined with <span Class="emphasis">--verify</span> this can be used to silently check if a reference exists. 
+<p class="level0">
+<p class="level0">--exclude-existing[=&lt;pattern&gt;] 
+<p class="level1">Make <span Class="emphasis">git show-ref</span> act as a filter that reads refs from stdin of the form "^(?:&lt;anything&gt;es)?&lt;refname&gt;(?:e^{})?$" and performs the following actions on each: (1) strip "^{}" at the end of line if any; (2) ignore if pattern is provided and does not head-match refname; (3) warn if refname is not a well-formed refname and skip; (4) ignore if refname is a ref that exists in the local repository; (5) otherwise output the line. 
+<p class="level0">
+<p class="level0">&lt;pattern&gt;... 
+<p class="level1">Show references matching one or more patterns. Patterns are matched from the end of the full name, and only complete parts are matched, e.g. <span Class="emphasis">master</span> matches <span Class="emphasis">refs/heads/master</span>, <span Class="emphasis">refs/remotes/origin/master</span>, <span Class="emphasis">refs/tags/jedi/master</span> but not <span Class="emphasis">refs/heads/mymaster</span> or <span Class="emphasis">refs/remotes/master/jedi</span>. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0">The output is in the format: <span Class="emphasis">&lt;SHA-1 ID&gt;</span> <span Class="emphasis">&lt;space&gt;</span> <span Class="emphasis">&lt;reference name&gt;</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git show-ref --head --dereference
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 HEAD
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 refs/heads/master
+832e76a9899f560a90ffd62ae2ce83bbeff58f54 refs/heads/origin
+3521017556c5de4159da4615a39fa4d5d2c279b5 refs/tags/v0.99.9c
+6ddc0964034342519a87fe013781abf31c6db6ad refs/tags/v0.99.9c^{}
+055e4ae3ae6eb344cbabf2a5256a49ea66040131 refs/tags/v1.0rc4
+423325a2d24638ddcc82ce47be5e40be550f4507 refs/tags/v1.0rc4^{}
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">When using --hash (and not --dereference) the output format is: <span Class="emphasis">&lt;SHA-1 ID&gt;</span> 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git show-ref --heads --hash
+2e3ba0114a1f52b47df29743d6915d056be13278
+185008ae97960c8d551adcd9e23565194651b5d1
+03adf42c988195b50e1a1935ba5fcbc39b2b029b
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">To show all references called "master", whether tags or heads or anything else, and regardless of how deep in the reference naming hierarchy they are, use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       git show-ref master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This will show "refs/heads/master" but also "refs/remote/other-repo/master", if such references exists. 
+<p class="level0">When using the <span Class="emphasis">--verify</span> flag, the command requires an exact path: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       git show-ref --verify refs/heads/master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will only match the exact branch called "master". 
+<p class="level0">If nothing matches, <span Class="emphasis">git show-ref</span> will return an error code of 1, and in the case of verification, it will show an error message. 
+<p class="level0">For scripting, you can ask it to be quiet with the "--quiet" flag, which allows you to do things like 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       git show-ref --quiet --verify -- "refs/heads/$headname" ||
+&nbsp;               echo "$headname is not a valid branch"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">to check whether a particular branch exists or not (notice how we don(cqt actually want to show any results, and we want to use the full refname for it in order to not trigger the problem with ambiguous partial matches). 
+<p class="level0">To show only tags, or only proper branch heads, use "--tags" and/or "--heads" respectively (using both means that it shows tags and heads, but not other random references under the refs/ subdirectory). 
+<p class="level0">To do automatic tag object dereferencing, use the "-d" or "--dereference" flag, so you can do 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       git show-ref --tags --dereference
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">to get a listing of all tags together with what they dereference. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">.git/refs/*, .git/packed-refs <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-for-each-ref</span>(1), <span Class="bold">git-ls-remote</span>(1), <span Class="bold">git-update-ref</span>(1), <span Class="bold">gitrepository-layout</span>(5) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

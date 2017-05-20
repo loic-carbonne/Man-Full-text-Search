@@ -1,0 +1,60 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-parsechangelog - parse Debian changelog files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-parsechangelog</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-parsechangelog</span> reads and parses the changelog of an unpacked Debian source tree and outputs the information in it to standard output in a machine-readable form. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-l changelog-file</span> Specifies the changelog file to read information from. A '-' can be used to specify reading from standard input. The default is <span Class="manpage">debian/changelog .</span>
+<p class="level0"><span Class="bold">-F changelog-format</span> Specifies the format of the changelog. By default the format is read from a special line near the bottom of the changelog or failing that defaults to the <span Class="emphasis">debian</span> standard format. See also <a class="bold" href="#CHANGELOG">CHANGELOG FORMATS</a>. 
+<p class="level0"><span Class="bold">-L libdir</span> Specify an additional directory to search for parser scripts. This directory is searched before the default directories which are currently <span Class="manpage">/usr/local/lib/dpkg/parsechangelog  and</span>, <span Class="manpage">/usr/lib/dpkg/parsechangelog .</span>
+<p class="level0"><span Class="manpage">-S</span>, <span Class="manpage">--show-field  \fIfield\fP</span>Specifies the name of the field to show (since dpkg 1.17.0). The field name is not printed, only its value. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="manpage">--version</span>Show the version and exit. <a name="Parser"></a><h2 class="nroffsh">Parser Options</h2>
+<p class="level0">The following options can be used to influence the output of the changelog parser, e.g. the range of entries or the format of the output. They need to be supported by the parser script in question. See also <a class="bold" href="#NOTES">NOTES</a>. 
+<p class="level0"><span Class="bold">--file  file</span> Set the changelog filename to parse. Default is '-' (standard input). 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--label  \fIfile\fP</span>Set the name of the changelog file to use in error messages, instead of using the name from the <span Class="bold">--file</span> option, or its default value. 
+<p class="level0"><span Class="bold">--format  output-format</span> Set the output format. Currently supported values are <span Class="emphasis">dpkg  and  rfc822 .</span> <span Class="emphasis">dpkg</span> is the classic output format (from before this option existed) and the default. It consists of one paragraph in Debian control format (see <span Class="bold">deb-control</span>(5)). If more than one entry is requested, then most fields are taken from the most recent entry, except otherwise stated: 
+<p class="level1">
+<p class="level1"><span Class="bold">Source:  pkg-name</span> 
+<p class="level1"><span Class="bold">Version:  version</span> 
+<p class="level1"><span Class="bold">Distribution:  target-distribution</span> 
+<p class="level1"><span Class="bold">Urgency:  urgency</span> The highest urgency of all included entries is used, followed by the concatenated (space-separated) comments from all the versions requested. 
+<p class="level1"><span Class="bold">Maintainer:  author</span> 
+<p class="level1"><span Class="bold">Date:  date</span> 
+<p class="level1"><span Class="bold">Closes:  bug-number</span> The Closes fields of all included entries are merged. 
+<p class="level1"><span Class="bold">Changes:  changelog-entries</span> The text of all changelog entries is concatenated. To make this field a valid Debian control format multiline field empty lines are replaced with a single full stop and all lines is intended by one space character. The exact content depends on the changelog format. 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="bold">Version</span>, <span Class="bold">Distribution</span>, <span Class="bold">Urgency</span>, <span Class="bold">Maintainer</span> and <span Class="bold">Changes</span> fields are mandatory. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">There might be additional user-defined fields present. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="bold">rfc822</span> format uses the same fields but outputs a separate paragraph for each changelog entry so that all metadata for each entry is preserved. 
+<p class="level1"><span Class="manpage">--since  \fIversion\fP</span>, <span Class="manpage">-s \fIversion\fP</span>, <span Class="manpage">-v \fIversion\fP</span>include all changes later than <span Class="emphasis">version</span>. 
+<p class="level1"><span Class="manpage">--until  \fIversion\fP</span>, <span Class="manpage">-u \fIversion\fP</span>include all changes earlier than <span Class="emphasis">version</span>. 
+<p class="level1"><span Class="manpage">--from  \fIversion\fP</span>, <span Class="manpage">-f \fIversion\fP</span>include all changes equal or later than <span Class="emphasis">version</span>. 
+<p class="level1"><span Class="manpage">--to  \fIversion\fP</span>, <span Class="manpage">-t \fIversion\fP</span>include all changes up to or equal than <span Class="emphasis">version</span>. 
+<p class="level1"><span Class="manpage">--count  \fInumber\fP</span>, <span Class="manpage">-c \fInumber\fP</span>, <span Class="manpage">-n \fInumber\fP</span>include <span Class="emphasis">number</span> entries from the top (or the tail if <span Class="emphasis">number</span> is lower than 0). 
+<p class="level1"><span Class="manpage">--offset  \fInumber\fP</span>, <span Class="manpage">-o \fInumber\fP</span>change the starting point for <span Class="bold">--count</span>, counted from the top (or the tail if <span Class="emphasis">number</span> is lower than 0). 
+<p class="level1"><span Class="bold">--all</span> include all changes. Note: other options have no effect when this is in use. 
+<p class="level1"><a name="CHANGELOG"></a><h2 class="nroffsh">CHANGELOG FORMATS</h2>
+<p class="level0">It is possible to use a different format to the standard one, by providing a parser for that alternative format. 
+<p class="level0">In order to have <span Class="bold">dpkg-parsechangelog</span> run the new parser, a line must be included within the last 40 lines of the changelog file, matching the Perl regular expression: (lq<span Class="bold">\schangelog-format:\s+([0-9a-z]+)\W</span>(rq. The part in parentheses should be the name of the format. For example: 
+<p class="level0">&nbsp;      @@@ changelog-format: <span Class="emphasis">otherformat</span> @@@ 
+<p class="level0">Changelog format names are non-empty strings of alphanumerics. 
+<p class="level0">If such a line exists then <span Class="bold">dpkg-parsechangelog</span> will look for the parser as <span Class="bold">/usr/lib/dpkg/parsechangelog/</span><span Class="emphasis">otherformat</span> or <span Class="bold">/usr/local/lib/dpkg/parsechangelog/</span><span Class="emphasis">otherformat</span>; it is an error for it not being present or not being an executable program. The default changelog format is <span Class="bold">debian</span>, and a parser for it is provided by default. 
+<p class="level0">The parser will be invoked with the changelog open on standard input at the start of the file. It should read the file (it may seek if it wishes) to determine the information required and return the parsed information to standard output in the format specified by the <span Class="bold">--format</span> option. It should accept all <a class="bold" href="#Parser">Parser Options</a>. 
+<p class="level0">If the changelog format which is being parsed always or almost always leaves a blank line between individual change notes, these blank lines should be stripped out, so as to make the resulting output compact. 
+<p class="level0">If the changelog format does not contain date or package name information this information should be omitted from the output. The parser should not attempt to synthesize it or find it from other sources. 
+<p class="level0">If the changelog does not have the expected format the parser should exit with a nonzero exit status, rather than trying to muddle through and possibly generating incorrect output. 
+<p class="level0">A changelog parser may not interact with the user at all. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">All <a class="bold" href="#Parser">Parser Options</a> except for <span Class="bold">-v</span> are only supported since dpkg 1.14.16. Third party parsers for changelog formats other than <span Class="emphasis">debian</span> might not support all options. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debian/changelog</span> The changelog file, used to obtain version-dependent information about the source package, such as the urgency and distribution of an upload, the changes made since a particular release, and the source version number itself. 

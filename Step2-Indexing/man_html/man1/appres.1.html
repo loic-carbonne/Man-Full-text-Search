@@ -1,0 +1,49 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">appres - list X application resource database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">appres</span> [class [instance]] [-1] [-V] [toolkitoptions] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="emphasis">appres</span> program prints the resources seen by an application (or subhierarchy of an application) with the specified <span Class="emphasis">class</span> and <span Class="emphasis">instance</span> names.  It can be used to determine which resources a particular program will load.  For example, 
+<p class="level0">
+<p class="level0"><pre class="level0">
+% appres  XTerm
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">will list the resources that any <span Class="emphasis">xterm</span> program will load. If no application class is specified, the class <span Class="emphasis">-AppResTest-</span> is used. 
+<p class="level0">To match a particular instance name, specify an instance name explicitly after the class name, or use the normal Xt toolkit option. For example, 
+<p class="level0">
+<p class="level0"><pre class="level0">
+% appres  XTerm  myxterm
+</pre>
+
+<p class="level0">
+<p class="level0">or 
+<p class="level0"><pre class="level0">
+% appres  XTerm  -name  myxterm
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">To list resources that match a subhierarchy of an application, specify hierarchical class and instance names.  The number of class and instance components must be equal, and the instance name should not be specified with a toolkit option.  For example, 
+<p class="level0">
+<p class="level0"><pre class="level0">
+% appres  Xman.TopLevelShell.Form  xman.topBox.form
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">will list the resources of widgets of <span Class="emphasis">xman</span> topBox hierarchy. To list just the resources matching a specific level in the hierarchy, use the -1 option.  For example, 
+<p class="level0">
+<p class="level0"><pre class="level0">
+% appres  XTerm.VT100  xterm.vt100  -1
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">will list the resources matching the <span Class="emphasis">xterm</span> vt100 widget. 
+<p class="level0">The -V option prints the appres command version and exits. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">X(7), xrdb(1), listres(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jim Fulton, MIT X Consortium 

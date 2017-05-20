@@ -1,0 +1,53 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The 
+<p class="level0">utility provides virtual half-line and reverse line feed sequences for terminals without such capability, and on which overstriking is destructive. Half-line characters and underlining (changed to dashing `-') are placed on new lines in between the normal output lines. 
+<p class="level0">The following options are available: 
+<p class="level0">
+<p class="level0">Suppress all underlining. This option is especially useful for previewing 
+<p class="level0">tables from 
+<p class="level0">
+<p class="level0">Cause all half-lines to be printed, effectively double spacing the output. Normally, a minimal space output format is used which will suppress empty lines. The program never suppresses two consecutive empty lines, however. The 
+<p class="level0">option is useful for sending output to the line printer when the output contains superscripts and subscripts which would otherwise be invisible. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The 
+<p class="level0">and 
+<p class="level0">environment variables affect the execution of 
+<p class="level0">as described in 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">A typical use of 
+<p class="level0">would be 
+<p class="level0">tbl exum2.n | nroff -ms | colcrt - | more 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">The 
+<p class="level0">command appeared in 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Should fold underlines onto blanks even with the 
+<p class="level0">option so that a true underline character would show. 
+<p class="level0">Cannot back up more than 102 lines. 
+<p class="level0">General overstriking is lost; as a special case 
+<p class="level0">overstruck with 
+<p class="level0">or underline becomes 
+<p class="level0">
+<p class="level0">Lines are trimmed to 132 characters. 
+<p class="level0">Some provision should be made for processing superscripts and subscripts in documents which are already double-spaced. 
+<p class="level0">Characters that take up more than one column position may not be underlined correctly. 

@@ -1,0 +1,40 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">transset - Set transparency on a window <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">transset</span> [<span Class="emphasis">-options ...</span>] [<span Class="emphasis">opacity</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">transset</span> is a simple program for X servers supporting the XFIXES, DAMAGE, and COMPOSITE extensions.  It lets the user set the transparency on a window. 
+<p class="level0">The <span Class="emphasis">opacity</span> value is a number from 0 to 1, with zero being fully transparent and 1 being fully opaque. If no <span Class="emphasis">opacity</span> argument is given, a default value of 0.75 is used for the opacity value.  If neither <span Class="bold">--inc</span> nor <span Class="bold">--dec</span> are given, the opacity is treated as an absolute value and set to the given opacity value.  If <span Class="bold">--inc</span> or <span Class="bold">--dec</span> is specified, then the opacity is treated as a relative value to increase or decrease the current opacity by. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-display display</span> This option specifies the server to use; see <span Class="emphasis">X(7)</span>. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>This option displays a help message and exits. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--toggle</span>This option forces a toggle of opacity.  If the current opacity is not set to fully opaque (opacity 1.0), it will be reset to fully opaque. If the window is already fully opaque, the opacity will be set normally. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--click</span>This option selects the target window by waiting for the user to click the mouse - the topmost window under the mouse cursor when the mouse click occurs will be used as the target. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--point</span>This option selects the window currently under the cursor to be the target. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--actual</span>This option selects the window that currently has input focus to be the target. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--name  \fIname\fP</span>This option selects the target window by name, where <span Class="emphasis">name</span> is matched as a regular expression, unless <span Class="bold">--no-regex</span> is also specified. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-regex</span> This option disables treating the <span Class="emphasis">name</span> argument to <span Class="bold">--name</span> as a regular expression. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-i</span>, <span Class="manpage">--id</span>This option selects the target window by window id. 
+<p class="level0">
+<p class="level0"><span Class="bold">--inc</span> This option increases the window opacity by the given <span Class="emphasis">opacity</span> argument. 
+<p class="level0">
+<p class="level0"><span Class="bold">--dec</span> This option decreases the window opacity by the given <span Class="emphasis">opacity</span> argument. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-m</span>, <span Class="manpage">--min  \fIopacity\fP</span>This option sets the minimum possible opacity value.  It defaults to 0 if this option is not given. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-x</span>, <span Class="manpage">--max  \fIopacity\fP</span>This option sets the maximum possible opacity value.  It defaults to 1 if this option is not given. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>This option prints some additional debug info as the program operates. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>This option prints the program version number and exits. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Probably.  Please report any you find to <a href="https://bugs.freedesktop.org/enter_bug.cgi?product=xorg.">https://bugs.freedesktop.org/enter_bug.cgi?product=xorg.</a> <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Matthew Hawn 

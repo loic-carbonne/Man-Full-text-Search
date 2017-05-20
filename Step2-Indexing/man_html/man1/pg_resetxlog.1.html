@@ -1,0 +1,92 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_resetxlog - reset the write-ahead log and other control information of a PostgreSQL database cluster <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_resetxlog</span> [<span Class="bold">-f</span>] [<span Class="bold">-n</span>] [<span Class="bold">-o</span>&nbsp;<span Class="emphasis">oid</span>] [<span Class="bold">-x</span>&nbsp;<span Class="emphasis">xid</span>] [<span Class="bold">-e</span>&nbsp;<span Class="emphasis">xid_epoch</span>] [<span Class="bold">-m</span>&nbsp;<span Class="emphasis">mxid</span>,<span Class="emphasis">mxid</span>] [<span Class="bold">-O</span>&nbsp;<span Class="emphasis">mxoff</span>] [<span Class="bold">-l</span>&nbsp;<span Class="emphasis">xlogfile</span>] <span Class="emphasis">datadir</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">pg_resetxlog</span> clears the write-ahead log (WAL) and optionally resets some other control information stored in the pg_control file. This function is sometimes needed if these files have become corrupted. It should be used only as a last resort, when the server will not start due to such corruption. 
+<p class="level0">After running this command, it should be possible to start the server, but bear in mind that the database might contain inconsistent data due to partially-committed transactions. You should immediately dump your data, run <span Class="bold">initdb</span>, and reload. After reload, check for inconsistencies and repair as needed. 
+<p class="level0">This utility can only be run by the user who installed the server, because it requires read/write access to the data directory. For safety reasons, you must specify the data directory on the command line. <span Class="bold">pg_resetxlog</span> does not use the environment variable <span Class="bold">PGDATA</span>. 
+<p class="level0">If <span Class="bold">pg_resetxlog</span> complains that it cannot determine valid data for pg_control, you can force it to proceed anyway by specifying the <span Class="bold">-f</span> (force) option. In this case plausible values will be substituted for the missing data. Most of the fields can be expected to match, but manual assistance might be needed for the next OID, next transaction ID and epoch, next multitransaction ID and offset, and WAL starting address fields. These fields can be set using the options discussed below. If you are not able to determine correct values for all these fields, <span Class="bold">-f</span> can still be used, but the recovered database must be treated with even more suspicion than usual: an immediate dump and reload is imperative. <span Class="emphasis">Do not</span> execute any data-modifying operations in the database before you dump, as any such action is likely to make the corruption worse. 
+<p class="level0">The <span Class="bold">-o</span>, <span Class="bold">-x</span>, <span Class="bold">-e</span>, <span Class="bold">-m</span>, <span Class="bold">-O</span>, and <span Class="bold">-l</span> options allow the next OID, next transaction ID, next transaction ID*(Aqs epoch, next and oldest multitransaction ID, next multitransaction offset, and WAL starting address values to be set manually. These are only needed when <span Class="bold">pg_resetxlog</span> is unable to determine appropriate values by reading pg_control. Safe values can be determined as follows: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">A safe value for the next transaction ID (<span Class="bold">-x</span>) can be determined by looking for the numerically largest file name in the directory pg_clog under the data directory, adding one, and then multiplying by 1048576. Note that the file names are in hexadecimal. It is usually easiest to specify the option value in hexadecimal too. For example, if 0011 is the largest entry in pg_clog, -x 0x1200000 will work (five trailing zeroes provide the proper multiplier). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">A safe value for the next multitransaction ID (first part of <span Class="bold">-m</span>) can be determined by looking for the numerically largest file name in the directory pg_multixact/offsets under the data directory, adding one, and then multiplying by 65536. Conversely, a safe value for the oldest multitransaction ID (second part of <span Class="bold">-m</span>) can be determined by looking for the numerically smallest file name in the same directory and multiplying by 65536. As above, the file names are in hexadecimal, so the easiest way to do this is to specify the option value in hexadecimal and append four zeroes. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">A safe value for the next multitransaction offset (<span Class="bold">-O</span>) can be determined by looking for the numerically largest file name in the directory pg_multixact/members under the data directory, adding one, and then multiplying by 52352. As above, the file names are in hexadecimal. There is no simple recipe such as the ones above of appending zeroes. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The WAL starting address (<span Class="bold">-l</span>) should be larger than any WAL segment file name currently existing in the directory pg_xlog under the data directory. These names are also in hexadecimal and have three parts. The first part is the (lqtimeline ID(rq and should usually be kept the same. For example, if 00000001000000320000004A is the largest entry in pg_xlog, use -l 00000001000000320000004B or higher. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Note</span> 
+<p class="level2"><br>
+<p class="level2"><span Class="bold">pg_resetxlog</span> itself looks at the files in pg_xlog and chooses a default <span Class="bold">-l</span> setting beyond the last existing file name. Therefore, manual adjustment of <span Class="bold">-l</span> should only be needed if you are aware of WAL segment files that are not currently present in pg_xlog, such as entries in an offline archive; or if the contents of pg_xlog have been lost entirely. 
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">There is no comparably easy way to determine a next OID that*(Aqs beyond the largest one in the database, but fortunately it is not critical to get the next-OID setting right. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The transaction ID epoch is not actually stored anywhere in the database except in the field that is set by <span Class="bold">pg_resetxlog</span>, so any value will work so far as the database itself is concerned. You might need to adjust this value to ensure that replication systems such as Slony-I work correctly (em if so, an appropriate value should be obtainable from the state of the downstream replicated database. 
+<p class="level0">
+<p class="level0">The <span Class="bold">-n</span> (no operation) option instructs <span Class="bold">pg_resetxlog</span> to print the values reconstructed from pg_control and values about to be changed, and then exit without modifying anything. This is mainly a debugging tool, but can be useful as a sanity check before allowing <span Class="bold">pg_resetxlog</span> to proceed for real. 
+<p class="level0">The <span Class="bold">-V</span> and <span Class="bold">--version</span> options print the pg_resetxlog version and exit. The options <span Class="bold">-?</span> and <span Class="bold">--help</span> show supported arguments, and exit. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">This command must not be used when the server is running. <span Class="bold">pg_resetxlog</span> will refuse to start up if it finds a server lock file in the data directory. If the server crashed then a lock file might have been left behind; in that case you can remove the lock file to allow <span Class="bold">pg_resetxlog</span> to run. But before you do so, make doubly certain that there is no server process still alive. 

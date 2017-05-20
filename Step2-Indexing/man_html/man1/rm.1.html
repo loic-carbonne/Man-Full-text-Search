@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">rm - remove files or directories <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">rm</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents the GNU version of <span Class="manpage">rm .</span><span Class="bold">rm</span> removes each specified file.  By default, it does not remove directories. 
+<p class="level0">If the <span Class="emphasis">-I</span> or <span Class="emphasis">--interactive=once</span> option is given, and there are more than three files or the <span Class="emphasis">-r</span>, <span Class="emphasis">-R</span>, or <span Class="emphasis">--recursive</span> are given, then <span Class="bold">rm</span> prompts the user for whether to proceed with the entire operation.  If the response is not affirmative, the entire command is aborted. 
+<p class="level0">Otherwise, if a file is unwritable, standard input is a terminal, and the <span Class="emphasis">-f</span> or <span Class="emphasis">--force</span> option is not given, or the <span Class="emphasis">-i</span> or <span Class="emphasis">--interactive=always</span> option is given, <span Class="bold">rm</span> prompts the user for whether to remove the file.  If the response is not affirmative, the file is skipped. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Remove (unlink) the FILE(s). 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> ignore nonexistent files and arguments, never prompt 
+<p class="level0"><span Class="bold">-i</span> prompt before every removal 
+<p class="level0"><span Class="bold">-I</span> prompt once before removing more than three files, or when removing recursively; less intrusive than <span Class="bold">-i</span>, while still giving protection against most mistakes 
+<p class="level0"><span Class="bold">--interactive</span>[=<span Class="emphasis">WHEN</span>] prompt according to WHEN: never, once (<span Class="bold">-I</span>), or always (<span Class="bold">-i</span>); without WHEN, prompt always 
+<p class="level0"><span Class="bold">--one-file-system</span> when removing a hierarchy recursively, skip any directory that is on a file system different from that of the corresponding command line argument 
+<p class="level0"><span Class="bold">--no-preserve-root</span> do not treat '/' specially 
+<p class="level0"><span Class="bold">--preserve-root</span> do not remove '/' (default) 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">-R</span>, <span Class="bold">--recursive</span> remove directories and their contents recursively 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--dir</span> remove empty directories 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> explain what is being done 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">By default, rm does not remove directories.  Use the <span Class="bold">--recursive</span> (<span Class="bold">-r</span> or <span Class="bold">-R</span>) option to remove each listed directory, too, along with all of its contents. 
+<p class="level0">To remove a file whose name starts with a '-', for example '-foo', use one of these commands: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">rm <span Class="bold">--</span> <span Class="bold">-foo</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">rm ./-foo 
+<p class="level1">Note that if you use rm to remove a file, it might be possible to recover some of its contents, given sufficient expertise and/or time.  For greater assurance that the contents are truly unrecoverable, consider using shred. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Paul Rubin, David MacKenzie, Richard M. Stallman, and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report rm translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">unlink(1), unlink(2), chattr(1), shred(1) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/rm&gt; <br>or available locally via: info (aq(coreutils) rm invocation(aq 

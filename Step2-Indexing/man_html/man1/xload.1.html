@@ -1,0 +1,40 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xload - system load average display for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xload</span>	[-<span Class="emphasis">toolkitoption</span> ...] [-scale <span Class="emphasis">integer</span>] [-update <span Class="emphasis">seconds</span>] [-hl <span Class="emphasis">color</span>] [-highlight <span Class="emphasis">color</span>]  [-remote <span Class="emphasis">host</span>] <br>&nbsp;       [-jumpscroll <span Class="emphasis">pixels</span>] [-label <span Class="emphasis">string</span>] [-nolabel] [-lights] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xload</span> program displays a periodically updating histogram of the system load average. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Xload</span> accepts all of the standard X Toolkit command line options (see <span Class="emphasis">X(7)</span>). The order of the options is unimportant.  <span class="emphasis">xload also accepts the following additional options: 
+<p class="level0">
+<p class="level0"><span Class="bold">-hl color or -highlight color</span> This option specifies the color of the scale lines. 
+<p class="level0"><span Class="bold">-jumpscroll number of pixels</span> The number of pixels to shift the graph to the left when the graph reaches the right edge of the window.  The default value is 1/2 the width of the current window.  Smooth scrolling can be achieved by setting it to 1. 
+<p class="level0"><span Class="bold">-label string</span> The string to put into the label above the load average. 
+<p class="level0"><span Class="bold">-nolabel</span> If this command line option is specified then no label will be displayed above the load graph. 
+<p class="level0"><span Class="bold">-lights</span> When specified, this option causes <span Class="emphasis">xload</span> to display the current load average by using the keyboard leds; for a load average of <span Class="emphasis">n</span>, xload lights the first <span Class="emphasis">n</span> keyboard leds. This option turns off the usual screen display. 
+<p class="level0"><span Class="bold">-scale integer</span> This option specifies the minimum number of tick marks in the histogram, where one division represents one load average point.  If the load goes above this number, <span Class="emphasis">xload</span> will create more divisions, but it will never use fewer than this number.  The default is 1. 
+<p class="level0">
+<p class="level0"><span Class="bold">-update seconds</span> This option specifies the interval in seconds at which <span Class="emphasis">xload</span> updates its display.  The minimum amount of time allowed between updates is 1 second.  The default is 10. 
+<p class="level0"><span Class="bold">-remote host</span> This option tells <span Class="emphasis">xload</span> to display the load of <span Class="emphasis">host</span> instead of <span Class="emphasis">localhost</span>. <span Class="emphasis">Xload</span> gets the information from the <span Class="emphasis">rwhod</span> database and consequently requires <span Class="emphasis">rwhod</span> to be executing both on <span Class="emphasis">localhost</span> and <span Class="emphasis">host</span>. <a name="RESOURCES"></a><h2 class="nroffsh">RESOURCES</h2>
+<p class="level0">In addition to the resources available to each of the widgets used by <span Class="emphasis">xload</span> there is one resource defined by the application itself. 
+<p class="level0"><span Class="bold">showLabel (class\fB Boolean)</span> If False then no label will be displayed. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xload</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+XLoad  xload
+&nbsp;       Paned  paned
+&nbsp;               Label  label
+&nbsp;               StripChart  load
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/XLoad</span> specifies required resources <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1), mem(4), Athena StripChart Widget. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">On older platforms, this program may require the ability to open and read the special system file <span Class="emphasis">/dev/kmem</span>.  Sites that do not allow general access to this file may need to make <span Class="emphasis">xload</span> belong to the same group as <span Class="emphasis">/dev/kmem</span> and turn on the <span Class="emphasis">set group id</span> permission flag. 
+<p class="level0">Reading the load average is inherently non-portable.  Therefore, the routine used to read it (get_load.c) must be ported to each new operating system. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; X Consortium <br>See <span Class="emphasis">X(7)</span> for a full statement of rights and permissions. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">K. Shane Hartman (MIT-LCS) and Stuart A. Malone (MIT-LCS); <br>with features added by Jim Gettys (MIT-Athena), Bob Scheifler (MIT-LCS), Tony Della Fera (MIT-Athena), and Chris Peterson (MIT-LCS). 

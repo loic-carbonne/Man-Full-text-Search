@@ -1,0 +1,333 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">Java IDL: Transient Naming Service - f2tnameserv</span> 
+<p class="level0">
+<p class="level0">This document discusses using the Java IDL Transient Naming Service, f2tnameserv</span>. Java IDL also includes the Object Request Broker Daemon (ORBD). ORBD is a daemon process containing a Bootstrap Service, a Transient Naming Service, a f3Persistent</span> Naming Service, and a Server Manager. The Java IDL tutorials all use ORBD, however, you can substitute f2tnameserv</span> for f2orbd</span> in any of the examples that use a Transient Naming Service. For documentation on the f2orbd</span> tool, link to its orbd(1) or the  
+<p class="level0">f2Java IDL Naming Service Included with ORBD</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlNaming.html">http://docs.oracle.com/javase/7/docs/technotes/guides/idl/jidlNaming.html</a> topic. 
+<p class="level0">
+<p class="level0">Topics in this section include: 
+<p class="level0">
+<p class="level1">
+<p class="level1">o Java&nbsp;IDL Transient Naming Service  
+<p class="level1">o Starting the Java&nbsp;IDL Transient Naming Service  
+<p class="level1">o Stopping the Java&nbsp;IDL Transient Naming Service  
+<p class="level1">o Sample Client: Adding Objects to the Namespace  
+<p class="level1">o Sample Client: Browsing the Namespace  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Java"></a><h2 class="nroffsh">Java\ IDL Transient Naming Service</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The CORBA COS (Common Object Services) Naming Service provides a tree-like directory for object references much like a filesystem provides a directory structure for files. The Transient Naming Service provided with Java IDL, f2tnameserv</span>, is a simple implementation of the COS Naming Service specification. 
+<p class="level0">
+<p class="level0">Object references are stored in the namespace by name and each object reference-name pair is called a name f2binding</span>. Name bindings may be organized under f2naming contexts</span>. Naming contexts are themselves name bindings and serve the same organizational function as a file system subdirectory. All bindings are stored under the f2initial naming context</span>. The initial naming context is the only persistent binding in the namespace; the rest of the namespace is lost if the Java IDL naming service process halts and restarts. 
+<p class="level0">
+<p class="level0">For an applet or application to use COS naming, its ORB must know the port of a host running a naming service or have access to a stringified initial naming context for that naming service. The naming service can either be the Java&nbsp;IDL naming service or another COS-compliant naming service. 
+<p class="level0"><a name="Starting"></a><h2 class="nroffsh">Starting the Java\ IDL Transient Naming Service</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">You must start the Java&nbsp;IDL naming service before an application or applet that uses its naming service. Installation of the Java&nbsp;IDL product creates a script (Solaris: f2tnameserv</span>) or executable file (Windows NT: f2tnameserv.exe</span>) that starts the Java&nbsp;IDL naming service. Start the naming service so it runs in the background. 
+<p class="level0">
+<p class="level0">If you do not specify otherwise, the Java&nbsp;IDL naming service listens on port 900 for the bootstrap protocol used to implement the ORB f2resolve_initial_references()</span> and f2list_initial_references()</span> methods, as follows: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;       tnameserv -ORBInitialPort </span>f4nameserverport</span>f3&
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you do not specify the name server port, port 900 is used by default. When running Solaris software, you must become root to start a process on a port under 1024. For this reason, we recommend that you use a port number greater than or equal to 1024. To specify a different port, for example, 1050, and to run the naming service in the background, from a UNIX command shell, enter: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;       tnameserv -ORBInitialPort 1050&
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">From an MS-DOS system prompt (Windows), enter: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;       start tnameserv -ORBInitialPort 1050
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Clients of the name server must be made aware of the new port number. Do this by setting the f2org.omg.CORBA.ORBInitialPort</span> property to the new port number when creating the ORB object. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Running the server and client on different hosts 
+<p class="level0">
+<p class="level0">In most of the Java IDL and RMI-IIOP tutorials, the Naming Service, Server, and Client are all running on the development machine. In real world deployment, it is likely that the client and server will run on different host machines than the Naming Service. 
+<p class="level0">
+<p class="level0">For the client and server to find the Naming Service, they must be made aware of the port number and host on which the naming service is running. Do this by setting the f2org.omg.CORBA.ORBInitialPort</span> and f2org.omg.CORBA.ORBInitialHost</span> properties in the client and server files to the machine name and port number on which the Naming Service is running. An example of this is shown in  
+<p class="level0">f2The Hello World Example Using RMI-IIOP</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/rmi-iiop/rmiiiopexample.html.">http://docs.oracle.com/javase/7/docs/technotes/guides/rmi-iiop/rmiiiopexample.html.</a> You could also use the command line options f2-ORBInitialPort</span> f2nameserverport&#35;</span> and f2-ORBInitialHost</span> f2nameserverhostname</span> to tell the client and server where to find the Naming Service.  
+<p class="level0">f2Java IDL: Running the Hello World Example on TWO Machines</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/idl/tutorial/jidl2machines.html">http://docs.oracle.com/javase/7/docs/technotes/guides/idl/tutorial/jidl2machines.html</a> shows one way of doing this using the command line option. 
+<p class="level0">
+<p class="level0">For example, suppose the Transient Naming Service, f2tnameserv</span> is running on port 1050 on host f2nameserverhost</span>. The client is running on host f2clienthost</span> and the server is running on host f2serverhost</span>. 
+<p class="level0">
+<p class="level1">
+<p class="level1">o Start f2tnameserv</span> on the host f2nameserverhost</span>, as follows:  <pre class="level1">
+f3
+&nbsp;    tnameserv -ORBInitialPort 1050
+&nbsp;
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">o Start the server on the f2serverhost</span>, as follows:  <pre class="level1">
+f3
+&nbsp;    java Server -ORBInitialPort 1050 -ORBInitialHost nameserverhost
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">o Start the client on the f2clienthost</span>, as follows:  <pre class="level1">
+f3
+&nbsp;    java Client -ORBInitialPort 1050 -ORBInitialHost nameserverhost
+</span>
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">The -J option 
+<p class="level0">This command-line option is available for use with f2tnameserve</span>:  
+<p class="level1">
+<p class="level1">-Joption  Pass f2option</span> to the Java virtual machine, where f2option</span> is one of the options described on the reference page for java(1). For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes. It is a common convention for f3-J</span> to pass options to the underlying virtual machine.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Stopping"></a><h2 class="nroffsh">Stopping the Java\ IDL Transient Naming Service</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">To stop the Java&nbsp;IDL naming service, use the relevant operating system command, such as f2kill</span> for a Unix process, or f2Ctrl-C</span> for a Windows process. The naming service will continue to wait for invocations until it is explicitly shutdown. Note that names registered with the Java&nbsp;IDL naming service disappear when the service is terminated. 
+<p class="level0"><a name="Sample"></a><h2 class="nroffsh">Sample Client: Adding Objects to the Namespace</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The following sample program illustrates how to add names to the namespace. It is a self-contained Transient Naming Service client that creates the following simple tree. 
+<p class="level0">
+<p class="level1">
+<p class="level1">o f4Initial Naming Context</span>  
+<p class="level2">
+<p class="level2">* f3plans</span>  
+<p class="level2">* f4Personal</span>  
+<p class="level3">
+<p class="level3">- f3calendar</span>  
+<p class="level3">- f3schedule</span>  
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">In this example, f3plans</span> is an object reference and f3Personal</span> is a naming context that contains two object references: f3calendar</span> and f3schedule</span>. 
+<p class="level0"><pre class="level0">
+f3
+import java.util.Properties;
+import org.omg.CORBA.*;
+import org.omg.CosNaming.*;
+&nbsp;
+public class NameClient
+{
+&nbsp;  public static void main(String args[])
+&nbsp;  {
+&nbsp;     try {
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">In the above section, Starting the Java IDL Transient Naming Service, the nameserver was started on port 1050. The following code ensures that the client program is aware of this port number.  <pre class="level0">
+f3
+&nbsp;       Properties props = new Properties();
+&nbsp;       props.put("org.omg.CORBA.ORBInitialPort", "1050");
+&nbsp;       ORB orb = ORB.init(args, props);
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">This code obtains the initial naming context and assigns it to f3ctx</span>. The second line copies f3ctx</span> into a dummy object reference f3objref</span> that we'll attach to various names and add into the namespace.  <pre class="level0">
+f3
+&nbsp;       NamingContext ctx =
+NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+&nbsp;       NamingContext objref = ctx;
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">This code creates a name "plans" of type "text" and binds it to our dummy object reference. "plans" is then added under the initial naming context using f2rebind</span>. The f2rebind</span> method allows us to run this program over and over again without getting the exceptions we'd get from using f2bind</span>.  <pre class="level0">
+f3
+&nbsp;       NameComponent nc1 = new NameComponent("plans", "text");
+&nbsp;       NameComponent[] name1 = {nc1};
+&nbsp;       ctx.rebind(name1, objref);
+&nbsp;       System.out.println("plans rebind successful!");
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">This code creates a naming context called "Personal" of type "directory". The resulting object reference, f3ctx2</span>, is bound to the name and added under the initial naming context.  <pre class="level0">
+f3
+&nbsp;       NameComponent nc2 = new NameComponent("Personal", "directory");
+&nbsp;       NameComponent[] name2 = {nc2};
+&nbsp;       NamingContext ctx2 = ctx.bind_new_context(name2);
+&nbsp;       System.out.println("new naming context added..");
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The remainder of the code binds the dummy object reference using the names "schedule" and "calendar" under the "Personal" naming context (f3ctx2</span>).  <pre class="level0">
+f3
+&nbsp;       NameComponent nc3 = new NameComponent("schedule", "text");
+&nbsp;       NameComponent[] name3 = {nc3};
+&nbsp;       ctx2.rebind(name3, objref);
+&nbsp;       System.out.println("schedule rebind successful!");
+&nbsp;
+&nbsp;       NameComponent nc4 = new NameComponent("calender", "text");
+&nbsp;       NameComponent[] name4 = {nc4};
+&nbsp;       ctx2.rebind(name4, objref);
+&nbsp;       System.out.println("calender rebind successful!");
+&nbsp;
+&nbsp;
+&nbsp;   } catch (Exception e) {
+&nbsp;       e.printStackTrace(System.err);
+&nbsp;   }
+&nbsp; }
+}
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Sample"></a><h2 class="nroffsh">Sample Client: Browsing the Namespace</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The following sample program illustrates how to browse the namespace. 
+<p class="level0"><pre class="level0">
+f3
+import java.util.Properties;
+import org.omg.CORBA.*;
+import org.omg.CosNaming.*;
+&nbsp;
+public class NameClientList
+{
+&nbsp;  public static void main(String args[])
+&nbsp;  {
+&nbsp;     try {
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">In the above section, Starting the Java IDL Transient Naming Service, the nameserver was started on port 1050. The following code ensures that the client program is aware of this port number.  <pre class="level0">
+f3
+&nbsp;
+&nbsp;       Properties props = new Properties();
+&nbsp;       props.put("org.omg.CORBA.ORBInitialPort", "1050");
+&nbsp;       ORB orb = ORB.init(args, props);
+&nbsp;
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The following code obtains the initial naming context.  <pre class="level0">
+f3
+&nbsp;       NamingContext nc =
+NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2list</span> method lists the bindings in the naming context. In this case, up to 1000 bindings from the initial naming context will be returned in the BindingListHolder; any remaining bindings are returned in the BindingIteratorHolder.  <pre class="level0">
+f3
+&nbsp;       BindingListHolder bl = new BindingListHolder();
+&nbsp;       BindingIteratorHolder blIt= new BindingIteratorHolder();
+&nbsp;       nc.list(1000, bl, blIt);
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">This code gets the array of bindings out of the returned BindingListHolder. If there are no bindings, the program ends.  <pre class="level0">
+f3
+&nbsp;       Binding bindings[] = bl.value;
+&nbsp;       if (bindings.length == 0) return;
+&nbsp;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The remainder of the code loops through the bindings and prints the names out.  <pre class="level0">
+f3
+&nbsp;       for (int i=0; i &lt; bindings.length; i++) {
+&nbsp;
+&nbsp;           // get the object reference for each binding
+&nbsp;           org.omg.CORBA.Object obj = nc.resolve(bindings[i].binding_name);
+&nbsp;           String objStr = orb.object_to_string(obj);
+&nbsp;           int lastIx = bindings[i].binding_name.length-1;
+&nbsp;
+&nbsp;           // check to see if this is a naming context
+&nbsp;           if (bindings[i].binding_type == BindingType.ncontext) {
+&nbsp;             System.out.println( "Context: " +
+bindings[i].binding_name[lastIx].id);
+&nbsp;           } else {
+&nbsp;               System.out.println("Object: " +
+bindings[i].binding_name[lastIx].id);
+&nbsp;           }
+&nbsp;       }
+&nbsp;
+&nbsp;      } catch (Exception e) {
+&nbsp;       e.printStackTrace(System.err);
+&nbsp;      }
+&nbsp;  }
+}
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

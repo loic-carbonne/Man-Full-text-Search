@@ -1,0 +1,36 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">peekfd - peek at file descriptors of running processes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">peekfd </span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">pid</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">peekfd</span> attaches to a running process and intercepts all reads and writes to file descriptors.  You can specify the desired file descriptor numbers or dump all of them. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="-8"></a><span class="nroffip">-8</span> 
+<p class="level1">Do no post-processing on the bytes being read or written. 
+<p class="level0"><a name="-n"></a><span class="nroffip">-n</span> 
+<p class="level1">Do not display headers indicating the source of the bytes dumped. 
+<p class="level0"><a name="-c"></a><span class="nroffip">-c</span> 
+<p class="level1">Also dump the requested file descriptor activity in any new child processes that are created. 
+<p class="level0"><a name="-d"></a><span class="nroffip">-d</span> 
+<p class="level1">Remove duplicate read/writes from the output.  If you're looking at a tty with echo, you might want this. 
+<p class="level0"><a name="-v"></a><span class="nroffip">-v</span> 
+<p class="level1">Display a version string. 
+<p class="level0"><a name="-h"></a><span class="nroffip">-h</span> 
+<p class="level1">Display a help message. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">/proc/*/fd</span> 
+<p class="level1">Not used but useful for the user to look at to get good file descriptor numbers. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">None. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">The following diagnostics may be issued on stderr: 
+<p class="level0"><span Class="bold">Error attaching to pid ...</span> An unknown error occurred while attempted to attach to a process..  you may need to be root. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Probably lots.  Don't be surprised if the process you are monitoring dies. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Trent Waddington 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ttysnoop (8)</span>

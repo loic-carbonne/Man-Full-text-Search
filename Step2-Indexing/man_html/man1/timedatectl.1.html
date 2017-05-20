@@ -1,0 +1,126 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">timedatectl - Control the system time and date <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">timedatectl </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a><span Class="bold"> </span><span Class="bold">{COMMAND}</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">timedatectl</span> may be used to query and change the system clock and its settings. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--no-ask-password</span> 
+<p class="level1">Do not query the user for authentication for privileged operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">--adjust-system-clock</span> 
+<p class="level1">If <span Class="bold">set-local-rtc</span> is invoked and this option is passed, the system clock is synchronized from the RTC again, taking the new setting into account. Otherwise, the RTC is synchronized from the system clock. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">status</span> 
+<p class="level1">Show current settings of the system clock and RTC. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-time [TIME]</span> 
+<p class="level1">Set the system clock to the specified time. This will also update the RTC time accordingly. The time may be specified in the format "2012-10-30 18:17:16". 
+<p class="level0">
+<p class="level0"><span Class="bold">set-timezone [TIMEZONE]</span> 
+<p class="level1">Set the system time zone to the specified value. Available timezones can be listed with <span Class="bold">list-timezones</span>. If the RTC is configured to be in the local time, this will also update the RTC time. This call will alter the /etc/localtime symlink. See <span Class="bold">localtime</span>(5) for more information. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-timezones</span> 
+<p class="level1">List available time zones, one per line. Entries from the list can be set as the system timezone with <span Class="bold">set-timezone</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-local-rtc [BOOL]</span> 
+<p class="level1">Takes a boolean argument. If "0", the system is configured to maintain the RTC in universal time. If "1", it will maintain the RTC in local time instead. Note that maintaining the RTC in the local timezone is not fully supported and will create various problems with time zone changes and daylight saving adjustments. If at all possible, keep the RTC in UTC mode. Note that invoking this will also synchronize the RTC from the system clock, unless <span Class="bold">--adjust-system-clock</span> is passed (see above). This command will change the 3rd line of /etc/adjtime, as documented in <span Class="bold">hwclock</span>(8). 
+<p class="level0">
+<p class="level0"><span Class="bold">set-ntp [BOOL]</span> 
+<p class="level1">Takes a boolean argument. Controls whether NTP based network time synchronization is enabled (if available). 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Show current settings: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ timedatectl
+&nbsp;     Local time: Fri, 2012-11-02 09:26:46 CET
+&nbsp; Universal time: Fri, 2012-11-02 08:26:46 UTC
+&nbsp;       RTC time: Fri, 2012-11-02 08:26:45
+&nbsp;       Timezone: Europe/Warsaw
+&nbsp;     UTC offset: +0100
+&nbsp;    NTP enabled: no
+NTP synchronized: no
+&nbsp;RTC in local TZ: no
+&nbsp;     DST active: no
+&nbsp;Last DST change: CEST → CET, DST became inactive
+&nbsp;                 Sun, 2012-10-28 02:59:59 CEST
+&nbsp;                 Sun, 2012-10-28 02:00:00 CET
+&nbsp;Next DST change: CET → CEST, DST will become active
+&nbsp;                 the clock will jump one hour forward
+&nbsp;                 Sun, 2013-03-31 01:59:59 CET
+&nbsp;                 Sun, 2013-03-31 03:00:00 CEST
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Enable an NTP daemon (chronyd): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ timedatectl set-ntp true
+==== AUTHENTICATING FOR org.freedesktop.timedate1.set-ntp ===
+Authentication is required to control whether network time synchronization shall be enabled.
+Authenticating as: user
+Password: ********
+==== AUTHENTICATION COMPLETE ===
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemctl status chronyd.service
+chronyd.service - NTP client/server
+&nbsp;         Loaded: loaded (/lib/systemd/system/chronyd.service; enabled)
+&nbsp;         Active: active (running) since Fri, 2012-11-02 09:36:25 CET; 5s ago
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">hwclock</span>(8), <span Class="bold">date</span>(1), <span Class="bold">localtime</span>(5), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd-timedated.service</span>(8) 

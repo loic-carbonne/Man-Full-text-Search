@@ -1,0 +1,25 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xscreensaver-text - prints some text to stdout, for use by screen savers. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xscreensaver-text</span> [--verbose] [--columns <span Class="emphasis">N</span>] [--text <span Class="emphasis">STRING</span>] [--file <span Class="emphasis">PATH</span>] [--program <span Class="emphasis">CMD</span>] [--url <span Class="emphasis">URL</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xscreensaver-text</span> script prints out some text for use by various screensavers, according to the options set in the ~/.xscreensaver file.  This may dump the contents of a file, run a program, or load a URL. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">xscreensaver-text</span> accepts the following options: 
+<p class="level0"><span Class="bold">--columns N or --cols N</span> Where to wrap lines; default 72 columns. 
+<p class="level0"><span Class="bold">--verbose or -v</span> Print diagnostics to stderr.  Multiple <span Class="emphasis">-v</span> switches increase the amount of output. 
+<p class="level0">Command line options may be used to override the settings in the  ~/.xscreensaver file: 
+<p class="level0"><span Class="bold">--string STRING</span> Print the given string.  It may contain % escape sequences as per <span Class="manpage">strftime (2).</span>
+<p class="level0"><span Class="bold">--file PATH</span> Print the contents of the given file.  If --cols is specified, re-wrap the lines; otherwise, print them as-is. 
+<p class="level0"><span Class="bold">--program CMD</span> Run the given program and print its output.  If --cols is specified, re-wrap the output. 
+<p class="level0"><span Class="bold">--url HTTP-URL</span> Download and print the contents of the HTTP document.  If it contains  HTML, RSS, or Atom, it will be converted to plain-text. 
+<p class="level0">Note: this re-downloads the document every time it is run!  It might be considered abusive for you to point this at a web server that you do not control! <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">HTTP_PROXY or http_proxy</span> to get the default HTTP proxy host and port. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The RSS and Atom output is always ISO-8859-1, regardless of locale. 
+<p class="level0">URLs should be cached, use "If-Modified-Since", and obey "Expires". <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xscreensaver-demo (1)</span>, <span Class="manpage">xscreensaver (1)</span>, <span Class="manpage">fortune (1)</span>, <span Class="manpage">phosphor (1)</span>, <span Class="manpage">apple2 (1)</span>, <span Class="manpage">starwars (1)</span>, <span Class="manpage">fontglide (1)</span>, <span Class="manpage">dadadodo (1)</span>, <span Class="manpage">webcollage (1)</span>
+<p class="level1"><span Class="emphasis">http://www.livejournal.com/stats/latest-rss.bml,</span> 
+<p class="level2"><span Class="emphasis">http://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss,</span> 
+<p class="level3"><span Class="manpage">driftnet (1)</span>, <span Class="manpage">EtherPEG</span>, <span Class="manpage">EtherPeek</span><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2005 by Jamie Zawinski.  Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby granted without fee, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation.  No representations are made about the suitability of this software for any purpose.  It is provided "as is" without express or implied warranty. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jamie Zawinski &lt;jwz@jwz.org&gt;, 20-Mar-2005. 

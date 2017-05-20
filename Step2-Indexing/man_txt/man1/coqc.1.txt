@@ -1,0 +1,45 @@
+COQ(1)                      General Commands Manual                     COQ(1)
+
+
+
+NAME
+       coqc - The Coq Proof Assistant compiler
+
+
+
+SYNOPSIS
+       coqc [ general  Coq  options ] file
+
+
+
+DESCRIPTION
+       coqc  is  the  batch compiler for the Coq Proof Assistant.  The options
+       are basically the same as coqtop(1).  file.v is the vernacular file  to
+       compile.   file  must  be  formed only with the characters `a` to  `Z`,
+       `0`-`9` or `_` and must begin with a letter.  The compiler produces  an
+       object file file.vo.
+
+       For interactive use of Coq, see coqtop(1).
+
+
+
+OPTIONS
+       coqc  is  a  script  that  simply  runs  coqtop with option -compile it
+       accepts the same options as coqtop.
+
+
+       -image bin
+              use bin as underlying coqtop instead of the default one.
+
+
+       -verbose
+              print the compiled file on the standard output.
+
+
+SEE ALSO
+       coqtop(1), coq_makefile(1), coqdep(1).
+       The Coq Reference Manual.  The Coq web site: http://coq.inria.fr
+
+
+
+                                April 25, 2001                          COQ(1)

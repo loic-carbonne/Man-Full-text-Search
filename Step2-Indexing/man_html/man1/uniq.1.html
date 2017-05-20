@@ -1,0 +1,27 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">uniq - report or omit repeated lines <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">uniq</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">INPUT </span>[<span Class="emphasis">OUTPUT</span>]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Filter adjacent matching lines from INPUT (or standard input), writing to OUTPUT (or standard output). 
+<p class="level0">With no options, matching lines are merged to the first occurrence. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--count</span> prefix lines by the number of occurrences 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--repeated</span> only print duplicate lines, one for each group 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--all-repeated</span>[=<span Class="emphasis">METHOD</span>] print all duplicate lines groups can be delimited with an empty line METHOD={none(default),prepend,separate} 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--skip-fields</span>=<span Class="emphasis">N</span> avoid comparing the first N fields 
+<p class="level0"><span Class="bold">--group</span>[=<span Class="emphasis">METHOD</span>] show all items, separating groups with an empty line METHOD={separate(default),prepend,append,both} 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ignore-case</span> ignore differences in case when comparing 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--skip-chars</span>=<span Class="emphasis">N</span> avoid comparing the first N characters 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unique</span> only print unique lines 
+<p class="level0"><span Class="bold">-z</span>, <span Class="bold">--zero-terminated</span> line delimiter is NUL, not newline 
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--check-chars</span>=<span Class="emphasis">N</span> compare no more than N characters in lines 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">A field is a run of blanks (usually spaces and/or TABs), then non-blank characters.  Fields are skipped before chars. 
+<p class="level0">Note: 'uniq' does not detect repeated lines unless they are adjacent. You may want to sort the input first, or use 'sort <span Class="bold">-u</span>' without 'uniq'. Also, comparisons honor the rules specified by 'LC_COLLATE'. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Richard M. Stallman and David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report uniq translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">comm(1), join(1), sort(1) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/uniq&gt; <br>or available locally via: info (aq(coreutils) uniq invocation(aq 

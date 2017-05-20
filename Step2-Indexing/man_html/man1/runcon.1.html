@@ -1,0 +1,21 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">runcon - run command with specified security context <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">runcon</span> <span Class="emphasis">CONTEXT COMMAND </span>[<span Class="emphasis">args</span>] <br><span Class="bold">runcon</span> [ <span Class="emphasis">-c </span>] [<span Class="emphasis">-u USER</span>] [<span Class="emphasis">-r ROLE</span>] [<span Class="emphasis">-t TYPE</span>] [<span Class="emphasis">-l RANGE</span>] <span Class="emphasis">COMMAND </span>[<span Class="emphasis">args</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Run COMMAND with completely-specified CONTEXT, or with current or transitioned security context modified by one or more of LEVEL, ROLE, TYPE, and USER. 
+<p class="level0">If none of <span Class="emphasis">-c</span>, <span Class="emphasis">-t</span>, <span Class="emphasis">-u</span>, <span Class="emphasis">-r</span>, or <span Class="emphasis">-l</span>, is specified, the first argument is used as the complete context.  Any additional arguments after <span Class="emphasis">COMMAND</span> are interpreted as arguments to the command. 
+<p class="level0">Note that only carefully-chosen contexts are likely to successfully run. 
+<p class="level0">Run a program in a different SELinux security context. With neither CONTEXT nor COMMAND, print the current security context. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0">CONTEXT Complete security context 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--compute</span> compute process transition context before modifying 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--type</span>=<span Class="emphasis">TYPE</span> type (for same role as parent) 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--user</span>=<span Class="emphasis">USER</span> user identity 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--role</span>=<span Class="emphasis">ROLE</span> role 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--range</span>=<span Class="emphasis">RANGE</span> levelrange 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Russell Coker. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report runcon translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/runcon&gt; <br>or available locally via: info (aq(coreutils) runcon invocation(aq 

@@ -1,0 +1,68 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">watch - execute a program periodically, showing output fullscreen <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">watch</span> [<span Class="emphasis">options</span>] <span Class="emphasis">command</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">watch</span> runs <span Class="emphasis">command</span> repeatedly, displaying its output and errors (the first screenfull).  This allows you to watch the program output change over time.  By default, the program is run every 2 seconds. By default, <span Class="bold">watch</span> will run until interrupted. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--differences</span> [<span Class="emphasis">permanent</span>] Highlight the differences between successive updates.  Option will read optional argument that changes highlight to be permanent, allowing to see what has changed at least once since first iteration. 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--interval</span> <span Class="emphasis">seconds</span> Specify update interval.  The command will not allow quicker than 0.1 second interval, in which the smaller values are converted. 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--precise</span> Make <span Class="manpage">watch</span>attempt to run <span Class="emphasis">command</span> every <span Class="emphasis">interval</span> seconds. Try it with <span Class="bold">ntptime</span> and notice how the fractional seconds stays (nearly) the same, as opposed to normal mode where they continuously increase. 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--no-title</span> Turn off the header showing the interval, command, and current time at the top of the display, as well as the following blank line. 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--beep</span> Beep if command has a non-zero exit. 
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--errexit</span> Freeze updates on command error, and exit after a key press. 
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--chgexit</span> Exit when the output of <span Class="emphasis">command</span> changes. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--color</span> Interpret ANSI color sequences. 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--exec</span> <span Class="emphasis">command</span> is given to <span Class="bold">sh -c</span> which means that you may need to use extra quoting to get the desired effect. This with the --exec option, which passes the command to <span Class="manpage">exec (2)</span>instead. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--version</span> Display version information and exit. <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">Note that POSIX option processing is used (i.e., option processing stops at the first non-option argument).  This means that flags after <span Class="emphasis">command</span> don't get interpreted by <span Class="manpage">watch</span>itself. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To watch for mail, you might do 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch -n 60 from 
+<p class="level1">To watch the contents of a directory change, you could use 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch -d ls -l 
+<p class="level1">If you're only interested in files owned by user joe, you might use 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch -d 'ls -l | fgrep joe' 
+<p class="level1">To see the effects of quoting, try these out 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch echo $$ <br>watch echo '$$' <br>watch echo "'"'$$'"'" 
+<p class="level1">To see the effect of precision time keeping, try adding <span Class="emphasis">-p</span> to 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch -n 10 sleep 1 
+<p class="level1">You can watch for your administrator to install the latest kernel with 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">watch uname -r 
+<p class="level1">(Note that <span Class="emphasis">-p</span> isn't guaranteed to work across reboots, especially in the face of <span Class="bold">ntpdate</span> or other bootup time-changing mechanisms) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Upon terminal resize, the screen will not be correctly repainted until the next scheduled update.  All <span Class="bold">--differences</span> highlighting is lost on that update as well. 
+<p class="level0">Non-printing characters are stripped from program output.  Use "cat -v" as part of the command pipeline if you want to see them. 
+<p class="level0">Combining Characters that are supposed to display on the character at the last column on the screen may display one column early, or they may not display at all. 
+<p class="level0">Combining Characters never count as different in <span Class="emphasis">--differences</span> mode.  Only the base character counts. 
+<p class="level0">Blank lines directly after a line which ends in the last column do not display. 
+<p class="level0"><span Class="emphasis">--precise</span> mode doesn't yet have advanced temporal distortion technology to compensate for a <span Class="emphasis">command</span> that takes more than <span Class="emphasis">interval</span> seconds to execute. <span Class="bold">watch</span> also can get into a state where it rapid-fires as many executions of <span Class="emphasis">command</span> as it can to catch up from a previous executions running longer than <span Class="emphasis">interval</span> (for example, <span Class="bold">netstat</span> taking ages on a DNS lookup). <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">0</span> Success. 
+<p class="level1"><span Class="bold">1</span> Various failures. 
+<p class="level1"><span Class="bold">2</span> Forking the process to watch failed. 
+<p class="level1"><span Class="bold">3</span> Replacing child process stdout with write side pipe failed. 
+<p class="level1"><span Class="bold">4</span> Command execution failed. 
+<p class="level1"><span Class="bold">5</span> Closign child process write pipe failed. 
+<p class="level1"><span Class="bold">7</span> IPC pipe creation failed. 
+<p class="level1"><span Class="bold">8</span> Getting child process return value with <span Class="manpage">waitpid (2)</span>failed, or command exited up on error. 
+<p class="level1"><span Class="bold">other</span> The watch will propagate command exit status as child exit status. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">The original <span Class="bold">watch</span> was written by 
+<p class="level0">Tony Rems 
+<p class="level0">in 1991, with mods and corrections by Francois Pinard.  It was reworked and new features added by 
+<p class="level0">Mike Coleman 
+<p class="level0">in 1999. The beep, exec, and error handling features were added by 
+<p class="level0">Morty Abzug 
+<p class="level0">in 2008.  On a not so dark and stormy morning in March of 2003, 
+<p class="level0">Anthony DeRobertis 
+<p class="level0">got sick of his watches that should update every minute eventually updating many seconds after the minute started, and added microsecond precision. Unicode support was added in 2009 by 
+<p class="level0">Jarrod Lowe 
+<p class="level0">

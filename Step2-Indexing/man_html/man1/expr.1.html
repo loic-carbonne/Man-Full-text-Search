@@ -1,0 +1,36 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">expr - evaluate expressions <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">expr</span> <span Class="emphasis">EXPRESSION</span> <br><span Class="bold">expr</span> <span Class="emphasis">OPTION</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Print the value of EXPRESSION to standard output.  A blank line below separates increasing precedence groups.  EXPRESSION may be: 
+<p class="level0">ARG1 | ARG2 ARG1 if it is neither null nor 0, otherwise ARG2 
+<p class="level0">ARG1 & ARG2 ARG1 if neither argument is null or 0, otherwise 0 
+<p class="level0">ARG1 &lt; ARG2 ARG1 is less than ARG2 
+<p class="level0">ARG1 &lt;= ARG2 ARG1 is less than or equal to ARG2 
+<p class="level0">ARG1 = ARG2 ARG1 is equal to ARG2 
+<p class="level0">ARG1 != ARG2 ARG1 is unequal to ARG2 
+<p class="level0">ARG1 &gt;= ARG2 ARG1 is greater than or equal to ARG2 
+<p class="level0">ARG1 &gt; ARG2 ARG1 is greater than ARG2 
+<p class="level0">ARG1 + ARG2 arithmetic sum of ARG1 and ARG2 
+<p class="level0">ARG1 - ARG2 arithmetic difference of ARG1 and ARG2 
+<p class="level0">ARG1 * ARG2 arithmetic product of ARG1 and ARG2 
+<p class="level0">ARG1 / ARG2 arithmetic quotient of ARG1 divided by ARG2 
+<p class="level0">ARG1 % ARG2 arithmetic remainder of ARG1 divided by ARG2 
+<p class="level0">STRING : REGEXP anchored pattern match of REGEXP in STRING 
+<p class="level0">match STRING REGEXP same as STRING : REGEXP 
+<p class="level0">substr STRING POS LENGTH substring of STRING, POS counted from 1 
+<p class="level0">index STRING CHARS index in STRING where any CHARS is found, or 0 
+<p class="level0">length STRING length of STRING 
+<p class="level0">+ TOKEN interpret TOKEN as a string, even if it is a 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">keyword like 'match' or an operator like '/' 
+<p class="level1">( EXPRESSION ) value of EXPRESSION 
+<p class="level1">Beware that many operators need to be escaped or quoted for shells. Comparisons are arithmetic if both ARGs are numbers, else lexicographical. Pattern matches return the string matched between e( and e) or null; if e( and e) are not used, they return the number of characters matched or 0. 
+<p class="level1">Exit status is 0 if EXPRESSION is neither null nor 0, 1 if EXPRESSION is null or 0, 2 if EXPRESSION is syntactically invalid, and 3 if an error occurred. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Mike Parker, James Youngman, and Paul Eggert. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report expr translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/expr&gt; <br>or available locally via: info (aq(coreutils) expr invocation(aq 

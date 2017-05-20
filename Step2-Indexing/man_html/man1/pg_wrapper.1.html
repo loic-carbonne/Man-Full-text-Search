@@ -1,0 +1,154 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_wrapper - wrapper for PostgreSQL client commands <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">client-program</span> [<span Class="bold">--cluster</span> <span Class="emphasis">version</span>/<span Class="emphasis">cluster</span>] [...] 
+<p class="level0">(<span Class="emphasis">client-program</span>: <span Class="bold">psql</span>, <span Class="bold">createdb</span>, <span Class="bold">dropuser</span>, and all other client programs installed in f(CW*(C`/usr/lib/postgresql/*(C'</span><span Class="emphasis">version</span>f(CW*(C`/bin*(C'</span>). <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program is run only as a link to names which correspond to PostgreSQL programs in f(CW*(C`/usr/lib/postgresql/*(C'</span><span Class="emphasis">version</span>f(CW*(C`/bin*(C'</span>. It determines the configured cluster and database for the user and calls the appropriate version of the desired program to connect to that cluster and database, supplying any specified options to that command. 
+<p class="level0">The target cluster is selected by the following means, in descending order of precedence: 
+<p class="level0"><a name="1"></a><span class="nroffip">1. 4</span> 
+<p class="level1">explicit specification with the <span Class="bold">--host</span> option 
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">explicit specification with the <span Class="bold">--cluster</span> option 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">if the <span Class="bold">s-1PGHOSTs0</span> environment variable is set, no further cluster selection is performed. The default PostgreSQL version and port number (from the command line, the environment variable <span Class="bold">s-1PGPORTs0</span>, or default 5432) will be used. 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">explicit specification with the <span Class="bold">s-1PGCLUSTERs0</span> environment variable 
+<p class="level0"><a name="5"></a><span class="nroffip">5. 4</span> 
+<p class="level1">matching entry in f(CW*(C`~/.postgresqlrc*(C'</span> (see <span Class="emphasis">postgresqlrc</span>|(5)), if that file exists 
+<p class="level0"><a name="6"></a><span class="nroffip">6. 4</span> 
+<p class="level1">matching entry in f(CW*(C`/etc/postgresql-common/user_clusters*(C'</span> (see <span Class="emphasis">user_clusters</span>|(5)), if that file exists 
+<p class="level0"><a name="7"></a><span class="nroffip">7. 4</span> 
+<p class="level1">If only one local cluster exists, that one will be selected. 
+<p class="level0"><a name="8"></a><span class="nroffip">8. 4</span> 
+<p class="level1">If several local clusters exist, the one listening on the default port 5432 will be selected. 
+<p class="level1">If none of these rules match, <span Class="bold">pg_wrapper</span> aborts with an error. 
+<p class="level1">For <span Class="bold">psql</span>, <span Class="bold">pg_archivecleanup</span>, and <span Class="bold">pg_isready</span>, <span Class="bold">pg_wrapper</span> will always use the binary from the newest PostgreSQL version installed, as these are downwards compatible. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB--clusterfR"></a><span class="nroffip">\fB--cluster\fR \fIversion\fR\fB/\fR\fIcluster\fR 4</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">cluster</span> is either the name of a local cluster, or takes the form <span Class="emphasis">host</span>:<span Class="emphasis">port</span> for a remote cluster. If <span Class="emphasis">port</span> is left empty (i. e. you just specify <span Class="emphasis">host:</span>), it defaults to 5432. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBs-1PGCLUSTERs0fR"></a><span class="nroffip">\fB\s-1PGCLUSTER\s0\fR 4</span> 
+<p class="level1">
+<p class="level1">If f(CW$PGCLUSTER</span> is set, its value (of the form <span Class="emphasis">version</span>/<span Class="emphasis">cluster</span>) specifies the desired cluster, similar to the <span Class="bold">--cluster</span> option. However, if <span Class="bold">--cluster</span> is specified, it overrides the value of f(CW$PGCLUSTER</span>. 
+<p class="level0"><a name="fBs-1PGCLUSTERCONFROOTs0fR"></a><span class="nroffip">\fB\s-1PG_CLUSTER_CONF_ROOT\s0\fR 4</span> 
+<p class="level1">
+<p class="level1">This specifies an alternative base directory for cluster configurations. This is usually f(CW*(C`/etc/postgresql/*(C'</span>, but for testing/development purposes you can change this to point to e. g. your home directory, so that you can use the postgresql-common tools without root privileges. 
+<p class="level0"><a name="fBs-1PGSYSCONFDIRs0fR"></a><span class="nroffip">\fB\s-1PGSYSCONFDIR\s0\fR 4</span> 
+<p class="level1">
+<p class="level1">This is the location of PostgreSQL's and postgresql-common's global configuration (e. g. f(CW*(C`pg_service.conf*(C'</span>, <span Class="emphasis">user_clusters</span>|(5)). The default is f(CW*(C`/etc/postgresql-common/*(C'</span>. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">stores the default cluster and database for users and groups as set by the administrators. 
+<p class="level0">
+<p class="level0">
+<p class="level0">stores defaults set by the user himself. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">user_clusters</span>|(5), <span Class="emphasis">postgresqlrc</span>|(5) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Martin Pitt &lt;mpitt@debian.org&gt; 

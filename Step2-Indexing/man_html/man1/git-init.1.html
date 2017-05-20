@@ -1,0 +1,144 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-init - Create an empty Git repository or reinitialize an existing one <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git init</span> [-q | --quiet] [--bare] [--template=&lt;template_directory&gt;]
+&nbsp;         [--separate-git-dir &lt;git dir&gt;]
+&nbsp;         [--shared[=&lt;permissions&gt;]] [directory]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This command creates an empty Git repository - basically a .git directory with subdirectories for objects, refs/heads, refs/tags, and template files. An initial HEAD file that references the HEAD of the master branch is also created. 
+<p class="level0">If the $GIT_DIR environment variable is set then it specifies a path to use instead of ./.git for the base of the repository. 
+<p class="level0">If the object storage directory is specified via the $GIT_OBJECT_DIRECTORY environment variable then the sha1 directories are created underneath - otherwise the default $GIT_DIR/objects directory is used. 
+<p class="level0">Running <span Class="emphasis">git init</span> in an existing repository is safe. It will not overwrite things that are already there. The primary reason for rerunning <span Class="emphasis">git init</span> is to pick up newly added templates (or to move the repository to another place if --separate-git-dir is given). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Only print error and warning messages, all other output will be suppressed. 
+<p class="level0">
+<p class="level0">--bare 
+<p class="level1">Create a bare repository. If GIT_DIR environment is not set, it is set to the current working directory. 
+<p class="level0">
+<p class="level0">--template=&lt;template_directory&gt; 
+<p class="level1">Specify the directory from which templates will be used. (See the "TEMPLATE DIRECTORY" section below.) 
+<p class="level0">
+<p class="level0">--separate-git-dir=&lt;git dir&gt; 
+<p class="level1">Instead of initializing the repository where it is supposed to be, place a filesytem-agnostic Git symbolic link there, pointing to the specified path, and initialize a Git repository at the path. The result is Git repository can be separated from working tree. If this is reinitialization, the repository will be moved to the specified path. 
+<p class="level0">
+<p class="level0">--shared[=(false|true|umask|group|all|world|everybody|0xxx)] 
+<p class="level1">Specify that the Git repository is to be shared amongst several users. This allows users belonging to the same group to push into that repository. When specified, the config variable "core.sharedRepository" is set so that files and directories under $GIT_DIR are created with the requested permissions. When not specified, Git will use permissions reported by umask(2). 
+<p class="level0">
+<p class="level0">The option can have the following values, defaulting to <span Class="emphasis">group</span> if no value is given: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">umask</span> (or <span Class="emphasis">false</span>): Use permissions reported by umask(2). The default, when --shared is not specified. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">group</span> (or <span Class="emphasis">true</span>): Make the repository group-writable, (and g+sx, since the git group may be not the primary group of all users). This is used to loosen the permissions of an otherwise safe umask(2) value. Note that the umask still applies to the other permission bits (e.g. if umask is <span Class="emphasis">0022</span>, using <span Class="emphasis">group</span> will not remove read privileges from other (non-group) users). See <span Class="emphasis">0xxx</span> for how to exactly specify the repository permissions. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">all</span> (or <span Class="emphasis">world</span> or <span Class="emphasis">everybody</span>): Same as <span Class="emphasis">group</span>, but make the repository readable by all users. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">0xxx</span>: <span Class="emphasis">0xxx</span> is an octal number and each file will have mode <span Class="emphasis">0xxx</span>. <span Class="emphasis">0xxx</span> will override users*(Aq umask(2) value (and not only loosen permissions as <span Class="emphasis">group</span> and <span Class="emphasis">all</span> does). <span Class="emphasis">0640</span> will create a repository which is group-readable, but not group-writable or accessible to others. <span Class="emphasis">0660</span> will create a repo that is readable and writable to the current user and group, but inaccessible to others. 
+<p class="level0">
+<p class="level0">By default, the configuration flag receive.denyNonFastForwards is enabled in shared repositories, so that you cannot force a non fast-forwarding push into it. 
+<p class="level0">If you name a (possibly non-existent) directory at the end of the command line, the command is run inside the directory (possibly after creating it). <a name="TEMPLATE"></a><h2 class="nroffsh">TEMPLATE DIRECTORY</h2>
+<p class="level0">
+<p class="level0">The template directory contains files and directories that will be copied to the $GIT_DIR after it is created. 
+<p class="level0">The template directory used will (in order): 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The argument given with the --template option. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The contents of the $GIT_TEMPLATE_DIR environment variable. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The init.templatedir configuration variable. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The default template directory: /usr/share/git-core/templates. 
+<p class="level0">
+<p class="level0">The default template directory includes some directory structure, some suggested "exclude patterns", and copies of sample "hook" files. The suggested patterns and hook files are all modifiable and extensible. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Start a new Git repository for an existing code base 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ cd /path/to/my/codebase
+$ git init      <span class="bold">(1)</span>
+$ git add .     <span class="bold">(2)</span>
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">1. </span>prepare /path/to/my/codebase/.git directory <br><span Class="bold">2. </span>add all existing file to the index <br>
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

@@ -1,0 +1,9 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zgrep - search possibly compressed files for a regular expression <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">zgrep</span> [ grep_options ] <span Class="bold">[\ -e\ ]  pattern</span> <span Class="emphasis">filename .\|.\|.</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Zgrep</span> invokes <span Class="emphasis">grep</span> on compressed or gzipped files. These <span Class="emphasis">grep</span> options will cause <span Class="emphasis">zgrep</span> to terminate with an error code: <span Class="bold">(-[drRzZ] | --di* | --exc* | --inc* | --rec* | --nu*) .</span> All other options specified are passed directly to <span Class="emphasis">grep .</span> If no file is specified, then the standard input is decompressed if necessary and fed to grep. Otherwise the given files are uncompressed if necessary and fed to <span Class="emphasis">grep .</span> 
+<p class="level0">If the GREP environment variable is set, <span Class="emphasis">zgrep</span> uses it as the <span Class="emphasis">grep</span> program to be invoked. <a name="EXIT"></a><h2 class="nroffsh">EXIT CODE</h2>
+<p class="level0">2 - An option that is not supported was specified. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Charles Levert (charles@comm.polymtl.ca) <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">grep(1), gzexe(1), gzip(1), zdiff(1), zforce(1), zmore(1), znew(1) 

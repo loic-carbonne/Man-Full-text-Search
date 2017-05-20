@@ -1,0 +1,143 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-show-branch - Show branches and their commits <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git show-branch</span> [-a|--all] [-r|--remotes] [--topo-order | --date-order]
+&nbsp;               [--current] [--color[=&lt;when&gt;] | --no-color] [--sparse]
+&nbsp;               [--more=&lt;n&gt; | --list | --independent | --merge-base]
+&nbsp;               [--no-name | --sha1-name] [--topics]
+&nbsp;               [(&lt;rev&gt; | &lt;glob&gt;)...]
+<span class="emphasis">git show-branch</span> (-g|--reflog)[=&lt;n&gt;[,&lt;base&gt;]] [--list] [&lt;ref&gt;]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Shows the commit ancestry graph starting from the commits named with &lt;rev&gt;s or &lt;globs&gt;s (or all refs under refs/heads and/or refs/tags) semi-visually. 
+<p class="level0">It cannot show more than 29 branches and commits at a time. 
+<p class="level0">It uses showbranch.default multi-valued configuration items if no &lt;rev&gt; or &lt;glob&gt; is given on the command line. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;rev&gt; 
+<p class="level1">Arbitrary extended SHA-1 expression (see <span Class="bold">gitrevisions</span>(7)) that typically names a branch head or a tag. 
+<p class="level0">
+<p class="level0">&lt;glob&gt; 
+<p class="level1">A glob pattern that matches branch or tag names under refs/. For example, if you have many topic branches under refs/heads/topic, giving topic/* would show all of them. 
+<p class="level0">
+<p class="level0">-r, --remotes 
+<p class="level1">Show the remote-tracking branches. 
+<p class="level0">
+<p class="level0">-a, --all 
+<p class="level1">Show both remote-tracking branches and local branches. 
+<p class="level0">
+<p class="level0">--current 
+<p class="level1">With this option, the command includes the current branch to the list of revs to be shown when it is not given on the command line. 
+<p class="level0">
+<p class="level0">--topo-order 
+<p class="level1">By default, the branches and their commits are shown in reverse chronological order. This option makes them appear in topological order (i.e., descendant commits are shown before their parents). 
+<p class="level0">
+<p class="level0">--date-order 
+<p class="level1">This option is similar to <span Class="emphasis">--topo-order</span> in the sense that no parent comes before all of its children, but otherwise commits are ordered according to their commit date. 
+<p class="level0">
+<p class="level0">--sparse 
+<p class="level1">By default, the output omits merges that are reachable from only one tip being shown. This option makes them visible. 
+<p class="level0">
+<p class="level0">--more=&lt;n&gt; 
+<p class="level1">Usually the command stops output upon showing the commit that is the common ancestor of all the branches. This flag tells the command to go &lt;n&gt; more common commits beyond that. When &lt;n&gt; is negative, display only the &lt;reference&gt;s given, without showing the commit ancestry tree. 
+<p class="level0">
+<p class="level0">--list 
+<p class="level1">Synonym to --more=-1 
+<p class="level0">
+<p class="level0">--merge-base 
+<p class="level1">Instead of showing the commit list, determine possible merge bases for the specified commits. All merge bases will be contained in all specified commits. This is different from how <span Class="bold">git-merge-base</span>(1) handles the case of three or more commits. 
+<p class="level0">
+<p class="level0">--independent 
+<p class="level1">Among the &lt;reference&gt;s given, display only the ones that cannot be reached from any other &lt;reference&gt;. 
+<p class="level0">
+<p class="level0">--no-name 
+<p class="level1">Do not show naming strings for each commit. 
+<p class="level0">
+<p class="level0">--sha1-name 
+<p class="level1">Instead of naming the commits using the path to reach them from heads (e.g. "master~2" to mean the grandparent of "master"), name them with the unique prefix of their object names. 
+<p class="level0">
+<p class="level0">--topics 
+<p class="level1">Shows only commits that are NOT on the first branch given. This helps track topic branches by hiding any commit that is already in the main line of development. When given "git show-branch --topics master topic1 topic2", this will show the revisions given by "git rev-list ^master topic1 topic2" 
+<p class="level0">
+<p class="level0">-g, --reflog[=&lt;n&gt;[,&lt;base&gt;]] [&lt;ref&gt;] 
+<p class="level1">Shows &lt;n&gt; most recent ref-log entries for the given ref. If &lt;base&gt; is given, &lt;n&gt; entries going back from that entry. &lt;base&gt; can be specified as count or date. When no explicit &lt;ref&gt; parameter is given, it defaults to the current branch (or HEAD if it is detached). 
+<p class="level0">
+<p class="level0">--color[=&lt;when&gt;] 
+<p class="level1">Color the status sign (one of these: *!+-) of each commit corresponding to the branch it(cqs in. The value must be always (the default), never, or auto. 
+<p class="level0">
+<p class="level0">--no-color 
+<p class="level1">Turn off colored output, even when the configuration file gives the default to color output. Same as --color=never. 
+<p class="level0">
+<p class="level0">Note that --more, --list, --independent and --merge-base options are mutually exclusive. <a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0">Given N &lt;references&gt;, the first N lines are the one-line description from their commit message. The branch head that is pointed at by $GIT_DIR/HEAD is prefixed with an asterisk * character while other heads are prefixed with a ! character. 
+<p class="level0">Following these N lines, one-line log for each commit is displayed, indented N places. If a commit is on the I-th branch, the I-th indentation character shows a + sign; otherwise it shows a space. Merge commits are denoted by a - sign. Each commit shows a short name that can be used as an extended SHA-1 to name that commit. 
+<p class="level0">The following example shows three branches, "master", "fixes" and "mhf": 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git show-branch master fixes mhf
+* [master] Add *(Aqgit show-branch*(Aq.
+&nbsp;! [fixes] Introduce "reset type" flag to "git reset"
+&nbsp; ! [mhf] Allow "+remote:local" refspec to cause --force when fetching.
+---
+&nbsp; + [mhf] Allow "+remote:local" refspec to cause --force when fetching.
+&nbsp; + [mhf~1] Use git-octopus when pulling more than one heads.
+&nbsp;+  [fixes] Introduce "reset type" flag to "git reset"
+&nbsp; + [mhf~2] "git fetch --force".
+&nbsp; + [mhf~3] Use .git/remote/origin, not .git/branches/origin.
+&nbsp; + [mhf~4] Make "git pull" and "git fetch" default to origin
+&nbsp; + [mhf~5] Infamous *(Aqoctopus merge*(Aq
+&nbsp; + [mhf~6] Retire git-parse-remote.
+&nbsp; + [mhf~7] Multi-head fetch.
+&nbsp; + [mhf~8] Start adding the $GIT_DIR/remotes/ support.
+*++ [master] Add *(Aqgit show-branch*(Aq.
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">These three branches all forked from a common commit, [master], whose commit message is "Add *(Aqgit show-branch*(Aq". The "fixes" branch adds one commit "Introduce "reset type" flag to "git reset"". The "mhf" branch adds many other commits. The current branch is "master". <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">If you keep your primary branches immediately under refs/heads, and topic branches in subdirectories of it, having the following in the configuration file may help: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[showbranch]
+&nbsp;       default = --topo-order
+&nbsp;       default = heads/*
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">With this, git show-branch without extra parameters would show only the primary branches. In addition, if you happen to be on your topic branch, it is shown as well. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git show-branch --reflog="10,1 hour ago" --list master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">shows 10 reflog entries going back from the tip as of 1 hour ago. Without --list, the output also shows how these tips are topologically related with each other. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

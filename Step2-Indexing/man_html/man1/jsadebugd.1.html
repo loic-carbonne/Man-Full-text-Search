@@ -1,0 +1,62 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jsadebugd - Serviceability Agent Debug Daemon 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jsadebugd</span> pid [ server-id ]
+f3jsadebugd</span> executable core [ server-id ]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">pid  process id of the process to which the debug server should attach. The process must be a Java process. To get a list of Java processes running on a machine, jps(1) may be used. At most one instance of the debug server may be attached to a single process.  
+<p class="level1">executable  Java executable from which the core dump was produced  
+<p class="level1">core  Core file to which the debug server should attach.  
+<p class="level1">server-id  Optional unique id, needed if multiple debug servers are started on the same machine. This ID must be used by remote clients to identify the particular debug server to attach. Within a single machine, this ID must be unique.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3jsadebugd</span> attaches to a Java process or core file and acts as a debug server. Remote clients such as jstack(1), jmap(1), and jinfo(1) can attach to the server using Java Remote Method Invocation (RMI). Before starting f2jsadebugd</span>,  
+<p class="level0">f2rmiregistry</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;rmi">http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;rmi</a> must be started with: 
+<p class="level0"><pre class="level0">
+f3
+</span>f4rmiregistry -J-Xbootclasspath/p:$JAVA_HOME/lib/sajdi.jar</span>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">where f2$JAVA_HOME</span> is the JDK installation directory. If rmiregistry was not started, jsadebugd will start an rmiregistry in a standard (1099) port internally. Debug server may be stopped by sending SIGINT (pressing Ctrl-C) to it. 
+<p class="level0">
+<p class="level0">f3NOTE</span> - This utility is unsupported and may or may not be available in future versions of the JDK. In Windows Systems where dbgeng.dll is not present, 'Debugging Tools For Windows' needs to be installed to have these tools working. Also, f2PATH</span> environment variable should contain the location of f2jvm.dll</span> used by the target process or the location from which the Crash Dump file was produced. 
+<p class="level0">
+<p class="level0">For example, f2set PATH=&lt;jdk&gt;\jre\bin\client;%PATH%</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o jinfo(1)  
+<p class="level1">o jmap(1)  
+<p class="level1">o jps(1)  
+<p class="level1">o jstack(1)  
+<p class="level1">o 
+<p class="level1">f2rmiregistry</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;rmi">http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;rmi</a>  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,66 @@
+OCAMLYACC(1)                General Commands Manual               OCAMLYACC(1)
+
+
+
+NAME
+       ocamlyacc - The OCaml parser generator
+
+
+SYNOPSIS
+       ocamlyacc  [  -bprefix  ]  [  -q  ] [ -v ] [ -version ] [ -vnum ] file-
+       name.mly
+
+
+DESCRIPTION
+       The ocamlyacc(1) command produces a parser from a LALR(1)  context-free
+       grammar  specification  with attached semantic actions, in the style of
+       yacc(1).  Assuming the input file  is  grammar.mly,  running  ocamlyacc
+       produces OCaml code for a parser in the file grammar.ml, and its inter-
+       face in file grammar.mli.
+
+       The generated module defines one parsing function per  entry  point  in
+       the  grammar.  These functions have the same names as the entry points.
+       Parsing functions take as arguments a lexical analyzer (a function from
+       lexer  buffers  to  tokens) and a lexer buffer, and return the semantic
+       attribute of the corresponding entry point. Lexical analyzer  functions
+       are  usually  generated  from  a lexer specification by the ocamllex(1)
+       program. Lexer buffers are an abstract data  type  implemented  in  the
+       standard  library  module  Lexing.  Tokens are values from the concrete
+       type token, defined in  the  interface  file  grammar.mli  produced  by
+       ocamlyacc(1).
+
+
+OPTIONS
+       The ocamlyacc(1) command recognizes the following options:
+
+       -bprefix
+              Name  the  output  files  prefix.ml,  prefix.mli, prefix.output,
+              instead of the default naming convention.
+
+       -q     This option has no effect.
+
+       -v     Generate a description of the parsing tables  and  a  report  on
+              conflicts   resulting  from  ambiguities  in  the  grammar.  The
+              description is put in file grammar.output.
+
+       -version
+              Print version string and exit.
+
+       -vnum  Print short version number and exit.
+
+       -      Read the grammar specification from standard input.  The default
+              output file names are stdin.ml and stdin.mli.
+
+       -- file
+              Process  file  as  the  grammar  specification, even if its name
+              starts with a dash (-) character.  This option must be the  last
+              on the command line.
+
+
+SEE ALSO
+       ocamllex(1).
+       The OCaml user's manual, chapter "Lexer and parser generators".
+
+
+
+                                                                  OCAMLYACC(1)

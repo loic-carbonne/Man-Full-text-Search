@@ -1,0 +1,246 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">cpan - easily interact with CPAN from the command line <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;       &#35; with arguments and no switches, installs specified modules &nbsp;       cpan module_name [ module_name ... ] 
+<p class="level0">&nbsp;       &#35; with switches, installs modules with extra behavior &nbsp;       cpan [-cfgimtTw] module_name [ module_name ... ] 
+<p class="level0">&nbsp;       &#35; with just the dot, install from the distribution in the &nbsp;       &#35; current directory &nbsp;       cpan . 
+<p class="level0">&nbsp;       &#35; without arguments, starts CPAN.pm shell &nbsp;       cpan 
+<p class="level0">&nbsp;       &#35; dump the configuration &nbsp;       cpan -J 
+<p class="level0">&nbsp;       &#35; load a different configuration to install Module::Foo &nbsp;       cpan -j some/other/file Module::Foo 
+<p class="level0">&nbsp;       &#35; without arguments, but some switches &nbsp;       cpan [-ahrvACDlLO] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This script provides a command interface (not a shell) to s-1CPAN.s0 At the moment it uses s-1CPANs0.pm to do the work, but it is not a one-shot command runner for s-1CPANs0.pm. <a name="Options"></a><h2 class="nroffsh">Options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="-a"></a><span class="nroffip">-a 4</span> 
+<p class="level1">
+<p class="level1">Creates a s-1CPANs0.pm autobundle with CPAN::Shell-&gt;autobundle. 
+<p class="level0"><a name="-A"></a><span class="nroffip">-A module [ module ... ] 4</span> 
+<p class="level1">
+<p class="level1">Shows the primary maintainers for the specified modules. 
+<p class="level0"><a name="-c"></a><span class="nroffip">-c module 4</span> 
+<p class="level1">
+<p class="level1">Runs a `make clean` in the specified module's directories. 
+<p class="level0"><a name="-C"></a><span class="nroffip">-C module [ module ... ] 4</span> 
+<p class="level1">
+<p class="level1">Show the <span Class="emphasis">Changes</span> files for the specified modules 
+<p class="level0"><a name="-D"></a><span class="nroffip">-D module [ module ... ] 4</span> 
+<p class="level1">
+<p class="level1">Show the module details. 
+<p class="level0"><a name="-f"></a><span class="nroffip">-f 4</span> 
+<p class="level1">
+<p class="level1">Force the specified action, when it normally would have failed. Use this to install a module even if its tests fail. When you use this option, -i is not optional for installing a module when you need to force it: 
+<p class="level1">
+<p class="level1">&nbsp;       % cpan -f -i Module::Foo 
+<p class="level1">
+<p class="level0"><a name="-F"></a><span class="nroffip">-F 4</span> 
+<p class="level1">
+<p class="level1">Turn off s-1CPANs0.pm's attempts to lock anything. You should be careful with  this since you might end up with multiple scripts trying to muck in the same directory. This isn't so much of a concern if you're loading a special config with f(CW*(C`-j*(C'</span>, and that config sets up its own work directories. 
+<p class="level0"><a name="-g"></a><span class="nroffip">-g module [ module ... ] 4</span> 
+<p class="level1">
+<p class="level1">Downloads to the current directory the latest distribution of the module. 
+<p class="level0"><a name="-G"></a><span class="nroffip">-G module [ module ... ] 4</span> 
+<p class="level1">
+<p class="level1">s-1UNIMPLEMENTEDs0 
+<p class="level1">Download to the current directory the latest distribution of the modules, unpack each distribution, and create a git repository for each distribution. 
+<p class="level1">If you want this feature, check out Yanick Champoux's f(CW*(C`Git::CPAN::Patch*(C'</span> distribution. 
+<p class="level0"><a name="-h"></a><span class="nroffip">-h 4</span> 
+<p class="level1">
+<p class="level1">Print a help message and exit. When you specify f(CW*(C`-h*(C'</span>, it ignores all of the other options and arguments. 
+<p class="level0"><a name="-i"></a><span class="nroffip">-i 4</span> 
+<p class="level1">
+<p class="level1">Install the specified modules. 
+<p class="level0"><a name="-I"></a><span class="nroffip">-I 4</span> 
+<p class="level1">
+<p class="level1">Load f(CW*(C`local::lib*(C'</span> (think like f(CW*(C`-I*(C'</span> for loading lib paths). 
+<p class="level0"><a name="-j"></a><span class="nroffip">-j Config.pm 4</span> 
+<p class="level1">
+<p class="level1">Load the file that has the s-1CPANs0 configuration data. This should have the same format as the standard <span Class="emphasis">CPAN/Config.pm</span> file, which defines  f(CW$CPAN::Config</span> as an anonymous hash. 
+<p class="level0"><a name="-J"></a><span class="nroffip">-J 4</span> 
+<p class="level1">
+<p class="level1">Dump the configuration in the same format that s-1CPANs0.pm uses. This is useful for checking the configuration as well as using the dump as a starting point for a new, custom configuration. 
+<p class="level0"><a name="-l"></a><span class="nroffip">-l 4</span> 
+<p class="level1">
+<p class="level1">List all installed modules with their versions 
+<p class="level0"><a name="-L"></a><span class="nroffip">-L author [ author ... ] 4</span> 
+<p class="level1">
+<p class="level1">List the modules by the specified authors. 
+<p class="level0"><a name="-m"></a><span class="nroffip">-m 4</span> 
+<p class="level1">
+<p class="level1">Make the specified modules. 
+<p class="level0"><a name="-O"></a><span class="nroffip">-O 4</span> 
+<p class="level1">
+<p class="level1">Show the out-of-date modules. 
+<p class="level0"><a name="-p"></a><span class="nroffip">-p 4</span> 
+<p class="level1">
+<p class="level1">Ping the configured mirrors 
+<p class="level0"><a name="-P"></a><span class="nroffip">-P 4</span> 
+<p class="level1">
+<p class="level1">Find the best mirrors you could be using (but doesn't configure them just yet) 
+<p class="level0"><a name="-r"></a><span class="nroffip">-r 4</span> 
+<p class="level1">
+<p class="level1">Recompiles dynamically loaded modules with CPAN::Shell-&gt;recompile. 
+<p class="level0"><a name="-t"></a><span class="nroffip">-t 4</span> 
+<p class="level1">
+<p class="level1">Run a `make test` on the specified modules. 
+<p class="level0"><a name="-T"></a><span class="nroffip">-T 4</span> 
+<p class="level1">
+<p class="level1">Do not test modules. Simply install them. 
+<p class="level0"><a name="-u"></a><span class="nroffip">-u 4</span> 
+<p class="level1">
+<p class="level1">Upgrade all installed modules. Blindly doing this can really break things, so keep a backup. 
+<p class="level0"><a name="-v"></a><span class="nroffip">-v 4</span> 
+<p class="level1">
+<p class="level1">Print the script version and s-1CPANs0.pm version then exit. 
+<p class="level0"><a name="-V"></a><span class="nroffip">-V 4</span> 
+<p class="level1">
+<p class="level1">Print detailed information about the cpan client. 
+<p class="level0"><a name="-w"></a><span class="nroffip">-w 4</span> 
+<p class="level1">
+<p class="level1">s-1UNIMPLEMENTEDs0 
+<p class="level1">Turn on cpan warnings. This checks various things, like directory permissions, and tells you about problems you might have. <a name="Examples"></a><h2 class="nroffsh">Examples</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;       &#35; print a help message &nbsp;       cpan -h 
+<p class="level0">&nbsp;       &#35; print the version numbers &nbsp;       cpan -v 
+<p class="level0">&nbsp;       &#35; create an autobundle &nbsp;       cpan -a 
+<p class="level0">&nbsp;       &#35; recompile modules &nbsp;       cpan -r 
+<p class="level0">&nbsp;       &#35; upgrade all installed modules &nbsp;       cpan -u 
+<p class="level0">&nbsp;       &#35; install modules ( sole -i is optional ) &nbsp;       cpan -i Netscape::Booksmarks Business::ISBN 
+<p class="level0">&nbsp;       &#35; force install modules ( must use -i ) &nbsp;       cpan -fi CGI::Minimal URI 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="s-1CPANOPTSs0"></a><span class="nroffip">\s-1CPAN_OPTS\s0 4</span> 
+<p class="level1">
+<p class="level1">f(CW*(C`cpan*(C'</span> splits this variable on whitespace and prepends that list to f(CW@ARGV</span> before it processes the command-line arguments. For instance, if you always want to use f(CW*(C`local:lib*(C'</span>, you can set f(CW*(C`CPAN_OPTS*(C'</span> to f(CW*(C`-I*(C'</span>. <a name="EXIT"></a><h2 class="nroffsh">EXIT VALUES</h2>
+<p class="level0">
+<p class="level0">The script exits with zero if it thinks that everything worked, or a  positive number if it thinks that something failed. Note, however, that in some cases it has to divine a failure by the output of things it does not control. For now, the exit codes are vague: 
+<p class="level0">
+<p class="level0">&nbsp;       1       An unknown error 
+<p class="level0">&nbsp;       2       The was an external problem 
+<p class="level0">&nbsp;       4       There was an internal problem with the script 
+<p class="level0">&nbsp;       8       A module failed to install 
+<p class="level0"><a name="TO"></a><h2 class="nroffsh">TO DO</h2>
+<p class="level0">
+<p class="level0">* one shot configuration values from the command line <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">* none noted <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Most behaviour, including environment variables and configuration, comes directly from s-1CPANs0.pm. <a name="SOURCE"></a><h2 class="nroffsh">SOURCE AVAILABILITY</h2>
+<p class="level0">
+<p class="level0">This code is in Github: 
+<p class="level0">
+<p class="level0">&nbsp;       git://github.com/briandfoy/cpan_script.git 
+<p class="level0"><a name="CREDITS"></a><h2 class="nroffsh">CREDITS</h2>
+<p class="level0">
+<p class="level0">Japheth Cleaver added the bits to allow a forced install (-f). 
+<p class="level0">Jim Brandt suggest and provided the initial implementation for the up-to-date and Changes features. 
+<p class="level0">Adam Kennedy pointed out that <span Class="emphasis">exit()</span> causes problems on Windows where this script ends up with a .bat extension <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">brian d foy, f(CW*(C`&lt;bdfoy@cpan.org&gt;*(C'</span> <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 2001-2013, brian d foy, All Rights Reserved. 
+<p class="level0">You may redistribute this under the same terms as Perl itself. 

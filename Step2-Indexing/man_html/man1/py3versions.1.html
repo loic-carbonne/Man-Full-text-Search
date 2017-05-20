@@ -1,0 +1,16 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">py3versions - print python3 version information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">py3versions</span> <span Class="emphasis">[-h] [-v] [&lt;options&gt;]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">py3versions</span> prints information about installed, supported python3 runtimes, the default runtime, and parses the information of the PythonVersion fields in the package control file for Python3. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">-d, --default</span> Show the default python3 version. 
+<p class="level0"><span Class="emphasis">-s, --supported</span> Show the supported python3 versions. 
+<p class="level0"><span Class="emphasis">-r, --requested [&lt;version string&gt;|&lt;control file&gt;]</span> Reads the value of the <span Class="bold">X-Python3-Version</span> field in the source section of a control file and shows all matching python3 versions. The parameter is interpreted as a version string, if it is not the name of a file. If the X-Python3-Version field is missing, it will fall back to list the supported Python3 versions after checking debian/control. Versions less than 3 are ignored. The keyword all is ignored because it covers all Python2 versions.  The former keyword current is not supported at all in Python3. 
+<p class="level0"><span Class="emphasis">-i, --installed</span> Show the installed supported python3 versions. 
+<p class="level0"><span Class="emphasis">-v, --version</span> Limit the output to the version numbers of the python3 versions. 
+<p class="level0"><span Class="emphasis">-h, --help</span> Print a help text. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Python policy. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Matthias Klose 

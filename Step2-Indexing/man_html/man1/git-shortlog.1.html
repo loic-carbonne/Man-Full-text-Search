@@ -1,0 +1,176 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-shortlog - Summarize *(Aqgit log*(Aq output <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+git log --pretty=short | <span class="emphasis">git shortlog</span> [&lt;options&gt;]
+<span class="emphasis">git shortlog</span> [&lt;options&gt;] [&lt;revision range&gt;] [[--] &lt;path&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Summarizes <span Class="emphasis">git log</span> output in a format suitable for inclusion in release announcements. Each commit will be grouped by author and title. 
+<p class="level0">Additionally, "[PATCH]" will be stripped from the commit description. 
+<p class="level0">If no revisions are passed on the command line and either standard input is not a terminal or there is no current branch, <span Class="emphasis">git shortlog</span> will output a summary of the log read from standard input, without reference to the current repository. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-n, --numbered 
+<p class="level1">Sort output according to the number of commits per author instead of author alphabetic order. 
+<p class="level0">
+<p class="level0">-s, --summary 
+<p class="level1">Suppress commit description and provide a commit count summary only. 
+<p class="level0">
+<p class="level0">-e, --email 
+<p class="level1">Show the email address of each author. 
+<p class="level0">
+<p class="level0">--format[=&lt;format&gt;] 
+<p class="level1">Instead of the commit subject, use some other information to describe each commit. <span Class="emphasis">&lt;format&gt;</span> can be any string accepted by the --format option of <span Class="emphasis">git log</span>, such as <span Class="emphasis">* [%h] %s</span>. (See the "PRETTY FORMATS" section of <span Class="bold">git-log</span>(1).) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+Each pretty-printed commit will be rewrapped before it is shown.
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">-w[&lt;width&gt;[,&lt;indent1&gt;[,&lt;indent2&gt;]]] 
+<p class="level1">Linewrap the output by wrapping each line at width. The first line of each entry is indented by indent1 spaces, and the second and subsequent lines are indented by indent2 spaces. width, indent1, and indent2 default to 76, 6 and 9 respectively. 
+<p class="level1">If width is 0 (zero) then indent the lines of the output without wrapping them. 
+<p class="level0">
+<p class="level0">&lt;revision range&gt; 
+<p class="level1">Show only commits in the specified revision range. When no &lt;revision range&gt; is specified, it defaults to HEAD (i.e. the whole history leading to the current commit). origin..HEAD specifies all the commits reachable from the current commit (i.e. HEAD), but not from origin. For a complete list of ways to spell &lt;revision range&gt;, see the "Specifying Ranges" section of <span Class="bold">gitrevisions</span>(7). 
+<p class="level0">
+<p class="level0">[--] &lt;path&gt;... 
+<p class="level1">Consider only commits that are enough to explain how the files that match the specified paths came to be. 
+<p class="level1">Paths may need to be prefixed with "-- " to separate them from options or the revision range, when confusion arises. 
+<p class="level0"><a name="MAPPING"></a><h2 class="nroffsh">MAPPING AUTHORS</h2>
+<p class="level0">
+<p class="level0">The .mailmap feature is used to coalesce together commits by the same person in the shortlog, where their name and/or email address was spelled differently. 
+<p class="level0">If the file .mailmap exists at the toplevel of the repository, or at the location pointed to by the mailmap.file or mailmap.blob configuration options, it is used to map author and committer names and email addresses to canonical real names and email addresses. 
+<p class="level0">In the simple form, each line in the file consists of the canonical real name of an author, whitespace, and an email address used in the commit (enclosed by <span Class="emphasis">&lt;</span> and <span Class="emphasis">&gt;</span>) to map to the name. For example: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The more complex forms are: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;proper@email.xx&gt; &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace only the email part of a commit, and: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;proper@email.xx&gt; &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace both the name and the email of a commit matching the specified commit email address, and: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;proper@email.xx&gt; Commit Name &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace both the name and the email of a commit matching both the specified commit name and email address. 
+<p class="level0">Example 1: Your history contains commits by two authors, Jane and Joe, whose names appear in the repository under several forms: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Joe Developer &lt;joe@example.com&gt;
+Joe R. Developer &lt;joe@example.com&gt;
+Jane Doe &lt;jane@example.com&gt;
+Jane Doe &lt;jane@laptop.(none)&gt;
+Jane D. &lt;jane@desktop.(none)&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Now suppose that Joe wants his middle name initial used, and Jane prefers her family name fully spelled out. A proper .mailmap file would look like: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Jane Doe         &lt;jane@desktop.(none)&gt;
+Joe R. Developer &lt;joe@example.com&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Note how there is no need for an entry for &lt;jane@laptop.(none)&gt;, because the real name of that author is already correct. 
+<p class="level0">Example 2: Your repository contains commits from the following authors: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+nick1 &lt;bugs@company.xx&gt;
+nick2 &lt;bugs@company.xx&gt;
+nick2 &lt;nick2@company.xx&gt;
+santa &lt;me@company.xx&gt;
+claus &lt;me@company.xx&gt;
+CTO &lt;cto@coompany.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Then you might want a .mailmap file that looks like: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;cto@company.xx&gt;                       &lt;cto@coompany.xx&gt;
+Some Dude &lt;some@dude.xx&gt;         nick1 &lt;bugs@company.xx&gt;
+Other Author &lt;other@author.xx&gt;   nick2 &lt;bugs@company.xx&gt;
+Other Author &lt;other@author.xx&gt;         &lt;nick2@company.xx&gt;
+Santa Claus &lt;santa.claus@northpole.xx&gt; &lt;me@company.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Use hash <span Class="emphasis">&#35;</span> for comments that are either on their own line, or after the email address. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

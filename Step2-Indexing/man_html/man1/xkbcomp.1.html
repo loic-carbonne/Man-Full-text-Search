@@ -1,0 +1,30 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xkbcomp - compile XKB keyboard description <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xkbcomp</span> [option] source [ destination ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="emphasis">xkbcomp</span> keymap compiler converts a description of an XKB keymap into one of several output formats.   The most common use for xkbcomp is to create a compiled keymap file (.xkm extension) which can be read directly by XKB-capable X servers or utilities.   The keymap compiler can also produce C header files or XKB source files.  The C header files produced by xkbcomp can be included by X servers or utilities that need a built-in default keymap. The XKB source files produced by <span Class="emphasis">xkbcomp</span> are fully resolved and can be used to verify that the files which typically make up an XKB keymap are merged correctly or to create a single file which contains a complete description of the keymap. 
+<p class="level0">The <span Class="emphasis">source</span> may specify an X display, or an <span Class="emphasis">.xkb</span> or <span Class="emphasis">.xkm</span> file;  unless explicitly specified, the format of <span Class="emphasis">destination</span> depends on the format of the source.   Compiling a <span Class="emphasis">.xkb</span> (keymap source) file generates a <span Class="emphasis">.xkm</span> (compiled keymap file) by default.   If the source is a <span Class="emphasis">.xkm</span> file or an X display, <span Class="emphasis">xkbcomp</span> generates a keymap source file by default. 
+<p class="level0">If the <span Class="emphasis">destination</span> is an X display, the keymap for the display is updated with the compiled keymap. 
+<p class="level0">The name of the <span Class="emphasis">destination</span> is usually computed from the name of the source, with the extension replaced as appropriate.  When compiling a single map from a file which contains several maps, <span Class="emphasis">xkbcomp</span> constructs the destination file name by appending an appropriate extension to the name of the map to be used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span> Show all keyboard information, reporting implicit or derived information as a comment.  Only affects <span Class="emphasis">.xkb</span> format output. 
+<p class="level0"><span Class="bold">-C</span> Produce a C header file as output (.h extension). 
+<p class="level0"><span Class="bold">-dflts</span> Compute defaults for any missing components, such as key names. 
+<p class="level0"><span Class="bold">-Idir</span> Specifies top-level directories to be searched for files included by the keymap description.  After all directories specified by -I options have been searched, the current directory and finally, the default xkb directory (usually /usr/lib/X11/xkb) will be searched. 
+<p class="level0">To prevent the current and default directories from being searched, use the -I option alone (i.e. without a directory), before any -I options that specify the directories you do want searched. 
+<p class="level0"><span Class="bold">-i\ deviceid</span> If <span Class="emphasis">source</span> or <span Class="emphasis">destination</span> is a valid X display, load the keymap from/into the device with the specified ID (not name). 
+<p class="level0"><span Class="bold">-l</span> List maps that specify the <span Class="emphasis">map</span> pattern in any files listed on the command line (not implemented yet). 
+<p class="level0"><span Class="bold">-m\ name</span> Specifies a map to be compiled from an file with multiple entries. 
+<p class="level0"><span Class="bold">-merge</span> Merge the compiled information with the map from the server (not implemented yet). 
+<p class="level0"><span Class="bold">-o\ name</span> Specifies a name for the generated output file.  The default is the name of the source file with an appropriate extension for the output format. 
+<p class="level0"><span Class="bold">-opt\ parts</span> Specifies a list of optional parts.  Compilation errors in any optional parts are not fatal.  Parts may consist of any combination of the letters <span Class="emphasis">c</span>, <span Class="emphasis">g</span>,<span Class="emphasis">k</span>,<span Class="emphasis">s</span>,<span Class="emphasis">t</span> which specify the compatibility map, geometry, keycodes, symbols and types, respectively. 
+<p class="level0"><span Class="bold">-Rdir</span> Specifies the root directory for relative path names. 
+<p class="level0"><span Class="bold">-synch</span> Force synchronization for X requests. 
+<p class="level0"><span Class="bold">-version</span> Print version number. 
+<p class="level0"><span Class="bold">-w\ lvl</span> Controls the reporting of warnings during compilation.  A warning level of 0 disables all warnings; a warning level of 10 enables them all. 
+<p class="level0"><span Class="bold">-xkb</span> Generate a source description of the keyboard as output (.xkb extension). 
+<p class="level0"><span Class="bold">-xkm</span> Generate a compiled keymap file as output (.xkm extension). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7) <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1994, Silicon Graphics Computer Systems and X Consortium, Inc. <br>See <span Class="emphasis">X(7)</span> for a full statement of rights and permissions. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Erik Fortune, Silicon Graphics 

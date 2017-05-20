@@ -1,0 +1,94 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">fop - Command line wrapper for the java version of fop. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Apache FOP (Formatting Objects Processor) is a print formatter driven by XSL formatting objects (XSL-FO) and an output independent formatter. It is a Java application that reads a formatting object (FO) tree and renders the resulting pages to a specified output. Output formats currently supported include PDF, PS, PCL, AFP, XML (area tree representation), Print, AWT and PNG, and to a lesser extent, RTF and TXT. The primary output target is PDF. 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">fop [options] [-fo|-xml] infile [-xsl file] [-awt|-pdf|-mif|-rtf|-tiff|-png|-pcl|-ps|-txt|-at [mime]|-print] &lt;outfile&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-version</span> print FOP version and exit 
+<p class="level0"><span Class="bold">-d</span> debug mode 
+<p class="level0"><span Class="bold">-x</span> dump configuration settings 
+<p class="level0"><span Class="bold">-q</span> quiet mode 
+<p class="level0"><span Class="bold">-c</span> cfg.xml use additional configuration file cfg.xml 
+<p class="level0"><span Class="bold">-l</span> lang the language to use for user information 
+<p class="level0"><span Class="bold">-nocs</span> disable complex script features 
+<p class="level0"><span Class="bold">-r</span> relaxed/less strict validation (where available) 
+<p class="level0"><span Class="bold">-dpi</span> xxx target resolution in dots per inch (dpi) where xxx is a number 
+<p class="level0"><span Class="bold">-s</span> for area tree XML, down to block areas only 
+<p class="level0"><span Class="bold">-v</span> run in verbose mode (currently simply print FOP version and continue) 
+<p class="level0"><span Class="bold">-o</span> [password] PDF file will be encrypted with option owner password 
+<p class="level0"><span Class="bold">-u</span> [password] PDF file will be encrypted with option user password 
+<p class="level0"><span Class="bold">-noprint</span> PDF file will be encrypted without printing permission 
+<p class="level0"><span Class="bold">-nocopy</span> PDF file will be encrypted without copy content permission 
+<p class="level0"><span Class="bold">-noedit</span> PDF file will be encrypted without edit content permission 
+<p class="level0"><span Class="bold">-noannotations</span> PDF file will be encrypted without edit annotation permission 
+<p class="level0"><span Class="bold">-nofillinforms</span> PDF file will be encrypted without fill in interactive form fields permission 
+<p class="level0"><span Class="bold">-noaccesscontent</span> PDF file will be encrypted without extract text and graphics permission 
+<p class="level0"><span Class="bold">-noassembledoc</span> PDF file will be encrypted without assemble the document permission 
+<p class="level0"><span Class="bold">-noprinthq</span> PDF file will be encrypted without print high quality permission 
+<p class="level0"><span Class="bold">-a</span> enables accessibility features (Tagged PDF etc., default off) 
+<p class="level0"><span Class="bold">-pdfprofile</span> prof PDF file will be generated with the specified profile (Examples for prof: PDF/A-1b or PDF/X-3:2003) 
+<p class="level0"><span Class="bold">-conserve</span> enable memory-conservation policy (trades memory-consumption for disk I/O) (Note: currently only influences whether the area tree is serialized.) 
+<p class="level0"><span Class="bold">-cache</span> specifies a file/directory path location for the font cache file 
+<p class="level0"><span Class="bold">-flush</span> flushes the current font cache file 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a name="INPUT"></a><h2 class="nroffsh">INPUT</h2>
+<p class="level0">
+<p class="level0">infile xsl:fo input file (the same as the next) (use '-' for infile to pipe input from stdin) 
+<p class="level0"><span Class="bold">-fo</span> infile       xsl:fo input file 
+<p class="level0"><span Class="bold">-xml</span> infile xml input file, must be used together with <span Class="bold">-xsl</span> 
+<p class="level0"><span Class="bold">-atin</span> infile area tree input file 
+<p class="level0"><span Class="bold">-ifin</span> infile intermediate format input file 
+<p class="level0"><span Class="bold">-imagein</span> infile image input file (piping through stdin not supported) 
+<p class="level0"><span Class="bold">-xsl</span> stylesheet xslt stylesheet 
+<p class="level0"><span Class="bold">-param</span> name value &lt;value&gt; to use for parameter &lt;name&gt; in xslt stylesheet (repeat '-param name value' for each parameter) 
+<p class="level0"><span Class="bold">-catalog</span> use catalog resolver for input XML and XSLT files 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0">outfile input will be rendered as PDF into outfile (use '-' for outfile to pipe output to stdout) 
+<p class="level0"><span Class="bold">-pdf</span> outfile input will be rendered as PDF (outfile req'd) 
+<p class="level0"><span Class="bold">-pdfa1b</span> outfile input will be rendered as PDF/A-1b compliant PDF (outfile req'd, same as "-pdf outfile <span Class="bold">-pdfprofile</span> PDF/A-1b") 
+<p class="level0"><span Class="bold">-awt</span> input will be displayed on screen 
+<p class="level0"><span Class="bold">-rtf</span> outfile input will be rendered as RTF (outfile req'd) 
+<p class="level0"><span Class="bold">-pcl</span> outfile input will be rendered as PCL (outfile req'd) 
+<p class="level0"><span Class="bold">-ps</span> outfile input will be rendered as PostScript (outfile req'd) 
+<p class="level0"><span Class="bold">-afp</span> outfile input will be rendered as AFP (outfile req'd) 
+<p class="level0"><span Class="bold">-tiff</span> outfile input will be rendered as TIFF (outfile req'd) 
+<p class="level0"><span Class="bold">-png</span> outfile input will be rendered as PNG (outfile req'd) 
+<p class="level0"><span Class="bold">-txt</span> outfile input will be rendered as plain text (outfile req'd) 
+<p class="level0"><span Class="bold">-at</span> [mime] out representation of area tree as XML (outfile req'd) specify optional mime output to allow the AT to be converted to final format later 
+<p class="level0"><span Class="bold">-if</span> [mime] out representation of document in intermediate format XML (outfile req'd) specify optional mime output to allow the IF to be converted to final format later 
+<p class="level0"><span Class="bold">-print</span> input file will be rendered and sent to the printer see options with "-print help" 
+<p class="level0"><span Class="bold">-out</span> mime outfile input will be rendered using the given MIME type (outfile req'd) Example: "-out application/pdf D:eout.pdf" (Tip: "-out list" prints the list of supported MIME types and exits) 
+<p class="level0"><span Class="bold">-svg</span> outfile input will be rendered as an SVG slides file (outfile req'd) Experimental feature - requires additional fop-sandbox.jar. 
+<p class="level0"><span Class="bold">-foout</span> outfile input will only be XSL transformed. The intermediate XSL-FO file is saved and no rendering is performed. (Only available if you use <span Class="bold">-xml</span> and <span Class="bold">-xsl</span> parameters) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">fop foo.fo foo.pdf 
+<p class="level1">fop <span Class="bold">-fo</span> foo.fo <span Class="bold">-pdf</span> foo.pdf (does the same as the previous line) 
+<p class="level1">fop <span Class="bold">-xml</span> foo.xml <span Class="bold">-xsl</span> foo.xsl <span Class="bold">-pdf</span> foo.pdf 
+<p class="level1">fop <span Class="bold">-xml</span> foo.xml <span Class="bold">-xsl</span> foo.xsl <span Class="bold">-foout</span> foo.fo 
+<p class="level1">fop <span Class="bold">-xml</span> - <span Class="bold">-xsl</span> foo.xsl <span Class="bold">-pdf</span> - 
+<p class="level1">fop foo.fo <span Class="bold">-mif</span> foo.mif 
+<p class="level1">fop foo.fo <span Class="bold">-rtf</span> foo.rtf 
+<p class="level1">fop foo.fo <span Class="bold">-print</span> 
+<p class="level1">fop foo.fo <span Class="bold">-awt</span> 
+<p class="level1">FOP Version 1.1 <a name="HYPENATION"></a><h2 class="nroffsh">HYPENATION</h2>
+<p class="level0">
+<p class="level0">fop can make use of external hyphenation rules that can be supplied in the form of a <span Class="bold">hyphenation jar</span>. You can find such a one at <span Class="emphasis">http://offo.sourceforge.net/</span>. 
+<p class="level0">To actually use that, set the <span Class="bold">FOP_HYPHENATION_PATH</span> environment variable to the full path of this file, or use configuration files, see below. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION FILES</h2>
+<p class="level0">
+<p class="level0">fop reads two configuration files on startup: <span Class="emphasis">/etc/fop.conf</span> and <span Class="emphasis">$HOME/.foprc</span>. These are plain shell script files where you can define for instance the <span Class="bold">FOP_HYPHENATION_PATH</span> variable. 
+<p class="level0">Another way to extend is <span Class="emphasis">conf.d/</span> files. Simply add a configuration file into <span Class="emphasis">/etc/fop.conf.d/my.conf</span>. <a name="JAVA-WRAPPERS"></a><h2 class="nroffsh">JAVA-WRAPPERS NOTE</h2>
+<p class="level0">This program is a shell script wrapper based on <span Class="bold">java-wrappers(7)</span>. You therefore benefit from several features; please see the <span Class="bold">java-wrappers(7)</span> manual page for more information about them. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Wrapper author: Ola Lundqvist &lt;opal@debian.org&gt; 
+<p class="level0">This manual page was written by Mathieu Malaterre &lt;malat@debian.org&gt;, for the Debian project (and may be used by others). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">fop-ttfreader(1)</span>, <span Class="manpage">java-wrappers(7).</span>

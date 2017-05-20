@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">prezip-bin - prefix zip delta word list compressor/decompressor <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">prezip-bin</span> [ <span Class="bold">-V</span> | <span Class="bold">-d</span> | <span Class="bold">-z</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">prezip-bin</span> compresses/decompresses sorted word lists from standard input to standard output. 
+<p class="level0"><span Class="emphasis">Prezip-bin</span> is similar to <span Class="emphasis">word-list-compress(1)</span> but it allows a larger character set of {0x00...0x09, 0x0B, 0x0C, 0x0E...0xFF} and multi-words larger than 255 characters in length.  It can also decompress <span Class="emphasis">word-list-compress(1)</span> compatible files. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0"><span Class="emphasis">Prezip-bin</span> accepts only one of these commands. 
+<p class="level0"><span Class="bold">-V</span> Display <span Class="emphasis">prezip-bin</span> version number to standard output. 
+<p class="level0"><span Class="bold">-d</span> Read a compressed word list from standard input and decompress it to standard output.  This can be a <span Class="emphasis">word-list-compress(1)</span> or a <span Class="emphasis">prezip-bin</span> compressed file. 
+<p class="level0"><span Class="bold">-z</span> Read a binary word list from standard input and compress it to standard output. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">prezip-bin <span Class="bold">-d</span> &lt;wordlist.cwl &gt;wordlist.txt Decompress file wordlist.cwl to text file wordlist.txt 
+<p class="level0">prezip-bin <span Class="bold">-z</span> &lt;wordlist.txt &gt;wordlist.pz 2&gt;errors.txt Compress wordlist.txt to binary file wordlist.pz and send any error messages to a text file named errors.txt 
+<p class="level0">LC_COLLATE=C sort -u &lt;wordlist.txt <span Class="bold">|</span> prezip-bin -z &gt;wordlist.pz Sort a word list, then pipe it to <span Class="emphasis">prezip-bin</span> to create a compressed binary wordlist.pz file. 
+<p class="level0">prezip-bin -d &lt;words.pz <span Class="bold">|</span> aspell create master ./words.rws Decompress a wordlist, then pipe it to <span Class="emphasis">aspell(1)</span> to create a spelling list.  Please check the <span Class="emphasis">aspell(1)</span> info manual for proper usage and options. <a name="TIPS"></a><h2 class="nroffsh">TIPS</h2>
+<p class="level0"><span Class="emphasis">Prezip-bin</span> is best used with sorted word list type files.  It is not a general purpose compression program since resulting files may actually increase in size. 
+<p class="level0">Unlike <span Class="emphasis">word-list-compress(1)</span> if your word list has leading or trailing blank spaces for formatting purposes, you should remove them first before you compress your list using <span Class="emphasis">prezip-bin -z</span> , otherwise those spaces will be included in the compressed binary output. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0"><span Class="emphasis">Prezip-bin</span> normally exits with a return code of 0. If it encounters an error, a message is sent to standard error output (stderr), and <span Class="emphasis">prezip-bin</span> exits with a non-zero return value.  Error messages are listed below: 
+<p class="level0"><span Class="bold">(display help/usage message)</span> Unknown command given on the command line so <span Class="emphasis">prezip-bin</span> displays a usage message to standard error output. 
+<p class="level0"><span Class="bold">unknown format</span> The input file appears not to be an expected format, or may possibly be a more advanced format.  The output file will be empty. 
+<p class="level0"><span Class="bold">corrupt input</span> This is only for the decompression command <span Class="bold">-d</span>. The input file appeared to be of a correct format, but something appears wrong now. There may be some valid data in output, but due to input corruption, the rest of the file can not be completed. 
+<p class="level0"><span Class="bold">unexpected EOF</span> The input file appeared okay but ended sooner than expected, therefore the output file is not complete. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">aspell (1)</span>, <span Class="manpage">aspell-import (1)</span>, <span Class="manpage">run-with-aspell (1)</span>, <span Class="manpage">word-list-compress (1)</span>
+<p class="level0">Aspell is fully documented in its Texinfo manual.  See the 
+<p class="level0">entry in <span Class="bold">info</span> for more complete documentation. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">For help, see the Aspell homepage at &lt;http://aspell.net&gt;.  Send bug reports/comments to the Aspell user list at the above address. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This info page was written by Jose Da Silva &lt;digital@joescat.com&gt;. 

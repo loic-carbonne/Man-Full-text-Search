@@ -1,0 +1,84 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">date - print or set the system date and time <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">date</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">+FORMAT</span>] <br><span Class="bold">date</span> [<span Class="emphasis">-u|--utc|--universal</span>] [<span Class="emphasis">MMDDhhmm</span>[[<span Class="emphasis">CC</span>]<span Class="emphasis">YY</span>][<span Class="emphasis">.ss</span>]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Display the current time in the given FORMAT, or set the system date. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--date</span>=<span Class="emphasis">STRING</span> display time described by STRING, not 'now' 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--file</span>=<span Class="emphasis">DATEFILE</span> like <span Class="bold">--date</span> once for each line of DATEFILE 
+<p class="level0"><span Class="bold">-I[TIMESPEC]</span>, <span Class="bold">--iso-8601</span>[=<span Class="emphasis">TIMESPEC</span>] output date/time in ISO 8601 format. TIMESPEC='date' for date only (the default), 'hours', 'minutes', 'seconds', or 'ns' for date and time to the indicated precision. 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--reference</span>=<span Class="emphasis">FILE</span> display the last modification time of FILE 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--rfc-2822</span> output date and time in <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format. Example: Mon, 07 Aug 2006 12:34:56 <span Class="bold">-0600</span> 
+<p class="level0"><span Class="bold">--rfc-3339</span>=<span Class="emphasis">TIMESPEC</span> output date and time in <a href="http://www.ietf.org/rfc/rfc3339.txt">RFC 3339</a> format. TIMESPEC='date', 'seconds', or 'ns' for date and time to the indicated precision. Date and time components are separated by a single space: 2006-08-07 12:34:56-06:00 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--set</span>=<span Class="emphasis">STRING</span> set time described by STRING 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--utc</span>, <span Class="bold">--universal</span> print or set Coordinated Universal Time (UTC) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">FORMAT controls the output.  Interpreted sequences are: 
+<p class="level0">%% a literal % 
+<p class="level0">%a locale's abbreviated weekday name (e.g., Sun) 
+<p class="level0">%A locale's full weekday name (e.g., Sunday) 
+<p class="level0">%b locale's abbreviated month name (e.g., Jan) 
+<p class="level0">%B locale's full month name (e.g., January) 
+<p class="level0">%c locale's date and time (e.g., Thu Mar  3 23:05:25 2005) 
+<p class="level0">%C century; like %Y, except omit last two digits (e.g., 20) 
+<p class="level0">%d day of month (e.g., 01) 
+<p class="level0">%D date; same as %m/%d/%y 
+<p class="level0">%e day of month, space padded; same as %_d 
+<p class="level0">%F full date; same as %Y-%m-%d 
+<p class="level0">%g last two digits of year of ISO week number (see %G) 
+<p class="level0">%G year of ISO week number (see %V); normally useful only with %V 
+<p class="level0">%h same as %b 
+<p class="level0">%H hour (00..23) 
+<p class="level0">%I hour (01..12) 
+<p class="level0">%j day of year (001..366) 
+<p class="level0">%k hour, space padded ( 0..23); same as %_H 
+<p class="level0">%l hour, space padded ( 1..12); same as %_I 
+<p class="level0">%m month (01..12) 
+<p class="level0">%M minute (00..59) 
+<p class="level0">%n a newline 
+<p class="level0">%N nanoseconds (000000000..999999999) 
+<p class="level0">%p locale's equivalent of either AM or PM; blank if not known 
+<p class="level0">%P like %p, but lower case 
+<p class="level0">%r locale's 12-hour clock time (e.g., 11:11:04 PM) 
+<p class="level0">%R 24-hour hour and minute; same as %H:%M 
+<p class="level0">%s seconds since 1970-01-01 00:00:00 UTC 
+<p class="level0">%S second (00..60) 
+<p class="level0">%t a tab 
+<p class="level0">%T time; same as %H:%M:%S 
+<p class="level0">%u day of week (1..7); 1 is Monday 
+<p class="level0">%U week number of year, with Sunday as first day of week (00..53) 
+<p class="level0">%V ISO week number, with Monday as first day of week (01..53) 
+<p class="level0">%w day of week (0..6); 0 is Sunday 
+<p class="level0">%W week number of year, with Monday as first day of week (00..53) 
+<p class="level0">%x locale's date representation (e.g., 12/31/99) 
+<p class="level0">%X locale's time representation (e.g., 23:13:48) 
+<p class="level0">%y last two digits of year (00..99) 
+<p class="level0">%Y year 
+<p class="level0">%z +hhmm numeric time zone (e.g., <span Class="bold">-0400</span>) 
+<p class="level0">%:z +hh:mm numeric time zone (e.g., <span Class="bold">-04</span>:00) 
+<p class="level0">%::z +hh:mm:ss numeric time zone (e.g., <span Class="bold">-04</span>:00:00) 
+<p class="level0">%:::z numeric time zone with : to necessary precision (e.g., <span Class="bold">-04</span>, +05:30) 
+<p class="level0">%Z alphabetic time zone abbreviation (e.g., EDT) 
+<p class="level0">By default, date pads numeric fields with zeroes. The following optional flags may follow '%': 
+<p class="level0">- (hyphen) do not pad the field 
+<p class="level0">_ (underscore) pad with spaces 
+<p class="level0">0 (zero) pad with zeros 
+<p class="level0">^ use upper case if possible 
+<p class="level0">&#35; use opposite case if possible 
+<p class="level0">After any flags comes an optional field width, as a decimal number; then an optional modifier, which is either E to use the locale's alternate representations if available, or O to use the locale's alternate numeric symbols if available. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Convert seconds since the epoch (1970-01-01 UTC) to a date 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ date --date='@2147483647'</span> 
+<p class="level1">Show the time on the west coast of the US (use tzselect(1) to find TZ) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ TZ='America/Los_Angeles' date</span> 
+<p class="level1">Show the local time for 9AM next Friday on the west coast of the US 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ date --date='TZ="America/Los_Angeles" 09:00 next Fri'</span> <a name="DATE"></a><h2 class="nroffsh">DATE STRING</h2>
+<p class="level0">The --date=STRING is a mostly free format human readable date string such as "Sun, 29 Feb 2004 16:21:42 -0800" or "2004-02-29 16:21:42" or even "next Thursday".  A date string may contain items indicating calendar date, time of day, time zone, day of week, relative time, relative date, and numbers.  An empty string indicates the beginning of the day.  The date string format is more complex than is easily documented here but is fully described in the info documentation. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report date translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/date&gt; <br>or available locally via: info (aq(coreutils) date invocation(aq 

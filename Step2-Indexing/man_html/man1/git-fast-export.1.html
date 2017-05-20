@@ -1,0 +1,92 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-fast-export - Git data exporter <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git fast-export [options]</span> | <span class="emphasis">git fast-import</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program dumps the given revisions in a form suitable to be piped into <span Class="emphasis">git fast-import</span>. 
+<p class="level0">You can use it as a human-readable bundle replacement (see <span Class="bold">git-bundle</span>(1)), or as a kind of an interactive <span Class="emphasis">git filter-branch</span>. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--progress=&lt;n&gt; 
+<p class="level1">Insert <span Class="emphasis">progress</span> statements every &lt;n&gt; objects, to be shown by <span Class="emphasis">git fast-import</span> during import. 
+<p class="level0">
+<p class="level0">--signed-tags=(verbatim|warn|warn-strip|strip|abort) 
+<p class="level1">Specify how to handle signed tags. Since any transformation after the export can change the tag names (which can also happen when excluding revisions) the signatures will not match. 
+<p class="level1">When asking to <span Class="emphasis">abort</span> (which is the default), this program will die when encountering a signed tag. With <span Class="emphasis">strip</span>, the tags will silently be made unsigned, with <span Class="emphasis">warn-strip</span> they will be made unsigned but a warning will be displayed, with <span Class="emphasis">verbatim</span>, they will be silently exported and with <span Class="emphasis">warn</span>, they will be exported, but you will see a warning. 
+<p class="level0">
+<p class="level0">--tag-of-filtered-object=(abort|drop|rewrite) 
+<p class="level1">Specify how to handle tags whose tagged object is filtered out. Since revisions and files to export can be limited by path, tagged objects may be filtered completely. 
+<p class="level1">When asking to <span Class="emphasis">abort</span> (which is the default), this program will die when encountering such a tag. With <span Class="emphasis">drop</span> it will omit such tags from the output. With <span Class="emphasis">rewrite</span>, if the tagged object is a commit, it will rewrite the tag to tag an ancestor commit (via parent rewriting; see <span Class="bold">git-rev-list</span>(1)) 
+<p class="level0">
+<p class="level0">-M, -C 
+<p class="level1">Perform move and/or copy detection, as described in the <span Class="bold">git-diff</span>(1) manual page, and use it to generate rename and copy commands in the output dump. 
+<p class="level1">Note that earlier versions of this command did not complain and produced incorrect results if you gave these options. 
+<p class="level0">
+<p class="level0">--export-marks=&lt;file&gt; 
+<p class="level1">Dumps the internal marks table to &lt;file&gt; when complete. Marks are written one per line as :markid SHA-1. Only marks for revisions are dumped; marks for blobs are ignored. Backends can use this file to validate imports after they have been completed, or to save the marks table across incremental runs. As &lt;file&gt; is only opened and truncated at completion, the same path can also be safely given to --import-marks. The file will not be written if no new object has been marked/exported. 
+<p class="level0">
+<p class="level0">--import-marks=&lt;file&gt; 
+<p class="level1">Before processing any input, load the marks specified in &lt;file&gt;. The input file must exist, must be readable, and must use the same format as produced by --export-marks. 
+<p class="level1">Any commits that have already been marked will not be exported again. If the backend uses a similar --import-marks file, this allows for incremental bidirectional exporting of the repository by keeping the marks the same across runs. 
+<p class="level0">
+<p class="level0">--fake-missing-tagger 
+<p class="level1">Some old repositories have tags without a tagger. The fast-import protocol was pretty strict about that, and did not allow that. So fake a tagger to be able to fast-import the output. 
+<p class="level0">
+<p class="level0">--use-done-feature 
+<p class="level1">Start the stream with a <span Class="emphasis">feature done</span> stanza, and terminate it with a <span Class="emphasis">done</span> command. 
+<p class="level0">
+<p class="level0">--no-data 
+<p class="level1">Skip output of blob objects and instead refer to blobs via their original SHA-1 hash. This is useful when rewriting the directory structure or history of a repository without touching the contents of individual files. Note that the resulting stream can only be used by a repository which already contains the necessary objects. 
+<p class="level0">
+<p class="level0">--full-tree 
+<p class="level1">This option will cause fast-export to issue a "deleteall" directive for each commit followed by a full list of all files in the commit (as opposed to just listing the files which are different from the commit(cqs first parent). 
+<p class="level0">
+<p class="level0">--refspec 
+<p class="level1">Apply the specified refspec to each ref exported. Multiple of them can be specified. 
+<p class="level0">
+<p class="level0">[&lt;git-rev-list-args&gt;...] 
+<p class="level1">A list of arguments, acceptable to <span Class="emphasis">git rev-parse</span> and <span Class="emphasis">git rev-list</span>, that specifies the specific objects and references to export. For example, master~10..master causes the current master reference to be exported along with all objects added since its 10th ancestor commit. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git fast-export --all | (cd /empty/repository && git fast-import)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This will export the whole repository and import it into the existing empty repository. Except for reencoding commits that are not in UTF-8, it would be a one-to-one mirror. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git fast-export master~5..master |
+&nbsp;       sed "s|refs/heads/master|refs/heads/other|" |
+&nbsp;       git fast-import
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This makes a new branch called <span Class="emphasis">other</span> from <span Class="emphasis">master~5..master</span> (i.e. if <span Class="emphasis">master</span> has linear history, it will take the last 5 commits). 
+<p class="level0">Note that this assumes that none of the blobs and commit messages referenced by that revision range contains the string <span Class="emphasis">refs/heads/master</span>. <a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS</h2>
+<p class="level0">
+<p class="level0">Since <span Class="emphasis">git fast-import</span> cannot tag trees, you will not be able to export the linux.git repository completely, as it contains a tag referencing a tree instead of a commit. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

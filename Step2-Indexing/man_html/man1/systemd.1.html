@@ -1,0 +1,411 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd, init - systemd system and service manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a> 
+<p class="level0"><span Class="bold">init </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a><a class="bold" href="#"> </a><span Class="bold">{COMMAND}</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">systemd is a system and service manager for Linux operating systems. When run as first process on boot (as PID 1), it acts as init system that brings up and maintains userspace services. 
+<p class="level0">For compatibility with SysV, if systemd is called as <span Class="bold">init</span> and a PID that is not 1, it will execute <span Class="bold">telinit</span> and pass all command line arguments unmodified. That means <span Class="bold">init</span> and <span Class="bold">telinit</span> are mostly equivalent when invoked from normal login sessions. See <span Class="bold">telinit</span>(8) for more information. 
+<p class="level0">When run as system instance, systemd interprets the configuration file system.conf, otherwise user.conf. See <span Class="bold">systemd-system.conf</span>(5) for more information. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--test</span> 
+<p class="level1">Determine startup sequence, dump it and exit. This is an option useful for debugging only. 
+<p class="level0">
+<p class="level0"><span Class="bold">--dump-configuration-items</span> 
+<p class="level1">Dump understood unit configuration items. This outputs a terse but complete list of configuration items understood in unit definition files. 
+<p class="level0">
+<p class="level0"><span Class="bold">--unit=</span> 
+<p class="level1">Set default unit to activate on startup. If not specified, defaults to default.target. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span>, <span Class="bold">--user</span> 
+<p class="level1">For <span Class="bold">--system</span>, tell systemd to run a system instance, even if the process ID is not 1, i.e. systemd is not run as init process. <span Class="bold">--user</span> does the opposite, running a user instance even if the process ID is 1. Normally it should not be necessary to pass these options, as systemd automatically detects the mode it is started in. These options are hence of little use except for debugging. Note that it is not supported booting and maintaining a full system with systemd running in <span Class="bold">--system</span> mode, but PID not 1. In practice, passing <span Class="bold">--system</span> explicitly is only useful in conjunction with <span Class="bold">--test</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--dump-core</span> 
+<p class="level1">Dump core on crash. This switch has no effect when run as user instance. 
+<p class="level0">
+<p class="level0"><span Class="bold">--crash-shell</span> 
+<p class="level1">Run shell on crash. This switch has no effect when run as user instance. 
+<p class="level0">
+<p class="level0"><span Class="bold">--confirm-spawn</span> 
+<p class="level1">Ask for confirmation when spawning processes. This switch has no effect when run as user instance. 
+<p class="level0">
+<p class="level0"><span Class="bold">--show-status=</span> 
+<p class="level1">Show terse service status information while booting. This switch has no effect when run as user instance. Takes a boolean argument which may be omitted which is interpreted as <span Class="bold">true</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--log-target=</span> 
+<p class="level1">Set log target. Argument must be one of <span Class="bold">console</span>, <span Class="bold">journal</span>, <span Class="bold">syslog</span>, <span Class="bold">kmsg</span>, <span Class="bold">journal-or-kmsg</span>, <span Class="bold">syslog-or-kmsg</span>, <span Class="bold">null</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--log-level=</span> 
+<p class="level1">Set log level. As argument this accepts a numerical log level or the well-known <span Class="bold">syslog</span>(3) symbolic names (lowercase): <span Class="bold">emerg</span>, <span Class="bold">alert</span>, <span Class="bold">crit</span>, <span Class="bold">err</span>, <span Class="bold">warning</span>, <span Class="bold">notice</span>, <span Class="bold">info</span>, <span Class="bold">debug</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--log-color=</span> 
+<p class="level1">Highlight important log messages. Argument is a boolean value. If the argument is omitted, it defaults to <span Class="bold">true</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--log-location=</span> 
+<p class="level1">Include code location in log messages. This is mostly relevant for debugging purposes. Argument is a boolean value. If the argument is omitted it defaults to <span Class="bold">true</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--default-standard-output=</span>, <span Class="bold">--default-standard-error=</span> 
+<p class="level1">Sets the default output or error output for all services and sockets, respectively. That is, controls the default for <span Class="bold">StandardOutput=</span> and <span Class="bold">StandardError=</span> (see <span Class="bold">systemd.exec</span>(5) for details). Takes one of <span Class="bold">inherit</span>, <span Class="bold">null</span>, <span Class="bold">tty</span>, <span Class="bold">journal</span>, <span Class="bold">journal+console</span>, <span Class="bold">syslog</span>, <span Class="bold">syslog+console</span>, <span Class="bold">kmsg</span>, <span Class="bold">kmsg+console</span>. If the argument is omitted <span Class="bold">--default-standard-output=</span> defaults to <span Class="bold">journal</span> and <span Class="bold">--default-standard-error=</span> to <span Class="bold">inherit</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="CONCEPTS"></a><h2 class="nroffsh">CONCEPTS</h2>
+<p class="level0">
+<p class="level0">systemd provides a dependency system between various entities called "units" of 12 different types. Units encapsulate various objects that are relevant for system boot-up and maintenance. The majority of units are configured in unit configuration files, whose syntax and basic set of options is described in <span Class="bold">systemd.unit</span>(5), however some are created automatically from other configuration, dynamically from system state or programmatically at runtime. Units may be "active" (meaning started, bound, plugged in, ..., depending on the unit type, see below), or "inactive" (meaning stopped, unbound, unplugged, ...), as well as in the process of being activated or deactivated, i.e. between the two states (these states are called "activating", "deactivating"). A special "failed" state is available as well, which is very similar to "inactive" and is entered when the service failed in some way (process returned error code on exit, or crashed, or an operation timed out). If this state is entered, the cause will be logged, for later reference. Note that the various unit types may have a number of additional substates, which are mapped to the five generalized unit states described here. 
+<p class="level0">The following unit types are available: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">Service units, which start and control daemons and the processes they consist of. For details see <span Class="bold">systemd.service</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">Socket units, which encapsulate local IPC or network sockets in the system, useful for socket-based activation. For details about socket units see <span Class="bold">systemd.socket</span>(5), for details on socket-based activation and other forms of activation, see <span Class="bold">daemon</span>(7). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">Target units are useful to group units, or provide well-known synchronization points during boot-up, see <span Class="bold">systemd.target</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">Device units expose kernel devices in systemd and may be used to implement device-based activation. For details see <span Class="bold">systemd.device</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 5.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level1">
+<p class="level1">Mount units control mount points in the file system, for details see <span Class="bold">systemd.mount</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 6.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  6. 4.2</span> 
+<p class="level1">
+<p class="level1">Automount units provide automount capabilities, for on-demand mounting of file systems as well as parallelized boot-up. See <span Class="bold">systemd.automount</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 7.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  7. 4.2</span> 
+<p class="level1">
+<p class="level1">Snapshot units can be used to temporarily save the state of the set of systemd units, which later may be restored by activating the saved snapshot unit. For more information see <span Class="bold">systemd.snapshot</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 8.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  8. 4.2</span> 
+<p class="level1">
+<p class="level1">Timer units are useful for triggering activation of other units based on timers. You may find details in <span Class="bold">systemd.timer</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 9.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  9. 4.2</span> 
+<p class="level1">
+<p class="level1">Swap units are very similar to mount units and encapsulate memory swap partitions or files of the operating system. They are described in <span Class="bold">systemd.swap</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'10.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="10"></a><span class="nroffip">10. 4.2</span> 
+<p class="level1">
+<p class="level1">Path units may be used to activate other services when file system objects change or are modified. See <span Class="bold">systemd.path</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'11.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="11"></a><span class="nroffip">11. 4.2</span> 
+<p class="level1">
+<p class="level1">Slice units may be used to group units which manage system processes (such as service and scope units) in a hierarchical tree for resource management purposes. See <span Class="bold">systemd.slice</span>(5). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'12.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="12"></a><span class="nroffip">12. 4.2</span> 
+<p class="level1">
+<p class="level1">Scope units are similar to service units, but manage foreign processes instead of starting them as well. See <span Class="bold">systemd.scope</span>(5). 
+<p class="level0">
+<p class="level0">Units are named as their configuration files. Some units have special semantics. A detailed list is available in <span Class="bold">systemd.special</span>(7). 
+<p class="level0">systemd knows various kinds of dependencies, including positive and negative requirement dependencies (i.e. <span Class="emphasis">Requires=</span> and <span Class="emphasis">Conflicts=</span>) as well as ordering dependencies (<span Class="emphasis">After=</span> and <span Class="emphasis">Before=</span>). NB: ordering and requirement dependencies are orthogonal. If only a requirement dependency exists between two units (e.g. foo.service requires bar.service), but no ordering dependency (e.g. foo.service after bar.service) and both are requested to start, they will be started in parallel. It is a common pattern that both requirement and ordering dependencies are placed between two units. Also note that the majority of dependencies are implicitly created and maintained by systemd. In most cases, it should be unnecessary to declare additional dependencies manually, however it is possible to do this. 
+<p class="level0">Application programs and units (via dependencies) may request state changes of units. In systemd, these requests are encapsulated as *(Aqjobs*(Aq and maintained in a job queue. Jobs may succeed or can fail, their execution is ordered based on the ordering dependencies of the units they have been scheduled for. 
+<p class="level0">On boot systemd activates the target unit default.target whose job is to activate on-boot services and other on-boot units by pulling them in via dependencies. Usually the unit name is just an alias (symlink) for either graphical.target (for fully-featured boots into the UI) or multi-user.target (for limited console-only boots for use in embedded or server environments, or similar; a subset of graphical.target). However, it is at the discretion of the administrator to configure it as an alias to any other target unit. See <span Class="bold">systemd.special</span>(7) for details about these target units. 
+<p class="level0">Processes systemd spawns are placed in individual Linux control groups named after the unit which they belong to in the private systemd hierarchy. (see m[blue]<span Class="bold">cgroups.txt</span>m[]s-2u[1]ds+2 for more information about control groups, or short "cgroups"). systemd uses this to effectively keep track of processes. Control group information is maintained in the kernel, and is accessible via the file system hierarchy (beneath /sys/fs/cgroup/systemd/), or in tools such as <span Class="bold">ps</span>(1) (<span Class="bold">ps xawf -eo pid,user,cgroup,args</span> is particularly useful to list all processes and the systemd units they belong to.). 
+<p class="level0">systemd is compatible with the SysV init system to a large degree: SysV init scripts are supported and simply read as an alternative (though limited) configuration file format. The SysV /dev/initctl interface is provided, and compatibility implementations of the various SysV client tools are available. In addition to that, various established Unix functionality such as /etc/fstab or the utmp database are supported. 
+<p class="level0">systemd has a minimal transaction system: if a unit is requested to start up or shut down it will add it and all its dependencies to a temporary transaction. Then, it will verify if the transaction is consistent (i.e. whether the ordering of all units is cycle-free). If it is not, systemd will try to fix it up, and removes non-essential jobs from the transaction that might remove the loop. Also, systemd tries to suppress non-essential jobs in the transaction that would stop a running service. Finally it is checked whether the jobs of the transaction contradict jobs that have already been queued, and optionally the transaction is aborted then. If all worked out and the transaction is consistent and minimized in its impact it is merged with all already outstanding jobs and added to the run queue. Effectively this means that before executing a requested operation, systemd will verify that it makes sense, fixing it if possible, and only failing if it really cannot work. 
+<p class="level0">Systemd contains native implementations of various tasks that need to be executed as part of the boot process. For example, it sets the hostname or configures the loopback network device. It also sets up and mounts various API file systems, such as /sys or /proc. 
+<p class="level0">For more information about the concepts and ideas behind systemd, please refer to the m[blue]<span Class="bold">Original Design Document</span>m[]s-2u[2]ds+2. 
+<p class="level0">Note that some but not all interfaces provided by systemd are covered by the m[blue]<span Class="bold">Interface Stability Promise</span>m[]s-2u[3]ds+2. 
+<p class="level0">Units may be generated dynamically at boot and system manager reload time, for example based on other configuration files or parameters passed on the kernel command line. For details see the m[blue]<span Class="bold">Generators Specification</span>m[]s-2u[4]ds+2. 
+<p class="level0">Systems which invoke systemd in a container or initrd environment should implement the m[blue]<span Class="bold">Container Interface</span>m[]s-2u[5]ds+2 or m[blue]<span Class="bold">initrd Interface</span>m[]s-2u[6]ds+2 specifications, respectively. <a name="DIRECTORIES"></a><h2 class="nroffsh">DIRECTORIES</h2>
+<p class="level0">
+<p class="level0">System unit directories 
+<p class="level1">The systemd system manager reads unit configuration from various directories. Packages that want to install unit files shall place them in the directory returned by <span Class="bold">pkg-config systemd --variable=systemdsystemunitdir</span>. Other directories checked are /usr/local/lib/systemd/system and /lib/systemd/system. User configuration always takes precedence. <span Class="bold">pkg-config systemd --variable=systemdsystemconfdir</span> returns the path of the system configuration directory. Packages should alter the content of these directories only with the <span Class="bold">enable</span> and <span Class="bold">disable</span> commands of the <span Class="bold">systemctl</span>(1) tool. Full list of directories is provided in <span Class="bold">systemd.unit</span>(5). 
+<p class="level0">
+<p class="level0">User unit directories 
+<p class="level1">Similar rules apply for the user unit directories. However, here the m[blue]<span Class="bold">XDG Base Directory specification</span>m[]s-2u[7]ds+2 is followed to find units. Applications should place their unit files in the directory returned by <span Class="bold">pkg-config systemd --variable=systemduserunitdir</span>. Global configuration is done in the directory reported by <span Class="bold">pkg-config systemd --variable=systemduserconfdir</span>. The <span Class="bold">enable</span> and <span Class="bold">disable</span> commands of the <span Class="bold">systemctl</span>(1) tool can handle both global (i.e. for all users) and private (for one user) enabling/disabling of units. Full list of directories is provided in <span Class="bold">systemd.unit</span>(5). 
+<p class="level0">
+<p class="level0">SysV init scripts directory 
+<p class="level1">The location of the SysV init script directory varies between distributions. If systemd cannot find a native unit file for a requested service, it will look for a SysV init script of the same name (with the .service suffix removed). 
+<p class="level0">
+<p class="level0">SysV runlevel link farm directory 
+<p class="level1">The location of the SysV runlevel link farm directory varies between distributions. systemd will take the link farm into account when figuring out whether a service shall be enabled. Note that a service unit with a native unit configuration file cannot be started by activating it in the SysV runlevel link farm. 
+<p class="level0"><a name="SIGNALS"></a><h2 class="nroffsh">SIGNALS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">SIGTERM</span> 
+<p class="level1">Upon receiving this signal the systemd system manager serializes its state, reexecutes itself and deserializes the saved state again. This is mostly equivalent to <span Class="bold">systemctl daemon-reexec</span>. 
+<p class="level1">systemd user managers will start the exit.target unit when this signal is received. This is mostly equivalent to <span Class="bold">systemctl --user start exit.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGINT</span> 
+<p class="level1">Upon receiving this signal the systemd system manager will start the ctrl-alt-del.target unit. This is mostly equivalent to <span Class="bold">systemctl start ctl-alt-del.target</span>. 
+<p class="level1">systemd user managers treat this signal the same way as <span Class="bold">SIGTERM</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGWINCH</span> 
+<p class="level1">When this signal is received the systemd system manager will start the kbrequest.target unit. This is mostly equivalent to <span Class="bold">systemctl start kbrequest.target</span>. 
+<p class="level1">This signal is ignored by systemd user managers. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGPWR</span> 
+<p class="level1">When this signal is received the systemd manager will start the sigpwr.target unit. This is mostly equivalent to <span Class="bold">systemctl start sigpwr.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGUSR1</span> 
+<p class="level1">When this signal is received the systemd manager will try to reconnect to the D-Bus bus. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGUSR2</span> 
+<p class="level1">When this signal is received the systemd manager will log its complete state in human readable form. The data logged is the same as printed by <span Class="bold">systemctl dump</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGHUP</span> 
+<p class="level1">Reloads the complete daemon configuration. This is mostly equivalent to <span Class="bold">systemctl daemon-reload</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+0</span> 
+<p class="level1">Enters default mode, starts the default.target unit. This is mostly equivalent to <span Class="bold">systemctl start default.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+1</span> 
+<p class="level1">Enters rescue mode, starts the rescue.target unit. This is mostly equivalent to <span Class="bold">systemctl isolate rescue.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+2</span> 
+<p class="level1">Enters emergency mode, starts the emergency.service unit. This is mostly equivalent to <span Class="bold">systemctl isolate emergency.service</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+3</span> 
+<p class="level1">Halts the machine, starts the halt.target unit. This is mostly equivalent to <span Class="bold">systemctl start halt.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+4</span> 
+<p class="level1">Powers off the machine, starts the poweroff.target unit. This is mostly equivalent to <span Class="bold">systemctl start poweroff.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+5</span> 
+<p class="level1">Reboots the machine, starts the reboot.target unit. This is mostly equivalent to <span Class="bold">systemctl start reboot.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+6</span> 
+<p class="level1">Reboots the machine via kexec, starts the kexec.target unit. This is mostly equivalent to <span Class="bold">systemctl start kexec.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+13</span> 
+<p class="level1">Immediately halts the machine. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+14</span> 
+<p class="level1">Immediately powers off the machine. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+15</span> 
+<p class="level1">Immediately reboots the machine. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+16</span> 
+<p class="level1">Immediately reboots the machine with kexec. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+20</span> 
+<p class="level1">Enables display of status messages on the console, as controlled via <span Class="emphasis">systemd.show_status=1</span> on the kernel command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+21</span> 
+<p class="level1">Disables display of status messages on the console, as controlled via <span Class="emphasis">systemd.show_status=0</span> on the kernel command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+22</span>, <span Class="bold">SIGRTMIN+23</span> 
+<p class="level1">Sets the log level to "debug" (or "info" on <span Class="bold">SIGRTMIN+23</span>), as controlled via <span Class="emphasis">systemd.log_level=debug</span> (or <span Class="emphasis">systemd.log_level=info</span> on <span Class="bold">SIGRTMIN+23</span>) on the kernel command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+24</span> 
+<p class="level1">Immediately exits the manager (only available for --user instances). 
+<p class="level0">
+<p class="level0"><span Class="bold">SIGRTMIN+26</span>, <span Class="bold">SIGRTMIN+27</span>, <span Class="bold">SIGRTMIN+28</span>, <span Class="bold">SIGRTMIN+29</span> 
+<p class="level1">Sets the log level to "journal-or-kmsg" (or "console" on <span Class="bold">SIGRTMIN+27</span>, "kmsg" on <span Class="bold">SIGRTMIN+28</span>, or "syslog-or-kmsg" on <span Class="bold">SIGRTMIN+29</span>), as controlled via <span Class="emphasis">systemd.log_target=journal-or-kmsg</span> (or <span Class="emphasis">systemd.log_target=console</span> on <span Class="bold">SIGRTMIN+27</span>, <span Class="emphasis">systemd.log_target=kmsg</span> on <span Class="bold">SIGRTMIN+28</span>, or <span Class="emphasis">systemd.log_target=syslog-or-kmsg</span> on <span Class="bold">SIGRTMIN+29</span>) on the kernel command line. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LOG_LEVEL</span> 
+<p class="level1">systemd reads the log level from this environment variable. This can be overridden with <span Class="bold">--log-level=</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LOG_TARGET</span> 
+<p class="level1">systemd reads the log target from this environment variable. This can be overridden with <span Class="bold">--log-target=</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LOG_COLOR</span> 
+<p class="level1">Controls whether systemd highlights important log messages. This can be overridden with <span Class="bold">--log-color=</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LOG_LOCATION</span> 
+<p class="level1">Controls whether systemd prints the code location along with log messages. This can be overridden with <span Class="bold">--log-location=</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$XDG_CONFIG_HOME</span>, <span Class="emphasis">$XDG_CONFIG_DIRS</span>, <span Class="emphasis">$XDG_DATA_HOME</span>, <span Class="emphasis">$XDG_DATA_DIRS</span> 
+<p class="level1">The systemd user manager uses these variables in accordance to the m[blue]<span Class="bold">XDG Base Directory specification</span>m[]s-2u[7]ds+2 to find its configuration. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_UNIT_PATH</span> 
+<p class="level1">Controls where systemd looks for unit files. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_SYSVINIT_PATH</span> 
+<p class="level1">Controls where systemd looks for SysV init scripts. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_SYSVRCND_PATH</span> 
+<p class="level1">Controls where systemd looks for SysV init script runlevel link farms. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$LISTEN_PID</span>, <span Class="emphasis">$LISTEN_FDS</span> 
+<p class="level1">Set by systemd for supervised processes during socket-based activation. See <span Class="bold">sd_listen_fds</span>(3) for more information. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$NOTIFY_SOCKET</span> 
+<p class="level1">Set by systemd for supervised processes for status and start-up completion notification. See <span Class="bold">sd_notify</span>(3) for more information. 
+<p class="level0"><a name="KERNEL"></a><h2 class="nroffsh">KERNEL COMMAND LINE</h2>
+<p class="level0">
+<p class="level0">When run as system instance systemd parses a number of kernel command line argumentss-2u[8]ds+2: 
+<p class="level0"><span Class="emphasis">systemd.unit=</span>, <span Class="emphasis">rd.systemd.unit=</span> 
+<p class="level1">Overrides the unit to activate on boot. Defaults to default.target. This may be used to temporarily boot into a different boot unit, for example rescue.target or emergency.service. See <span Class="bold">systemd.special</span>(7) for details about these units. The option prefixed with "rd." is honored only in the initial RAM disk (initrd), while the one that is not prefixed only in the main system. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.dump_core=</span> 
+<p class="level1">Takes a boolean argument. If <span Class="bold">true</span>, systemd dumps core when it crashes. Otherwise, no core dump is created. Defaults to <span Class="bold">true</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.crash_shell=</span> 
+<p class="level1">Takes a boolean argument. If <span Class="bold">true</span>, systemd spawns a shell when it crashes. Otherwise, no shell is spawned. Defaults to <span Class="bold">false</span>, for security reasons, as the shell is not protected by any password authentication. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.crash_chvt=</span> 
+<p class="level1">Takes an integer argument. If positive systemd activates the specified virtual terminal when it crashes. Defaults to <span Class="bold">-1</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.confirm_spawn=</span> 
+<p class="level1">Takes a boolean argument. If <span Class="bold">true</span>, asks for confirmation when spawning processes. Defaults to <span Class="bold">false</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.show_status=</span> 
+<p class="level1">Takes a boolean argument or the constant <span Class="bold">auto</span>. If <span Class="bold">true</span>, shows terse service status updates on the console during bootup. <span Class="bold">auto</span> behaves like <span Class="bold">false</span> until a service fails or there is a significant delay in boot. Defaults to <span Class="bold">true</span>, unless <span Class="bold">quiet</span> is passed as kernel command line option in which case it defaults to <span Class="bold">auto</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.log_target=</span>, <span Class="emphasis">systemd.log_level=</span>, <span Class="emphasis">systemd.log_color=</span>, <span Class="emphasis">systemd.log_location=</span> 
+<p class="level1">Controls log output, with the same effect as the <span Class="emphasis">$SYSTEMD_LOG_TARGET</span>, <span Class="emphasis">$SYSTEMD_LOG_LEVEL</span>, <span Class="emphasis">$SYSTEMD_LOG_COLOR</span>, <span Class="emphasis">$SYSTEMD_LOG_LOCATION</span> environment variables described above. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.default_standard_output=</span>, <span Class="emphasis">systemd.default_standard_error=</span> 
+<p class="level1">Controls default standard output and error output for services, with the same effect as the <span Class="bold">--default-standard-output=</span> and <span Class="bold">--default-standard-error=</span> command line arguments described above, respectively. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">systemd.setenv=</span> 
+<p class="level1">Takes a string argument in the form VARIABLE=VALUE. May be used to set default environment variables to add to forked child processes. May be used more than once to set multiple variables. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">quiet</span> 
+<p class="level1">Turn off status output at boot, much like <span Class="emphasis">systemd.show_status=false</span> would. Note that this option is also read by the kernel itself and disables kernel log output. Passing this option hence turns off the usual output from both the system manager and the kernel. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">debug</span> 
+<p class="level1">Turn on debugging output. This is equivalent to <span Class="emphasis">systemd.log_level=debug</span>. Note that this option is also read by the kernel itself and enables kernel debug output. Passing this option hence turns on the debug output from both the system manager and the kernel. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-b</span>, <span Class="emphasis">emergency</span> 
+<p class="level1">Boot into emergency mode. This is equivalent to <span Class="emphasis">systemd.unit=emergency.target</span> and provided for compatibility reasons and to be easier to type. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">single</span>, <span Class="emphasis">s</span>, <span Class="emphasis">S</span>, <span Class="emphasis">1</span> 
+<p class="level1">Boot into rescue mode. This is equivalent to <span Class="emphasis">systemd.unit=rescue.target</span> and provided for compatibility reasons and to be easier to type. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">2</span>, <span Class="emphasis">3</span>, <span Class="emphasis">4</span>, <span Class="emphasis">5</span> 
+<p class="level1">Boot into the specified legacy SysV runlevel. These are equivalent to <span Class="emphasis">systemd.unit=runlevel2.target</span>, <span Class="emphasis">systemd.unit=runlevel3.target</span>, <span Class="emphasis">systemd.unit=runlevel4.target</span>, and <span Class="emphasis">systemd.unit=runlevel5.target</span>, respectively, and provided for compatibility reasons and to be easier to type. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">locale.LANG=</span>, <span Class="emphasis">locale.LANGUAGE=</span>, <span Class="emphasis">locale.LC_CTYPE=</span>, <span Class="emphasis">locale.LC_NUMERIC=</span>, <span Class="emphasis">locale.LC_TIME=</span>, <span Class="emphasis">locale.LC_COLLATE=</span>, <span Class="emphasis">locale.LC_MONETARY=</span>, <span Class="emphasis">locale.LC_MESSAGES=</span>, <span Class="emphasis">locale.LC_PAPER=</span>, <span Class="emphasis">locale.LC_NAME=</span>, <span Class="emphasis">locale.LC_ADDRESS=</span>, <span Class="emphasis">locale.LC_TELEPHONE=</span>, <span Class="emphasis">locale.LC_MEASUREMENT=</span>, <span Class="emphasis">locale.LC_IDENTIFICATION=</span> 
+<p class="level1">Set the system locale to use. This overrides the settings in /etc/locale.conf. For more information see <span Class="bold">locale.conf</span>(5) and <span Class="bold">locale</span>(7). 
+<p class="level0">
+<p class="level0">For other kernel command line parameters understood by components of the core OS, please refer to <span Class="bold">kernel-command-line</span>(7). <a name="SOCKETS"></a><h2 class="nroffsh">SOCKETS AND FIFOS</h2>
+<p class="level0">
+<p class="level0">/run/systemd/notify 
+<p class="level1">Daemon status notification socket. This is an <span Class="bold">AF_UNIX</span> datagram socket and is used to implement the daemon notification logic as implemented by <span Class="bold">sd_notify</span>(3). 
+<p class="level0">
+<p class="level0">/run/systemd/shutdownd 
+<p class="level1">Used internally by the <span Class="bold">shutdown</span>(8) tool to implement delayed shutdowns. This is an <span Class="bold">AF_UNIX</span> datagram socket. 
+<p class="level0">
+<p class="level0">/run/systemd/private 
+<p class="level1">Used internally as communication channel between <span Class="bold">systemctl</span>(1) and the systemd process. This is an <span Class="bold">AF_UNIX</span> stream socket. This interface is private to systemd and should not be used in external projects. 
+<p class="level0">
+<p class="level0">/dev/initctl 
+<p class="level1">Limited compatibility support for the SysV client interface, as implemented by the systemd-initctl.service unit. This is a named pipe in the file system. This interface is obsolete and should not be used in new applications. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">The m[blue]<span Class="bold">systemd Homepage</span>m[]s-2u[9]ds+2, <span Class="bold">systemd-system.conf</span>(5), <span Class="bold">locale.conf</span>(5), <span Class="bold">systemctl</span>(1), <span Class="bold">journalctl</span>(1), <span Class="bold">systemd-notify</span>(1), <span Class="bold">daemon</span>(7), <span Class="bold">sd-daemon</span>(3), <span Class="bold">systemd.unit</span>(5), <span Class="bold">systemd.special</span>(5), <span Class="bold">pkg-config</span>(1), <span Class="bold">kernel-command-line</span>(7), <span Class="bold">bootup</span>(7), <span Class="bold">systemd.directives</span>(7) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">cgroups.txt 
+<p class="level2">%https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 2. 4</span> 
+<p class="level1">Original Design Document 
+<p class="level2">%http://0pointer.de/blog/projects/systemd.html 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 3. 4</span> 
+<p class="level1">Interface Stability Promise 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/InterfaceStabilityPromise 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 4. 4</span> 
+<p class="level1">Generators Specification 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/Generators 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 5. 4</span> 
+<p class="level1">Container Interface 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 6. 4</span> 
+<p class="level1">initrd Interface 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/InitrdInterface 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 7. 4</span> 
+<p class="level1">XDG Base Directory specification 
+<p class="level2">%http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 8. 4</span> 
+<p class="level1">If run inside a Linux container these arguments may be passed as command line arguments to systemd itself, next to any of the command line options listed in the Options section above. If run outside of Linux containers, these arguments are parsed from /proc/cmdline instead. 
+<p class="level0"><a name=""></a><span class="nroffip"> 9. 4</span> 
+<p class="level1">systemd Homepage 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/ 
+<p class="level1">

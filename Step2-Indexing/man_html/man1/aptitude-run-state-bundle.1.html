@@ -1,0 +1,47 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aptitude-run-state-bundle - unpack an aptitude state bundle and invoke aptitude on it <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-run-state-bundle</span> [&lt;<span Class="emphasis">options</span>&gt;...] &lt;<span Class="emphasis">input-file</span>&gt; [&lt;<span Class="emphasis">program</span>&gt;&nbsp;[&lt;<span Class="emphasis">arguments</span>&gt;...]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-run-state-bundle</span> unpacks the given aptitude state bundle created by <span Class="bold">aptitude-create-state-bundle</span>(1) to a temporary directory, invokes &lt;<span Class="emphasis">program</span>&gt; on it with the supplied &lt;<span Class="emphasis">arguments</span>&gt;, and removes the temporary directory afterwards. If &lt;<span Class="emphasis">program</span>&gt; is not supplied, it defaults to <span Class="bold">aptitude</span>(8). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options may occur on the command-line before the input file. Options following the input file are presumed to be arguments to <span Class="bold">aptitude</span>. 
+<p class="level0"><span Class="bold">--append-args</span> 
+<p class="level1">Place the options that give the location of the state bundle at the end of the command line when invoking &lt;<span Class="emphasis">program</span>&gt;, rather than at the beginning (the default is to place options at the beginning). 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Display a brief usage summary. 
+<p class="level0">
+<p class="level0"><span Class="bold">--prepend-args</span> 
+<p class="level1">Place the options that give the location of the state bundle at the beginning of the command line when invoking &lt;<span Class="emphasis">program</span>&gt;, overriding any previous <span Class="bold">--append-args</span> (the default is to place options at the beginning). 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-clean</span> 
+<p class="level1">Do not remove the unpacked state directory after running <span Class="bold">aptitude</span>. You might want to use this if, for instance, you are debugging a problem that appears when <span Class="bold">aptitude</span>*(Aqs state file is modified. When <span Class="bold">aptitude</span> finishes running, the name of the state directory will be printed so that you can access it in the future. 
+<p class="level1">This option is enabled automatically by <span Class="bold">--statedir</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--really-clean</span> 
+<p class="level1">Delete the state directory after running <span Class="bold">aptitude</span>, even if <span Class="bold">--no-clean</span> or <span Class="bold">--statedir</span> was supplied. 
+<p class="level0">
+<p class="level0"><span Class="bold">--statedir</span> 
+<p class="level1">Instead of treating the input file as a state bundle, treat it as an unpacked state bundle. For instance, you can use this to access the state directory that was created by a prior run with <span Class="bold">--no-clean</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--unpack</span> 
+<p class="level1">Unpack the input file to a temporary directory, but don*(Aqt actually run <span Class="bold">aptitude</span>. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-create-state-bundle</span>(1), <span Class="bold">aptitude</span>(8), <span Class="bold">apt</span>(8) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Daniel Burrows</span> &lt;dburrows@debian.org&gt; 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>
+<p class="level0">Copyright 2007 Daniel Burrows. 
+<p class="level0">This manual page is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. 
+<p class="level0">This manual page is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 
+<p class="level0">You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. 
+<p class="level0">

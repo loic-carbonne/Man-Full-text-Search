@@ -1,0 +1,16 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setmetamode - define the keyboard meta key handling <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">setmetamode</span> [ <span Class="emphasis">{meta|bit|metabit | esc|prefix|escprefix}</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Without argument, <span Class="bold">setmetamode</span> prints the current Meta key mode. With argument, it sets the Meta key mode as indicated. The setting before and after the change are reported. 
+<p class="level0">The Meta key mode is specific for each VT (and the VT corresponding to stdin is used). One might use <span Class="bold">setmetamode</span> in /etc/rc to define the initial state of the Meta key mode, e.g. by <br>
+<p class="level0">INITTY=/dev/tty[1-8] <br>for tty in $INITTY; do <br>
+<p class="level0">setmetamode escprefix &lt; $tty <br>
+<p class="level0">done 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">esc prefix escprefix The Meta key sends an Escape prefix. 
+<p class="level0">meta bit metabit The Meta key sets the high order bit of the character. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">loadkeys (1)</span>
+<p class="level0">

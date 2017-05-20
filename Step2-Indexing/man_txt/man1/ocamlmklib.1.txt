@@ -1,0 +1,90 @@
+OCAMLMKLIB(1)               General Commands Manual              OCAMLMKLIB(1)
+
+
+
+NAME
+       ocamlmklib - generate libraries with mixed C / Caml code.
+
+SYNOPSIS
+       ocalmklib [options] files
+
+DESCRIPTION
+       The  ocamlmklib  command facilitates the construction of libraries con-
+       taining both Caml code and C code, and usable both  in  static  linking
+       and dynamic linking modes.
+
+OPTIONS
+       -h, --help
+              Show summary of options.
+
+       -cclib lib
+              C library passed to ocamlc -a or ocamlopt(1) -a only.
+
+       -ccopt opt
+              C option passed to ocamlc(1) -a or ocamlopt(1) -a only.
+
+       -custom
+              Disable dynamic loading.
+
+       -dllpath dir
+              Add dir to the run-time search path for DLLs.
+
+       -I dir Add dir to the path searched for Caml object files.
+
+       -failsafe
+              Fall back to static linking if DLL construction failed.
+
+       -ldopt opt
+              C option passed to the shared linker only.
+
+       -linkall
+              Build Caml archive with link-all behavior.
+
+       -llib  Specify a dependent C library.
+
+       -Ldir  Add dir to the path searched for C libraries.
+
+       -ocamlc cmd
+              Use cmd in place of ocamlc(1).
+
+       -ocamlopt cmd
+              Use cmd in place of ocamlopt(1).
+
+       -o name
+              Generated Caml library is named name.cma or name.cmxa.
+
+       -oc name
+              Generated C library is named dllname.so or libname.a.
+
+       -rpath dir
+              Same as -dllpath dir.
+
+       -Rdir  Same as -rpath.
+
+       -verbose
+              Print commands before executing them.
+
+       -Wl, -rpath dir
+              Same as -dllpath dir.
+
+       -Wl, -rpath -Wl dir
+              Same as -dllpath dir.
+
+       -Wl, -Rdir
+              Same as -dllpath dir.
+
+       -Fdir  Specify a framework directory (MacOSX).
+
+       -framework name
+              Use framework name (MacOSX).
+
+SEE ALSO
+       ocamlc(1), ocamlopt(1).
+
+AUTHOR
+       This  manual  page  was  written  by  Samuel Mimram <samuel.mimram@ens-
+       lyon.org>, for the Debian project (but may be used by others).
+
+
+
+                                August 19, 2004                  OCAMLMKLIB(1)

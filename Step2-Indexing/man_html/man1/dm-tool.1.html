@@ -1,0 +1,19 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dm-tool - a tool to control the display manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dm-tool</span> [ <a class="emphasis" href="#OPTIONS">OPTIONS</a> ] <span Class="emphasis">COMMAND</span> [ <span Class="emphasis">ARGS</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dm-tool</span> is a tool to communicate with the LightDM display manager. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h, --help</span> Show help options 
+<p class="level0"><span Class="bold">--version</span> Show release version 
+<p class="level0"><span Class="bold">--session-bus</span> Attempt to connect to the display manager using the session bus. This is useful if you are running a display manager in a test mode. If this option is not present dm-tool will connect using the system bus. 
+<p class="level0">The following commands are available: 
+<p class="level0"><span Class="bold">switch-to-greeter</span> Switch to the greeter suitable for logging into a new session. 
+<p class="level0"><span Class="bold">switch-to-user USERNAME [SESSION]</span> Switch to a user session. If this user is already logged in then the display manager will switch to that session, otherwise a new session is started. If authentication is required a greeter will start to collect this. If the session option is provided then this session type will be used, otherwise the default for this user is used. 
+<p class="level0"><span Class="bold">switch-to-guest [SESSION]</span> Switch to a guest session. If the guest session is already active the display manager will switch to that session, otherwise the guest session is started. If the session option is provided then this session type will be used, otherwise the default for the guest user is used. 
+<p class="level0"><span Class="bold">lock</span> Lock the current seat. This will swith to a greeter with a hint that the screen is locked. You can return to this session by authenticating in the greeter. 
+<p class="level0"><span Class="bold">list-seats</span> List the active seats and sessions that are running. 
+<p class="level0"><span Class="bold">add-nested-seat</span> Start an X server inside a session and connect it to a display manager. 
+<p class="level0"><span Class="bold">add-local-x-seat DISPLAY_NUMBER</span> Connect an existing X server to the display manager. 
+<p class="level0"><span Class="bold">add-seat TYPE [NAME=VALUE...]</span> Add a dynamic seat. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">lightdm (1)</span>

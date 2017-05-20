@@ -1,0 +1,95 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-analyze - Analyze system boot-up performance <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] [time] 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] blame 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] critical-chain [<span Class="emphasis">UNIT</span>...] 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] plot [&gt;&nbsp;file.svg] 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] dot [<span Class="emphasis">PATTERN</span>...] [&gt;&nbsp;file.dot] 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] dump 
+<p class="level0"><span Class="bold">systemd-analyze</span> [OPTIONS...] set-log-level [<span Class="emphasis">LEVEL</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-analyze</span> may be used to determine system boot-up performance statistics and retrieve other state and tracing information from the system and service manager. 
+<p class="level0"><span Class="bold">systemd-analyze time</span> prints the time spent in the kernel before userspace has been reached, the time spent in the initial RAM disk (initrd) before normal system userspace has been reached, and the time normal system userspace took to initialize. Note that these measurements simply measure the time passed up to the point where all system services have been spawned, but not necessarily until they fully finished initialization or the disk is idle. 
+<p class="level0"><span Class="bold">systemd-analyze blame</span> prints a list of all running units, ordered by the time they took to initialize. This information may be used to optimize boot-up times. Note that the output might be misleading as the initialization of one service might be slow simply because it waits for the initialization of another service to complete. 
+<p class="level0"><span Class="bold">systemd-analyze critical-chain [</span><span class="bold"><span Class="emphasis">UNIT...</span></span><span Class="bold">]</span> prints a tree of the time-critical chain of units (for each of the specified <span Class="emphasis">UNIT</span>s or for the default target otherwise). The time after the unit is active or started is printed after the "@" character. The time the unit takes to start is printed after the "+" character. Note that the output might be misleading as the initialization of one service might depend on socket activation and because of the parallel execution of units. 
+<p class="level0"><span Class="bold">systemd-analyze plot</span> prints an SVG graphic detailing which system services have been started at what time, highlighting the time they spent on initialization. 
+<p class="level0"><span Class="bold">systemd-analyze dot</span> generates textual dependency graph description in dot format for further processing with the GraphViz <span Class="bold">dot</span>(1) tool. Use a command line like <span Class="bold">systemd-analyze dot | dot -Tsvg &gt; systemd.svg</span> to generate a graphical dependency tree. Unless <span Class="bold">--order</span> or <span Class="bold">--require</span> is passed, the generated graph will show both ordering and requirement dependencies. Optional pattern globbing style specifications (e.g. *.target) may be given at the end. A unit dependency is included in the graph if any of these patterns match either the origin or destination node. 
+<p class="level0"><span Class="bold">systemd-analyze dump</span> outputs a (usually very long) human-readable serialization of the complete server state. Its format is subject to change without notice and should not be parsed by applications. 
+<p class="level0"><span Class="bold">systemd-analyze set-log-level </span><span class="bold"><span Class="emphasis">LEVEL</span></span> changes the current log level of the <span Class="bold">systemd</span> daemon to <span Class="emphasis">LEVEL</span> (accepts the same values as <span Class="bold">--log-level=</span> described in <span Class="bold">systemd</span>(1)). 
+<p class="level0">If no command is passed, <span Class="bold">systemd-analyze time</span> is implied. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--user</span> 
+<p class="level1">Shows performance data of user sessions instead of the system manager. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span> 
+<p class="level1">Shows performance data of the system manager. This is the implied default. 
+<p class="level0">
+<p class="level0"><span Class="bold">--order</span>, <span Class="bold">--require</span> 
+<p class="level1">When used in conjunction with the <span Class="bold">dot</span> command (see above), selects which dependencies are shown in the dependency graph. If <span Class="bold">--order</span> is passed, only dependencies of type <span Class="emphasis">After=</span> or <span Class="emphasis">Before=</span> are shown. If <span Class="bold">--require</span> is passed, only dependencies of type <span Class="emphasis">Requires=</span>, <span Class="emphasis">RequiresOverridable=</span>, <span Class="emphasis">Requisite=</span>, <span Class="emphasis">RequisiteOverridable=</span>, <span Class="emphasis">Wants=</span> and <span Class="emphasis">Conflicts=</span> are shown. If neither is passed, this shows dependencies of all these types. 
+<p class="level0">
+<p class="level0"><span Class="bold">--from-pattern=</span>, <span Class="bold">--to-pattern=</span> 
+<p class="level1">When used in conjunction with the <span Class="bold">dot</span> command (see above), this selects which relationships are shown in the dependency graph. They both require <span Class="bold">glob</span>(7) patterns as arguments, which are matched against left-hand and right-hand, respectively, nodes of a relationship. Each of these can be used more than once, which means a unit name must match one of the given values. 
+<p class="level0">
+<p class="level0"><span Class="bold">--fuzz=</span><span Class="emphasis">timespan</span> 
+<p class="level1">When used in conjunction with the <span Class="bold">critical-chain</span> command (see above), also show units, which finished <span Class="emphasis">timespan</span> earlier, than the latest unit in the same level. The unit of <span Class="emphasis">timespan</span> is seconds unless specified with a different unit, e.g. "50ms". 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">This plots all dependencies of any unit whose name starts with "avahi-daemon.": 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ systemd-analyze dot *(Aqavahi-daemon.**(Aq | dot -Tsvg &gt; avahi.svg
+$ eog avahi.svg
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This plots the dependencies between all known target units: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+systemd-analyze dot --to-pattern=*(Aq*.target*(Aq --from-pattern=*(Aq*.target*(Aq | dot -Tsvg &gt; targets.svg
+$ eog targets.svg
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1) 

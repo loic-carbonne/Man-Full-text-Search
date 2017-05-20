@@ -1,0 +1,169 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">a2p - Awk to Perl translator <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">a2p</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">filename</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">A2p</span> takes an awk script specified on the command line (or from standard input) and produces a comparable <span Class="emphasis">perl</span> script on the standard output. <a name="s-1OPTIONSs0"></a><h2 class="nroffsh">\s-1OPTIONS\s0</h2>
+<p class="level0">
+<p class="level0">Options include: 
+<p class="level0"><a name="fB-DnumberfR"></a><span class="nroffip">\fB-D&lt;number&gt;\fR 5</span> 
+<p class="level1">
+<p class="level1">sets debugging flags. 
+<p class="level0"><a name="fB-FcharacterfR"></a><span class="nroffip">\fB-F&lt;character&gt;\fR 5</span> 
+<p class="level1">
+<p class="level1">tells a2p that this awk script is always invoked with this <span Class="bold">-F</span> switch. 
+<p class="level0"><a name="fB-nfieldlistfR"></a><span class="nroffip">\fB-n&lt;fieldlist&gt;\fR 5</span> 
+<p class="level1">
+<p class="level1">specifies the names of the input fields if input does not have to be split into an array.  If you were translating an awk script that processes the password file, you might say: 
+<p class="level1">
+<p class="level1">&nbsp;       a2p -7 -nlogin.password.uid.gid.gcos.shell.home 
+<p class="level1">
+<p class="level1">Any delimiter can be used to separate the field names. 
+<p class="level0"><a name="fB-numberfR"></a><span class="nroffip">\fB-&lt;number&gt;\fR 5</span> 
+<p class="level1">
+<p class="level1">causes a2p to assume that input will always have that many fields. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR 5</span> 
+<p class="level1">
+<p class="level1">tells a2p to use old awk behavior.  The only current differences are: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 5</span> 
+<p class="level2">Old awk always has a line loop, even if there are no line actions, whereas new awk does not. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 5</span> 
+<p class="level2">In old awk, sprintf is extremely greedy about its arguments. For example, given the statement 
+<p class="level2">
+<p class="level2">&nbsp;       print sprintf(some_args), extra_args; 
+<p class="level2">
+<p class="level2">old awk considers <span Class="emphasis">extra_args</span> to be arguments to f(CW*(C`sprintf*(C'</span>; new awk considers them arguments to f(CW*(C`print*(C'</span>. 
+<p class="level1">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">A2p cannot do as good a job translating as a human would, but it usually does pretty well.  There are some areas where you may want to examine the perl script produced and tweak it some.  Here are some of them, in no particular order. 
+<p class="level1">There is an awk idiom of putting <span Class="emphasis">int()</span> around a string expression to force numeric interpretation, even though the argument is always integer anyway.  This is generally unneeded in perl, but a2p can't tell if the argument is always going to be integer, so it leaves it in.  You may wish to remove it. 
+<p class="level1">Perl differentiates numeric comparison from string comparison.  Awk has one operator for both that decides at run time which comparison to do.  A2p does not try to do a complete job of awk emulation at this point.  Instead it guesses which one you want.  It's almost always right, but it can be spoofed.  All such guesses are marked with the comment "f(CW*(C`&#35;???*(C'</span>".  You should go through and check them.  You might want to run at least once with the <span Class="bold">-w</span> switch to perl, which will warn you if you use == where you should have used eq. 
+<p class="level1">Perl does not attempt to emulate the behavior of awk in which nonexistent array elements spring into existence simply by being referenced.  If somehow you are relying on this mechanism to create null entries for a subsequent for...in, they won't be there in perl. 
+<p class="level1">If a2p makes a split line that assigns to a list of variables that looks like (Fld1, Fld2, Fld3...) you may want to rerun a2p using the <span Class="bold">-n</span> option mentioned above.  This will let you name the fields throughout the script.  If it splits to an array instead, the script is probably referring to the number of fields somewhere. 
+<p class="level1">The exit statement in awk doesn't necessarily exit; it goes to the s-1ENDs0 block if there is one.  Awk scripts that do contortions within the s-1ENDs0 block to bypass the block under such circumstances can be simplified by removing the conditional in the s-1ENDs0 block and just exiting directly from the perl script. 
+<p class="level1">Perl has two kinds of array, numerically-indexed and associative. Perl associative arrays are called *(L"hashes*(R".  Awk arrays are usually translated to hashes, but if you happen to know that the index is always going to be numeric you could change the {...} to [...]. Iteration over a hash is done using the <span Class="emphasis">keys()</span> function, but iteration over an array is s-1NOT. s0 You might need to modify any loop that iterates over such an array. 
+<p class="level1">Awk starts by assuming s-1OFMTs0 has the value %.6g.  Perl starts by assuming its equivalent, $&#35;, to have the value %.20g.  You'll want to set $&#35; explicitly if you use the default value of s-1OFMT.s0 
+<p class="level1">Near the top of the line loop will be the split operation that is implicit in the awk script.  There are times when you can move this down past some conditionals that test the entire record so that the split is not done as often. 
+<p class="level1">For aesthetic reasons you may wish to change index variables from being 1-based (awk style) to 0-based (Perl style).  Be sure to change all operations the variable is involved in to match. 
+<p class="level1">Cute comments that say *(L"&#35; Here is a workaround because awk is dumb*(R" are passed through unmodified. 
+<p class="level1">Awk scripts are often embedded in a shell script that pipes stuff into and out of awk.  Often the shell script wrapper can be incorporated into the perl script, since perl can start up pipes into and out of itself, and can do other things that awk can't do by itself. 
+<p class="level1">Scripts that refer to the special variables s-1RSTARTs0 and s-1RLENGTHs0 can often be simplified by referring to the variables $`, $& and $', as long as they are within the scope of the pattern match that sets them. 
+<p class="level1">The produced perl script may have subroutines defined to deal with awk's semantics regarding getline and print.  Since a2p usually picks correctness over efficiency.  it is almost always possible to rewrite such code to be more efficient by discarding the semantic sugar. 
+<p class="level1">For efficiency, you may wish to remove the keyword from any return statement that is the last statement executed in a subroutine.  A2p catches the most common case, but doesn't analyze embedded blocks for subtler cases. 
+<p class="level1">ARGV[0] translates to f(CW$ARGV0</span>, but ARGV[n] translates to f(CW$ARGV</span>[$n-1].  A loop that tries to iterate over ARGV[0] won't find it. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">A2p uses no environment variables. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Larry Wall &lt;<span Class="emphasis">larry@wall.org</span>&gt; <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;perl   The perl compiler/interpreter 
+<p class="level0">&nbsp;s2p    sed to perl translator 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">It would be possible to emulate awk's behavior in selecting string versus numeric operations at run time by inspection of the operands, but it would be gross and inefficient.  Besides, a2p almost always guesses right. 
+<p class="level0">Storage for the awk syntax tree is currently static, and can run out. 

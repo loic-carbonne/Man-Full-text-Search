@@ -1,0 +1,711 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME    </h2>
+<p class="level0">jarsigner - Signs and verifies Java Archive (JAR) files. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS    </h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+&nbsp;
+<span class="bold">jarsigner</span> [ <span class="emphasis">options</span> ] <span class="emphasis">jar-file</span> <span class="emphasis">alias</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+&nbsp;
+<span class="bold">jarsigner</span> <span class="bold">-verify</span> [ <span class="emphasis">options</span> ] <span class="emphasis">jar-file</span> [<span class="emphasis">alias ...</span>]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">options</span> The command-line options. See Options. 
+<p class="level0">-verify <br>The f3-verify</span> option can take zero or more keystore alias names after the JAR file name. When the f3-verify</span> option is specified, the f3jarsigner</span> command checks that the certificate used to verify each signed entry in the JAR file matches one of the keystore aliases. The aliases are defined in the keystore specified by f3-keystore</span> or the default keystore. 
+<p class="level0">If you also specified the f3-strict</span> option, and the f3jarsigner</span> command detected severe warnings, the message, "jar verified, with signer errors" is displayed. 
+<p class="level0"><span Class="emphasis">jar-file</span> The JAR file to be signed. 
+<p class="level0">If you also specified the f3-strict</span> option, and the f3jarsigner</span> command detected severe warnings, the message, "jar signed, with signer errors" is displayed. 
+<p class="level0"><span Class="emphasis">alias</span> The aliases are defined in the keystore specified by f3-keystore</span> or the default keystore. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION    </h2>
+<p class="level0">The f3jarsigner</span> tool has two purposes: 
+<p class="level0">(bu To sign Java Archive (JAR) files. 
+<p class="level0">(bu To verify the signatures and integrity of signed JAR files. 
+<p class="level0">The JAR feature enables the packaging of class files, images, sounds, and other digital data in a single file for faster and easier distribution. A tool named f3jar</span> enables developers to produce JAR files. (Technically, any zip file can also be considered a JAR file, although when created by the f3jar</span> command or processed by the f3jarsigner</span> command, JAR files also contain a f3META-INF/MANIFEST.MF</span> file.) 
+<p class="level0">A digital signature is a string of bits that is computed from some data (the data being signed) and the private key of an entity (a person, company, and so on). Similar to a handwritten signature, a digital signature has many useful characteristics: 
+<p class="level0">(bu Its authenticity can be verified by a computation that uses the public key corresponding to the private key used to generate the signature. 
+<p class="level0">(bu It cannot be forged, assuming the private key is kept secret. 
+<p class="level0">(bu It is a function of the data signed and thus cannot be claimed to be the signature for other data as well. 
+<p class="level0">(bu The signed data cannot be changed. If the data is changed, then the signature cannot be verified as authentic. 
+<p class="level0">To generate an entity's signature for a file, the entity must first have a public/private key pair associated with it and one or more certificates that authenticate its public key. A certificate is a digitally signed statement from one entity that says that the public key of another entity has a particular value. 
+<p class="level0">The f3jarsigner</span> command uses key and certificate information from a keystore to generate digital signatures for JAR files. A keystore is a database of private keys and their associated X.509 certificate chains that authenticate the corresponding public keys. The f3keytool</span> command is used to create and administer keystores. 
+<p class="level0">The f3jarsigner</span> command uses an entity's private key to generate a signature. The signed JAR file contains, among other things, a copy of the certificate from the keystore for the public key corresponding to the private key used to sign the file. The f3jarsigner</span> command can verify the digital signature of the signed JAR file using the certificate inside it (in its signature block file). 
+<p class="level0">The f3jarsigner</span> command can generate signatures that include a time stamp that lets a systems or deployer (including Java Plug-in) to check whether the JAR file was signed while the signing certificate was still valid. In addition, APIs allow applications to obtain the timestamp information. 
+<p class="level0">At this time, the f3jarsigner</span> command can only sign JAR files created by the f3jar</span> command or zip files. JAR files are the same as zip files, except they also have a f3META-INF/MANIFEST.MF</span> file. A f3META-INF/MANIFEST.MF</span> file is created when the f3jarsigner</span> command signs a zip file. 
+<p class="level0">The default f3jarsigner</span> command behavior is to sign a JAR or zip file. Use the f3-verify</span> option to verify a signed JAR file. 
+<p class="level0">The f3jarsigner</span> command also attempts to validate the signer's certificate after signing or verifying. If there is a validation error or any other problem, the command generates warning messages. If you specify the f3-strict</span> option, then the command treats severe warnings as errors. See Errors and Warnings. <a name="KEYSTORE"></a><h2 class="nroffsh">KEYSTORE\ ALIASES    </h2>
+<p class="level0">All keystore entities are accessed with unique aliases. 
+<p class="level0">When you use the f3jarsigner</span> command to sign a JAR file, you must specify the alias for the keystore entry that contains the private key needed to generate the signature. For example, the following command signs the JAR file named f3MyJARFile.jar</span> with the private key associated with the alias f3duke</span> in the keystore named f3mystore</span> in the f3working</span> directory. Because no output file is specified, it overwrites f3MyJARFile.jar</span> with the signed JAR file. 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore /working/mystore -storepass &lt;keystore password&gt;</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      -keypass &lt;private key password&gt; MyJARFile.jar duke</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">Keystores are protected with a password, so the store password must be specified. You are prompted for it when you do not specify it on the command line. Similarly, private keys are protected in a keystore with a password, so the private key's password must be specified, and you are prompted for the password when you do not specify it on the command line and it is not the same as the store password. <a name="KEYSTORE"></a><h2 class="nroffsh">KEYSTORE\ LOCATION    </h2>
+<p class="level0">The f3jarsigner</span> command has a f3-keystore</span> option for specifying the URL of the keystore to be used. The keystore is by default stored in a file named f3.keystore</span> in the user's home directory, as determined by the f3user.home</span> system property. 
+<p class="level0">On Oracle Solaris systems, f3user.home</span> defaults to the user's home directory. 
+<p class="level0">The input stream from the f3-keystore</span> option is passed to the f3KeyStore.load</span> method. If f3NONE</span> is specified as the URL, then a null stream is passed to the f3KeyStore.load</span> method. f3NONE</span> should be specified when the f3KeyStore</span> class is not file based, for example, when it resides on a hardware token device. <a name="KEYSTORE"></a><h2 class="nroffsh">KEYSTORE\ IMPLEMENTATION    </h2>
+<p class="level0">The f3KeyStore</span> class provided in the f3java.security</span> package supplies a number of well-defined interfaces to access and modify the information in a keystore. You can have multiple different concrete implementations, where each implementation is for a particular type of keystore. 
+<p class="level0">Currently, there are two command-line tools that use keystore implementations (f3keytool</span> and f3jarsigner</span>), and a GUI-based tool named Policy Tool. Because the f3KeyStore</span> class is publicly available, JDK users can write additional security applications that use it. 
+<p class="level0">There is a built-in default implementation provided by Oracle that implements the keystore as a file, that uses a proprietary keystore type (format) named JKS. The built-in implementation protects each private key with its individual password and protects the integrity of the entire keystore with a (possibly different) password. 
+<p class="level0">Keystore implementations are provider-based, which means the application interfaces supplied by the f3KeyStore</span> class are implemented in terms of a Service Provider Interface (SPI). There is a corresponding abstract f3KeystoreSpi</span> class, also in the f3java.security package</span>, that defines the Service Provider Interface methods that providers must implement. The term provider refers to a package or a set of packages that supply a concrete implementation of a subset of services that can be accessed by the Java Security API. To provide a keystore implementation, clients must implement a provider and supply a f3KeystoreSpi</span> subclass implementation, as described in How to Implement a Provider in the Java Cryptography Architecture at <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/HowToImplAProvider.html">http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/HowToImplAProvider.html</a> 
+<p class="level0">Applications can choose different types of keystore implementations from different providers, with the f3getInstance</span> factory method in the f3KeyStore</span> class. A keystore type defines the storage and data format of the keystore information and the algorithms used to protect private keys in the keystore and the integrity of the keystore itself. Keystore implementations of different types are not compatible. 
+<p class="level0">The f3jarsigner</span> and f3policytool</span> commands can read file-based keystores from any location that can be specified using a URL. In addition, these commands can read non-file-based keystores such as those provided by MSCAPI on Windows and PKCS11 on all platforms. 
+<p class="level0">For the f3jarsigner</span> and f3keytool</span> commands, you can specify a keystore type at the command line with the f3-storetype</span> option. For Policy Tool, you can specify a keystore type with the <span Class="emphasis">Edit</span> command in the <span Class="emphasis">KeyStore</span> menu. 
+<p class="level0">If you do not explicitly specify a keystore type, then the tools choose a keystore implementation based on the value of the f3keystore.type</span> property specified in the security properties file. The security properties file is called f3java.security</span>, and it resides in the JDK security properties directory, f3java.home/lib/security</span>, where f3java.home</span> is the runtime environment's directory. The f3jre</span> directory in the JDK or the top-level directory of the Java Runtime Environment (JRE). 
+<p class="level0">Each tool gets the f3keystore.type</span> value and then examines all the installed providers until it finds one that implements keystores of that type. It then uses the keystore implementation from that provider. 
+<p class="level0">The f3KeyStore</span> class defines a static method named f3getDefaultType</span> that lets applications and applets retrieve the value of the f3keystore.type</span> property. The following line of code creates an instance of the default keystore type as specified in the f3keystore.type property</span>: 
+<p class="level0"><pre class="level0">
+f3KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The default keystore type is f3jks</span> (the proprietary type of the keystore implementation provided by Oracle). This is specified by the following line in the security properties file: 
+<p class="level0"><pre class="level0">
+f3keystore.type=jks</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">Case does not matter in keystore type designations. For example, f3JKS</span> is the same as f3jks</span>. 
+<p class="level0">To have the tools use a keystore implementation other than the default, change that line to specify a different keystore type. For example, if you have a provider package that supplies a keystore implementation for a keystore type called f3pkcs12</span>, then change the line to the following: 
+<p class="level0"><pre class="level0">
+f3keystore.type=pkcs12</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="emphasis">Note:</span> If you use the PKCS 11 provider package, then see "KeyTool" and "JarSigner" in Java PKCS &#35;11 Reference Guide at <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html">http://docs.oracle.com/javase/7/docs/technotes/guides/security/p11guide.html</a> <a name="SUPPORTED"></a><h2 class="nroffsh">SUPPORTED\ ALGORITHMS    </h2>
+<p class="level0">By default, the f3jarsigner</span> command signs a JAR file using one of the following algorithms: 
+<p class="level0">(bu Digital Signature Algorithm (DSA) with the SHA1 digest algorithm 
+<p class="level0">(bu RSA algorithm with the SHA256 digest algorithm 
+<p class="level0">(bu Elliptic Curve (EC) cryptography algorithm with the SHA256 with Elliptic Curve Digital Signature Algorithm (ECDSA). 
+<p class="level0">If the signer's public and private keys are DSA keys, then f3jarsigner</span> signs the JAR file with the f3SHA1withDSA</span> algorithm. If the signer's keys are RSA keys, then f3jarsigner</span> attempts to sign the JAR file with the f3SHA256withRSA</span> algorithm. If the signer's keys are EC keys, then f3jarsigner</span> signs the JAR file with the f3SHA256withECDSA</span> algorithm. 
+<p class="level0">These default signature algorithms can be overridden using the f3-sigalg</span> option. <a name="THE"></a><h2 class="nroffsh">THE\ SIGNED\ JAR\ FILE    </h2>
+<p class="level0">When the f3jarsigner</span> command is used to sign a JAR file, the output signed JAR file is exactly the same as the input JAR file, except that it has two additional files placed in the META-INF directory: 
+<p class="level0">(bu A signature file with an f3.SF</span> extension 
+<p class="level0">(bu A signature block file with a f3.DSA</span>, f3.RSA</span>, or f3.EC</span> extension 
+<p class="level0">The base file names for these two files come from the value of the f3-sigFile</span> option. For example, when the option is f3-sigFile MKSIGN</span>, the files are named f3MKSIGN.SF</span> and f3MKSIGN.DSA</span> 
+<p class="level0">If no f3-sigfile</span> option appears on the command line, then the base file name for the f3.SF</span> and f3.DSA</span> files is the first 8 characters of the alias name specified on the command line, all converted to uppercase. If the alias name has fewer than 8 characters, then the full alias name is used. If the alias name contains any characters that are not allowed in a signature file name, then each such character is converted to an underscore (_) character in forming the file name. Valid characters include letters, digits, underscores, and hyphens. 
+<p class="level0">Signature File 
+<p class="level0">A signature file (f3.SF</span> file) looks similar to the manifest file that is always included in a JAR file when the f3jarsigner</span> command is used to sign the file. For each source file included in the JAR file, the f3.SF</span> file has three lines, such as in the manifest file, that list the following: 
+<p class="level0">(bu File name 
+<p class="level0">(bu Name of the digest algorithm (SHA) 
+<p class="level0">(bu SHA digest value 
+<p class="level0">In the manifest file, the SHA digest value for each source file is the digest (hash) of the binary data in the source file. In the f3.SF</span> file, the digest value for a specified source file is the hash of the three lines in the manifest file for the source file. 
+<p class="level0">The signature file, by default, includes a header with a hash of the whole manifest file. The header also contains a hash of the manifest header. The presence of the header enables verification optimization. See JAR File Verification. 
+<p class="level0">Signature Block File 
+<p class="level0">The f3.SF</span> file is signed and the signature is placed in the signature block file. This file also contains, encoded inside it, the certificate or certificate chain from the keystore that authenticates the public key corresponding to the private key used for signing. The file has the extension f3.DSA</span>, f3.RSA</span>, or f3.EC</span>, depending on the digest algorithm used. <a name="SIGNATURE"></a><h2 class="nroffsh">SIGNATURE\ TIME\ STAMP    </h2>
+<p class="level0">The f3jarsigner</span> command can generate and store a signature time stamp when signing a JAR file. In addition, f3jarsigner</span> supports alternative signing mechanisms. This behavior is optional and is controlled by the user at the time of signing through these options. See Options. 
+<p class="level0"><pre class="level0">
+f3-tsa <span class="emphasis">url</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-tsacert <span class="emphasis">alias</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-altsigner <span class="emphasis">class</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-altsignerpath <span class="emphasis">classpathlist</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-tsapolicyid <span class="emphasis">policyid</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="JAR"></a><h2 class="nroffsh">JAR\ FILE\ VERIFICATION    </h2>
+<p class="level0">A successful JAR file verification occurs when the signatures are valid, and none of the files that were in the JAR file when the signatures were generated have changed since then. JAR file verification involves the following steps: 
+<p class="level0">1. Verify the signature of the f3.SF</span> file. 
+<p class="level0">The verification ensures that the signature stored in each signature block (f3.DSA</span>) file was generated using the private key corresponding to the public key whose certificate (or certificate chain) also appears in the f3.DSA</span> file. It also ensures that the signature is a valid signature of the corresponding signature (f3.SF</span>) file, and thus the f3.SF</span> file was not tampered with. 
+<p class="level0">2. Verify the digest listed in each entry in the f3.SF</span> file with each corresponding section in the manifest. 
+<p class="level0">The f3.SF</span> file by default includes a header that contains a hash of the entire manifest file. When the header is present, the verification can check to see whether or not the hash in the header matches the hash of the manifest file. If there is a match, then verification proceeds to the next step. 
+<p class="level0">If there is no match, then a less optimized verification is required to ensure that the hash in each source file information section in the f3.SF</span> file equals the hash of its corresponding section in the manifest file. See Signature File. 
+<p class="level0">One reason the hash of the manifest file that is stored in the f3.SF</span> file header might not equal the hash of the current manifest file is that one or more files were added to the JAR file (with the f3jar</span> tool) after the signature and f3.SF</span> file were generated. When the f3jar</span> tool is used to add files, the manifest file is changed by adding sections to it for the new files, but the f3.SF</span> file is not changed. A verification is still considered successful when none of the files that were in the JAR file when the signature was generated have been changed since then. This happens when the hashes in the non-header sections of the f3.SF</span> file equal the hashes of the corresponding sections in the manifest file. 
+<p class="level0">3. Read each file in the JAR file that has an entry in the f3.SF</span> file. While reading, compute the file's digest and compare the result with the digest for this file in the manifest section. The digests should be the same or verification fails. 
+<p class="level0">If any serious verification failures occur during the verification process, then the process is stopped and a security exception is thrown. The f3jarsigner</span> command catches and displays the exception. 
+<p class="level0"><span Class="emphasis">Note:</span> You should read any addition warnings (or errors if you specified the f3-strict</span> option), as well as the content of the certificate (by specifying the f3-verbose</span> and f3-certs</span> options) to determine if the signature can be trusted. <a name="MULTIPLE"></a><h2 class="nroffsh">MULTIPLE\ SIGNATURES\ FOR\ A\ JAR\ FILE    </h2>
+<p class="level0">A JAR file can be signed by multiple people by running the f3jarsigner</span> command on the file multiple times and specifying the alias for a different person each time, as follows: 
+<p class="level0"><pre class="level0">
+f3jarsigner myBundle.jar susan</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3jarsigner myBundle.jar kevin</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">When a JAR file is signed multiple times, there are multiple f3.SF</span> and f3.DSA</span> files in the resulting JAR file, one pair for each signature. In the previous example, the output JAR file includes files with the following names: 
+<p class="level0"><pre class="level0">
+f3SUSAN.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3SUSAN.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3KEVIN.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3KEVIN.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="emphasis">Note:</span> It is also possible for a JAR file to have mixed signatures, some generated by the JDK 1.1 by the f3javakey</span> command and others by f3jarsigner</span>. The f3jarsigner</span> command can be used to sign JAR files that are already signed with the f3javakey</span> command. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS    </h2>
+<p class="level0">The following sections describe the various f3jarsigner</span> options. Be aware of the following standards: 
+<p class="level0">(bu All option names are preceded by a minus sign (-). 
+<p class="level0">(bu The options can be provided in any order. 
+<p class="level0">(bu Items that are in italics or underlined (option values) represent the actual values that must be supplied. 
+<p class="level0">(bu The f3-storepass</span>, f3-keypass</span>, f3-sigfile</span>, f3-sigalg</span>, f3-digestalg</span>, f3-signedjar</span>, and TSA-related options are only relevant when signing a JAR file; they are not relevant when verifying a signed JAR file. The f3-keystore</span> option is relevant for signing and verifying a JAR file. In addition, aliases are specified when signing and verifying a JAR file. 
+<p class="level0">-keystore <span Class="emphasis">url</span> <br>Specifies the URL that tells the keystore location. This defaults to the file f3.keystore</span> in the user's home directory, as determined by the f3user.home</span> system property. 
+<p class="level0">A keystore is required when signing. You must explicitly specify a keystore when the default keystore does not exist or if you want to use one other than the default. 
+<p class="level0">A keystore is not required when verifying, but if one is specified or the default exists and the f3-verbose</span> option was also specified, then additional information is output regarding whether or not any of the certificates used to verify the JAR file are contained in that keystore. 
+<p class="level0">The f3-keystore</span> argument can be a file name and path specification rather than a URL, in which case it is treated the same as a file: URL, for example, the following are equivalent: 
+<p class="level0"><pre class="level0">
+f3-keystore <span class="emphasis">filePathAndName</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-keystore file:<span class="emphasis">filePathAndName</span></span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If the Sun PKCS &#35;11 provider was configured in the f3java.security</span> security properties file (located in the JRE's f3$JAVA_HOME/lib/security directory</span>), then the f3keytool</span> and f3jarsigner</span> tools can operate on the PKCS &#35;11 token by specifying these options: 
+<p class="level0"><pre class="level0">
+f3-keystore NONE</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3-storetype PKCS11</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For example, the following command lists the contents of the configured PKCS&#35;11 token: 
+<p class="level0"><pre class="level0">
+f3keytool -keystore NONE -storetype PKCS11 -list</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">-storetype <span Class="emphasis">storetype</span> <br>Specifies the type of keystore to be instantiated. The default keystore type is the one that is specified as the value of the f3keystore.type</span> property in the security properties file, which is returned by the static f3getDefaultType</span> method in f3java.security.KeyStore</span>. 
+<p class="level0">The PIN for a PCKS &#35;11 token can also be specified with the f3-storepass</span> option. If none is specified, then the f3keytool</span> and f3jarsigner</span> commands prompt for the token PIN. If the token has a protected authentication path (such as a dedicated PIN-pad or a biometric reader), then the f3-protected</span> option must be specified and no password options can be specified. 
+<p class="level0">-storepass[:env | :file] <span Class="emphasis">argument</span> <br>Specifies the password that is required to access the keystore. This is only needed when signing (not verifying) a JAR file. In that case, if a f3-storepass</span> option is not provided at the command line, then the user is prompted for the password. 
+<p class="level0">If the modifier f3env</span> or f3file</span> is not specified, then the password has the value <span Class="emphasis">argument</span>. Otherwise, the password is retrieved as follows: 
+<p class="level1">
+<p class="level1">(bu f3env</span>: Retrieve the password from the environment variable named f3argument</span>. 
+<p class="level1">(bu f3file</span>: Retrieve the password from the file named f3argument</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">Note:</span> The password should not be specified on the command line or in a script unless it is for testing purposes, or you are on a secure system. 
+<p class="level0">-keypass [:env | :file] <span Class="emphasis">argument</span> <br>Specifies the password used to protect the private key of the keystore entry addressed by the alias specified on the command line. The password is required when using f3jarsigner</span> to sign a JAR file. If no password is provided on the command line, and the required password is different from the store password, then the user is prompted for it. 
+<p class="level0">If the modifier f3env</span> or f3file</span> is not specified, then the password has the value f3argument</span>. Otherwise, the password is retrieved as follows: 
+<p class="level1">
+<p class="level1">(bu f3env</span>: Retrieve the password from the environment variable named f3argument</span>. 
+<p class="level1">(bu f3file</span>: Retrieve the password from the file named f3argument</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">Note:</span> The password should not be specified on the command line or in a script unless it is for testing purposes, or you are on a secure system. 
+<p class="level0">-sigfile <span Class="emphasis">file</span> <br>Specifies the base file name to be used for the generated f3.SF</span> and f3.DSA</span> files. For example, if file is f3DUKESIGN</span>, then the generated f3.SF</span> and f3.DSA</span> files are named f3DUKESIGN.SF</span> and f3DUKESIGN.DSA</span>, and placed in the f3META-INF</span> directory of the signed JAR file. 
+<p class="level0">The characters in the file must come from the set f3a-zA-Z0-9_-</span>. Only letters, numbers, underscore, and hyphen characters are allowed. All lowercase characters are converted to uppercase for the f3.SF</span> and f3.DSA</span> file names. 
+<p class="level0">If no f3-sigfile</span> option appears on the command line, then the base file name for the f3.SF</span> and f3.DSA</span> files is the first 8 characters of the alias name specified on the command line, all converted to upper case. If the alias name has fewer than 8 characters, then the full alias name is used. If the alias name contains any characters that are not valid in a signature file name, then each such character is converted to an underscore (_) character to form the file name. 
+<p class="level0">-sigalg <span Class="emphasis">algorithm</span> <br>Specifies the name of the signature algorithm to use to sign the JAR file. 
+<p class="level0">For a list of standard signature algorithm names, see "Appendix A: Standard Names" in the Java Cryptography Architecture (JCA) Reference Guide at <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html&#35;AppA">http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html&#35;AppA</a> 
+<p class="level0">This algorithm must be compatible with the private key used to sign the JAR file. If this option is not specified, then f3SHA1withDSA</span>, f3SHA256withRSA</span>, or f3SHA256withECDSA</span> are used depending on the type of private key. There must either be a statically installed provider supplying an implementation of the specified algorithm or the user must specify one with the f3-providerClass</span> option; otherwise, the command will not succeed. 
+<p class="level0">-digestalg <span Class="emphasis">algorithm</span> <br>Specifies the name of the message digest algorithm to use when digesting the entries of a JAR file. 
+<p class="level0">For a list of standard message digest algorithm names, see "Appendix A: Standard Names" in the Java Cryptography Architecture (JCA) Reference Guide at <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html&#35;AppA">http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html&#35;AppA</a> 
+<p class="level0">If this option is not specified, then f3SHA256</span> is used. There must either be a statically installed provider supplying an implementation of the specified algorithm or the user must specify one with the f3-providerClass</span> option; otherwise, the command will not succeed. 
+<p class="level0">-certs <br>If the f3-certs</span> option appears on the command line with the f3-verify</span> and f3-verbose</span> options, then the output includes certificate information for each signer of the JAR file. This information includes the name of the type of certificate (stored in the f3.DSA</span> file) that certifies the signer's public key, and if the certificate is an X.509 certificate (an instance of the f3java.security.cert.X509Certificate</span>), then the distinguished name of the signer. 
+<p class="level0">The keystore is also examined. If no keystore value is specified on the command line, then the default keystore file (if any) is checked. If the public key certificate for a signer matches an entry in the keystore, then the alias name for the keystore entry for that signer is displayed in parentheses. If the signer comes from a JDK 1.1 identity database instead of from a keystore, then the alias name displays in brackets instead of parentheses. 
+<p class="level0">-certchain <span Class="emphasis">file</span> <br>Specifies the certificate chain to be used when the certificate chain associated with the private key of the keystore entry that is addressed by the alias specified on the command line is not complete. This can happen when the keystore is located on a hardware token where there is not enough capacity to hold a complete certificate chain. The file can be a sequence of concatenated X.509 certificates, or a single PKCS&#35;7 formatted data block, either in binary encoding format or in printable encoding format (also known as Base64 encoding) as defined by the Internet <a href="http://www.ietf.org/rfc/rfc1421.txt">RFC 1421</a> standard. See the section Internet <a href="http://www.ietf.org/rfc/rfc1421.txt">RFC 1421</a> Certificate Encoding Standard in f3keytool</span> and <a href="http://tools.ietf.org/html/rfc1421.">http://tools.ietf.org/html/rfc1421.</a> 
+<p class="level0">-verbose <br>When the f3-verbose</span> option appears on the command line, it indicates verbose mode, which causes f3jarsigner</span> to output extra information about the progress of the JAR signing or verification. 
+<p class="level0">-internalsf <br>In the past, the f3.DSA</span> (signature block) file generated when a JAR file was signed included a complete encoded copy of the f3.SF</span> file (signature file) also generated. This behavior has been changed. To reduce the overall size of the output JAR file, the f3.DSA</span> file by default does not contain a copy of the f3.SF</span> file anymore. If f3-internalsf</span> appears on the command line, then the old behavior is utilized. This option is useful for testing. In practice, do not use the f3-internalsf</span> option because it incurs higher overhead. 
+<p class="level0">-sectionsonly <br>If the f3-sectionsonly</span> option appears on the command line, then the f3.SF</span> file (signature file) generated when a JAR file is signed does not include a header that contains a hash of the whole manifest file. It contains only the information and hashes related to each individual source file included in the JAR file. See Signature File. 
+<p class="level0">By default, this header is added, as an optimization. When the header is present, whenever the JAR file is verified, the verification can first check to see whether the hash in the header matches the hash of the whole manifest file. When there is a match, verification proceeds to the next step. When there is no match, it is necessary to do a less optimized verification that the hash in each source file information section in the f3.SF</span> file equals the hash of its corresponding section in the manifest file. See JAR File Verification. 
+<p class="level0">The f3-sectionsonly</span> option is primarily used for testing. It should not be used other than for testing because using it incurs higher overhead. 
+<p class="level0">-protected <br>Values can be either f3true</span> or f3false</span>. Specify f3true</span> when a password must be specified through a protected authentication path such as a dedicated PIN reader. 
+<p class="level0">-providerClass <span Class="emphasis">provider-class-name</span> <br>Used to specify the name of cryptographic service provider's master class file when the service provider is not listed in the f3java.security</span> security properties file. 
+<p class="level0">Used with the f3-providerArg ConfigFilePath</span> option, the f3keytool</span> and f3jarsigner</span> tools install the provider dynamically and use <span Class="emphasis">ConfigFilePath</span> for the path to the token configuration file. The following example shows a command to list a f3PKCS &#35;11</span> keystore when the Oracle PKCS &#35;11 provider was not configured in the security properties file. 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore NONE -storetype PKCS11 e</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          -providerClass sun.security.pkcs11.SunPKCS11 e</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          -providerArg /mydir1/mydir2/token.config e</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          -list</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">-providerName <span Class="emphasis">providerName</span> <br>If more than one provider was configured in the f3java.security</span> security properties file, then you can use the f3-providerName</span> option to target a specific provider instance. The argument to this option is the name of the provider. 
+<p class="level0">For the Oracle PKCS &#35;11 provider, <span Class="emphasis">providerName</span> is of the form f3SunPKCS11-</span><span Class="emphasis">TokenName</span>, where <span Class="emphasis">TokenName</span> is the name suffix that the provider instance has been configured with, as detailed in the configuration attributes table. For example, the following command lists the contents of the f3PKCS &#35;11</span> keystore provider instance with name suffix f3SmartCard</span>: 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore NONE -storetype PKCS11 e</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3        -providerName SunPKCS11-SmartCard e</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3        -list</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">-J<span Class="emphasis">javaoption</span> <br>Passes through the specified <span Class="emphasis">javaoption</span> string directly to the Java interpreter. The f3jarsigner</span> command is a wrapper around the interpreter. This option should not contain any spaces. It is useful for adjusting the execution environment or memory usage. For a list of possible interpreter options, type f3java -h</span> or f3java -X</span> at the command line. 
+<p class="level0">-tsa <span Class="emphasis">url</span> <br>If f3-tsa <a href="http://example.tsa.url">http://example.tsa.url</a></span> appears on the command line when signing a JAR file then a time stamp is generated for the signature. The URL, f3http://example.tsa.url</span>, identifies the location of the Time Stamping Authority (TSA) and overrides any URL found with the f3-tsacert</span> option. The f3-tsa</span> option does not require the TSA public key certificate to be present in the keystore. 
+<p class="level0">To generate the time stamp, f3jarsigner</span> communicates with the TSA with the Time-Stamp Protocol (TSP) defined in <a href="http://www.ietf.org/rfc/rfc3161.txt">RFC 3161</a>. When successful, the time stamp token returned by the TSA is stored with the signature in the signature block file. 
+<p class="level0">-tsacert <span Class="emphasis">alias</span> <br>When f3-tsacert alias</span> appears on the command line when signing a JAR file, a time stamp is generated for the signature. The alias identifies the TSA public key certificate in the keystore that is in effect. The entry's certificate is examined for a Subject Information Access extension that contains a URL identifying the location of the TSA. 
+<p class="level0">The TSA public key certificate must be present in the keystore when using the f3-tsacert</span> option. 
+<p class="level0">-tsapolicyid <span Class="emphasis">policyid</span> <br>Specifies the object identifier (OID) that identifies the policy ID to be sent to the TSA server. If this option is not specified, no policy ID is sent and the TSA server will choose a default policy ID. 
+<p class="level0">Object identifiers are defined by X.696, which is an ITU Telecommunication Standardization Sector (ITU-T) standard. These identifiers are typically period-separated sets of non-negative digits like f31.2.3.4</span>, for example. 
+<p class="level0">-altsigner <span Class="emphasis">class</span> <br>This option specifies an alternative signing mechanism. The fully qualified class name identifies a class file that extends the f3com.sun.jarsigner.ContentSigner</span> abstract class. The path to this class file is defined by the f3-altsignerpath</span> option. If the f3-altsigner</span> option is used, then the f3jarsigner</span> command uses the signing mechanism provided by the specified class. Otherwise, the f3jarsigner</span> command uses its default signing mechanism. 
+<p class="level0">For example, to use the signing mechanism provided by a class named f3com.sun.sun.jarsigner.AuthSigner</span>, use the jarsigner option f3-altsigner com.sun.jarsigner.AuthSigner</span>. 
+<p class="level0">-altsignerpath <span Class="emphasis">classpathlist</span> <br>Specifies the path to the class file and any JAR file it depends on. The class file name is specified with the f3-altsigner</span> option. If the class file is in a JAR file, then this option specifies the path to that JAR file. 
+<p class="level0">An absolute path or a path relative to the current directory can be specified. If <span Class="emphasis">classpathlist</span> contains multiple paths or JAR files, then they should be separated with a colon (:) on Oracle Solaris and a semicolon (;) on Windows. This option is not necessary when the class is already in the search path. 
+<p class="level0">The following example shows how to specify the path to a JAR file that contains the class file. The JAR file name is included. 
+<p class="level0"><pre class="level0">
+f3-altsignerpath /home/user/lib/authsigner.jar</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The following example shows how to specify the path to the JAR file that contains the class file. The JAR file name is omitted. 
+<p class="level0"><pre class="level0">
+f3-altsignerpath /home/user/classes/com/sun/tools/jarsigner/</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">-strict <br>During the signing or verifying process, the command may issue warning messages. If you specify this option, the exit code of the tool reflects the severe warning messages that this command found. See Errors and Warnings. 
+<p class="level0">-verbose <span Class="emphasis">suboptions</span> <br>For the verifying process, the f3-verbose</span> option takes suboptions to determine how much information is shown. If the f3-certs</span> option is also specified, then the default mode (or suboption f3all</span>) displays each entry as it is being processed, and after that, the certificate information for each signer of the JAR file. If the f3-certs</span> and the f3-verbose:grouped</span> suboptions are specified, then entries with the same signer info are grouped and displayed together with their certificate information. If f3-certs</span> and the f3-verbose:summary</span> suboptions are specified, then entries with the same signer information are grouped and displayed together with their certificate information. Details about each entry are summarized and displayed as <span Class="emphasis">one entry (and more)</span>. See Examples. <a name="ERRORS"></a><h2 class="nroffsh">ERRORS\ AND\ WARNINGS    </h2>
+<p class="level0">During the signing or verifying process, the f3jarsigner</span> command may issue various errors or warnings. 
+<p class="level0">If there is a failure, the f3jarsigner</span> command exits with code 1. If there is no failure, but there are one or more severe warnings, the f3jarsigner</span> command exits with code 0 when the f3-strict</span> option is <span Class="emphasis">not</span> specified, or exits with the OR-value of the warning codes when the f3-strict</span> is specified. If there is only informational warnings or no warning at all, the command always exits with code 0. 
+<p class="level0">For example, if a certificate used to sign an entry is expired and has a KeyUsage extension that does not allow it to sign a file, the f3jarsigner</span> command exits with code 12 (=4+8) when the f3-strict</span> option is specified. 
+<p class="level0"><span Class="emphasis">Note:</span> Exit codes are reused because only the values from 0 to 255 are legal on Unix-based operating systems. 
+<p class="level0">The following sections describes the names, codes, and descriptions of the errors and warnings that the f3jarsigner</span> command can issue. <a name="FAILURE"></a><h2 class="nroffsh">FAILURE    </h2>
+<p class="level0">Reasons why the f3jarsigner</span> command fails include (but are not limited to) a command line parsing error, the inability to find a keypair to sign the JAR file, or the verification of a signed JAR fails. 
+<p class="level0">failure Code 1. The signing or verifying fails. <a name="SEVERE"></a><h2 class="nroffsh">SEVERE\ WARNINGS    </h2>
+<p class="level0"><span Class="emphasis">Note:</span> Severe warnings are reported as errors if you specify the f3-strict</span> option. 
+<p class="level0">Reasons why the f3jarsigner</span> command issues a severe warning include the certificate used to sign the JAR file has an error or the signed JAR file has other problems. 
+<p class="level0">hasExpiredCert Code 4. This jar contains entries whose signer certificate has expired. 
+<p class="level0">notYetValidCert Code 4. This jar contains entries whose signer certificate is not yet valid. 
+<p class="level0">chainNotValidated Code 4. This jar contains entries whose certificate chain cannot be correctly validated. 
+<p class="level0">badKeyUsage Code 8. This jar contains entries whose signer certificate's KeyUsage extension doesn't allow code signing. 
+<p class="level0">badExtendedKeyUsage Code 8. This jar contains entries whose signer certificate's ExtendedKeyUsage extension doesn't allow code signing. 
+<p class="level0">badNetscapeCertType Code 8. This jar contains entries whose signer certificate's NetscapeCertType extension doesn't allow code signing. 
+<p class="level0">hasUnsignedEntry Code 16. This jar contains unsigned entries which have not been integrity-checked. 
+<p class="level0">notSignedByAlias Code 32. This jar contains signed entries which are not signed by the specified alias(es). 
+<p class="level0">aliasNotInStore Code 32. This jar contains signed entries that are not signed by alias in this keystore. <a name="INFORMATIONAL"></a><h2 class="nroffsh">INFORMATIONAL\ WARNINGS    </h2>
+<p class="level0">Informational warnings include those that are not errors but regarded as bad practice. They do not have a code. 
+<p class="level0">hasExpiringCert This jar contains entries whose signer certificate will expire within six months. 
+<p class="level0">noTimestamp This jar contains signatures that does not include a timestamp. Without a timestamp, users may not be able to validate this JAR file after the signer certificate's expiration date (f3YYYY-MM-DD</span>) or after any future revocation date. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES    </h2>
+<p class="level0"><a name="SIGN"></a><h2 class="nroffsh">SIGN\ A\ JAR\ FILE    </h2>
+<p class="level0">Use the following command to sign bundle.jar with the private key of a user whose keystore alias is f3jane</span> in a keystore named f3mystore</span> in the f3working</span> directory and name the signed JAR file f3sbundle.jar</span>: 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore /working/mystore</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    -storepass &lt;keystore password&gt;</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    -keypass &lt;private key password&gt;</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    -signedjar sbundle.jar bundle.jar jane</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">There is no f3-sigfile</span> specified in the previous command so the generated f3.SF</span> and f3.DSA</span> files to be placed in the signed JAR file have default names based on the alias name. They are named f3JANE.SF</span> and f3JANE.DSA</span>. 
+<p class="level0">If you want to be prompted for the store password and the private key password, then you could shorten the previous command to the following: 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore /working/mystore</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    -signedjar sbundle.jar bundle.jar jane</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">If the keystore is the default keystore (.keystore in your home directory), then you do not need to specify a keystore, as follows: 
+<p class="level0"><pre class="level0">
+f3jarsigner -signedjar sbundle.jar bundle.jar jane</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">If you want the signed JAR file to overwrite the input JAR file (bundle.jar), then you do not need to specify a f3-signedjar</span> option, as follows: 
+<p class="level0"><pre class="level0">
+f3jarsigner bundle.jar jane</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="VERIFY"></a><h2 class="nroffsh">VERIFY\ A\ SIGNED\ JAR\ FILE    </h2>
+<p class="level0">To verify a signed JAR file to ensure that the signature is valid and the JAR file was not been tampered with, use a command such as the following: 
+<p class="level0"><pre class="level0">
+f3jarsigner -verify sbundle.jar</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">When the verification is successful, f3jar verified</span> is displayed. Otherwise, an error message is displayed. You can get more information when you use the f3-verbose</span> option. A sample use of f3jarsigner</span> with thef3-verbose</span> option follows: 
+<p class="level0"><pre class="level0">
+f3jarsigner -verify -verbose sbundle.jar</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    smk   2752 Fri Sep 26 16:12:30 PDT 1997 AclEx.class</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    smk    849 Fri Sep 26 16:12:46 PDT 1997 test.class</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      s = signature was verified</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      m = entry is listed in manifest</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      k = at least one certificate was found in keystore</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    jar verified.</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="VERIFICATION"></a><h2 class="nroffsh">VERIFICATION\ WITH\ CERTIFICATE\ INFORMATION    </h2>
+<p class="level0">If you specify the f3-certs</span> option with the f3-verify</span> and f3-verbose</span> options, then the output includes certificate information for each signer of the JAR file. The information includes the certificate type, the signer distinguished name information (when it is an X.509 certificate), and in parentheses, the keystore alias for the signer when the public key certificate in the JAR file matches the one in a keystore entry, for example: 
+<p class="level0"><pre class="level0">
+f3jarsigner -keystore /working/mystore -verify -verbose -certs myTest.jar</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           208 Fri Sep 26 16:23:30 PDT 1997 META-INF/JAVATEST.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          1087 Fri Sep 26 16:23:30 PDT 1997 META-INF/JAVATEST.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    smk   2752 Fri Sep 26 16:12:30 PDT 1997 Tst.class</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      X.509, CN=Test Group, OU=Java Software, O=Oracle, L=CUP, S=CA, C=US (javatest)</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      X.509, CN=Jane Smith, OU=Java Software, O=Oracle, L=cup, S=ca, C=us (jane)</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      s = signature was verified</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      m = entry is listed in manifest</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      k = at least one certificate was found in keystore</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    jar verified.</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0">If the certificate for a signer is not an X.509 certificate, then there is no distinguished name information. In that case, just the certificate type and the alias are shown. For example, if the certificate is a PGP certificate, and the alias is f3bob</span>, then you would get: f3PGP, (bob)</span>. <a name="VERIFICATION"></a><h2 class="nroffsh">VERIFICATION\ THAT\ INCLUDES\ IDENTITY\ DATABASE\ SIGNERS    </h2>
+<p class="level0">If a JAR file was signed with the JDK 1.1 f3javakey</span> tool, and the signer is an alias in an identity database, then the verification output includes an f3i</span>. If the JAR file was signed by both an alias in an identity database and an alias in a keystore, then both f3k</span> and f3i</span> appear. 
+<p class="level0">When the f3-certs</span> option is used, any identity database aliases are shown in brackets rather than the parentheses used for keystore aliases, for example: 
+<p class="level0"><pre class="level0">
+f3    jarsigner -keystore /working/mystore -verify -verbose -certs writeFile.jar</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           198 Fri Sep 26 16:14:06 PDT 1997 META-INF/MANIFEST.MF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           199 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          1013 Fri Sep 26 16:22:10 PDT 1997 META-INF/JANE.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3           199 Fri Sep 27 12:22:30 PDT 1997 META-INF/DUKE.SF</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3          1013 Fri Sep 27 12:22:30 PDT 1997 META-INF/DUKE.DSA</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3   smki   2752 Fri Sep 26 16:12:30 PDT 1997 writeFile.html</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      X.509, CN=Jane Smith, OU=Java Software, O=Oracle, L=cup, S=ca, C=us (jane)</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      X.509, CN=Duke, OU=Java Software, O=Oracle, L=cup, S=ca, C=us [duke]</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      s = signature was verified</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      m = entry is listed in manifest</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      k = at least one certificate was found in keystore</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3      i = at least one certificate was found in identity scope</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3    jar verified.</span>
+</pre>
+
+<p class="level0"><pre class="level0">
+f3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="emphasis">Note:</span> The alias f3duke</span> is in brackets to denote that it is an identity database alias, and not a keystore alias. <a name="JDK"></a><h2 class="nroffsh">JDK\ 1\&.1\ COMPATIBILITY    </h2>
+<p class="level0">The f3keytool</span> and f3jarsigner</span> tools replace the f3javakey</span> tool in JDK 1.1. These new tools provide more features than f3javakey</span>, including the ability to protect the keystore and private keys with passwords, and the ability to verify signatures in addition to generating them. 
+<p class="level0">The new keystore architecture replaces the identity database that f3javakey</span> created and managed. There is no backward compatibility between the keystore format and the database format used by f3javakey</span> in JDK 1.1. However, be aware of the following: 
+<p class="level0">(bu It is possible to import the information from an identity database into a keystore through the f3keytool -identitydb</span> command. 
+<p class="level0">(bu The f3jarsigner</span> command can sign JAR files that were signed with the f3javakey</span> command. 
+<p class="level0">(bu The f3jarsigner</span> command can verify JAR files signed with f3javakey</span>. The f3jarsigner</span> command recognizes and can work with signer aliases that are from a JDK 1.1 identity database rather than a JDK keystore. <a name="UNSIGNED"></a><h2 class="nroffsh">UNSIGNED\ JARS    </h2>
+<p class="level0">Unsigned JARs have the default privileges that are granted to all code. <a name="SIGNED"></a><h2 class="nroffsh">SIGNED\ JARS    </h2>
+<p class="level0">Signed JARs have the privilege configurations based on their JDK 1.1.<span Class="emphasis">n</span> identity and policy file status as described. Only trusted identities can be imported into the JDK keystore. 
+<p class="level0">Default Privileges Granted to All Code 
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">No</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">No</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">No</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">No</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">Yes</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">No</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Identity in 1.1 database: Yes/Untrusted <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">No</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">No</span> <br>See 3 in Notes Regarding Privileges of Signed JARs. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Identity in 1.1 database: Yes/Untrusted <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">No</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">Yes</span> <br>See 1 and 3 in Notes Regarding Privileges of Signed JARs. 
+<p class="level0">Default Privileges and Policy File Privileges Granted 
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">No</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">Yes</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">Yes</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">Yes/Trusted</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">Yes</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">Yes</span> <br>See 2 in Notes Regarding Privileges of Signed JARs. 
+<p class="level0">All Privileges Granted 
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">Yes/Trusted</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">No</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">No</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">Yes/Trusted</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">Yes</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">No</span> <br>See 1 in Notes Regarding Privileges of Signed JARs. 
+<p class="level0">Identity in 1.1 database: <span Class="emphasis">Yes/Trusted</span> <br>Trusted identity imported into Java keystore from 1.1. database: <span Class="emphasis">No</span> <br>Policy file grants privileges to identity/alias: <span Class="emphasis">Yes</span> <br>See 1 in Notes Regarding Privileges of Signed JARs. 
+<p class="level0">Notes Regarding Privileges of Signed JARs 
+<p class="level0">1. If an identity or alias is mentioned in the policy file, then it must be imported into the keystore for the policy file to have any effect on privileges granted. 
+<p class="level0">2. The policy file/keystore combination has precedence over a trusted identity in the identity database. 
+<p class="level0">3. Untrusted identities are ignored in the Java platform. <a name="SEE"></a><h2 class="nroffsh">SEE\ ALSO    </h2>
+<p class="level0">
+<p class="level0">(bu f3jar</span> 
+<p class="level0">(bu f3keytool</span> 
+<p class="level0">(bu Trail: Security Features in Java SE at <a href="http://docs.oracle.com/javase/tutorial/security/index.html">http://docs.oracle.com/javase/tutorial/security/index.html</a> 
+<p class="level-1"><br>'pl 8.5i 'bp 

@@ -1,0 +1,229 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">perlbug - how to submit bug reports on Perl <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">perlbug</span> 
+<p class="level0"><span Class="bold">perlbug</span> [&nbsp;<span Class="bold">-v</span>&nbsp;] [&nbsp;<span Class="bold">-a</span>&nbsp;<span Class="emphasis">address</span>&nbsp;] [&nbsp;<span Class="bold">-s</span>&nbsp;<span Class="emphasis">subject</span>&nbsp;] [&nbsp;<span Class="bold">-b</span>&nbsp;<span Class="emphasis">body</span>&nbsp;|&nbsp;<span Class="bold">-f</span>&nbsp;<span Class="emphasis">inputfile</span>&nbsp;] [&nbsp;<span Class="bold">-F</span>&nbsp;<span Class="emphasis">outputfile</span>&nbsp;] [&nbsp;<span Class="bold">-r</span>&nbsp;<span Class="emphasis">returnaddress</span>&nbsp;] [&nbsp;<span Class="bold">-e</span>&nbsp;<span Class="emphasis">editor</span>&nbsp;] [&nbsp;<span Class="bold">-c</span>&nbsp;<span Class="emphasis">adminaddress</span>&nbsp;|&nbsp;<span Class="bold">-C</span>&nbsp;] [&nbsp;<span Class="bold">-S</span>&nbsp;] [&nbsp;<span Class="bold">-t</span>&nbsp;]  [&nbsp;<span Class="bold">-d</span>&nbsp;]  [&nbsp;<span Class="bold">-A</span>&nbsp;]  [&nbsp;<span Class="bold">-h</span>&nbsp;] [&nbsp;<span Class="bold">-T</span>&nbsp;] 
+<p class="level0"><span Class="bold">perlbug</span> [&nbsp;<span Class="bold">-v</span>&nbsp;] [&nbsp;<span Class="bold">-r</span>&nbsp;<span Class="emphasis">returnaddress</span>&nbsp;] &nbsp;[&nbsp;<span Class="bold">-A</span>&nbsp;] [&nbsp;<span Class="bold">-ok</span>&nbsp;|&nbsp;<span Class="bold">-okay</span>&nbsp;|&nbsp;<span Class="bold">-nok</span>&nbsp;|&nbsp;<span Class="bold">-nokay</span>&nbsp;] 
+<p class="level0"><span Class="bold">perlthanks</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program is designed to help you generate and send bug reports (and thank-you notes) about perl5 and the modules which ship with it. 
+<p class="level0">In most cases, you can just run it interactively from a command line without any special arguments and follow the prompts. 
+<p class="level0">If you have found a bug with a non-standard port (one that was not part of the <span Class="emphasis">standard distribution</span>), a binary distribution, or a non-core module (such as Tk, s-1DBI,s0 etc), then please see the documentation that came with that distribution to determine the correct place to report bugs. 
+<p class="level0">If you are unable to send your report using <span Class="bold">perlbug</span> (most likely because your system doesn't have a way to send mail that perlbug recognizes), you may be able to use this tool to compose your report and save it to a file which you can then send to <span Class="bold">perlbug@perl.org</span> using your regular mail client. 
+<p class="level0">In extreme cases, <span Class="bold">perlbug</span> may not work well enough on your system to guide you through composing a bug report. In those cases, you may be able to use <span Class="bold">perlbug -d</span> to get system configuration information to include in a manually composed bug report to <span Class="bold">perlbug@perl.org</span>. 
+<p class="level0">When reporting a bug, please run through this checklist: 
+<p class="level0"><a name="What"></a><span class="nroffip">What version of Perl you are running? 4</span> 
+<p class="level1">
+<p class="level1">Type f(CW*(C`perl -v*(C'</span> at the command line to find out. 
+<p class="level0"><a name="Are"></a><span class="nroffip">Are you running the latest released version of perl? 4</span> 
+<p class="level1">
+<p class="level1">Look at <a href="http://www.perl.org/">http://www.perl.org/</a> to find out.  If you are not using the latest released version, please try to replicate your bug on the latest stable release. 
+<p class="level1">Note that reports about bugs in old versions of Perl, especially those which indicate you haven't also tested the current stable release of Perl, are likely to receive less attention from the volunteers who build and maintain Perl than reports about bugs in the current release. 
+<p class="level1">This tool isn't appropriate for reporting bugs in any version prior to Perl 5.0. 
+<p class="level0"><a name="Are"></a><span class="nroffip">Are you sure what you have is a bug? 4</span> 
+<p class="level1">
+<p class="level1">A significant number of the bug reports we get turn out to be documented features in Perl.  Make sure the issue you've run into isn't intentional by glancing through the documentation that comes with the Perl distribution. 
+<p class="level1">Given the sheer volume of Perl documentation, this isn't a trivial undertaking, but if you can point to documentation that suggests the behaviour you're seeing is <span Class="emphasis">wrong</span>, your issue is likely to receive more attention. You may want to start with <span Class="bold">perldoc</span> perltrap for pointers to common traps that new (and experienced) Perl programmers run into. 
+<p class="level1">If you're unsure of the meaning of an error message you've run across, <span Class="bold">perldoc</span> perldiag for an explanation.  If the message isn't in perldiag, it probably isn't generated by Perl.  You may have luck consulting your operating system documentation instead. 
+<p class="level1">If you are on a non-UNIX platform <span Class="bold">perldoc</span> perlport, as some features may be unimplemented or work differently. 
+<p class="level1">You may be able to figure out what's going wrong using the Perl debugger.  For information about how to use the debugger <span Class="bold">perldoc</span> perldebug. 
+<p class="level0"><a name="Do"></a><span class="nroffip">Do you have a proper test case? 4</span> 
+<p class="level1">
+<p class="level1">The easier it is to reproduce your bug, the more likely it will be fixed *(-- if nobody can duplicate your problem, it probably won't be  addressed. 
+<p class="level1">A good test case has most of these attributes: short, simple code; few dependencies on external commands, modules, or libraries; no platform-dependent code (unless it's a platform-specific bug); clear, simple documentation. 
+<p class="level1">A good test case is almost always a good candidate to be included in Perl's test suite.  If you have the time, consider writing your test case so that it can be easily included into the standard test suite. 
+<p class="level0"><a name="Have"></a><span class="nroffip">Have you included all relevant information? 4</span> 
+<p class="level1">
+<p class="level1">Be sure to include the <span Class="bold">exact</span> error messages, if any. *(L"Perl gave an error*(R" is not an exact error message. 
+<p class="level1">If you get a core dump (or equivalent), you may use a debugger (<span Class="bold">dbx</span>, <span Class="bold">gdb</span>, etc) to produce a stack trace to include in the bug report. 
+<p class="level1">s-1NOTE:s0 unless your Perl has been compiled with debug info (often <span Class="bold">-g</span>), the stack trace is likely to be somewhat hard to use because it will most probably contain only the function names and not their arguments.  If possible, recompile your Perl with debug info and reproduce the crash and the stack trace. 
+<p class="level0"><a name="Can"></a><span class="nroffip">Can you describe the bug in plain English? 4</span> 
+<p class="level1">
+<p class="level1">The easier it is to understand a reproducible bug, the more likely it will be fixed.  Any insight you can provide into the problem will help a great deal.  In other words, try to analyze the problem (to the extent you can) and report your discoveries. 
+<p class="level0"><a name="Can"></a><span class="nroffip">Can you fix the bug yourself? 4</span> 
+<p class="level1">
+<p class="level1">If so, that's great news; bug reports with patches are likely to receive significantly more attention and interest than those without patches.  Please attach your patch to the report using the f(CW*(C`-p*(C'</span> option. When sending a patch, create it using f(CW*(C`git format-patch*(C'</span> if possible, though a unified diff created with f(CW*(C`diff -pu*(C'</span> will do nearly as well. 
+<p class="level1">Your patch may be returned with requests for changes, or requests for more detailed explanations about your fix. 
+<p class="level1">Here are a few hints for creating high-quality patches: 
+<p class="level1">Make sure the patch is not reversed (the first argument to diff is typically the original file, the second argument your changed file). Make sure you test your patch by applying it with f(CW*(C`git am*(C'</span> or the f(CW*(C`patch*(C'</span> program before you send it on its way.  Try to follow the same style as the code you are trying to patch.  Make sure your patch really does work (f(CW*(C`make test*(C'</span>, if the thing you're patching is covered by Perl's test suite). 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">perlbug</span> will, amongst other things, ensure your report includes crucial information about your version of perl.  If f(CW*(C`perlbug*(C'</span> is unable to mail your report after you have typed it in, you may have to compose the message yourself, add the output produced by f(CW*(C`perlbug -d*(C'</span> and email it to <span Class="bold">perlbug@perl.org</span>.  If, for some reason, you cannot run f(CW*(C`perlbug*(C'</span> at all on your system, be sure to include the entire output produced by running f(CW*(C`perl -V*(C'</span> (note the uppercase V). 
+<p class="level1">Whether you use f(CW*(C`perlbug*(C'</span> or send the email manually, please make your Subject line informative.  *(L"a bug*(R" is not informative.  Neither is *(L"perl crashes*(R" nor is *(L"s-1HELPs0!!!*(R".  These don't help.  A compact description of what's wrong is fine. 
+<p class="level1">
+<p class="level1">
+<p class="level1">Yes, you can do this by either using the f(CW*(C`-T*(C'</span> option, or by invoking the program as f(CW*(C`perlthanks*(C'</span>. Thank-you notes are good. It makes people smile. 
+<p class="level1">Having done your bit, please be prepared to wait, to be told the bug is in your code, or possibly to get no reply at all.  The volunteers who maintain Perl are busy folks, so if your problem is an obvious bug in your own code, is difficult to understand or is a duplicate of an existing report, you may not receive a personal reply. 
+<p class="level1">If it is important to you that your bug be fixed, do monitor the perl5-porters@perl.org mailing list (mailing lists are moderated, your message may take a while to show up) and the commit logs to development versions of Perl, and encourage the maintainers with kind words or offers of frosty beverages.  (Please do be kind to the maintainers. Harassing or flaming them is likely to have the opposite effect of the one you want.) 
+<p class="level1">Feel free to update the ticket about your bug on <a href="http://rt.perl.org">http://rt.perl.org</a> if a new version of Perl is released and your bug is still present. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR 8</span> 
+<p class="level1">
+<p class="level1">Address to send the report to.  Defaults to <span Class="bold">perlbug@perl.org</span>. 
+<p class="level0"><a name="fB-AfR"></a><span class="nroffip">\fB-A\fR 8</span> 
+<p class="level1">
+<p class="level1">Don't send a bug received acknowledgement to the reply address. Generally it is only a sensible to use this option if you are a perl maintainer actively watching perl porters for your message to arrive. 
+<p class="level0"><a name="fB-bfR"></a><span class="nroffip">\fB-b\fR 8</span> 
+<p class="level1">
+<p class="level1">Body of the report.  If not included on the command line, or in a file with <span Class="bold">-f</span>, you will get a chance to edit the message. 
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR 8</span> 
+<p class="level1">
+<p class="level1">Don't send copy to administrator. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR 8</span> 
+<p class="level1">
+<p class="level1">Address to send copy of report to.  Defaults to the address of the local perl administrator (recorded when perl was built). 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR 8</span> 
+<p class="level1">
+<p class="level1">Data mode (the default if you redirect or pipe output).  This prints out your configuration data, without mailing anything.  You can use this with <span Class="bold">-v</span> to get more complete data. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR 8</span> 
+<p class="level1">
+<p class="level1">Editor to use. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR 8</span> 
+<p class="level1">
+<p class="level1">File containing the body of the report.  Use this to quickly send a prepared message. 
+<p class="level0"><a name="fB-FfR"></a><span class="nroffip">\fB-F\fR 8</span> 
+<p class="level1">
+<p class="level1">File to output the results to instead of sending as an email. Useful particularly when running perlbug on a machine with no direct internet connection. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR 8</span> 
+<p class="level1">
+<p class="level1">Prints a brief summary of the options. 
+<p class="level0"><a name="fB-okfR"></a><span class="nroffip">\fB-ok\fR 8</span> 
+<p class="level1">
+<p class="level1">Report successful build on this system to perl porters. Forces <span Class="bold">-S</span> and <span Class="bold">-C</span>. Forces and supplies values for <span Class="bold">-s</span> and <span Class="bold">-b</span>. Only prompts for a return address if it cannot guess it (for use with <span Class="bold">make</span>). Honors return address specified with <span Class="bold">-r</span>.  You can use this with <span Class="bold">-v</span> to get more complete data.   Only makes a report if this system is less than 60 days old. 
+<p class="level0"><a name="fB-okayfR"></a><span class="nroffip">\fB-okay\fR 8</span> 
+<p class="level1">
+<p class="level1">As <span Class="bold">-ok</span> except it will report on older systems. 
+<p class="level0"><a name="fB-nokfR"></a><span class="nroffip">\fB-nok\fR 8</span> 
+<p class="level1">
+<p class="level1">Report unsuccessful build on this system.  Forces <span Class="bold">-C</span>.  Forces and supplies a value for <span Class="bold">-s</span>, then requires you to edit the report and say what went wrong.  Alternatively, a prepared report may be supplied using <span Class="bold">-f</span>.  Only prompts for a return address if it cannot guess it (for use with <span Class="bold">make</span>). Honors return address specified with <span Class="bold">-r</span>.  You can use this with <span Class="bold">-v</span> to get more complete data.  Only makes a report if this system is less than 60 days old. 
+<p class="level0"><a name="fB-nokayfR"></a><span class="nroffip">\fB-nokay\fR 8</span> 
+<p class="level1">
+<p class="level1">As <span Class="bold">-nok</span> except it will report on older systems. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR 8</span> 
+<p class="level1">
+<p class="level1">The names of one or more patch files or other text attachments to be included with the report.  Multiple files must be separated with commas. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR 8</span> 
+<p class="level1">
+<p class="level1">Your return address.  The program will ask you to confirm its default if you don't use this option. 
+<p class="level0"><a name="fB-SfR"></a><span class="nroffip">\fB-S\fR 8</span> 
+<p class="level1">
+<p class="level1">Send without asking for confirmation. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR 8</span> 
+<p class="level1">
+<p class="level1">Subject to include with the message.  You will be prompted if you don't supply one on the command line. 
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR 8</span> 
+<p class="level1">
+<p class="level1">Test mode.  The target address defaults to <span Class="bold">perlbug-test@perl.org</span>. 
+<p class="level0"><a name="fB-TfR"></a><span class="nroffip">\fB-T\fR 8</span> 
+<p class="level1">
+<p class="level1">Send a thank-you note instead of a bug report. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR 8</span> 
+<p class="level1">
+<p class="level1">Include verbose configuration data in the report. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Kenneth Albanowski (&lt;kjahds@kjahds.com&gt;), subsequently <span Class="emphasis">doc</span>tored by Gurusamy Sarathy (&lt;gsar@activestate.com&gt;), Tom Christiansen (&lt;tchrist@perl.com&gt;), Nathan Torkington (&lt;gnat@frii.com&gt;), Charles F. Randall (&lt;cfr@pobox.com&gt;), Mike Guy (&lt;mjtg@cam.ac.uk&gt;), Dominic Dunlop (&lt;domo@computer.org&gt;), Hugo van der Sanden (&lt;hv@crypt.org&gt;), Jarkko Hietaniemi (&lt;jhi@iki.fi&gt;), Chris Nandor (&lt;pudge@pobox.com&gt;), Jon Orwant (&lt;orwant@media.mit.edu&gt;, Richard Foley (&lt;richard.foley@rfi.net&gt;), Jesse Vincent (&lt;jesse@bestpractical.com&gt;), and Craig A. Berry (&lt;craigberry@mac.com&gt;). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">perl</span>|(1), <span Class="emphasis">perldebug</span>|(1), <span Class="emphasis">perldiag</span>|(1), <span Class="emphasis">perlport</span>|(1), <span Class="emphasis">perltrap</span>|(1), <span Class="emphasis">diff</span>|(1), <span Class="emphasis">patch</span>|(1), <span Class="emphasis">dbx</span>|(1), <span Class="emphasis">gdb</span>|(1) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">None known (guess what must have been used to report them?) 

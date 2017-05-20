@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">w - Show who is logged on and what they are doing. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">w</span> [<span Class="emphasis">options</span>] <span Class="emphasis">user</span> [...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">w</span> displays information about the users currently on the machine, and their processes.  The header shows, in this order, the current time, how long the system has been running, how many users are currently logged on, and the system load averages for the past 1, 5, and 15 minutes. 
+<p class="level0">The following entries are displayed for each user: login name, the tty name, the remote host, login time, idle time, JCPU, PCPU, and the command line of their current process. 
+<p class="level0">The JCPU time is the time used by all processes attached to the tty.  It does not include past background jobs, but does include currently running background jobs. 
+<p class="level0">The PCPU time is the time used by the current process, named in the "what" field. <a name="COMMAND-LINE"></a><h2 class="nroffsh">COMMAND-LINE OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--no-header</span> Don't print the header. 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--no-current</span> Ignores the username while figuring out the current process and cpu times.  To demonstrate this, do a "su" and do a "w" and a "w -u". 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--short</span> Use the short format.  Don't print the login time, JCPU or PCPU times. 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--from</span> Toggle printing the <span Class="bold">from</span> (remote hostname) field.  The default as released is for the <span Class="bold">from</span> field to not be printed, although your system administrator or distribution maintainer may have compiled a version in which the <span Class="bold">from</span> field is shown by default. 
+<p class="level0"><span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ip-addr</span> Display IP address instead of hostname for <span Class="bold">from</span> field. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information. 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--old-style</span> Old style output.  Prints blank space for idle times less than one minute. 
+<p class="level0"><span Class="bold">user </span> Show information about the specified user only. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">PROCPS_USERLEN Override the default width of the username column.  Defaults to 8. 
+<p class="level0">PROCPS_FROMLEN Override the default width of the from column.  Defaults to 16. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/var/run/utmp</span> information about who is currently logged on 
+<p class="level0"><span Class="emphasis">/proc</span> process information <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">free (1)</span>, <span Class="manpage">ps (1)</span>, <span Class="manpage">top (1)</span>, <span Class="manpage">uptime (1)</span>, <span Class="manpage">utmp (5)</span>, <span Class="manpage">who (1)</span><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0"><span Class="bold">w</span> was re-written almost entirely by Charles Blake, based on the version by 
+<p class="level0">Larry Greenfield 
+<p class="level0">and 
+<p class="level0">Michael K. Johnson 
+<p class="level0"><a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Please send bug reports to 
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,443 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">psed - a stream editor <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;  psed [-an] script [file ...] &nbsp;  psed [-an] [-e script] [-f script-file] [file ...] 
+<p class="level0">&nbsp;  s2p  [-an] [-e script] [-f script-file] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">A stream editor reads the input stream consisting of the specified files (or standard input, if none are given), processes is line by line by applying a script consisting of edit commands, and writes resulting lines to standard output. The filename 'f(CW*(C`-*(C'</span>' may be used to read standard input. 
+<p class="level0">The edit script is composed from arguments of <span Class="bold">-e</span> options and script-files, in the given order. A single script argument may be specified as the first parameter. 
+<p class="level0">If this program is invoked with the name <span Class="emphasis">s2p</span>, it will act as a sed-to-Perl translator. See *(L"s-1SED SCRIPT TRANSLATION*(R"s0. 
+<p class="level0"><span Class="bold">sed</span> returns an exit code of 0 on success or &gt;0 if an error occurred. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR 4</span> 
+<p class="level1">
+<p class="level1">A file specified as argument to the <span Class="bold">w</span> edit command is by default opened before input processing starts. Using <span Class="bold">-a</span>, opening of such files is delayed until the first line is actually written to the file. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR \fIscript\fR 4</span> 
+<p class="level1">
+<p class="level1">The editing commands defined by <span Class="emphasis">script</span> are appended to the script. Multiple commands must be separated by newlines. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR \fIscript-file\fR 4</span> 
+<p class="level1">
+<p class="level1">Editing commands from the specified <span Class="emphasis">script-file</span> are read and appended to the script. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, a line is written to standard output after the editing script has been applied to it. The <span Class="bold">-n</span> option suppresses automatic printing. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">sed</span> command syntax is defined as 
+<p class="level0">&nbsp;  [<span Class="emphasis">address</span>[<a class="bold" href="#">,</a><span Class="emphasis">address</span>]][<a class="bold" href="#">!</a>]<span Class="emphasis">function</span>[<span Class="emphasis">argument</span>] 
+<p class="level0">with whitespace being permitted before or after addresses, and between the function character and the argument. The <span Class="emphasis">address</span>es and the address inverter (f(CW*(C`!*(C'</span>) are used to restrict the application of a command to the selected line(s) of input. 
+<p class="level0">Each command must be on a line of its own, except where noted in the synopses below. 
+<p class="level0">The edit cycle performed on each input line consist of reading the line (without its trailing newline character) into the <span Class="emphasis">pattern space</span>, applying the applicable commands of the edit script, writing the final contents of the pattern space and a newline to the standard output. A <span Class="emphasis">hold space</span> is provided for saving the contents of the pattern space for later use. <a name="Addresses"></a><h2 class="nroffsh">Addresses</h2>
+<p class="level0">
+<p class="level0">A sed address is either a line number or a pattern, which may be combined arbitrarily to construct ranges. Lines are numbered across all input files. 
+<p class="level0">Any address may be followed by an exclamation mark ('f(CW*(C`!*(C'</span>'), selecting all lines not matching that address. 
+<p class="level0"><a name="fInumberfR"></a><span class="nroffip">\fInumber\fR 4</span> 
+<p class="level1">
+<p class="level1">The line with the given number is selected. 
+<p class="level0"><a name="fBfR"></a><span class="nroffip">\fB$\fR 4</span> 
+<p class="level1">
+<p class="level1">A dollar sign (f(CW*(C`$*(C'</span>) is the line number of the last line of the input stream. 
+<p class="level0"><a name="fBfRfIregular"></a><span class="nroffip">\fB/\fR\fIregular expression\fR\fB/\fR 4</span> 
+<p class="level1">
+<p class="level1">A pattern address is a basic regular expression (see  *(L"s-1BASIC REGULAR EXPRESSIONS*(R"s0), between the delimiting character f(CW*(C`/*(C'</span>. Any other character except f(CW*(C`e*(C'</span> or newline may be used to delimit a pattern address when the initial delimiter is prefixed with a backslash ('f(CW*(C`e*(C'</span>'). 
+<p class="level1">If no address is given, the command selects every line. 
+<p class="level1">If one address is given, it selects the line (or lines) matching the address. 
+<p class="level1">Two addresses select a range that begins whenever the first address matches, and ends (including that line) when the second address matches. If the first (second) address is a matching pattern, the second  address is not applied to the very same line to determine the end of the range. Likewise, if the second address is a matching pattern, the first address is not applied to the very same line to determine the begin of another range. If both addresses are line numbers, and the second line number is less than the first line number, then only the first line is selected. <a name="Functions"></a><h2 class="nroffsh">Functions</h2>
+<p class="level0">
+<p class="level0">The maximum permitted number of addresses is indicated with each function synopsis below. 
+<p class="level0">The argument <span Class="emphasis">text</span> consists of one or more lines following the command. Embedded newlines in <span Class="emphasis">text</span> must be preceded with a backslash.  Other backslashes in <span Class="emphasis">text</span> are deleted and the following character is taken literally. 
+<p class="level0"><a name="1addrfBaefR"></a><span class="nroffip">[1addr]\fBa\e\fR \fItext\fR 4</span> 
+<p class="level1">
+<p class="level1">Write <span Class="emphasis">text</span> (which must start on the line following the command) to standard output immediately before reading the next line of input, either by executing the <span Class="bold">N</span> function or by beginning a new cycle. 
+<p class="level0"><a name="2addrfBbfR"></a><span class="nroffip">[2addr]\fBb\fR [\fIlabel\fR] 4</span> 
+<p class="level1">
+<p class="level1">Branch to the <a class="bold" href="#">:</a> function with the specified <span Class="emphasis">label</span>. If no label is given, branch to the end of the script. 
+<p class="level0"><a name="2addrfBcefR"></a><span class="nroffip">[2addr]\fBc\e\fR \fItext\fR 4</span> 
+<p class="level1">
+<p class="level1">The line, or range of lines, selected by the address is deleted.  The <span Class="emphasis">text</span> (which must start on the line following the command) is written to standard output. With an address range, this occurs at the end of the range. 
+<p class="level0"><a name="2addrfBdfR"></a><span class="nroffip">[2addr]\fBd\fR 4</span> 
+<p class="level1">
+<p class="level1">Deletes the pattern space and starts the next cycle. 
+<p class="level0"><a name="2addrfBDfR"></a><span class="nroffip">[2addr]\fBD\fR 4</span> 
+<p class="level1">
+<p class="level1">Deletes the pattern space through the first embedded newline or to the end. If the pattern space becomes empty, a new cycle is started, otherwise execution of the script is restarted. 
+<p class="level0"><a name="2addrfBgfR"></a><span class="nroffip">[2addr]\fBg\fR 4</span> 
+<p class="level1">
+<p class="level1">Replace the contents of the pattern space with the hold space. 
+<p class="level0"><a name="2addrfBGfR"></a><span class="nroffip">[2addr]\fBG\fR 4</span> 
+<p class="level1">
+<p class="level1">Append a newline and the contents of the hold space to the pattern space. 
+<p class="level0"><a name="2addrfBhfR"></a><span class="nroffip">[2addr]\fBh\fR 4</span> 
+<p class="level1">
+<p class="level1">Replace the contents of the hold space with the pattern space. 
+<p class="level0"><a name="2addrfBHfR"></a><span class="nroffip">[2addr]\fBH\fR 4</span> 
+<p class="level1">
+<p class="level1">Append a newline and the contents of the pattern space to the hold space. 
+<p class="level0"><a name="1addrfBiefR"></a><span class="nroffip">[1addr]\fBi\e\fR \fItext\fR 4</span> 
+<p class="level1">
+<p class="level1">Write the <span Class="emphasis">text</span> (which must start on the line following the command) to standard output. 
+<p class="level0"><a name="2addrfBlfR"></a><span class="nroffip">[2addr]\fBl\fR 4</span> 
+<p class="level1">
+<p class="level1">Print the contents of the pattern space: non-printable characters are shown in C-style escaped form; long lines are split and have a trailing ^'f(CW*(C`e*(C'</span>' at the point of the split; the true end of a line is marked with a 'f(CW*(C`$*(C'</span>'. Escapes are: 'ea', 'et', 'en', 'ef', 'er', 'ee' for s-1BEL, HT, LF, FF, CR, ESC,s0 respectively, and 'e' followed by a three-digit octal number for all other non-printable characters. 
+<p class="level0"><a name="2addrfBnfR"></a><span class="nroffip">[2addr]\fBn\fR 4</span> 
+<p class="level1">
+<p class="level1">If automatic printing is enabled, write the pattern space to the standard output. Replace the pattern space with the next line of input. If there is no more input, processing is terminated. 
+<p class="level0"><a name="2addrfBNfR"></a><span class="nroffip">[2addr]\fBN\fR 4</span> 
+<p class="level1">
+<p class="level1">Append a newline and the next line of input to the pattern space. If there is no more input, processing is terminated. 
+<p class="level0"><a name="2addrfBpfR"></a><span class="nroffip">[2addr]\fBp\fR 4</span> 
+<p class="level1">
+<p class="level1">Print the pattern space to the standard output. (Use the <span Class="bold">-n</span> option to suppress automatic printing at the end of a cycle if you want to avoid double printing of lines.) 
+<p class="level0"><a name="2addrfBPfR"></a><span class="nroffip">[2addr]\fBP\fR 4</span> 
+<p class="level1">
+<p class="level1">Prints the pattern space through the first embedded newline or to the end. 
+<p class="level0"><a name="1addrfBqfR"></a><span class="nroffip">[1addr]\fBq\fR 4</span> 
+<p class="level1">
+<p class="level1">Branch to the end of the script and quit without starting a new cycle. 
+<p class="level0"><a name="1addrfBrfR"></a><span class="nroffip">[1addr]\fBr\fR \fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Copy the contents of the <span Class="emphasis">file</span> to standard output immediately before the next attempt to read a line of input. Any error encountered while reading <span Class="emphasis">file</span> is silently ignored. 
+<p class="level0"><a name="2addrfBsfRfIregular"></a><span class="nroffip">[2addr]\fBs/\fR\fIregular expression\fR\fB/\fR\fIreplacement\fR\fB/\fR\fIflags\fR 4</span> 
+<p class="level1">
+<p class="level1">Substitute the <span Class="emphasis">replacement</span> string for the first substring in the pattern space that matches the <span Class="emphasis">regular expression</span>. Any character other than backslash or newline can be used instead of a  slash to delimit the regular expression and the replacement. To use the delimiter as a literal character within the regular expression and the replacement, precede the character by a backslash ('f(CW*(C`e*(C'</span>'). 
+<p class="level1">Literal newlines may be embedded in the replacement string by preceding a newline with a backslash. 
+<p class="level1">Within the replacement, an ampersand ('f(CW*(C`&*(C'</span>') is replaced by the string matching the regular expression. The strings 'f(CW*(C`e1*(C'</span>' through 'f(CW*(C`e9*(C'</span>' are replaced by the corresponding subpattern (see *(L"s-1BASIC REGULAR EXPRESSIONS*(R"s0). To get a literal 'f(CW*(C`&*(C'</span>' or 'f(CW*(C`e*(C'</span>' in the replacement text, precede it by a backslash. 
+<p class="level1">The following <span Class="emphasis">flags</span> modify the behaviour of the <a class="bold" href="#s">s</a> command: 
+<p class="level2">
+<p class="level1"><a name="fBgfR"></a><span class="nroffip">\fBg\fR 8</span> 
+<p class="level2">
+<p class="level2">The replacement is performed for all matching, non-overlapping substrings of the pattern space. 
+<p class="level1"><a name="fB1fRfB9fR"></a><span class="nroffip">\fB1\fR..\fB9\fR 8</span> 
+<p class="level2">
+<p class="level2">Replace only the n-th matching substring of the pattern space. 
+<p class="level1"><a name="fBpfR"></a><span class="nroffip">\fBp\fR 8</span> 
+<p class="level2">
+<p class="level2">If the substitution was made, print the new value of the pattern space. 
+<p class="level1"><a name="fBwfR"></a><span class="nroffip">\fBw\fR \fIfile\fR 8</span> 
+<p class="level2">
+<p class="level2">If the substitution was made, write the new value of the pattern space to the specified file. 
+<p class="level1">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="2addrfBtfR"></a><span class="nroffip">[2addr]\fBt\fR [\fIlabel\fR] 4</span> 
+<p class="level1">
+<p class="level1">Branch to the <a class="bold" href="#">:</a> function with the specified <span Class="emphasis">label</span> if any <a class="bold" href="#s">s</a> substitutions have been made since the most recent reading of an input line or execution of a <span Class="bold">t</span> function. If no label is given, branch to the end of the script. 
+<p class="level0"><a name="2addrfBwfR"></a><span class="nroffip">[2addr]\fBw\fR \fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">The contents of the pattern space are written to the <span Class="emphasis">file</span>. 
+<p class="level0"><a name="2addrfBxfR"></a><span class="nroffip">[2addr]\fBx\fR 4</span> 
+<p class="level1">
+<p class="level1">Swap the contents of the pattern space and the hold space. 
+<p class="level0"><a name="2addrfByfRfBfRfIstring1fRfBfRfIstring2fRfBfR"></a><span class="nroffip">[2addr]\fBy\fR\fB/\fR\fIstring1\fR\fB/\fR\fIstring2\fR\fB/\fR 4</span> 
+<p class="level1">
+<p class="level1">In the pattern space, replace all characters occurring in <span Class="emphasis">string1</span> by the character at the corresponding position in <span Class="emphasis">string2</span>. It is possible to use any character (other than a backslash or newline) instead of a slash to delimit the strings.  Within <span Class="emphasis">string1</span> and <span Class="emphasis">string2</span>, a backslash followed by any character other than a newline is that literal character, and a backslash followed by an 'n' is replaced by a newline character. 
+<p class="level0"><a name="1addrfBfR"></a><span class="nroffip">[1addr]\fB=\fR 4</span> 
+<p class="level1">
+<p class="level1">Prints the current line number on the standard output. 
+<p class="level0"><a name="0addrfBfR"></a><span class="nroffip">[0addr]\fB:\fR [\fIlabel\fR] 4</span> 
+<p class="level1">
+<p class="level1">The command specifies the position of the <span Class="emphasis">label</span>. It has no other effect. 
+<p class="level0"><a name="2addrfBfR"></a><span class="nroffip">[2addr]\fB{\fR [\fIcommand\fR] 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="0addrfBfR"></a><span class="nroffip">[0addr]\fB}\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">These two commands begin and end a command list. The first command may be given on the same line as the opening <a class="bold" href="#">{</a> command. The commands within the list are jointly selected by the address(es) given on the <a class="bold" href="#">{</a> command (but may still have individual addresses). 
+<p class="level0"><a name="0addrfBfR"></a><span class="nroffip">[0addr]\fB#\fR [\fIcomment\fR] 4</span> 
+<p class="level1">
+<p class="level1">The entire line is ignored (treated as a comment). If, however, the first two characters in the script are 'f(CW*(C`&#35;n*(C'</span>', automatic printing of output is suppressed, as if the <span Class="bold">-n</span> option were given on the command line. <a name="BASIC"></a><h2 class="nroffsh">BASIC REGULAR EXPRESSIONS</h2>
+<p class="level0">
+<p class="level0">A <span Class="emphasis">Basic Regular Expression</span> (s-1BREs0), as defined in s-1POSIX 1003.2,s0 consists of <span Class="emphasis">atoms</span>, for matching parts of a string, and <span Class="emphasis">bounds</span>, specifying repetitions of a preceding atom. <a name="Atoms"></a><h2 class="nroffsh">Atoms</h2>
+<p class="level0">
+<p class="level0">The possible atoms of a s-1BREs0 are: <a class="bold" href="#">.</a>, matching any single character; <a class="bold" href="#">^</a> and <a class="bold" href="#">$</a>, matching the null string at the beginning or end of a string, respectively; a <span Class="emphasis">bracket expressions</span>, enclosed in <a class="bold" href="#">[</a> and <a class="bold" href="#">]</a> (see below); and any single character with no other significance (matching that character). A <a class="bold" href="#e">e</a> before one of: <a class="bold" href="#">.</a>, <a class="bold" href="#">^</a>, <a class="bold" href="#">$</a>, <a class="bold" href="#">[</a>, <a class="bold" href="#">*</a>, <a class="bold" href="#e">e</a>, matching the character after the backslash. A sequence of atoms enclosed in <a class="bold" href="#e">e(</a> and <a class="bold" href="#e">e)</a> becomes an atom and establishes the target for a <span Class="emphasis">backreference</span>, consisting of the substring that actually matches the enclosed atoms. Finally, <a class="bold" href="#e">e</a> followed by one of the digits <span Class="bold">0</span> through <span Class="bold">9</span> is a backreference. 
+<p class="level0">A <a class="bold" href="#">^</a> that is not first, or a <a class="bold" href="#">$</a> that is not last does not have a special significance and need not be preceded by a backslash to become literal. The same is true for a <a class="bold" href="#">]</a>, that does not terminate a bracket expression. 
+<p class="level0">An unescaped backslash cannot be last in a s-1BRE.s0 <a name="Bounds"></a><h2 class="nroffsh">Bounds</h2>
+<p class="level0">
+<p class="level0">The s-1BREs0 bounds are: <a class="bold" href="#">*</a>, specifying 0 or more matches of the preceding atom; <a class="bold" href="#e">e{</a><span Class="emphasis">count</span><a class="bold" href="#e">e}</a>, specifying that many repetitions; <a class="bold" href="#e">e{</a><span Class="emphasis">minimum</span><a class="bold" href="#e">,e}</a>, giving a lower limit; and <a class="bold" href="#e">e{</a><span Class="emphasis">minimum</span><a class="bold" href="#">,</a><a class="emphasis" href="#maximum">maximum</a><a class="bold" href="#e">e}</a> finally defines a lower and upper bound. 
+<p class="level0">A bound appearing as the first item in a s-1BREs0 is taken literally. <a name="Bracket"></a><h2 class="nroffsh">Bracket Expressions</h2>
+<p class="level0">
+<p class="level0">A <span Class="emphasis">bracket expression</span> is a list of characters, character ranges and character classes enclosed in <a class="bold" href="#">[</a> and <a class="bold" href="#">]</a> and matches any single character from the represented set of characters. 
+<p class="level0">A character range is written as two characters separated by <span Class="bold">-</span> and represents all characters (according to the character collating sequence) that are not less than the first and not greater than the second. (Ranges are very collating-sequence-dependent, and portable programs should avoid relying on them.) 
+<p class="level0">A character class is one of the class names 
+<p class="level0">
+<p class="level0">&nbsp;  alnum     digit     punct &nbsp;  alpha     graph     space &nbsp;  blank     lower     upper &nbsp;  cntrl     print     xdigit 
+<p class="level0">
+<p class="level0">enclosed in <a class="bold" href="#">[:</a> and <a class="bold" href="#">:]</a> and represents the set of characters as defined in <span Class="emphasis">ctype</span>|(3). 
+<p class="level0">If the first character after <a class="bold" href="#">[</a> is <a class="bold" href="#">^</a>, the sense of matching is inverted. 
+<p class="level0">To include a literal 'f(CW*(C`^*(C'</span>', place it anywhere else but first. To include a literal 'f(CW*(C`]*(C'</span>' place it first or immediately after an initial <a class="bold" href="#">^</a>. To include a literal 'f(CW*(C`-*(C'</span>' make it the first (or second after <a class="bold" href="#">^</a>) or last character, or the second endpoint of a range. 
+<p class="level0">The special bracket expression constructs f(CW*(C`[[:&lt;:]]*(C'</span> and f(CW*(C`[[:&gt;:]]*(C'</span>  match the null string at the beginning and end of a word respectively. (Note that neither is identical to Perl's 'eb' atom.) <a name="Additional"></a><h2 class="nroffsh">Additional Atoms</h2>
+<p class="level0">
+<p class="level0">Since some sed implementations provide additional regular expression atoms (not defined in s-1POSIX 1003.2s0), <span Class="bold">psed</span> is capable of translating the following backslash escapes: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBeyfR"></a><span class="nroffip">\fB\ey\fR Match the empty string at a word boundary. 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBeBfR"></a><span class="nroffip">\fB\eB\fR Match the empty string between any two either word or non-word characters. 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">To enable this feature, the environment variable s-1PSEDEXTBREs0 must be set to a string containing the requested characters, e.g.: f(CW*(C`PSEDEXTBRE=*(Aq&lt;&gt;wW*(Aq*(C'</span>. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">The environment variable f(CW*(C`PSEDEXTBRE*(C'</span> may be set to extend BREs. See *(L"Additional Atoms*(R". <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ambiguous"></a><span class="nroffip">ambiguous translation for character '%s' in 'y' command 4</span> 
+<p class="level1">
+<p class="level1">The indicated character appears twice, with different translations. 
+<p class="level0"><a name=""></a><span class="nroffip">'[' cannot be last in pattern 4</span> 
+<p class="level1">
+<p class="level1">A '[' in a s-1BREs0 indicates the beginning of a <span Class="emphasis">bracket expression</span>. 
+<p class="level0"><a name="e"></a><span class="nroffip">'\e' cannot be last in pattern 4</span> 
+<p class="level1">
+<p class="level1">A 'e' in a s-1BREs0 is used to make the subsequent character literal. 
+<p class="level0"><a name="e"></a><span class="nroffip">'\e' cannot be last in substitution 4</span> 
+<p class="level1">
+<p class="level1">A 'e' in a substitution string is used to make the subsequent character literal. 
+<p class="level0"><a name="conflicting"></a><span class="nroffip">conflicting flags '%s' 4</span> 
+<p class="level1">
+<p class="level1">In an <a class="bold" href="#s">s</a> command, either the 'g' flag and an n-th occurrence flag, or multiple n-th occurrence flags are specified. Note that only the digits ^'1' through '9' are permitted. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="excess"></a><span class="nroffip">excess address(es) 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">The command has more than the permitted number of addresses. 
+<p class="level0"><a name="extra"></a><span class="nroffip">extra characters after command (%s) 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="illegal"></a><span class="nroffip">illegal option '%s' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="improper"></a><span class="nroffip">improper delimiter in s command 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">The s-1BREs0 and substitution may not be delimited with 'e' or newline. 
+<p class="level0"><a name="invalid"></a><span class="nroffip">invalid address after ',' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="invalid"></a><span class="nroffip">invalid backreference (%s) 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">The specified backreference number exceeds the number of backreferences in the s-1BRE.s0 
+<p class="level0"><a name="invalid"></a><span class="nroffip">invalid repeat clause '\e{%s\e}' 4</span> 
+<p class="level1">
+<p class="level1">The repeat clause does not contain a valid integer value, or pair of values. 
+<p class="level0"><a name="malformed"></a><span class="nroffip">malformed regex, 1st address 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="malformed"></a><span class="nroffip">malformed regex, 2nd address 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="malformed"></a><span class="nroffip">malformed regular expression 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="malformed"></a><span class="nroffip">malformed substitution expression 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="malformed"></a><span class="nroffip">malformed 'y' command argument 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">The first or second string of a <a class="bold" href="#y">y</a> command  is syntactically incorrect. 
+<p class="level0"><a name="maximum"></a><span class="nroffip">maximum less than minimum in '\e{%s\e}' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="no"></a><span class="nroffip">no script command given 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">There must be at least one <span Class="bold">-e</span> or one <span Class="bold">-f</span> option specifying a script or script file. 
+<p class="level0"><a name="e"></a><span class="nroffip">'\e' not valid as delimiter in 'y' command 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="option"></a><span class="nroffip">option -e requires an argument 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="option"></a><span class="nroffip">option -f requires an argument 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="s"></a><span class="nroffip">'s' command requires argument 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="start"></a><span class="nroffip">start of unterminated '{' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="string"></a><span class="nroffip">string lengths in 'y' command differ 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">The translation table strings in a <a class="bold" href="#y">y</a> command must have equal lengths. 
+<p class="level0"><a name="undefined"></a><span class="nroffip">undefined label '%s' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="unexpected"></a><span class="nroffip">unexpected '}' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">A <a class="bold" href="#">}</a> command without a preceding <a class="bold" href="#">{</a> command was encountered. 
+<p class="level0"><a name="unexpected"></a><span class="nroffip">unexpected end of script 4</span> 
+<p class="level1">
+<p class="level1">The end of the script was reached although a text line after a <span Class="bold">a</span>, <span Class="bold">c</span> or <span Class="bold">i</span> command indicated another line. 
+<p class="level0"><a name="unknown"></a><span class="nroffip">unknown command '%s' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="unterminated"></a><span class="nroffip">unterminated '[' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">A s-1BREs0 contains an unterminated bracket expression. 
+<p class="level0"><a name="unterminated"></a><span class="nroffip">unterminated '\e(' 4</span> 
+<p class="level1">
+<p class="level1">A s-1BREs0 contains an unterminated backreference. 
+<p class="level0"><a name="e"></a><span class="nroffip">'\e{' without closing '\e}' 4</span> 
+<p class="level1">
+<p class="level1">A s-1BREs0 contains an unterminated bounds specification. 
+<p class="level0"><a name="e"></a><span class="nroffip">'\e)' without preceding '\e(' 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="y"></a><span class="nroffip">'y' command requires argument 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">The basic material for the preceding section was generated by running the sed script 
+<p class="level0">
+<p class="level0">&nbsp;  &#35;no autoprint &nbsp;  s/^.*Warn( *"e([^"]*e)".*$/e1/ &nbsp;  t process &nbsp;  b &nbsp;  :process &nbsp;  s/$!/%s/g &nbsp;  s/$[_[:alnum:]]e{1,e}/%s/g &nbsp;  s/eeee/ee/g &nbsp;  s/^/=item / &nbsp;  p 
+<p class="level0">
+<p class="level0">on the program's own text, and piping the output into f(CW*(C`sort -u*(C'</span>. <a name="SED"></a><h2 class="nroffsh">SED SCRIPT TRANSLATION</h2>
+<p class="level0">
+<p class="level0">If this program is invoked with the name <span Class="emphasis">s2p</span> it will act as a sed-to-Perl translator. After option processing (all other arguments are ignored), a Perl program is printed on standard output, which will process the input stream (as read from all arguments) in the way defined by the sed script and the option setting used for the translation. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">perl</span>|(1), <span Class="emphasis">re_format</span>|(7) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">l</span> command will show escape characters (s-1ESCs0) as 'f(CW*(C`ee*(C'</span>', but a vertical tab (s-1VTs0) in octal. 
+<p class="level0">Trailing spaces are truncated from labels in <a class="bold" href="#">:</a>, <span Class="bold">t</span> and <span Class="bold">b</span> commands. 
+<p class="level0">The meaning of an empty regular expression ('f(CW*(C`//*(C'</span>'), as defined by <span Class="bold">sed</span>, is *(L"the last pattern used, at run time*(R". This deviates from the Perl interpretation, which will re-use the *(L"last last successfully executed regular expression*(R". Since keeping track of pattern usage would create terribly cluttered code, and differences would only appear in obscure context (where other <span Class="bold">sed</span> implementations appear to deviate, too), the Perl semantics was adopted. Note that common usage of this feature, such as in f(CW*(C`/abc/s//xyz/*(C'</span>, will work as expected. 
+<p class="level0">Collating elements (of bracket expressions in BREs) are not implemented. <a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">
+<p class="level0">This <span Class="bold">sed</span> implementation conforms to the s-1IEEEs0 Std1003.2-1992 (*(L"s-1POSIX.2*(R"s0) definition of <span Class="bold">sed</span>, and is compatible with the <span Class="emphasis">OpenBSD</span> implementation, except where otherwise noted (see *(L"s-1BUGS*(R"s0). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">This Perl implementation of <span Class="emphasis">sed</span> was written by Wolfgang Laun, <span Class="emphasis">Wolfgang.Laun@alcatel.at</span>. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT and LICENSE</h2>
+<p class="level0">
+<p class="level0">This program is free and open software. You may use, modify, distribute, and sell this program (and any modified variants) in any way you wish, provided you do not restrict others from doing the same. 

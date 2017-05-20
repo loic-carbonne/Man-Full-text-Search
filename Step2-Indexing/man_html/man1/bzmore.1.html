@@ -1,0 +1,62 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">bzmore, bzless - file perusal filter for crt viewing of bzip2 compressed text <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">bzmore</span> [ name ...  ] <br><span Class="bold">bzless</span> [ name ...  ] <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">In the following description, <span Class="emphasis">bzless</span> and <span Class="emphasis">less</span> can be used interchangeably with <span Class="emphasis">bzmore</span> and <span Class="emphasis">more.</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Bzmore</span> is a filter which allows examination of compressed or plain text files one screenful at a time on a soft-copy terminal. <span Class="emphasis">bzmore</span> works on files compressed with <span Class="emphasis">bzip2</span> and also on uncompressed files. If a file does not exist, <span Class="emphasis">bzmore</span> looks for a file of the same name with the addition of a .bz2 suffix. 
+<p class="level0"><span Class="emphasis">Bzmore</span> normally pauses after each screenful, printing --More-- at the bottom of the screen. If the user then types a carriage return, one more line is displayed. If the user hits a space, another screenful is displayed.  Other possibilities are enumerated later. 
+<p class="level0"><span Class="emphasis">Bzmore</span> looks in the file <span Class="emphasis">/etc/termcap</span> to determine terminal characteristics, and to determine the default window size. On a terminal capable of displaying 24 lines, the default window size is 22 lines. Other sequences which may be typed when <span Class="emphasis">bzmore</span> pauses, and their effects, are as follows (<span Class="emphasis">i</span> is an optional integer argument, defaulting to 1) : 
+<p class="level0">
+<p class="level0"><a name="fIifPspace"></a><span class="nroffip">\fIi\|\fP&lt;space&gt;</span> 
+<p class="level1">display <span Class="emphasis">i</span> more lines, (or another screenful if no argument is given) 
+<p class="level1">
+<p class="level0"><a name="D"></a><span class="nroffip">^D</span> 
+<p class="level1">display 11 more lines (a ``scroll''). If <span Class="emphasis">i</span> is given, then the scroll size is set to <span Class="emphasis">i|</span>. 
+<p class="level1">
+<p class="level0"><a name="d"></a><span class="nroffip">d</span> 
+<p class="level1">same as ^D (control-D) 
+<p class="level1">
+<p class="level0"><a name="fIifPz"></a><span class="nroffip">\fIi\|\fPz</span> 
+<p class="level1">same as typing a space except that <span Class="emphasis">i|</span>, if present, becomes the new window size.  Note that the window size reverts back to the default at the end of the current file. 
+<p class="level1">
+<p class="level0"><a name="fIifPs"></a><span class="nroffip">\fIi\|\fPs</span> 
+<p class="level1">skip <span Class="emphasis">i|</span> lines and print a screenful of lines 
+<p class="level1">
+<p class="level0"><a name="fIifPf"></a><span class="nroffip">\fIi\|\fPf</span> 
+<p class="level1">skip <span Class="emphasis">i</span> screenfuls and print a screenful of lines 
+<p class="level1">
+<p class="level0"><a name="q"></a><span class="nroffip">q or Q</span> 
+<p class="level1">quit reading the current file; go on to the next (if any) 
+<p class="level1">
+<p class="level0"><a name="e"></a><span class="nroffip">e or q</span> 
+<p class="level1">When the prompt --More--(Next file:  <span Class="emphasis">file )</span> is printed, this command causes bzmore to exit. 
+<p class="level1">
+<p class="level0"><a name="s"></a><span class="nroffip">s</span> 
+<p class="level1">When the prompt --More--(Next file:  <span Class="emphasis">file )</span> is printed, this command causes bzmore to skip the next file and continue. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">=</span> 
+<p class="level1">Display the current line number. 
+<p class="level1">
+<p class="level0"><a name="fIifPexpr"></a><span class="nroffip">\fIi\|\fP/expr</span> 
+<p class="level1">search for the <span Class="emphasis">i|</span>-th occurrence of the regular expression <span Class="emphasis">expr.</span> If the pattern is not found, <span Class="emphasis">bzmore</span> goes on to the next file (if any). Otherwise, a screenful is displayed, starting two lines before the place where the expression was found. The user's erase and kill characters may be used to edit the regular expression. Erasing back past the first column cancels the search command. 
+<p class="level1">
+<p class="level0"><a name="fIifPn"></a><span class="nroffip">\fIi\|\fPn</span> 
+<p class="level1">search for the <span Class="emphasis">i|</span>-th occurrence of the last regular expression entered. 
+<p class="level1">
+<p class="level0"><a name="command"></a><span class="nroffip">!command</span> 
+<p class="level1">invoke a shell with <a class="emphasis" href="#command">command|</a>.  The character `!' in "command" are replaced with the previous shell command.  The sequence "\!" is replaced by "!". 
+<p class="level1">
+<p class="level0"><a name="q"></a><span class="nroffip">:q or :Q</span> 
+<p class="level1">quit reading the current file; go on to the next (if any) (same as q or Q). 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">.</span> 
+<p class="level1">(dot) repeat the previous command. 
+<p class="level1">The commands take effect immediately, i.e., it is not necessary to type a carriage return. Up to the time when the command character itself is given, the user may hit the line kill character to cancel the numerical argument being formed. In addition, the user may hit the erase character to redisplay the --More-- message. 
+<p class="level1">At any time when output is being sent to the terminal, the user can hit the quit key (normally control-\). <span Class="emphasis">Bzmore</span> will stop sending output, and will display the usual --More-- prompt. The user may then enter one of the above commands in the normal manner. Unfortunately, some output is lost when this is done, due to the fact that any characters waiting in the terminal's output queue are flushed when the quit signal occurs. 
+<p class="level1">The terminal is set to <span Class="emphasis">noecho</span> mode by this program so that the output can be continuous. What you type will thus not show on your terminal, except for the / and ! commands. 
+<p class="level1">If the standard output is not a teletype, then <span Class="emphasis">bzmore</span> acts just like <span Class="emphasis">bzcat,</span> except that a header is printed before each file. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/termcap		Terminal data base <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">more(1), less(1), bzip2(1), bzdiff(1), bzgrep(1) 

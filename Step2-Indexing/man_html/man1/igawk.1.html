@@ -1,0 +1,27 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">igawk - gawk with include files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">igawk</span> [ all <span Class="emphasis">gawk</span> options ] <span Class="bold">-f</span> <span Class="emphasis">program-file</span> [ <span Class="bold">-\^-</span> ] file .^.^. <br><span Class="bold">igawk</span> [ all <span Class="emphasis">gawk</span> options ] [ <span Class="bold">-\^-</span> ] <span Class="emphasis">program-text</span> file .^.^. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Igawk</span> is a simple shell script that adds the ability to have ``include files'' to <span Class="emphasis">gawk (1).</span> 
+<p class="level0">AWK programs for <span Class="emphasis">igawk</span> are the same as for <span Class="emphasis">gawk ,</span> except that, in addition, you may have lines like 
+<p class="level1">
+<p class="level1">@include getopt.awk 
+<p class="level1">
+<p class="level0">in your program to include the file <span Class="bold">getopt.awk</span> from either the current directory or one of the other directories in the search path. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">See <span Class="emphasis">gawk (1)</span> for a full description of the AWK language and the options that <span Class="emphasis">gawk</span> supports. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><pre class="level0">
+cat &lt;&lt; EOF &gt; test.awk
+@include getopt.awk
+BEGIN {
+	while (getopt(ARGC, ARGV, "am:q") != -1)
+		.^.^.
+}
+EOF
+igawk -f test.awk
+</pre>
+
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">gawk (1)</span> 
+<p class="level0"><span Class="emphasis">Effective AWK Programming ,</span> Edition 1.0, published by the Free Software Foundation, 1995. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Arnold Robbins 
+<p class="level0">

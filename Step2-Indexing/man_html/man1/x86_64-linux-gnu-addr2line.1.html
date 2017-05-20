@@ -1,0 +1,201 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">addr2line - convert addresses into file names and line numbers. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">addr2line [<span Class="bold">-a</span>|<span Class="bold">--addresses</span>] &nbsp;         [<span Class="bold">-b</span> <span Class="emphasis">bfdname</span>|<span Class="bold">--target=</span><span Class="emphasis">bfdname</span>] &nbsp;         [<span Class="bold">-C</span>|<span Class="bold">--demangle</span>[=<span Class="emphasis">style</span>]] &nbsp;         [<span Class="bold">-e</span> <span Class="emphasis">filename</span>|<span Class="bold">--exe=</span><span Class="emphasis">filename</span>] &nbsp;         [<span Class="bold">-f</span>|<span Class="bold">--functions</span>] [<span Class="bold">-s</span>|<span Class="bold">--basename</span>] &nbsp;         [<span Class="bold">-i</span>|<span Class="bold">--inlines</span>] &nbsp;         [<span Class="bold">-p</span>|<span Class="bold">--pretty-print</span>] &nbsp;         [<span Class="bold">-j</span>|<span Class="bold">--section=</span><span Class="emphasis">name</span>] &nbsp;         [<span Class="bold">-H</span>|<span Class="bold">--help</span>] [<span Class="bold">-V</span>|<span Class="bold">--version</span>] &nbsp;         [addr addr ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">addr2line</span> translates addresses into file names and line numbers. Given an address in an executable or an offset in a section of a relocatable object, it uses the debugging information to figure out which file name and line number are associated with it. 
+<p class="level0">The executable or relocatable object to use is specified with the <span Class="bold">-e</span> option.  The default is the file <span Class="emphasis">a.out</span>.  The section in the relocatable object to use is specified with the <span Class="bold">-j</span> option. 
+<p class="level0"><span Class="bold">addr2line</span> has two modes of operation. 
+<p class="level0">In the first, hexadecimal addresses are specified on the command line, and <span Class="bold">addr2line</span> displays the file name and line number for each address. 
+<p class="level0">In the second, <span Class="bold">addr2line</span> reads hexadecimal addresses from standard input, and prints the file name and line number for each address on standard output.  In this mode, <span Class="bold">addr2line</span> may be used in a pipe to convert dynamically chosen addresses. 
+<p class="level0">The format of the output is <span Class="bold">s-1FILENAME:LINENOs0</span>.  By default each input address generates one line of output. 
+<p class="level0">Two options can generate additional lines before each <span Class="bold">s-1FILENAME:LINENOs0</span> line (in that order). 
+<p class="level0">If the <span Class="bold">-a</span> option is used then a line with the input address is displayed. 
+<p class="level0">If the <span Class="bold">-f</span> option is used, then a line with the <span Class="bold">s-1FUNCTIONNAMEs0</span> is displayed.  This is the name of the function containing the address. 
+<p class="level0">One option can generate additional lines after the <span Class="bold">s-1FILENAME:LINENOs0</span> line. 
+<p class="level0">If the <span Class="bold">-i</span> option is used and the code at the given address is present there because of inlining by the compiler then additional lines are displayed afterwards.  One or two extra lines (if the <span Class="bold">-f</span> option is used) are displayed for each inlined function. 
+<p class="level0">Alternatively if the <span Class="bold">-p</span> option is used then each input address generates a single, long, output line containing the address, the function name, the file name and the line number.  If the <span Class="bold">-i</span> option has also been used then any inlined functions will be displayed in the same manner, but on separate lines, and prefixed by the text <span Class="bold">(inlined by)</span>. 
+<p class="level0">If the file name or function name can not be determined, <span Class="bold">addr2line</span> will print two question marks in their place.  If the line number can not be determined, <span Class="bold">addr2line</span> will print 0. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The long and short forms of options, shown here as alternatives, are equivalent. 
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--addressesfR"></a><span class="nroffip">\fB--addresses\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Display the address before the function name, file and line number information.  The address is printed with a <span Class="bold">0x</span> prefix to easily identify it. 
+<p class="level0"><a name="fB-bfR"></a><span class="nroffip">\fB-b\fR \fIbfdname\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--targetfRfIbfdnamefR"></a><span class="nroffip">\fB--target=\fR\fIbfdname\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Specify that the object-code format for the object files is <span Class="emphasis">bfdname</span>. 
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--demanglefRfIstylefRfBfR"></a><span class="nroffip">\fB--demangle[=\fR\fIstyle\fR\fB]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Decode (<span Class="emphasis">demangle</span>) low-level symbol names into user-level names. Besides removing any initial underscore prepended by the system, this makes *(C+ function names readable.  Different compilers have different mangling styles. The optional demangling style argument can be used to choose an appropriate demangling style for your compiler. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR \fIfilename\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--exefRfIfilenamefR"></a><span class="nroffip">\fB--exe=\fR\fIfilename\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Specify the name of the executable for which addresses should be translated.  The default file is <span Class="emphasis">a.out</span>. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--functionsfR"></a><span class="nroffip">\fB--functions\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Display function names as well as file and line number information. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--basenamesfR"></a><span class="nroffip">\fB--basenames\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Display only the base of each file name. 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--inlinesfR"></a><span class="nroffip">\fB--inlines\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">If the address belongs to a function that was inlined, the source information for all enclosing scopes back to the first non-inlined function will also be printed.  For example, if f(CW*(C`main*(C'</span> inlines f(CW*(C`callee1*(C'</span> which inlines f(CW*(C`callee2*(C'</span>, and address is from f(CW*(C`callee2*(C'</span>, the source information for f(CW*(C`callee1*(C'</span> and f(CW*(C`main*(C'</span> will also be printed. 
+<p class="level0"><a name="fB-jfR"></a><span class="nroffip">\fB-j\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--sectionfR"></a><span class="nroffip">\fB--section\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Read offsets relative to the specified section instead of absolute addresses. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--pretty-printfR"></a><span class="nroffip">\fB--pretty-print\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Make the output more human friendly: each location are printed on one line. If option <span Class="bold">-i</span> is specified, lines for all enclosing scopes are prefixed with <span Class="bold">(inlined by)</span>. 
+<p class="level0"><a name="fBfRfIfilefR"></a><span class="nroffip">\fB@\fR\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Read command-line options from <span Class="emphasis">file</span>.  The options read are inserted in place of the original @<span Class="emphasis">file</span> option.  If <span Class="emphasis">file</span> does not exist, or cannot be read, then the option will be treated literally, and not removed. 
+<p class="level1">Options in <span Class="emphasis">file</span> are separated by whitespace.  A whitespace character may be included in an option by surrounding the entire option in either single or double quotes.  Any character (including a backslash) may be included by prefixing the character to be included with a backslash.  The <span Class="emphasis">file</span> may itself contain additional @<span Class="emphasis">file</span> options; any such options will be processed recursively. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Info entries for <span Class="emphasis">binutils</span>. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 1991-2014 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to copy, distribute and/or modify this document under the terms of the s-1GNUs0 Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the license is included in the section entitled *(L"s-1GNUs0 Free Documentation License*(R". 

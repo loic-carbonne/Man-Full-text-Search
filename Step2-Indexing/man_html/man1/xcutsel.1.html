@@ -1,0 +1,25 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xcutsel - interchange between cut buffer and selection <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xcutsel</span> [ <span Class="emphasis">-toolkitoption</span> ...] [-selection <span Class="emphasis">selection</span>] [-cutbuffer <span Class="emphasis">number</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xcutsel</span> program is used to copy the current selection into a cut buffer and to make a selection that contains the current contents of the cut buffer.  It acts as a bridge between applications that don't support selections and those that do. 
+<p class="level0">By default, <span Class="emphasis">xcutsel</span> will use the selection named PRIMARY and the cut buffer CUT_BUFFER0.  Either or both of these can be overridden by command line arguments or by resources. 
+<p class="level0">An <span Class="emphasis">xcutsel</span> window has the following buttons: 
+<p class="level0"><span Class="emphasis">    quit</span> When this button is pressed, <span Class="emphasis">xcutsel</span> exits.  Any selections held by <span Class="emphasis">xcutsel</span> are automatically released. 
+<p class="level0"><span Class="emphasis">    copy PRIMARY to 0</span> When this button is pressed, <span Class="emphasis">xcutsel</span> copies the current selection into the cut buffer. 
+<p class="level0"><span Class="emphasis">    copy 0 to PRIMARY</span> When this button is pressed, <span Class="emphasis">xcutsel</span> converts the current contents of the cut buffer into the selection. 
+<p class="level0">The button labels reflect the selection and cutbuffer selected by command line options or through the resource database. 
+<p class="level0">When the ``copy 0 to PRIMARY'' button is activated, the button will remain inverted as long as <span Class="emphasis">xcutsel</span> remains the owner of the selection.  This serves to remind you which client owns the current selection.  Note that the value of the selection remains constant; if the cutbuffer is changed, you must again activate the copy button to retrieve the new value when desired. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xcutsel</span> accepts all of the standard X Toolkit command line options as well as the following: 
+<p class="level0"><span Class="bold">-selection name</span> This option specifies the name of the selection to use.  The default is PRIMARY.  The only supported abbreviations for this option are ``-select'', ``-sel'' and ``-s'', as the standard toolkit option ``-selectionTimeout'' has a similar name. 
+<p class="level0"><span Class="bold">-cutbuffer number</span> This option specifies the cut buffer to use.  The default is cut buffer 0. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">This program accepts all of the standard X Toolkit resource names and classes as well as: 
+<p class="level0"><span Class="bold">selection (class\fB Selection)</span> This resource specifies the name of the selection to use.  The default is PRIMARY. 
+<p class="level0"><span Class="bold">cutBuffer (class\fB CutBuffer)</span> This resource specifies the number of the cut buffer to use.  The default is 0. <a name="WIDGET"></a><h2 class="nroffsh">WIDGET NAMES</h2>
+<p class="level0">The following instance names may be used when user configuration of the labels in them is desired: 
+<p class="level0"><span Class="bold">sel-cut (class\fB Command)</span> This is the ``copy SELECTION to BUFFER'' button. 
+<p class="level0"><span Class="bold">cut-sel (class\fB Command)</span> This is the ``copy BUFFER to SELECTION'' button. 
+<p class="level0"><span Class="bold">quit (class\fB Command)</span> This is the ``quit'' button. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xclipboard(1), xterm(1), text widget documentation, individual client documentation for how to make a selection. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">There is no way to change the name of the selection or the number of the cut buffer while the program is running. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Ralph R. Swick, DEC/MIT Project Athena 

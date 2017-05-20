@@ -1,0 +1,92 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dropdb - remove a PostgreSQL database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dropdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] <span Class="emphasis">dbname</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">dropdb destroys an existing PostgreSQL database. The user who executes this command must be a database superuser or the owner of the database. 
+<p class="level0">
+<p class="level0">dropdb is a wrapper around the SQL command DROP DATABASE (<span Class="bold">DROP_DATABASE</span>(7)). There is no effective difference between dropping databases via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">dropdb accepts the following command-line arguments: 
+<p class="level0"><span Class="emphasis">dbname</span> 
+<p class="level1">Specifies the name of the database to be removed. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that dropdb generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> <br><span Class="bold">--interactive</span> 
+<p class="level1">Issues a verification prompt before doing anything destructive. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the dropdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--if-exists</span> 
+<p class="level1">Do not throw an error if the database does not exist. A notice is issued in this case. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about dropdb command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">dropdb also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force dropdb to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since dropdb will automatically prompt for a password if the server demands password authentication. However, dropdb will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0"><span Class="bold">--maintenance-db=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to in order to drop the target database. If not specified, the postgres database will be used; if that does not exist (or is the database being dropped), template1 will be used. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see DROP DATABASE (<span Class="bold">DROP_DATABASE</span>(7)) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To destroy the database demo on the default database server: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">dropdb demo</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To destroy the database demo using the server on host eden, port 5000, with verification and a peek at the underlying command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">dropdb -p 5000 -h eden -i -e demo</span>
+Database "demo" will be permanently deleted.
+Are you sure? (y/n) <span class="bold">y</span>
+DROP DATABASE demo;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">createdb</span>(1), DROP DATABASE (<span Class="bold">DROP_DATABASE</span>(7)) 

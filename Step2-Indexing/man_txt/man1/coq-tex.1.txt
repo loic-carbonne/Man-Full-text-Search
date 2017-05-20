@@ -1,0 +1,92 @@
+COQ-TEX(1)                  General Commands Manual                 COQ-TEX(1)
+
+
+
+NAME
+       coq-tex - Process Coq phrases embedded in LaTeX files
+
+
+SYNOPSIS
+       coq-tex  [ -o output-file ] [ -n line-width ] [ -image coq-image ] [ -w
+       ] [ -v ] [ -sl ] [ -hrule ] [ -small ] input-file ...
+
+
+
+DESCRIPTION
+       The coq-tex filter extracts Coq phrases embedded in LaTeX files, evalu-
+       ates them, and insert the outcome of the evaluation after each phrase.
+
+       Three  LaTeX environments are provided to include Coq code in the input
+       files:
+
+       coq_example
+              The phrases between  \begin{coq_example}  and  \end{coq_example}
+              are  evaluated  and  copied into the output file. Each phrase is
+              followed by the response of the toplevel loop.
+
+       coq_example*
+              The phrases between \begin{coq_example*} and  \end{coq_example*}
+              are  evaluated and copied into the output file. The responses of
+              the toplevel loop are discarded.
+
+       coq_eval
+              The phrases  between  \begin{coq_eval}  and  \end{coq_eval}  are
+              silently  evaluated.  They  are not copied into the output file,
+              and the responses of the toplevel loop are discarded.
+
+       The resulting LaTeX code is stored in the file file.v.tex if the  input
+       file  has a name of the form file.tex, otherwise the name of the output
+       file is the name of the input file with `.v.tex' appended.
+
+       The files produced by coq-tex can be directly processed by LaTeX.  Both
+       the Coq phrases and the toplevel output are typeset in typewriter font.
+
+
+OPTIONS
+       -o output-file
+              Specify  the  name  of  a  file  where the LaTeX output is to be
+              stored. A dash `-' causes the LaTeX  output  to  be  printed  on
+              standard output.
+
+       -n line-width
+              Set  the line width. The default is 72 characters. The responses
+              of the toplevel loop are folded if they are longer than the line
+              width. No folding is performed on the Coq input text.
+
+       -image coq-image
+              Cause  the  file  coq-image  to  be executed to evaluate the Coq
+              phrases. By default, this is the command coqtop without specify-
+              ing any path which is used to evaluate the Coq phrases.
+
+       -w     Cause lines to be folded on a space character whenever possible,
+              avoiding word cuts in the output. By default, folding occurs  at
+              the line width, regardless of word cuts.
+
+       -v     Verbose  mode.  Prints  the  Coq answers on the standard output.
+              Useful to detect errors in Coq phrases.
+
+       -sl    Slanted mode. The Coq answers are written in a slanted font.
+
+       -hrule Horizontal lines mode. The Coq parts  are  written  between  two
+              horizontal lines.
+
+       -small Small font mode. The Coq parts are written in a smaller font.
+
+
+
+CAVEATS
+       The  \begin...  and  \end...  phrases must sit on a line by themselves,
+       with no characters before the backslash or  after  the  closing  brace.
+       Each  Coq phrase must be terminated by `.' at the end of a line.  Blank
+       space is accepted between `.' and the newline, but any other  character
+       will  cause  coq-tex  to  ignore the end of the phrase, resulting in an
+       incorrect shuffling of the responses into the phrases.  (The  responses
+       ``lag behind''.)
+
+
+SEE ALSO
+       coqtop (1).
+
+
+
+                                 29 March 1995                      COQ-TEX(1)

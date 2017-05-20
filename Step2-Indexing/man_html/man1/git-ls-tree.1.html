@@ -1,0 +1,100 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-ls-tree - List the contents of a tree object <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git ls-tree</span> [-d] [-r] [-t] [-l] [-z]
+&nbsp;           [--name-only] [--name-status] [--full-name] [--full-tree] [--abbrev[=&lt;n&gt;]]
+&nbsp;           &lt;tree-ish&gt; [&lt;path&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Lists the contents of a given tree object, like what "/bin/ls -a" does in the current working directory. Note that: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">the behaviour is slightly different from that of "/bin/ls" in that the <span Class="emphasis">&lt;path&gt;</span> denotes just a list of patterns to match, e.g. so specifying directory name (without <span Class="emphasis">-r</span>) will behave differently, and order of the arguments does not matter. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">the behaviour is similar to that of "/bin/ls" in that the <span Class="emphasis">&lt;path&gt;</span> is taken as relative to the current working directory. E.g. when you are in a directory <span Class="emphasis">sub</span> that has a directory <span Class="emphasis">dir</span>, you can run <span Class="emphasis">git ls-tree -r HEAD dir</span> to list the contents of the tree (that is <span Class="emphasis">sub/dir</span> in <span Class="emphasis">HEAD</span>). You don(cqt want to give a tree that is not at the root level (e.g. git ls-tree -r HEAD:sub dir) in this case, as that would result in asking for <span Class="emphasis">sub/sub/dir</span> in the <span Class="emphasis">HEAD</span> commit. However, the current working directory can be ignored by passing --full-tree option. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;tree-ish&gt; 
+<p class="level1">Id of a tree-ish. 
+<p class="level0">
+<p class="level0">-d 
+<p class="level1">Show only the named tree entry itself, not its children. 
+<p class="level0">
+<p class="level0">-r 
+<p class="level1">Recurse into sub-trees. 
+<p class="level0">
+<p class="level0">-t 
+<p class="level1">Show tree entries even when going to recurse them. Has no effect if <span Class="emphasis">-r</span> was not passed. <span Class="emphasis">-d</span> implies <span Class="emphasis">-t</span>. 
+<p class="level0">
+<p class="level0">-l, --long 
+<p class="level1">Show object size of blob (file) entries. 
+<p class="level0">
+<p class="level0">-z 
+<p class="level1">e0 line termination on output. 
+<p class="level0">
+<p class="level0">--name-only, --name-status 
+<p class="level1">List only filenames (instead of the "long" output), one per line. 
+<p class="level0">
+<p class="level0">--abbrev[=&lt;n&gt;] 
+<p class="level1">Instead of showing the full 40-byte hexadecimal object lines, show only a partial prefix. Non default number of digits can be specified with --abbrev=&lt;n&gt;. 
+<p class="level0">
+<p class="level0">--full-name 
+<p class="level1">Instead of showing the path names relative to the current working directory, show the full path names. 
+<p class="level0">
+<p class="level0">--full-tree 
+<p class="level1">Do not limit the listing to the current working directory. Implies --full-name. 
+<p class="level0">
+<p class="level0">[&lt;path&gt;...] 
+<p class="level1">When paths are given, show them (note that this isn(cqt really raw pathnames, but rather a list of patterns to match). Otherwise implicitly uses the root level of the tree as the sole path argument. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT FORMAT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;mode&gt; SP &lt;type&gt; SP &lt;object&gt; TAB &lt;file&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Unless the -z option is used, TAB, LF, and backslash characters in pathnames are represented as et, en, and ee, respectively. This output format is compatible with what --index-info --stdin of <span Class="emphasis">git update-index</span> expects. 
+<p class="level0">When the -l option is used, format changes to 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;mode&gt; SP &lt;type&gt; SP &lt;object&gt; SP &lt;object size&gt; TAB &lt;file&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Object size identified by &lt;object&gt; is given in bytes, and right-justified with minimum width of 7 characters. Object size is given only for blobs (file) entries; for other entries - character is used in place of size. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

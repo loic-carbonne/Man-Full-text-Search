@@ -1,0 +1,80 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">debconf - run a debconf-using program <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;debconf [options] command [args] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Debconf is a configuration system for Debian packages. For a debconf overview and documentation for sysadmins, see <span Class="emphasis">debconf</span>|(7) (in the debconf-doc package). 
+<p class="level0">The <span Class="bold">debconf</span> program runs a program under debconf's control, setting it up to talk with debconf on stdio. The program's output is expected to be debconf protocol commands, and it is expected to read result codes on stdin. See <span Class="emphasis">debconf-devel</span>|(7) for details about the debconf protocol. 
+<p class="level0">The command to be run under debconf must be specified in a way that will let your s-1PATHs0 find it. 
+<p class="level0">This command is not the usual way that debconf is used. It's more typical for debconf to be used via <span Class="emphasis">dpkg-preconfigure</span>|(8) or <span Class="emphasis">dpkg-reconfigure</span>|(8). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-ofRfIpackagefR"></a><span class="nroffip">\fB-o\fR\fIpackage\fR, \fB--owner=\fR\fIpackage\fR 4</span> 
+<p class="level1">
+<p class="level1">Tell debconf what package the command it is running is a part of. This is necessary to get ownership of registered questions right, and to support unregister and purge commands properly. 
+<p class="level0"><a name="fB-ffRfItypefR"></a><span class="nroffip">\fB-f\fR\fItype\fR, \fB--frontend=\fR\fItype\fR 4</span> 
+<p class="level1">
+<p class="level1">Select the frontend to use. 
+<p class="level0"><a name="fB-pfRfIvaluefR"></a><span class="nroffip">\fB-p\fR\fIvalue\fR, \fB--priority=\fR\fIvalue\fR 4</span> 
+<p class="level1">
+<p class="level1">Specify the minimum priority of question that will be displayed. 
+<p class="level0"><a name="fB--tersefR"></a><span class="nroffip">\fB--terse\fR 4</span> 
+<p class="level1">
+<p class="level1">Enables terse output mode. This affects only some frontends. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To debug a shell script that uses debconf, you might use: 
+<p class="level0">
+<p class="level0">&nbsp;DEBCONF_DEBUG=developer debconf my-shell-prog 
+<p class="level0">
+<p class="level0">Or, you might use this: 
+<p class="level0">
+<p class="level0">&nbsp;debconf --frontend=readline sh -x my-shell-prog 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debconf-devel</span>|(7), <span Class="emphasis">debconf</span>|(7) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Joey Hess &lt;joeyh@debian.org&gt; 

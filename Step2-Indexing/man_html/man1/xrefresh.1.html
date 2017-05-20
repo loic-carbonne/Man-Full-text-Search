@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xrefresh - refresh all or part of an X screen <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xrefresh</span> [-option ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Xrefresh</span> is a simple X program that causes all or part of your screen to be repainted. This is useful when system messages have messed up your screen. <span Class="emphasis">Xrefresh</span> maps a window on top of the desired area of the screen and then immediately unmaps it, causing refresh events to be sent to all applications.  By default, a window with no background is used, causing all applications to repaint ``smoothly.'' However, the various options can be used to indicate that a solid background (of any color) or the root window background should be used instead. <a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-white</span> Use a white background.  The screen just appears to flash quickly, and then repaint. 
+<p class="level0">
+<p class="level0"><span Class="bold">-black</span> Use a black background (in effect, turning off all of the electron guns to the tube).  This can be somewhat disorienting as everything goes black for a moment. 
+<p class="level0">
+<p class="level0"><span Class="bold">-solid color</span> Use a solid background of the specified color.  Try green. 
+<p class="level0">
+<p class="level0"><span Class="bold">-root</span> Use the root window background. 
+<p class="level0">
+<p class="level0"><span Class="bold">-none</span> This is the default.  All of the windows simply repaint. 
+<p class="level0">
+<p class="level0"><span Class="bold">-geometry WxH+X+Y</span> Specifies the portion of the screen to be repainted; see <span Class="emphasis">X(7)</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-display display</span> This  argument  allows  you  to  specify the server and screen to refresh; see <span Class="emphasis">X(7)</span>. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">The <span Class="emphasis">xrefresh</span> program uses the routine <span Class="emphasis">XGetDefault(3)</span> to read defaults, so its resource names are all capitalized. 
+<p class="level0">
+<p class="level0"><span Class="bold">Black, \fBWhite, \fBSolid, \fBNone, \fBRoot</span> Determines what sort of window background to use. 
+<p class="level0">
+<p class="level0"><span Class="bold">Geometry</span> Determines the area to refresh.  Not very useful. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">DISPLAY - To get default host and display number. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">It should have just one default type for the background. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Jim Gettys, Digital Equipment Corp., MIT Project Athena 

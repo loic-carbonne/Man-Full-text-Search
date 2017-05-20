@@ -1,0 +1,111 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-annotate - Annotate file lines with commit information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git annotate</span> [options] file [revision]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Annotates each line in the given file with information from the commit which introduced the line. Optionally annotates from a given revision. 
+<p class="level0">The only difference between this command and <span Class="bold">git-blame</span>(1) is that they use slightly different output formats, and this command exists only for backward compatibility to support existing scripts, and provide a more familiar command name for people coming from other SCM systems. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-b 
+<p class="level1">Show blank SHA-1 for boundary commits. This can also be controlled via the blame.blankboundary config option. 
+<p class="level0">
+<p class="level0">--root 
+<p class="level1">Do not treat root commits as boundaries. This can also be controlled via the blame.showroot config option. 
+<p class="level0">
+<p class="level0">--show-stats 
+<p class="level1">Include additional statistics at the end of blame output. 
+<p class="level0">
+<p class="level0">-L &lt;start&gt;,&lt;end&gt;, -L :&lt;regex&gt; 
+<p class="level1">Annotate only the given line range. May be specified multiple times. Overlapping ranges are allowed. 
+<p class="level1">&lt;start&gt; and &lt;end&gt; are optional. (lq-L &lt;start&gt;(rq or (lq-L &lt;start&gt;,(rq spans from &lt;start&gt; to end of file. (lq-L ,&lt;end&gt;(rq spans from start of file to &lt;end&gt;. 
+<p class="level1">&lt;start&gt; and &lt;end&gt; can take one of these forms: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">number 
+<p class="level2">If &lt;start&gt; or &lt;end&gt; is a number, it specifies an absolute line number (lines count from 1). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">/regex/ 
+<p class="level2">This form will use the first line matching the given POSIX regex. If &lt;start&gt; is a regex, it will search from the end of the previous -L range, if any, otherwise from the start of file. If &lt;start&gt; is (lq^/regex/(rq, it will search from the start of file. If &lt;end&gt; is a regex, it will search starting at the line given by &lt;start&gt;. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">+offset or -offset 
+<p class="level2">This is only valid for &lt;end&gt; and will specify a number of lines before or after the line given by &lt;start&gt;. 
+<p class="level1">
+<p class="level1">If (lq:&lt;regex&gt;(rq is given in place of &lt;start&gt; and &lt;end&gt;, it denotes the range from the first funcname line that matches &lt;regex&gt;, up to the next funcname line. (lq:&lt;regex&gt;(rq searches from the end of the previous -L range, if any, otherwise from the start of file. (lq^:&lt;regex&gt;(rq searches from the start of file. 
+<p class="level0">
+<p class="level0">-l 
+<p class="level1">Show long rev (Default: off). 
+<p class="level0">
+<p class="level0">-t 
+<p class="level1">Show raw timestamp (Default: off). 
+<p class="level0">
+<p class="level0">-S &lt;revs-file&gt; 
+<p class="level1">Use revisions from revs-file instead of calling <span Class="bold">git-rev-list</span>(1). 
+<p class="level0">
+<p class="level0">--reverse 
+<p class="level1">Walk history forward instead of backward. Instead of showing the revision in which a line appeared, this shows the last revision in which a line has existed. This requires a range of revision like START..END where the path to blame exists in START. 
+<p class="level0">
+<p class="level0">-p, --porcelain 
+<p class="level1">Show in a format designed for machine consumption. 
+<p class="level0">
+<p class="level0">--line-porcelain 
+<p class="level1">Show the porcelain format, but output commit information for each line, not just the first time a commit is referenced. Implies --porcelain. 
+<p class="level0">
+<p class="level0">--incremental 
+<p class="level1">Show the result incrementally in a format designed for machine consumption. 
+<p class="level0">
+<p class="level0">--encoding=&lt;encoding&gt; 
+<p class="level1">Specifies the encoding used to output author names and commit summaries. Setting it to none makes blame output unconverted data. For more information see the discussion about encoding in the <span Class="bold">git-log</span>(1) manual page. 
+<p class="level0">
+<p class="level0">--contents &lt;file&gt; 
+<p class="level1">When &lt;rev&gt; is not specified, the command annotates the changes starting backwards from the working tree copy. This flag makes the command pretend as if the working tree copy has the contents of the named file (specify - to make the command read from the standard input). 
+<p class="level0">
+<p class="level0">--date &lt;format&gt; 
+<p class="level1">The value is one of the following alternatives: {relative,local,default,iso,rfc,short}. If --date is not provided, the value of the blame.date config variable is used. If the blame.date config variable is also not set, the iso format is used. For more information, See the discussion of the --date option at <span Class="bold">git-log</span>(1). 
+<p class="level0">
+<p class="level0">-M|&lt;num&gt;| 
+<p class="level1">Detect moved or copied lines within a file. When a commit moves or copies a block of lines (e.g. the original file has A and then B, and the commit changes it to B and then A), the traditional <span Class="emphasis">blame</span> algorithm notices only half of the movement and typically blames the lines that were moved up (i.e. B) to the parent and assigns blame to the lines that were moved down (i.e. A) to the child commit. With this option, both groups of lines are blamed on the parent by running extra passes of inspection. 
+<p class="level1">&lt;num&gt; is optional but it is the lower bound on the number of alphanumeric characters that Git must detect as moving/copying within a file for it to associate those lines with the parent commit. The default value is 20. 
+<p class="level0">
+<p class="level0">-C|&lt;num&gt;| 
+<p class="level1">In addition to -M, detect lines moved or copied from other files that were modified in the same commit. This is useful when you reorganize your program and move code around across files. When this option is given twice, the command additionally looks for copies from other files in the commit that creates the file. When this option is given three times, the command additionally looks for copies from other files in any commit. 
+<p class="level1">&lt;num&gt; is optional but it is the lower bound on the number of alphanumeric characters that Git must detect as moving/copying between files for it to associate those lines with the parent commit. And the default value is 40. If there are more than one -C options given, the &lt;num&gt; argument of the last -C will take effect. 
+<p class="level0">
+<p class="level0">-h 
+<p class="level1">Show help message. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-blame</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

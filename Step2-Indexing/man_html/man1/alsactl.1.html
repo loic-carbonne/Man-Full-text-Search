@@ -1,0 +1,73 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">alsactl - advanced controls for ALSA soundcard driver 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">alsactl</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">store</span>|<span Class="emphasis">restore</span>|<span Class="emphasis">init</span>] &lt;card &#35; or id or device&gt; 
+<p class="level0"><span Class="bold">alsactl</span> <span Class="emphasis">monitor</span> &lt;card &#35; or id&gt; 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">alsactl</span> is used to control advanced settings for the ALSA soundcard drivers. It supports multiple soundcards. If your card has features that you can't seem to control from a mixer application, you have come to the right place. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">store</span> saves the current driver state for the selected soundcard to the configuration file. 
+<p class="level0"><span Class="emphasis">restore</span> loads driver state for the selected soundcard from the configuration file. If restoring fails (eventually partly), the init action is called. 
+<p class="level0"><span Class="emphasis">nrestore</span> is like <span Class="emphasis">restore</span>, but it notifies also the daemon to do new rescan for available soundcards. 
+<p class="level0"><span Class="emphasis">init</span> tries to initialize all devices to a default state. If device is not known, error code 99 is returned. 
+<p class="level0"><span Class="emphasis">daemon</span> manages to save periodically the sound state. 
+<p class="level0"><span Class="emphasis">rdaemon</span> like <span Class="emphasis">daemon</span> but restore the sound state at first. 
+<p class="level0"><span Class="emphasis">kill</span> notifies the daemon to do the specified operation (quit, rescan, save_and_quit). 
+<p class="level0"><span Class="emphasis">monitor</span> is for monitoring the events received from the given control device. 
+<p class="level0">If no soundcards are specified, setup for all cards will be saved, loaded or monitored. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h, --help</span>  Help: show available flags and commands. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-d, --debug</span> Use debug mode: a bit more verbose. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-v, --version</span> Print alsactl version number. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-f, --file</span> Select the configuration file to use. The default is /var/lib/alsa/asound.state. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-l, --lock</span> Use the file locking to serialize the concurrent access to the state file (this option is default for the global state file). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-L, --no-lock</span> Do not use the file locking to serialize the concurrent access to the state file (including the global state file). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-O, --lock-state-file</span> Select the state lock file path. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-F, --force</span> Used with restore command.  Try to restore the matching control elements as much as possible.  This option is set as default now. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-g, --ignore</span> Used with store and restore commands. Do not show 'No soundcards found' and do not set an error exit code when soundcards are not installed. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-P, --pedantic</span> Used with restore command.  Don't restore mismatching control elements. This option was the old default behavior. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-I, --no-init-fallback</span> Don't initialize cards if restore fails.  Since version 1.0.18, <span Class="bold">alsactl</span> tries to initialize the card with the restore operation as default.  But this can cause incompatibility with the older version. The caller may expect that the state won't be touched if no state file exists.  This option takes the restore behavior back to the older version by suppressing the initialization. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-r, --runstate</span> Save restore and init state to this file. The file will contain only errors. Errors are appended with the soundcard id to the end of file. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-R, --remove</span> Remove runstate file at first. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-E, --env</span> &#35;=&#35; Set environment variable (useful for init action or you may override ALSA_CONFIG_PATH to read different or optimized configuration - may be useful for "boot" scripts). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-i, --initfile</span> The configuration file for init. By default, PREFIX/share/alsa/init/00main is used. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-p, --period</span> The store period in seconds for the daemon command. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-e, --pid-file</span> The pathname to store the process-id file in the HDB UUCP format (ASCII). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-b, --background</span> Run the task in background. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-s, --syslog</span> Use syslog for messages. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-n, --nice</span> Set the process priority (see 'man nice') 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c, --sched-idle</span> Set the process scheduling policy to idle (SCHED_IDLE). 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">/var/lib/alsa/asound.state</span> (or whatever file you specify with the <span Class="bold">-f</span> flag) is used to store current settings for your soundcards. The settings include all the usual soundcard mixer settings.  More importantly, alsactl is capable of controlling other card-specific features that mixer apps usually don't know about. 
+<p class="level0">The configuration file is generated automatically by running <span Class="bold">alsactl store</span>. Editing the configuration file by hand may be necessary for some soundcard features (e.g. enabling/disabling automatic mic gain, digital output, joystick/game ports, some future MIDI routing options, etc). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span class="bold"> amixer(1), alsamixer(1), aplay(1), alsactl_init(7) </span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS </h2>
+<p class="level0">None known. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">alsactl</span> is by Jaroslav Kysela &lt;perex@perex.cz&gt; and Abramo Bagnara &lt;abramo@alsa-project.org&gt;. This document is by Paul Winkler &lt;zarmzarm@erols.com&gt;. 

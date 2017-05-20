@@ -1,0 +1,45 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0"><span Class="bold">tabs</span> - set tabs on a terminal <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tabs</span> [<span Class="emphasis">options</span>]] <span Class="emphasis">[tabstop-list]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">tabs</span> program clears and sets tab-stops on the terminal. This uses the terminfo <span Class="emphasis">clear_all_tabs</span> and <span Class="emphasis">set_tab</span> capabilities. If either is absent, <span Class="bold">tabs</span> is unable to clear/set tab-stops. The terminal should be configured to use hard tabs, e.g., 
+<p class="level0">
+<p class="level1">stty tab0 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><a name="General"></a><h2 class="nroffsh">General Options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-T name</span> Tell <span Class="bold">tabs</span> which terminal type to use. If this option is not given, <span Class="bold">tabs</span> will use the <span Class="bold">$TERM</span> environment variable. If that is not set, it will use the <span Class="emphasis">ansi+tabs</span> entry. 
+<p class="level0"><span Class="bold">-d</span> The debugging option shows a ruler line, followed by two data lines. The first data line shows the expected tab-stops marked with asterisks. The second data line shows the actual tab-stops, marked with asterisks. 
+<p class="level0"><span Class="bold">-n</span> This option tells <span Class="bold">tabs</span> to check the options and run any debugging option, but not to modify the terminal settings. 
+<p class="level0"><span Class="bold">-V</span> reports the version of ncurses which was used in this program, and exits. 
+<p class="level0">The <span Class="bold">tabs</span> program processes a single list of tab stops. The last option to be processed which defines a list is the one that determines the list to be processed. <a name="Implicit"></a><h2 class="nroffsh">Implicit Lists</h2>
+<p class="level0">Use a single number as an option, e.g., "<span Class="bold">-5</span>" to set tabs at the given interval (in this case 1, 6, 11, 16, 21, etc.).  Tabs are repeated up to the right margin of the screen. 
+<p class="level0">Use "<span Class="bold">-0</span>" to clear all tabs. 
+<p class="level0">Use "<span Class="bold">-8</span>" to set tabs to the standard interval. <a name="Explicit"></a><h2 class="nroffsh">Explicit Lists</h2>
+<p class="level0">An explicit list can be defined after the options (this does not use a "-"). The values in the list must be in increasing numeric order, and greater than zero.  They are separated by a comma or a blank, for example, 
+<p class="level0">
+<p class="level1">tabs 1,6,11,16,21 <br>tabs 1 6 11 16 21 
+<p class="level0">Use a '+' to treat a number as an increment relative to the previous value, e.g., 
+<p class="level0">
+<p class="level1">tabs 1,+5,+5,+5,+5 
+<p class="level0">which is equivalent to the 1,6,11,16,21 example. <a name="Predefined"></a><h2 class="nroffsh">Predefined Tab-Stops</h2>
+<p class="level0">X/Open defines several predefined lists of tab stops. 
+<p class="level0"><span Class="bold">-a</span> Assembler, IBM S/370, first format 
+<p class="level0"><span Class="bold">-a2</span> Assembler, IBM S/370, second format 
+<p class="level0"><span Class="bold">-c</span> COBOL, normal format 
+<p class="level0"><span Class="bold">-c2</span> COBOL compact format 
+<p class="level0"><span Class="bold">-c3</span> COBOL compact format extended 
+<p class="level0"><span Class="bold">-f</span> FORTRAN 
+<p class="level0"><span Class="bold">-p</span> PL/I 
+<p class="level0"><span Class="bold">-s</span> SNOBOL 
+<p class="level0"><span Class="bold">-u</span> UNIVAC 1100 Assembler <a name="PORTABILITY"></a><h2 class="nroffsh">PORTABILITY</h2>
+<p class="level0">
+<p class="level0">X/Open describes a <span Class="bold">+m</span> option, to set a terminal's left-margin. Very few of the entries in the terminal database provide this capability. 
+<p class="level0">The <span Class="bold">-d</span> (debug) and <span Class="bold">-n</span> (no-op) options are extensions not provided by other implementations. 
+<p class="level0">Documentation for other implementations states that there is a limit on the number of tab stops.  While some terminals may not accept an arbitrary number of tab stops, this implementation will attempt to set tab stops up to the right margin of the screen, if the given list happens to be that long. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">tset</span>(1), <span Class="bold">infocmp</span>(1), <span Class="bold">ncurses</span>(3NCURSES), <span Class="bold">terminfo</span>(*n). 
+<p class="level0">This describes <span Class="bold">ncurses</span> version 5.9 (patch 20140913). 

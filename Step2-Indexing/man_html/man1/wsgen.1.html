@@ -1,0 +1,95 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">wsgen - Java(TM) API for XML Web Services (JAX-WS) 2.0 
+<p class="level0">f3Specification Version:</span> 2.1 <br>f3Implementation Version:</span> 2.1.1 
+<p class="level0">The f2wsgen</span> tool generates JAX-WS portable artifacts used in JAX-WS web services. The tool reads a web service endpoint implementation class (SEI) and generates all the required artifacts for web service deployment, and invocation <a name="Overview"></a><h2 class="nroffsh">Overview</h2>
+<p class="level0">
+<p class="level0">The f2wsgen</span> tool generates JAX-WS portable artifacts used in JAX-WS web services. The tool reads a web service endpoint class and generates all the required artifacts for web service deployment, and invocation. JAXWS 2.1.1 RI also provides a wsgen ant task, see  
+<p class="level0">f2Wsgen ant task</span> @ 
+<p class="level0"><a href="https://jax-ws.dev.java.net/nonav/2.1.1/docs/wsgenant.html">https://jax-ws.dev.java.net/nonav/2.1.1/docs/wsgenant.html</a> for details. 
+<p class="level0"><a name="Launching"></a><h2 class="nroffsh">Launching wsgen</h2>
+<p class="level0">
+<p class="level1">
+<p class="level1">o f3Solaris/Linux</span>  
+<p class="level2">
+<p class="level2">* f2export JAXWS_HOME=/pathto/jaxws-ri</span>  
+<p class="level2">* f2$JAXWS_HOME/bin/wsgen.sh -help</span>  
+<p class="level1">
+<p class="level1">o f3Windows</span>  
+<p class="level2">
+<p class="level2">* f2set JAXWS_HOME=c:\pathto\jaxws-ri</span>  
+<p class="level2">* f2%JAXWS_HOME%\bin\wsgen.bat -help</span>  
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Syntax"></a><h2 class="nroffsh">Syntax</h2>
+<p class="level0"><pre class="level0">
+f3
+wsgen [options] &lt;SEI&gt;</span>
+<br>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The following table lists the f2wsgen</span> options. <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Specify where to find input class files
+<br><br>Same as f2-classpath &lt;path&gt;</span>
+<br><br>Specify where to place generated output files
+<br><br>allow vendor extensions (functionality not specified by the specification). Use of extensions may result in applications that are not portable or may not interoperate with other implementations
+<br><br>Used only in conjunction with the -wsdl option. Specify where to place generated resource files such as WSDLs
+<br><br>Specify where to place generated source files
+<br><br>Output messages about what the compiler is doing
+<br><br>Print version information. Use of this option will ONLY print version information. Normal processing will not occur.
+<br><br>By default f2wsgen</span> does not generate a WSDL file. This flag is optional and will cause f2wsgen</span> to generate a WSDL file and is usually only used so that the developer can look at the WSDL before the endpoint is deploy. The f2protocol</span> is optional and is used to specify what protocol should be used in the f2wsdl:binding</span>. Valid protocols include: f2soap1.1</span> and f2Xsoap1.2</span>. The default is f2soap1.1</span>. f2Xsoap1.2</span> is not standard and can only be used in conjunction with the f2-extension</span> option.
+<br><br>Used only in conjunction with the f2-wsdl</span> option. Used to specify a particular f2wsdl:service</span> name to be generated in the WSDL. Example, f2-servicename "{http://mynamespace/}MyService"</span>
+<br><br>Used only in conjunction with the f2-wsdl</span> option. Used to specify a particular f2wsdl:port</span> name to be generated in the WSDL. Example, f2-portname "{http://mynamespace/}MyPort"</span>
+<br><br><pre class="level0">
+<pre class="level0">
+h'|n(40u'f3Option</span>h'|n(41u'f3Description</span>
+h'|n(40u'f4-classpath &lt;path&gt;</span>h'|n(41u'
+h'|n(40u'f4-cp &lt;path&gt;</span>h'|n(41u'
+h'|n(40u'f4-d &lt;directory&gt;</span>h'|n(41u'
+h'|n(40u'f4-extension</span>h'|n(41u'
+h'|n(40u'f4-help</span>h'|n(41u'Display help
+h'|n(40u'f4-keep</span>h'|n(41u'Keep generated files
+h'|n(40u'f4-r &lt;directory&gt;</span>h'|n(41u'
+h'|n(40u'f4-s &lt;directory&gt;</span>h'|n(41u'
+h'|n(40u'f4-verbose</span>h'|n(41u'
+h'|n(40u'f4-version</span>h'|n(41u'
+h'|n(40u'f4-wsdl[:protocol]</span>h'|n(41u'
+h'|n(40u'f4-servicename &lt;name&gt;</span>h'|n(41u'
+h'|n(40u'f4-portname &lt;name&gt;</span>h'|n(41u'
+&nbsp;
+</pre>
+<a name="Example"></a><h2 class="nroffsh">Example</h2>
+<p class="level0"><pre class="level0">
+f3
+</span>f3wsgen -d stock -cp myclasspath stock.StockService</span> 
+</pre>
+
+<p class="level0">
+<p class="level0">This will generate the wrapper classes needed for StockService annotated with @WebService annotation inside f3stock</span>directory. <pre class="level0">
+f3
+</span>f3wsgen -wsdl -d stock -cp myclasspath stock.StockService</span> 
+</pre>
+
+<p class="level0">
+<p class="level0">This will generate a SOAP 1.1 WSDL and schema for your Java class stock.StockService annotated with @WebService annotation. <pre class="level0">
+f3
+</span>f3wsgen -wsdl:Xsoap1.2 -d stock -cp myclasspath stock.StockService</span> 
+</pre>
+
+<p class="level0">
+<p class="level0">Will generate a SOAP 1.2 WSDL. 
+<p class="level0">Note that you do not have to generate WSDL at the development time as JAXWS runtime will automatically generate a WSDL for you when you deploy your service.  

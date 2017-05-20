@@ -1,0 +1,26 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">word-list-compress - word list compressor/decompressor for GNU Aspell <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">word-list-compress</span> <span Class="bold">c</span>[<span Class="bold">ompress</span>] | <span Class="bold">d</span>[<span Class="bold">ecompress</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">word-list-compress</span> compresses or decompresses sorted word lists for use with the GNU Aspell spell checker. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">c</span>, <span Class="bold">compress</span> compress the plain text word list read from standard input. 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">d</span>, <span Class="bold">decompress</span> decompress the compressed word list read from standard input. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Here are a few examples of how you can use <span Class="emphasis">word-list-compress</span> 
+<p class="level0">word-list-compress <span Class="bold">d</span> &lt;wordlist.cwl &gt;wordlist.txt Decompress file wordlist.cwl to text file wordlist.txt 
+<p class="level0">word-list-compress <span Class="bold">c</span> &lt;wordlist.wl &gt;wordlist.cwl 2&gt;errors.txt Compress wordlist.wl to wordlist.cwl and send any error messages to a text file named errors.txt 
+<p class="level0">LC_COLLATE=C sort -u &lt;wordlist.txt <span Class="bold">|</span> word-list-compress c &gt;wordlist.cwl Sort a word list, then pipe it to <span Class="emphasis">word-list-compress</span> to create a compressed binary wordlist.cwl file. 
+<p class="level0">word-list-compress d &lt;words.cwl <span Class="bold">|</span> aspell create master ./words.rws Decompress a wordlist, then pipe it to <span Class="emphasis">aspell(1)</span> to create a spelling list.  Please check the <span Class="emphasis">aspell(1)</span> info manual for proper usage and options. <a name="TIPS"></a><h2 class="nroffsh">TIPS</h2>
+<p class="level0"><span Class="emphasis">Word-list-compress</span> is best used with sorted word list type files.  It is not a general purpose compression program since the resulting files may actually increase in size. 
+<p class="level0"><span Class="emphasis">Word-list-compress</span> accepts up to 255 text characters in the range of {0x21...0xFF}. If your word list requires a larger character set for certain languages or longer length for multi-word, scientific, medical, technical or other use, then it is recommended that you compress your word list using <span Class="emphasis">prezip-bin(1)</span> 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0"><span Class="emphasis">Word-list-compress</span> normally exits with a return code of 0. If it encounters an error, a message is sent to standard error output (stderr), and <span Class="emphasis">word-list-compress</span> exits with a non-zero return value.  Error messages are listed below: 
+<p class="level0"><span Class="bold">(display help/usage message)</span> Unknown command given on the command line so <span Class="emphasis">word-list-compress</span> displays a usage message to standard error output. 
+<p class="level0"><span Class="bold">Corrupt Input</span> This is only for the decompression command <span Class="bold">d</span>.  The input file is of an unknown format or the input file/stream is corrupted.  You may have some valid output, but <span Class="emphasis">word-list-compress</span> could not complete the process.  If the input file is a compressed wordlist but you have no output file, then it may be a newer <span Class="emphasis">prezip-bin(1)</span> version of compressed file, if so, try decompressing the file with <span Class="emphasis">prezip-bin(1)</span> instead. 
+<p class="level0"><span Class="bold">Output Data Error</span> The output is full, write protected, or has an error and can no longer be written to. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">aspell (1)</span>, <span Class="manpage">aspell-import (1)</span>, <span Class="manpage">prezip-bin (1)</span>, <span Class="manpage">run-with-aspell (1)</span>
+<p class="level0">Aspell is fully documented in its Texinfo manual.  See the 
+<p class="level0">entry in <span Class="bold">info</span> for more complete documentation. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">For help, see the Aspell homepage at &lt;http://aspell.net&gt; and send bug reports/comments to the Aspell user list at the above address. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was written by Aaron Lehmann &lt;aaronl@vitelus.com&gt;, Brian Nelson &lt;pyro@debian.org&gt; and Jose Da Silva &lt;digital@joescat.com&gt;. 

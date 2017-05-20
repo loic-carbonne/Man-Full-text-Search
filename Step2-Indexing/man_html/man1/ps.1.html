@@ -1,0 +1,401 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ps - report a snapshot of the current processes. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ps</span> [<span Class="emphasis">options</span>] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ps</span> displays information about a selection of the active processes.  If you want a repetitive update of the selection and the displayed information, use <span Class="emphasis">top (1)</span> instead. 
+<p class="level0">This version of <span Class="bold">ps</span> accepts several kinds of options: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="1"></a><span class="nroffip">1 4</span> 
+<p class="level1">UNIX options, which may be grouped and must be preceded by a dash. 
+<p class="level0"><a name="2"></a><span class="nroffip">2 4</span> 
+<p class="level1">BSD options, which may be grouped and must not be used with a dash. 
+<p class="level0"><a name="3"></a><span class="nroffip">3 4</span> 
+<p class="level1">GNU long options, which are preceded by two dashes. 
+<p class="level1">
+<p class="level1">Options of different types may be freely mixed, but conflicts can appear. There are some synonymous options, which are functionally identical, due to the many standards and <span Class="bold">ps</span> implementations that this <span Class="bold">ps</span> is compatible with. 
+<p class="level1">Note that "<span Class="bold">ps -aux</span>" is distinct from "<span Class="bold">ps&nbsp;aux</span>".  The POSIX and UNIX standards require that "<span Class="bold">ps&nbsp;-aux</span>" print all processes owned by a user named "x", as well as printing all processes that would be selected by the <span Class="bold">-a</span> option.  If the user named "x" does not exist, this <span Class="bold">ps</span> may interpret the command as "<span Class="bold">ps&nbsp;aux</span>" instead and print a warning. This behavior is intended to aid in transitioning old scripts and habits.  It is fragile, subject to change, and thus should not be relied upon. 
+<p class="level1">By default, <span Class="bold">ps</span> selects all processes with the same effective user ID (euid=EUID) as the current user and associated with the same terminal as the invoker.  It displays the process ID (pid=PID), the terminal associated with the process (tname=TTY), the cumulated CPU time in [DD-]hh:mm:ss format (time=TIME), and the executable name (ucmd=CMD).  Output is unsorted by default. 
+<p class="level1">The use of BSD-style options will add process state (stat=STAT) to the default display and show the command args (args=COMMAND) instead of the executable name.  You can override this with the <span Class="bold">PS_FORMAT</span> environment variable. The use of BSD-style options will also change the process selection to include processes on other terminals (TTYs) that are owned by you; alternately, this may be described as setting the selection to be the set of all processes filtered to exclude processes owned by other users or not on a terminal.  These effects are not considered when options are described as being "identical" below, so <span Class="bold">-M</span> will be considered identical to <span Class="bold">Z</span> and so on. 
+<p class="level1">Except as described below, process selection options are additive.  The default selection is discarded, and then the selected processes are added to the set of processes to be displayed.  A process will thus be shown if it meets any of the given selection criteria. 
+<p class="level1"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To see every process on the system using standard syntax: <span Class="bold">ps\ -e</span> <br><span Class="bold">ps\ -ef</span> <br><span Class="bold">ps\ -eF</span> <br><span Class="bold">ps\ -ely</span> 
+<p class="level0">To see every process on the system using BSD syntax: <span Class="bold">ps\ ax</span> <br><span Class="bold">ps\ axu</span> 
+<p class="level0">To print a process tree: <span Class="bold">ps\ -ejH</span> <br><span Class="bold">ps\ axjf</span> 
+<p class="level0">To get info about threads: <span Class="bold">ps\ -eLf</span> <br><span Class="bold">ps\ axms</span> 
+<p class="level0">To get security info: <span Class="bold">ps\ -eo euser,ruser,suser,fuser,f,comm,label</span> <br><span Class="bold">ps\ axZ</span> <br><span Class="bold">ps\ -eM</span> 
+<p class="level0">To see every process running as root (real&nbsp;&&nbsp;effective&nbsp;ID) in user format: <span Class="bold">ps\ -U\ root\ -u\ root\ u</span> 
+<p class="level0">To see every process with a user-defined format: <span Class="bold">ps\ -eo\ pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm</span> <br><span Class="bold">ps\ axo\ stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm</span> <br><span Class="bold">ps\ -Ao\ pid,tt,user,fname,tmout,f,wchan</span> 
+<p class="level0">Print only the process IDs of syslogd: <span Class="bold">ps\ -C\ syslogd\ -o\ pid=</span> 
+<p class="level0">Print only the name of PID 42: <span Class="bold">ps\ -p\ 42\ -o\ comm=</span> 
+<p class="level0">
+<p class="level0"><a name="SIMPLE"></a><h2 class="nroffsh">SIMPLE PROCESS SELECTION</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">a</span>Lift the BSD-style "only yourself" restriction, which is imposed upon the set of all processes when some BSD-style (without "-") options are used or when the <span Class="bold">ps</span> personality setting is BSD-like.  The set of processes selected in this manner is in addition to the set of processes selected by other means.  An alternate description is that this option causes <span Class="bold">ps</span> to list all processes with a terminal (tty), or to list all processes when used together with the <span Class="bold">x</span> option. 
+<p class="level0"><span Class="bold">-A</span> Select all processes.  Identical to <span Class="manpage">-e .</span>
+<p class="level0"><span Class="bold">-a</span> Select all processes except both session leaders (see <span Class="emphasis">getsid (2))</span> and processes not associated with a terminal. 
+<p class="level0"><span Class="bold">-d</span> Select all processes except session leaders. 
+<p class="level0"><span Class="bold">--deselect</span> Select all processes except those that fulfill the specified conditions (negates the selection).  Identical to <span Class="manpage">-N .</span>
+<p class="level0"><span Class="bold">-e</span> Select all processes.  Identical to <span Class="manpage">-A .</span>
+<p class="level0"><span Class="bold">g</span> Really all, even session leaders.  This flag is obsolete and may be discontinued in a future release.  It is normally implied by the <span Class="bold">a</span> flag, and is only useful when operating in the sunos4 personality. 
+<p class="level0"><span Class="bold">-N</span> Select all processes except those that fulfill the specified conditions (negates the selection).  Identical to <span Class="manpage">--deselect .</span>
+<p class="level0"><span Class="bold">T</span> Select all processes associated with this terminal.  Identical to the <span Class="bold">t</span> option without any argument. 
+<p class="level0"><span Class="bold">r</span> Restrict the selection to only running processes. 
+<p class="level0"><span Class="bold">x</span> Lift the BSD-style "must have a tty" restriction, which is imposed upon the set of all processes when some BSD-style (without "-") options are used or when the <span Class="bold">ps</span> personality setting is BSD-like.  The set of processes selected in this manner is in addition to the set of processes selected by other means.  An alternate description is that this option causes <span Class="bold">ps</span> to list all processes owned by you (same EUID as <span Class="manpage">ps )</span>or to list all processes when used together with the <span Class="bold">a</span> option. 
+<p class="level0">
+<p class="level0"><a name="PROCESS"></a><h2 class="nroffsh">PROCESS SELECTION BY LIST</h2>
+<p class="level0">These options accept a single argument in the form of a blank-separated or comma-separated list.  They can be used multiple times.  For example: <span Class="bold">ps&nbsp;-p&nbsp;"1&nbsp;2"&nbsp;-p&nbsp;3,4</span> 
+<p class="level0">
+<p class="level0">Identical to <span class="bold">--pid&nbsp;<span Class="emphasis">123</span>. 
+<p class="level0"><span Class="emphasis">123</span> Identical to <span class="bold">--pid&nbsp;<span Class="emphasis">123</span>. 
+<p class="level0"><span Class="bold">-C \ cmdlist</span> Select by command name.  This selects the processes whose executable name is given in <span Class="emphasis">cmdlist .</span> 
+<p class="level0"><span Class="bold">-G \ grplist</span> Select by real group ID (RGID) or name.  This selects the processes whose real group name or ID is in the <span Class="emphasis">grplist</span> list.  The real group ID identifies the group of the user who created the process, see <span Class="emphasis">getgid (2).</span> 
+<p class="level0"><span Class="bold">-g \ grplist</span> Select by session OR by effective group name.  Selection by session is specified by many standards, but selection by effective group is the logical behavior that several other operating systems use.  This <span Class="bold">ps</span> will select by session when the list is completely numeric (as&nbsp;sessions\ are).  Group ID numbers will work only when some group names are also specified.  See the <span Class="bold">-s</span> and <span Class="bold">--group</span> options. 
+<p class="level0"><span Class="bold">--Group \ grplist</span> Select by real group ID (RGID) or name.  Identical to <span Class="manpage">-G .</span>
+<p class="level0"><span Class="bold">--group \ grplist</span> Select by effective group ID (EGID) or name.  This selects the processes whose effective group name or ID is in <span Class="emphasis">grplist .</span> The effective group ID describes the group whose file access permissions are used by the process (see <span Class="emphasis">getegid (2)).</span> The <span Class="bold">-g</span> option is often an alternative to <span Class="manpage">--group .</span>
+<p class="level0"><span Class="bold">p \ pidlist</span> Select by process ID.  Identical to <span Class="bold">-p</span> and <span Class="manpage">--pid .</span>
+<p class="level0"><span Class="bold">-p \ pidlist</span> Select by PID.  This selects the processes whose process ID numbers appear in <span Class="emphasis">pidlist .</span> Identical to <span Class="bold">p</span> and <span Class="manpage">--pid .</span>
+<p class="level0"><span Class="bold">--pid \ pidlist</span> Select by process&nbsp;ID.  Identical to <span Class="bold">-p</span> and <span Class="manpage">p .</span>
+<p class="level0"><span Class="bold">--ppid \ pidlist</span> Select by parent process ID.  This selects the processes with a parent process&nbsp;ID in <span Class="emphasis">pidlist .</span> That is, it selects processes that are children of those listed in <span Class="emphasis">pidlist .</span> 
+<p class="level0"><span Class="bold">-s \ sesslist</span> Select by session ID.  This selects the processes with a session ID specified in <span Class="emphasis">sesslist .</span> 
+<p class="level0"><span Class="bold">--sid \ sesslist</span> Select by session&nbsp;ID.  Identical to <span Class="manpage">-s .</span>
+<p class="level0"><span Class="bold">t \ ttylist</span> Select by tty.  Nearly identical to <span Class="bold">-t</span> and <span Class="manpage">--tty</span>but can also be used with an empty <span Class="emphasis">ttylist</span> to indicate the terminal associated with <span Class="manpage">ps .</span>Using the <span Class="bold">T</span> option is considered cleaner than using <span Class="bold">t</span> with an empty <span Class="emphasis">ttylist .</span> 
+<p class="level0"><span Class="bold">-t \ ttylist</span> Select by tty.  This selects the processes associated with the terminals given in <span Class="emphasis">ttylist .</span> Terminals (ttys, or screens for text output) can be specified in several forms: /dev/ttyS1, ttyS1, S1.  A plain "-" may be used to select processes not attached to any terminal. 
+<p class="level0"><span Class="bold">--tty \ ttylist</span> Select by terminal.  Identical to <span Class="bold">-t</span> and <span Class="manpage">t .</span>
+<p class="level0"><span Class="bold">U \ userlist</span> Select by effective user ID (EUID) or name.  This selects the processes whose effective user name or ID is in <span Class="emphasis">userlist .</span> The effective user ID describes the user whose file access permissions are used by the process (see <span Class="emphasis">geteuid (2)).</span> Identical to <span Class="bold">-u</span> and <span Class="manpage">--user .</span>
+<p class="level0"><span Class="bold">-U \ userlist</span> Select by real user ID (RUID) or name.  It selects the processes whose real user name or ID is in the <span Class="emphasis">userlist</span> list.  The real user ID identifies the user who created the process, see <span Class="emphasis">getuid (2).</span> 
+<p class="level0"><span Class="bold">-u \ userlist</span> Select by effective user ID (EUID) or name.  This selects the processes whose effective user name or ID is in <span Class="emphasis">userlist .</span> 
+<p class="level0">The effective user ID describes the user whose file access permissions are used by the process (see <span Class="emphasis">geteuid (2)).</span> Identical to <span Class="bold">U</span> and <span Class="manpage">--user .</span>
+<p class="level0"><span Class="bold">--User \ userlist</span> Select by real user ID (RUID) or name.  Identical to <span Class="manpage">-U .</span>
+<p class="level0"><span Class="bold">--user \ userlist</span> Select by effective user ID (EUID) or name.  Identical to <span Class="bold">-u</span> and <span Class="manpage">U .</span>
+<p class="level0">
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT FORMAT CONTROL</h2>
+<p class="level0">These options are used to choose the information displayed by <span Class="manpage">ps .</span>The output may differ by personality. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> Show different scheduler information for the <span Class="bold">-l</span> option. 
+<p class="level0"><span Class="bold">--context</span> Display security context format (for SELinux). 
+<p class="level0"><span Class="bold">-f</span> Do full-format listing. This option can be combined with many other UNIX-style options to add additional columns.  It also causes the command arguments to be printed.  When used with <span Class="manpage">-L</span>the NLWP (number of threads) and LWP (thread ID) columns will be added.  See the <span Class="bold">c</span> option, the format keyword <span Class="manpage">args</span>and the format keyword <span Class="manpage">comm .</span>
+<p class="level0"><span Class="bold">-F</span> Extra full format.  See the <span Class="bold">-f</span> option, which <span Class="bold">-F</span> implies. 
+<p class="level0"><span Class="bold">--format \ format</span> user-defined format.  Identical to <span Class="bold">-o</span> and <span Class="manpage">o .</span>
+<p class="level0"><span Class="bold">j</span> BSD job control format. 
+<p class="level0"><span Class="bold">-j</span> Jobs format. 
+<p class="level0"><span Class="bold">l</span> Display BSD long format. 
+<p class="level0"><span Class="bold">-l</span> Long format.  The <span Class="bold">-y</span> option is often useful with this. 
+<p class="level0"><span Class="bold">-M</span> Add a column of security data.  Identical to <span Class="bold">Z</span> (for SELinux). 
+<p class="level0"><span Class="bold">O \ format</span> is preloaded <span Class="bold">o</span> (overloaded).  The BSD <span Class="bold">O</span> option can act like <span Class="bold">-O</span> (user-defined output format with some common fields predefined) or can be used to specify sort order.  Heuristics are used to determine the behavior of this option.  To ensure that the desired behavior is obtained (sorting or formatting), specify the option in some other way (e.g.  with <span Class="bold">-O</span> or <span Class="manpage">--sort ).</span>When used as a formatting option, it is identical to <span Class="manpage">-O</span>with the BSD personality. 
+<p class="level0"><span Class="bold">-O \ format</span> Like <span Class="manpage">-o</span>but preloaded with some default columns.  Identical to <span class="bold">-o&nbsp;pid,:<span class="emphasis">format<span Class="bold">,:state,:tname,:time,:command</span> or <span class="bold">-o&nbsp;pid,:<span class="emphasis">format<span Class="bold">,:tname,:time,:cmd</span>, see <span Class="bold">-o</span> below. 
+<p class="level0"><span Class="bold">o \ format</span> Specify user-defined format.  Identical to <span Class="bold">-o</span> and <span Class="manpage">--format .</span>
+<p class="level0"><span Class="bold">-o \ format</span> User-defined format. <span Class="emphasis">format</span> is a single argument in the form of a blank-separated or comma-separated list, which offers a way to specify individual output columns.  The recognized keywords are described in the <a class="bold" href="#STANDARD">STANDARD FORMAT SPECIFIERS</a> section below.  Headers may be renamed 
+<p class="level0">as desired. If all column headers are empty 
+<p class="level0">then the header line will not be output.  Column width will increase as needed for wide headers; this may be used to widen up columns such as WCHAN 
+<p class="level0">Explicit width control 
+<p class="level0">is offered too.  The behavior of <span Class="bold">ps -o pid=X,\:comm=Y</span> varies with personality; output may be one column named "X,:comm=Y" or two columns named "X" and "Y".  Use multiple <span Class="bold">-o</span> options when in doubt.  Use the <span Class="bold">PS_FORMAT</span> environment variable to specify a default as desired; DefSysV and DefBSD are macros that may be used to choose the default UNIX or BSD columns. 
+<p class="level0"><span Class="bold">s</span> Display signal format. 
+<p class="level0"><span Class="bold">u</span> Display user-oriented format. 
+<p class="level0"><span Class="bold">v</span> Display virtual memory format. 
+<p class="level0"><span Class="bold">X</span> Register format. 
+<p class="level0"><span Class="bold">-y</span> Do not show flags; show rss in place of addr.  This option can only be used with <span Class="manpage">-l .</span>
+<p class="level0"><span Class="bold">Z</span> Add a column of security data.  Identical to <span Class="bold">-M</span> (for SELinux). 
+<p class="level0">
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT MODIFIERS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">c</span> Show the true command name.  This is derived from the name of the executable file, rather than from the argv value.  Command arguments and any modifications to them are thus not shown.  This option effectively turns the <span Class="bold">args</span> format keyword into the <span Class="bold">comm</span> format keyword; it is useful with the <span Class="bold">-f</span> format option and with the various BSD-style format options, which all normally display the command arguments.  See the <span Class="bold">-f</span> option, the format keyword <span Class="manpage">args</span>and the format keyword <span Class="manpage">comm .</span>
+<p class="level0"><span Class="bold">--cols \ n</span> Set screen width. 
+<p class="level0"><span Class="bold">--columns \ n</span> Set screen width. 
+<p class="level0"><span Class="bold">--cumulative</span> Include some dead child process data (as a sum with the parent). 
+<p class="level0"><span Class="bold">e</span> Show the environment after the command. 
+<p class="level0"><span Class="bold">f</span> ASCII art process hierarchy (forest). 
+<p class="level0"><span Class="bold">--forest</span> ASCII art process tree. 
+<p class="level0"><span Class="bold">h</span> No header.  (or, one header per screen in the BSD personality).  The <span Class="bold">h</span> option is problematic.  Standard BSD <span Class="bold">ps</span> uses this option to print a header on each page of output, but older Linux <span Class="bold">ps</span> uses this option to totally disable the header.  This version of <span Class="bold">ps</span> follows the Linux usage of not printing the header unless the BSD personality has been selected, in which case it prints a header on each page of output. Regardless of the current personality, you can use the long options <span Class="bold">--headers</span> and <span Class="bold">--no-headers</span> to enable printing headers each page or disable headers entirely, respectively. 
+<p class="level0"><span Class="bold">-H</span> Show process hierarchy (forest). 
+<p class="level0"><span Class="bold">--headers</span> Repeat header lines, one per page of output. 
+<p class="level0"><span Class="bold">k \ spec</span> Specify sorting order.  Sorting syntax is [<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">key</span>[,[<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">key</span>[,...]]. Choose a multi-letter key from the <a class="bold" href="#STANDARD">STANDARD FORMAT SPECIFIERS</a> section.  The "+" is optional since default direction is increasing numerical or lexicographic order.  Identical to <span Class="manpage">--sort .</span>
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Examples: <br><span Class="bold">ps jaxkuid,-ppid,+pid</span> <br><span Class="bold">ps axk comm o comm,args</span> <br><span Class="bold">ps kstart_time -ef</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--lines \ n</span> Set screen height. 
+<p class="level0"><span Class="bold">-n \ namelist</span> Set namelist file.  Identical to <span Class="manpage">N .</span>The namelist file is needed for a proper WCHAN display, and must match the current Linux kernel exactly for correct output.  Without this option, the default search path for the namelist is: 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">$PS_SYSMAP <br>$PS_SYSTEM_MAP <br>/proc/*/wchan <br>/boot/System.map-$(uname&nbsp;-r) <br>/boot/System.map <br>/lib/modules/$(uname&nbsp;-r)/System.map <br>/usr/src/linux/System.map <br>/System.map 
+<p class="level0">
+<p class="level0"><span Class="bold">n</span> Numeric output for WCHAN and USER (including all types of UID and GID). 
+<p class="level0"><span Class="bold">N \ namelist</span> Specify namelist file.  Identical to <span Class="manpage">-n</span>see <span Class="bold">-n</span> above. 
+<p class="level0"><span Class="bold">--no-headers</span> Print no header line at all. <span Class="bold">--no-heading</span> is an alias for this option. 
+<p class="level0"><span Class="bold">O \ order</span> Sorting order (overloaded). The BSD <span Class="bold">O</span> option can act like <span Class="bold">-O</span> (user-defined output format with some common fields predefined) or can be used to specify sort order.  Heuristics are used to determine the behavior of this option.  To ensure that the desired behavior is obtained (sorting or formatting), specify the option in some other way (e.g.  with <span Class="bold">-O</span> or <span Class="manpage">--sort ).</span>
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">For sorting, obsolete BSD <span Class="bold">O</span> option syntax is <span Class="bold">O</span>[<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">k1</span>[,[<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">k2</span>[,...]]. It orders the processes listing according to the multilevel sort specified by the sequence of one-letter short keys <span Class="emphasis">k1 , k2 , ...</span> described in the <a class="bold" href="#OBSOLETE">OBSOLETE SORT KEYS</a> section below.  The&nbsp;"+" is currently optional, merely re-iterating the default direction on a key, but may help to distinguish an <span Class="bold">O</span> sort from an <span Class="bold">O</span> format.  The "-" reverses direction only on the key it precedes. 
+<p class="level1"><span Class="bold">--rows \ n</span> Set screen height. 
+<p class="level1"><span Class="bold">S</span> Sum up some information, such as CPU usage, from dead child processes into their parent.  This is useful for examining a system where a parent process repeatedly forks off short-lived children to do work. 
+<p class="level1"><span Class="bold">--sort \ spec</span> Specify sorting order.  Sorting syntax is [<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">key</span>[,[<a class="bold" href="#">+</a>|<span Class="bold">-</span>]<span Class="emphasis">key</span>[,...]].  Choose a multi-letter key from the <a class="bold" href="#STANDARD">STANDARD FORMAT SPECIFIERS</a> section.  The "+" is optional since default direction is increasing numerical or lexicographic order.  Identical to <span Class="manpage">k .</span>For example: <span Class="bold">ps jax --sort=\:uid,\:-ppid,\:+pid</span> 
+<p class="level1"><span Class="bold">w</span> Wide output.  Use this option twice for unlimited width. 
+<p class="level1"><span Class="bold">-w</span> Wide output.  Use this option twice for unlimited width. 
+<p class="level1"><span Class="bold">--width \ n</span> Set screen width. 
+<p class="level1">
+<p class="level1"><a name="THREAD"></a><h2 class="nroffsh">THREAD DISPLAY</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">H</span> Show threads as if they were processes. 
+<p class="level0"><span Class="bold">-L</span> Show threads, possibly with LWP and NLWP columns. 
+<p class="level0"><span Class="bold">m</span> Show threads after processes. 
+<p class="level0"><span Class="bold">-m</span> Show threads after processes. 
+<p class="level0"><span Class="bold">-T</span> Show threads, possibly with SPID column. 
+<p class="level0">
+<p class="level0"><a name="OTHER"></a><h2 class="nroffsh">OTHER INFORMATION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help \ section</span> Print a help message.  The section argument can be one of <span Class="emphasis">s</span>imple, <span Class="emphasis">l</span>ist, <span Class="emphasis">o</span>utput, <span Class="emphasis">t</span>hreads, <span Class="emphasis">m</span>isc or <span Class="emphasis">a</span>ll. The argument can be shortened to one of the underlined letters as in: s|l|o|t|m|a. 
+<p class="level0"><span Class="bold">--info</span> Print debugging info. 
+<p class="level0"><span Class="bold">L</span> List all format specifiers. 
+<p class="level0"><span Class="bold">V</span> Print the procps-ng version. 
+<p class="level0"><span Class="bold">-V</span> Print the procps-ng version. 
+<p class="level0"><span Class="bold">--version</span> Print the procps-ng version. 
+<p class="level0">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This <span Class="bold">ps</span> works by reading the virtual files in /proc.  This <span Class="bold">ps</span> does not need to be setuid kmem or have any privileges to run.  Do not give this <span Class="bold">ps</span> any special permissions. 
+<p class="level0">This <span Class="bold">ps</span> needs access to namelist data for proper WCHAN display.  For kernels prior to 2.6, the System.map file must be installed. 
+<p class="level0">CPU usage is currently expressed as the percentage of time spent running during the entire lifetime of a process.  This is not ideal, and&nbsp;it does not conform to the standards that <span Class="bold">ps</span> otherwise conforms to.  CPU usage is unlikely to add up to exactly 100%. 
+<p class="level0">The SIZE and RSS fields don't count some parts of a process including the page tables, kernel stack, struct thread_info, and struct task_struct.  This is usually at least 20 KiB of memory that is always resident.  SIZE is the virtual size of the process (code+:data+:stack). 
+<p class="level0">Processes marked &lt;defunct&gt; are dead processes (so-called "zombies") that remain because their parent has not destroyed them properly.  These processes will be destroyed by <span Class="emphasis">init (8)</span> if the parent process exits. 
+<p class="level0">If the length of the username is greater than the length of the display column, the numeric user ID is displayed instead. 
+<p class="level0">Commands options such as <span Class="bold">ps -aux</span> are not recommended as it is a confusion of two different standards. According to the POSIX and UNIX standards, the above command asks to display all processes with a TTY (generally the commands users are running) plus all processes owned by a user named "x".  If that user doesn't exist, then <span Class="bold">ps</span> will assume you really meant "<span Class="bold">ps</span> <span Class="emphasis">aux</span>". <a name="PROCESS"></a><h2 class="nroffsh">PROCESS FLAGS</h2>
+<p class="level0">The sum of these values is displayed in the "F" column, which is provided by the <span Class="bold">flags</span> output specifier: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">1 forked but didn't exec 
+<p class="level2">4 used super-user privileges 
+<p class="level2">
+<p class="level1">
+<p class="level1"><a name="PROCESS"></a><h2 class="nroffsh">PROCESS STATE CODES</h2>
+<p class="level0">Here are the different values that the <span Class="manpage">s</span>, <a class="manpage" href="#">\ stat \ and \ state</a>output specifiers (header "STAT" or "S") will display to describe the state of a process: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">D uninterruptible sleep (usually IO) 
+<p class="level2">R running or runnable (on run queue) 
+<p class="level2">S interruptible sleep (waiting for an event to complete) 
+<p class="level2">T stopped, either by a job control signal or because it is being traced 
+<p class="level2">W paging (not valid since the 2.6.xx kernel) 
+<p class="level2">X dead (should never be seen) 
+<p class="level2">Z defunct ("zombie") process, terminated but not reaped by its parent 
+<p class="level2">
+<p class="level1">
+<p class="level1">For BSD formats and when the <span Class="bold">stat</span> keyword is used, additional characters may be displayed: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">&lt; high-priority (not nice to other users) 
+<p class="level2">N low-priority (nice to other users) 
+<p class="level2">L has pages locked into memory (for real-time and custom IO) 
+<p class="level2">s is a session leader 
+<p class="level2">l is multi-threaded (using CLONE_THREAD, like NPTL pthreads do) 
+<p class="level2">+ is in the foreground process group 
+<p class="level2">
+<p class="level1">
+<p class="level1"><a name="OBSOLETE"></a><h2 class="nroffsh">OBSOLETE SORT KEYS</h2>
+<p class="level0">These keys are used by the BSD <span Class="bold">O</span> option (when it is used for sorting).  The GNU <span Class="bold">--sort</span> option doesn't use these keys, but the specifiers described below in the <a class="bold" href="#STANDARD">STANDARD FORMAT SPECIFIERS</a> section.  Note that the values used in sorting are the internal values <span Class="bold">ps</span> uses and not the "cooked" values used in some of the output format fields (e.g.  sorting on tty will sort into device number, not according to the terminal name displayed).  Pipe <span Class="bold">ps</span> output into the <span Class="manpage">sort (1)</span>command if you want to sort the cooked values. 
+<p class="level0">l l lw(3i). <span Class="bold">KEY	LONG	DESCRIPTION</span> c	cmd	simple name of executable C	pcpu	cpu utilization f	flags	flags as in long format F field g	pgrp	process group ID G	tpgid	controlling tty process group ID j	cutime	cumulative user time J	cstime	cumulative system time k	utime	user time m	min_flt	number of minor page faults M	maj_flt	number of major page faults n	cmin_flt	cumulative minor page faults N	cmaj_flt	cumulative major page faults o	session	session ID p	pid	process ID P	ppid	parent process ID r	rss	resident set size R	resident	resident pages s	size	memory size in kilobytes S	share	amount of shared pages t	tty	the device number of the controlling tty T	start_time	time process was started U	uid	user ID number u	user	user name v	vsize	total VM size in KiB y	priority	kernel scheduling priority 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AIX"></a><h2 class="nroffsh">AIX FORMAT DESCRIPTORS</h2>
+<p class="level0">This <span Class="bold">ps</span> supports AIX format descriptors, which work somewhat like the formatting codes of <span Class="emphasis">printf (1)</span> and <span Class="emphasis">printf (3).</span> For example, the normal default output can be produced with this: <span Class="bold">ps -eo "%p %y %x %c"</span>. The <span Class="bold">NORMAL</span> codes are described in the next section. 
+<p class="level0">l l l. <span Class="bold">CODE	NORMAL	HEADER</span> %C	pcpu	%CPU %G	group	GROUP %P	ppid	PPID %U	user	USER %a	args	COMMAND %c	comm	COMMAND %g	rgroup	RGROUP %n	nice	NI %p	pid	PID %r	pgid	PGID %t	etime	ELAPSED %u	ruser	RUSER %x	time	TIME %y	tty	TTY %z	vsz	VSZ 
+<p class="level0"><a name="STANDARD"></a><h2 class="nroffsh">STANDARD FORMAT SPECIFIERS</h2>
+<p class="level0">Here are the different keywords that may be used to control the output format (e.g. with option <span Class="manpage">-o )</span>or to sort the selected processes with the GNU-style <span Class="bold">--sort</span> option. 
+<p class="level0">For example: <span Class="bold">ps -eo pid,\:user,\:args --sort user</span> 
+<p class="level0">This version of <span Class="bold">ps</span> tries to recognize most of the keywords used in other implementations of , <span Class="manpage">ps .</span>
+<p class="level0">The following user-defined format specifiers may contain spaces: <span Class="manpage">args</span>, <a class="manpage" href="#">\ cmd</a>, <a class="manpage" href="#">\ comm</a>, <a class="manpage" href="#">\ command</a>, <a class="manpage" href="#">\ fname</a>, <a class="manpage" href="#">\ ucmd</a>, <a class="manpage" href="#">\ ucomm</a>, <span Class="manpage">lstart</span>, <a class="manpage" href="#">\ bsdstart</a>, <a class="manpage" href="#">\ start .</a>
+<p class="level0">Some keywords may not be available for sorting. 
+<p class="level0">
+<p class="level0">expand; lB1 lB1 lBw(n[ColSize]n) lB1 l1  l. CODE	HEADER	DESCRIPTION 
+<p class="level0">%cpu	%CPU	T{ cpu utilization of the process in "&#35;&#35;.&#35;" format.  Currently, it is the CPU time used divided by the time the process has been running (cputime/realtime ratio), expressed as a percentage.  It will not add up to 100% unless you are lucky.  (alias <span Class="manpage">pcpu ).</span>T} 
+<p class="level0">%mem	%MEM	T{ ratio of the process's resident set size  to the physical memory on the machine, expressed as a percentage.  (alias <span Class="manpage">pmem ).</span>T} 
+<p class="level0">args	COMMAND	T{ command with all its arguments as a string. Modifications to the arguments may be shown.  The output in this column may contain spaces.  A process marked &lt;defunct&gt; is partly dead, waiting to be fully destroyed by its parent. Sometimes the process args will be unavailable; when this happens, <span Class="bold">ps</span> will instead print the executable name in brackets.  (alias <span Class="manpage">cmd</span>, <a class="manpage" href="#">\ command ).</a>See also the <span Class="bold">comm</span> format keyword, the <span Class="bold">-f</span> option, and the <span Class="bold">c</span> option. <br>When specified last, this column will extend to the edge of the display.  If <span Class="bold">ps</span> can not determine display width, as when output is redirected (piped) into a file or another command, the output width is undefined (it may be 80, unlimited, determined by the <span Class="bold">TERM</span> variable, and so on).  The <span Class="bold">COLUMNS</span> environment variable or <span Class="bold">--cols</span> option may be used to exactly determine the width in this case.  The <span Class="bold">w</span> or <span Class="bold">-w</span> option may be also be used to adjust width. T} 
+<p class="level0">blocked	BLOCKED	T{ mask of the blocked signals, see <span Class="emphasis">signal (7).</span> According to the width of the field, a 32 or 64-bit mask in hexadecimal format is displayed.  (alias <span Class="manpage">sig_block</span>, <a class="manpage" href="#">\ sigmask ).</a>T} 
+<p class="level0">bsdstart	START	T{ time the command started.  If the process was started less than 24 hours ago, the output format is "&nbsp;HH:MM", else it is " Mmm:SS" (where Mmm is the three letters of the month).  See also <span Class="manpage">lstart</span>, <a class="manpage" href="#">\ start</a>, <a class="manpage" href="#">\ start_time</a>, <span Class="manpage">and \ stime .</span>T} 
+<p class="level0">bsdtime	TIME	T{ accumulated cpu time, user + system.  The display format is usually "MMM:SS", but can be shifted to the right if the process used more than 999 minutes of cpu time. T} 
+<p class="level0">c	C	T{ processor utilization. Currently, this is the integer value of the percent usage over the lifetime of the process.  (see <span Class="manpage">%cpu ).</span>T} 
+<p class="level0">caught	CAUGHT	T{ mask of the caught signals, see <span Class="emphasis">signal (7).</span> According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed.  (alias <span Class="manpage">sig_catch</span>, <a class="manpage" href="#">\ sigcatch ).</a>T} 
+<p class="level0">cgroup	CGROUP	T{ display control groups to which the process belongs. T} 
+<p class="level0">class	CLS	T{ scheduling class of the process.  (alias <span Class="manpage">policy</span>, <a class="manpage" href="#">\ cls ).</a>Field's possible values are: 
+<p class="level0"><a name=""></a><span class="nroffip"> 2</span> 
+<p class="level1">-	not reported <br>TS	SCHED_OTHER <br>FF	SCHED_FIFO <br>RR	SCHED_RR <br>B	SCHED_BATCH <br>ISO	SCHED_ISO <br>IDL	SCHED_IDLE <br>?	unknown value T} 
+<p class="level1">cls	CLS	T{ scheduling class of the process.  (alias <span Class="manpage">policy</span>, <a class="manpage" href="#">\ cls ).</a>Field's possible values are: 
+<p class="level0"><a name=""></a><span class="nroffip"> 2</span> 
+<p class="level1">-	not reported <br>TS	SCHED_OTHER <br>FF	SCHED_FIFO <br>RR	SCHED_RR <br>B	SCHED_BATCH <br>ISO	SCHED_ISO <br>IDL	SCHED_IDLE <br>?	unknown value T} 
+<p class="level1">cmd	CMD	T{ see <span Class="manpage">args .</span>(alias <span Class="manpage">args</span>, <a class="manpage" href="#">\ command ).</a>T} 
+<p class="level1">comm	COMMAND	T{ command name (only the executable name).  Modifications to the command name will not be shown.  A process marked &lt;defunct&gt; is partly dead, waiting to be fully destroyed by its parent.  The output in this column may contain spaces. (alias <span Class="manpage">ucmd</span>, <a class="manpage" href="#">\ ucomm ).</a>See also the <span Class="bold">args format keyword,</span> the <span Class="bold">-f</span> option, and the <span Class="bold">c</span> option. <br>When specified last, this column will extend to the edge of the display.  If <span Class="bold">ps</span> can not determine display width, as when output is redirected (piped) into a file or another command, the output width is undefined (it may be 80, unlimited, determined by the <span Class="bold">TERM</span> variable, and so on).  The <span Class="bold">COLUMNS</span> environment variable or <span Class="bold">--cols</span> option may be used to exactly determine the width in this case.  The <span Class="manpage">w \ or \ -w</span>option may be also be used to adjust width. T} 
+<p class="level1">command	COMMAND	T{ See <span Class="manpage">args .</span>(alias <span Class="manpage">args</span>, <a class="manpage" href="#">\ command ).</a>T} 
+<p class="level1">cp	CP	T{ per-mill (tenths of a percent) CPU usage.  (see <span Class="manpage">%cpu ).</span>T} 
+<p class="level1">cputime	TIME	T{ cumulative CPU time, "[DD-]hh:mm:ss" format.  (alias <span Class="manpage">time ).</span>T} 
+<p class="level1">egid	EGID	T{ effective group ID number of the process as a decimal integer.  (alias <span Class="manpage">gid ).</span>T} 
+<p class="level1">egroup	EGROUP	T{ effective group ID of the process.  This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise.  (alias <span Class="manpage">group ).</span>T} 
+<p class="level1">eip	EIP	T{ instruction pointer. T} 
+<p class="level1">esp	ESP	T{ stack pointer. T} 
+<p class="level1">etime	ELAPSED	T{ elapsed time since the process was started, in the form [[DD-]hh:]mm:ss. T} 
+<p class="level1">etimes	ELAPSED	T{ elapsed time since the process was started, in seconds. T} 
+<p class="level1">euid	EUID	T{ effective user ID (alias <span Class="manpage">uid ).</span>T} 
+<p class="level1">euser	EUSER	T{ effective user name.  This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise.  The <span Class="bold">n</span> option can be used to force the decimal representation.  (alias <span Class="manpage">uname</span>, <a class="manpage" href="#">\  user ).</a>T} 
+<p class="level1">f	F	T{ flags associated with the process, see the <a class="bold" href="#PROCESS">PROCESS FLAGS</a> section.  (alias <span Class="manpage">flag</span>, <a class="manpage" href="#">\ flags ).</a>T} 
+<p class="level1">fgid	FGID	T{ filesystem access group&nbsp;ID.  (alias <span Class="manpage">fsgid ).</span>T} 
+<p class="level1">fgroup	FGROUP	T{ filesystem access group ID.  This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise.  (alias <span Class="manpage">fsgroup ).</span>T} 
+<p class="level1">flag	F	T{ see <span Class="manpage">f .</span>(alias <span Class="manpage">f</span>, <a class="manpage" href="#">\ flags ).</a>T} 
+<p class="level1">flags	F	T{ see <span Class="manpage">f .</span>(alias <span Class="manpage">f</span>, <a class="manpage" href="#">\ flag ).</a>T} 
+<p class="level1">fname	COMMAND	T{ first 8 bytes of the base name of the process's executable file.  The output in this column may contain spaces. T} 
+<p class="level1">fuid	FUID	T{ filesystem access user ID.  (alias <span Class="manpage">fsuid ).</span>T} 
+<p class="level1">fuser	FUSER	T{ filesystem access user ID.  This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise. T} 
+<p class="level1">gid	GID	T{ see <span Class="manpage">egid .</span>(alias <span Class="manpage">egid ).</span>T} 
+<p class="level1">group	GROUP	T{ see <span Class="manpage">egroup .</span>(alias <span Class="manpage">egroup ).</span>T} 
+<p class="level1">ignored	IGNORED	T{ mask of the ignored signals, see <span Class="emphasis">signal (7).</span> According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed.  (alias <span Class="manpage">sig_ignore</span>, <a class="manpage" href="#">\ sigignore ).</a>T} 
+<p class="level1">ipcns	IPCNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">label	LABEL	T{ security label, most commonly used for SELinux context data.  This is for the <span Class="emphasis">Mandatory Access Control</span> ("MAC") found on high-security systems. T} 
+<p class="level1">lstart	STARTED	T{ time the command started.  See also <span Class="manpage">bsdstart</span>, <a class="manpage" href="#">\ start</a>, <a class="manpage" href="#">\ start_time</a>, <span Class="manpage">and \ stime .</span>T} 
+<p class="level1">lsession	SESSION	T{ displays login session identifier of a process. T} 
+<p class="level1">lwp	LWP	T{ light weight process (thread) ID of the dispatchable entity (alias <span Class="manpage">spid</span>, <a class="manpage" href="#">\ tid ).</a>See <span Class="bold">tid</span> for additional information. T} 
+<p class="level1">machine	MACHINE	T{ displays machine name for processes assigned to VM or container. T} 
+<p class="level1">maj_flt	MAJFLT	T{ The number of major page faults that have occurred with this process. T} 
+<p class="level1">min_flt	MINFLT	T{ The number of minor page faults that have occurred with this process. T} 
+<p class="level1">mntns	MNTNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">netns	NETNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">ni	NI	T{ nice value. This ranges from 19 (nicest) to -20 (not nice to others), see <span Class="emphasis">nice (1).</span> (alias <span Class="manpage">nice ).</span>T} 
+<p class="level1">nice	NI	T{ see <span Class="manpage">ni .  (alias</span>, <span Class="manpage">ni ).</span>T} 
+<p class="level1">nlwp	NLWP	T{ number of lwps (threads) in the process.  (alias <span Class="manpage">thcount ).</span>T} 
+<p class="level1">nwchan	WCHAN	T{ address of the kernel function where the process is sleeping (use <span Class="bold">wchan</span> if you want the kernel function name).  Running tasks will display a dash ('-') in this column. T} 
+<p class="level1">ouid	OWNER	T{ displays the Unix user identifier of the owner of the session of a process. T} 
+<p class="level1">pcpu	%CPU	T{ see <span Class="manpage">%cpu .</span>(alias <span Class="manpage">%cpu ).</span>T} 
+<p class="level1">pending	PENDING	T{ mask of the pending signals. See <span Class="emphasis">signal (7).</span> Signals pending on the process are distinct from signals pending on individual threads.  Use the <span Class="bold">m</span> option or the <span Class="bold">-m</span> option to see both.  According to the width of the field, a 32 or 64 bits mask in hexadecimal format is displayed.  (alias <span Class="manpage">sig ).</span>T} 
+<p class="level1">pgid	PGID	T{ process group ID or, equivalently, the process ID of the process group leader.  (alias <span Class="manpage">pgrp ).</span>T} 
+<p class="level1">pgrp	PGRP	T{ see <span Class="manpage">pgid .</span>(alias <span Class="manpage">pgid ).</span>T} 
+<p class="level1">pid	PID	T{ a number representing the process ID (alias <span Class="manpage">tgid ).</span>T} 
+<p class="level1">pidns	PIDNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">pmem	%MEM	T{ see <span Class="manpage">%mem .</span>(alias <span Class="manpage">%mem ).</span>T} 
+<p class="level1">policy	POL	T{ scheduling class of the process.  (alias <span Class="manpage">class</span>, <a class="manpage" href="#">\ cls ).</a>Possible values are: 
+<p class="level0"><a name=""></a><span class="nroffip"> 2</span> 
+<p class="level1">-	not reported <br>TS	SCHED_OTHER <br>FF	SCHED_FIFO <br>RR	SCHED_RR <br>B	SCHED_BATCH <br>ISO	SCHED_ISO <br>IDL	SCHED_IDLE <br>?	unknown value T} 
+<p class="level1">ppid	PPID	T{ parent process ID. T} 
+<p class="level1">pri	PRI	T{ priority of the process.  Higher number means lower priority. T} 
+<p class="level1">psr	PSR	T{ processor that process is currently assigned to. T} 
+<p class="level1">rgid	RGID	T{ real group ID. T} 
+<p class="level1">rgroup	RGROUP	T{ real group name.  This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise. T} 
+<p class="level1">rss	RSS	T{ resident set size, the non-swapped physical memory that a task has used (in\ kiloBytes).  (alias , <span Class="manpage">rssize</span>, <a class="manpage" href="#">\ rsz ).</a>T} 
+<p class="level1">rssize	RSS	T{ see <span Class="manpage">rss .</span>(alias <span Class="manpage">rss</span>, <a class="manpage" href="#">\ rsz ).</a>T} 
+<p class="level1">rsz	RSZ	T{ see <span Class="manpage">rss .</span>(alias <span Class="manpage">rss</span>, <a class="manpage" href="#">\ rssize ).</a>T} 
+<p class="level1">rtprio	RTPRIO	T{ realtime priority. T} 
+<p class="level1">ruid	RUID	T{ real user ID. T} 
+<p class="level1">ruser	RUSER	T{ real user ID.  This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise. T} 
+<p class="level1">s	S	T{ minimal state display (one character).  See section <a class="bold" href="#PROCESS">PROCESS STATE CODES</a> for the different values.  See also <span Class="bold">stat</span> if you want additional information displayed.  (alias <span Class="manpage">state ).</span>T} 
+<p class="level1">sched	SCH	T{ scheduling policy of the process.  The policies SCHED_OTHER (SCHED_NORMAL), SCHED_FIFO, SCHED_RR, SCHED_BATCH, SCHED_ISO, and SCHED_IDLE are respectively displayed as 0, 1, 2, 3, 4, and 5. T} 
+<p class="level1">seat	SEAT	T{ displays login session identifier of a process. T} 
+<p class="level1">sess	SESS	T{ session ID or, equivalently, the process ID of the session leader.  (alias <span Class="manpage">session</span>, <a class="manpage" href="#">\ sid ).</a>T} 
+<p class="level1">sgi_p	P	T{ processor that the process is currently executing on.  Displays "*" if the process is not currently running or runnable. T} 
+<p class="level1">sgid	SGID	T{ saved group ID.  (alias <span Class="manpage">svgid ).</span>T} 
+<p class="level1">sgroup	SGROUP	T{ saved group name.  This will be the textual group ID, if it can be obtained and the field width permits, or a decimal representation otherwise. T} 
+<p class="level1">sid	SID	T{ see <span Class="manpage">sess .</span>(alias <span Class="manpage">sess</span>, <a class="manpage" href="#">\ session ).</a>T} 
+<p class="level1">sig	PENDING	T{ see <span Class="manpage">pending .</span>(alias <span Class="manpage">pending</span>, <a class="manpage" href="#">\ sig_pend ).</a>T} 
+<p class="level1">sigcatch	CAUGHT	T{ see <span Class="manpage">caught .</span>(alias <span Class="manpage">caught</span>, <a class="manpage" href="#">\ sig_catch ).</a>T} 
+<p class="level1">sigignore	IGNORED	T{ see <span Class="manpage">ignored .</span>(alias <span Class="manpage">ignored</span>, <a class="manpage" href="#">\ sig_ignore ).</a>T} 
+<p class="level1">sigmask	BLOCKED	T{ see <span Class="manpage">blocked .</span>(alias <span Class="manpage">blocked</span>, <a class="manpage" href="#">\ sig_block ).</a>T} 
+<p class="level1">size	SIZE	T{ approximate amount of swap space that would be required if the process were to dirty all writable pages and then be swapped out.  This number is very rough! T} 
+<p class="level1">slice	SLICE	T{ displays slice unit which a process belongs to. T} 
+<p class="level1">spid	SPID	T{ see <span Class="manpage">lwp .</span>(alias <span Class="manpage">lwp</span>, <a class="manpage" href="#">\ tid ).</a>T} 
+<p class="level1">stackp	STACKP	T{ address of the bottom (start) of stack for the process. T} 
+<p class="level1">start	STARTED	T{ time the command started.  If the process was started less than 24 hours ago, the output format is "HH:MM:SS", else it is "&nbsp;&nbsp;Mmm&nbsp;dd" (where Mmm is a three-letter month name).  See also <span Class="manpage">lstart</span>, <a class="manpage" href="#">\ bsdstart</a>, <a class="manpage" href="#">\ start_time</a>, <span Class="manpage">and \ stime .</span>T} 
+<p class="level1">start_time	START	T{ starting time or date of the process.  Only the year will be displayed if the process was not started the same year <span Class="bold">ps</span> was invoked, or "MmmDD" if it was not started the same day, or "HH:MM" otherwise.  See also <span Class="manpage">bsdstart</span>, <a class="manpage" href="#">\ start</a>, <a class="manpage" href="#">\ lstart</a>, <span Class="manpage">and \ stime .</span>T} 
+<p class="level1">stat	STAT	T{ multi-character process state.  See section <a class="bold" href="#PROCESS">PROCESS STATE CODES</a> for the different values meaning.  See also <span Class="manpage">s \ and \ state</span>if you just want the first character displayed. T} 
+<p class="level1">state	S	T{ see <span Class="manpage">s . (alias \ s ).</span>T} 
+<p class="level1">suid	SUID	T{ saved user ID.  (alias <span Class="manpage">svuid ).</span>T} 
+<p class="level1">supgid	SUPGID	T{ group ids of supplementary groups, if any.  See <span Class="manpage">getgroups (2).</span>T} 
+<p class="level1">supgrp	SUPGRP	T{ group names of supplementary groups, if any.  See <span Class="manpage">getgroups (2).</span>T} 
+<p class="level1">suser	SUSER	T{ saved user name.  This will be the textual user ID, if it can be obtained and the field width permits, or a decimal representation otherwise.  (alias <span Class="manpage">svuser ).</span>T} 
+<p class="level1">svgid	SVGID	T{ see <span Class="manpage">sgid .</span>(alias <span Class="manpage">sgid ).</span>T} 
+<p class="level1">svuid	SVUID	T{ see <span Class="manpage">suid .</span>(alias <span Class="manpage">suid ).</span>T} 
+<p class="level1">sz	SZ	T{ size in physical pages of the core image of the process.  This includes text, data, and stack space.  Device mappings are currently excluded; this is subject to change.  See , <span Class="manpage">vsz \ and \ rss .</span>T} 
+<p class="level1">tgid	TGID	T{ a number representing the thread group to which a task belongs (alias <span Class="manpage">pid ).</span>It is the process ID of the thread group leader. T} 
+<p class="level1">thcount	THCNT	T{ see <span Class="manpage">nlwp .</span>(alias <span Class="manpage">nlwp ).</span>number of kernel threads owned by the process. T} 
+<p class="level1">tid	TID	T{ the unique number representing a dispatacable entity (alias <span Class="manpage">lwp</span>, <a class="manpage" href="#">\ spid ).</a>This value may also appear as: a process ID (pid); a process group ID (pgrp); a session ID for the session leader (sid); a thread group ID for the thread group leader (tgid); and a tty process group ID for the process group leader (tpgid). T} 
+<p class="level1">time	TIME	T{ cumulative CPU&nbsp;time, "[DD-]HH:MM:SS" format.  (alias <span Class="manpage">cputime ).</span>T} 
+<p class="level1">tname	TTY	T{ controlling tty (terminal).  (alias <span Class="manpage">tt</span>, <a class="manpage" href="#">\ tty ).</a>T} 
+<p class="level1">tpgid	TPGID	T{ ID of the foreground process group on the tty (terminal) that the process is connected to, or -1 if the process is not connected to a tty. T} 
+<p class="level1">tt	TT	T{ controlling tty (terminal).  (alias <span Class="manpage">tname</span>, <a class="manpage" href="#">\ tty ).</a>T} 
+<p class="level1">tty	TT	T{ controlling tty (terminal).  (alias <span Class="manpage">tname</span>, <a class="manpage" href="#">\ tt ).</a>T} 
+<p class="level1">ucmd	CMD	T{ see <span Class="manpage">comm .</span>(alias <span Class="manpage">comm</span>, <a class="manpage" href="#">\ ucomm ).</a>T} 
+<p class="level1">ucomm	COMMAND	T{ see <span Class="manpage">comm .</span>(alias <span Class="manpage">comm</span>, <a class="manpage" href="#">\ ucmd ).</a>T} 
+<p class="level1">uid	UID	T{ see <span Class="manpage">euid .</span>(alias <span Class="manpage">euid ).</span>T} 
+<p class="level1">uname	USER	T{ see <span Class="manpage">euser .</span>(alias <span Class="manpage">euser</span>, <a class="manpage" href="#">\ user ).</a>T} 
+<p class="level1">unit	UNIT	T{ displays systemd unit which a process belongs to. T} 
+<p class="level1">user	USER	T{ see <span Class="manpage">euser .</span>(alias <span Class="manpage">euser</span>, <a class="manpage" href="#">\ uname ).</a>T} 
+<p class="level1">userns	USERNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">utsns	UTSNS	T{ Unique inode number describing the namespace the process belongs to. See namespaces(7). T} 
+<p class="level1">uunit	UUNIT	T{ displays systemd user unit which a process belongs to. T} 
+<p class="level1">vsize	VSZ	T{ see <span Class="manpage">vsz .</span>(alias <span Class="manpage">vsz ).</span>T} 
+<p class="level1">vsz	VSZ	T{ virtual memory size of the process in KiB (1024-byte units).  Device mappings are currently excluded; this is subject to change.  (alias <span Class="manpage">vsize ).</span>T} 
+<p class="level1">wchan	WCHAN	T{ name of the kernel function in which the process is sleeping, a "-" if the process is running, or a "*" if the process is multi-threaded and <span Class="bold">ps</span> is not displaying threads. T} 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">The following environment variables could affect <span Class="manpage">ps :</span>
+<p class="level0"><span Class="bold">COLUMNS</span> Override default display width. 
+<p class="level0"><span Class="bold">LINES</span> Override default display height. 
+<p class="level0"><span Class="bold">PS_PERSONALITY</span> Set to one of posix, old, linux, bsd, sun, digital...  (see section <a class="bold" href="#PERSONALITY">PERSONALITY</a> below). 
+<p class="level0"><span Class="bold">CMD_ENV</span> Set to one of posix, old, linux, bsd, sun, digital...  (see section <a class="bold" href="#PERSONALITY">PERSONALITY</a> below). 
+<p class="level0"><span Class="bold">I_WANT_A_BROKEN_PS</span> Force obsolete command line interpretation. 
+<p class="level0"><span Class="bold">LC_TIME</span> Date format. 
+<p class="level0"><span Class="bold">PS_COLORS</span> Not currently supported. 
+<p class="level0"><span Class="bold">PS_FORMAT</span> Default output format override. You may set this to a format string of the type used for the <span Class="bold">-o</span> option. The <span Class="bold">DefSysV</span> and <span Class="bold">DefBSD</span> values are particularly useful. 
+<p class="level0"><span Class="bold">PS_SYSMAP</span> Default namelist (System.map) location. 
+<p class="level0"><span Class="bold">PS_SYSTEM_MAP</span> Default namelist (System.map) location. 
+<p class="level0"><span Class="bold">POSIXLY_CORRECT</span> Don't find excuses to ignore bad "features". 
+<p class="level0"><span Class="bold">POSIX2</span> When set to "on", acts as , <span Class="manpage">POSIXLY_CORRECT .</span>
+<p class="level0"><span Class="bold">UNIX95</span> Don't find excuses to ignore bad "features". 
+<p class="level0"><span Class="bold">_XPG</span> Cancel <span Class="bold">CMD_ENV</span>=<span Class="emphasis">irix</span> non-standard behavior. 
+<p class="level0">In general, it is a bad idea to set these variables.  The one exception is <span Class="bold">CMD_ENV</span> or <span Class="manpage">PS_PERSONALITY</span>which could be set to Linux for normal systems.  Without that setting, <span Class="bold">ps</span> follows the useless and bad parts of the Unix98 standard. 
+<p class="level0"><a name="PERSONALITY"></a><h2 class="nroffsh">PERSONALITY</h2>
+<p class="level0">
+<p class="level0">l	l. 390	like the OS/390 OpenEdition <span Class="bold">ps</span> aix	like AIX <span Class="bold">ps</span> bsd	like FreeBSD <span Class="bold">ps</span> (totally non-standard) compaq	like Digital Unix <span Class="bold">ps</span> debian	like the old Debian <span Class="bold">ps</span> digital	like Tru64 (was Digital&nbsp;Unix, was OSF/1) <span Class="bold">ps</span> gnu	like the old Debian <span Class="bold">ps</span> hp	like HP-UX <span Class="bold">ps</span> hpux	like HP-UX <span Class="bold">ps</span> irix	like Irix <span Class="bold">ps</span> linux	***** <span Class="bold">recommended</span> ***** old	like the original Linux <span Class="bold">ps</span> (totally non-standard) os390	like OS/390 Open Edition <span Class="bold">ps</span> posix	standard s390	like OS/390 Open Edition <span Class="bold">ps</span> sco	like SCO <span Class="bold">ps</span> sgi	like Irix <span Class="bold">ps</span> solaris2	like Solaris 2+ (SunOS 5) <span Class="bold">ps</span> sunos4	like SunOS 4 (Solaris 1) <span Class="bold">ps</span> (totally non-standard) svr4	standard sysv	standard tru64	like Tru64 (was Digital Unix, was OSF/1) <span Class="bold">ps</span> unix	standard unix95	standard unix98	standard 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">pgrep (1)</span>, <span Class="manpage">pstree (1)</span>, <span Class="manpage">top (1)</span>, <span Class="manpage">proc (5).</span>
+<p class="level0">
+<p class="level0"><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">This <span Class="bold">ps</span> conforms to: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="1"></a><span class="nroffip">1 4</span> 
+<p class="level1">Version 2 of the Single Unix Specification 
+<p class="level0"><a name="2"></a><span class="nroffip">2 4</span> 
+<p class="level1">The Open Group Technical Standard Base Specifications, Issue&nbsp;6 
+<p class="level0"><a name="3"></a><span class="nroffip">3 4</span> 
+<p class="level1">IEEE Std 1003.1, 2004&nbsp;Edition 
+<p class="level0"><a name="4"></a><span class="nroffip">4 4</span> 
+<p class="level1">X/Open System Interfaces Extension [UP&nbsp;XSI] 
+<p class="level0"><a name="5"></a><span class="nroffip">5 4</span> 
+<p class="level1">ISO/IEC 9945:2003 
+<p class="level1">
+<p class="level1"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">ps</span> was originally written by 
+<p class="level0">Branko Lankester 
+<p class="level0">
+<p class="level0">Michael K. Johnson 
+<p class="level0">re-wrote it significantly to use the proc filesystem, changing a few things in the process. 
+<p class="level0">Michael Shields 
+<p class="level0">added the pid-list feature. 
+<p class="level0">Charles Blake 
+<p class="level0">added multi-level sorting, the dirent-style library, the device name-to-number mmaped database, the approximate binary search directly on System.map, and many code and documentation cleanups.  David Mossberger-Tang wrote the generic BFD support for psupdate. 
+<p class="level0">Albert Cahalan 
+<p class="level0">rewrote ps for full Unix98 and BSD support, along with some ugly hacks for obsolete and foreign syntax. 
+<p class="level0">Please send bug reports to 
+<p class="level0">
+<p class="level0">No subscription is required or suggested. 

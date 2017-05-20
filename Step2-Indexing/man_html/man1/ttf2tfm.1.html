@@ -1,0 +1,313 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ttf2tfm - build TeX metric files from a TrueType font <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">ttf2tfm</span> 'in +n(.ku <span Class="emphasis">ttffile\c</span> 
+<p class="level0">[c <span Class="bold">-c \ \%caps-height-factor\c</span> ] [c <span Class="bold">-e \ \%extension-factor\c</span> ] [c <span Class="bold">-E \ \%encoding-id\^\c</span> ] [c <span Class="bold">-f \ \%font-index\c</span> ] [c <span Class="bold">-l\c</span> ] [c <span Class="bold">-L\ \c</span> <span Class="emphasis">\%ligature-file [ .sfd ]\c</span> ] [c <span Class="bold">-n\c</span> ] [c <span Class="bold">-N\c</span> ] [c <span Class="bold">-O\c</span> ] [c <span Class="bold">-p\ \c</span> <span Class="emphasis">\%inencfile [ .enc ]\c</span> ] [c <span Class="bold">-P \ \%platform-id\^\c</span> ] [c <span Class="bold">-q\c</span> ] [c <span Class="bold">-r \ \%old-glyphname\ \%new-glyphname\c</span> ] [c <span Class="bold">-R\ \c</span> <span Class="emphasis">\%replacement-file [ .rpl ]\c</span> ] [c <span Class="bold">-s \ \%slant-factor\c</span> ] [c <span Class="bold">-t\ \c</span> <span Class="emphasis">\%outencfile [ .enc ]\c</span> ] [c <span Class="bold">-T\ \c</span> <span Class="emphasis">\%inoutencfile [ .enc ]\c</span> ] [c <span Class="bold">-u\c</span> ] [c <span Class="bold">-v\ \c</span> <span Class="emphasis">\%vplfile [ .vpl ]\c</span> ] [c <span Class="bold">-V\ \c</span> <span Class="emphasis">\%scvplfile [ .vpl ]\c</span> ] [c <span Class="bold">-w\c</span> ] [c <span Class="bold">-x\c</span> ] [c <span Class="bold">-y \ \%vertical-shift-factor\c</span> ] [c <span Class="emphasis">\%tfmfile [ .tfm ]\c</span> ] <br>
+<p class="level0"><span Class="bold">ttf2tfm -\^-version</span> | <span Class="bold">-\^-help</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">fC\$1</span>\$2fC\$3</span>\$4 
+<p class="level0">
+<p class="level0">\$1\$2\$3\$4 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This program extracts the metric and kerning information of a TrueType font and converts it into metric files usable by *(TX (quite similar to <span Class="bold">afm2tfm</span> which is part of the <span Class="bold">dvips</span> package; please consult its info files for more details on the various parameters (especially encoding files). 
+<p class="level0">Since a TrueType font often contains more than 256&nbsp;glyphs, some means are necessary to map a subset of the TrueType glyphs onto a *(TX font. To do this, two mapping tables are needed: the first (called `input' or `raw' encoding) maps the TrueType font to a raw *(TX font (this mapping table is used by both <span Class="bold">ttf2tfm</span> and <span Class="manpage">ttf2pk )</span>and the second (called `output' or `virtual' encoding) maps the raw *(TX font to another (virtual) *(TX font, providing all kerning and ligature information needed by *(TX. 
+<p class="level0">This two stage mapping has the advantage that one raw font can be accessed with various *(LX encodings (e.g.&nbsp;T1 and OT1) via the virtual font mechanism, and just one 
+<p class="level0">file is necessary. 
+<p class="level0">For CJKV (Chinese/Japanese/Korean/old Vietnamese) fonts, a different mechanism is provided (see <a class="bold" href="#SUBFONT">SUBFONT DEFINITION FILES</a> below). 
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">Most of the command line switch names are the same as in <span Class="bold">afm2tfm</span> for convenience. One or more space characters between an option and its value is mandatory; options can't be concatenated. For historical reasons, the first parameter can <span Class="emphasis">not</span> be a switch but must be the font name. 
+<p class="level0"><span Class="bold">-c \ caps-height-factor</span> The height of small caps made with the <span Class="bold">-V</span> switch. Default value of this real number is&nbsp;0.8 times the height of uppercase glyphs. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-e \ extension-factor</span> The extension factor to stretch the characters horizontally. Default value of this real number is&nbsp;1.0; if less than&nbsp;1.0, you get a condensed font. 
+<p class="level1"><span Class="bold">-E \ encoding-id</span> The TrueType encoding ID. Default value of this non-negative integer is&nbsp;1. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored if <span Class="bold">-N</span> is used. 
+<p class="level1"><span Class="bold">-f \ font-index</span> The font index in a TrueType Collection. Default is the first font (index&nbsp;0). [TrueType collections are usually found in some CJK fonts; e.g.&nbsp;the first font index specifies glyphs and metrics for horizontal writing, and the second font index does the same for vertical writing. TrueType collections usually have the extension `c 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored for ordinary TrueType fonts. 
+<p class="level1"><span Class="bold">-l</span> Create ligatures in subfonts between first and second bytes of all the original character codes. Example:  Character code&nbsp;0xABCD maps to character position&nbsp;123 in subfont&nbsp;45. Then a ligature in subfont&nbsp;45 between position 0xAB and&nbsp;0xCD pointing to character&nbsp;123 will be produced. The fonts of the Korean H*(LX package use this feature. Note that this option generates correct ligatures only for TrueType fonts where the input cmap is identical to the output encoding. In case of H*(LX, TTFs must have platform ID&nbsp;3 and encoding ID&nbsp;5. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored if not in subfont mode. 
+<p class="level1"><span Class="bold">-L \ ligature-file</span> Same as <span Class="manpage">-l</span>but character codes for ligatures are specified in <span Class="emphasis">\%ligature-file .</span> For example, `c 
+<p class="level1">generates correct ligatures for the Korean H*(LX package regardless of the platform and encoding ID of the used TrueType font (the file 
+<p class="level1">is part of the ttf2pk package). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Ligature files have the same format and extension as 
+<p class="level1">files. This option will be ignored if not in subfont mode. 
+<p class="level1"><span Class="bold">-n</span> Use PS names (of glyphs) of the TrueType font. Only glyphs with a valid entry in the selected cmap are used. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-N</span> Use only PS names of the TrueType font. No cmap is used, thus the switches <span Class="bold">-E</span> and <span Class="bold">-P</span> have no effect, causing a warning message. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-O</span> Use octal values for all character codes in the 
+<p class="level1">file rather than names; this is useful for symbol or CJK fonts where character names such as `A' are meaningless. 
+<p class="level1"><span Class="bold">-p \ inencfile</span> The input encoding file name for the TTF(-&gt;raw&nbsp;*(TX mapping. This parameter has to be specified in a map file (default: 
+<p class="level1">recorded in 
+<p class="level1">for successive <span Class="bold">ttf2pk</span> calls. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-P \ platform-id</span> The TrueType platform ID. Default value of this non-negative integer is&nbsp;3. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored if <span Class="bold">-N</span> is used. 
+<p class="level1"><span Class="bold">-q</span> Make <span Class="bold">ttf2tfm</span> quiet. It suppresses any informational output except warning and error messages. For CJK fonts, the output can get quite large if you don't specify this switch. 
+<p class="level1"><span Class="bold">-r \ old-glyphname\ new-glyphname</span> Replaces <span Class="emphasis">\%old-glyphname</span> with <span Class="emphasis">\%new-glyphname .</span> This switch is useful if you want to give an unnamed glyph (i.e., a glyph which can be represented with `.gXXX' or `.cXXX' only) a name or if you want to rename an already existing glyph name. You can't use the `.gXXX' or `.cXXX' glyph name constructs for <span Class="emphasis">\%new-glyphname ;</span> multiple occurrences of <span Class="bold">-r</span> are possible. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If in subfont mode or if no encoding file is specified, this switch is ignored. 
+<p class="level1"><span Class="bold">-R \ replacement-file</span> Use this switch if you have many replacement pairs; they can be  collected in a file which should have `c 
+<p class="level1">as extension. The syntax used in such replacement files is simple: Each non-empty line must contain a pair `c <span Class="emphasis">\%old-glyphname \%new-glyphname '</span> separated by whitespace (without the quotation marks). A percent sign starts a line comment; you can continue a line on the next line with a backslash as the last character. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If in subfont mode or if no encoding file is specified, this switch is ignored. 
+<p class="level1"><span Class="bold">-s \ slant-factor</span> The obliqueness factor to slant the font, usually much smaller than&nbsp;1. Default of this real number is&nbsp;0.0; if the value is larger than zero, the characters slope to the right, otherwise to the left. 
+<p class="level1"><span Class="bold">-t \ outencfile</span> The output encoding file name for the virtual font(s). Only characters in the raw *(TX font are used. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-T \ inoutencfile</span> This is equivalent to 
+<p class="level1"><span Class="emphasis">inoutencfile</span> <span Class="bold">-t</span> <span Class="emphasis">inoutencfile '.</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-u</span> Use only those characters specified in the output encoding, and no others. By default, <span Class="bold">ttf2tfm</span> tries to include all characters in the virtual font, even those not present in the encoding for the virtual font (it puts them into otherwise-unused positions, rather arbitrarily). 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-v \ vplfile</span> Output a 
+<p class="level1">file in addition to the 
+<p class="level1">file. If no output encoding file is specified, <span Class="bold">ttf2tfm</span> uses a default font encoding (cmtt10). <span Class="bold">Note:</span> Be careful to use different names for the virtual font and the raw font! 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-V \ scvplfile</span> Same as <span Class="manpage">-v</span>but the virtual font generated is a pseudo small caps font obtained by scaling uppercase letters by&nbsp;0.8 (resp. the value specified with <span Class="manpage">-c )</span>to typeset lowercase. This font handles accented letters and retains proper kerning. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored in subfont mode. 
+<p class="level1"><span Class="bold">-w</span> Generate PostScript encoding vectors containing glyph indices, primarily used to embed TrueType fonts in pdf*(TX. <span Class="bold">ttf2tfm</span> takes the 
+<p class="level1">names and replaces the suffix with 
+<p class="level1">that is, for files 
+<p class="level1">
+<p class="level1">it creates 
+<p class="level1">
+<p class="level1">at the same place. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored if not in subfont mode. 
+<p class="level1"><span Class="bold">-x</span> Rotate all glyphs by 90 degrees counter-clockwise. If no <span Class="bold">-y</span> parameter is given, the rotated glyphs are shifted down vertically by&nbsp;0.25em. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Will be ignored if not in subfont mode. 
+<p class="level1"><span Class="bold">-y \ vertical-shift-factor</span> Shift down rotated glyphs by the given amount (the unit is <span Class="emphasis">em ).</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Ignored if not in subfont mode or glyphs are not rotated. 
+<p class="level1"><span Class="bold">-\^-version</span> Shows the current version of <span Class="bold">ttf2tfm</span> and the used file search library (e.g. <a class="manpage" href="#kpathsea">kpathsea ).</a>
+<p class="level1"><span Class="bold">-\^-help</span> Shows usage information. 
+<p class="level1">If no 
+<p class="level1">file name is given, the name of the 
+<p class="level1">file is used, including the full path and replacing the extension with `c 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="CMAPS"></a><h2 class="nroffsh">CMAPS</h2>
+<p class="level0">Contrary to Type&nbsp;1 PostScript fonts (but similar to the new CID PostScript font format), most TrueType fonts have more than one native mapping table, also called `cmap', which maps the (internal) TTF glyph indices to the (external) TTF character codes. Common examples are a mapping table to Unicode encoded character positions, and the standard Macintosh mapping. 
+<p class="level0">To specify a TrueType mapping table, use the options <span Class="bold">-P</span> and <span Class="manpage">-E .</span>With <span Class="bold">-P</span> you specify the platform ID; defined values are: 
+<p class="level0">
+<p class="level0">l l. <span Class="emphasis">platform</span>	<span Class="emphasis">platform ID (pid)</span> _ Apple Unicode	0 Macintosh	1 ISO     	2 Microsoft	3 
+<p class="level0">
+<p class="level0">The encoding ID depends on the platform. For pid=0, we ignore the <span Class="bold">-E</span> parameter (setting it to zero) since the mapping table is always Unicode version&nbsp;2.0. For pid=1, the following table lists the defined values: 
+<p class="level0">
+<p class="level1">platform ID = 1 
+<p class="level0">
+<p class="level0">l l. <span Class="emphasis">script</span>	<span Class="emphasis">encoding ID (eid)</span> _ Roman   	0 Japanese	1 Chinese 	2 Korean  	3 Arabic  	4 Hebrew  	5 Greek   	6 Russian 	7 Roman Symbol	8 Devanagari	9 Gurmukhi	10 Gujarati	11 Oriya   	12 Bengali 	13 Tamil   	14 Telugu  	15 Kannada 	16 Malayalam	17 Sinhalese	18 Burmese  	19 Khmer   	20 Thai    	21 Laotian 	22 Georgian	23 Armenian	24 Maldivian	25 Tibetan 	26 Mongolian	27 Geez    	28 Slavic  	29 Vietnamese	30 Sindhi  	31 Uninterpreted	32 
+<p class="level0">
+<p class="level0">Here are the ISO encoding IDs: 
+<p class="level0">
+<p class="level1">platform ID = 2 
+<p class="level0">
+<p class="level0">l l. <span Class="emphasis">encoding</span>	<span Class="emphasis">encoding ID (eid)</span> ASCII   	0 ISO 10646	1 ISO 8859-1	2 
+<p class="level0">
+<p class="level0">And finally, the Microsoft encoding IDs: 
+<p class="level0">
+<p class="level1">platform ID = 3 
+<p class="level0">
+<p class="level0">l l. <span Class="emphasis">encoding</span>	<span Class="emphasis">encoding ID (eid)</span> Symbol          	0 Unicode 2.0     	1 Shift JIS       	2 GB 2312 (1980)  	3 Big 5           	4 KS X 1001 (Wansung)	5 KS X 1001 (Johab)	6 UCS-4           	10 
+<p class="level0">
+<p class="level0">The program will abort if you specify an invalid platform/encoding ID pair. It will then show the possible pid/eid pairs. Please note that most fonts have at most two or three cmaps, usually corresponding to the pid/eid pairs (1,0), (3,0), or (3,1) in case of Latin based fonts. Valid Microsoft fonts should have a (3,1) mapping table, but some fonts exist (mostly Asian fonts) which have a (3,1) cmap not encoded in Unicode. The reason for this strange behavior is the fact that some old MS&nbsp;Windows versions will reject fonts having a non-(3,1) cmap (since all non-Unicode Microsoft encoding IDs are for Asian MS&nbsp;Windows versions). 
+<p class="level0">The <span Class="bold">-P</span> and <span Class="bold">-E</span> options of <span Class="bold">ttf2tfm</span> must be equally specified for <span Class="manpage">ttf2pk ;</span>the corresponding parameters in a map file are `Pid' and `Eid', respectively. 
+<p class="level0">The default pid/eid pair is (3,1). 
+<p class="level0">Similarly, an <span Class="bold">-f</span> option must be specified as `Fontindex' parameter in a map file. 
+<p class="level0">If you use the <span Class="bold">-N</span> switch, all cmaps are ignored, using only the PostScript names in the TrueType font. The corresponding option in a map file is %`PS=Only'. If you use the <span Class="bold">-n</span> switch, the default glyph names built into <span Class="bold">ttf2tfm</span> are replaced with the PS glyph names found in the font. In many cases this is not what you want because the glyph names in the font are often incorrect or non-standard. The corresponding option in a map file is %`PS=Yes'. 
+<p class="level0">Single replacement glyph names specified with <span Class="bold">-r</span> must be given directly as `c <span Class="emphasis">old-glyphname new-glyphname '</span> in a map file; <span Class="bold">-R</span> is equivalent to the `Replacement' option. 
+<p class="level0">
+<p class="level0"><a name="INPUT"></a><h2 class="nroffsh">INPUT AND OUTPUT ENCODINGS</h2>
+<p class="level0">You must specify the encoding vectors from the TrueType font to the raw *(TX font and from the raw *(TX font to the virtual *(TX font exactly as with <span Class="manpage">afm2tfm</span>but you have more possibilities to address the character codes. [With `encoding vector' a mapping table with 256&nbsp;entries in form of a PostScript vector is meant; see the file 
+<p class="level0">of this package for an example.] With <span Class="manpage">afm2tfm</span>you must access each glyph with its Adobe glyph name, e.g.&nbsp;c %`/quotedsingle' or %`/Acircumflex'. This has been extended with <span Class="manpage">ttf2tfm ;</span>now you can (and sometimes must) access the code points and/or glyphs directly, using the following syntax for specifying the character position in decimal, octal, or hexadecimal notation: `/.cc <span Class="emphasis">&lt;decimal-number&gt; ',</span> `/.c0c <span Class="emphasis">&lt;octal-number&gt; ',</span> or `/.c0xc <span Class="emphasis">&lt;hexadecimal-number&gt; '.</span> Examples: %`/.c72', %`/.c0646', %`/.c0x48'. To access a glyph index directly, use the character `g' instead of `c' in the just introduced notation. Example: %`/.g0x32'. [Note: The `.cXXX' notation makes no sense if <span Class="bold">-N</span> is used.] 
+<p class="level0">For pid/eid pairs (1,0) and (3,1), both <span Class="bold">ttf2tfm</span> and <span Class="bold">ttf2pk</span> recognize built-in default Adobe glyph names; the former follows the names given in Appendix&nbsp;E of the book `Inside Macintosh', volume&nbsp;6, the latter uses the names given in the TrueType Specification (WGL4, a Unicode subset). Note that Adobe names for a given glyph are often not unique and do sometimes differ, e.g., many PS fonts have the glyph `mu', whereas this glyph is called `mu1' in the WGL4 character set to distinguish it from the real Greek letter mu. Be also aware that OpenType (i.e. TrueType&nbsp;2.0) fonts use an updated WGL4 table; we use the data from the latest published TrueType specification (1.66). You can find those mapping tables in the source code file 
+<p class="level0">
+<p class="level0">On the other hand, the switches <span Class="bold">-n</span> and <span Class="bold">-N</span> makes <span Class="bold">ttf2tfm</span> read in and use the PostScript names in the TrueType font itself (stored in the `post' table) instead of the default Adobe glyph names. 
+<p class="level0">Use the <span Class="bold">-r</span> switch to remap single glyph names and <span Class="bold">-R</span> to specify a file containing replacement glyph name pairs. 
+<p class="level0">If you don't select an input encoding, the first 256&nbsp;glyphs of the TrueType font with a valid entry in the selected cmap will be mapped to the *(TX raw font (without the <span Class="bold">-q</span> option, <span Class="bold">ttf2tfm</span> prints this mapping table to standard output), followed by all glyphs not yet addressed in the selected cmap. However, some code points for the (1,0) pid/eid pair are omitted since they do not represent glyphs useful for *(TX: 0x00 (null), 0x08 (backspace), 0x09 (horizontal tabulation), 0x0d (carriage return), and 0x1d (group separator). The `invalid character' with glyph index&nbsp;0 will be omitted too. 
+<p class="level0">If you select the <span Class="bold">-N</span> switch, the first 256&nbsp;glyphs of the TrueType font with a valid PostScript name will be used in case no input encoding is specified. Again, some glyphs are omitted:  `.notdef', `.null', and `nonmarkingreturn'. 
+<p class="level0">If you don't select an  output encoding, <span Class="bold">ttf2tfm</span> uses the same mapping table as <span Class="bold">afm2tfm</span> would use (you can find it in the source code file 
+<p class="level0">it corresponds to *(TX typewriter text. Unused positions (either caused by empty code points in the mapping table or missing glyphs in the TrueType font) will be filled (rather arbitrarily) with characters present in the input encoding but not specified in the output encoding (without the <span Class="bold">-q</span> option <span Class="bold">ttf2tfm</span> prints the final output encoding to standard output). Use the <span Class="bold">-u</span> option if you want only glyphs in the virtual font which are defined in the output encoding file, and nothing more. 
+<p class="level0">One feature missing in <span Class="bold">afm2tfm</span> has been added which is needed by *(LX's T1 encoding: <span Class="bold">ttf2tfm</span> will construct the glyph `Germandbls' (by simply concatenating two `S' glyphs) even for normal fonts if possible. It appears in the glyph list as the last item, marked with an asterisk. Since this isn't a real glyph it will be available only in the virtual font. 
+<p class="level0">For both input and output encoding, an empty code position is represented by the glyph name %`/.notdef'. 
+<p class="level0">In encoding files, you can use `&acute; as the final character of a line to indicate that the input is continued on the next line. The backslash and the following newline character will be removed. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SUBFONT"></a><h2 class="nroffsh">SUBFONT DEFINITION FILES</h2>
+<p class="level0">CJKV (Chinese/Japanese/Korean/old Vietnamese) fonts usually contain several thousand glyphs; to use them with *(TX it is necessary to split such large fonts into subfonts. Subfont definition files (usually having the extension `c 
+<p class="level0">are a simple means to do this smoothly. 
+<p class="level0">A subfont file name usually consists of a prefix, a subfont infix, and a postfix (which is empty in most cases), e.g. 
+<p class="level0">
+<p class="level0">ntukai23 (-&gt; prefix: ntukai, infix: 23, postfix: (empty) 
+<p class="level0">Here the syntax of a line in an 
+<p class="level0">file, describing one subfont: 
+<p class="level0">
+<p class="level0"><span Class="emphasis">&lt;whitespace&gt; &lt;infix&gt; &lt;whitespace&gt; &lt;ranges&gt; &lt;whitespace&gt;</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">&lt;infix&gt; \ :=</span> anything except whitespace. It is best to use only alphanumerical characters. 
+<p class="level0"><span Class="emphasis">&lt;whitespace&gt; \ :=</span> space, formfeed, carriage return, horizontal and vertical tabs -- no newline characters. 
+<p class="level0"><span Class="emphasis">&lt;ranges&gt; \ :=</span> <span Class="emphasis">&lt;ranges&gt; &lt;whitespace&gt; &lt;codepoint&gt; \ |</span> <br><span Class="emphasis">&lt;ranges&gt; &lt;whitespace&gt; &lt;range&gt; \ |</span> <br><span Class="emphasis">&lt;ranges&gt; &lt;whitespace&gt; &lt;offset&gt; &lt;whitespace&gt; &lt;range&gt;</span> 
+<p class="level0"><span Class="emphasis">&lt;codepoint&gt; \ :=</span> <span Class="emphasis">&lt;number&gt;</span> <br>
+<p class="level0"><span Class="emphasis">&lt;range&gt; \ :=</span> <span Class="emphasis">&lt;number&gt; \ `_' \ &lt;number&gt;</span> <br>
+<p class="level0"><span Class="emphasis">&lt;offset&gt; \ :=</span> <span Class="emphasis">&lt;number&gt; \ `:'</span> 
+<p class="level0"><span Class="emphasis">&lt;number&gt; \ :=</span> hexadecimal (prefix `0x'), decimal, or octal (prefix `0') 
+<p class="level0">A line can be continued on the next line with a backslash ending the line. The ranges must not overlap; offsets have to be in the range 0-255. 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">The line 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">assigns to the code positions 10, 11, 12, and&nbsp;13 of the subfont having the infix `03' the character codes 0x2349, 0x2345, 0x2346, and 0x2347 respectively. 
+<p class="level0">The 
+<p class="level0">files in the distribution are customized for the CJK package for *(LX. 
+<p class="level0">You have to embed the 
+<p class="level0">file name into the 
+<p class="level0">font name (at the place where the infix will appear) surrounded by two `@' signs, on the command line resp.&nbsp;a map file; both <span Class="bold">ttf2tfm</span> and <span Class="bold">ttf2pk</span> switch then to subfont mode. 
+<p class="level0">It is possible to use more than a single 
+<p class="level0">file by separating them with commata and no whitespace; for a given subfont, the first file is scanned for an entry, then the next file, and so on. Later entries override entries found earlier (possibly only partially). For example, the first 
+<p class="level0">file sets up range 0x10-0xA0, and the next one modifies entries 0x12 and 0x25. As can be easily seen, this algorithm allows for adding and replacing, but not for removing entries. 
+<p class="level0">Subfont mode disables the options  <span Class="manpage">-n</span>, <span Class="manpage">-N</span>, <span Class="manpage">-p</span>, <span Class="manpage">-r</span>, <span Class="manpage">-R</span>, <span Class="manpage">-t</span>, <span Class="manpage">-T</span>, <span Class="manpage">-u</span>, <span Class="manpage">-v</span>, <span Class="manpage">-V</span>and <span Class="bold">-w</span> for <span Class="manpage">ttf2tfm ;</span>similarly, no `Encoding' or `Replacement' parameter is allowed in a map file. Single replacement glyph names are ignored too. 
+<p class="level0"><span Class="bold">ttf2tfm</span> will create all subfont 
+<p class="level0">files specified in the 
+<p class="level0">files (provided the subfont contains glyphs) in one run. 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">The call 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will use 
+<p class="level0">and 
+<p class="level0">producing <span Class="emphasis">all</span> subfont files 
+<p class="level0">
+<p class="level0">etc. 
+<p class="level0">
+<p class="level0"><a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">ttf2tfm returns 0 on success and 1 on error; warning and error messages are written to standard error. 
+<p class="level0">
+<p class="level0"><a name="SOME"></a><h2 class="nroffsh">SOME NOTES ON FILE SEARCHING</h2>
+<p class="level0">Both <span Class="bold">ttf2pk</span> and <span Class="bold">ttf2tfm</span> use either the <a class="manpage" href="#kpathsea">kpathsea</a>, <a class="manpage" href="#emtexdir">emtexdir</a>or <a class="bold" href="#MiKTX">MiK\*(TX</a> library for searching files  
+<p class="level0">will work only on operating systems which have an MS-DOSish background, i.e. MS-DOS, OS/2, Windows; <span Class="bold">Mik\*(TX</span> is specific to MS Windows). 
+<p class="level0">As a last resort, both programs can be compiled without a search library; the searched files must be then in the current directory or specified with a path. Default extensions will be appended also (with the exception that only `c 
+<p class="level0">is appended and not `c 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="kpathsea"></a><h2 class="nroffsh">kpathsea</h2>
+<p class="level0">The actual version of kpathsea is displayed on screen if you call either <span Class="bold">ttf2pk</span> or <span Class="bold">ttf2tfm</span> with the <span Class="bold">-\^-version</span> command line switch. 
+<p class="level0">Here is a table of the file type and the corresponding <a class="bold" href="#kpathsea">kpathsea</a> variables. 
+<p class="level0">and 
+<p class="level0">are program specific environment variables introduced in <a class="bold" href="#kpathsea">kpathsea</a> version&nbsp;3.2: 
+<p class="level0">
+<p class="level1">
+<p class="level1">l l. .ttf and .ttc	TTFONTS ttf2pk.cfg  	TTF2PKINPUTS .map  	TTF2PKINPUTS .enc  	TTF2PKINPUTS, TTF2TFMINPUTS .rpl  	TTF2PKINPUTS, TTF2TFMINPUTS .tfm  	TFMFONTS .sfd  	TTF2PKINPUTS, TTF2TFMINPUTS 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Please consult the info files of <a class="bold" href="#kpathsea">kpathsea</a> for details on these variables. 
+<p class="level0">You should set the 
+<p class="level0">variable to the directory where your 
+<p class="level0">configuration file resides. 
+<p class="level0">Here is the proper command to find out to which value a <a class="bold" href="#kpathsea">kpathsea</a> variable is set (we use 
+<p class="level0">as an example). This is especially useful if a variable isn't set in 
+<p class="level0">or in the environment, thus pointing to the default value which is hard-coded into the <a class="bold" href="#kpathsea">kpathsea</a> library. 
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">We select the program name also since it is possible to specify variables which are searched only for a certain program -- in our example it would be 
+<p class="level0">
+<p class="level0">A similar but not identical method is to say 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">[A full list of format types can be obtained by saying `c 
+<p class="level0">on the command line prompt.] This is exactly how <span Class="bold">ttf2tfm</span> (and <span Class="manpage">ttf2pk )</span>searches for files; the disadvantage is that all variables are expanded which can cause very long strings. 
+<p class="level0">
+<p class="level0"><a name="emtexdir"></a><h2 class="nroffsh">emtexdir</h2>
+<p class="level0">Here the list of suffixes and their related environment variables to be set in 
+<p class="level0">(resp. in 
+<p class="level0">for OS/2): 
+<p class="level0">
+<p class="level1">
+<p class="level1">l l. .ttf and .ttc	TTFONTS ttf2pk.cfg	TTFCFG .map  	TTFCFG .enc  	TTFCFG .rpl  	TTFCFG .tfm  	TEXTFM .sfd  	TTFCFG 
+<p class="level1">
+<p class="level0">
+<p class="level0">If one of the variables isn't set, a warning message is emitted. The current directory will always  be searched. As usual, one exclamation mark appended to a directory path causes subdirectories one level deep to be searched, two exclamation marks cause all subdirectories to be searched. Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Constructions like `c 
+<p class="level0">aren't possible. 
+<p class="level0">
+<p class="level0"><a name="MiKTX"></a><h2 class="nroffsh">MiK\*(TX</h2>
+<p class="level0">Both <span Class="bold">ttf2tfm</span> and <span Class="bold">ttf2pk</span> have been fully integrated into , <a class="manpage" href="#MiKTX">MiK\*(TX .</a>Please refer to the documentation of <a class="bold" href="#MiKTX">MiK\*(TX</a> for more details on file searching. 
+<p class="level0">
+<p class="level0"><a name="PROBLEMS"></a><h2 class="nroffsh">PROBLEMS</h2>
+<p class="level0">Many <span Class="bold">vptovf</span> implementations allow only 100&nbsp;bytes for the 
+<p class="level0">header (the limit is 1024 in the 
+<p class="level0">file format itself): 8&nbsp;bytes for checksum and design size, 40&nbsp;bytes for the family name, 20&nbsp;bytes for the encoding, and 4&nbsp;bytes for a face byte. There remain only 28&nbsp;bytes for some additional information which is used by <span Class="bold">ttf2tfm</span> for an identification string (which is essentially a copy of the command line), and this limit is always exceeded. 
+<p class="level0">The optimal solution is to increase the value of <span Class="emphasis">\%max_header_bytes</span> in the file 
+<p class="level0">(and probably 
+<p class="level0">too) to, say,&nbsp;400 and recompile <span Class="bold">vptovf</span> (and <span Class="manpage">pltotf ).</span>Otherwise you'll get some (harmless) error messages like 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">which can be safely ignored. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ttf2pk (1)</span>, <span Class="manpage">afm2tfm (1)</span>, <span Class="manpage">vptovf (1)</span><br>the info pages for <span Class="bold">dvips</span> and <a class="bold" href="#kpathsea">kpathsea</a> 
+<p class="level0">
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0"><span Class="bold">ttf2tfm</span> is part of the FreeType&nbsp;1 package, a high quality TrueType rendering library. 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Werner LEMBERG 
+<p class="level0"><br>Fr('ed('eric LOYER 
+<p class="level0">

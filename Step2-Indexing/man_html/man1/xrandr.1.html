@@ -1,0 +1,142 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xrandr - primitive command line interface to RandR extension <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xrandr</span> [--help]  [--display <span Class="emphasis">display</span>] [-q] [-v] [--verbose] [--dryrun] [--screen <span Class="emphasis">snum</span>] [--q1] [--q12] [--current] [--noprimary] [--panning <span Class="emphasis">width</span>x<span Class="emphasis">height</span>[+<span Class="emphasis">x</span>+<span Class="emphasis">y</span>[/<span Class="emphasis">track_width</span>x<span Class="emphasis">track_height</span>+<span Class="emphasis">track_x</span>+<span Class="emphasis">track_y</span>[/<span Class="emphasis">border_left</span>/<span Class="emphasis">border_top</span>/<span Class="emphasis">border_right</span>/<span Class="emphasis">border_bottom</span>]]]] [--scale <span Class="emphasis">x</span>x<span Class="emphasis">y</span>] [--scale-from <span Class="emphasis">w</span>x<span Class="emphasis">h</span>] [--transform <span Class="emphasis">a</span>,<span Class="emphasis">b</span>,<span Class="emphasis">c</span>,<span Class="emphasis">d</span>,<span Class="emphasis">e</span>,<span Class="emphasis">f</span>,<span Class="emphasis">g</span>,<span Class="emphasis">h</span>,<span Class="emphasis">i</span>] [--primary] [--prop] [--fb <span Class="emphasis">width</span>x<span Class="emphasis">height</span>] [--fbmm <span Class="emphasis">width</span>x<span Class="emphasis">height</span>] [--dpi <span Class="emphasis">dpi</span>] [--newmode <span Class="emphasis">name</span> <span Class="emphasis">mode</span>] [--rmmode <span Class="emphasis">name</span>] [--addmode <span Class="emphasis">output</span> <span Class="emphasis">name</span>] [--delmode <span Class="emphasis">output</span> <span Class="emphasis">name</span>] [--output <span Class="emphasis">output</span>] [--auto] [--mode <span Class="emphasis">mode</span>] [--preferred] [--pos <span Class="emphasis">x</span>x<span Class="emphasis">y</span>] [--rate <span Class="emphasis">rate</span>] [--reflect <span Class="emphasis">reflection</span>] [--rotate <span Class="emphasis">orientation</span>] [--left-of <span Class="emphasis">output</span>] [--right-of <span Class="emphasis">output</span>] [--above <span Class="emphasis">output</span>] [--below <span Class="emphasis">output</span>] [--same-as <span Class="emphasis">output</span>] [--set <span Class="emphasis">property</span> <span Class="emphasis">value</span>] [--off] [--crtc <span Class="emphasis">crtc</span>] [--gamma <span Class="emphasis">red</span>:<span Class="emphasis">green</span>:<span Class="emphasis">blue</span>] [--brightness <span Class="emphasis">brightness</span>] [-o <span Class="emphasis">orientation</span>] [-s <span Class="emphasis">size</span>] [-r <span Class="emphasis">rate</span>] [-x] [-y] [--listproviders] [--setprovideroutputsource <span Class="emphasis">provider</span> <span Class="emphasis">source</span>] [--setprovideroffloadsink <span Class="emphasis">provider</span> <span Class="emphasis">sink</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Xrandr</span> is used to set the size, orientation and/or reflection of the outputs for a screen. It can also set the screen size. 
+<p class="level0">If invoked without any option, it will dump the state of the outputs, showing the existing modes for each of them, with a '+' after the preferred modes and a '*' after the current mode. 
+<p class="level0">There are a few global options. Other options modify the last output that is specified in earlier parameters in the command line. Multiple outputs may be modified at the same time by passing multiple --output options followed immediately by their corresponding modifying options. 
+<p class="level0"><a name="--help"></a><span class="nroffip">--help</span> 
+<p class="level1">Print out a summary of the usage and exit. 
+<p class="level0"><a name="-v"></a><span class="nroffip">-v, --version</span> 
+<p class="level1">Print out the RandR version reported by the X server and exit. 
+<p class="level0"><a name="--verbose"></a><span class="nroffip">--verbose</span> 
+<p class="level1">Causes xrandr to be more verbose. When used with -q (or without other options), xrandr will display more information about the server state. Please note that the gamma and brightness informations are only approximations of the complete color profile stored in the server. When used along with options that reconfigure the system, progress will be reported while executing the configuration changes. 
+<p class="level0"><a name="-q"></a><span class="nroffip">-q, --query</span> 
+<p class="level1">When this option is present, or when no configuration changes are requested, xrandr will display the current state of the system. 
+<p class="level0"><a name="--dryrun"></a><span class="nroffip">--dryrun</span> 
+<p class="level1">Performs all the actions specified except that no changes are made. 
+<p class="level0"><a name="--nograb"></a><span class="nroffip">--nograb</span> 
+<p class="level1">Apply the modifications without grabbing the screen. It avoids to block other applications during the update but it might also cause some applications that detect screen resize to receive old values. 
+<p class="level0"><a name="-d"></a><span class="nroffip">-d, --display \fIname\fP</span> 
+<p class="level1">This option selects the X display to use. Note this refers to the X screen abstraction, not the monitor (or output). 
+<p class="level0"><a name="--screen"></a><span class="nroffip">--screen \fIsnum\fP</span> 
+<p class="level1">This option selects which screen to manipulate. Note this refers to the X screen abstraction, not the monitor (or output). 
+<p class="level0"><a name="--q1"></a><span class="nroffip">--q1</span> 
+<p class="level1">Forces the usage of the RandR version 1.1 protocol, even if a higher version is available. 
+<p class="level0"><a name="--q12"></a><span class="nroffip">--q12</span> 
+<p class="level1">Forces the usage of the RandR version 1.2 protocol, even if the display does not report it as supported or a higher version is available. 
+<p class="level1"><a name="RandR"></a><h2 class="nroffsh">RandR version 1.4 options</h2>
+<p class="level0">
+<p class="level0">Options for RandR 1.4 are used as a superset of the options for RandR 1.3. 
+<p class="level0"><a name="--listproviders"></a><span class="nroffip">--listproviders</span> 
+<p class="level1">Report information about the providers available. 
+<p class="level0"><a name="--setprovideroutputsource"></a><span class="nroffip">--setprovideroutputsource \fIprovider\fP \fIsource\fP</span> 
+<p class="level1">Set <span Class="emphasis">source</span> as the source of display output images for <span Class="emphasis">provider</span>. This is only possible if <span Class="emphasis">source</span> and <span Class="emphasis">provider</span> have the <span class="bold">Source Output</span> and <span Class="bold">Sink Output</span> capabilities, respectively. If <span Class="emphasis">source</span> is <span Class="bold">0x0</span>, then <span Class="emphasis">provider</span> is disconnected from its current output source. 
+<p class="level0"><a name="--setprovideroffloadsink"></a><span class="nroffip">--setprovideroffloadsink \fIprovider\fP \fIsink\fP</span> 
+<p class="level1">Set <span Class="emphasis">provider</span> as a render offload device for <span Class="emphasis">sink</span>. This is only possible if <span Class="emphasis">provider</span> and <span Class="emphasis">sink</span> have the <span class="bold">Source Offload</span> and <span Class="bold">Sink Offload</span> capabilities, respectively. If <span Class="emphasis">sink</span> is <span Class="bold">0x0</span>, then <span Class="emphasis">provider</span> is disconnected from its current render offload sink. 
+<p class="level1"><a name="RandR"></a><h2 class="nroffsh">RandR version 1.3 options</h2>
+<p class="level0">
+<p class="level0">Options for RandR 1.3 are used as a superset of the options for RandR 1.2. 
+<p class="level0">
+<p class="level0"><a name="--current"></a><span class="nroffip">--current</span> 
+<p class="level1">Return the current screen configuration, without polling for hardware changes. 
+<p class="level0"><a name="--noprimary"></a><span class="nroffip">--noprimary</span> 
+<p class="level1">Don't define a primary output. 
+<p class="level1"><span Class="bold">Per-output options</span> 
+<p class="level0"><a name="--panning"></a><span class="nroffip">--panning \fIwidth\fPx\fIheight\fP[+\fIx\fP+\fIy\fP[/\fItrack_width\fPx\fItrack_height\fP+\fItrack_x\fP+\fItrack_y\fP[/\fIborder_left\fP/\fIborder_top\fP/\fIborder_right\fP/\fIborder_bottom\fP]]]</span> 
+<p class="level1">This option sets the panning parameters.  As soon as panning is enabled, the CRTC position can change with every pointer move. The first four parameters specify the total panning area, the next four the pointer tracking area (which defaults to the same area). The last four parameters specify the border and default to 0. A width or height set to zero disables panning on the according axis. You typically have to set the screen size with <a class="emphasis" href="#--fb">--fb</a> simultaneously. 
+<p class="level0"><a name="--transform"></a><span class="nroffip">--transform \fIa\fP,\fIb\fP,\fIc\fP,\fId\fP,\fIe\fP,\fIf\fP,\fIg\fP,\fIh\fP,\fIi\fP</span> 
+<p class="level1">Specifies a transformation matrix to apply on the output. Automatically a bilinear filter is selected. The mathematical form corresponds to: 
+<p class="level2">
+<p class="level3">a b c <br>d e f <br>g h i 
+<p class="level2">The transformation is based on homogeneous coordinates. The matrix multiplied by the coordinate vector of a pixel of the output gives the transformed coordinate vector of a pixel in the graphic buffer.  More precisely, the vector 
+<p class="level2">of the output pixel is extended to 3 values 
+<p class="level2">with 1 as the w coordinate and multiplied against the matrix. The final device coordinates of the pixel are then calculated with the so-called homogenic division by the transformed w coordinate.  In other words, the device coordinates 
+<p class="level2">of the transformed pixel are: 
+<p class="level3">x' = (ax + by + c) / w'   and <br>y' = (dx + ey + f) / w'   , <br>with  w' = (gx + hy + i)  . 
+<p class="level2">Typically, <span Class="emphasis">a</span> and <span Class="emphasis">e</span> corresponds to the scaling on the X and Y axes, <span Class="emphasis">c</span> and <span Class="emphasis">f</span> corresponds to the translation on those axes, and <span Class="emphasis">g</span>, <span Class="emphasis">h</span>, and <span Class="emphasis">i</span> are respectively 0, 0 and 1. The matrix can also be used to express more complex transformations such as keystone correction, or rotation.  For a rotation of an angle T, this formula can be used: 
+<p class="level3">cos T  -sin T   0 <br>sin T   cos T   0 <br>&nbsp;0       0      1 
+<p class="level2">As a special argument, instead of passing a matrix, one can pass the string <span Class="emphasis">none</span>, in which case the default values are used (a unit matrix without filter). 
+<p class="level1">
+<p class="level0"><a name="--scale"></a><span class="nroffip">--scale \fIx\fPx\fIy\fP</span> 
+<p class="level1">Changes the dimensions of the output picture. Values superior to 1 will lead to a compressed screen (screen dimension bigger than the dimension of the output mode), and values below 1 leads to a zoom in on the output. This option is actually a shortcut version of the <a class="emphasis" href="#--transform">--transform</a> option. 
+<p class="level0"><a name="--scale-from"></a><span class="nroffip">--scale-from \fIw\fPx\fIh\fP</span> 
+<p class="level1">Specifies the size in pixels of the area of the framebuffer to be displayed on this output. This option is actually a shortcut version of the <a class="emphasis" href="#--transform">--transform</a> option. 
+<p class="level0"><a name="--primary"></a><span class="nroffip">--primary</span> 
+<p class="level1">Set the output as primary. It will be sorted first in Xinerama and RANDR geometry requests. 
+<p class="level1"><a name="RandR"></a><h2 class="nroffsh">RandR version 1.2 options</h2>
+<p class="level0">These options are only available for X server supporting RandR version 1.2 or newer. 
+<p class="level0"><a name="--prop"></a><span class="nroffip">--prop, --properties</span> 
+<p class="level1">This option causes xrandr to display the contents of properties for each output. --verbose also enables --prop. 
+<p class="level0"><a name="--fb"></a><span class="nroffip">--fb \fIwidth\fPx\fIheight\fP</span> 
+<p class="level1">Reconfigures the screen to the specified size. All configured monitors must fit within this size. When this option is not provided, xrandr computes the smallest screen size that will hold the set of configured outputs; this option provides a way to override that behaviour. 
+<p class="level0"><a name="--fbmm"></a><span class="nroffip">--fbmm \fIwidth\fPx\fIheight\fP</span> 
+<p class="level1">Sets the reported values for the physical size of the screen. Normally, xrandr resets the reported physical size values to keep the DPI constant. This overrides that computation. 
+<p class="level0"><a name="--dpi"></a><span class="nroffip">--dpi \fIdpi\fP</span> 
+<p class="level1">This also sets the reported physical size values of the screen, it uses the specified DPI value to compute an appropriate physical size using whatever pixel size will be set. 
+<p class="level0"><a name="--newmode"></a><span class="nroffip">--newmode \fIname\fP \fImode\fP</span> 
+<p class="level1">New modelines can be added to the server and then associated with outputs. This option does the former. The <span Class="emphasis">mode</span> is specified using the ModeLine syntax for xorg.conf: clock hdisp hsyncstart hsyncend htotal vdisp vsyncstart vsyncend vtotal <span Class="emphasis">flags</span>. <span Class="emphasis">flags</span> can be zero or more of +HSync, -HSync, +VSync, -VSync, Interlace, DoubleScan, CSync, +CSync, -CSync. Several tools permit to compute the usual modeline from a height, width, and refresh rate, for instance you can use <span Class="bold">cvt</span>. 
+<p class="level0"><a name="--rmmode"></a><span class="nroffip">--rmmode \fIname\fP</span> 
+<p class="level1">This removes a mode from the server if it is otherwise unused. 
+<p class="level0"><a name="--addmode"></a><span class="nroffip">--addmode \fIoutput\fP \fIname\fP</span> 
+<p class="level1">Add a mode to the set of valid modes for an output. 
+<p class="level0"><a name="--delmode"></a><span class="nroffip">--delmode \fIoutput\fP \fIname\fP</span> 
+<p class="level1">Remove a mode from the set of valid modes for an output. 
+<p class="level1"><span Class="bold">Per-output options</span> 
+<p class="level0"><a name="--output"></a><span class="nroffip">--output \fIoutput\fP</span> 
+<p class="level1">Selects an output to reconfigure. Use either the name of the output or the XID. 
+<p class="level0"><a name="--auto"></a><span class="nroffip">--auto</span> 
+<p class="level1">For connected but disabled outputs, this will enable them using their first preferred mode (or, something close to 96dpi if they have no preferred mode). For disconnected but enabled outputs, this will disable them. 
+<p class="level0"><a name="--mode"></a><span class="nroffip">--mode \fImode\fP</span> 
+<p class="level1">This selects a mode. Use either the name or the XID for <span Class="emphasis">mode</span> 
+<p class="level0"><a name="--preferred"></a><span class="nroffip">--preferred</span> 
+<p class="level1">This selects the same mode as --auto, but it doesn't automatically enable or disable the output. 
+<p class="level0"><a name="--pos"></a><span class="nroffip">--pos \fIx\fPx\fIy\fP</span> 
+<p class="level1">Position the output within the screen using pixel coordinates. In case reflection or rotation is applied, the translation is applied after the effects. 
+<p class="level0"><a name="--rate"></a><span class="nroffip">--rate \fIrate\fP</span> 
+<p class="level1">This marks a preference for refresh rates close to the specified value, when multiple modes have the same name, this will select the one with the nearest refresh rate. 
+<p class="level0"><a name="--reflect"></a><span class="nroffip">--reflect \fIreflection\fP</span> 
+<p class="level1">Reflection can be one of 'normal' 'x', 'y' or 'xy'. This causes the output contents to be reflected across the specified axes. 
+<p class="level0"><a name="--rotate"></a><span class="nroffip">--rotate \fIrotation\fP</span> 
+<p class="level1">Rotation can be one of 'normal', 'left', 'right' or 'inverted'. This causes the output contents to be rotated in the specified direction. 'right' specifies a clockwise rotation of the picture and 'left' specifies a counter-clockwise rotation. 
+<p class="level0"><a name="--left-of"></a><span class="nroffip">--left-of, --right-of, --above, --below, --same-as \fIanother-output\fP</span> 
+<p class="level1">Use one of these options to position the output relative to the position of another output. This allows convenient tiling of outputs within the screen. The position is always computed relative to the new position of the other output, so it is not valid to say --output a --left-of b --output b --left-of a. 
+<p class="level0"><a name="--set"></a><span class="nroffip">--set \fIproperty\fP \fIvalue\fP</span> 
+<p class="level1">Sets an output property. Integer properties may be specified as a valid (see --prop) comma-separated list of decimal or hexadecimal (with a leading 0x) values. Atom properties may be set to any of the valid atoms (see --prop). String properties may be set to any value. 
+<p class="level0"><a name="--off"></a><span class="nroffip">--off</span> 
+<p class="level1">Disables the output. 
+<p class="level0"><a name="--crtc"></a><span class="nroffip">--crtc \fIcrtc\fP</span> 
+<p class="level1">Uses the specified crtc (either as an index in the list of CRTCs or XID). In normal usage, this option is not required as xrandr tries to make sensible choices about which crtc to use with each output. When that fails for some reason, this option can override the normal selection. 
+<p class="level0"><a name="--gamma"></a><span class="nroffip">--gamma \fIred\fP:\fIgreen\fP:\fIblue\fP</span> 
+<p class="level1">Set the specified floating point values as gamma correction on the crtc currently attached to this output. Note that you cannot get two different values for cloned outputs (i.e.: which share the same crtc) and that switching an output to another crtc doesn't change the crtc gamma corrections at all. 
+<p class="level0"><a name="--brightness"></a><span class="nroffip">--brightness \fIbrightness\fP</span> 
+<p class="level1">Multiply the gamma values on the crtc currently attached to the output to specified floating value. Useful for overly bright or overly dim outputs. However, this is a software only modification, if your hardware has support to actually change the brightness, you will probably prefer to use <span Class="bold">xbacklight</span>. 
+<p class="level1"><a name="RandR"></a><h2 class="nroffsh">RandR version 1.1 options</h2>
+<p class="level0">These options are available for X servers supporting RandR version 1.1 or older. They are still valid for newer X servers, but they don't interact sensibly with version 1.2 options on the same command line. 
+<p class="level0"><a name="-s"></a><span class="nroffip">-s, --size \fIsize-index\fP or --size \fIwidth\fPx\fIheight\fP</span> 
+<p class="level1">This sets the screen size, either matching by size or using the index into the list of available sizes. 
+<p class="level0"><a name="-r"></a><span class="nroffip">-r, --rate, --refresh \fIrate\fP</span> 
+<p class="level1">This sets the refresh rate closest to the specified value. 
+<p class="level0"><a name="-o"></a><span class="nroffip">-o, --orientation \fIrotation\fP</span> 
+<p class="level1">This specifies the orientation of the screen, and can be one of normal, inverted, left or right. 
+<p class="level0"><a name="-x"></a><span class="nroffip">-x</span> 
+<p class="level1">Reflect across the X axis. 
+<p class="level0"><a name="-y"></a><span class="nroffip">-y</span> 
+<p class="level1">Reflect across the Y axis. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Sets an output called LVDS to its preferred mode, and on its right put an output called VGA to preferred mode of a screen which has been physically rotated clockwise: 
+<p class="level1">xrandr --output LVDS --auto --rotate normal --pos 0x0 --output VGA --auto --rotate left --right-of LVDS 
+<p class="level0">
+<p class="level0">Forces to use a 1024x768 mode on an output called VGA: 
+<p class="level1">xrandr --newmode "1024x768" 63.50  1024 1072 1176 1328  768 771 775 798 -hsync +vsync <br>xrandr --addmode VGA 1024x768 <br>xrandr --output VGA --mode 1024x768 
+<p class="level0">
+<p class="level0">Enables panning on a 1600x768 desktop while displaying 1024x768 mode on an output called VGA: 
+<p class="level1">xrandr --fb 1600x768 --output VGA --mode 1024x768 --panning 1600x0 
+<p class="level0">
+<p class="level0">Have one small 1280x800 LVDS screen showing a small version of a huge 3200x2000 desktop, and have a big VGA screen display the surrounding of the mouse at normal size. 
+<p class="level1">xrandr --fb 3200x2000 --output LVDS --scale 2.5x2.5 --output VGA --pos 0x0 --panning 3200x2000+0+0/3200x2000+0+0/64/64/64/64 
+<p class="level0">
+<p class="level0">Displays the VGA output in trapezoid shape so that it is keystone corrected when the projector is slightly above the screen: 
+<p class="level1">xrandr --fb 1024x768 --output VGA --transform 1.24,0.16,-124,0,1.24,0,0,0.000316,1 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Xrandr(3), cvt(1), xkeystone(1), xbacklight(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Keith Packard, Open Source Technology Center, Intel Corporation. and Jim Gettys, Cambridge Research Laboratory, HP Labs, HP. 

@@ -1,0 +1,83 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">coqdoc - A documentation tool for the Coq proof assistant 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">coqdoc</span> [ <span Class="bold">options</span> ] <span Class="bold">files</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">coqdoc</span> is a documentation tool for the Coq proof assistant. It creates LaTeX or HTML documents from a set of Coq files. See the Coq reference manual for documentation (url below). 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="Overall"></a><h2 class="nroffsh">Overall options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> Help. Will give you the complete list of options accepted by coqdoc. 
+<p class="level0"><span Class="bold">--html</span> Select a HTML output. 
+<p class="level0"><span Class="bold">--latex</span> Select a LATEX output. 
+<p class="level0"><span Class="bold">--dvi</span> Select a DVI output. 
+<p class="level0"><span Class="bold">--ps</span> Select a PostScript output. 
+<p class="level0"><span Class="bold">--texmacs</span> Select a TeXmacs output. 
+<p class="level0"><span Class="bold">--stdout</span> Redirect the output to stdout 
+<p class="level0"><span Class="bold">-o \ file, --output \ file</span> Redirect the output into the file  <span Class="emphasis">file.</span> 
+<p class="level0"><span Class="bold">-d \ dir, \ --directory \ dir</span> Output files into directory  <span Class="emphasis">dir </span> instead of current directory (option -d does not change the filename specified with option -o, if any). 
+<p class="level0"><span Class="bold">-s, \ --short</span> Do not insert titles for the files. The default behavior is to insert a title like ``Library Foo'' for each file. 
+<p class="level0"><span Class="bold">-t \ string, \ --title \ string</span> Set the document title. 
+<p class="level0"><span Class="bold">--body-only</span> Suppress the header and trailer of the final document. Thus, you can insert the resulting document into a larger one. 
+<p class="level0"><span Class="bold">-p \ string, \ --preamble \ string</span> Insert some material in the LATEX preamble, right before \begin{document} (meaningless with -html). 
+<p class="level0"><span Class="bold">--vernac-file \ file, \ --tex-file \ file</span> Considers the file `file' respectively as a .v (or .g) file or a .tex file. 
+<p class="level0"><span Class="bold">--files-from \ file</span> Read file names to process in file `file' as if they were given on the command line. Useful for program sources split in several directories. 
+<p class="level0"><span Class="bold">-q, \ --quiet</span> Be quiet. Do not print anything except errors. 
+<p class="level0"><span Class="bold">-h, \ --help</span> Give a short summary of the options and exit. 
+<p class="level0"><span Class="bold"></span> -v, &nbsp;--version Print the version and exit. 
+<p class="level0"><a name="Index"></a><h2 class="nroffsh">Index options</h2>
+<p class="level0">
+<p class="level0">Default behavior is to build an index, for the HTML output only, into index.html. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-index</span> Do not output the index. 
+<p class="level0"><span Class="bold">--multi-index</span> Generate one page for each category and each letter in the index, together with a top page index.html. 
+<p class="level0"><a name="Table"></a><h2 class="nroffsh">Table of contents option</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-toc, \ --table-of-contents</span> Insert a table of contents. For a LATEX output, it inserts a \tableofcontents at the beginning of the document. For a HTML output, it builds a table of contents into toc.html. 
+<p class="level0"><a name="Hyperlinks"></a><h2 class="nroffsh">Hyperlinks options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--glob-from \ file</span> Make references using Coq globalizations from file file. (Such globalizations are obtained with Coq option -dump-glob). 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-externals</span> Do not insert links to the Coq standard library. 
+<p class="level0">
+<p class="level0"><span Class="bold">--external \ url \  libroot</span> Set base URL for the external library whose root prefix is libroot. 
+<p class="level0">
+<p class="level0"><span Class="bold">--coqlib \ url</span> Set base URL for the Coq standard library (default is <a href="http://coq.inria.fr/library/).">http://coq.inria.fr/library/).</a> 
+<p class="level0">
+<p class="level0"><span Class="bold">--coqlib_path \ dir</span> Set the base path where the Coq files are installed, especially style files coqdoc.sty and coqdoc.css. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R \ dir \  coqdir</span> Map physical directory dir to Coq logical directory coqdir (similarly to Coq option -R). <span Class="bold">Note: </span> option -R only has effect on the files following it on the command line, so you will probably need to put this option first. 
+<p class="level0"><a name="Contents"></a><h2 class="nroffsh">Contents options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-g, \ --gallina</span> Do not print proofs. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l, \ --light</span> Light mode. Suppress proofs (as with -g) and the following commands: 
+<p class="level0">&nbsp;       * [Recursive] Tactic Definition &nbsp;       * Hint / Hints &nbsp;       * Require &nbsp;       * Transparent / Opaque &nbsp;       * Implicit Argument / Implicits &nbsp;       * Section / Variable / Hypothesis / End  
+<p class="level0">The behavior of options -g and -l can be locally overridden using the (* begin show *) ... (* end show *) environment (see above). 
+<p class="level0"><a name="Language"></a><h2 class="nroffsh">Language options</h2>
+<p class="level0">
+<p class="level0">Default behavior is to assume ASCII 7 bits input files. 
+<p class="level0">
+<p class="level0"><span Class="bold">-latin1, \ --latin1</span> Select ISO-8859-1 input files. It is equivalent to --inputenc latin1 --charset iso-8859-1. 
+<p class="level0">
+<p class="level0"><span Class="bold">-utf8, \ --utf8</span> Select UTF-8 (Unicode) input files. It is equivalent to --inputenc utf8 --charset utf-8. LATEX UTF-8 support can be found at <a href="http://www.ctan.org/tex-archive/macros/latex/contrib/supported/unicode/.">http://www.ctan.org/tex-archive/macros/latex/contrib/supported/unicode/.</a> 
+<p class="level0">
+<p class="level0"><span Class="bold">--inputenc \ string</span> Give a LATEX input encoding, as an option to LATEX package inputenc. 
+<p class="level0">
+<p class="level0"><span Class="bold">--charset \ string</span> Specify the HTML character set, to be inserted in the HTML header. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis"></span> The Coq Reference Manual from <a href="http://coq.inria.fr/">http://coq.inria.fr/</a> 
+<p class="level0">

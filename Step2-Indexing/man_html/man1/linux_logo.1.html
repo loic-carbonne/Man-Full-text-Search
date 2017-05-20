@@ -1,0 +1,68 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">linux_logo - Color ANSI penguin logo w/ system information. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="manpage">linux_logo  [ -h  |  -v  ] [ -a  ] [  -b  |  -c ] [ -d ] [ -D file ] [ -e file ] [ -f ] [ -g  |  -l ] [ -k ] [ -i ] [ -n ] [ -p ] [ -s ] [ -u ] [ -x ] [ -y ] [ -o Num ] [ -t string ] [ -L num | list | random_xy ] [ -F format ]</span><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">linux_logo</span> 
+<p class="level0">is a program that generates a color 
+<p class="level0">picture of a penguin which includes some system information obtained from the /proc filesystem. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> Show summary of options. 
+<p class="level0"><span Class="bold">-v</span> Show version of program. 
+<p class="level0"><span Class="bold">-ascii -a</span> Display the logo as monochrome ascii. 
+<p class="level0"><span Class="bold">-banner -b</span> Display the banner-style logo. 
+<p class="level0"><span Class="bold">-classic -c</span> Display the original penguin logo. 
+<p class="level0"><span Class="bold">-d</span> Disable "prettying" of output 
+<p class="level0"><span Class="bold">-D filename</span> Use logo from "filename" 
+<p class="level0"><span Class="bold">-e filename</span> Use cpuinfo from "filename" for debugging purposes 
+<p class="level0"><span Class="bold">-f</span> Force the screen clear before drawing the logo. 
+<p class="level0"><span Class="bold">-F STRING</span> Use custom output STRING for sysinfo.  See below for more info. 
+<p class="level0"><span Class="bold">-g</span> Display only the system infomation. 
+<p class="level0"><span Class="bold">-i</span> Ignore the ~/.linux_logo and /etc/linux_logo.conf config files 
+<p class="level0"><span Class="bold">-k</span> Keep sysinfo flushed-left (non-centered) 
+<p class="level0"><span Class="bold">-l</span> Display only the logo. 
+<p class="level0"><span Class="bold">-L ...</span> Custom logo options.  See README 
+<p class="level0"><span Class="bold">-o Num</span> Shift output Num spaces to the right 
+<p class="level0"><span Class="bold">-p</span> Preserve cursor location 
+<p class="level0"><span Class="bold">-s</span> Skip the BogoMips test [ speeds up display on non-Linux platforms ]. 
+<p class="level0"><span Class="bold">-t string</span> Display an arbitrary string 
+<p class="level0"><span Class="bold">-u</span> Display the system uptime. 
+<p class="level0"><span Class="bold">-w val</span> Set screen width to val 
+<p class="level0"><span Class="bold">-y</span> Display the load average. 
+<p class="level0"><a name="PROCESSOR"></a><h2 class="nroffsh">PROCESSOR INFORMATION</h2>
+<p class="level0"><a name="CPUINFO"></a><h2 class="nroffsh">CPUINFO</h2>
+<p class="level0">The cpuinfo supplied in <span Class="emphasis">/proc/cpuinfo</span> is not always usable by <span Class="manpage">linux_logo.</span>In the relevant <span Class="emphasis">sysinfo_x.c</span> file there is a place to add custom output formatting to "beautify" the cpuinfo. For instance "K6 (166 - 266)" is parsed to "K6". Formats have been added for the K6 and certain Cyrix microprocessors. 
+<p class="level0">If the cpuinfo for your microprocessor generates ugly output, send the output from your <span Class="emphasis">/proc/cpuinfo</span> and a sample of how it should look to the author. 
+<p class="level0">Unfortunately the 2.0.x kernels don't know about newer chips. So to get <span Class="bold">linux_logo</span> to recognize your Pentium II and newer chips you must find some piece of information in <span Class="emphasis">/proc/cpuinfo</span> that distinguishes them from a pentium pro, or upgrade to a 2.2.x or 2.3.x kernel. <a name="FORMAT"></a><h2 class="nroffsh">FORMAT</h2>
+<p class="level0">The format string special sequences start with &#35; (use &#35;&#35; to print &#35;). All other characters, except for \n,  are printed as is. 
+<p class="level0">
+<p class="level0">tab (@); l l l. Seq@Description@Output _ &#35;&#35;@@&#35; &#35;B@Bogomips@374.37 &#35;C@Compiled Date@&#35;47 Fri Jan 8 10:37:09 EST 1999 &#35;E@User Text@My Favorite Linux Distribution @Displayed with -t@ &#35;H@Hostname@deranged &#35;L@Load average@Load average 0.04, 0.01, 0.01 &#35;M@Megahertz@188Mhz @where supported@ &#35;N@Number of CPU's@Two &#35;O@OS Name@Linux &#35;P@Processor or Processors@Processor &#35;R@Ram@64M @in Megabytes@ &#35;S@Plural@s &#35;T@Type of CPU@K6 &#35;U@Uptime@Uptime 10 hours 59 minutes &#35;V@Version of OS@2.2.0-pre5 &#35;X@CPU Vendor@AMD \\n@carriage return@ 
+<p class="level0">
+<p class="level0">Notes: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">The letter after the &#35; must be capitalized. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">Options not available are silently ignored. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">Megahertz only available on some platforms and newer kernels. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">See <span Class="emphasis"></span> defaults.h on how to have &#35;N report in non-english numbers. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">Plural [&#35;S] gives nothing if there is 1 cpu, gives 's' otherwise. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">The "-y" and "-u" [display uptime and load average] command line options don't affect the output if a custom format is used. 
+<p class="level1">The default banner format is: 
+<p class="level1">"&#35;O Version &#35;V, Compiled &#35;C\n \ <br>&#35;N &#35;M&#35;X&#35;T Processor&#35;S, &#35;R RAM, &#35;B Bogomips Total\n \ <br>&#35;H\n" 
+<p class="level1">The default banner format displays the following on the author's computer: 
+<p class="level1">center; c. Linux Version 2.2.0-pre5, Compiled &#35;47 Fri Jan 8 10:37:09 EST 1999 One 188MHz AMD K6 Processor, 64M RAM, 374.37 Bogomips Total deranged 
+<p class="level1">Another example would be: 
+<p class="level1">linux_logo -F "Redhat Linux 5.2\nKernel Version &#35;V\n&#35;U\n&#35;L\n" 
+<p class="level1">which would display: 
+<p class="level1">center; c. Redhat Linux 5.2 Kernel Version 2.2.0-pre5 Uptime 11 hours 4 minutes Load average 0.00, 0.00, 0.00 
+<p class="level1">
+<p class="level1"><a name="DEBIAN"></a><h2 class="nroffsh">DEBIAN</h2>
+<p class="level0">The Debian pre-packaged version of <span Class="bold">linux_logo</span> includes the Debian logo in addition to the 'Classic' and 'Banner' logos. The Debian logo is the default logo unless one of the other logos is specified on the command line. <a name="CONFIG"></a><h2 class="nroffsh">CONFIG FILES</h2>
+<p class="level0"><span Class="bold">~/.linux_logo</span> and <span Class="bold">/etc/linux_logo.conf</span> can be filled with command line options and will be parsed before the actual command line <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">/usr/share/doc/linuxlogo/ , <a href="http://www.deater.net/weave">http://www.deater.net/weave</a></span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Vince Weaver &lt;vince@deater.net&gt;. 
+<p class="level0">This manual page was written by Steve Kostecke &lt;steve@debian.org&gt;, for the Debian GNU/Linux system. 

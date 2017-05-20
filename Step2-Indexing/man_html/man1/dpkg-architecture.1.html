@@ -1,0 +1,179 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-architecture - set and determine the architecture for package building 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-architecture</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-architecture</span> does provide a facility to determine and set the build and host architecture for package building. 
+<p class="level0">The build architecture is always determined by an external call to <span Class="bold">dpkg</span>(1), and can not be set at the command line. 
+<p class="level0">You can specify the host architecture by providing one or both of the options <span Class="bold">--host-arch</span> and <span Class="bold">--host-type</span>. The default is determined by an external call to <span Class="manpage">gcc (1)</span>or the same as the build architecture if <span Class="bold">CC</span> or gcc are both not available. One out of <span Class="bold">--host-arch</span> and <span Class="bold">--host-type</span> is sufficient, the value of the other will be set to a usable default. Indeed, it is often better to only specify one, because <span Class="bold">dpkg-architecture</span> will warn you if your choice does not match the default. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--list</span>Print the environment variables, one each line, in the format <span Class="emphasis">VARIABLE=value</span>. This is the default action. 
+<p class="level0"><span Class="manpage">-e</span>, <span Class="manpage">--equal  \fIarchitecture\fP</span>Check for equality of architecture (since dpkg 1.13.13). It compares the current or specified Debian host architecture against <a class="emphasis" href="#architecture">architecture</a>, to check if they are equal. This action will not expand the architecture wildcards. Command finishes with an exit status of 0 if matched, 1 if not matched. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-i</span>, <span Class="manpage">--is  \fIarchitecture-wildcard\fP</span>Check for identity of architecture (since dpkg 1.13.13). It compares the current or specified Debian host architecture against <span Class="emphasis">architecture-wildcard</span> after having expanded it as an architecture wildcard, to check if they match. Command finishes with an exit status of 0 if matched, 1 if not matched. 
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--query  \fIvariable-name\fP</span>Print the value of a single variable. 
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--print-set</span>Print an export command. This can be used to set the environment variables using eval. 
+<p class="level0"><span Class="manpage">-u</span>, <span Class="manpage">--print-unset</span>Print a similar command to <span Class="bold">--print-unset</span> but to unset all variables. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--command  \fIcommand\fP</span>Execute a <span Class="emphasis">command</span> in an environment which has all variables set to the determined value. 
+<p class="level0"><span Class="manpage">-L</span>, <span Class="manpage">--list-known</span>Print a list of valid architecture names. Possibly restricted by one or more of the matching options <span Class="bold">--match-wildcard</span>, <span Class="bold">--match-bits</span> or <span Class="bold">--match-endian</span> (since dpkg 1.17.14). 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="bold">--version</span> Show the version and exit. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--host-arch  \fIarchitecture\fP</span>Set the host Debian architecture. 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--host-type  \fIgnu-system-type\fP</span>Set the host GNU system type. 
+<p class="level0"><span Class="manpage">-A</span>, <span Class="manpage">--target-arch  \fIarchitecture\fP</span>Set the target Debian architecture. This is only needed when building a cross-toolchain, one that will be built on the build architecture, to be run on the host architecture, and to build code for the target architecture. 
+<p class="level0"><span Class="manpage">-T</span>, <span Class="manpage">--target-type  \fIgnu-system-type\fP</span>Set the target GNU system type. 
+<p class="level0"><span Class="manpage">-W</span>, <span Class="manpage">--match-wildcard  \fIarchitecture-wildcard\fP</span>Restrict the architectures listed by <span Class="bold">--list-known</span> to ones matching the specified architecture wildcard (since dpkg 1.17.14). 
+<p class="level0"><span Class="manpage">-B</span>, <span Class="manpage">--match-bits  \fIarchitecture-bits\fP</span>Restrict the architectures listed by <span Class="bold">--list-known</span> to ones with the specified CPU bits (since dpkg 1.17.14). Either <span Class="bold">32</span> or <span Class="bold">64</span>. 
+<p class="level0"><span Class="manpage">-E</span>, <span Class="manpage">--match-endian  \fIarchitecture-endianness\fP</span>Restrict the architectures listed by <span Class="bold">--list-known</span> to ones with the specified endianness (since dpkg 1.17.14). Either <span Class="bold">little</span> or <span Class="bold">big</span>. 
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">--force</span>Values set by existing environment variables with the same name as used by the scripts are honored (i.e. used by <span Class="bold">dpkg-architecture</span>), except if this force flag is present. This allows the user to override a value even when the call to <span Class="bold">dpkg-architecture</span> is buried in some other script (for example <span Class="bold">dpkg-buildpackage</span>(1)). 
+<p class="level0"><a name="TERMS"></a><h2 class="nroffsh">TERMS</h2>
+<p class="level0">
+<p class="level0"><a name="build"></a><span class="nroffip">build machine 4</span> 
+<p class="level1">The machine the package is built on. 
+<p class="level0"><a name="host"></a><span class="nroffip">host machine 4</span> 
+<p class="level1">The machine the package is built for. 
+<p class="level0"><a name="target"></a><span class="nroffip">target machine 4</span> 
+<p class="level1">The machine the compiler is building for. 
+<p class="level0"><a name="Debian"></a><span class="nroffip">Debian architecture 4</span> 
+<p class="level1">The Debian architecture string, which specifies the binary tree in the FTP archive. Examples: i386, sparc, hurd-i386. 
+<p class="level0"><a name="architecture"></a><span class="nroffip">architecture wildcard 4</span> 
+<p class="level1">An architecture wildcard is a special architecture string that will match any real architecture being part of it. The general form is &lt;kernel&gt;-&lt;cpu&gt;. Examples: linux-any, any-i386, hurd-any. 
+<p class="level0"><a name="GNU"></a><span class="nroffip">GNU system type 4</span> 
+<p class="level1">An architecture specification string consisting of two parts separated by a hyphen: cpu and system. Examples: i386-linux-gnu, sparc-linux-gnu, i386-gnu, x86_64-netbsd. 
+<p class="level1"><a name="VARIABLES"></a><h2 class="nroffsh">VARIABLES</h2>
+<p class="level0">The following variables are set by <span Class="bold">dpkg-architecture</span>: 
+<p class="level0"><a name="fBDEBBUILDARCHfP"></a><span class="nroffip">\fBDEB_BUILD_ARCH\fP 4</span> 
+<p class="level1">The Debian architecture of the build machine. 
+<p class="level0"><a name="fBDEBBUILDARCHOSfP"></a><span class="nroffip">\fBDEB_BUILD_ARCH_OS\fP 4</span> 
+<p class="level1">The Debian system name of the build machine (since dpkg 1.13.2). 
+<p class="level0"><a name="fBDEBBUILDARCHCPUfP"></a><span class="nroffip">\fBDEB_BUILD_ARCH_CPU\fP 4</span> 
+<p class="level1">The Debian cpu name of the build machine (since dpkg 1.13.2). 
+<p class="level0"><a name="fBDEBBUILDARCHBITSfP"></a><span class="nroffip">\fBDEB_BUILD_ARCH_BITS\fP 4</span> 
+<p class="level1">The pointer size of the build machine (in bits; since dpkg 1.15.4). 
+<p class="level0"><a name="fBDEBBUILDARCHENDIANfP"></a><span class="nroffip">\fBDEB_BUILD_ARCH_ENDIAN\fP 4</span> 
+<p class="level1">The endianness of the build machine (little / big; since dpkg 1.15.4). 
+<p class="level0"><a name="fBDEBBUILDGNUCPUfP"></a><span class="nroffip">\fBDEB_BUILD_GNU_CPU\fP 4</span> 
+<p class="level1">The CPU part of <span Class="bold">DEB_BUILD_GNU_TYPE</span>. 
+<p class="level0"><a name="fBDEBBUILDGNUSYSTEMfP"></a><span class="nroffip">\fBDEB_BUILD_GNU_SYSTEM\fP 4</span> 
+<p class="level1">The System part of <span Class="bold">DEB_BUILD_GNU_TYPE</span>. 
+<p class="level0"><a name="fBDEBBUILDGNUTYPEfP"></a><span class="nroffip">\fBDEB_BUILD_GNU_TYPE\fP 4</span> 
+<p class="level1">The GNU system type of the build machine. 
+<p class="level0"><a name="fBDEBBUILDMULTIARCHfP"></a><span class="nroffip">\fBDEB_BUILD_MULTIARCH\fP 4</span> 
+<p class="level1">The clarified GNU system type of the build machine, used for filesystem paths (since dpkg 1.16.0). 
+<p class="level0"><a name="fBDEBHOSTARCHfP"></a><span class="nroffip">\fBDEB_HOST_ARCH\fP 4</span> 
+<p class="level1">The Debian architecture of the host machine. 
+<p class="level0"><a name="fBDEBHOSTARCHOSfP"></a><span class="nroffip">\fBDEB_HOST_ARCH_OS\fP 4</span> 
+<p class="level1">The Debian system name of the host machine (since dpkg 1.13.2). 
+<p class="level0"><a name="fBDEBHOSTARCHCPUfP"></a><span class="nroffip">\fBDEB_HOST_ARCH_CPU\fP 4</span> 
+<p class="level1">The Debian cpu name of the host machine (since dpkg 1.13.2). 
+<p class="level0"><a name="fBDEBHOSTARCHBITSfP"></a><span class="nroffip">\fBDEB_HOST_ARCH_BITS\fP 4</span> 
+<p class="level1">The pointer size of the host machine (in bits; since dpkg 1.15.4). 
+<p class="level0"><a name="fBDEBHOSTARCHENDIANfP"></a><span class="nroffip">\fBDEB_HOST_ARCH_ENDIAN\fP 4</span> 
+<p class="level1">The endianness of the host machine (little / big; since dpkg 1.15.4). 
+<p class="level0"><a name="fBDEBHOSTGNUCPUfP"></a><span class="nroffip">\fBDEB_HOST_GNU_CPU\fP 4</span> 
+<p class="level1">The CPU part of <span Class="bold">DEB_HOST_GNU_TYPE</span>. 
+<p class="level0"><a name="fBDEBHOSTGNUSYSTEMfP"></a><span class="nroffip">\fBDEB_HOST_GNU_SYSTEM\fP 4</span> 
+<p class="level1">The System part of <span Class="bold">DEB_HOST_GNU_TYPE</span>. 
+<p class="level0"><a name="fBDEBHOSTGNUTYPEfP"></a><span class="nroffip">\fBDEB_HOST_GNU_TYPE\fP 4</span> 
+<p class="level1">The GNU system type of the host machine. 
+<p class="level0"><a name="fBDEBHOSTMULTIARCHfP"></a><span class="nroffip">\fBDEB_HOST_MULTIARCH\fP 4</span> 
+<p class="level1">The clarified GNU system type of the host machine, used for filesystem paths (since dpkg 1.16.0). 
+<p class="level0"><a name="fBDEBTARGETARCHfP"></a><span class="nroffip">\fBDEB_TARGET_ARCH\fP 4</span> 
+<p class="level1">The Debian architecture of the target machine (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETARCHOSfP"></a><span class="nroffip">\fBDEB_TARGET_ARCH_OS\fP 4</span> 
+<p class="level1">The Debian system name of the target machine (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETARCHCPUfP"></a><span class="nroffip">\fBDEB_TARGET_ARCH_CPU\fP 4</span> 
+<p class="level1">The Debian cpu name of the target machine (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETARCHBITSfP"></a><span class="nroffip">\fBDEB_TARGET_ARCH_BITS\fP 4</span> 
+<p class="level1">The pointer size of the target machine (in bits; since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETARCHENDIANfP"></a><span class="nroffip">\fBDEB_TARGET_ARCH_ENDIAN\fP 4</span> 
+<p class="level1">The endianness of the target machine (little / big; since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETGNUCPUfP"></a><span class="nroffip">\fBDEB_TARGET_GNU_CPU\fP 4</span> 
+<p class="level1">The CPU part of <span Class="bold">DEB_TARGET_GNU_TYPE</span> (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETGNUSYSTEMfP"></a><span class="nroffip">\fBDEB_TARGET_GNU_SYSTEM\fP 4</span> 
+<p class="level1">The System part of <span Class="bold">DEB_TARGET_GNU_TYPE</span> (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETGNUTYPEfP"></a><span class="nroffip">\fBDEB_TARGET_GNU_TYPE\fP 4</span> 
+<p class="level1">The GNU system type of the target machine (since dpkg 1.17.14). 
+<p class="level0"><a name="fBDEBTARGETMULTIARCHfP"></a><span class="nroffip">\fBDEB_TARGET_MULTIARCH\fP 4</span> 
+<p class="level1">The clarified GNU system type of the target machine, used for filesystem paths (since dpkg 1.17.14). 
+<p class="level1"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><a name="Architecture"></a><h2 class="nroffsh">Architecture tables</h2>
+<p class="level0">All these files have to be present for <span Class="bold">dpkg-architecture</span> to work. Their location can be overridden at runtime with the environment variable <span Class="bold">DPKG_DATADIR</span>. 
+<p class="level0"><span Class="emphasis">/usr/share/dpkg/cputable</span> Table of known CPU names and mapping to their GNU name. 
+<p class="level0"><span Class="emphasis">/usr/share/dpkg/ostable</span> Table of known operating system names and mapping to their GNU name. 
+<p class="level0"><span Class="emphasis">/usr/share/dpkg/triplettable</span> Mapping between Debian architecture triplets and Debian architecture names. <a name="Packaging"></a><h2 class="nroffsh">Packaging support</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/share/dpkg/architecture.mk</span> Makefile snippet that properly sets and exports all the variables that <span Class="bold">dpkg-architecture</span> outputs (since dpkg 1.16.1). 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><span Class="bold">dpkg-buildpackage</span> accepts the <span Class="bold">-a</span> option and passes it to <span Class="bold">dpkg-architecture</span>. Other examples: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CC=i386-gnu-gcc dpkg-architecture -c debian/rules build 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">eval `dpkg-architecture -u` 
+<p class="level1">Check if the current or specified host architecture is equal to an architecture: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">dpkg-architecture -elinux-alpha 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">dpkg-architecture -amips -elinux-mips 
+<p class="level1">Check if the current or specified host architecture is a Linux system: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">dpkg-architecture -ilinux-any 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">dpkg-architecture -ai386 -ilinux-any 
+<p class="level1"><a name="Usage"></a><h2 class="nroffsh">Usage in debian/rules</h2>
+<p class="level0">The environment variables set by <span Class="bold">dpkg-architecture</span> are passed to <span Class="emphasis">debian/rules</span> as make variables (see make documentation). However, you should not rely on them, as this breaks manual invocation of the script. Instead, you should always initialize them using <span Class="bold">dpkg-architecture</span> with the <span Class="bold">-q</span> option. Here are some examples, which also show how you can improve the cross compilation support in your package: 
+<p class="level0">Retrieving the GNU system type and forwarding it to ./configure: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+[...]
+ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
+&nbsp; confflags += --build=$(DEB_HOST_GNU_TYPE)
+else
+&nbsp; confflags += --build=$(DEB_BUILD_GNU_TYPE) \
+&nbsp;              --host=$(DEB_HOST_GNU_TYPE)
+endif
+[...]
+./configure $(confflags)
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Doing something only for a specific architecture: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+&nbsp;
+ifeq ($(DEB_HOST_ARCH),alpha)
+&nbsp; [...]
+endif
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">or if you only need to check the CPU or OS type, use the <span Class="bold">DEB_HOST_ARCH_CPU</span> or <span Class="bold">DEB_HOST_ARCH_OS</span> variables. 
+<p class="level0">Note that you can also rely on an external Makefile snippet to properly set all the variables that <span Class="bold">dpkg-architecture</span> can provide: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+include /usr/share/dpkg/architecture.mk
+&nbsp;
+ifeq ($(DEB_HOST_ARCH),alpha)
+&nbsp; [...]
+endif
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">In any case, you should never use <span Class="bold">dpkg --print-architecture</span> to get architecture information during a package build. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">All long command and option names available only since dpkg 1.17.17. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dpkg-buildpackage (1)</span>, <span Class="manpage">dpkg-cross (1).</span>

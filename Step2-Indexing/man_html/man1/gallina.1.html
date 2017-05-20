@@ -1,0 +1,38 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gallina - extracts specification from Coq vernacular files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gallina</span> [ <span Class="bold">-</span> ] [ <span Class="bold">-stdout</span> ] [ <span Class="bold">-nocomments</span> ] <span Class="emphasis">file ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gallina </span> takes Coq files as arguments and builds the corresponding specification files. The Coq file <span Class="emphasis">foo.v \&</span> gives bearth to the specification file <span Class="emphasis">foo.g. \&</span> The suffix '.g' stands for Gallina. 
+<p class="level0">For that purpose, gallina removes all commands that follow a "Theorem", "Lemma", "Fact", "Remark" or "Goal" statement until it reaches a command "Abort.", "Save.", "Qed.", "Defined." or "Proof &lt;...&gt;.". It also removes every "Hint", "Syntax", "Immediate"  or "Transparent" command. 
+<p class="level0">Files without the .v suffix are ignored. 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-stdout</span> Prints the result on standard output. 
+<p class="level0"><span Class="bold">-</span> Coq source is taken on standard input. The result is printed on standard output. 
+<p class="level0"><span Class="bold">-nocomments</span> Comments are removed in the *.g file. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Nested comments are correctly handled. In particular, every command "Save." or "Abort." in a comment is not taken into account. 
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please report any bug to <span Class="bold">coq@pauillac.inria.fr</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

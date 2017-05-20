@@ -1,0 +1,142 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2000, 2001, 2002, 2003, 2005, 2006, 2009, 2010 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">grotty - groff driver for typewriter-like devices 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">grotty</span> [ <span Class="bold">-bBcdfhioruUv</span> ] [ <span Class="bold">-F dir</span> ] [ <span Class="emphasis">files \|.\|.\|.\&</span> ] 
+<p class="level0">It is possible to have whitespace between the <span Class="bold">-F</span> option and its parameter. 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">grotty</span> translates the output of GNU <span Class="bold">troff</span> into a form suitable for typewriter-like devices. Normally <span Class="bold">grotty</span> should be invoked by using the <span Class="bold">groff</span> command with a <span Class="manpage">-Tascii</span><span Class="bold">-Tlatin1</span> or <span Class="bold">-Tutf8</span> option on ASCII based systems, and with <span Class="bold">-Tcp1047</span> and <span Class="bold">-Tutf8</span> on EBCDIC based hosts. If no files are given, <span Class="bold">grotty</span> reads the standard input. A filename of <span Class="bold">-</span> also causes <span Class="bold">grotty</span> to read the standard input. Output is written to the standard output. 
+<p class="level0">
+<p class="level0">By default, <span Class="bold">grotty</span> emits SGR escape sequences (from ISO 6429, also called ANSI color escapes) to change text attributes (bold, italic, colors). This makes it possible to have eight different background and foreground colors; additionally, bold and italic attributes can be used f[BI]at the same timef[] (by using the BI font). 
+<p class="level0">
+<p class="level0">The following colors are defined in <span Class="manpage">tty.tmac :</span>black, white, red, green, blue, yellow, magenta, cyan. Unknown colors are mapped to the default color (which is dependent on the settings of the terminal; in most cases, this is black for the foreground and white for the background). 
+<p class="level0">
+<p class="level0">Use the <span Class="bold">-c</span> switch to revert to the old behaviour, printing a bold character <span Class="emphasis">c</span> with the sequence 
+<p class="level0">
+<p class="level0"><span Class="emphasis">c '</span> and an italic character <span Class="emphasis">c</span> by the sequence 
+<p class="level0">
+<p class="level0"><span Class="emphasis">c '.</span> At the same time, color output is disabled. The same effect can be achieved by setting either the <span Class="bold">GROFF_NO_SGR</span> environment variable or using the `sgr' X command (see below). 
+<p class="level0">
+<p class="level0">For SGR support, it is necessary to use the <span Class="bold">-R</span> option of <span Class="manpage">less (1)</span>to disable the interpretation of <span Class="manpage">grotty 's</span>old output format. Consequently, all programs which use <span Class="bold">less</span> as the pager program have to pass this option to it. For <span Class="manpage">man (1)</span>in particular, either add <span Class="bold">-R</span> to the <span Class="bold">$PAGER</span> environment variable, e.g. 
+<p class="level0">
+<p class="level1">
+<p class="level1"><span Class="bold">PAGER=/usr/bin/less -R</span> <br><span Class="bold">export PAGER</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">or use the <span Class="bold">-P</span> option of <span Class="bold">man</span> to set the pager executable and its options, or modify the configuration file of <span Class="bold">man</span> in a similar fashion. Note that with some <span Class="manpage">man (1)</span>versions, you have to use the <span Class="bold">$MANPAGER</span> environment variable instead. 
+<p class="level0">
+<p class="level0"><span Class="manpage">grotty 's</span>old output format can be displayed on a terminal by piping through <span Class="manpage">ul (1).</span>Pagers such as <span Class="manpage">more (1)</span>or <span Class="manpage">less (1)</span>are also able to display these sequences. Use either <span Class="bold">-B</span> or <span Class="bold">-U</span> when piping into <span Class="manpage">less (1);</span>use <span Class="bold">-b</span> when piping into <span Class="manpage">more (1).</span>There is no need to filter the output through <span Class="manpage">col (1)</span>since <span Class="bold">grotty</span> never outputs reverse line feeds. 
+<p class="level0">
+<p class="level0">The font description file may contain a command 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">internalname\  n</span> 
+<p class="level1">
+<p class="level1">where <span Class="emphasis">n</span> is a decimal integer. If the 01 bit in <span Class="emphasis">n</span> is set, then the font is treated as an italic font; if the 02 bit is set, then it is treated as a bold font. The code field in the font description field gives the code which is used to output the character. This code can also be used in the <span Class="bold">\[rs]N</span> escape sequence in <span Class="manpage">troff .</span>
+<p class="level1">
+<p class="level1">If the <span Class="bold">DESC</span> file contains the keyword <span Class="manpage">unicode</span><span Class="bold">grotty</span> emits Unicode characters in UTF-8 encoding. Otherwise, it emits characters in a single-byte encoding depending on the data in the font description files. See the <span Class="manpage">groff_font (5)</span>man page for more details. 
+<p class="level1">
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span> Suppress the use of overstriking for bold characters. Ignored if <span Class="bold">-c</span> isn't used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-B</span> Use only overstriking for bold-italic characters. Ignored if <span Class="bold">-c</span> isn't used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> Use <span Class="manpage">grotty 's</span>old output format (see above). This also disables color output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> Ignore all <span Class="bold">\[rs]D</span> commands. Without this <span Class="bold">grotty</span> renders <span Class="bold">\[rs]D'l\|.\|.\|.\&'</span> commands that have at least one zero argument (and so are either horizontal or vertical) using <span Class="manpage">-</span>, <a class="manpage" href="#">|</a>and <a class="bold" href="#">+</a> characters. In a similar way, <span Class="bold">grotty</span> handles <span Class="bold">\[rs]D'p\|.\|.\|.\&'</span> commands which consist entirely of horizontal and vertical lines. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span> Use form feeds in the output. A form feed is output at the end of each page that has no output on its last line. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F dir</span> Prepend directory 
+<p class="level0">to the search path for font and device description files; <span Class="emphasis">name</span> is the name of the device, usually <span Class="manpage">ascii</span>, <span Class="manpage">latin1</span>, <span Class="manpage">utf8</span>or <span Class="manpage">cp1047 .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> Use horizontal tabs in the output. Tabs are assumed to be set every 8 columns. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> Use escape sequences to set the italic text attribute instead of the underline attribute for italic fonts (`I' and `BI'). Note that most terminals (including xterm) don't support this. Ignored if <span Class="bold">-c</span> is active. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span> Suppress overstriking (other than for bold or underlined characters in case the old output format has been activated with <span Class="manpage">-c ).</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> Use escape sequences to set the reverse text attribute instead of the underline attribute for italic fonts (`I' and `BI'). Ignored if <span Class="bold">-c</span> is active. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span> Suppress the use of underlining for italic characters. Ignored if <span Class="bold">-c</span> isn't used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U</span> Use only underlining for bold-italic characters. Ignored if <span Class="bold">-c</span> isn't used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> Print the version number. 
+<p class="level0">
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">grotty</span> understands a single X command produced using the <span Class="bold">\[rs]X</span> escape sequence. 
+<p class="level0">
+<p class="level0"><span Class="bold">\[rs]X'tty:\ sgr\  n '</span> If <span Class="emphasis">n</span> is non-zero or missing, enable SGR output (this is the default), otherwise use the old drawing scheme for bold and underline. 
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_NO_SGR</span> If set, the old drawing scheme for bold and underline (using the backspace character) is active. Colors are disabled. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_FONT_PATH</span> A list of directories in which to search for the <span Class="bold">dev name</span> directory in addition to the default ones. 
+<p class="level0">See <span Class="manpage">troff (1)</span>and <span Class="manpage">\%groff_font (5)</span>for more details. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devascii/DESC</span> Device description file for <span Class="bold">ascii</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devascii/ F</span> Font description file for font <span Class="emphasis">F</span> of <span Class="bold">ascii</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devlatin1/DESC</span> Device description file for <span Class="bold">latin1</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devlatin1/ F</span> Font description file for font <span Class="emphasis">F</span> of <span Class="bold">latin1</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devutf8/DESC</span> Device description file for <span Class="bold">utf8</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devutf8/ F</span> Font description file for font <span Class="emphasis">F</span> of <span Class="bold">utf8</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devcp1047/DESC</span> Device description file for <span Class="bold">cp1047</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devcp1047/ F</span> Font description file for font <span Class="emphasis">F</span> of <span Class="bold">cp1047</span> device. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/tty.tmac</span> Macros for use with <span Class="manpage">grotty .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/tty-char.tmac</span> Additional klugdey character definitions for use with <span Class="manpage">grotty .</span>
+<p class="level0">
+<p class="level0">Note that on EBCDIC hosts, only files for the <span Class="bold">cp1047</span> device is installed. 
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">grotty</span> is intended only for simple documents. 
+<p class="level0">
+<p class="level0">There is no support for fractional horizontal or vertical motions. 
+<p class="level0">
+<p class="level0">There is no support for <span Class="bold">\[rs]D</span> commands other than horizontal and vertical lines. 
+<p class="level0">
+<p class="level0">Characters above the first line (ie with a vertical position of~0) cannot be printed. 
+<p class="level0">
+<p class="level0">Color handling is different compared to <span Class="manpage">grops (1).</span><span Class="bold">\[rs]M</span> doesn't set the fill color for closed graphic objects (which <span Class="bold">grotty</span> doesn't support anyway) but changes the background color of the character cell, affecting all subsequent operations. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">groff (1)</span>, <span Class="manpage">troff (1)</span>, <span Class="manpage">groff_out (5)</span>, <span Class="manpage">groff_font (5)</span>, <span Class="manpage">groff_char (7)</span>, <span Class="manpage">ul (1)</span>, <span Class="manpage">more (1)</span>, <span Class="manpage">man (1)</span>, <span Class="manpage">less (1)</span>
+<p class="level0">
+<p class="level0">
+<p class="level0">

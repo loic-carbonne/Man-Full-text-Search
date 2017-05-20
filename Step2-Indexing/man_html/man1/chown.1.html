@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chown - change file owner and group <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">chown</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">OWNER</span>][<span Class="emphasis">:</span>[<span Class="emphasis">GROUP</span>]] <span Class="emphasis">FILE</span>... <br><span Class="bold">chown</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">--reference=RFILE FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents the GNU version of <span Class="manpage">chown .</span><span Class="bold">chown</span> changes the user and/or group ownership of each given file.  If only an owner (a user name or numeric user ID) is given, that user is made the owner of each given file, and the files' group is not changed.  If the owner is followed by a colon and a group name (or numeric group ID), with no spaces between them, the group ownership of the files is changed as well.  If a colon but no group name follows the user name, that user is made the owner of the files and the group of the files is changed to that user's login group.  If the colon and group are given, but the owner is omitted, only the group of the files is changed; in this case, <span Class="bold">chown</span> performs the same function as <span Class="manpage">chgrp .</span>If only a colon is given, or if the entire operand is empty, neither the owner nor the group is changed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Change the owner and/or group of each FILE to OWNER and/or GROUP. With <span Class="bold">--reference</span>, change the owner and group of each FILE to those of RFILE. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--changes</span> like verbose but report only when a change is made 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--silent</span>, <span Class="bold">--quiet</span> suppress most error messages 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> output a diagnostic for every file processed 
+<p class="level0"><span Class="bold">--dereference</span> affect the referent of each symbolic link (this is the default), rather than the symbolic link itself 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--no-dereference</span> affect symbolic links instead of any referenced file (useful only on systems that can change the ownership of a symlink) 
+<p class="level0"><span Class="bold">--from</span>=<span Class="emphasis">CURRENT_OWNER</span>:CURRENT_GROUP change the owner and/or group of each file only if its current owner and/or group match those specified here.  Either may be omitted, in which case a match is not required for the omitted attribute 
+<p class="level0"><span Class="bold">--no-preserve-root</span> do not treat '/' specially (the default) 
+<p class="level0"><span Class="bold">--preserve-root</span> fail to operate recursively on '/' 
+<p class="level0"><span Class="bold">--reference</span>=<span Class="emphasis">RFILE</span> use RFILE's owner and group rather than specifying OWNER:GROUP values 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--recursive</span> operate on files and directories recursively 
+<p class="level0">The following options modify how a hierarchy is traversed when the <span Class="bold">-R</span> option is also specified.  If more than one is specified, only the final one takes effect. 
+<p class="level0"><span Class="bold">-H</span> if a command line argument is a symbolic link to a directory, traverse it 
+<p class="level0"><span Class="bold">-L</span> traverse every symbolic link to a directory encountered 
+<p class="level0"><span Class="bold">-P</span> do not traverse any symbolic links (default) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Owner is unchanged if missing.  Group is unchanged if missing, but changed to login group if implied by a ':' following a symbolic OWNER. OWNER and GROUP may be numeric as well as symbolic. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">chown root /u Change the owner of /u to "root". 
+<p class="level0">chown root:staff /u Likewise, but also change its group to "staff". 
+<p class="level0">chown -hR root /u Change the owner of /u and subfiles to "root". <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by David MacKenzie and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report chown translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">chown(2) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/chown&gt; <br>or available locally via: info (aq(coreutils) chown invocation(aq 

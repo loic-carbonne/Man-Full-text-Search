@@ -1,0 +1,48 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">apt-extracttemplates - Utility to extract <span Class="bold">debconf</span> config and templates from Debian packages <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-extracttemplates</span> [<span Class="bold">-t=</span><span class="bold"><span Class="emphasis">temporary_directory</span></span>] <span Class="emphasis">filename</span>... {-v&nbsp;|&nbsp;--version} {-h&nbsp;|&nbsp;--help} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-extracttemplates</span> will take one or more Debian package files as input and write out (to a temporary directory) all associated config scripts and template files. For each passed in package that contains config scripts and templates, one line of output will be generated in the format: 
+<p class="level0">package version template-file config-script 
+<p class="level0">template-file and config-script are written to the temporary directory specified by the <span Class="bold">-t</span> or <span Class="bold">--tempdir</span> (APT::ExtractTemplates::TempDir) directory, with filenames of the form package.template.XXXXXX and package.config.XXXXXX <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">All command line options may be set using the configuration file, the descriptions indicate the configuration option to set. For boolean options you can override the config file by using something like <span Class="bold">-f-</span>,<span Class="bold">--no-f</span>, <span Class="bold">-f=no</span> or several other variations. 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--tempdir</span> 
+<p class="level1">Temporary directory in which to write extracted <span Class="bold">debconf</span> template files and config scripts. Configuration Item: APT::ExtractTemplates::TempDir 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Show a short usage summary. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--version</span> 
+<p class="level1">Show the program version. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--config-file</span> 
+<p class="level1">Configuration File; Specify a configuration file to use. The program will read the default configuration file and then this configuration file. If configuration settings need to be set before the default configuration files are parsed specify a file with the <span Class="bold">APT_CONFIG</span> environment variable. See <span Class="bold">apt.conf</span>(5) for syntax information. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--option</span> 
+<p class="level1">Set a Configuration Option; This will set an arbitrary configuration option. The syntax is <span Class="bold">-o Foo::Bar=bar</span>. <span Class="bold">-o</span> and <span Class="bold">--option</span> can be used multiple times to set different options. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt.conf</span>(5) <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">apt-extracttemplates</span> returns zero on normal operation, decimal 100 on error. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">m[blue]<span Class="bold">APT bug page</span>m[]s-2u[1]ds+2. If you wish to report a bug in APT, please see /usr/share/doc/debian/bug-reporting.txt or the <span Class="bold">reportbug</span>(1) command. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Jason Gunthorpe</span> 
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">APT team</span> 
+<p class="level1">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">APT bug page 
+<p class="level2">%http://bugs.debian.org/src:apt 
+<p class="level1">

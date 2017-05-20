@@ -1,0 +1,62 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-merge-file - Run a three-way file merge <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git merge-file</span> [-L &lt;current-name&gt; [-L &lt;base-name&gt; [-L &lt;other-name&gt;]]]
+&nbsp;       [--ours|--theirs|--union] [-p|--stdout] [-q|--quiet] [--marker-size=&lt;n&gt;]
+&nbsp;       [--[no-]diff3] &lt;current-file&gt; &lt;base-file&gt; &lt;other-file&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">git merge-file</span> incorporates all changes that lead from the &lt;base-file&gt; to &lt;other-file&gt; into &lt;current-file&gt;. The result ordinarily goes into &lt;current-file&gt;. <span Class="emphasis">git merge-file</span> is useful for combining separate changes to an original. Suppose &lt;base-file&gt; is the original, and both &lt;current-file&gt; and &lt;other-file&gt; are modifications of &lt;base-file&gt;, then <span Class="emphasis">git merge-file</span> combines both changes. 
+<p class="level0">A conflict occurs if both &lt;current-file&gt; and &lt;other-file&gt; have changes in a common segment of lines. If a conflict is found, <span Class="emphasis">git merge-file</span> normally outputs a warning and brackets the conflict with lines containing &lt;&lt;&lt;&lt;&lt;&lt;&lt; and &gt;&gt;&gt;&gt;&gt;&gt;&gt; markers. A typical conflict will look like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; A
+lines in file A
+=======
+lines in file B
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; B
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">If there are conflicts, the user should edit the result and delete one of the alternatives. When --ours, --theirs, or --union option is in effect, however, these conflicts are resolved favouring lines from &lt;current-file&gt;, lines from &lt;other-file&gt;, or lines from both respectively. The length of the conflict markers can be given with the --marker-size option. 
+<p class="level0">The exit value of this program is negative on error, and the number of conflicts otherwise. If the merge was clean, the exit value is 0. 
+<p class="level0"><span Class="emphasis">git merge-file</span> is designed to be a minimal clone of RCS <span Class="emphasis">merge</span>; that is, it implements all of RCS <span Class="emphasis">merge</span>*(Aqs functionality which is needed by <span Class="bold">git</span>(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-L &lt;label&gt; 
+<p class="level1">This option may be given up to three times, and specifies labels to be used in place of the corresponding file names in conflict reports. That is, git merge-file -L x -L y -L z a b c generates output that looks like it came from files x, y and z instead of from files a, b and c. 
+<p class="level0">
+<p class="level0">-p 
+<p class="level1">Send results to standard output instead of overwriting &lt;current-file&gt;. 
+<p class="level0">
+<p class="level0">-q 
+<p class="level1">Quiet; do not warn about conflicts. 
+<p class="level0">
+<p class="level0">--diff3 
+<p class="level1">Show conflicts in "diff3" style. 
+<p class="level0">
+<p class="level0">--ours, --theirs, --union 
+<p class="level1">Instead of leaving conflicts in the file, resolve conflicts favouring our (or their or both) side of the lines. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git merge-file README.my README README.upstream 
+<p class="level1">combines the changes of README.my and README.upstream since README, tries to merge them and writes the result into README.my. 
+<p class="level0">
+<p class="level0">git merge-file -L a -L b -L c tmp/a123 tmp/b234 tmp/c345 
+<p class="level1">merges tmp/a123 and tmp/c345 with the base tmp/b234, but uses labels a and c instead of tmp/a123 and tmp/c345. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

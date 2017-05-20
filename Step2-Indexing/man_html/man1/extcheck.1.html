@@ -1,0 +1,43 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">extcheck - A utility to detect jar conflicts 
+<p class="level0">
+<p class="level0">f3extcheck</span> detects version conflicts between a target jar file and currently installed extension jar files. 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+extcheck [ -verbose ] targetfile.jar
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3extcheck</span> utility checks a specified Jar file for title and version conflicts with any extensions installed in the Java(TM) SDK. Before installing an extension, you can use this utility to see if the same or a more recent version of the extension is already installed. 
+<p class="level0">
+<p class="level0">The f3extcheck</span> utility compares the f2Specification-title</span> and f2Specification-version</span> headers in the manifest of the f2targetfile.jar</span> file against the corresponding headers in all Jar files currently installed in the extension directory. (The extension directory is f2jre/lib/ext</span> by default.) The f3extcheck</span> utility compares version numbers in the same way as the method f2java.lang.Package.isCompatibleWith</span>. 
+<p class="level0">
+<p class="level0">If no conflict is detected, the return code is f20</span>. 
+<p class="level0">
+<p class="level0">If the manifest of any jar file in the extensions directory has the same f2Specification-title</span> and the same or a newer f2Specification-version</span> number, a non-zero error code is returned. A non-zero error code is also returned if f2targetfile.jar</span> does not have the f2Specification-title</span> or f2Specification-version</span> attributes in its manifest. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-verbose  Lists Jar files in the extension directory as they are checked. Additionally, manifest attributes of the target jar file and any conflicting jar files are also reported.  
+<p class="level1">-Joption  Pass f2option</span> to the Java virtual machine, where f2option</span> is one of the options described on the reference page for the java(1). For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">jar(1) 
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,209 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pod2man - Convert POD data to formatted *roff input <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">pod2man [<span Class="bold">--center</span>=<span Class="emphasis">string</span>] [<span Class="bold">--date</span>=<span Class="emphasis">string</span>] [<span Class="bold">--errors</span>=<span Class="emphasis">style</span>] &nbsp;   [<span Class="bold">--fixed</span>=<span Class="emphasis">font</span>] [<span Class="bold">--fixedbold</span>=<span Class="emphasis">font</span>] [<span Class="bold">--fixeditalic</span>=<span Class="emphasis">font</span>] &nbsp;   [<span Class="bold">--fixedbolditalic</span>=<span Class="emphasis">font</span>] [<span Class="bold">--name</span>=<span Class="emphasis">name</span>] [<span Class="bold">--nourls</span>] &nbsp;   [<span Class="bold">--official</span>] [<span Class="bold">--quotes</span>=<span Class="emphasis">quotes</span>] [<span Class="bold">--release</span>[=<span Class="emphasis">version</span>]] &nbsp;   [<span Class="bold">--section</span>=<span Class="emphasis">manext</span>] [<span Class="bold">--stderr</span>] [<span Class="bold">--utf8</span>] [<span Class="bold">--verbose</span>] &nbsp;   [<span Class="emphasis">input</span> [<span Class="emphasis">output</span>] ...] 
+<p class="level0">pod2man <span Class="bold">--help</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pod2man</span> is a front-end for Pod::Man, using it to generate *roff input from s-1PODs0 source.  The resulting *roff code is suitable for display on a terminal using <span Class="emphasis">nroff</span>|(1), normally via <span Class="emphasis">man</span>|(1), or printing using <span Class="emphasis">troff</span>|(1). 
+<p class="level0"><span Class="emphasis">input</span> is the file to read for s-1PODs0 source (the s-1PODs0 can be embedded in code).  If <span Class="emphasis">input</span> isn't given, it defaults to f(CW*(C`STDIN*(C'</span>.  <span Class="emphasis">output</span>, if given, is the file to which to write the formatted output.  If <span Class="emphasis">output</span> isn't given, the formatted output is written to f(CW*(C`STDOUT*(C'</span>.  Several s-1PODs0 files can be processed in the same <span Class="bold">pod2man</span> invocation (saving module load and compile times) by providing multiple pairs of <span Class="emphasis">input</span> and <span Class="emphasis">output</span> files on the command line. 
+<p class="level0"><span Class="bold">--section</span>, <span Class="bold">--release</span>, <span Class="bold">--center</span>, <span Class="bold">--date</span>, and <span Class="bold">--official</span> can be used to set the headers and footers to use; if not given, Pod::Man will assume various defaults.  See below or Pod::Man for details. 
+<p class="level0"><span Class="bold">pod2man</span> assumes that your *roff formatters have a fixed-width font named f(CW*(C`CW*(C'</span>.  If yours is called something else (like f(CW*(C`CR*(C'</span>), use <span Class="bold">--fixed</span> to specify it.  This generally only matters for troff output for printing.  Similarly, you can set the fonts used for bold, italic, and bold italic fixed-width output. 
+<p class="level0">Besides the obvious pod conversions, Pod::Man, and therefore pod2man also takes care of formatting <span Class="emphasis">func()</span>, func(n), and simple variable references like f(CW$foo</span> or f(CW@bar</span> so you don't have to use code escapes for them; complex expressions like f(CW$fred{*(Aqstuff*(Aq}</span> will still need to be escaped, though. It also translates dashes that aren't used as hyphens into en dashes, makes long dashes*(--like this*(--into proper em dashes, fixes *(L"paired quotes,*(R" and takes care of several other troff-specific tweaks.  See Pod::Man for complete information. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR \fIstring\fR, \fB--center\fR=\fIstring\fR 4</span> 
+<p class="level1">
+<p class="level1">Sets the centered page header to <span Class="emphasis">string</span>.  The default is *(L"User Contributed Perl Documentation*(R", but also see <span Class="bold">--official</span> below. 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR \fIstring\fR, \fB--date\fR=\fIstring\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the left-hand footer string to this value.  By default, the modification date of the input file will be used, or the current date if input comes from f(CW*(C`STDIN*(C'</span>. 
+<p class="level0"><a name="fB-errorsfRfIstylefR"></a><span class="nroffip">\fB-errors\fR=\fIstyle\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the error handling style.  f(CW*(C`die*(C'</span> says to throw an exception on any s-1PODs0 formatting error.  f(CW*(C`stderr*(C'</span> says to report errors on standard error, but not to throw an exception.  f(CW*(C`pod*(C'</span> says to include a s-1POD ERRORSs0 section in the resulting documentation summarizing the errors.  f(CW*(C`none*(C'</span> ignores s-1PODs0 errors entirely, as much as possible. 
+<p class="level1">The default is f(CW*(C`die*(C'</span>. 
+<p class="level0"><a name="fB--fixedfRfIfontfR"></a><span class="nroffip">\fB--fixed\fR=\fIfont\fR 4</span> 
+<p class="level1">
+<p class="level1">The fixed-width font to use for verbatim text and code.  Defaults to f(CW*(C`CW*(C'</span>.  Some systems may want f(CW*(C`CR*(C'</span> instead.  Only matters for <span Class="emphasis">troff</span>|(1) output. 
+<p class="level0"><a name="fB--fixedboldfRfIfontfR"></a><span class="nroffip">\fB--fixedbold\fR=\fIfont\fR 4</span> 
+<p class="level1">
+<p class="level1">Bold version of the fixed-width font.  Defaults to f(CW*(C`CB*(C'</span>.  Only matters for <span Class="emphasis">troff</span>|(1) output. 
+<p class="level0"><a name="fB--fixeditalicfRfIfontfR"></a><span class="nroffip">\fB--fixeditalic\fR=\fIfont\fR 4</span> 
+<p class="level1">
+<p class="level1">Italic version of the fixed-width font (actually, something of a misnomer, since most fixed-width fonts only have an oblique version, not an italic version).  Defaults to f(CW*(C`CI*(C'</span>.  Only matters for <span Class="emphasis">troff</span>|(1) output. 
+<p class="level0"><a name="fB--fixedbolditalicfRfIfontfR"></a><span class="nroffip">\fB--fixedbolditalic\fR=\fIfont\fR 4</span> 
+<p class="level1">
+<p class="level1">Bold italic (probably actually oblique) version of the fixed-width font. Pod::Man doesn't assume you have this, and defaults to f(CW*(C`CB*(C'</span>.  Some systems (such as Solaris) have this font available as f(CW*(C`CX*(C'</span>.  Only matters for <span Class="emphasis">troff</span>|(1) output. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB--help\fR 4</span> 
+<p class="level1">
+<p class="level1">Print out usage information. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR, \fB--lax\fR 4</span> 
+<p class="level1">
+<p class="level1">No longer used.  <span Class="bold">pod2man</span> used to check its input for validity as a manual page, but this should now be done by <span Class="emphasis">podchecker</span>|(1) instead. Accepted for backward compatibility; this option no longer does anything. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR \fIname\fR, \fB--name\fR=\fIname\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the name of the manual page to <span Class="emphasis">name</span>.  Without this option, the manual name is set to the uppercased base name of the file being converted unless the manual section is 3, in which case the path is parsed to see if it is a Perl module path.  If it is, a path like f(CW*(C`.../lib/Pod/Man.pm*(C'</span> is converted into a name like f(CW*(C`Pod::Man*(C'</span>.  This option, if given, overrides any automatic determination of the name. 
+<p class="level1">Note that this option is probably not useful when converting multiple s-1PODs0 files at once.  The convention for Unix man pages for commands is for the man page title to be in all-uppercase even if the command isn't. 
+<p class="level0"><a name="fB--nourlsfR"></a><span class="nroffip">\fB--nourls\fR 4</span> 
+<p class="level1">
+<p class="level1">Normally, L&lt;&gt; formatting codes with a s-1URLs0 but anchor text are formatted to show both the anchor text and the s-1URL. s0 In other words: 
+<p class="level1">
+<p class="level1">&nbsp;   L&lt;foo|http://example.com/&gt; 
+<p class="level1">
+<p class="level1">is formatted as: 
+<p class="level1">
+<p class="level1">&nbsp;   foo &lt;http://example.com/&gt; 
+<p class="level1">
+<p class="level1">This flag, if given, suppresses the s-1URLs0 when anchor text is given, so this example would be formatted as just f(CW*(C`foo*(C'</span>.  This can produce less cluttered output in cases where the URLs are not particularly important. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR, \fB--official\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the default header to indicate that this page is part of the standard Perl release, if <span Class="bold">--center</span> is not also given. 
+<p class="level0"><a name="fB-qfR"></a><span class="nroffip">\fB-q\fR \fIquotes\fR, \fB--quotes\fR=\fIquotes\fR 4</span> 
+<p class="level1">
+<p class="level1">Sets the quote marks used to surround C&lt;&gt; text to <span Class="emphasis">quotes</span>.  If <span Class="emphasis">quotes</span> is a single character, it is used as both the left and right quote; if <span Class="emphasis">quotes</span> is two characters, the first character is used as the left quote and the second as the right quoted; and if <span Class="emphasis">quotes</span> is four characters, the first two are used as the left quote and the second two as the right quote. 
+<p class="level1"><span Class="emphasis">quotes</span> may also be set to the special value f(CW*(C`none*(C'</span>, in which case no quote marks are added around C&lt;&gt; text (but the font is still changed for troff output). 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR, \fB--release\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the centered footer.  By default, this is the version of Perl you run <span Class="bold">pod2man</span> under.  Note that some system an macro sets assume that the centered footer will be a modification date and will prepend something like *(L"Last modified: *(R"; if this is the case, you may want to set <span Class="bold">--release</span> to the last modified date and <span Class="bold">--date</span> to the version number. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR, \fB--section\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the section for the f(CW*(C`.TH*(C'</span> macro.  The standard section numbering convention is to use 1 for user commands, 2 for system calls, 3 for functions, 4 for devices, 5 for file formats, 6 for games, 7 for miscellaneous information, and 8 for administrator commands.  There is a lot of variation here, however; some systems (like Solaris) use 4 for file formats, 5 for miscellaneous information, and 7 for devices.  Still others use 1m instead of 8, or some mix of both.  About the only section numbers that are reliably consistent are 1, 2, and 3. 
+<p class="level1">By default, section 1 will be used unless the file ends in f(CW*(C`.pm*(C'</span>, in which case section 3 will be selected. 
+<p class="level0"><a name="fB--stderrfR"></a><span class="nroffip">\fB--stderr\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, <span Class="bold">pod2man</span> dies if any errors are detected in the s-1PODs0 input. If <span Class="bold">--stderr</span> is given and no <span Class="bold">--errors</span> flag is present, errors are sent to standard error, but <span Class="bold">pod2man</span> does not abort.  This is equivalent to f(CW*(C`--errors=stderr*(C'</span> and is supported for backward compatibility. 
+<p class="level0"><a name="fB-ufR"></a><span class="nroffip">\fB-u\fR, \fB--utf8\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, <span Class="bold">pod2man</span> produces the most conservative possible *roff output to try to ensure that it will work with as many different *roff implementations as possible.  Many *roff implementations cannot handle non-ASCII characters, so this means all non-ASCII characters are converted either to a *roff escape sequence that tries to create a properly accented character (at least for troff output) or to f(CW*(C`X*(C'</span>. 
+<p class="level1">This option says to instead output literal s-1UTF-8s0 characters.  If your *roff implementation can handle it, this is the best output format to use and avoids corruption of documents containing non-ASCII characters. However, be warned that *roff source with literal s-1UTF-8s0 characters is not supported by many implementations and may even result in segfaults and other bad behavior. 
+<p class="level1">Be aware that, when using this option, the input encoding of your s-1PODs0 source must be properly declared unless it is US-ASCII or Latin-1.  s-1PODs0 input without an f(CW*(C`=encoding*(C'</span> command will be assumed to be in Latin-1, and if it's actually in s-1UTF-8,s0 the output will be double-encoded.  See <span Class="emphasis">perlpod</span>|(1) for more information on the f(CW*(C`=encoding*(C'</span> command. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR, \fB--verbose\fR 4</span> 
+<p class="level1">
+<p class="level1">Print out the name of each output file as it is being generated. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">As long as all documents processed result in some output, even if that output includes errata (a f(CW*(C`POD ERRORS*(C'</span> section generated with f(CW*(C`--errors=pod*(C'</span>), <span Class="bold">pod2man</span> will exit with status 0.  If any of the documents being processed do not result in an output document, <span Class="bold">pod2man</span> will exit with status 1.  If there are syntax errors in a s-1PODs0 document being processed and the error handling style is set to the default of f(CW*(C`die*(C'</span>, <span Class="bold">pod2man</span> will abort immediately with exit status 255. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">If <span Class="bold">pod2man</span> fails with errors, see Pod::Man and Pod::Simple for information about what those errors might mean. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   pod2man program &gt; program.1 &nbsp;   pod2man SomeModule.pm /usr/perl/man/man3/SomeModule.3 &nbsp;   pod2man --section=7 note.pod &gt; note.7 
+<p class="level0">
+<p class="level0">If you would like to print out a lot of man page continuously, you probably want to set the C and D registers to set contiguous page numbering and even/odd paging, at least on some versions of <span Class="emphasis">man</span>|(7). 
+<p class="level0">
+<p class="level0">&nbsp;   troff -man -rC1 -rD1 perl.1 perldata.1 perlsyn.1 ... 
+<p class="level0">
+<p class="level0">To get index entries on f(CW*(C`STDERR*(C'</span>, turn on the F register, as in: 
+<p class="level0">
+<p class="level0">&nbsp;   troff -man -rF1 perl.1 
+<p class="level0">
+<p class="level0">The indexing merely outputs messages via f(CW*(C`.tm*(C'</span> for each major page, section, subsection, item, and any f(CW*(C`X&lt;&gt;*(C'</span> directives.  See Pod::Man for more details. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Lots of this documentation is duplicated from Pod::Man. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Pod::Man, Pod::Simple, <span Class="emphasis">man</span>|(1), <span Class="emphasis">nroff</span>|(1), <span Class="emphasis">perlpod</span>|(1), <span Class="emphasis">podchecker</span>|(1), <span Class="emphasis">perlpodstyle</span>|(1), <span Class="emphasis">troff</span>|(1), <span Class="emphasis">man</span>|(7) 
+<p class="level0">The man page documenting the an macro set may be <span Class="emphasis">man</span>|(5) instead of <span Class="emphasis">man</span>|(7) on your system. 
+<p class="level0">The current version of this script is always available from its web site at &lt;http://www.eyrie.org/~eagle/software/podlators/&gt;.  It is also part of the Perl core distribution as of 5.6.0. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Russ Allbery &lt;rra@stanford.edu&gt;, based <span Class="emphasis">very</span> heavily on the original <span Class="bold">pod2man</span> by Larry Wall and Tom Christiansen. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT AND LICENSE</h2>
+<p class="level0">
+<p class="level0">Copyright 1999, 2000, 2001, 2004, 2006, 2008, 2010, 2012, 2013 Russ Allbery &lt;rra@stanford.edu&gt;. 
+<p class="level0">This program is free software; you may redistribute it and/or modify it under the same terms as Perl itself. 

@@ -1,0 +1,26 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pkttyagent - Textual authentication helper <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkttyagent</span> [<span Class="bold">--version</span>] [<span Class="bold">--help</span>] 
+<p class="level0"><span Class="bold">pkttyagent</span> [<span Class="bold">--process</span>&nbsp;{&nbsp;<span Class="emphasis">pid</span>&nbsp;|&nbsp;<span Class="emphasis">pid,pid-start-time</span>&nbsp;} | <span Class="bold">--system-bus-name</span>&nbsp;<span Class="emphasis">busname</span>] [<span Class="bold">--notify-fd</span>&nbsp;<span Class="emphasis">fd</span>] [<span Class="bold">--fallback</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkttyagent</span> is used to start a textual authentication agent for the subject specified by either <span Class="bold">--process</span> or <span Class="bold">--system-bus-name</span>. If neither of these options are given, the parent process is used. 
+<p class="level0">To get notified when the authentication agent has been registered either listen to the Changed D-Bus signal or use <span Class="bold">--notify-fd</span> to pass the number of a file descriptor that has been passed to the program. This file descriptor will then be closed when the authentication agent has been successfully registered. 
+<p class="level0">If <span Class="bold">--fallback</span> is used, the textual authentication agent will not replace an existing authentication agent. <a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">
+<p class="level0">If the authentication agent could not be registered, <span Class="bold">pkttyagent</span> exits with an exit code of 127. Diagnostic messages are printed on standard error. 
+<p class="level0">If one or more of the options passed are malformed, <span Class="bold">pkttyagent</span> exits with an exit code of 126. If stdin is a tty, then this manual page is also shown. 
+<p class="level0">If the authentication agent was successfully registered, <span Class="bold">pkttyagent</span> will keep running, interacting with the user as needed. When its services are no longer needed, the process can be killed. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Since process identifiers can be recycled, the caller should always use <span Class="emphasis">pid,pid-start-time</span> when using the <span Class="bold">--process</span> option. The value of <span Class="emphasis">pid-start-time</span> can be determined by consulting e.g. the <span Class="bold">proc</span>(5) file system depending on the operating system. If only <span Class="emphasis">pid</span> is passed to the <span Class="bold">--process</span> option, then <span Class="bold">pkttyagent</span> will look up the start time itself but note that this may be racy. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help from many others. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to either the distribution or the polkit-devel mailing list, see the link m[blue]<span Class="bold">%http://lists.freedesktop.org/mailman/listinfo/polkit-devel</span>m[] on how to subscribe. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">polkit</span>(8), <span Class="bold">pkaction</span>(1), <span Class="bold">pkcheck</span>(1), <span Class="bold">pkexec</span>(1) 

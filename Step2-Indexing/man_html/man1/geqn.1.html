@@ -1,0 +1,393 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2001, 2004, 2005, 2007, 2009, 2013 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">eqn - format equations for troff or MathML 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page describes the GNU version of <span Class="manpage">eqn</span>which is part of the groff document formatting system. <span Class="bold">eqn</span> compiles descriptions of equations embedded within <span Class="bold">troff</span> input files into commands that are understood by <span Class="manpage">troff .</span>Normally, it should be invoked using the <span Class="bold">-e</span> option of <span Class="manpage">groff .</span>The syntax is quite compatible with Unix eqn. The output of GNU <span Class="bold">eqn</span> cannot be processed with Unix troff; it must be processed with GNU troff. If no files are given on the command line, the standard input is read. A filename of <span Class="bold">-</span> causes the standard input to be read. 
+<p class="level0">
+<p class="level0"><span Class="bold">eqn</span> searches for the file <span Class="bold">eqnrc</span> in the directories given with the <span Class="bold">-M</span> option first, then in <span Class="manpage">/usr/lib/groff/site-tmac</span>, <span Class="manpage">/usr/share/groff/site-tmac</span>and finally in the standard macro directory <span Class="manpage">/usr/share/groff/1.22.2/tmac .</span>If it exists, <span Class="bold">eqn</span> processes it before the other input files. The <span Class="bold">-R</span> option prevents this. 
+<p class="level0">
+<p class="level0">GNU <span Class="bold">eqn</span> does not provide the functionality of neqn: it does not support low-resolution, typewriter-like devices (although it may work adequately for very simple input). 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">It is possible to have whitespace between a command line option and its parameter. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d xy</span> Specify delimiters <span Class="emphasis">x</span> and~c <span Class="emphasis">y</span> for the left and right end, respectively, of in-line equations. Any <span Class="bold">delim</span> statements in the source file overrides this. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> Recognize <span Class="bold">.EQ</span> and <span Class="bold">.EN</span> even when followed by a character other than space or newline. Also, the statement 
+<p class="level0">is not handled specially. 
+<p class="level0"><span Class="bold">-N</span> Don't allow newlines within delimiters. This option allows <span Class="bold">eqn</span> to recover better from missing closing delimiters. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> Print the version number. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> Only one size reduction. 
+<p class="level0">
+<p class="level0"><span Class="bold">-m n</span> The minimum point-size is~c <span Class="emphasis">n .</span> <span Class="bold">eqn</span> does not reduce the size of subscripts or superscripts to a smaller size than~c <span Class="emphasis">n .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-T name</span> The output is for device <span Class="emphasis">name .</span> Normally, the only effect of this is to define a macro <span Class="emphasis">name</span> with a value of~c <span Class="manpage">1 ;</span><span Class="bold">eqnrc</span> uses this to provide definitions appropriate for the output device. However, if the specified device is [lq]MathML[rq], the output is MathML markup rather than troff commands, and  <span Class="bold">eqnrc</span> is not loaded at all. The default output device is <span Class="manpage">ps .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-M dir</span> Search <span Class="emphasis">dir</span> for <span Class="bold">eqnrc</span> before the default directories. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span> Don't load <span Class="manpage">eqnrc .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-f F</span> This is equivalent to a <span Class="bold">gfont\  F</span> command. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s n</span> This is equivalent to a <span Class="bold">gsize\  n</span> command. This option is deprecated. <span Class="bold">eqn</span> normally sets equations at whatever the current point size is when the equation is encountered. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p n</span> This says that subscripts and superscripts should be <span Class="emphasis">n\~\c</span> points smaller than the surrounding text. This option is deprecated.  Normally <span Class="bold">eqn</span> sets subscripts and superscripts at 70% of the size of the surrounding text. 
+<p class="level0">
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">Only the differences between GNU <span Class="bold">eqn</span> and Unix eqn are described here. 
+<p class="level0">
+<p class="level0">GNU <span Class="bold">eqn</span> emits Presentation MathML output when invoked with the  <span Class="bold">-T\~MathML</span> option. 
+<p class="level0">
+<p class="level0">GNU eqn sets the input token  <a class="bold" href="#">\&... </a> as three periods or low dots, rather than the three centered dots of classic eqn.  To get three centered dots, write <span Class="bold">cdots</span> or  <span Class="manpage">cdot cdot cdot.</span>
+<p class="level0">
+<p class="level0">Most of the new features of the GNU <span Class="bold">eqn</span> input language are based on *(tx. There are some references to the differences between *(tx and GNU <span Class="bold">eqn</span> below; these may safely be ignored if you do not know *(tx. 
+<p class="level0"><a name="Controlling"></a><h2 class="nroffsh">Controlling delimiters</h2>
+<p class="level0">
+<p class="level0">If not in compatibility mode, <span Class="bold">eqn</span> recognizes 
+<p class="level0">
+<p class="level1">
+<p class="level1"><span Class="bold">delim on</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">to restore the delimiters which have been previously disabled with a call to 
+<p class="level0">If delimiters haven't been specified, the call has no effect. 
+<p class="level0"><a name="Automatic"></a><h2 class="nroffsh">Automatic spacing</h2>
+<p class="level0"><span Class="bold">eqn</span> gives each component of an equation a type, and adjusts the spacing between components using that type. Possible types are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">ordinary an ordinary character such as `1' or `c <span Class="emphasis">x ';</span> 
+<p class="level1">
+<p class="level1">operator a large operator such as 
+<p class="level1">
+<p class="level1">*(Su; 
+<p class="level1">
+<p class="level1">binary a binary operator such as `(pl'; 
+<p class="level1">
+<p class="level1">relation a relation such as `='; 
+<p class="level1">
+<p class="level1">opening a opening bracket such as `('; 
+<p class="level1">
+<p class="level1">closing a closing bracket such as `)'; 
+<p class="level1">
+<p class="level1">punctuation a punctuation character such as `,'; 
+<p class="level1">
+<p class="level1">inner a subformula contained within brackets; 
+<p class="level1">suppress spacing that suppresses automatic spacing adjustment. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Components of an equation get a type in one of two ways. 
+<p class="level0">
+<p class="level0"><span Class="bold">type\  t\ e</span> This yields an equation component that contains~c <span Class="emphasis">e</span> but that has type~c <span Class="emphasis">t ,</span> where <span Class="emphasis">t</span> is one of the types mentioned above. For example, <span Class="bold">times</span> is defined as 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> type "binary" e(mu 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The name of the type doesn't have to be quoted, but quoting protects from macro expansion. 
+<p class="level1">
+<p class="level1"><span Class="bold">chartype\  t\ text</span> Unquoted groups of characters are split up into individual characters, and the type of each character is looked up; this changes the type that is stored for each character; it says that the characters in <span Class="emphasis">text</span> from now on have type~c <span Class="emphasis">t .</span> For example, 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><a class="bold" href="#"></a> chartype "punctuation" .,;: 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">would make the characters `.,;:' have type punctuation whenever they subsequently appeared in an equation. The type~c <span Class="emphasis">t</span> can also be <span Class="bold">letter</span> or <span Class="manpage">digit ;</span>in these cases <span Class="bold">chartype</span> changes the font type of the characters. See the <a class="bold" href="#Fonts">Fonts</a> subsection. 
+<p class="level1"><a name="New"></a><h2 class="nroffsh">New primitives</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">big\  e</span> Enlarges the expression it modifies; intended to have semantics like  CSS `large'. In troff output, the point size is increased by~5; in MathML output, the expression uses 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">&lt;mstyle %mathsize='big'&gt; 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This is similar to <span Class="manpage">over ;</span><span Class="bold">smallover</span> reduces the size of <span Class="emphasis">e1</span> and <span Class="emphasis">e2 ;</span> it also puts less vertical space between <span Class="emphasis">e1</span> or <span Class="emphasis">e2</span> and the fraction bar. The <span Class="bold">over</span> primitive corresponds to the *(tx <span Class="bold">\eover</span> primitive in display styles; <span Class="bold">smallover</span> corresponds to <span Class="bold">\eover</span> in non-display styles. 
+<p class="level0">
+<p class="level0"><span Class="bold">vcenter\  e</span> This vertically centers <span Class="emphasis">e</span> about the math axis. The math axis is the vertical position about which characters such as `(pl' and `(mi' are centered; also it is the vertical position used for the bar of fractions. For example, <span Class="bold">sum</span> is defined as 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> { type "operator" vcenter size +5 e(*S } 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">(Note that vcenter is silently ignored when generating MathML.) 
+<p class="level1">
+<p class="level1">
+<p class="level1">This sets <span Class="emphasis">e2</span> as an accent over <span Class="emphasis">e1 .</span> <span Class="emphasis">e2</span> is assumed to be at the correct height for a lowercase letter; <span Class="emphasis">e2</span> is moved down according to whether <span Class="emphasis">e1</span> is taller or shorter than a lowercase letter. For example, <span Class="bold">hat</span> is defined as 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><a class="bold" href="#"></a> accent { "^" } 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="manpage">dotdot</span>, <span Class="manpage">dot</span>, <span Class="manpage">tilde</span>, <span Class="manpage">vec</span>and <span Class="bold">dyad</span> are also defined using the <span Class="bold">accent</span> primitive. 
+<p class="level1">
+<p class="level1">
+<p class="level1">This sets <span Class="emphasis">e2</span> as an accent under <span Class="emphasis">e1 .</span> <span Class="emphasis">e2</span> is assumed to be at the correct height for a character without a descender; <span Class="emphasis">e2</span> is moved down if <span Class="emphasis">e1</span> has a descender. <span Class="bold">utilde</span> is pre-defined using <span Class="bold">uaccent</span> as a tilde accent below the baseline. 
+<p class="level1">
+<p class="level1"><span Class="bold">split\ \(ts text \(ts</span> This has the same effect as simply 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="emphasis">text</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">but <span Class="emphasis">text</span> is not subject to macro expansion because it is quoted; <span Class="emphasis">text</span> is split up and the spacing between individual characters is adjusted. 
+<p class="level1">
+<p class="level1"><span Class="bold">nosplit\  text</span> This has the same effect as 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">\(ts text \(ts</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">but because <span Class="emphasis">text</span> is not quoted it is subject to macro expansion; <span Class="emphasis">text</span> is not split up and the spacing between individual characters is not adjusted. 
+<p class="level1">
+<p class="level1">
+<p class="level1">This is a variant of <span Class="bold">prime</span> that acts as an operator on~c <span Class="emphasis">e .</span> It produces a different result from <span Class="bold">prime</span> in a case such as <span Class="manpage">A\ opprime\ sub\ 1 :</span>with <span Class="bold">opprime</span> the~c <span Class="bold">1</span> is tucked under the prime as a subscript to the~c <span Class="bold">A</span> (as is conventional in mathematical typesetting), whereas with <span Class="bold">prime</span> the~c <span Class="bold">1</span> is a subscript to the prime character. The precedence of <span Class="bold">opprime</span> is the same as that of <span Class="bold">bar</span> and <span Class="manpage">under</span>which is higher than that of everything except <span Class="bold">accent</span> and <span Class="manpage">uaccent .</span>In unquoted text a~c <a class="bold" href="#">'</a> that is not the first character is treated like <span Class="manpage">opprime .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">special\  text\ e</span> This constructs a new object from~c <span Class="emphasis">e</span> using a <span Class="manpage">troff (1)</span>macro named <span Class="emphasis">text .</span> When the macro is called, the string <span Class="bold">0s</span> contains the output for~c <span Class="emphasis">e ,</span> and the number registers <span Class="manpage">0w</span>, <span Class="manpage">0h</span>, <span Class="manpage">0d</span>, <span Class="manpage">0skern</span>and <span Class="manpage">0skew</span>contain the width, height, depth, subscript kern, and skew of~c <span Class="emphasis">e .</span> (The <span Class="emphasis">subscript kern</span> of an object says how much a subscript on that object should be tucked in; the <span Class="emphasis">skew</span> of an object says how far to the right of the center of the object an accent over the object should be placed.) The macro must modify <span Class="bold">0s</span> so that it outputs the desired result with its origin at the current point, and increase the current horizontal position by the width of the object. The number registers must also be modified so that they correspond to the result. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">For example, suppose you wanted a construct that `cancels' an expression by drawing a diagonal line through it. 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2"><br>.EQ <br>define cancel 'special Ca' <br>.EN <br>.de Ca <br>.&nbsp;&nbsp;ds 0s e <br>eZ'ee*(0s'e <br>ev'een(0du'e <br>eD'l een(0wu -een(0hu-een(0du'e <br>ev'een(0hu' <br>.. 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Then you could cancel an expression~c <span Class="emphasis">e</span> with <span Class="bold">\%cancel\ {\  e\  }</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Here's a more complicated construct that draws a box round an expression: 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">.EQ <br>define box 'special Bx' <br>.EN <br>.de Bx <br>.&nbsp;&nbsp;ds 0s e <br>eZ'eh'1n'ee*(0s'e <br>eZ'e <br>ev'een(0du+1n'e <br>eD'l een(0wu+2n 0'e <br>eD'l 0 -een(0hu-een(0du-2n'e <br>eD'l -een(0wu-2n 0'e <br>eD'l 0 een(0hu+een(0du+2n'e <br>'e <br>eh'een(0wu+2n' <br>.&nbsp;&nbsp;nr 0w +2n <br>.&nbsp;&nbsp;nr 0d +1n <br>.&nbsp;&nbsp;nr 0h +1n <br>.. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">space\  n</span> A positive value of the integer~c <span Class="emphasis">n</span> (in hundredths of an em) sets the vertical spacing before the equation, a negative value sets the spacing after the equation, replacing the default values. This primitive provides an interface to <span Class="manpage">groff 's</span><span Class="bold">\ex</span> escape (but with opposite sign). 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This keyword has no effect if the equation is part of a <span Class="bold">pic</span> picture. 
+<p class="level1"><a name="Extended"></a><h2 class="nroffsh">Extended primitives</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">col\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">ccol\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">lcol\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">rcol\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">pile\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">cpile\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">lpile\  n\  {\  .\|.\|.\  }</span> 
+<p class="level0"><span Class="bold">rpile\  n\  {\  .\|.\|.\  }</span> The integer value~c <span Class="emphasis">n</span> (in hundredths of an em) increases the vertical spacing between rows, using <span Class="manpage">groff 's</span><span Class="bold">\ex</span> escape (the value has no effect in MathML mode). Negative values are possible but have no effect. If there is more than a single value given in a matrix, the biggest one is used. 
+<p class="level0"><a name="Customization"></a><h2 class="nroffsh">Customization</h2>
+<p class="level0">When  <span Class="bold">eqn</span> is generating troff markup, the appearance of equations is controlled by a large number of parameters.  They have no effect when generating  MathML mode, which pushes typesetting and fine motions downstream to a MathML rendering engine.  These parameters can be set using the <span Class="bold">set</span> command. 
+<p class="level0">
+<p class="level0"><span Class="bold">set\  p\ n</span> This sets parameter~c <span Class="emphasis">p</span> to value~c <span Class="emphasis">n ;</span> <span Class="emphasis">n\~\c</span> is an integer. For example, 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> set x_height 45 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">says that <span Class="bold">eqn</span> should assume an x~height of 0.45~ems. 
+<p class="level1">
+<p class="level2">
+<p class="level2">Possible parameters are as follows. Values are in units of hundredths of an em unless otherwise stated. These descriptions are intended to be expository rather than definitive. 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><span Class="bold">minimum_size</span> <span Class="bold">eqn</span> doesn't set anything at a smaller point-size than this. The value is in points. 
+<p class="level2">
+<p class="level2"><span Class="bold">fat_offset</span> The <span Class="bold">fat</span> primitive emboldens an equation by overprinting two copies of the equation horizontally offset by this amount. This parameter is not used in MathML mode; instead, fat text uses 
+<p class="level2">
+<p class="level3">
+<p class="level2"><a name=""></a><span class="nroffip"></span> 
+<p class="level3">
+<p class="level3">&lt;mstyle mathvariant='double-struck'&gt; 
+<p class="level3">
+<p class="level2">
+<p class="level2">
+<p class="level2"><span Class="bold">over_hang</span> A fraction bar is longer by twice this amount than the maximum of the widths of the numerator and denominator; in other words, it overhangs the numerator and denominator by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">accent_width</span> When <span Class="bold">bar</span> or <span Class="bold">under</span> is applied to a single character, the line is this long. Normally, <span Class="bold">bar</span> or <span Class="bold">under</span> produces a line whose length is the width of the object to which it applies; in the case of a single character, this tends to produce a line that looks too long. 
+<p class="level2">
+<p class="level2"><span Class="bold">delimiter_factor</span> Extensible delimiters produced with the <span Class="bold">left</span> and <span Class="bold">right</span> primitives have a combined height and depth of at least this many thousandths of twice the maximum amount by which the sub-equation that the delimiters enclose extends away from the axis. 
+<p class="level2">
+<p class="level2"><span Class="bold">delimiter_shortfall</span> Extensible delimiters produced with the <span Class="bold">left</span> and <span Class="bold">right</span> primitives have a combined height and depth not less than the difference of twice the maximum amount by which the sub-equation that the delimiters enclose extends away from the axis and this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">null_delimiter_space</span> This much horizontal space is inserted on each side of a fraction. 
+<p class="level2">
+<p class="level2"><span Class="bold">script_space</span> The width of subscripts and superscripts is increased by this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">thin_space</span> This amount of space is automatically inserted after punctuation characters. 
+<p class="level2">
+<p class="level2"><span Class="bold">medium_space</span> This amount of space is automatically inserted on either side of binary operators. 
+<p class="level2">
+<p class="level2"><span Class="bold">thick_space</span> This amount of space is automatically inserted on either side of relations. 
+<p class="level2">
+<p class="level2"><span Class="bold">x_height</span> The height of lowercase letters without ascenders such as `x'. 
+<p class="level2">
+<p class="level2"><span Class="bold">axis_height</span> The height above the baseline of the center of characters such as `(pl' and `(mi'. It is important that this value is correct for the font you are using. 
+<p class="level2">
+<p class="level2"><span Class="bold">default_rule_thickness</span> This should set to the thickness of the <span Class="bold">\e(ru</span> character, or the thickness of horizontal lines produced with the <span Class="bold">\eD</span> escape sequence. 
+<p class="level2">
+<p class="level2"><span Class="bold">num1</span> The <span Class="bold">over</span> command shifts up the numerator by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">num2</span> The <span Class="bold">smallover</span> command shifts up the numerator by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">denom1</span> The <span Class="bold">over</span> command shifts down the denominator by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">denom2</span> The <span Class="bold">smallover</span> command shifts down the denominator by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">sup1</span> Normally superscripts are shifted up by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">sup2</span> Superscripts within superscripts or upper limits or numerators of <span Class="bold">smallover</span> fractions are shifted up by at least this amount. This is usually less than sup1. 
+<p class="level2">
+<p class="level2"><span Class="bold">sup3</span> Superscripts within denominators or square roots or subscripts or lower limits are shifted up by at least this amount. This is usually less than sup2. 
+<p class="level2">
+<p class="level2"><span Class="bold">sub1</span> Subscripts are normally shifted down by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">sub2</span> When there is both a subscript and a superscript, the subscript is shifted down by at least this amount. 
+<p class="level2">
+<p class="level2"><span Class="bold">sup_drop</span> The baseline of a superscript is no more than this much amount below the top of the object on which the superscript is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">sub_drop</span> The baseline of a subscript is at least this much below the bottom of the object on which the subscript is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">big_op_spacing1</span> The baseline of an upper limit is at least this much above the top of the object on which the limit is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">big_op_spacing2</span> The baseline of a lower limit is at least this much below the bottom of the object on which the limit is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">big_op_spacing3</span> The bottom of an upper limit is at least this much above the top of the object on which the limit is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">big_op_spacing4</span> The top of a lower limit is at least this much below the bottom of the object on which the limit is set. 
+<p class="level2">
+<p class="level2"><span Class="bold">big_op_spacing5</span> This much vertical space is added above and below limits. 
+<p class="level2">
+<p class="level2"><span Class="bold">baseline_sep</span> The baselines of the rows in a pile or matrix are normally this far apart. In most cases this should be equal to the sum of <span Class="bold">num1</span> and <span Class="manpage">denom1 .</span>
+<p class="level2">
+<p class="level2"><span Class="bold">shift_down</span> The midpoint between the top baseline and the bottom baseline in a matrix or pile is shifted down by this much from the axis. In most cases this should be equal to <span Class="manpage">axis_height .</span>
+<p class="level2">
+<p class="level2"><span Class="bold">column_sep</span> This much space is added between columns in a matrix. 
+<p class="level2">
+<p class="level2"><span Class="bold">matrix_side_sep</span> This much space is added at each side of a matrix. 
+<p class="level2">
+<p class="level2"><span Class="bold">draw_lines</span> If this is non-zero, lines are drawn using the <span Class="bold">\eD</span> escape sequence, rather than with the <span Class="bold">\el</span> escape sequence and the <span Class="bold">\e(ru</span> character. 
+<p class="level2">
+<p class="level2"><span Class="bold">body_height</span> The amount by which the height of the equation exceeds this is added as extra space before the line containing the equation (using <span Class="manpage">\ex ).</span>The default value is 85. 
+<p class="level2">
+<p class="level2"><span Class="bold">body_depth</span> The amount by which the depth of the equation exceeds this is added as extra space after the line containing the equation (using <span Class="manpage">\ex ).</span>The default value is 35. 
+<p class="level2">
+<p class="level2"><span Class="bold">nroff</span> If this is non-zero, then <span Class="bold">ndefine</span> behaves like <span Class="bold">define</span> and <span Class="bold">tdefine</span> is ignored, otherwise <span Class="bold">tdefine</span> behaves like <span Class="bold">define</span> and <span Class="bold">ndefine</span> is ignored. The default value is~0 (This is typically changed to~1 by the <span Class="bold">eqnrc</span> file for the <span Class="manpage">ascii</span>, <span Class="manpage">latin1</span>, <span Class="manpage">utf8</span>and <span Class="bold">cp1047</span> devices.) 
+<p class="level2">
+<p class="level2">A more precise description of the role of many of these parameters can be found in Appendix~H of <span Class="emphasis">The \*(txbook .</span> 
+<p class="level1">
+<p class="level1"><a name="Macros"></a><h2 class="nroffsh">Macros</h2>
+<p class="level0">Macros can take arguments. In a macro body, <a class="bold" href="#">$ n</a> where <span Class="emphasis">n</span> is between 1 and~9, is replaced by the <span Class="emphasis">n-th</span> argument if the macro is called with arguments; if there are fewer than <span Class="emphasis">n\~\c</span> arguments, it is replaced by nothing. A word containing a left parenthesis where the part of the word before the left parenthesis has been defined using the <span Class="bold">define</span> command is recognized as a macro call with arguments; characters following the left parenthesis up to a matching right parenthesis are treated as comma-separated arguments; commas inside nested parentheses do not terminate an argument. 
+<p class="level0">
+<p class="level0"><span Class="bold">sdefine\  name\ X\ anything\ X</span> This is like the <span Class="bold">define</span> command, but <span Class="emphasis">name</span> is not recognized if called with arguments. 
+<p class="level0">
+<p class="level0"><span Class="bold">include\ \(ts file \(ts</span> 
+<p class="level0"><span Class="bold">copy\ \(ts file \(ts</span> Include the contents of <span Class="emphasis">file</span> 
+<p class="level0">and <span Class="bold">copy</span> are synonyms). Lines of <span Class="emphasis">file</span> beginning with <span Class="bold">.EQ</span> or <span Class="bold">.EN</span> are ignored. 
+<p class="level0">
+<p class="level0"><span Class="bold">ifdef\  name\ X\ anything\ X</span> If <span Class="emphasis">name</span> has been defined by <span Class="bold">define</span> (or has been automatically defined because <span Class="emphasis">name</span> is the output device) process <span Class="emphasis">anything ;</span> otherwise ignore <span Class="emphasis">anything .</span> <span Class="emphasis">X</span> can be any character not appearing in <span Class="emphasis">anything .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">undef\  name</span> Remove definition of <span Class="emphasis">name ,</span> making it undefined. 
+<p class="level0">
+<p class="level0">Besides the macros mentioned above, the following definitions are available: <span Class="manpage">Alpha</span>, <span Class="manpage">Beta</span>.|.|., <span Class="bold">Omega</span> (this is the same as <span Class="manpage">ALPHA</span>, <span Class="manpage">BETA</span>.|.|., <span Class="manpage">OMEGA )</span><span Class="bold">ldots</span> (three dots on the base line), and <span Class="manpage">dollar .</span>
+<p class="level0"><a name="Fonts"></a><h2 class="nroffsh">Fonts</h2>
+<p class="level0"><span Class="bold">eqn</span> normally uses at least two fonts to set an equation: an italic font for letters, and a roman font for everything else. The existing <span Class="bold">gfont</span> command changes the font that is used as the italic font. By default this is~c <span Class="manpage">I .</span>The font that is used as the roman font can be changed using the new <span Class="bold">grfont</span> command. 
+<p class="level0">
+<p class="level0"><span Class="bold">grfont\  f</span> Set the roman font to~c <span Class="emphasis">f .</span> 
+<p class="level0">
+<p class="level0">The <span Class="bold">italic</span> primitive uses the current italic font set by <span Class="manpage">gfont ;</span>the <span Class="bold">roman</span> primitive uses the current roman font set by <span Class="manpage">grfont .</span>There is also a new <span Class="bold">gbfont</span> command, which changes the font used by the <span Class="bold">bold</span> primitive. If you only use the <span Class="manpage">roman</span><span Class="bold">italic</span> and <span Class="bold">bold</span> primitives to changes fonts within an equation, you can change all the fonts used by your equations just by using <span Class="manpage">gfont</span><span Class="bold">grfont</span> and <span Class="bold">gbfont</span> commands. 
+<p class="level0">
+<p class="level0">You can control which characters are treated as letters (and therefore set in italics) by using the <span Class="bold">chartype</span> command described above. A type of <span Class="bold">letter</span> causes a character to be set in italic type. A type of <span Class="bold">digit</span> causes a character to be set in roman type. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/eqnrc</span> Initialization file. 
+<p class="level0">
+<p class="level0"><a name="MATHML"></a><h2 class="nroffsh">MATHML MODE LIMITATIONS</h2>
+<p class="level0">MathML is designed on the assumption that it cannot know the exact physical characteristics of the media and devices on which it will be rendered. It does not support fine control of motions and sizes to the same degree troff does. Thus: 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip">* </span> 
+<p class="level1"><span Class="bold">eqn</span> parameters have no effect on the generated MathML. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">The  <span Class="manpage">special</span>, <span Class="manpage">up</span>, <span Class="manpage">down</span>, <span Class="manpage">fwd</span>and <span Class="bold">back</span> operations cannot be implemented, and yield a MathML `&lt;merror&gt;' message instead.   
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">The <span Class="bold">vcenter</span> keyword is silently ignored, as centering on the math axis is the MathML default. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">Characters that <span Class="bold">eqn</span> over troff sets extra large (en notably the integral sign (en may appear too small and need to have their `&lt;mstyle&gt;' wrappers  adjusted by hand. 
+<p class="level1">
+<p class="level1">As in its troff mode, <span Class="bold">eqn</span> in MathML mode leaves the <span Class="bold">.EQ</span> and <span Class="bold">.EN</span> delimiters in place for displayed equations, but emits no explicit delimiters around inline equations. They can, however, be recognized as strings that begin with `&lt;math&gt;' and end with `&lt;/math&gt;' and do not cross line boundaries. 
+<p class="level1">
+<p class="level1">See the  <a class="bold" href="#BUGS">BUGS</a> section for translation limits specific to  <span Class="manpage">eqn .</span>
+<p class="level1">
+<p class="level1"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Inline equations are set at the point size that is current at the beginning of the input line. 
+<p class="level0">In MathML mode, the <span Class="bold">mark</span> and <span Class="bold">lineup</span> features don't work. These could, in theory, be implemented with `&lt;maligngroup&gt;' elements. 
+<p class="level0">In MathML mode, each digit of a numeric literal gets a separate `&lt;mn&gt;:&lt;/mn&gt;' pair, and decimal points are tagged with `&lt;mo&gt;:&lt;/mo&gt;'. This is allowed by the specification, but inefficient. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">groff (1)</span>, <span Class="manpage">troff (1)</span>, <span Class="manpage">pic (1)</span>, <span Class="manpage">groff_font (5)</span><span Class="emphasis">The\ \*(txbook</span> 
+<p class="level0">

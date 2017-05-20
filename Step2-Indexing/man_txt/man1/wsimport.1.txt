@@ -1,0 +1,62 @@
+wsimport(1)                 General Commands Manual                wsimport(1)
+
+
+
+Name
+       wsimport - Java(TM) API for XML Web Services (JAX-WS) 2.0
+
+       Specification Version: 2.1
+       Implementation Version: 2.1.1
+
+Overview
+       The wsimport tool generates JAX-WS portable artifacts, such as:
+
+          o Service Endpoint Interface (SEI)
+
+          o Service
+
+          o Exception class mapped from wsdl:fault (if any)
+
+          o Async Reponse Bean derived from response wsdl:message (if any)
+
+          o JAXB generated value types (mapped java classes from schema types)
+
+       These  artifacts can be packaged in a WAR file with the WSDL and schema
+       documents along with the endpoint implementation to be  deployed.  also
+       provides wsimport ant task, see Wsimport ant task @
+       https://jax-ws.dev.java.net/nonav/2.1.1/docs/wsimportant.html.
+
+
+Launching wsimport
+          o Solaris/Linux
+
+             * /bin/wsimport.sh -help
+
+          o Windows
+
+             * \bin\wsimport.bat -help
+
+
+Syntax
+       wsimport [options] <wsdl>
+
+       The following table lists the wsimport options.
+
+       Multiple JAX-WS and JAXB binding files can be specified using -b option
+       and they can be used to customize various things like package names,
+       bean names, etc. More information on JAX-WS and JAXB binding files can
+       be found in the customization documentation @
+       https://jax-ws.dev.java.net/nonav/2.1.1/docs/customizations.html.
+
+       The following table lists wsimport non-standard options:
+
+Example
+       wsimport -p stockquote http://stockquote.example.com/quote?wsdl
+
+       This will generate the Java artifacts and compile them by importing the
+       http://stockquote.example.com/quote?wsdl.
+
+
+
+
+                                  18 Jul 2013                      wsimport(1)

@@ -1,0 +1,37 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">manconv - convert manual page from one encoding to another <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">manconv</span> <span Class="bold">-f</span> <span Class="emphasis">from-code \|[: from-code \|.\|.\|.]</span> <span Class="bold">-t</span> <span Class="emphasis">to-code</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">manconv</span> converts a manual page from one encoding to another, like <span Class="manpage">iconv .</span>Unlike <span Class="manpage">iconv</span>it can try multiple possible input encodings in sequence. This is useful for manual pages installed in directories without an explicit encoding declaration, since they may be in UTF-8 or in a legacy character set. 
+<p class="level0">If an encoding declaration is found on the first line of the manual page, that declaration overrides any input encodings specified on <span Class="manpage">manconv 's</span>command line. Encoding declarations have the following form: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+(aqe" -*- coding: UTF-8 -*-
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">or (if manual page preprocessors are also to be declared): 
+<p class="level0">
+<p class="level1"><pre class="level1">
+(aqe" t -*- coding: ISO-8859-1 -*-
+</pre>
+
+<p class="level1">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span> <span Class="emphasis">encodings</span>, <span Class="bold">--from-code</span> <span Class="emphasis">encodings</span> Try each of <span Class="emphasis">encodings</span> (a colon-separated list) in sequence as the input encoding. 
+<p class="level0"><span Class="bold">-t</span> <span Class="emphasis">encoding</span>, <span Class="bold">--to-code</span> <span Class="emphasis">encoding</span> Convert the manual page to <span Class="emphasis">encoding .</span> 
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--quiet</span>Do not issue error messages when the page cannot be converted. 
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--debug</span>Print debugging information. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Print a help message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">iconv (1),</span> <span Class="emphasis">man (1)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Colin Watson (cjwatson@debian.org).
+</pre>
+
+<p class="level0">

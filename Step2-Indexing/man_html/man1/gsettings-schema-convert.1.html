@@ -1,0 +1,43 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gsettings-schema-convert - GConf to GSettings schema conversion <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-schema-convert</span> [option...] {file} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-schema-convert</span> converts between GConf and GSettings schema file formats. Note that the conversion is not expected to be fully automated. You are expected to verify and edit the result of the conversion. 
+<p class="level0">Note that GSettings schemas need to be converted into binary form with glib-compile-schemas before they can be used by applications. <a name="Options"></a><h2 class="nroffsh">Options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print help and exit 
+<p class="level0">
+<p class="level0"><span Class="bold">-o </span><span class="bold"><span Class="emphasis">OUTPUT</span></span>, <span Class="bold">--output=</span><span class="bold"><span Class="emphasis">OUTPUT</span></span> 
+<p class="level1">Store the generated output in the file <span Class="emphasis">OUTPUT</span>. If no output file is specified, the generated output is written to stdout. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> 
+<p class="level1">Overwrite the output file if it already exists. 
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--gconf</span> 
+<p class="level1">The input file is a GConf schema. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--simple</span> 
+<p class="level1">Produce a GSettings schema in simple format. The simple format is easier to edit and can be converted into the XML format with <span Class="bold">gsettings-schema-convert</span> later on. 
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--xml</span> 
+<p class="level1">Produce a GSettings schema in XML format. If the output format is not explicitly specified, this is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i </span><span class="bold"><span Class="emphasis">ID</span></span>, <span Class="bold">--schema-id=</span><span class="bold"><span Class="emphasis">ID</span></span> 
+<p class="level1">Use <span Class="emphasis">ID</span> as the schema id in the generated GSettings schema. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d </span><span class="bold"><span Class="emphasis">DOMAIN</span></span>, <span Class="bold">--gettext-domain=</span><span class="bold"><span Class="emphasis">DOMAIN</span></span> 
+<p class="level1">Use <span Class="emphasis">DOMAIN</span> as the gettext domain in the generated GSettings schema. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--keep-underscores</span> 
+<p class="level1">Keep underscores in key names instead of replacing them with dashes. GSettings keys should not contain any underscore. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-data-convert</span>(1) a related command to migrate user settings from GConf to GSettings. 

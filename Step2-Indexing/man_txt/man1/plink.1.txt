@@ -1,0 +1,133 @@
+plink(1)                       PuTTY tool suite                       plink(1)
+
+
+
+NAME
+       plink - PuTTY link, command line network connection tool
+
+SYNOPSIS
+       plink [options] [user@]host [command]
+
+DESCRIPTION
+       plink is a network connection tool supporting several protocols.
+
+OPTIONS
+       The command-line options supported by plink are:
+
+       -V     Show version information and exit.
+
+       -pgpfp Display  the fingerprints of the PuTTY PGP Master Keys and exit,
+              to aid in verifying new files released by the PuTTY team.
+
+       -v     Show verbose messages.
+
+       -load session
+              Load settings from saved session.
+
+       -ssh   Force use of SSH protocol (default).
+
+       -telnet
+              Force use of Telnet protocol.
+
+       -rlogin
+              Force use of rlogin protocol.
+
+       -raw   Force raw mode.
+
+       -serial
+              Force serial mode.
+
+       -P port
+              Connect to port port.
+
+       -l user
+              Set remote username to user.
+
+       -m path
+              Read remote command(s) from local file path.
+
+       -batch Disable interactive prompts.
+
+       -pw password
+              Set remote password to password. CAUTION: this will likely  make
+              the  password  visible  to other users of the local machine (via
+              commands such as `w').
+
+       -L [srcaddr:]srcport:desthost:destport
+              Set  up  a  local  port  forwarding:  listen  on   srcport   (or
+              srcaddr:srcport  if specified), and forward any connections over
+              the SSH connection to the destination address desthost:destport.
+              Only works in SSH.
+
+       -R [srcaddr:]srcport:desthost:destport
+              Set up a remote port forwarding: ask the SSH server to listen on
+              srcport (or srcaddr:srcport if specified), and  to  forward  any
+              connections  back  over the SSH connection where the client will
+              pass them on to the destination address desthost:destport.  Only
+              works in SSH.
+
+       -D [srcaddr:]srcport
+              Set  up  dynamic  port forwarding. The client listens on srcport
+              (or  srcaddr:srcport  if  specified),  and  implements  a  SOCKS
+              server.  So  you can point SOCKS-aware applications at this port
+              and they will automatically use the SSH connection to tunnel all
+              their connections. Only works in SSH.
+
+       -X     Enable X11 forwarding.
+
+       -x     Disable X11 forwarding (default).
+
+       -A     Enable agent forwarding.
+
+       -a     Disable agent forwarding (default).
+
+       -t     Enable pty allocation (default if a command is NOT specified).
+
+       -T     Disable pty allocation (default if a command is specified).
+
+       -1     Force use of SSH protocol version 1.
+
+       -2     Force use of SSH protocol version 2.
+
+       -C     Enable SSH compression.
+
+       -i path
+              Private key file for authentication.
+
+       -s     Remote command is SSH subsystem (SSH-2 only).
+
+       -N     Don't start a remote command or shell at all (SSH-2 only).
+
+       -sercfg configuration-string
+              Specify  the  configuration  parameters  for the serial port, in
+              -serial mode. configuration-string should be  a  comma-separated
+              list of configuration parameters as follows:
+
+              o      Any  single  digit  from  5  to 9 sets the number of data
+                     bits.
+
+              o      `1', `1.5' or `2' sets the number of stop bits.
+
+              o      Any other numeric string is interpreted as a baud rate.
+
+              o      A single lower-case letter specifies the parity: `n'  for
+                     none, `o' for odd, `e' for even, `m' for mark and `s' for
+                     space.
+
+              o      A single upper-case letter specifies  the  flow  control:
+                     `N'  for  none, `X' for XON/XOFF, `R' for RTS/CTS and `D'
+                     for DSR/DTR.
+
+MORE INFORMATION
+       For more information on plink, it's probably best to go and look at the
+       manual on the PuTTY web page:
+
+       http://www.chiark.greenend.org.uk/~sgtatham/putty/
+
+BUGS
+       This  man page isn't terribly complete. See the above web link for bet-
+       ter documentation.
+
+
+
+PuTTY tool suite                  2004-03-24                          plink(1)

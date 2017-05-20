@@ -1,0 +1,712 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xz, unxz, xzcat, lzma, unlzma, lzcat - Compress or decompress .xz and .lzma files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xz</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">unxz</span> is equivalent to <span Class="manpage">xz --decompress .</span><br><span Class="bold">xzcat</span> is equivalent to <span Class="manpage">xz --decompress --stdout .</span><br><span Class="bold">lzma</span> is equivalent to <span Class="manpage">xz --format=lzma .</span><br><span Class="bold">unlzma</span> is equivalent to <span Class="manpage">xz --format=lzma --decompress .</span><br><span Class="bold">lzcat</span> is equivalent to <span Class="manpage">xz --format=lzma --decompress --stdout .</span>
+<p class="level0">When writing scripts that need to decompress files, it is recommended to always use the name <span Class="bold">xz</span> with appropriate arguments 
+<p class="level0">or <span Class="manpage">xz -dc )</span>instead of the names <span Class="bold">unxz</span> and <span Class="manpage">xzcat .</span>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">xz</span> is a general-purpose data compression tool with command line syntax similar to <span Class="manpage">gzip (1)</span>and <span Class="manpage">bzip2 (1).</span>The native file format is the <span Class="bold">.xz</span> format, but the legacy <span Class="bold">.lzma</span> format used by LZMA Utils and raw compressed streams with no container format headers are also supported. 
+<p class="level0"><span Class="bold">xz</span> compresses or decompresses each <span Class="emphasis">file</span> according to the selected operation mode. If no <span Class="emphasis">files</span> are given or <span Class="emphasis">file</span> is <span Class="manpage">-</span><span Class="bold">xz</span> reads from standard input and writes the processed data to standard output. <span Class="bold">xz</span> will refuse (display an error and skip the <span Class="emphasis">file )</span> to write compressed data to standard output if it is a terminal. Similarly, <span Class="bold">xz</span> will refuse to read compressed data from standard input if it is a terminal. 
+<p class="level0">Unless <span Class="bold">--stdout</span> is specified, <span Class="emphasis">files</span> other than <span Class="bold">-</span> are written to a new file whose name is derived from the source <span Class="emphasis">file</span> name: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">When compressing, the suffix of the target file format 
+<p class="level1">or <span Class="manpage">.lzma )</span>is appended to the source filename to get the target filename. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">When decompressing, the <span Class="bold">.xz</span> or <span Class="bold">.lzma</span> suffix is removed from the filename to get the target filename. <span Class="bold">xz</span> also recognizes the suffixes <span Class="bold">.txz</span> and <span Class="manpage">.tlz</span>and replaces them with the <span Class="bold">.tar</span> suffix. 
+<p class="level1">If the target file already exists, an error is displayed and the <span Class="emphasis">file</span> is skipped. 
+<p class="level1">Unless writing to standard output, <span Class="bold">xz</span> will display a warning and skip the <span Class="emphasis">file</span> if any of the following applies: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1"><span Class="emphasis">File</span> is not a regular file. Symbolic links are not followed, and thus they are not considered to be regular files. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1"><span Class="emphasis">File</span> has more than one hard link. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1"><span Class="emphasis">File</span> has setuid, setgid, or sticky bit set. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">The operation mode is set to compress and the <span Class="emphasis">file</span> already has a suffix of the target file format 
+<p class="level1">or <span Class="bold">.txz</span> when compressing to the <span Class="bold">.xz</span> format, and <span Class="bold">.lzma</span> or <span Class="bold">.tlz</span> when compressing to the <span Class="bold">.lzma</span> format). 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">The operation mode is set to decompress and the <span Class="emphasis">file</span> doesn't have a suffix of any of the supported file formats 
+<p class="level1"><span Class="manpage">.txz</span>, <span Class="manpage">.lzma</span>or <span Class="manpage">.tlz ).</span>
+<p class="level1">After successfully compressing or decompressing the <span Class="emphasis">file ,</span> <span Class="bold">xz</span> copies the owner, group, permissions, access time, and modification time from the source <span Class="emphasis">file</span> to the target file. If copying the group fails, the permissions are modified so that the target file doesn't become accessible to users who didn't have permission to access the source <span Class="emphasis">file .</span> <span Class="bold">xz</span> doesn't support copying other metadata like access control lists or extended attributes yet. 
+<p class="level1">Once the target file has been successfully closed, the source <span Class="emphasis">file</span> is removed unless <span Class="bold">--keep</span> was specified. The source <span Class="emphasis">file</span> is never removed if the output is written to standard output. 
+<p class="level1">Sending <span Class="bold">SIGINFO</span> or <span Class="bold">SIGUSR1</span> to the <span Class="bold">xz</span> process makes it print progress information to standard error. This has only limited use since when standard error is a terminal, using <span Class="bold">--verbose</span> will display an automatically updating progress indicator. 
+<p class="level1"><a name="Memory"></a><h2 class="nroffsh">Memory usage</h2>
+<p class="level0">The memory usage of <span Class="bold">xz</span> varies from a few hundred kilobytes to several gigabytes depending on the compression settings. The settings used when compressing a file determine the memory requirements of the decompressor. Typically the decompressor needs 5&nbsp;% to 20&nbsp;% of the amount of memory that the compressor needed when creating the file. For example, decompressing a file created with <span Class="bold">xz -9</span> currently requires 65&nbsp;MiB of memory. Still, it is possible to have <span Class="bold">.xz</span> files that require several gigabytes of memory to decompress. 
+<p class="level0">Especially users of older systems may find the possibility of very large memory usage annoying. To prevent uncomfortable surprises, <span Class="bold">xz</span> has a built-in memory usage limiter, which is disabled by default. While some operating systems provide ways to limit the memory usage of processes, relying on it wasn't deemed to be flexible enough (e.g. using <span Class="manpage">ulimit (1)</span>to limit virtual memory tends to cripple <span Class="manpage">mmap (2)).</span>
+<p class="level0">The memory usage limiter can be enabled with the command line option <span class="bold">--memlimit=<span Class="emphasis">limit</span>. Often it is more convenient to enable the limiter by default by setting the environment variable <span Class="manpage">XZ_DEFAULTS</span>e.g. <span Class="manpage">XZ_DEFAULTS=--memlimit=150MiB .</span>It is possible to set the limits separately for compression and decompression by using <span class="bold">--memlimit-compress=<span Class="emphasis">limit</span> and <span class="bold">--memlimit-decompress=<span Class="emphasis">limit</span>. Using these two options outside <span Class="bold">XZ_DEFAULTS</span> is rarely useful because a single run of <span Class="bold">xz</span> cannot do both compression and decompression and <span Class="bold">--memlimit= limit</span> (or <span Class="bold">-M</span> <span Class="emphasis">limit</span>) is shorter to type on the command line. 
+<p class="level0">If the specified memory usage limit is exceeded when decompressing, <span Class="bold">xz</span> will display an error and decompressing the file will fail. If the limit is exceeded when compressing, <span Class="bold">xz</span> will try to scale the settings down so that the limit is no longer exceeded (except when using <span Class="bold">--format=raw</span> or <span Class="bold">--no-adjust</span>). This way the operation won't fail unless the limit is very small. The scaling of the settings is done in steps that don't match the compression level presets, e.g. if the limit is only slightly less than the amount required for <span Class="manpage">xz -9</span>the settings will be scaled down only a little, not all the way down to <span Class="manpage">xz -8 .</span>
+<p class="level0"><a name="Concatenation"></a><h2 class="nroffsh">Concatenation and padding with .xz files</h2>
+<p class="level0">It is possible to concatenate <span Class="bold">.xz</span> files as is. <span Class="bold">xz</span> will decompress such files as if they were a single <span Class="bold">.xz</span> file. 
+<p class="level0">It is possible to insert padding between the concatenated parts or after the last part. The padding must consist of null bytes and the size of the padding must be a multiple of four bytes. This can be useful e.g. if the <span Class="bold">.xz</span> file is stored on a medium that measures file sizes in 512-byte blocks. 
+<p class="level0">Concatenation and padding are not allowed with <span Class="bold">.lzma</span> files or raw streams. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="Integer"></a><h2 class="nroffsh">Integer suffixes and special values</h2>
+<p class="level0">In most places where an integer argument is expected, an optional suffix is supported to easily indicate large integers. There must be no space between the integer and the suffix. 
+<p class="level0"><span Class="bold">KiB</span> Multiply the integer by 1,024 (2^10). <span Class="manpage">Ki</span>, <span Class="manpage">k</span>, <span Class="manpage">kB</span>, <span Class="manpage">K</span>and <span Class="bold">KB</span> are accepted as synonyms for <span Class="manpage">KiB .</span>
+<p class="level0"><span Class="bold">MiB</span> Multiply the integer by 1,048,576 (2^20). <span Class="manpage">Mi</span>, <span Class="manpage">m</span>, <span Class="manpage">M</span>and <span Class="bold">MB</span> are accepted as synonyms for <span Class="manpage">MiB .</span>
+<p class="level0"><span Class="bold">GiB</span> Multiply the integer by 1,073,741,824 (2^30). <span Class="manpage">Gi</span>, <span Class="manpage">g</span>, <span Class="manpage">G</span>and <span Class="bold">GB</span> are accepted as synonyms for <span Class="manpage">GiB .</span>
+<p class="level0">The special value <span Class="bold">max</span> can be used to indicate the maximum integer value supported by the option. 
+<p class="level0"><a name="Operation"></a><h2 class="nroffsh">Operation mode</h2>
+<p class="level0">If multiple operation mode options are given, the last one takes effect. 
+<p class="level0"><span Class="manpage">-z</span>, <span Class="manpage">--compress</span>Compress. This is the default operation mode when no operation mode option is specified and no other operation mode is implied from the command name (for example, <span Class="bold">unxz</span> implies <span Class="manpage">--decompress ).</span>
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--decompress</span>, <span Class="manpage">--uncompress</span>Decompress. 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--test</span>Test the integrity of compressed <span Class="emphasis">files .</span> This option is equivalent to <span Class="bold">--decompress --stdout</span> except that the decompressed data is discarded instead of being written to standard output. No files are created or removed. 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--list</span>Print information about compressed <span Class="emphasis">files .</span> No uncompressed output is produced, and no files are created or removed. In list mode, the program cannot read the compressed data from standard input or from other unseekable sources. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default listing shows basic information about <span Class="emphasis">files ,</span> one file per line. To get more detailed information, use also the <span Class="bold">--verbose</span> option. For even more information, use <span Class="bold">--verbose</span> twice, but note that this may be slow, because getting all the extra information requires many seeks. The width of verbose output exceeds 80 characters, so piping the output to e.g. <span Class="bold">less\ -S</span> may be convenient if the terminal isn't wide enough. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The exact output may vary between <span Class="bold">xz</span> versions and different locales. For machine-readable output, <span Class="bold">--robot --list</span> should be used. 
+<p class="level1"><a name="Operation"></a><h2 class="nroffsh">Operation modifiers</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-k</span>, <span Class="manpage">--keep</span>Don't delete the input files. 
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">--force</span>This option has several effects: 
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">If the target file already exists, delete it before compressing or decompressing. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">Compress or decompress even if the input is a symbolic link to a regular file, has more than one hard link, or has the setuid, setgid, or sticky bit set. The setuid, setgid, and sticky bits are not copied to the target file. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level1">When used with <span Class="bold">--decompress</span> <span Class="manpage">--stdout</span>and <span Class="bold">xz</span> cannot recognize the type of the source file, copy the source file as is to standard output. This allows <span Class="bold">xzcat</span> <span Class="bold">--force</span> to be used like <span Class="manpage">cat (1)</span>for files that have not been compressed with <span Class="manpage">xz .</span>Note that in future, <span Class="bold">xz</span> might support new compressed file formats, which may make <span Class="bold">xz</span> decompress more types of files instead of copying them as is to standard output. <span Class="bold">--format= format</span> can be used to restrict <span Class="bold">xz</span> to decompress only a single file format. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--stdout</span>, <span Class="manpage">--to-stdout</span>Write the compressed or decompressed data to standard output instead of a file. This implies <span Class="manpage">--keep .</span>
+<p class="level0"><span Class="bold">--single-stream</span> Decompress only the first <span Class="bold">.xz</span> stream, and silently ignore possible remaining input data following the stream. Normally such trailing garbage makes <span Class="bold">xz</span> display an error. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">xz</span> never decompresses more than one stream from <span Class="bold">.lzma</span> files or raw streams, but this option still makes <span Class="bold">xz</span> ignore the possible trailing data after the <span Class="bold">.lzma</span> file or raw stream. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This option has no effect if the operation mode is not <span Class="bold">--decompress</span> or <span Class="manpage">--test .</span>
+<p class="level1"><span Class="bold">--no-sparse</span> Disable creation of sparse files. By default, if decompressing into a regular file, <span Class="bold">xz</span> tries to make the file sparse if the decompressed data contains long sequences of binary zeros. It also works when writing to standard output as long as standard output is connected to a regular file and certain additional conditions are met to make it safe. Creating sparse files may save disk space and speed up the decompression by reducing the amount of disk I/O. 
+<p class="level1"><span Class="bold">-S</span> <span Class="emphasis">.suf</span>, <span class="bold">--suffix=<span class="emphasis">.suf When compressing, use <span Class="emphasis">.suf</span> as the suffix for the target file instead of <span Class="bold">.xz</span> or <span Class="manpage">.lzma .</span>If not writing to standard output and the source file already has the suffix <span Class="emphasis">.suf ,</span> a warning is displayed and the file is skipped. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">When decompressing, recognize files with the suffix <span Class="emphasis">.suf</span> in addition to files with the <span Class="manpage">.xz</span>, <span Class="manpage">.txz</span>, <span Class="manpage">.lzma</span>or <span Class="bold">.tlz</span> suffix. If the source file has the suffix <span Class="emphasis">.suf ,</span> the suffix is removed to get the target filename. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">When compressing or decompressing raw streams 
+<p class="level1">the suffix must always be specified unless writing to standard output, because there is no default suffix for raw streams. 
+<p class="level1"><span Class="bold">--files</span>[<span class="bold">=<span Class="emphasis">file</span>] Read the filenames to process from <span Class="emphasis">file ;</span> if <span Class="emphasis">file</span> is omitted, filenames are read from standard input. Filenames must be terminated with the newline character. A dash 
+<p class="level1">is taken as a regular filename; it doesn't mean standard input. If filenames are given also as command line arguments, they are processed before the filenames read from <span Class="emphasis">file .</span> 
+<p class="level1"><span Class="bold">--files0</span>[<span class="bold">=<span Class="emphasis">file</span>] This is identical to <span Class="bold">--files</span>[<span class="bold">=<span Class="emphasis">file</span>] except that each filename must be terminated with the null character. 
+<p class="level1"><a name="Basic"></a><h2 class="nroffsh">Basic file format and compression options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-F</span> <span Class="emphasis">format</span>, <span class="bold">--format=<span class="emphasis">format Specify the file <span Class="emphasis">format</span> to compress or decompress: 
+<p class="level1">
+<p class="level1"><span Class="bold">auto</span> This is the default. When compressing, <span Class="bold">auto</span> is equivalent to , <span Class="manpage">xz .</span>When decompressing, the format of the input file is automatically detected. Note that raw streams (created with <span Class="manpage">--format=raw )</span>cannot be auto-detected. 
+<p class="level1"><span Class="bold">xz</span> Compress to the <span Class="bold">.xz</span> file format, or accept only <span Class="bold">.xz</span> files when decompressing. 
+<p class="level1"><span Class="manpage">lzma</span>, <span Class="manpage">alone</span>Compress to the legacy <span Class="bold">.lzma</span> file format, or accept only <span Class="bold">.lzma</span> files when decompressing. The alternative name <span Class="bold">alone</span> is provided for backwards compatibility with LZMA Utils. 
+<p class="level1"><span Class="bold">raw</span> Compress or uncompress a raw stream (no headers). This is meant for advanced users only. To decode raw streams, you need use <span Class="bold">--format=raw</span> and explicitly specify the filter chain, which normally would have been stored in the container headers. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> <span Class="emphasis">check</span>, <span class="bold">--check=<span class="emphasis">check Specify the type of the integrity check. The check is calculated from the uncompressed data and stored in the <span Class="bold">.xz</span> file. This option has an effect only when compressing into the <span Class="bold">.xz</span> format; the <span Class="bold">.lzma</span> format doesn't support integrity checks. The integrity check (if any) is verified when the <span Class="bold">.xz</span> file is decompressed. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Supported <span Class="emphasis">check</span> types: 
+<p class="level2">
+<p class="level2"><span Class="bold">none</span> Don't calculate an integrity check at all. This is usually a bad idea. This can be useful when integrity of the data is verified by other means anyway. 
+<p class="level2"><span Class="bold">crc32</span> Calculate CRC32 using the polynomial from IEEE-802.3 (Ethernet). 
+<p class="level2"><span Class="bold">crc64</span> Calculate CRC64 using the polynomial from ECMA-182. This is the default, since it is slightly better than CRC32 at detecting damaged files and the speed difference is negligible. 
+<p class="level2"><span Class="bold">sha256</span> Calculate SHA-256. This is somewhat slower than CRC32 and CRC64. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Integrity of the <span Class="bold">.xz</span> headers is always verified with CRC32. It is not possible to change or disable it. 
+<p class="level1"><span Class="manpage">-0  ...  -9</span>Select a compression preset level. The default is <span Class="manpage">-6 .</span>If multiple preset levels are specified, the last one takes effect. If a custom filter chain was already specified, setting a compression preset level clears the custom filter chain. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The differences between the presets are more significant than with <span Class="manpage">gzip (1)</span>and <span Class="manpage">bzip2 (1).</span>The selected compression settings determine the memory requirements of the decompressor, thus using a too high preset level might make it painful to decompress the file on an old system with little RAM. Specifically, <span Class="bold">it's not a good idea to blindly use -9 for everything</span> like it often is with <span Class="manpage">gzip (1)</span>and <span Class="manpage">bzip2 (1).</span>
+<p class="level2">
+<p class="level2"><span Class="manpage">-0  ...  -3</span>These are somewhat fast presets. <span Class="bold">-0</span> is sometimes faster than <span Class="bold">gzip -9</span> while compressing much better. The higher ones often have speed comparable to <span Class="manpage">bzip2 (1)</span>with comparable or better compression ratio, although the results depend a lot on the type of data being compressed. 
+<p class="level2"><span Class="manpage">-4  ...  -6</span>Good to very good compression while keeping decompressor memory usage reasonable even for old systems. <span Class="bold">-6</span> is the default, which is usually a good choice e.g. for distributing files that need to be decompressible even on systems with only 16&nbsp;MiB RAM. 
+<p class="level2">or <span Class="bold">-6e</span> may be worth considering too. See <span Class="manpage">--extreme .)</span>
+<p class="level2"><span Class="bold">-7 ... -9</span> These are like <span Class="bold">-6</span> but with higher compressor and decompressor memory requirements. These are useful only when compressing files bigger than 8&nbsp;MiB, 16&nbsp;MiB, and 32&nbsp;MiB, respectively. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">On the same hardware, the decompression speed is approximately a constant number of bytes of compressed data per second. In other words, the better the compression, the faster the decompression will usually be. This also means that the amount of uncompressed output produced per second can vary a lot. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The following table summarises the features of the presets: 
+<p class="level2">
+<p class="level3">
+<p class="level3">
+<p class="level3">tab(;); c c c c c n n n n n. Preset;DictSize;CompCPU;CompMem;DecMem -0;256 KiB;0;3 MiB;1 MiB -1;1 MiB;1;9 MiB;2 MiB -2;2 MiB;2;17 MiB;3 MiB -3;4 MiB;3;32 MiB;5 MiB -4;4 MiB;4;48 MiB;5 MiB -5;8 MiB;5;94 MiB;9 MiB -6;8 MiB;6;94 MiB;9 MiB -7;16 MiB;6;186 MiB;17 MiB -8;32 MiB;6;370 MiB;33 MiB -9;64 MiB;6;674 MiB;65 MiB 
+<p class="level3">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Column descriptions: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">DictSize is the LZMA2 dictionary size. It is waste of memory to use a dictionary bigger than the size of the uncompressed file. This is why it is good to avoid using the presets , <span Class="manpage">-7  ...  -9</span>when there's no real need for them. At <span Class="bold">-6</span> and lower, the amount of memory wasted is usually low enough to not matter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">CompCPU is a simplified representation of the LZMA2 settings that affect compression speed. The dictionary size affects speed too, so while CompCPU is the same for levels <span Class="manpage">-6  ...  -9</span>higher levels still tend to be a little slower. To get even slower and thus possibly better compression, see <span Class="manpage">--extreme .</span>
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">CompMem contains the compressor memory requirements in the single-threaded mode. It may vary slightly between <span Class="bold">xz</span> versions. Memory requirements of some of the future multithreaded modes may be dramatically higher than that of the single-threaded mode. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">DecMem contains the decompressor memory requirements. That is, the compression settings determine the memory requirements of the decompressor. The exact decompressor memory usage is slighly more than the LZMA2 dictionary size, but the values in the table have been rounded up to the next full MiB. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-e</span>, <span Class="manpage">--extreme</span>Use a slower variant of the selected compression preset level 
+<p class="level1">to hopefully get a little bit better compression ratio, but with bad luck this can also make it worse. Decompressor memory usage is not affected, but compressor memory usage increases a little at preset levels <span Class="manpage">-0  ...  -3 .</span>
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Since there are two presets with dictionary sizes 4&nbsp;MiB and 8&nbsp;MiB, the presets <span Class="bold">-3e</span> and <span Class="bold">-5e</span> use slightly faster settings (lower CompCPU) than <span Class="bold">-4e</span> and <span Class="manpage">-6e</span>respectively. That way no two presets are identical. 
+<p class="level2">
+<p class="level3">
+<p class="level3">
+<p class="level3">tab(;); c c c c c n n n n n. Preset;DictSize;CompCPU;CompMem;DecMem -0e;256 KiB;8;4 MiB;1 MiB -1e;1 MiB;8;13 MiB;2 MiB -2e;2 MiB;8;25 MiB;3 MiB -3e;4 MiB;7;48 MiB;5 MiB -4e;4 MiB;8;48 MiB;5 MiB -5e;8 MiB;7;94 MiB;9 MiB -6e;8 MiB;8;94 MiB;9 MiB -7e;16 MiB;8;186 MiB;17 MiB -8e;32 MiB;8;370 MiB;33 MiB -9e;64 MiB;8;674 MiB;65 MiB 
+<p class="level3">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">For example, there are a total of four presets that use 8&nbsp;MiB dictionary, whose order from the fastest to the slowest is <span Class="manpage">-5</span>, <span Class="manpage">-6</span>, <span Class="manpage">-5e</span>and <span Class="manpage">-6e .</span>
+<p class="level1"><span Class="bold">--fast</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">--best</span> 
+<p class="level1">These are somewhat misleading aliases for <span Class="bold">-0</span> and <span Class="manpage">-9</span>respectively. These are provided only for backwards compatibility with LZMA Utils. Avoid using these options. 
+<p class="level1"><span Class="bold">--block-size= size</span> When compressing to the <span Class="bold">.xz</span> format, split the input data into blocks of <span Class="emphasis">size</span> bytes. The blocks are compressed independently from each other. 
+<p class="level1"><span Class="bold">--memlimit-compress= limit</span> Set a memory usage limit for compression. If this option is specified multiple times, the last one takes effect. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If the compression settings exceed the <span Class="emphasis">limit ,</span> <span Class="bold">xz</span> will adjust the settings downwards so that the limit is no longer exceeded and display a notice that automatic adjustment was done. Such adjustments are not made when compressing with <span Class="bold">--format=raw</span> or if <span Class="bold">--no-adjust</span> has been specified. In those cases, an error is displayed and <span Class="bold">xz</span> will exit with exit status 1. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="emphasis">limit</span> can be specified in multiple ways: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">The <span Class="emphasis">limit</span> can be an absolute value in bytes. Using an integer suffix like <span Class="bold">MiB</span> can be useful. Example: <span Class="bold">--memlimit-compress=80MiB</span> 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">The <span Class="emphasis">limit</span> can be specified as a percentage of total physical memory (RAM). This can be useful especially when setting the <span Class="bold">XZ_DEFAULTS</span> environment variable in a shell initialization script that is shared between different computers. That way the limit is automatically bigger on systems with more memory. Example: <span Class="bold">--memlimit-compress=70%</span> 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">The <span Class="emphasis">limit</span> can be reset back to its default value by setting it to <span Class="manpage">0 .</span>This is currently equivalent to setting the <span Class="emphasis">limit</span> to <span Class="bold">max</span> (no memory usage limit). Once multithreading support has been implemented, there may be a difference between <span Class="bold">0</span> and <span Class="bold">max</span> for the multithreaded case, so it is recommended to use <span Class="bold">0</span> instead of <span Class="bold">max</span> until the details have been decided. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">See also the section <a class="manpage" href="#Memory">Memory usage .</a>
+<p class="level1"><span Class="bold">--memlimit-decompress= limit</span> Set a memory usage limit for decompression. This also affects the <span Class="bold">--list</span> mode. If the operation is not possible without exceeding the <span Class="emphasis">limit ,</span> <span Class="bold">xz</span> will display an error and decompressing the file will fail. See <span Class="bold">--memlimit-compress= limit</span> for possible ways to specify the <span Class="emphasis">limit .</span> 
+<p class="level1"><span Class="bold">-M</span> <span Class="emphasis">limit</span>, <span class="bold">--memlimit=<span Class="emphasis">limit</span>, <span class="bold">--memory=<span class="emphasis">limit This is equivalent to specifying <span class="bold">--memlimit-compress=<span class="emphasis">limit <span class="bold">--memlimit-decompress=<span Class="emphasis">limit</span>. 
+<p class="level1"><span Class="bold">--no-adjust</span> Display an error and exit if the compression settings exceed the memory usage limit. The default is to adjust the settings downwards so that the memory usage limit is not exceeded. Automatic adjusting is always disabled when creating raw streams 
+<p class="level1">
+<p class="level1"><span Class="bold">-T</span> <span Class="emphasis">threads</span>, <span class="bold">--threads=<span class="emphasis">threads Specify the number of worker threads to use. The actual number of threads can be less than <span Class="emphasis">threads</span> if using more threads would exceed the memory usage limit. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">Multithreaded compression and decompression are not</span> <span Class="bold">implemented yet, so this option has no effect for now.</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">As of writing (2010-09-27), it hasn't been decided</span> <span Class="bold">if threads will be used by default on multicore systems</span> <span Class="bold">once support for threading has been implemented.</span> <span Class="bold">Comments are welcome.</span> The complicating factor is that using many threads will increase the memory usage dramatically. Note that if multithreading will be the default, it will probably be done so that single-threaded and multithreaded modes produce the same output, so compression ratio won't be significantly affected if threading will be enabled by default. 
+<p class="level1"><a name="Custom"></a><h2 class="nroffsh">Custom compressor filter chains</h2>
+<p class="level0">A custom filter chain allows specifying the compression settings in detail instead of relying on the settings associated to the preset levels. When a custom filter chain is specified, the compression preset level options (<span Class="bold">-0</span> ... <span Class="bold">-9</span> and <span Class="bold">--extreme</span>) are silently ignored. 
+<p class="level0">A filter chain is comparable to piping on the command line. When compressing, the uncompressed input goes to the first filter, whose output goes to the next filter (if any). The output of the last filter gets written to the compressed file. The maximum number of filters in the chain is four, but typically a filter chain has only one or two filters. 
+<p class="level0">Many filters have limitations on where they can be in the filter chain: some filters can work only as the last filter in the chain, some only as a non-last filter, and some work in any position in the chain. Depending on the filter, this limitation is either inherent to the filter design or exists to prevent security issues. 
+<p class="level0">A custom filter chain is specified by using one or more filter options in the order they are wanted in the filter chain. That is, the order of filter options is significant! When decoding raw streams 
+<p class="level0">the filter chain is specified in the same order as it was specified when compressing. 
+<p class="level0">Filters take filter-specific <span Class="emphasis">options</span> as a comma-separated list. Extra commas in <span Class="emphasis">options</span> are ignored. Every option has a default value, so you need to specify only those you want to change. 
+<p class="level0"><span Class="bold">--lzma1</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level0">
+<p class="level0"><span Class="bold">--lzma2</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level0">Add LZMA1 or LZMA2 filter to the filter chain. These filters can be used only as the last filter in the chain. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">LZMA1 is a legacy filter, which is supported almost solely due to the legacy <span Class="bold">.lzma</span> file format, which supports only LZMA1. LZMA2 is an updated version of LZMA1 to fix some practical issues of LZMA1. The <span Class="bold">.xz</span> format uses LZMA2 and doesn't support LZMA1 at all. Compression speed and ratios of LZMA1 and LZMA2 are practically the same. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">LZMA1 and LZMA2 share the same set of <span Class="emphasis">options :</span> 
+<p class="level2">
+<p class="level2"><span Class="bold">preset= preset</span> Reset all LZMA1 or LZMA2 <span Class="emphasis">options</span> to <span Class="emphasis">preset .</span> <span Class="emphasis">Preset</span> consist of an integer, which may be followed by single-letter preset modifiers. The integer can be from <span Class="bold">0</span> to <a class="manpage" href="#9">9</a>matching the command line options <span Class="bold">-0</span> ... <span Class="bold">-9</span>. The only supported modifier is currently <span Class="manpage">e</span>which matches <span Class="manpage">--extreme .</span>The default <span Class="emphasis">preset</span> is <a class="manpage" href="#6">6</a>from which the default values for the rest of the LZMA1 or LZMA2 <span Class="emphasis">options</span> are taken. 
+<p class="level2"><span Class="bold">dict= size</span> Dictionary (history buffer) <span Class="emphasis">size</span> indicates how many bytes of the recently processed uncompressed data is kept in memory. The algorithm tries to find repeating byte sequences (matches) in the uncompressed data, and replace them with references to the data currently in the dictionary. The bigger the dictionary, the higher is the chance to find a match. Thus, increasing dictionary <span Class="emphasis">size</span> usually improves compression ratio, but a dictionary bigger than the uncompressed file is waste of memory. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">Typical dictionary <span Class="emphasis">size</span> is from 64&nbsp;KiB to 64&nbsp;MiB. The minimum is 4&nbsp;KiB. The maximum for compression is currently 1.5&nbsp;GiB (1536&nbsp;MiB). The decompressor already supports dictionaries up to one byte less than 4&nbsp;GiB, which is the maximum for the LZMA1 and LZMA2 stream formats. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">Dictionary <span Class="emphasis">size</span> and match finder 
+<p class="level2">together determine the memory usage of the LZMA1 or LZMA2 encoder. The same (or bigger) dictionary <span Class="emphasis">size</span> is required for decompressing that was used when compressing, thus the memory usage of the decoder is determined by the dictionary size used when compressing. The <span Class="bold">.xz</span> headers store the dictionary <span Class="emphasis">size</span> either as 
+<p class="level2">or 
+<p class="level2">so these <span Class="emphasis">sizes</span> are somewhat preferred for compression. Other <span Class="emphasis">sizes</span> will get rounded up when stored in the <span Class="bold">.xz</span> headers. 
+<p class="level2"><span Class="bold">lc= lc</span> Specify the number of literal context bits. The minimum is 0 and the maximum is 4; the default is 3. In addition, the sum of <span Class="emphasis">lc</span> and <span Class="emphasis">lp</span> must not exceed 4. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">All bytes that cannot be encoded as matches are encoded as literals. That is, literals are simply 8-bit bytes that are encoded one at a time. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">The literal coding makes an assumption that the highest <span Class="emphasis">lc</span> bits of the previous uncompressed byte correlate with the next byte. E.g. in typical English text, an upper-case letter is often followed by a lower-case letter, and a lower-case letter is usually followed by another lower-case letter. In the US-ASCII character set, the highest three bits are 010 for upper-case letters and 011 for lower-case letters. When <span Class="emphasis">lc</span> is at least 3, the literal coding can take advantage of this property in the uncompressed data. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">The default value (3) is usually good. If you want maximum compression, test <span Class="manpage">lc=4 .</span>Sometimes it helps a little, and sometimes it makes compression worse. If it makes it worse, test e.g. <span Class="bold">lc=2</span> too. 
+<p class="level2"><span Class="bold">lp= lp</span> Specify the number of literal position bits. The minimum is 0 and the maximum is 4; the default is 0. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="emphasis">Lp</span> affects what kind of alignment in the uncompressed data is assumed when encoding literals. See <span Class="emphasis">pb</span> below for more information about alignment. 
+<p class="level2"><span Class="bold">pb= pb</span> Specify the number of position bits. The minimum is 0 and the maximum is 4; the default is 2. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="emphasis">Pb</span> affects what kind of alignment in the uncompressed data is assumed in general. The default means four-byte alignment 
+<p class="level2">which is often a good choice when there's no better guess. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">When the aligment is known, setting <span Class="emphasis">pb</span> accordingly may reduce the file size a little. E.g. with text files having one-byte alignment (US-ASCII, ISO-8859-*, UTF-8), setting <span Class="bold">pb=0</span> can improve compression slightly. For UTF-16 text, <span Class="bold">pb=1</span> is a good choice. If the alignment is an odd number like 3 bytes, <span Class="bold">pb=0</span> might be the best choice. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">Even though the assumed alignment can be adjusted with <span Class="emphasis">pb</span> and <span Class="emphasis">lp ,</span> LZMA1 and LZMA2 still slightly favor 16-byte alignment. It might be worth taking into account when designing file formats that are likely to be often compressed with LZMA1 or LZMA2. 
+<p class="level2"><span Class="bold">mf= mf</span> Match finder has a major effect on encoder speed, memory usage, and compression ratio. Usually Hash Chain match finders are faster than Binary Tree match finders. The default depends on the <span Class="emphasis">preset :</span> 0 uses <span Class="manpage">hc3</span>1-3 use <span Class="manpage">hc4</span>and the rest use <span Class="manpage">bt4 .</span>
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">The following match finders are supported. The memory usage formulas below are rough approximations, which are closest to the reality when <span Class="emphasis">dict</span> is a power of two. 
+<p class="level3">
+<p class="level3"><span Class="bold">hc3</span> Hash Chain with 2- and 3-byte hashing <br>Minimum value for <span Class="emphasis">nice :</span> 3 <br>Memory usage: <br><span Class="emphasis">dict</span> * 7.5 (if <span Class="emphasis">dict</span> &lt;= 16 MiB); <br><span Class="emphasis">dict</span> * 5.5 + 64 MiB (if <span Class="emphasis">dict</span> &gt; 16 MiB) 
+<p class="level3"><span Class="bold">hc4</span> Hash Chain with 2-, 3-, and 4-byte hashing <br>Minimum value for <span Class="emphasis">nice :</span> 4 <br>Memory usage: <br><span Class="emphasis">dict</span> * 7.5 (if <span Class="emphasis">dict</span> &lt;= 32 MiB); <br><span Class="emphasis">dict</span> * 6.5 (if <span Class="emphasis">dict</span> &gt; 32 MiB) 
+<p class="level3"><span Class="bold">bt2</span> Binary Tree with 2-byte hashing <br>Minimum value for <span Class="emphasis">nice :</span> 2 <br>Memory usage: <span Class="emphasis">dict</span> * 9.5 
+<p class="level3"><span Class="bold">bt3</span> Binary Tree with 2- and 3-byte hashing <br>Minimum value for <span Class="emphasis">nice :</span> 3 <br>Memory usage: <br><span Class="emphasis">dict</span> * 11.5 (if <span Class="emphasis">dict</span> &lt;= 16 MiB); <br><span Class="emphasis">dict</span> * 9.5 + 64 MiB (if <span Class="emphasis">dict</span> &gt; 16 MiB) 
+<p class="level3"><span Class="bold">bt4</span> Binary Tree with 2-, 3-, and 4-byte hashing <br>Minimum value for <span Class="emphasis">nice :</span> 4 <br>Memory usage: <br><span Class="emphasis">dict</span> * 11.5 (if <span Class="emphasis">dict</span> &lt;= 32 MiB); <br><span Class="emphasis">dict</span> * 10.5 (if <span Class="emphasis">dict</span> &gt; 32 MiB) 
+<p class="level2">
+<p class="level2"><span Class="bold">mode= mode</span> Compression <span Class="emphasis">mode</span> specifies the method to analyze the data produced by the match finder. Supported <span Class="emphasis">modes</span> are <span Class="bold">fast</span> and <span Class="manpage">normal .</span>The default is <span Class="bold">fast</span> for <span Class="emphasis">presets</span> 0-3 and <span Class="bold">normal</span> for <span Class="emphasis">presets</span> 4-9. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">Usually <span Class="bold">fast</span> is used with Hash Chain match finders and <span Class="bold">normal</span> with Binary Tree match finders. This is also what the <span Class="emphasis">presets</span> do. 
+<p class="level2"><span Class="bold">nice= nice</span> Specify what is considered to be a nice length for a match. Once a match of at least <span Class="emphasis">nice</span> bytes is found, the algorithm stops looking for possibly better matches. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="emphasis">Nice</span> can be 2-273 bytes. Higher values tend to give better compression ratio at the expense of speed. The default depends on the <span Class="emphasis">preset .</span> 
+<p class="level2"><span Class="bold">depth= depth</span> Specify the maximum search depth in the match finder. The default is the special value of 0, which makes the compressor determine a reasonable <span Class="emphasis">depth</span> from <span Class="emphasis">mf</span> and <span Class="emphasis">nice .</span> 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">Reasonable <span Class="emphasis">depth</span> for Hash Chains is 4-100 and 16-1000 for Binary Trees. Using very high values for <span Class="emphasis">depth</span> can make the encoder extremely slow with some files. Avoid setting the <span Class="emphasis">depth</span> over 1000 unless you are prepared to interrupt the compression in case it is taking far too long. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">When decoding raw streams 
+<p class="level1">LZMA2 needs only the dictionary <span Class="emphasis">size .</span> LZMA1 needs also <span Class="emphasis">lc ,</span> <span Class="emphasis">lp ,</span> and <span Class="emphasis">pb .</span> 
+<p class="level1"><span Class="bold">--x86</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1">
+<p class="level1"><span Class="bold">--powerpc</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1"><span Class="bold">--ia64</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1"><span Class="bold">--arm</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1"><span Class="bold">--armthumb</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1"><span Class="bold">--sparc</span>[<span class="bold">=<span Class="emphasis">options</span>] 
+<p class="level1">Add a branch/call/jump (BCJ) filter to the filter chain. These filters can be used only as a non-last filter in the filter chain. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">A BCJ filter converts relative addresses in the machine code to their absolute counterparts. This doesn't change the size of the data, but it increases redundancy, which can help LZMA2 to produce 0-15&nbsp;% smaller <span Class="bold">.xz</span> file. The BCJ filters are always reversible, so using a BCJ filter for wrong type of data doesn't cause any data loss, although it may make the compression ratio slightly worse. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">It is fine to apply a BCJ filter on a whole executable; there's no need to apply it only on the executable section. Applying a BCJ filter on an archive that contains both executable and non-executable files may or may not give good results, so it generally isn't good to blindly apply a BCJ filter when compressing binary packages for distribution. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">These BCJ filters are very fast and use insignificant amount of memory. If a BCJ filter improves compression ratio of a file, it can improve decompression speed at the same time. This is because, on the same hardware, the decompression speed of LZMA2 is roughly a fixed number of bytes of compressed data per second. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">These BCJ filters have known problems related to the compression ratio: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Some types of files containing executable code (e.g. object files, static libraries, and Linux kernel modules) have the addresses in the instructions filled with filler values. These BCJ filters will still do the address conversion, which will make the compression worse with these files. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Applying a BCJ filter on an archive containing multiple similar executables can make the compression ratio worse than not using a BCJ filter. This is because the BCJ filter doesn't detect the boundaries of the executable files, and doesn't reset the address conversion counter for each executable. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Both of the above problems will be fixed in the future in a new filter. The old BCJ filters will still be useful in embedded systems, because the decoder of the new filter will be bigger and use more memory. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Different instruction sets have have different alignment: 
+<p class="level2">
+<p class="level3">
+<p class="level3">
+<p class="level3">tab(;); l n l l n l. Filter;Alignment;Notes x86;1;32-bit or 64-bit x86 PowerPC;4;Big endian only ARM;4;Little endian only ARM-Thumb;2;Little endian only IA-64;16;Big or little endian SPARC;4;Big or little endian 
+<p class="level3">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Since the BCJ-filtered data is usually compressed with LZMA2, the compression ratio may be improved slightly if the LZMA2 options are set to match the alignment of the selected BCJ filter. For example, with the IA-64 filter, it's good to set <span Class="bold">pb=4</span> with LZMA2 (2^4=16). The x86 filter is an exception; it's usually good to stick to LZMA2's default four-byte alignment when compressing x86 executables. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">All BCJ filters support the same <span Class="emphasis">options :</span> 
+<p class="level2">
+<p class="level2"><span Class="bold">start= offset</span> Specify the start <span Class="emphasis">offset</span> that is used when converting between relative and absolute addresses. The <span Class="emphasis">offset</span> must be a multiple of the alignment of the filter (see the table above). The default is zero. In practice, the default is good; specifying a custom <span Class="emphasis">offset</span> is almost never useful. 
+<p class="level1">
+<p class="level1"><span Class="bold">--delta</span>[<span class="bold">=<span Class="emphasis">options</span>] Add the Delta filter to the filter chain. The Delta filter can be only used as a non-last filter in the filter chain. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Currently only simple byte-wise delta calculation is supported. It can be useful when compressing e.g. uncompressed bitmap images or uncompressed PCM audio. However, special purpose algorithms may give significantly better results than Delta + LZMA2. This is true especially with audio, which compresses faster and better e.g. with <span Class="manpage">flac (1).</span>
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Supported <span Class="emphasis">options :</span> 
+<p class="level2">
+<p class="level2"><span Class="bold">dist= distance</span> Specify the <span Class="emphasis">distance</span> of the delta calculation in bytes. <span Class="emphasis">distance</span> must be 1-256. The default is 1. 
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">For example, with <span Class="bold">dist=2</span> and eight-byte input A1 B1 A2 B3 A3 B5 A4 B7, the output will be A1 B1 01 02 01 02 01 02. 
+<p class="level1">
+<p class="level1"><a name="Other"></a><h2 class="nroffsh">Other options</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--quiet</span>Suppress warnings and notices. Specify this twice to suppress errors too. This option has no effect on the exit status. That is, even if a warning was suppressed, the exit status to indicate a warning is still used. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Be verbose. If standard error is connected to a terminal, <span Class="bold">xz</span> will display a progress indicator. Specifying <span Class="bold">--verbose</span> twice will give even more verbose output. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The progress indicator shows the following information: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Completion percentage is shown if the size of the input file is known. That is, the percentage cannot be shown in pipes. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Amount of compressed data produced (compressing) or consumed (decompressing). 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Amount of uncompressed data consumed (compressing) or produced (decompressing). 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Compression ratio, which is calculated by dividing the amount of compressed data processed so far by the amount of uncompressed data processed so far. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Compression or decompression speed. This is measured as the amount of uncompressed data consumed (compression) or produced (decompression) per second. It is shown after a few seconds have passed since <span Class="bold">xz</span> started processing the file. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Elapsed time in the format M:SS or H:MM:SS. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 3</span> 
+<p class="level2">Estimated remaining time is shown only when the size of the input file is known and a couple of seconds have already passed since <span Class="bold">xz</span> started processing the file. The time is shown in a less precise format which never has any colons, e.g. 2 min 30 s. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">When standard error is not a terminal, <span Class="bold">--verbose</span> will make <span Class="bold">xz</span> print the filename, compressed size, uncompressed size, compression ratio, and possibly also the speed and elapsed time on a single line to standard error after compressing or decompressing the file. The speed and elapsed time are included only when the operation took at least a few seconds. If the operation didn't finish, e.g. due to user interruption, also the completion percentage is printed if the size of the input file is known. 
+<p class="level1"><span Class="manpage">-Q</span>, <span Class="manpage">--no-warn</span>Don't set the exit status to 2 even if a condition worth a warning was detected. This option doesn't affect the verbosity level, thus both <span Class="bold">--quiet</span> and <span Class="bold">--no-warn</span> have to be used to not display warnings and to not alter the exit status. 
+<p class="level1"><span Class="bold">--robot</span> Print messages in a machine-parsable format. This is intended to ease writing frontends that want to use <span Class="bold">xz</span> instead of liblzma, which may be the case with various scripts. The output with this option enabled is meant to be stable across <span Class="bold">xz</span> releases. See the section <a class="bold" href="#ROBOT">ROBOT MODE</a> for details. 
+<p class="level1"><span Class="manpage">--info-memory</span>Display, in human-readable format, how much physical memory (RAM) <span Class="bold">xz</span> thinks the system has and the memory usage limits for compression and decompression, and exit successfully. 
+<p class="level1"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display a help message describing the most commonly used options, and exit successfully. 
+<p class="level1"><span Class="manpage">-H</span>, <span Class="manpage">--long-help</span>Display a help message describing all features of <span Class="manpage">xz</span>and exit successfully 
+<p class="level1"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display the version number of <span Class="bold">xz</span> and liblzma in human readable format. To get machine-parsable output, specify <span Class="bold">--robot</span> before <span Class="manpage">--version .</span>
+<p class="level1"><a name="ROBOT"></a><h2 class="nroffsh">ROBOT MODE</h2>
+<p class="level0">The robot mode is activated with the <span Class="bold">--robot</span> option. It makes the output of <span Class="bold">xz</span> easier to parse by other programs. Currently <span Class="bold">--robot</span> is supported only together with <span Class="manpage">--version</span>, <span Class="manpage">--info-memory</span>and <span Class="manpage">--list .</span>It will be supported for normal compression and decompression in the future. 
+<p class="level0"><a name="Version"></a><h2 class="nroffsh">Version</h2>
+<p class="level0"><span Class="bold">xz --robot --version</span> will print the version number of <span Class="bold">xz</span> and liblzma in the following format: 
+<p class="level0"><span Class="bold">XZ_VERSION= XYYYZZZS</span> <br><span Class="bold">LIBLZMA_VERSION= XYYYZZZS</span> 
+<p class="level0"><span Class="emphasis">X</span> Major version. 
+<p class="level0"><span Class="emphasis">YYY</span> Minor version. Even numbers are stable. Odd numbers are alpha or beta versions. 
+<p class="level0"><span Class="emphasis">ZZZ</span> Patch level for stable releases or just a counter for development releases. 
+<p class="level0"><span Class="emphasis">S</span> Stability. 0 is alpha, 1 is beta, and 2 is stable. <span Class="emphasis">S</span> should be always 2 when <span Class="emphasis">YYY</span> is even. 
+<p class="level0"><span Class="emphasis">XYYYZZZS</span> are the same on both lines if <span Class="bold">xz</span> and liblzma are from the same XZ Utils release. 
+<p class="level0">Examples: 4.999.9beta is <span Class="bold">49990091</span> and 5.0.0 is <span Class="manpage">50000002 .</span>
+<p class="level0"><a name="Memory"></a><h2 class="nroffsh">Memory limit information</h2>
+<p class="level0"><span Class="bold">xz --robot --info-memory</span> prints a single line with three tab-separated columns: 
+<p class="level0"><a name="1"></a><span class="nroffip">1. 4</span> 
+<p class="level1">Total amount of physical memory (RAM) in bytes 
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Memory usage limit for compression in bytes. A special value of zero indicates the default setting, which for single-threaded mode is the same as no limit. 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">Memory usage limit for decompression in bytes. A special value of zero indicates the default setting, which for single-threaded mode is the same as no limit. 
+<p class="level1">In the future, the output of <span Class="bold">xz --robot --info-memory</span> may have more columns, but never more than a single line. 
+<p class="level1"><a name="List"></a><h2 class="nroffsh">List mode</h2>
+<p class="level0"><span Class="bold">xz --robot --list</span> uses tab-separated output. The first column of every line has a string that indicates the type of the information found on that line: 
+<p class="level0"><span Class="bold">name</span> This is always the first line when starting to list a file. The second column on the line is the filename. 
+<p class="level0"><span Class="bold">file</span> This line contains overall information about the <span Class="bold">.xz</span> file. This line is always printed after the <span Class="bold">name</span> line. 
+<p class="level0"><span Class="bold">stream</span> This line type is used only when <span Class="bold">--verbose</span> was specified. There are as many <span Class="bold">stream</span> lines as there are streams in the <span Class="bold">.xz</span> file. 
+<p class="level0"><span Class="bold">block</span> This line type is used only when <span Class="bold">--verbose</span> was specified. There are as many <span Class="bold">block</span> lines as there are blocks in the <span Class="bold">.xz</span> file. The <span Class="bold">block</span> lines are shown after all the <span Class="bold">stream</span> lines; different line types are not interleaved. 
+<p class="level0"><span Class="bold">summary</span> This line type is used only when <span Class="bold">--verbose</span> was specified twice. This line is printed after all <span Class="bold">block</span> lines. Like the <span Class="bold">file</span> line, the <span Class="bold">summary</span> line contains overall information about the <span Class="bold">.xz</span> file. 
+<p class="level0"><span Class="bold">totals</span> This line is always the very last line of the list output. It shows the total counts and sizes. 
+<p class="level0">The columns of the <span Class="bold">file</span> lines: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Number of streams in the file 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">Total number of blocks in the stream(s) 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">Compressed size of the file 
+<p class="level0"><a name="5"></a><span class="nroffip">5. 4</span> 
+<p class="level1">Uncompressed size of the file 
+<p class="level0"><a name="6"></a><span class="nroffip">6. 4</span> 
+<p class="level1">Compression ratio, for example <span Class="manpage">0.123.</span>If ratio is over 9.999, three dashes 
+<p class="level1">are displayed instead of the ratio. 
+<p class="level0"><a name="7"></a><span class="nroffip">7. 4</span> 
+<p class="level1">Comma-separated list of integrity check names. The following strings are used for the known check types: <span Class="manpage">None</span>, <span Class="manpage">CRC32</span>, <span Class="manpage">CRC64</span>and <span Class="manpage">SHA-256 .</span>For unknown check types, <span Class="bold">Unknown- N</span> is used, where <span Class="emphasis">N</span> is the Check ID as a decimal number (one or two digits). 
+<p class="level0"><a name="8"></a><span class="nroffip">8. 4</span> 
+<p class="level1">Total size of stream padding in the file 
+<p class="level0">
+<p class="level0">
+<p class="level0">The columns of the <span Class="bold">stream</span> lines: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Stream number (the first stream is 1) 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">Number of blocks in the stream 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">Compressed start offset 
+<p class="level0"><a name="5"></a><span class="nroffip">5. 4</span> 
+<p class="level1">Uncompressed start offset 
+<p class="level0"><a name="6"></a><span class="nroffip">6. 4</span> 
+<p class="level1">Compressed size (does not include stream padding) 
+<p class="level0"><a name="7"></a><span class="nroffip">7. 4</span> 
+<p class="level1">Uncompressed size 
+<p class="level0"><a name="8"></a><span class="nroffip">8. 4</span> 
+<p class="level1">Compression ratio 
+<p class="level0"><a name="9"></a><span class="nroffip">9. 4</span> 
+<p class="level1">Name of the integrity check 
+<p class="level0"><a name="10"></a><span class="nroffip">10. 4</span> 
+<p class="level1">Size of stream padding 
+<p class="level0">
+<p class="level0">
+<p class="level0">The columns of the <span Class="bold">block</span> lines: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Number of the stream containing this block 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">Block number relative to the beginning of the stream (the first block is 1) 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">Block number relative to the beginning of the file 
+<p class="level0"><a name="5"></a><span class="nroffip">5. 4</span> 
+<p class="level1">Compressed start offset relative to the beginning of the file 
+<p class="level0"><a name="6"></a><span class="nroffip">6. 4</span> 
+<p class="level1">Uncompressed start offset relative to the beginning of the file 
+<p class="level0"><a name="7"></a><span class="nroffip">7. 4</span> 
+<p class="level1">Total compressed size of the block (includes headers) 
+<p class="level0"><a name="8"></a><span class="nroffip">8. 4</span> 
+<p class="level1">Uncompressed size 
+<p class="level0"><a name="9"></a><span class="nroffip">9. 4</span> 
+<p class="level1">Compression ratio 
+<p class="level0"><a name="10"></a><span class="nroffip">10. 4</span> 
+<p class="level1">Name of the integrity check 
+<p class="level0">
+<p class="level0">
+<p class="level0">If <span Class="bold">--verbose</span> was specified twice, additional columns are included on the <span Class="bold">block</span> lines. These are not displayed with a single , <span Class="manpage">--verbose</span>because getting this information requires many seeks and can thus be slow: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="11"></a><span class="nroffip">11. 4</span> 
+<p class="level1">Value of the integrity check in hexadecimal 
+<p class="level0"><a name="12"></a><span class="nroffip">12. 4</span> 
+<p class="level1">Block header size 
+<p class="level0"><a name="13"></a><span class="nroffip">13. 4</span> 
+<p class="level1">Block flags: <span Class="bold">c</span> indicates that compressed size is present, and <span Class="bold">u</span> indicates that uncompressed size is present. If the flag is not set, a dash 
+<p class="level1">is shown instead to keep the string length fixed. New flags may be added to the end of the string in the future. 
+<p class="level0"><a name="14"></a><span class="nroffip">14. 4</span> 
+<p class="level1">Size of the actual compressed data in the block (this excludes the block header, block padding, and check fields) 
+<p class="level0"><a name="15"></a><span class="nroffip">15. 4</span> 
+<p class="level1">Amount of memory (in bytes) required to decompress this block with this <span Class="bold">xz</span> version 
+<p class="level0"><a name="16"></a><span class="nroffip">16. 4</span> 
+<p class="level1">Filter chain. Note that most of the options used at compression time cannot be known, because only the options that are needed for decompression are stored in the <span Class="bold">.xz</span> headers. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The columns of the <span Class="bold">summary</span> lines: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Amount of memory (in bytes) required to decompress this file with this <span Class="bold">xz</span> version 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1"><span Class="bold">yes</span> or <span Class="bold">no</span> indicating if all block headers have both compressed size and uncompressed size stored in them 
+<p class="level1"><span Class="emphasis">Since</span> <span Class="bold">xz</span> <span Class="emphasis">5.1.2alpha:</span> 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">Minimum <span Class="bold">xz</span> version required to decompress the file 
+<p class="level0">
+<p class="level0">
+<p class="level0">The columns of the <span Class="bold">totals</span> line: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2. 4</span> 
+<p class="level1">Number of streams 
+<p class="level0"><a name="3"></a><span class="nroffip">3. 4</span> 
+<p class="level1">Number of blocks 
+<p class="level0"><a name="4"></a><span class="nroffip">4. 4</span> 
+<p class="level1">Compressed size 
+<p class="level0"><a name="5"></a><span class="nroffip">5. 4</span> 
+<p class="level1">Uncompressed size 
+<p class="level0"><a name="6"></a><span class="nroffip">6. 4</span> 
+<p class="level1">Average compression ratio 
+<p class="level0"><a name="7"></a><span class="nroffip">7. 4</span> 
+<p class="level1">Comma-separated list of integrity check names that were present in the files 
+<p class="level0"><a name="8"></a><span class="nroffip">8. 4</span> 
+<p class="level1">Stream padding size 
+<p class="level0"><a name="9"></a><span class="nroffip">9. 4</span> 
+<p class="level1">Number of files. This is here to keep the order of the earlier columns the same as on <span Class="bold">file</span> lines. 
+<p class="level1">
+<p class="level0">
+<p class="level0">If <span Class="bold">--verbose</span> was specified twice, additional columns are included on the <span Class="bold">totals</span> line: 
+<p class="level0">
+<p class="level1">
+<p class="level0"><a name="10"></a><span class="nroffip">10. 4</span> 
+<p class="level1">Maximum amount of memory (in bytes) required to decompress the files with this <span Class="bold">xz</span> version 
+<p class="level0"><a name="11"></a><span class="nroffip">11. 4</span> 
+<p class="level1"><span Class="bold">yes</span> or <span Class="bold">no</span> indicating if all block headers have both compressed size and uncompressed size stored in them 
+<p class="level1"><span Class="emphasis">Since</span> <span Class="bold">xz</span> <span Class="emphasis">5.1.2alpha:</span> 
+<p class="level0"><a name="12"></a><span class="nroffip">12. 4</span> 
+<p class="level1">Minimum <span Class="bold">xz</span> version required to decompress the file 
+<p class="level0">
+<p class="level0">
+<p class="level0">Future versions may add new line types and new columns can be added to the existing line types, but the existing columns won't be changed. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">0</span> All is good. 
+<p class="level0"><a class="bold" href="#1">1</a> An error occurred. 
+<p class="level0"><a class="bold" href="#2">2</a> Something worth a warning occurred, but no actual errors occurred. 
+<p class="level0">Notices (not warnings or errors) printed on standard error don't affect the exit status. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0"><span Class="bold">xz</span> parses space-separated lists of options from the environment variables <span Class="bold">XZ_DEFAULTS</span> and <span Class="manpage">XZ_OPT</span>in this order, before parsing the options from the command line. Note that only options are parsed from the environment variables; all non-options are silently ignored. Parsing is done with <span Class="manpage">getopt_long (3)</span>which is used also for the command line arguments. 
+<p class="level0"><span Class="bold">XZ_DEFAULTS</span> User-specific or system-wide default options. Typically this is set in a shell initialization script to enable <span Class="manpage">xz 's</span>memory usage limiter by default. Excluding shell initialization scripts and similar special cases, scripts must never set or unset <span Class="manpage">XZ_DEFAULTS .</span>
+<p class="level0"><span Class="bold">XZ_OPT</span> This is for passing options to <span Class="bold">xz</span> when it is not possible to set the options directly on the <span Class="bold">xz</span> command line. This is the case e.g. when <span Class="bold">xz</span> is run by a script or tool, e.g. GNU <span Class="manpage">tar (1):</span>
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+XZ_OPT=-2v tar caf foo.tar.xz foo
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Scripts may use <span Class="bold">XZ_OPT</span> e.g. to set script-specific default compression options. It is still recommended to allow users to override <span Class="bold">XZ_OPT</span> if that is reasonable, e.g. in <span Class="manpage">sh (1)</span>scripts one may use something like this: 
+<p class="level2">
+<p class="level3">
+<p class="level3"><pre class="level3">
+XZ_OPT=${XZ_OPT-"-7e"}
+export XZ_OPT
+</pre>
+
+<p class="level3">
+<p class="level2">
+<p class="level1">
+<p class="level1"><a name="LZMA"></a><h2 class="nroffsh">LZMA UTILS COMPATIBILITY</h2>
+<p class="level0">The command line syntax of <span Class="bold">xz</span> is practically a superset of <span Class="manpage">lzma</span>, <span Class="manpage">unlzma</span>and <span Class="manpage">lzcat</span>as found from LZMA Utils 4.32.x. In most cases, it is possible to replace LZMA Utils with XZ Utils without breaking existing scripts. There are some incompatibilities though, which may sometimes cause problems. 
+<p class="level0"><a name="Compression"></a><h2 class="nroffsh">Compression preset levels</h2>
+<p class="level0">The numbering of the compression level presets is not identical in <span Class="bold">xz</span> and LZMA Utils. The most important difference is how dictionary sizes are mapped to different presets. Dictionary size is roughly equal to the decompressor memory usage. 
+<p class="level1">
+<p class="level1">
+<p class="level1">tab(;); c c c c n n. Level;xz;LZMA Utils -0;256 KiB;N/A -1;1 MiB;64 KiB -2;2 MiB;1 MiB -3;4 MiB;512 KiB -4;4 MiB;1 MiB -5;8 MiB;2 MiB -6;8 MiB;4 MiB -7;16 MiB;8 MiB -8;32 MiB;16 MiB -9;64 MiB;32 MiB 
+<p class="level1">
+<p class="level0">
+<p class="level0">The dictionary size differences affect the compressor memory usage too, but there are some other differences between LZMA Utils and XZ Utils, which make the difference even bigger: 
+<p class="level1">
+<p class="level1">
+<p class="level1">tab(;); c c c c n n. Level;xz;LZMA Utils 4.32.x -0;3 MiB;N/A -1;9 MiB;2 MiB -2;17 MiB;12 MiB -3;32 MiB;12 MiB -4;48 MiB;16 MiB -5;94 MiB;26 MiB -6;94 MiB;45 MiB -7;186 MiB;83 MiB -8;370 MiB;159 MiB -9;674 MiB;311 MiB 
+<p class="level1">
+<p class="level0">
+<p class="level0">The default preset level in LZMA Utils is <span Class="bold">-7</span> while in XZ Utils it is <span Class="manpage">-6</span>so both use an 8 MiB dictionary by default. 
+<p class="level0"><a name="Streamed"></a><h2 class="nroffsh">Streamed vs. non-streamed .lzma files</h2>
+<p class="level0">The uncompressed size of the file can be stored in the <span Class="bold">.lzma</span> header. LZMA Utils does that when compressing regular files. The alternative is to mark that uncompressed size is unknown and use end-of-payload marker to indicate where the decompressor should stop. LZMA Utils uses this method when uncompressed size isn't known, which is the case for example in pipes. 
+<p class="level0"><span Class="bold">xz</span> supports decompressing <span Class="bold">.lzma</span> files with or without end-of-payload marker, but all <span Class="bold">.lzma</span> files created by <span Class="bold">xz</span> will use end-of-payload marker and have uncompressed size marked as unknown in the <span Class="bold">.lzma</span> header. This may be a problem in some uncommon situations. For example, a <span Class="bold">.lzma</span> decompressor in an embedded device might work only with files that have known uncompressed size. If you hit this problem, you need to use LZMA Utils or LZMA SDK to create <span Class="bold">.lzma</span> files with known uncompressed size. 
+<p class="level0"><a name="Unsupported"></a><h2 class="nroffsh">Unsupported .lzma files</h2>
+<p class="level0">The <span Class="bold">.lzma</span> format allows <span Class="emphasis">lc</span> values up to 8, and <span Class="emphasis">lp</span> values up to 4. LZMA Utils can decompress files with any <span Class="emphasis">lc</span> and <span Class="emphasis">lp ,</span> but always creates files with <span Class="bold">lc=3</span> and <span Class="manpage">lp=0 .</span>Creating files with other <span Class="emphasis">lc</span> and <span Class="emphasis">lp</span> is possible with <span Class="bold">xz</span> and with LZMA SDK. 
+<p class="level0">The implementation of the LZMA1 filter in liblzma requires that the sum of <span Class="emphasis">lc</span> and <span Class="emphasis">lp</span> must not exceed 4. Thus, <span Class="bold">.lzma</span> files, which exceed this limitation, cannot be decompressed with <span Class="manpage">xz .</span>
+<p class="level0">LZMA Utils creates only <span Class="bold">.lzma</span> files which have a dictionary size of 
+<p class="level0">(a power of 2) but accepts files with any dictionary size. liblzma accepts only <span Class="bold">.lzma</span> files which have a dictionary size of 
+<p class="level0">or 
+<p class="level0">This is to decrease false positives when detecting <span Class="bold">.lzma</span> files. 
+<p class="level0">These limitations shouldn't be a problem in practice, since practically all <span Class="bold">.lzma</span> files have been compressed with settings that liblzma will accept. 
+<p class="level0"><a name="Trailing"></a><h2 class="nroffsh">Trailing garbage</h2>
+<p class="level0">When decompressing, LZMA Utils silently ignore everything after the first <span Class="bold">.lzma</span> stream. In most situations, this is a bug. This also means that LZMA Utils don't support decompressing concatenated <span Class="bold">.lzma</span> files. 
+<p class="level0">If there is data left after the first <span Class="bold">.lzma</span> stream, <span Class="bold">xz</span> considers the file to be corrupt unless <span Class="bold">--single-stream</span> was used. This may break obscure scripts which have assumed that trailing garbage is ignored. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name="Compressed"></a><h2 class="nroffsh">Compressed output may vary</h2>
+<p class="level0">The exact compressed output produced from the same uncompressed input file may vary between XZ Utils versions even if compression options are identical. This is because the encoder can be improved (faster or better compression) without affecting the file format. The output can vary even between different builds of the same XZ Utils version, if different build options are used. 
+<p class="level0">The above means that implementing <span Class="bold">--rsyncable</span> to create rsyncable <span Class="bold">.xz</span> files is not going to happen without freezing a part of the encoder implementation, which can then be used with <span Class="manpage">--rsyncable .</span>
+<p class="level0"><a name="Embedded"></a><h2 class="nroffsh">Embedded .xz decompressors</h2>
+<p class="level0">Embedded <span Class="bold">.xz</span> decompressor implementations like XZ Embedded don't necessarily support files created with integrity <span Class="emphasis">check</span> types other than <span Class="bold">none</span> and , <span Class="manpage">crc32 .</span>Since the default is <span Class="manpage">--check=crc64</span>you must use <span Class="bold">--check=none</span> or <span Class="bold">--check=crc32</span> when creating files for embedded systems. 
+<p class="level0">Outside embedded systems, all <span Class="bold">.xz</span> format decompressors support all the <span Class="emphasis">check</span> types, or at least are able to decompress the file without verifying the integrity check if the particular <span Class="emphasis">check</span> is not supported. 
+<p class="level0">XZ Embedded supports BCJ filters, but only with the default start offset. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name="Basics"></a><h2 class="nroffsh">Basics</h2>
+<p class="level0">Compress the file <span Class="emphasis">foo</span> into <span Class="emphasis">foo.xz</span> using the default compression level 
+<p class="level0">and remove <span Class="emphasis">foo</span> if compression is successful: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz foo
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Decompress <span Class="emphasis">bar.xz</span> into <span Class="emphasis">bar</span> and don't remove <span Class="emphasis">bar.xz</span> even if decompression is successful: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz -dk bar.xz
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Create <span Class="emphasis">baz.tar.xz</span> with the preset <span Class="bold">-4e</span> 
+<p class="level0">which is slower than e.g. the default <span Class="manpage">-6</span>but needs less memory for compression and decompression (48&nbsp;MiB and 5&nbsp;MiB, respectively): 
+<p class="level1">
+<p class="level1"><pre class="level1">
+tar cf - baz | xz -4e &gt; baz.tar.xz
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">A mix of compressed and uncompressed files can be decompressed to standard output with a single command: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz -dcf a.txt b.txt.xz c.txt d.txt.lzma &gt; abcd.txt
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Parallel"></a><h2 class="nroffsh">Parallel compression of many files</h2>
+<p class="level0">On GNU and *BSD, <span Class="manpage">find (1)</span>and <span Class="manpage">xargs (1)</span>can be used to parallelize compression of many files: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+find . -type f e! -name '*.xz' -print0 e
+&nbsp;   | xargs -0r -P4 -n16 xz -T1
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">The <span Class="bold">-P</span> option to <span Class="manpage">xargs (1)</span>sets the number of parallel <span Class="bold">xz</span> processes. The best value for the <span Class="bold">-n</span> option depends on how many files there are to be compressed. If there are only a couple of files, the value should probably be 1; with tens of thousands of files, 100 or even more may be appropriate to reduce the number of <span Class="bold">xz</span> processes that <span Class="manpage">xargs (1)</span>will eventually create. 
+<p class="level0">The option <span Class="bold">-T1</span> for <span Class="bold">xz</span> is there to force it to single-threaded mode, because <span Class="manpage">xargs (1)</span>is used to control the amount of parallelization. 
+<p class="level0"><a name="Robot"></a><h2 class="nroffsh">Robot mode</h2>
+<p class="level0">Calculate how many bytes have been saved in total after compressing multiple files: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --robot --list *.xz | awk '/^totals/{print $5-$4}'
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">A script may want to know that it is using new enough <span Class="manpage">xz .</span>The following <span Class="manpage">sh (1)</span>script checks that the version number of the <span Class="bold">xz</span> tool is at least 5.0.0. This method is compatible with old beta versions, which didn't support the <span Class="bold">--robot</span> option: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+if ! eval "$(xz --robot --version 2&gt; /dev/null)" ||
+&nbsp;       [ "$XZ_VERSION" -lt 50000002 ]; then
+&nbsp;   echo "Your xz is too old."
+fi
+unset XZ_VERSION LIBLZMA_VERSION
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Set a memory usage limit for decompression using <span Class="manpage">XZ_OPT</span>but if a limit has already been set, don't increase it: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+NEWLIM=$((123 &lt;&lt; 20))  &#35; 123 MiB
+OLDLIM=$(xz --robot --info-memory | cut -f3)
+if [ $OLDLIM -eq 0 -o $OLDLIM -gt $NEWLIM ]; then
+&nbsp;   XZ_OPT="$XZ_OPT --memlimit-decompress=$NEWLIM"
+&nbsp;   export XZ_OPT
+fi
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Custom"></a><h2 class="nroffsh">Custom compressor filter chains</h2>
+<p class="level0">The simplest use for custom filter chains is customizing a LZMA2 preset. This can be useful, because the presets cover only a subset of the potentially useful combinations of compression settings. 
+<p class="level0">The CompCPU columns of the tables from the descriptions of the options <span Class="manpage">-0  ...  -9</span>and <span Class="bold">--extreme</span> are useful when customizing LZMA2 presets. Here are the relevant parts collected from those two tables: 
+<p class="level1">
+<p class="level1">
+<p class="level1">tab(;); c c n n. Preset;CompCPU -0;0 -1;1 -2;2 -3;3 -4;4 -5;5 -6;6 -5e;7 -6e;8 
+<p class="level1">
+<p class="level0">
+<p class="level0">If you know that a file requires somewhat big dictionary (e.g. 32 MiB) to compress well, but you want to compress it quicker than <span Class="bold">xz -8</span> would do, a preset with a low CompCPU value (e.g. 1) can be modified to use a bigger dictionary: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --lzma2=preset=1,dict=32MiB foo.tar
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">With certain files, the above command may be faster than <span Class="bold">xz -6</span> while compressing significantly better. However, it must be emphasized that only some files benefit from a big dictionary while keeping the CompCPU value low. The most obvious situation, where a big dictionary can help a lot, is an archive containing very similar files of at least a few megabytes each. The dictionary size has to be significantly bigger than any individual file to allow LZMA2 to take full advantage of the similarities between consecutive files. 
+<p class="level0">If very high compressor and decompressor memory usage is fine, and the file being compressed is at least several hundred megabytes, it may be useful to use an even bigger dictionary than the 64 MiB that <span Class="bold">xz -9</span> would use: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz -vv --lzma2=dict=192MiB big_foo.tar
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Using <span Class="bold">-vv</span> 
+<p class="level0">like in the above example can be useful to see the memory requirements of the compressor and decompressor. Remember that using a dictionary bigger than the size of the uncompressed file is waste of memory, so the above command isn't useful for small files. 
+<p class="level0">Sometimes the compression time doesn't matter, but the decompressor memory usage has to be kept low e.g. to make it possible to decompress the file on an embedded system. The following command uses <span Class="bold">-6e</span> 
+<p class="level0">as a base and sets the dictionary to only 64&nbsp;KiB. The resulting file can be decompressed with XZ Embedded (that's why there is <span Class="manpage">--check=crc32 )</span>using about 100&nbsp;KiB of memory. 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --check=crc32 --lzma2=preset=6e,dict=64KiB foo
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">If you want to squeeze out as many bytes as possible, adjusting the number of literal context bits 
+<p class="level0">and number of position bits 
+<p class="level0">can sometimes help. Adjusting the number of literal position bits 
+<p class="level0">might help too, but usually <span Class="emphasis">lc</span> and <span Class="emphasis">pb</span> are more important. E.g. a source code archive contains mostly US-ASCII text, so something like the following might give slightly (like 0.1&nbsp;%) smaller file than <span Class="bold">xz -6e</span> (try also without <span Class="manpage">lc=4 ):</span>
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --lzma2=preset=6e,pb=0,lc=4 source_code.tar
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Using another filter together with LZMA2 can improve compression with certain file types. E.g. to compress a x86-32 or x86-64 shared library using the x86 BCJ filter: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --x86 --lzma2 libfoo.so
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Note that the order of the filter options is significant. If <span Class="bold">--x86</span> is specified after <span Class="manpage">--lzma2</span><span Class="bold">xz</span> will give an error, because there cannot be any filter after LZMA2, and also because the x86 BCJ filter cannot be used as the last filter in the chain. 
+<p class="level0">The Delta filter together with LZMA2 can give good results with bitmap images. It should usually beat PNG, which has a few more advanced filters than simple delta but uses Deflate for the actual compression. 
+<p class="level0">The image has to be saved in uncompressed format, e.g. as uncompressed TIFF. The distance parameter of the Delta filter is set to match the number of bytes per pixel in the image. E.g. 24-bit RGB bitmap needs <span Class="manpage">dist=3</span>and it is also good to pass <span Class="bold">pb=0</span> to LZMA2 to accommodate the three-byte alignment: 
+<p class="level1">
+<p class="level1"><pre class="level1">
+xz --delta=dist=3 --lzma2=pb=0 foo.tiff
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">If multiple images have been put into a single archive (e.g. <span Class="manpage">.tar )</span>the Delta filter will work on that too as long as all images have the same number of bytes per pixel. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xzdec (1)</span>, <span Class="manpage">xzdiff (1)</span>, <span Class="manpage">xzgrep (1)</span>, <span Class="manpage">xzless (1)</span>, <span Class="manpage">xzmore (1)</span>, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>, <span Class="manpage">7z (1)</span>
+<p class="level0">XZ Utils: &lt;http://tukaani.org/xz/&gt; <br>XZ Embedded: &lt;http://tukaani.org/xz/embedded.html&gt; <br>LZMA SDK: &lt;http://7-zip.org/sdk.html&gt; 

@@ -1,0 +1,90 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_recvlogical - control PostgreSQL logical decoding streams <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_recvlogical</span> [<span Class="emphasis">option</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">pg_recvlogical</span> controls logical decoding replication slots and streams data from such replication slots. 
+<p class="level0">It creates a replication-mode connection, so it is subject to the same constraints as <span Class="bold">pg_receivexlog</span>(1), plus those for logical replication (see Chapter 46, Logical Decoding, in the documentation). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">At least one of the following options must be specified to select an action: 
+<p class="level0"><span Class="bold">--create-slot</span> 
+<p class="level1">Create a new logical replication slot with the name specified by <span Class="bold">--slot</span>, using the output plugin specified by <span Class="bold">--plugin</span>, for the database specified by <span Class="bold">--dbname</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--drop-slot</span> 
+<p class="level1">Drop the replication slot with the name specified by <span Class="bold">--slot</span>, then exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--start</span> 
+<p class="level1">Begin streaming changes from the logical replication slot specified by <span Class="bold">--slot</span>, continuing until terminated by a signal. If the server side change stream ends with a server shutdown or disconnect, retry in a loop unless <span Class="bold">--no-loop</span> is specified. 
+<p class="level1">The stream format is determined by the output plugin specified when the slot was created. 
+<p class="level1">The connection must be to the same database used to create the slot. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--create-slot</span> and <span Class="bold">--start</span> can be specified together. <span Class="bold">--drop-slot</span> cannot be combined with another action. 
+<p class="level0">The following command-line options control the location and format of the output and other replication behavior: 
+<p class="level0"><span Class="bold">-f </span><span class="bold"><span Class="emphasis">filename</span></span> <br><span Class="bold">--file=</span><span class="bold"><span Class="emphasis">filename</span></span> 
+<p class="level1">Write received and decoded transaction data into this file. Use - for stdout. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F </span><span class="bold"><span Class="emphasis">interval_seconds</span></span> <br><span Class="bold">--fsync-interval=</span><span class="bold"><span Class="emphasis">interval_seconds</span></span> 
+<p class="level1">Specifies how often pg_recvlogical should issue <span Class="bold">fsync()</span> calls to ensure the output file is safely flushed to disk. 
+<p class="level1">The server will occasionally request the client to perform a flush and report the flush position to the server. This setting is in addition to that, to perform flushes more frequently. 
+<p class="level1">Specifying an interval of 0 disables issuing <span Class="bold">fsync()</span> calls altogether, while still reporting progress to the server. In this case, data could be lost in the event of a crash. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I </span><span class="bold"><span Class="emphasis">lsn</span></span> <br><span Class="bold">--startpos=</span><span class="bold"><span Class="emphasis">lsn</span></span> 
+<p class="level1">In <span Class="bold">--start</span> mode, start replication from the given LSN. For details on the effect of this, see the documentation in Chapter 46, Logical Decoding, in the documentation and Section 49.3, (lqStreaming Replication Protocol(rq, in the documentation. Ignored in other modes. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span> <br><span Class="bold">--no-loop</span> 
+<p class="level1">When the connection to the server is lost, do not retry in a loop, just exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o </span><span class="bold"><span Class="emphasis">name</span></span><span Class="bold">[=</span><span class="bold"><span Class="emphasis">value</span></span><span Class="bold">]</span> <br><span Class="bold">--option=</span><span class="bold"><span Class="emphasis">name</span></span><span Class="bold">[=</span><span class="bold"><span Class="emphasis">value</span></span><span Class="bold">]</span> 
+<p class="level1">Pass the option <span Class="emphasis">name</span> to the output plugin with, if specified, the option value <span Class="emphasis">value</span>. Which options exist and their effects depends on the used output plugin. 
+<p class="level0">
+<p class="level0"><span Class="bold">-P </span><span class="bold"><span Class="emphasis">plugin</span></span> <br><span Class="bold">--plugin=</span><span class="bold"><span Class="emphasis">plugin</span></span> 
+<p class="level1">When creating a slot, use the specified logical decoding output plugin. See Chapter 46, Logical Decoding, in the documentation. This option has no effect if the slot already exists. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s </span><span class="bold"><span Class="emphasis">interval_seconds</span></span> <br><span Class="bold">--status-interval=</span><span class="bold"><span Class="emphasis">interval_seconds</span></span> 
+<p class="level1">This option has the same effect as the option of the same name in <span Class="bold">pg_receivexlog</span>(1). See the description there. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S </span><span class="bold"><span Class="emphasis">slot_name</span></span> <br><span Class="bold">--slot=</span><span class="bold"><span Class="emphasis">slot_name</span></span> 
+<p class="level1">In <span Class="bold">--start</span> mode, use the existing logical replication slot named <span Class="emphasis">slot_name</span>. In <span Class="bold">--create-slot</span> mode, create the slot with this name. In <span Class="bold">--drop-slot</span> mode, delete the slot with this name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">Enables verbose mode. 
+<p class="level0">
+<p class="level0">The following command-line options control the database connection parameters. 
+<p class="level0"><span Class="bold">-d </span><span class="bold"><span Class="emphasis">database</span></span> <br><span Class="bold">--dbname=</span><span class="bold"><span Class="emphasis">database</span></span> 
+<p class="level1">The database to connect to. See the description of the actions for what this means in detail. This can be a libpq connection string; see Section 31.1.1, (lqConnection Strings(rq, in the documentation for more information. Defaults to user name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">hostname-or-ip</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">hostname-or-ip</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. The default is taken from the <span Class="bold">PGHOST</span> environment variable, if set, else a Unix domain socket connection is attempted. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. Defaults to the <span Class="bold">PGPORT</span> environment variable, if set, or a compiled-in default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">user</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">user</span></span> 
+<p class="level1">Username to connect as. Defaults to current operating system user name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force pg_recvlogical to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since pg_recvlogical will automatically prompt for a password if the server demands password authentication. However, pg_recvlogical will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0">The following additional options are available: 
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the pg_recvlogical version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about pg_recvlogical command line arguments, and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">See Section 46.1, (lqLogical Decoding Examples(rq, in the documentation for an example. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">pg_receivexlog</span>(1) 

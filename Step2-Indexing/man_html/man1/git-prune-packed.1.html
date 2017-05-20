@@ -1,0 +1,30 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-prune-packed - Remove extra objects that are already in pack files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git prune-packed</span> [-n|--dry-run] [-q|--quiet]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program searches the $GIT_OBJECT_DIRECTORY for all objects that currently exist in a pack file as well as the independent object directories. 
+<p class="level0">All such extra objects are removed. 
+<p class="level0">A pack is a collection of objects, individually compressed, with delta compression applied, stored in a single file, with an associated index file. 
+<p class="level0">Packs are used to reduce the load on mirror systems, backup engines, disk storage, etc. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-n, --dry-run 
+<p class="level1">Don(cqt actually remove any objects, only show those that would have been removed. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Squelch the progress indicator. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-pack-objects</span>(1) <span Class="bold">git-repack</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

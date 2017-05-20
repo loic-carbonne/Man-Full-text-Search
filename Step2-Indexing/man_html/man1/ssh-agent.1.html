@@ -1,0 +1,85 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">is a program to hold private keys used for public key authentication (RSA, DSA, ECDSA, ED25519). 
+<p class="level0">is usually started in the beginning of an X-session or a login session, and all other windows or programs are started as clients to the ssh-agent program. Through use of environment variables the agent can be located and automatically used for authentication when logging in to other machines using 
+<p class="level0">
+<p class="level0">The agent initially does not have any private keys. Keys are added using 
+<p class="level0">Multiple identities may be stored in 
+<p class="level0">concurrently and 
+<p class="level0">will automatically use them if present. 
+<p class="level0">is also used to remove keys from 
+<p class="level0">and to query the keys that are held in one. 
+<p class="level0">The options are as follows: 
+<p class="level0">
+<p class="level0">Bind the agent to the 
+<p class="level0">socket 
+<p class="level0">The default is 
+<p class="level0">
+<p class="level0">Generate C-shell commands on 
+<p class="level0">This is the default if 
+<p class="level0">looks like it's a csh style of shell. 
+<p class="level0">Debug mode. When this option is specified 
+<p class="level0">will not fork. 
+<p class="level0">Kill the current agent (given by the 
+<p class="level0">environment variable). 
+<p class="level0">Generate Bourne shell commands on 
+<p class="level0">This is the default if 
+<p class="level0">does not look like it's a csh style of shell. 
+<p class="level0">Set a default value for the maximum lifetime of identities added to the agent. The lifetime may be specified in seconds or in a time format specified in 
+<p class="level0">A lifetime specified for an identity with 
+<p class="level0">overrides this value. Without this option the default maximum lifetime is forever. 
+<p class="level0">
+<p class="level0">If a commandline is given, this is executed as a subprocess of the agent. When the command dies, so does the agent. 
+<p class="level0">The idea is that the agent is run in the user's local PC, laptop, or terminal. Authentication data need not be stored on any other machine, and authentication passphrases never go over the network. However, the connection to the agent is forwarded over SSH remote logins, and the user can thus use the privileges given by the identities anywhere in the network in a secure way. 
+<p class="level0">There are two main ways to get an agent set up: The first is that the agent starts a new subcommand into which some environment variables are exported, eg 
+<p class="level0">The second is that the agent prints the needed shell commands (either 
+<p class="level0">or 
+<p class="level0">syntax can be generated) which can be evaluated in the calling shell, eg 
+<p class="level0">for Bourne-type shells such as 
+<p class="level0">or 
+<p class="level0">and 
+<p class="level0">for 
+<p class="level0">and derivatives. 
+<p class="level0">Later 
+<p class="level0">looks at these variables and uses them to establish a connection to the agent. 
+<p class="level0">The agent will never send a private key over its request channel. Instead, operations that require a private key will be performed by the agent, and the result will be returned to the requester. This way, private keys are not exposed to clients using the agent. 
+<p class="level0">A 
+<p class="level0">socket is created and the name of this socket is stored in the 
+<p class="level0">environment variable. The socket is made accessible only to the current user. This method is easily abused by root or another instance of the same user. 
+<p class="level0">The 
+<p class="level0">environment variable holds the agent's process ID. 
+<p class="level0">The agent exits automatically when the command given on the command line terminates. 
+<p class="level0">In Debian, 
+<p class="level0">is installed with the set-group-id bit set, to prevent 
+<p class="level0">attacks retrieving private key material. This has the side-effect of causing the run-time linker to remove certain environment variables which might have security implications for set-id programs, including 
+<p class="level0">
+<p class="level0">and 
+<p class="level0">If you need to set any of these environment variables, you will need to do so in the program executed by ssh-agent. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">sockets used to contain the connection to the authentication agent. These sockets should only be readable by the owner. The sockets should get automatically removed when the agent exits. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">OpenSSH is a derivative of the original and free ssh 1.2.12 release by Tatu Ylonen. Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo de Raadt and Dug Song removed many bugs, re-added newer features and created OpenSSH. Markus Friedl contributed the support for SSH protocol versions 1.5 and 2.0. 

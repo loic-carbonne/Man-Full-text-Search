@@ -1,0 +1,178 @@
+LINUX_LOGO(1)               Debian GNU/Linux Manual              LINUX_LOGO(1)
+
+
+
+NAME
+       linux_logo - Color ANSI penguin logo w/ system information.
+
+SYNOPSIS
+       linux_logo  [-h  |  -v ] [-a ] [ -b | -c] [-d] [-D file] [-e file] [-f]
+       [-g | -l] [-k] [-i] [-n] [-p] [-s] [-u] [-x] [-y] [-o Num] [-t  string]
+       [-L num | list | random_xy] [-F format]
+
+DESCRIPTION
+       linux_logo  is  a program that generates a color ANSI picture of a pen-
+       guin which includes some system information  obtained  from  the  /proc
+       filesystem.
+
+OPTIONS
+       -h     Show summary of options.
+
+       -v     Show version of program.
+
+       -ascii -a
+              Display the logo as monochrome ascii.
+
+       -banner -b
+              Display the banner-style logo.
+
+       -classic -c
+              Display the original penguin logo.
+
+       -d     Disable "prettying" of output
+
+       -D filename
+              Use logo from "filename"
+
+       -e filename
+              Use cpuinfo from "filename" for debugging purposes
+
+       -f     Force the screen clear before drawing the logo.
+
+       -F STRING
+              Use custom output STRING for sysinfo.  See below for more info.
+
+       -g     Display only the system infomation.
+
+       -i     Ignore the ~/.linux_logo and /etc/linux_logo.conf config files
+
+       -k     Keep sysinfo flushed-left (non-centered)
+
+       -l     Display only the logo.
+
+       -L ... Custom logo options.  See README
+
+       -o Num Shift output Num spaces to the right
+
+       -p     Preserve cursor location
+
+       -s     Skip  the  BogoMips  test [ speeds up display on non-Linux plat-
+              forms ].
+
+       -t string
+              Display an arbitrary string
+
+       -u     Display the system uptime.
+
+       -w val Set screen width to val
+
+       -y     Display the load average.
+
+
+PROCESSOR INFORMATION
+   CPUINFO
+       The  cpuinfo  supplied  in  /proc/cpuinfo  is  not  always  usable   by
+       linux_logo.   In  the relevant sysinfo_x.c file there is a place to add
+       custom output formatting to "beautify" the cpuinfo.  For  instance  "K6
+       (166  - 266)" is parsed to "K6". Formats have been added for the K6 and
+       certain Cyrix microprocessors.
+
+       If the cpuinfo for your microprocessor generates ugly output, send  the
+       output  from  your  /proc/cpuinfo and a sample of how it should look to
+       the author.
+
+       Unfortunately the 2.0.x kernels don't know about newer  chips.   So  to
+       get  linux_logo  to  recognize your Pentium II and newer chips you must
+       find some piece of information in /proc/cpuinfo that distinguishes them
+       from a pentium pro, or upgrade to a 2.2.x or 2.3.x kernel.
+
+   FORMAT
+       The  format  string special sequences start with # (use ## to print #).
+       All other characters, except for \n,  are printed as is.
+
+
+       Seq   Description               Output
+       ----------------------------------------------------------------
+       ##                              #
+       #B    Bogomips                  374.37
+       #C    Compiled Date             #47 Fri Jan 8 10:37:09 EST 1999
+       #E    User Text                 My Favorite Linux Distribution
+             Displayed with -t
+       #H    Hostname                  deranged
+       #L    Load average              Load average 0.04, 0.01, 0.01
+       #M    Megahertz                 188Mhz
+             where supported
+       #N    Number of CPU's           Two
+       #O    OS Name                   Linux
+       #P    Processor or Processors   Processor
+       #R    Ram                       64M
+             in Megabytes
+       #S    Plural                    s
+       #T    Type of CPU               K6
+       #U    Uptime                    Uptime 10 hours 59 minutes
+       #V    Version of OS             2.2.0-pre5
+       #X    CPU Vendor                AMD
+       \\n   carriage return
+
+       Notes:
+
+       o   The letter after the # must be capitalized.
+
+       o   Options not available are silently ignored.
+
+       o   Megahertz only available on some platforms and newer kernels.
+
+       o   See defaults.h on how to have #N report in non-english numbers.
+
+       o   Plural [#S] gives nothing if there is 1 cpu, gives 's' otherwise.
+
+       o   The "-y" and "-u" [display uptime and load  average]  command  line
+           options don't affect the output if a custom format is used.
+
+       The default banner format is:
+
+       "#O Version #V, Compiled #C\n \
+       #N #M#X#T Processor#S, #R RAM, #B Bogomips Total\n \
+       #H\n"
+
+       The  default  banner format displays the following on the author's com-
+       puter:
+
+         Linux Version 2.2.0-pre5, Compiled #47 Fri Jan 8 10:37:09 EST 1999
+            One 188MHz AMD K6 Processor, 64M RAM, 374.37 Bogomips Total
+                                      deranged
+       Another example would be:
+
+       linux_logo -F "Redhat Linux 5.2\nKernel Version #V\n#U\n#L\n"
+
+       which would display:
+
+                                  Redhat Linux 5.2
+                              Kernel Version 2.2.0-pre5
+                              Uptime 11 hours 4 minutes
+                            Load average 0.00, 0.00, 0.00
+
+
+DEBIAN
+       The Debian pre-packaged version of linux_logo includes the Debian  logo
+       in addition to the 'Classic' and 'Banner' logos. The Debian logo is the
+       default logo unless one of the other logos is specified on the  command
+       line.
+
+CONFIG FILES
+       ~/.linux_logo  and /etc/linux_logo.conf can be filled with command line
+       options and will be parsed before the actual command line
+
+SEE ALSO
+       /usr/share/doc/linuxlogo/, http://www.deater.net/weave
+
+AUTHOR
+       Vince Weaver
+              <vince@deater.net>.
+
+       This manual page was written by Steve Kostecke <steve@debian.org>,  for
+       the Debian GNU/Linux system.
+
+
+
+Debian                          28 October 2001                  LINUX_LOGO(1)

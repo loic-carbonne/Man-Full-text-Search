@@ -1,0 +1,133 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_dkms - correctly handle DKMS usage by a kernel module package <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dh_dkms</span> [<span Class="emphasis">debhelper&nbsp;options</span>] [<span Class="bold">-l</span>] [<span Class="bold">-V</span>[<span Class="emphasis">version</span>]] [<span Class="bold">--</span>&nbsp;<span Class="emphasis">file</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">dh_dkms is a debhelper program that is responsible for correctly setting postinst, postrm and dependencies in kernel module packages using s-1DKMSs0. 
+<p class="level0">If a file named debian/package.dkms exists, then different actions are performed, depending on its contents. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="debianfIpackagefRdkms"></a><span class="nroffip">debian/\fIpackage\fR.dkms 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="debiandkms"></a><span class="nroffip">debian/dkms 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">It can be a proper configuration file, and in this case it would be installed in the proper directory as dkms.conf. 
+<p class="level1">It can also point to another file (this should be used when the configuration is provided by upstream), and in this case that file will be installed as dkms.conf in the proper directory. 
+<p class="level1">This file can only miss if a filename is provided when calling dh_dkms. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR, \fB--legacy\fR 4</span> 
+<p class="level1">
+<p class="level1">Add code to also support s-1DKMSs0 versions &lt; 2.1.0.0. 
+<p class="level0"><a name="fB-VfR"></a><span class="nroffip">\fB-V\fR, \fB-V\fR \fIversion\fR 4</span> 
+<p class="level1">
+<p class="level1">If f(CW*(C`PACKAGE_VERSION*(C'</span> in <span Class="emphasis">dkms.conf</span> is set to f(CW*(C`&#35;MODULE_VERSION&#35;*(C'</span>, set it to the given <span Class="emphasis">version</span> or, if none is given, default to the upstream version of the current package. Otherwise, leave the value specified in <span Class="emphasis">dkms.conf</span>. 
+<p class="level0"><a name="fB--fR"></a><span class="nroffip">\fB--\fR \fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Don't look for debian/<span Class="emphasis">package</span>.dkms or debian/dkms, but install <span Class="emphasis">file</span> as dkms.conf. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Note that this command is not idempotent. <span Class="emphasis">dh_prep</span>|(1) should be called between invocations of this command. Otherwise, it may cause multiple instances of the same text to be added to maintainer scripts. 
+<p class="level0">IMPORTANT: binary packages using dh_dkms must have a name that ends in '-dkms'. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debhelper</span>|(1) 
+<p class="level0">This program is part of the Debian s-1DKMSs0 package. 
+<p class="level0"><span Class="emphasis">dkms</span>|(8) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">David Paleino &lt;dapal@debian.org&gt; 

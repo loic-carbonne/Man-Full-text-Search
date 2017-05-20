@@ -1,0 +1,80 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">busctl - Introspect the bus <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">busctl</span> [OPTIONS...] [COMMAND] [<a class="emphasis" href="#NAME">NAME</a>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">busctl</span> may be used to introspect and monitor the D-Bus bus. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--address=</span><span class="bold"><span Class="emphasis">ADDRESS</span></span> 
+<p class="level1">Connect to the bus specified by <span Class="emphasis">ADDRESS</span> instead of using suitable defaults for either the system or user bus (see <span Class="bold">--system</span> and <span Class="bold">--user</span> options). 
+<p class="level0">
+<p class="level0"><span Class="bold">--show-machine</span> 
+<p class="level1">When showing the list of endpoints, show a column containing the names of containers they belong to. See <span Class="bold">systemd-machined.service</span>(8). 
+<p class="level0">
+<p class="level0"><span Class="bold">--unique</span> 
+<p class="level1">When showing the list of endpoints, show only "unique" names (of the form ":<span Class="emphasis">number</span>.<span Class="emphasis">number</span>"). 
+<p class="level0">
+<p class="level0"><span Class="bold">--acquired</span> 
+<p class="level1">The opposite of <span Class="bold">--unique</span> (em only "well-known" names will be shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">--activatable</span> 
+<p class="level1">When showing the list of endpoints, show only endpoints which have actually not been activated yet, but may be started automatically if accessed. 
+<p class="level0">
+<p class="level0"><span Class="bold">--match=</span><span class="bold"><span Class="emphasis">MATCH</span></span> 
+<p class="level1">When showing messages being exchanged, show only the subset matching <span Class="emphasis">MATCH</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-legend</span> 
+<p class="level1">Do not print the legend, i.e. the column headers and the footer. 
+<p class="level0">
+<p class="level0"><span Class="bold">--user</span> 
+<p class="level1">Talk to the service manager of the calling user, rather than the service manager of the system. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span> 
+<p class="level1">Talk to the service manager of the system. This is the implied default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">list</span> 
+<p class="level1">Show endpoints attached to the bus. This is the default if no command is specified. 
+<p class="level0">
+<p class="level0"><span Class="bold">monitor</span> [<a class="emphasis" href="#NAME">NAME</a>...] 
+<p class="level1">Dump messages being exchanged. If <a class="emphasis" href="#NAME">NAME</a> is specified, show messages to or from this endpoint. Otherwise, show all messages on the bus. 
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> <a class="emphasis" href="#NAME">NAME</a> 
+<p class="level1">Show process information and credentials of a bus endpoint. 
+<p class="level0">
+<p class="level0"><span Class="bold">help</span> 
+<p class="level1">Show command syntax help. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-daemon</span>(1), m[blue]<span Class="bold">D-Bus</span>m[]s-2u[1]ds+2, m[blue]<span Class="bold">kdbus</span>m[]s-2u[2]ds+2, <span Class="bold">sd-bus</span>(3), <span Class="bold">systemd</span>(1), <span Class="bold">systemd-bus-proxyd</span>(8), <span Class="bold">machinectl</span>(1) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">D-Bus 
+<p class="level2">%http://freedesktop.org/wiki/Software/dbus 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 2. 4</span> 
+<p class="level1">kdbus 
+<p class="level2">%https://code.google.com/p/d-bus/ 
+<p class="level1">

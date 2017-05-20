@@ -1,0 +1,29 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chgrp - change group ownership <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">chgrp</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">GROUP FILE</span>... <br><span Class="bold">chgrp</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">--reference=RFILE FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Change the group of each FILE to GROUP. With <span Class="bold">--reference</span>, change the group of each FILE to that of RFILE. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--changes</span> like verbose but report only when a change is made 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--silent</span>, <span Class="bold">--quiet</span> suppress most error messages 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> output a diagnostic for every file processed 
+<p class="level0"><span Class="bold">--dereference</span> affect the referent of each symbolic link (this is the default), rather than the symbolic link itself 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--no-dereference</span> affect symbolic links instead of any referenced file (useful only on systems that can change the ownership of a symlink) 
+<p class="level0"><span Class="bold">--no-preserve-root</span> do not treat '/' specially (the default) 
+<p class="level0"><span Class="bold">--preserve-root</span> fail to operate recursively on '/' 
+<p class="level0"><span Class="bold">--reference</span>=<span Class="emphasis">RFILE</span> use RFILE's group rather than specifying a GROUP value 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--recursive</span> operate on files and directories recursively 
+<p class="level0">The following options modify how a hierarchy is traversed when the <span Class="bold">-R</span> option is also specified.  If more than one is specified, only the final one takes effect. 
+<p class="level0"><span Class="bold">-H</span> if a command line argument is a symbolic link to a directory, traverse it 
+<p class="level0"><span Class="bold">-L</span> traverse every symbolic link to a directory encountered 
+<p class="level0"><span Class="bold">-P</span> do not traverse any symbolic links (default) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">chgrp staff /u Change the group of /u to "staff". 
+<p class="level0">chgrp -hR staff /u Change the group of /u and subfiles to "staff". <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by David MacKenzie and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report chgrp translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">chown(1), chown(2) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/chgrp&gt; <br>or available locally via: info (aq(coreutils) chgrp invocation(aq 

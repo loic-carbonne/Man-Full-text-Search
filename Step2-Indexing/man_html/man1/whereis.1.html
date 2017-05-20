@@ -1,0 +1,47 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">whereis - locate the binary, source, and manual page files for a command <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">whereis</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">directory ...  \fB-f\fR ]</span> <span Class="emphasis">name ...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">whereis</span> locates the binary, source and manual files for the specified command names. The supplied names are first stripped of leading pathname components and any (single) trailing extension of the form <a class="bold" href="#">. ext</a> (for example: <span Class="manpage">.c )</span>Prefixes of <span Class="bold">s.</span> resulting from use of source code control are also dealt with. <span Class="bold">whereis</span> then attempts to locate the desired program in the standard Linux places, and in the places specified by <span Class="bold">$PATH</span> and <span Class="manpage">$MANPATH .</span>
+<p class="level0">The search restrinctions (options <span Class="bold">-b</span>, <span Class="bold">-m</span> and <span Class="bold">-s</span>) are cumulative and always applied for the next <span Class="emphasis">name</span> patterns specified on command line. The first search restrinction resets the search mask. For example 
+<p class="level1">
+<p class="level1"><span Class="bold">whereis -bm ls tr -m gcc</span> 
+<p class="level1">
+<p class="level0">searchs for "ls" and "tr" binaries and man pages, and "gcc" man pages only. 
+<p class="level0">The options <span Class="bold">-B</span>, <span Class="bold">-M</span> and <span Class="bold">-S</span> resets search paths for the next <span Class="emphasis">name</span> patterns. For example 
+<p class="level1">
+<p class="level1"><span Class="bold">whereis -m ls -M /usr/share/man/man1 -f cal</span> 
+<p class="level1">
+<p class="level0">searchs for "ls" man pages in all default paths, but for "cal" in /usr/share/man/man1 directory only. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-bfP"></a><span class="nroffip">\fB-b\fP</span> 
+<p class="level1">Search for binaries. 
+<p class="level0"><a name="fB-mfP"></a><span class="nroffip">\fB-m\fP</span> 
+<p class="level1">Search for manuals. 
+<p class="level0"><a name="fB-sfP"></a><span class="nroffip">\fB-s\fP</span> 
+<p class="level1">Search for sources. 
+<p class="level0"><a name="fB-ufP"></a><span class="nroffip">\fB-u\fP</span> 
+<p class="level1">Only show the command names that have unusual entries.  A command is said to be unusual if it does not have just one entry of each explicitly requested type. Thus 
+<p class="level1">asks for those files in the current directory which have no documentation file, or more than one. 
+<p class="level0"><a name="fB-B"></a><span class="nroffip">\fB-B \fIlist\fP</span> 
+<p class="level1">Limit the places where <span Class="bold">whereis</span> searches for binaries, by a whitespace-separated list of directories. 
+<p class="level0"><a name="fB-M"></a><span class="nroffip">\fB-M \fIlist\fP</span> 
+<p class="level1">Limit the places where <span Class="bold">whereis</span> searches for manuals, by a whitespace-separated list of directories. 
+<p class="level0"><a name="fB-S"></a><span class="nroffip">\fB-S \fIlist\fP</span> 
+<p class="level1">Limit the places where <span Class="bold">whereis</span> searches for sources, by a whitespace-separated list of directories. 
+<p class="level0"><a name="fB-ffP"></a><span class="nroffip">\fB-f\fP</span> 
+<p class="level1">Terminates the directory list and signals the start of filenames.  It <span Class="emphasis">must</span> be used when any of the <span Class="manpage">-B</span>, <span Class="manpage">-M</span>or <span Class="manpage">-S</span>options is used. 
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l</span> 
+<p class="level1">Output list of effective lookup paths the <span Class="bold">whereis</span> is using.  When non of <span Class="manpage">-B</span>, <span Class="manpage">-M</span>or <span Class="manpage">-S</span>is specified the option will out hard coded paths that the command was able to find on system. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">To find all files in <span Class="bold">/usr/\:bin</span> which are not documented in <span Class="bold">/usr/\:man/\:man1</span> or have no source in , <span Class="manpage">/usr/\:src :</span>
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#">$ cd /usr/bin</a> <br><a class="bold" href="#">$ whereis -u -ms -M /usr/man/man1 -S /usr/src -f *</a> <a name="FILE"></a><h2 class="nroffsh">FILE SEARCH PATHS</h2>
+<p class="level0">By default <span Class="bold">whereis</span> tries to find files from hard-coded paths, which are defined with glob patterns. The command attempst to use contents of <span Class="bold">$PATH</span> and <span Class="bold">$MANPATH</span> environment variables as default search path.  The easiest way to know what paths are in use is to add <span Class="bold">-l</span> listing option.  Effects of the <span Class="manpage">-B</span>, <span Class="manpage">-M</span>and <span Class="manpage">-S</span>are display with <span Class="manpage">-l .</span>
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The whereis command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

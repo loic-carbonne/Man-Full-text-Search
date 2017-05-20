@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ipcs - show information on IPC facilities <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ipcs</span> [options] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ipcs</span> shows information on the inter-process communication facilities for which the calling process has read access. By default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--id</span> <span Class="emphasis">id</span> Show full details on just the one resource element identified by <span Class="emphasis">id .</span> This option needs to be combined with one of the three resource options: <span Class="manpage">-m</span>, <span Class="manpage">-q  or</span>, <span Class="manpage">-s .</span>
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information and exit. <a name="Resource"></a><h2 class="nroffsh">Resource options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--shmems</span> Write information about active shared memory segments. 
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--queues</span> Write information about active message queues. 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--semaphores</span> Write information about active semaphore sets. 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> Write information about all three resources (default). <a name="Output"></a><h2 class="nroffsh">Output formats</h2>
+<p class="level0">Of these options only one takes effect: the last one specified. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--creator</span> Show creator and owner. 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--limits</span> Show resource limits. 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--pid</span> Show PIDs of creator and last operator. 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--time</span> Write time information.  The time of the last control operation that changed the access permissions for all facilities, the time of the last <span Class="emphasis">msgsnd()</span> and <span Class="emphasis">msgrcv()</span> operations on message queues, the time of the last <span Class="emphasis">shmat()</span> and <span Class="emphasis">shmdt()</span> operations on shared memory, and the time of the last <span Class="emphasis">semop()</span> operation on semaphores. 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--summary</span> Show status summary. <a name="Representation"></a><h2 class="nroffsh">Representation</h2>
+<p class="level0">These affect only the <span Class="bold">-l</span> (<span Class="bold">--limits</span>) option. 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--bytes</span> Print sizes in bytes. 
+<p class="level0"><span Class="bold">--human</span> Print sizes in human-readable format. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ipcrm (1)</span>, <span Class="manpage">ipcmk (1)</span>, <span Class="manpage">msgrcv (2)</span>, <span Class="manpage">msgsnd (2)</span>, <span Class="manpage">semget (2)</span>, <span Class="manpage">semop (2)</span>, <span Class="manpage">shmat (2)</span>, <span Class="manpage">shmdt (2)</span>, <span Class="manpage">shmget (2)</span><a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">The Linux ipcs utility is not fully compatible to the POSIX ipcs utility. The Linux version does not support the POSIX <span Class="manpage">-a</span><span Class="bold">-b</span> and <span Class="bold">-o</span> options, but does support the <span Class="bold">-l</span> and <span Class="bold">-u</span> options not defined by POSIX.  A portable application shall not use the <span Class="manpage">-a</span>, <span Class="manpage">-b</span>, <span Class="manpage">-o</span>, <span Class="manpage">-l</span>and <span Class="bold">-u</span> options. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Krishna Balasubramanian 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The ipcs command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

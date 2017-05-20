@@ -1,0 +1,12 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xzcmp, xzdiff, lzcmp, lzdiff - compare compressed files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xzcmp</span> 
+<p class="level0"><br><span Class="bold">xzdiff</span> 
+<p class="level0"><br><span Class="bold">lzcmp</span> 
+<p class="level0"><br><span Class="bold">lzdiff</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">xzcmp</span> and <span Class="bold">xzdiff</span> invoke <span Class="manpage">cmp (1)</span>or <span Class="manpage">diff (1)</span>on files compressed with <span Class="manpage">xz (1)</span>, <span Class="manpage">lzma (1)</span>, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>or <span Class="manpage">lzop (1).</span>All options specified are passed directly to <span Class="manpage">cmp (1)</span>or <span Class="manpage">diff (1).</span>If only one file is specified, then the files compared are <span Class="emphasis">file1</span> (which must have a suffix of a supported compression format) and <span Class="emphasis">file1</span> from which the compression format suffix has been stripped. If two files are specified, then they are uncompressed if necessary and fed to <span Class="manpage">cmp (1)</span>or <span Class="manpage">diff (1).</span>The exit status from <span Class="manpage">cmp (1)</span>or <span Class="manpage">diff (1)</span>is preserved. 
+<p class="level0">The names <span Class="bold">lzcmp</span> and <span Class="bold">lzdiff</span> are provided for backward compatibility with LZMA Utils. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">cmp (1)</span>, <span Class="manpage">diff (1)</span>, <span Class="manpage">xz (1)</span>, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>, <span Class="manpage">lzop (1)</span>, <span Class="manpage">zdiff (1)</span><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Messages from the <span Class="manpage">cmp (1)</span>or <span Class="manpage">diff (1)</span>programs refer to temporary filenames instead of those specified. 

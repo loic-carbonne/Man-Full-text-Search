@@ -1,0 +1,19 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-get-tar-commit-id - Extract commit ID from an archive created using git-archive <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git get-tar-commit-id</span> &lt; &lt;tarfile&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Acts as a filter, extracting the commit ID stored in archives created by <span Class="emphasis">git archive</span>. It reads only the first 1024 bytes of input, thus its runtime is not influenced by the size of &lt;tarfile&gt; very much. 
+<p class="level0">If no commit ID is found, <span Class="emphasis">git get-tar-commit-id</span> quietly exists with a return code of 1. This can happen if &lt;tarfile&gt; had not been created using <span Class="emphasis">git archive</span> or if the first parameter of <span Class="emphasis">git archive</span> had been a tree ID instead of a commit ID or tag. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

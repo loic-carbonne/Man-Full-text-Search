@@ -1,0 +1,54 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">test - check file types and compare values <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">test</span> <span Class="emphasis">EXPRESSION</span> <br><span Class="bold">test</span> 
+<p class="level0"><br><span Class="bold">[</span> <span Class="emphasis">EXPRESSION </span>] <br><span Class="bold">[</span> ] <br><span Class="bold">[</span> <span Class="emphasis">OPTION</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Exit with the status determined by EXPRESSION. 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">An omitted EXPRESSION defaults to false.  Otherwise, EXPRESSION is true or false and sets exit status.  It is one of: 
+<p class="level0">( EXPRESSION ) EXPRESSION is true 
+<p class="level0">! EXPRESSION EXPRESSION is false 
+<p class="level0">EXPRESSION1 <span Class="bold">-a</span> EXPRESSION2 both EXPRESSION1 and EXPRESSION2 are true 
+<p class="level0">EXPRESSION1 <span Class="bold">-o</span> EXPRESSION2 either EXPRESSION1 or EXPRESSION2 is true 
+<p class="level0"><span Class="bold">-n</span> STRING the length of STRING is nonzero 
+<p class="level0">STRING equivalent to <span Class="bold">-n</span> STRING 
+<p class="level0"><span Class="bold">-z</span> STRING the length of STRING is zero 
+<p class="level0">STRING1 = STRING2 the strings are equal 
+<p class="level0">STRING1 != STRING2 the strings are not equal 
+<p class="level0">INTEGER1 <span Class="bold">-eq</span> INTEGER2 INTEGER1 is equal to INTEGER2 
+<p class="level0">INTEGER1 <span Class="bold">-ge</span> INTEGER2 INTEGER1 is greater than or equal to INTEGER2 
+<p class="level0">INTEGER1 <span Class="bold">-gt</span> INTEGER2 INTEGER1 is greater than INTEGER2 
+<p class="level0">INTEGER1 <span Class="bold">-le</span> INTEGER2 INTEGER1 is less than or equal to INTEGER2 
+<p class="level0">INTEGER1 <span Class="bold">-lt</span> INTEGER2 INTEGER1 is less than INTEGER2 
+<p class="level0">INTEGER1 <span Class="bold">-ne</span> INTEGER2 INTEGER1 is not equal to INTEGER2 
+<p class="level0">FILE1 <span Class="bold">-ef</span> FILE2 FILE1 and FILE2 have the same device and inode numbers 
+<p class="level0">FILE1 <span Class="bold">-nt</span> FILE2 FILE1 is newer (modification date) than FILE2 
+<p class="level0">FILE1 <span Class="bold">-ot</span> FILE2 FILE1 is older than FILE2 
+<p class="level0"><span Class="bold">-b</span> FILE FILE exists and is block special 
+<p class="level0"><span Class="bold">-c</span> FILE FILE exists and is character special 
+<p class="level0"><span Class="bold">-d</span> FILE FILE exists and is a directory 
+<p class="level0"><span Class="bold">-e</span> FILE FILE exists 
+<p class="level0"><span Class="bold">-f</span> FILE FILE exists and is a regular file 
+<p class="level0"><span Class="bold">-g</span> FILE FILE exists and is set-group-ID 
+<p class="level0"><span Class="bold">-G</span> FILE FILE exists and is owned by the effective group ID 
+<p class="level0"><span Class="bold">-h</span> FILE FILE exists and is a symbolic link (same as <span Class="bold">-L</span>) 
+<p class="level0"><span Class="bold">-k</span> FILE FILE exists and has its sticky bit set 
+<p class="level0"><span Class="bold">-L</span> FILE FILE exists and is a symbolic link (same as <span Class="bold">-h</span>) 
+<p class="level0"><span Class="bold">-O</span> FILE FILE exists and is owned by the effective user ID 
+<p class="level0"><span Class="bold">-p</span> FILE FILE exists and is a named pipe 
+<p class="level0"><span Class="bold">-r</span> FILE FILE exists and read permission is granted 
+<p class="level0"><span Class="bold">-s</span> FILE FILE exists and has a size greater than zero 
+<p class="level0"><span Class="bold">-S</span> FILE FILE exists and is a socket 
+<p class="level0"><span Class="bold">-t</span> FD file descriptor FD is opened on a terminal 
+<p class="level0"><span Class="bold">-u</span> FILE FILE exists and its set-user-ID bit is set 
+<p class="level0"><span Class="bold">-w</span> FILE FILE exists and write permission is granted 
+<p class="level0"><span Class="bold">-x</span> FILE FILE exists and execute (or search) permission is granted 
+<p class="level0">Except for <span Class="bold">-h</span> and <span Class="bold">-L</span>, all FILE-related tests dereference symbolic links. Beware that parentheses need to be escaped (e.g., by backslashes) for shells. INTEGER may also be <span Class="bold">-l</span> STRING, which evaluates to the length of STRING. 
+<p class="level0">NOTE: [ honors the <span Class="bold">--help</span> and <span Class="bold">--version</span> options, but test does not. test treats each of those as it treats any other nonempty STRING. 
+<p class="level0">NOTE: your shell may have its own version of test and/or [, which usually supersedes the version described here.  Please refer to your shell's documentation for details about the options it supports. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Kevin Braunsdorf and Matthew Bradburn. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report [ translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/[&gt; <br>or available locally via: info (aq(coreutils) test invocation(aq 

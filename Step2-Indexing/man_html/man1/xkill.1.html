@@ -1,0 +1,18 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xkill - kill a client by its X resource <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xkill</span> [-display <span Class="emphasis">displayname</span>] [-id <span Class="emphasis">resource</span>] [-button number] [-frame] [-all] [-version] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Xkill</span> is a utility for forcing the X server to close connections to clients.  This program is very dangerous, but is useful for aborting programs that have displayed undesired windows on a user's screen.  If no resource identifier is given with <span Class="emphasis">-id</span>, <span Class="emphasis">xkill</span> will display a special cursor as a prompt for the user to select a window to be killed.  If a pointer button is pressed over a non-root window, the server will close its connection to the client that created the window. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-display displayname</span> This option specifies the name of the X server to contact. 
+<p class="level0"><span Class="bold">-id resource</span> This option specifies the X identifier for the resource whose creator is to be aborted.  If no resource is specified, <span Class="emphasis">xkill</span> will display a special cursor with which you should select a window to be kill. 
+<p class="level0"><span Class="bold">-button number</span> This option specifies the number of pointer button that should be used in selecting a window to kill. If the word "any" is specified, any button on the pointer may be used.  By default, the first button in the pointer map (which is usually the leftmost button) is used. 
+<p class="level0"><span Class="bold">-all</span> This option indicates that all clients with top-level windows on the screen should be killed.  <span Class="emphasis">Xkill</span> will ask you to select the root window with each of the currently defined buttons to give you several chances to abort. Use of this option is highly discouraged. 
+<p class="level0"><span Class="bold">-frame</span> This option indicates that xkill should ignore the standard conventions for finding top-level client windows (which are typically nested inside a window manager window), and simply believe that you want to kill direct children of the root. 
+<p class="level0"><span Class="bold">-version</span> This option makes xkill print its version and exit without killing anything. <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">This command does not provide any warranty that the application whose connection to the X server is closed will abort nicely, or even abort at all. All this command does is to close the connection to the X server. Many existing applications do indeed abort when their connection to the X server is closed, but some can choose to continue. <a name="XDEFAULTS"></a><h2 class="nroffsh">XDEFAULTS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Button</span> Specifies a specific pointer button number or the word "any" to use when selecting windows. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xwininfo(1), XKillClient(3), XGetPointerMapping(3), KillClient in the X Protocol Specification <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jim Fulton, MIT X Consortium <br>Dana Chee, Bellcore 

@@ -1,0 +1,91 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlbuild - The OCaml project compilation tool 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlbuild</span> [ <span Class="bold">-Is \ dir1,...</span> ] [ <span Class="bold">-libs \ lib1,...</span> ] [ <span Class="bold">-lflags \ flag1,...</span> ] [ <span Class="bold">-pp \ flags</span> ] [ <span Class="bold">-tags \ tag1,...</span> ] [ <span Class="bold">-j \ parallel-jobs</span> ] <span Class="emphasis">target.native</span> [ <span Class="bold">-- arg1 arg2 ...</span> ] 
+<p class="level0"><span Class="emphasis">(same options)</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">ocamlbuild (1)</span>orchestrates the compilation process of your OCaml project.  It is similar in function to <span Class="manpage">make (1)</span>except that it is tailor-made to automatically compile most OCaml projects with very little user input. 
+<p class="level0"><span Class="manpage">ocamlbuild</span>should be invoked in the root of a clean project tree (e.g., with no leftover compilation files).  Given one or more targets to compile, it scans the required subdirectories to gather information about the various files present, running tools such as <span Class="manpage">ocamldep (1)</span>to extract dependency information, and gathering optional files that fine-tune its behaviour. Target names are very significant. 
+<p class="level0"><a name="TARGET"></a><h2 class="nroffsh">TARGET NAMES</h2>
+<p class="level0"><span Class="manpage">ocamlbuild</span>uses a set of target naming conventions to select the kind of objects to produce.  Target names are of the form <span Class="manpage">base.extension</span>where <span Class="manpage">base</span>is usually the name of the underlying OCaml module and <span Class="manpage">extension</span>denotes the kind of object to produce from that file -- a byte code executable, a native executable, documentation... Of course extensions such as <span Class="manpage">.cmo</span>, <span Class="manpage">.cma</span>, <span Class="manpage">.cmi...</span>map to their usual counterparts.  Here is a list of the most important <span Class="manpage">ocamlbuild \&-specific</span>extensions: 
+<p class="level0">
+<p class="level0"><span Class="bold">.native</span> Native code executable 
+<p class="level0">
+<p class="level0"><span Class="bold">.byte</span> Byte code executable 
+<p class="level0">
+<p class="level0"><span Class="bold">.inferred.mli</span> Interface inferred with <span Class="manpage">ocamlc -i</span>
+<p class="level0">
+<p class="level0"><span Class="bold">.docdir/index.html</span> HTML documentation generated with <span Class="manpage">ocamldoc</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following command-line options are recognized by <span Class="manpage">ocamlbuild (1).</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-version</span> Display the version 
+<p class="level0"><span Class="bold">-quiet</span> Make as quiet as possible 
+<p class="level0"><span Class="bold">-verbose</span> &lt;level&gt; Set the verbose level 
+<p class="level0"><span Class="bold">-documentation</span> Show rules and flags 
+<p class="level0"><span Class="bold">-log</span> &lt;file&gt; Set log file 
+<p class="level0"><span Class="bold">-no-log</span> No log file 
+<p class="level0"><span Class="bold">-clean</span> Remove build directory and other files, then exit 
+<p class="level0"><span Class="bold">-I</span> &lt;path&gt; Add to include directories 
+<p class="level0"><span Class="bold">-Is</span> &lt;path,...&gt; (same as above, but accepts a comma-separated list) 
+<p class="level0"><span Class="bold">-X</span> &lt;path&gt; Directory to ignore 
+<p class="level0"><span Class="bold">-Xs</span> &lt;path,...&gt; (idem) 
+<p class="level0"><span Class="bold">-lib</span> &lt;flag&gt; Link to this ocaml library 
+<p class="level0"><span Class="bold">-libs</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-lflag</span> &lt;flag&gt; Add to ocamlc link flags 
+<p class="level0"><span Class="bold">-lflags</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-cflag</span> &lt;flag&gt; Add to ocamlc compile flags 
+<p class="level0"><span Class="bold">-cflags</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-yaccflag</span> &lt;flag&gt; Add to ocamlyacc flags 
+<p class="level0"><span Class="bold">-yaccflags</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-lexflag</span> &lt;flag&gt; Add to ocamllex flags 
+<p class="level0"><span Class="bold">-lexflags</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-ppflag</span> &lt;flag&gt; Add to ocaml preprocessing flags 
+<p class="level0"><span Class="bold">-pp</span> &lt;flag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-tag</span> &lt;tag&gt; Add to default tags 
+<p class="level0"><span Class="bold">-tags</span> &lt;tag,...&gt; (idem) 
+<p class="level0"><span Class="bold">-ignore</span> &lt;module,...&gt; Don't try to build these modules 
+<p class="level0"><span Class="bold">-no-links</span> Don't make links of produced final targets 
+<p class="level0"><span Class="bold">-no-skip</span> Don't skip modules that are requested by ocamldep but cannot be built 
+<p class="level0"><span Class="bold">-no-hygiene</span> Don't apply sanity-check rules 
+<p class="level0"><span Class="bold">-no-plugin</span> Don't build myocamlbuild.ml 
+<p class="level0"><span Class="bold">-no-stdlib</span> Don't ignore stdlib modules 
+<p class="level0"><span Class="bold">-just-plugin</span> Just build myocamlbuild.ml 
+<p class="level0"><span Class="bold">-byte-plugin</span> Don't use a native plugin but bytecode 
+<p class="level0"><span Class="bold">-no-sanitize</span> Do not enforce sanity-check rules 
+<p class="level0"><span Class="bold">-nothing-should-be-rebuilt</span> Fail if something needs to be rebuilt 
+<p class="level0"><span Class="bold">-classic-display</span> Display executed commands the old-fashioned way 
+<p class="level0"><span Class="bold">-j</span> &lt;N&gt; Allow N jobs at once (0 for unlimited) 
+<p class="level0"><span Class="bold">-build-dir</span> &lt;path&gt; Set build directory 
+<p class="level0"><span Class="bold">-install-dir</span> &lt;path&gt; Set the install directory 
+<p class="level0"><span Class="bold">-where</span> Display the install directory 
+<p class="level0"><span Class="bold">-ocamlc</span> &lt;command&gt; Set the OCaml bytecode compiler 
+<p class="level0"><span Class="bold">-ocamlopt</span> &lt;command&gt; Set the OCaml native compiler 
+<p class="level0"><span Class="bold">-ocamldep</span> &lt;command&gt; Set the OCaml dependency tool 
+<p class="level0"><span Class="bold">-ocamlyacc</span> &lt;command&gt; Set the ocamlyacc tool 
+<p class="level0"><span Class="bold">-ocamllex</span> &lt;command&gt; Set the ocamllex tool 
+<p class="level0"><span Class="bold">-ocamlrun</span> &lt;command&gt; Set the ocamlrun tool 
+<p class="level0"><span Class="bold">--</span> Stop argument processing, remaining arguments are given to the user program 
+<p class="level0"><span Class="bold">-help</span> Display the list of options 
+<p class="level0"><span Class="bold">--help</span> Display the list of options 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">The <span Class="manpage">ocamlbuild</span>manual, <span Class="manpage">ocaml (1)</span>, <span Class="manpage">make (1).</span><br><span Class="emphasis">The OCaml user's manual, chapter Batch compilation.</span> 

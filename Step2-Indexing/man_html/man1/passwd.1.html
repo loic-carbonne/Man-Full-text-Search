@@ -1,0 +1,139 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">passwd - change user password <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">passwd</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">LOGIN</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">passwd</span> command changes passwords for user accounts. A normal user may only change the password for his/her own account, while the superuser may change the password for any account. <span Class="bold">passwd</span> also changes the account or associated password validity period. <a name="Password"></a><h2 class="nroffsh">Password Changes</h2>
+<p class="level0">
+<p class="level0">The user is first prompted for his/her old password, if one is present. This password is then encrypted and compared against the stored password. The user has only one chance to enter the correct password. The superuser is permitted to bypass this step so that forgotten passwords may be changed. 
+<p class="level0">After the password has been entered, password aging information is checked to see if the user is permitted to change the password at this time. If not, <span Class="bold">passwd</span> refuses to change the password and exits. 
+<p class="level0">The user is then prompted twice for a replacement password. The second entry is compared against the first and both are required to match in order for the password to be changed. 
+<p class="level0">Then, the password is tested for complexity. As a general guideline, passwords should consist of 6 to 8 characters including one or more characters from each of the following sets: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">lower case alphabetics 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">digits 0 thru 9 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">punctuation marks 
+<p class="level0">
+<p class="level0">Care must be taken not to include the system default erase or kill characters. <span Class="bold">passwd</span> will reject any password which is not suitably complex. <a name="Hints"></a><h2 class="nroffsh">Hints for user passwords</h2>
+<p class="level0">
+<p class="level0">The security of a password depends upon the strength of the encryption algorithm and the size of the key space. The legacy <span Class="emphasis">UNIX</span> System encryption method is based on the NBS DES algorithm. More recent methods are now recommended (see <span Class="bold">ENCRYPT_METHOD</span>). The size of the key space depends upon the randomness of the password which is selected. 
+<p class="level0">Compromises in password security normally result from careless password selection or handling. For this reason, you should not select a password which appears in a dictionary or which must be written down. The password should also not be a proper name, your license number, birth date, or street address. Any of these may be used as guesses to violate system security. 
+<p class="level0">You can find advices on how to choose a strong password on <a href="http://en.wikipedia.org/wiki/Password_strength">http://en.wikipedia.org/wiki/Password_strength</a> <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The options which apply to the <span Class="bold">passwd</span> command are: 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> 
+<p class="level1">This option can be used only with <span Class="bold">-S</span> and causes show status for all users. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--delete</span> 
+<p class="level1">Delete a user*(Aqs password (make it empty). This is a quick way to disable a password for an account. It will set the named account passwordless. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--expire</span> 
+<p class="level1">Immediately expire an account*(Aqs password. This in effect can force a user to change his/her password at the user*(Aqs next login. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Display help message and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--inactive</span>&nbsp;<span Class="emphasis">INACTIVE</span> 
+<p class="level1">This option is used to disable an account after the password has been expired for a number of days. After a user account has had an expired password for <span Class="emphasis">INACTIVE</span> days, the user may no longer sign on to the account. 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--keep-tokens</span> 
+<p class="level1">Indicate password change should be performed only for expired authentication tokens (passwords). The user wishes to keep their non-expired tokens as before. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--lock</span> 
+<p class="level1">Lock the password of the named account. This option disables a password by changing it to a value which matches no possible encrypted value (it adds a (aa!(aa at the beginning of the password). 
+<p class="level1">Note that this does not disable the account. The user may still be able to login using another authentication token (e.g. an SSH key). To disable the account, administrators should use <span Class="bold">usermod --expiredate 1</span> (this set the account*(Aqs expire date to Jan 2, 1970). 
+<p class="level1">Users with a locked password are not allowed to change their password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--mindays</span>&nbsp;<span Class="emphasis">MIN_DAYS</span> 
+<p class="level1">Set the minimum number of days between password changes to <span Class="emphasis">MIN_DAYS</span>. A value of zero for this field indicates that the user may change his/her password at any time. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Quiet mode. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--repository</span>&nbsp;<span Class="emphasis">REPOSITORY</span> 
+<p class="level1">change password in <span Class="emphasis">REPOSITORY</span> repository 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--root</span>&nbsp;<span Class="emphasis">CHROOT_DIR</span> 
+<p class="level1">Apply changes in the <span Class="emphasis">CHROOT_DIR</span> directory and use the configuration files from the <span Class="emphasis">CHROOT_DIR</span> directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--status</span> 
+<p class="level1">Display account status information. The status information consists of 7 fields. The first field is the user*(Aqs login name. The second field indicates if the user account has a locked password (L), has no password (NP), or has a usable password (P). The third field gives the date of the last password change. The next four fields are the minimum age, maximum age, warning period, and inactivity period for the password. These ages are expressed in days. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unlock</span> 
+<p class="level1">Unlock the password of the named account. This option re-enables a password by changing the password back to its previous value (to the value before using the <span Class="bold">-l</span> option). 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--warndays</span>&nbsp;<span Class="emphasis">WARN_DAYS</span> 
+<p class="level1">Set the number of days of warning before a password change is required. The <span Class="emphasis">WARN_DAYS</span> option is the number of days prior to the password expiring that a user will be warned that his/her password is about to expire. 
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--maxdays</span>&nbsp;<span Class="emphasis">MAX_DAYS</span> 
+<p class="level1">Set the maximum number of days a password remains valid. After <span Class="emphasis">MAX_DAYS</span>, the password is required to be changed. 
+<p class="level0"><a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">
+<p class="level0">Password complexity checking may vary from site to site. The user is urged to select a password as complex as he or she feels comfortable with. 
+<p class="level0">Users may not be able to change their password on a system if NIS is enabled and they are not logged into the NIS server. 
+<p class="level0"><span Class="bold">passwd</span> uses PAM to authenticate users and to change their passwords. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0">
+<p class="level0">/etc/shadow 
+<p class="level1">Secure user account information. 
+<p class="level0">
+<p class="level0">/etc/pam.d/passwd 
+<p class="level1">PAM configuration for <span Class="bold">passwd</span>. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT VALUES</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">passwd</span> command exits with the following values: 
+<p class="level0"><span Class="emphasis">0</span> 
+<p class="level1">success 
+<p class="level0">
+<p class="level0"><span Class="emphasis">1</span> 
+<p class="level1">permission denied 
+<p class="level0">
+<p class="level0"><span Class="emphasis">2</span> 
+<p class="level1">invalid combination of options 
+<p class="level0">
+<p class="level0"><span Class="emphasis">3</span> 
+<p class="level1">unexpected failure, nothing done 
+<p class="level0">
+<p class="level0"><span Class="emphasis">4</span> 
+<p class="level1">unexpected failure, passwd file missing 
+<p class="level0">
+<p class="level0"><span Class="emphasis">5</span> 
+<p class="level1">passwd file busy, try again 
+<p class="level0">
+<p class="level0"><span Class="emphasis">6</span> 
+<p class="level1">invalid argument to option 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chpasswd</span>(8), <span Class="bold">passwd</span>(5), <span Class="bold">shadow</span>(5), <span Class="bold">usermod</span>(8). 

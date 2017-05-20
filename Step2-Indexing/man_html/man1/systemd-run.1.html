@@ -1,0 +1,103 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-run - Run programs in transient scope or service units <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-run</span> [OPTIONS...] <span Class="emphasis">COMMAND</span>&nbsp;[ARGS...]  <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-run</span> may be used to create and start a transient .service or a .scope unit and run the specified <span Class="emphasis">COMMAND</span> in it. 
+<p class="level0">If a command is run as transient service unit, it will be started and managed by the service manager like any other service, and thus show up in the output of <span Class="bold">systemctl list-units</span> like any other unit. It will run in a clean and detached execution environment. <span Class="bold">systemd-run</span> will start the service asynchronously in the background and immediately return. 
+<p class="level0">If a command is run as transient scope unit, it will be started directly by <span Class="bold">systemd-run</span> and thus inherit the execution environment of the caller. It is however managed by the service manager similar to normal services, and will also show up in the output of <span Class="bold">systemctl list-units</span>. Execution in this case is synchronous, and execution will return only when the command finishes. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--scope</span> 
+<p class="level1">Create a transient .scope unit instead of the default transient .service unit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--unit=</span> 
+<p class="level1">Use this unit name instead of an automatically generated one. 
+<p class="level0">
+<p class="level0"><span Class="bold">--property=</span>, <span Class="bold">-p</span> 
+<p class="level1">Sets a unit property for the scope or service unit that is created. This takes an assignment in the same format as <span Class="bold">systemctl</span>(1)*(Aqs <span Class="bold">set-property</span> command. 
+<p class="level0">
+<p class="level0"><span Class="bold">--description=</span> 
+<p class="level1">Provide a description for the service or scope unit. If not specified, the command itself will be used as a description. See <span Class="emphasis">Description=</span> in <span Class="bold">systemd.unit</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--slice=</span> 
+<p class="level1">Make the new .service or .scope unit part of the specified slice, instead of the system.slice. 
+<p class="level0">
+<p class="level0"><span Class="bold">--remain-after-exit</span> 
+<p class="level1">After the service or scope process has terminated, keep the service around until it is explicitly stopped. This is useful to collect runtime information about the service after it finished running. Also see <span Class="emphasis">RemainAfterExit=</span> in <span Class="bold">systemd.service</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--send-sighup</span> 
+<p class="level1">When terminating the scope or service unit, send a SIGHUP immediately after SIGTERM. This is useful to indicate to shells and shell-like processes that the connection has been severed. Also see <span Class="emphasis">SendSIGHUP=</span> in <span Class="bold">systemd.kill</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--service-type=</span> 
+<p class="level1">Sets the service type. Also see <span Class="emphasis">Type=</span> in <span Class="bold">systemd.service</span>(5). This option has no effect in conjunction with <span Class="bold">--scope</span>. Defaults to <span Class="bold">simple</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--uid=</span>, <span Class="bold">--gid=</span> 
+<p class="level1">Runs the service process under the UNIX user and group. Also see <span Class="emphasis">User=</span> and <span Class="emphasis">Group=</span> in <span Class="bold">systemd.exec</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--nice=</span> 
+<p class="level1">Runs the service process with the specified nice level. Also see <span Class="emphasis">Nice=</span> in <span Class="bold">systemd.exec</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--setenv=</span> 
+<p class="level1">Runs the service process with the specified environment variables set. Also see <span Class="emphasis">Environment=</span> in <span Class="bold">systemd.exec</span>(5). 
+<p class="level0">
+<p class="level0"><span Class="bold">--user</span> 
+<p class="level1">Talk to the service manager of the calling user, rather than the service manager of the system. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span> 
+<p class="level1">Talk to the service manager of the system. This is the implied default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0">All command-line arguments after the first non-option argument become part of the commandline of the launched process. If a command is run as service unit, its first argument needs to be an absolute binary path. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">The following command will log the environment variables provided by systemd to services: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemd-run env
+Running as unit run-19945.service.
+&#35; journalctl -u run-19945.service
+Sep 08 07:37:21 bupkis systemd[1]: Starting /usr/bin/env...
+Sep 08 07:37:21 bupkis systemd[1]: Started /usr/bin/env.
+Sep 08 07:37:21 bupkis env[19948]: PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Sep 08 07:37:21 bupkis env[19948]: LANG=en_US.UTF-8
+Sep 08 07:37:21 bupkis env[19948]: BOOT_IMAGE=/vmlinuz-3.11.0-0.rc5.git6.2.fc20.x86_64
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The following command invokes the <span Class="bold">updatedb</span>(8) tool, but lowers the block IO weight for it to 10. See <span Class="bold">systemd.resource-control</span>(5) for more information on the <span Class="emphasis">BlockIOWeight=</span> property. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemd-run -p BlockIOWeight=10 updatedb
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd.unit</span>(5), <span Class="bold">systemd.service</span>(5), <span Class="bold">systemd.scope</span>(5), <span Class="bold">systemd.slice</span>(5), <span Class="bold">systemd.exec</span>(5), <span Class="bold">systemd.resource-control</span>(5), <span Class="bold">machinectl</span>(1) 

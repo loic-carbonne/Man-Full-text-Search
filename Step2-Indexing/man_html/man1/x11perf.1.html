@@ -1,0 +1,293 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">x11perf - X11 server performance test program <a name="SYNTAX"></a><h2 class="nroffsh">SYNTAX</h2>
+<p class="level0"><span Class="bold">x11perf</span> [ -option ... ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">x11perf</span> program runs one or more performance tests and reports how fast an X server can execute the tests. 
+<p class="level0">Many graphics benchmarks assume that the graphics device is used to display the output of a single fancy graphics application, and that the user gets his work done on some other device, like a terminal.  Such benchmarks usually measure drawing speed for lines, polygons, text, etc. 
+<p class="level0">Since workstations are not used as standalone graphics engines, but as super-terminals, <span Class="emphasis">x11perf</span> measures window management performance as well as traditional graphics performance. <span Class="emphasis">x11perf</span> includes benchmarks for the time it takes to create and map windows (as when you start up an application); to map a pre-existing set of windows onto the screen (as when you deiconify an application or pop up a menu); and to rearrange windows (as when you slosh windows to and fro trying to find the one you want). 
+<p class="level0"><span Class="emphasis">x11perf</span> also measures graphics performance for operations not normally used in standalone graphics displays, but are nonetheless used frequently by X applications.  Such operations include CopyPlane (used to map bitmaps into pixels), scrolling (used in text windows), and various stipples and tiles (used for CAD and color half-toning, respectively). 
+<p class="level0"><span Class="emphasis">x11perf</span> should be used to analyze particular strengths and weaknesses of servers, and is most useful to a server writer who wants to analyze and improve a server. <span Class="emphasis">x11perf</span> is meant to comprehensively exercise just about every X11 operation you can perform; it does not purport to be a representative sample of the operations that X11 applications actually use. While it can be used as a benchmark, it was written and is intended as a performance testing tool. 
+<p class="level0">As such, <span Class="emphasis">x11perf</span> DOES NOT whittle down measurements to a single ``HeXStones'' or ``MeXops'' number.  We consider such numbers to be uninformative at best and misleading at worst. Some servers which are very fast for certain applications can be very slow for others. No single number or small set of numbers are sufficient to characterize how an X implementation will perform on all applications. However, by knowledge of your favorite application, you may be able to use the numbers <span Class="emphasis">x11perf</span> reports to predict its performance on a given X implementation. 
+<p class="level0">That said, you might also want to look at <span Class="emphasis">x11perfcomp(1),</span> a program to compare the outputs of different <span Class="emphasis">x11perf</span> runs.  You provide a list of files containing results from <span Class="emphasis">x11perf,</span> and it lays them out in a nice tabular format. 
+<p class="level0">For repeatable results, <span Class="emphasis">x11perf</span> should be run using a local connection on a freshly-started server.  The default configuration runs each test 5 times, in order to see if each trial takes approximately the same amount of time. Strange glitches should be examined; if non-repeatable one might chalk them up to daemons and network traffic.  Each trial is run for 5 seconds, in order to reduce random time differences.  The number of objects processed per second is displayed to 3 significant digits, but you'll be lucky on most UNIX system if the numbers are actually consistent to 2 digits. <span Class="emphasis">x11perf</span> moves the cursor out of the test window; you should be careful not to bump the mouse and move it back into the window. (A prize to people who correctly explain why!!). 
+<p class="level0">Before running a test, <span Class="emphasis">x11perf</span> determines what the round trip time to the server is, and factors this out of the final timing reported.  It ensures that the server has actually performed the work requested by fetching a pixel back from the test window, which means that servers talking to graphics accelerators can't claim that they are done, while in the meantime the accelerator is painting madly. 
+<p class="level0">By default <span Class="emphasis">x11perf</span> automatically calibrates the number of repetitions of each test, so that each should take approximately the same length of time to run across servers of widely differing speeds.  However, since each test must be run to completion at least once, some slow servers may take a very long time, particularly on the window moving and resizing tests, and on the arc drawing tests. 
+<p class="level0">All timing reports are for the smallest object involved.  For example, the line tests use a PolyLine request to paint several lines at once, but report how many lines per second the server can paint, not how many PolyLine requests per second.  Text tests paint a line of characters, but report on the number of characters per second.  Some window tests map, unmap, or move a single parent window, but report on how many children windows per second the server can map, unmap, or move. 
+<p class="level0">The current program is mostly the responsibility of Joel McCormack.  It is based upon the x11perf developed by Phil Karlton, Susan Angebranndt, Chris Kent, Mary Walker, and Todd Newman, who wanted to assess performance differences between various servers. Several tests were added  in order to write and tune the PMAX (DECStation 3100) servers. For a general release to the world, <span Class="emphasis">x11perf</span> was rewritten to ease making comparisons between widely varying machines, to cover most important (and unimportant) X functionality, and to exercise graphics operations in as many different orientations and alignments as possible. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">x11perf</span> is solely Xlib based, and accepts the options listed below: 
+<p class="level0"><span Class="bold">-display host:dpy</span> Specifies which display to use. 
+<p class="level0"><span Class="bold">-sync</span> Runs the tests in synchronous mode. Normally only useful for debugging <span Class="emphasis">x11perf .</span> 
+<p class="level0"><span Class="bold">-pack</span> Runs rectangle tests so that they pack rectangles right next to each other. This makes it easy to debug server code for stipples and tiles...if the pattern looks ugly, you've got alignment problems. 
+<p class="level0"><span Class="bold">-repeat &lt;n&gt;</span> Repeats each test <span Class="emphasis">n</span> times (by default each test is run 5 times). 
+<p class="level0"><span Class="bold">-time &lt;s&gt;</span> Specifies how long in seconds each test should be run (default 5 seconds). 
+<p class="level0"><span Class="bold">-all</span> Runs all tests.  This may take a while. 
+<p class="level0"><span Class="bold">-range &lt;test1&gt;[,&lt;test2&gt;]</span> Runs all the tests starting from the specified name <span Class="emphasis">test1</span> until the name <span Class="emphasis">test2</span>, including both the specified tests. The testnames should be one of the options starting from -dot. (eg) -range line100 will perform the tests from the 100 pixel line test, and go on till the last test, -range line100,dline10 will do the tests from line100 to dline10. 
+<p class="level0"><span Class="bold">-labels</span> Generates just the descriptive labels for each test specified.  See <span Class="emphasis">x11perfcomp</span> for more details. 
+<p class="level0"><span Class="bold">-fg color-or-pixel</span> Specifies the foreground color or pixel value to use. 
+<p class="level0"><span Class="bold">-bg color-or-pixel</span> Specifies the background color or pixel value to use. 
+<p class="level0"><span Class="bold">-clips default</span> Default number of clip windows. 
+<p class="level0"><span Class="bold">-ddbg color-or-pixel</span> Specifies the color or pixel value to use for drawing the odd segments of a DoubleDashed line or arc. This will default to the bg color. 
+<p class="level0"><span Class="bold">-rop &lt;rop0 rop1 ...&gt;</span> Use specified raster ops (default is GXcopy). This option only affects graphics benchmarks in which the graphics function is actually used. 
+<p class="level0"><span Class="bold">-pm &lt;pm0 pm1 ...&gt;</span> Use specified planemasks (default is ~0). This option only affects graphics benchmarks in which the planemask is actually used. 
+<p class="level0"><span Class="bold">-depth &lt;depth&gt;</span> Use a visual with &lt;depth&gt; planes per pixel (default is the default visual). 
+<p class="level0"><span Class="bold">-vclass &lt;vclass&gt;</span> Use a visual with of class &lt;vclass&gt;.  &lt;vclass&gt; can be StaticGray, GrayScale, StaticColor, PseudoColor, TrueColor, or DirectColor.  (default is the default visual). 
+<p class="level0"><span Class="bold">-reps &lt;n&gt;</span> Specify the repetition count (Default is number that takes approx. 5 seconds) 
+<p class="level0"><span Class="bold">-subs &lt;s0 s1 ...&gt;</span> Specify the number of sub windows to use in the Window tests. Default is  4, 16, 25, 50, 75, 100 and 200. 
+<p class="level0"><span Class="bold">-v1.2</span> Perform only x11perf Version 1.2 tests using Version 1.2 semantics. 
+<p class="level0"><span Class="bold">-v1.3</span> Perform only x11perf Version 1.3 tests using Version 1.3 semantics. 
+<p class="level0"><span Class="bold">-su</span> Set the save_under window attribute to True on all windows created by x11perf. Default is False. 
+<p class="level0"><span Class="bold">-bs &lt;backing_store_hint&gt;</span> Set the backing_store window attribute to the given value on all windows created by x11perf. &lt;backing_store_hint&gt; can be WhenMapped or Always.  Default is NotUseful. 
+<p class="level0"><span Class="bold">-dot</span> Dot. 
+<p class="level0"><span Class="bold">-rect1</span> 1x1 solid-filled rectangle. 
+<p class="level0"><span Class="bold">-rect10</span> 10x10 solid-filled rectangle. 
+<p class="level0"><span Class="bold">-rect100</span> 100x100 solid-filled rectangle. 
+<p class="level0"><span Class="bold">-rect500</span> 500x500 solid-filled rectangle. 
+<p class="level0"><span Class="bold">-srect1</span> 1x1 transparent stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-srect10</span> 10x10 transparent stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-srect100</span> 100x100 transparent stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-srect500</span> 500x500 transparent stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-osrect1</span> 1x1 opaque stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-osrect10</span> 10x10 opaque stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-osrect100</span> 100x100 opaque stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-osrect500</span> 500x500 opaque stippled rectangle, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-tilerect1</span> 1x1 tiled rectangle, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tilerect10</span> 10x10 tiled rectangle, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tilerect100</span> 100x100 tiled rectangle, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tilerect500</span> 500x500 tiled rectangle, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-oddsrect1</span> 1x1 transparent stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddsrect10</span> 10x10 transparent stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddsrect100</span> 100x100 transparent stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddsrect500</span> 500x500 transparent stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddosrect1</span> 1x1 opaque stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddosrect10</span> 10x10 opaque stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddosrect100</span> 100x100 opaque stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddosrect500</span> 500x500 opaque stippled rectangle, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddtilerect1</span> 1x1 tiled rectangle, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtilerect10</span> 10x10 tiled rectangle, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtilerect100</span> 100x100 tiled rectangle, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtilerect500</span> 500x500 tiled rectangle, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-bigsrect1</span> 1x1 stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigsrect10</span> 10x10 stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigsrect100</span> 100x100 stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigsrect500</span> 500x500 stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigosrect1</span> 1x1 opaque stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigosrect10</span> 10x10 opaque stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigosrect100</span> 100x100 opaque stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigosrect500</span> 500x500 opaque stippled rectangle, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigtilerect1</span> 1x1 tiled rectangle, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtilerect10</span> 10x10 tiled rectangle, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtilerect100</span> 100x100 tiled rectangle, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtilerect500</span> 500x500 tiled rectangle, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-eschertilerect1</span> 1x1 tiled rectangle, 215x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertilerect10</span> 10x10 tiled rectangle, 215x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertilerect100</span> 100x100 tiled rectangle, 215x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertilerect500</span> 500x500 tiled rectangle, 215x208 tile pattern. 
+<p class="level0"><span Class="bold">-seg1</span> 1-pixel thin line segment. 
+<p class="level0"><span Class="bold">-seg10</span> 10-pixel thin line segment. 
+<p class="level0"><span Class="bold">-seg100</span> 100-pixel thin line segment. 
+<p class="level0"><span Class="bold">-seg500</span> 500-pixel thin line segment. 
+<p class="level0"><span Class="bold">-seg100c1</span> 100-pixel thin line segment (1 obscuring rectangle). 
+<p class="level0"><span Class="bold">-seg100c2</span> 100-pixel thin line segment (2 obscuring rectangles). 
+<p class="level0"><span Class="bold">-seg100c3</span> 100-pixel thin line segment (3 obscuring rectangles). 
+<p class="level0"><span Class="bold">-dseg10</span> 10-pixel thin dashed segment (3 on, 2 off). 
+<p class="level0"><span Class="bold">-dseg100</span> 100-pixel thin dashed segment (3 on, 2 off). 
+<p class="level0"><span Class="bold">-ddseg100</span> 100-pixel thin double-dashed segment (3 fg, 2 bg). 
+<p class="level0"><span Class="bold">-hseg10</span> 10-pixel thin horizontal line segment. 
+<p class="level0"><span Class="bold">-hseg100</span> 100-pixel thin horizontal line segment. 
+<p class="level0"><span Class="bold">-hseg500</span> 500-pixel thin horizontal line segment. 
+<p class="level0"><span Class="bold">-vseg10</span> 10-pixel thin vertical line segment. 
+<p class="level0"><span Class="bold">-vseg100</span> 100-pixel thin vertical line segment. 
+<p class="level0"><span Class="bold">-vseg500</span> 500-pixel thin vertical line segment. 
+<p class="level0"><span Class="bold">-whseg10</span> 10-pixel wide horizontal line segment. 
+<p class="level0"><span Class="bold">-whseg100</span> 100-pixel wide horizontal line segment. 
+<p class="level0"><span Class="bold">-whseg500</span> 500-pixel wide horizontal line segment. 
+<p class="level0"><span Class="bold">-wvseg10</span> 10-pixel wide vertical line segment. 
+<p class="level0"><span Class="bold">-wvseg100</span> 100-pixel wide vertical line segment. 
+<p class="level0"><span Class="bold">-wvseg500</span> 500-pixel wide vertical line segment. 
+<p class="level0"><span Class="bold">-line1</span> 1-pixel thin (width 0) line. 
+<p class="level0"><span Class="bold">-line10</span> 10-pixel thin line. 
+<p class="level0"><span Class="bold">-line100</span> 100-pixel thin line. 
+<p class="level0"><span Class="bold">-line500</span> 500-pixel thin line. 
+<p class="level0"><span Class="bold">-dline10</span> 10-pixel thin dashed line (3 on, 2 off). 
+<p class="level0"><span Class="bold">-dline100</span> 100-pixel thin dashed line (3 on, 2 off). 
+<p class="level0"><span Class="bold">-ddline100</span> 100-pixel thin double-dashed line (3 fg, 2 bg). 
+<p class="level0"><span Class="bold">-wline10</span> 10-pixel line, line width 1. 
+<p class="level0"><span Class="bold">-wline100</span> 100-pixel line, line width 10. 
+<p class="level0"><span Class="bold">-wline500</span> 500-pixel line, line width 50. 
+<p class="level0"><span Class="bold">-wdline100</span> 100-pixel dashed line, line width 10 (30 on, 20 off). 
+<p class="level0"><span Class="bold">-wddline100</span> 100-pixel double-dashed line, line width 10 (30 fg, 20 bg). 
+<p class="level0"><span Class="bold">-orect10</span> 10x10 thin rectangle outline. 
+<p class="level0"><span Class="bold">-orect100</span> 100-pixel thin vertical line segment. 
+<p class="level0"><span Class="bold">-orect500</span> 500-pixel thin vertical line segment. 
+<p class="level0"><span Class="bold">-worect10</span> 10x10 wide rectangle outline. 
+<p class="level0"><span Class="bold">-worect100</span> 100-pixel wide vertical line segment. 
+<p class="level0"><span Class="bold">-worect500</span> 500-pixel wide vertical line segment. 
+<p class="level0"><span Class="bold">-circle1</span> 1-pixel diameter thin (line width 0) circle. 
+<p class="level0"><span Class="bold">-circle10</span> 10-pixel diameter thin circle. 
+<p class="level0"><span Class="bold">-circle100</span> 100-pixel diameter thin circle. 
+<p class="level0"><span Class="bold">-circle500</span> 500-pixel diameter thin circle. 
+<p class="level0"><span Class="bold">-dcircle100</span> 100-pixel diameter thin dashed circle (3 on, 2 off). 
+<p class="level0"><span Class="bold">-ddcircle100</span> 100-pixel diameter thin double-dashed circle (3 fg, 2 bg). 
+<p class="level0"><span Class="bold">-wcircle10</span> 10-pixel diameter circle, line width 1. 
+<p class="level0"><span Class="bold">-wcircle100</span> 100-pixel diameter circle, line width 10. 
+<p class="level0"><span Class="bold">-wcircle500</span> 500-pixel diameter circle, line width 50. 
+<p class="level0"><span Class="bold">-wdcircle100</span> 100-pixel diameter dashed circle, line width 10 (30 on, 20 off). 
+<p class="level0"><span Class="bold">-wddcircle100</span> 100-pixel diameter double-dashed circle, line width 10 (30 fg, 20 bg). 
+<p class="level0"><span Class="bold">-pcircle10</span> 10-pixel diameter thin partial circle, orientation and arc angle evenly distributed. 
+<p class="level0"><span Class="bold">-pcircle100</span> 100-pixel diameter thin partial circle. 
+<p class="level0"><span Class="bold">-wpcircle10</span> 10-pixel diameter wide partial circle. 
+<p class="level0"><span Class="bold">-wpcircle100</span> 100-pixel diameter wide partial circle. 
+<p class="level0"><span Class="bold">-fcircle1</span> 1-pixel diameter filled circle. 
+<p class="level0"><span Class="bold">-fcircle10</span> 10-pixel diameter filled circle. 
+<p class="level0"><span Class="bold">-fcircle100</span> 100-pixel diameter filled circle. 
+<p class="level0"><span Class="bold">-fcircle500</span> 500-pixel diameter filled circle. 
+<p class="level0"><span Class="bold">-fcpcircle10</span> 10-pixel diameter partial filled circle, chord fill, orientation and arc angle evenly distributed. 
+<p class="level0"><span Class="bold">-fcpcircle100</span> 100-pixel diameter partial filled circle, chord fill. 
+<p class="level0"><span Class="bold">-fspcircle10</span> 10-pixel diameter partial filled circle, pie slice fill, orientation and arc angle evenly distributed. 
+<p class="level0"><span Class="bold">-fspcircle100</span> 100-pixel diameter partial filled circle, pie slice fill. 
+<p class="level0"><span Class="bold">-ellipse10</span> 10-pixel diameter thin (line width 0) ellipse, major and minor axis sizes evenly distributed. 
+<p class="level0"><span Class="bold">-ellipse100</span> 100-pixel diameter thin ellipse. 
+<p class="level0"><span Class="bold">-ellipse500</span> 500-pixel diameter thin ellipse. 
+<p class="level0"><span Class="bold">-dellipse100</span> 100-pixel diameter thin dashed ellipse (3 on, 2 off). 
+<p class="level0"><span Class="bold">-ddellipse100</span> 100-pixel diameter thin double-dashed ellipse (3 fg, 2 bg). 
+<p class="level0"><span Class="bold">-wellipse10</span> 10-pixel diameter ellipse, line width 1. 
+<p class="level0"><span Class="bold">-wellipse100</span> 100-pixel diameter ellipse, line width 10. 
+<p class="level0"><span Class="bold">-wellipse500</span> 500-pixel diameter ellipse, line width 50. 
+<p class="level0"><span Class="bold">-wdellipse100</span> 100-pixel diameter dashed ellipse, line width 10 (30 on, 20 off). 
+<p class="level0"><span Class="bold">-wddellipse100</span> 100-pixel diameter double-dashed ellipse, line width 10 (30 fg, 20 bg). 
+<p class="level0"><span Class="bold">-pellipse10</span> 10-pixel diameter thin partial ellipse. 
+<p class="level0"><span Class="bold">-pellipse100</span> 100-pixel diameter thin partial ellipse. 
+<p class="level0"><span Class="bold">-wpellipse10</span> 10-pixel diameter wide partial ellipse. 
+<p class="level0"><span Class="bold">-wpellipse100</span> 100-pixel diameter wide partial ellipse. 
+<p class="level0"><span Class="bold">-fellipse10</span> 10-pixel diameter filled ellipse. 
+<p class="level0"><span Class="bold">-fellipse100</span> 100-pixel diameter filled ellipse. 
+<p class="level0"><span Class="bold">-fellipse500</span> 500-pixel diameter filled ellipse. 
+<p class="level0"><span Class="bold">-fcpellipse10</span> 10-pixel diameter partial filled ellipse, chord fill. 
+<p class="level0"><span Class="bold">-fcpellipse100</span> 100-pixel diameter partial filled ellipse, chord fill. 
+<p class="level0"><span Class="bold">-fspellipse10</span> 10-pixel diameter partial filled ellipse, pie slice fill. 
+<p class="level0"><span Class="bold">-fspellipse100</span> 100-pixel diameter partial filled ellipse, pie slice fill. 
+<p class="level0"><span Class="bold">-triangle1</span> Fill 1-pixel/side triangle. 
+<p class="level0"><span Class="bold">-triangle10</span> Fill 10-pixel/side triangle. 
+<p class="level0"><span Class="bold">-triangle100</span> Fill 100-pixel/side triangle. 
+<p class="level0"><span Class="bold">-trap1</span> Fill 1x1 trapezoid. 
+<p class="level0"><span Class="bold">-trap10</span> Fill 10x10 trapezoid. 
+<p class="level0"><span Class="bold">-trap100</span> Fill 100x100 trapezoid. 
+<p class="level0"><span Class="bold">-trap300</span> Fill 300x300 trapezoid. 
+<p class="level0"><span Class="bold">-strap1</span> Fill 1x1 transparent stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-strap10</span> Fill 10x10 transparent stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-strap100</span> Fill 100x100 transparent stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-strap300</span> Fill 300x300 transparent stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-ostrap1</span> Fill 10x10 opaque stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-ostrap10</span> Fill 10x10 opaque stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-ostrap100</span> Fill 100x100 opaque stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-ostrap300</span> Fill 300x300 opaque stippled trapezoid, 8x8 stipple pattern. 
+<p class="level0"><span Class="bold">-tiletrap1</span> Fill 10x10 tiled trapezoid, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tiletrap10</span> Fill 10x10 tiled trapezoid, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tiletrap100</span> Fill 100x100 tiled trapezoid, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-tiletrap300</span> Fill 300x300 tiled trapezoid, 4x4 tile pattern. 
+<p class="level0"><span Class="bold">-oddstrap1</span> Fill 1x1 transparent stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddstrap10</span> Fill 10x10 transparent stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddstrap100</span> Fill 100x100 transparent stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddstrap300</span> Fill 300x300 transparent stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddostrap1</span> Fill 10x10 opaque stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddostrap10</span> Fill 10x10 opaque stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddostrap100</span> Fill 100x100 opaque stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddostrap300</span> Fill 300x300 opaque stippled trapezoid, 17x15 stipple pattern. 
+<p class="level0"><span Class="bold">-oddtiletrap1</span> Fill 10x10 tiled trapezoid, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtiletrap10</span> Fill 10x10 tiled trapezoid, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtiletrap100</span> Fill 100x100 tiled trapezoid, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-oddtiletrap300</span> Fill 300x300 tiled trapezoid, 17x15 tile pattern. 
+<p class="level0"><span Class="bold">-bigstrap1</span> Fill 1x1 transparent stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigstrap10</span> Fill 10x10 transparent stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigstrap100</span> Fill 100x100 transparent stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigstrap300</span> Fill 300x300 transparent stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigostrap1</span> Fill 10x10 opaque stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigostrap10</span> Fill 10x10 opaque stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigostrap100</span> Fill 100x100 opaque stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigostrap300</span> Fill 300x300 opaque stippled trapezoid, 161x145 stipple pattern. 
+<p class="level0"><span Class="bold">-bigtiletrap1</span> Fill 10x10 tiled trapezoid, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtiletrap10</span> Fill 10x10 tiled trapezoid, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtiletrap100</span> Fill 100x100 tiled trapezoid, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-bigtiletrap300</span> Fill 300x300 tiled trapezoid, 161x145 tile pattern. 
+<p class="level0"><span Class="bold">-eschertiletrap1</span> Fill 1x1 tiled trapezoid, 216x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertiletrap10</span> Fill 10x10 tiled trapezoid, 216x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertiletrap100</span> Fill 100x100 tiled trapezoid, 216x208 tile pattern. 
+<p class="level0"><span Class="bold">-eschertiletrap300</span> Fill 300x300 tiled trapezoid, 216x208 tile pattern. 
+<p class="level0"><span Class="bold">-complex10</span> Fill 10-pixel/side complex polygon. 
+<p class="level0"><span Class="bold">-complex100</span> Fill 100-pixel/side complex polygon. 
+<p class="level0"><span Class="bold">-64poly10convex</span> Fill 10x10 convex 64-gon. 
+<p class="level0"><span Class="bold">-64poly100convex</span> Fill 100x100 convex 64-gon. 
+<p class="level0"><span Class="bold">-64poly10complex</span> Fill 10x10 complex 64-gon. 
+<p class="level0"><span Class="bold">-64poly100complex</span> Fill 100x100 complex 64-gon. 
+<p class="level0"><span Class="bold">-ftext</span> Character in 80-char line (6x13). 
+<p class="level0"><span Class="bold">-f8text</span> Character in 70-char line (8x13). 
+<p class="level0"><span Class="bold">-f9text</span> Character in 60-char line (9x15). 
+<p class="level0"><span Class="bold">-f14text16</span> 2-byte character in 40-char line (k14). 
+<p class="level0"><span Class="bold">-tr10text</span> Character in 80-char line (Times-Roman 10). 
+<p class="level0"><span Class="bold">-tr24text</span> Character in 30-char line (Times-Roman 24). 
+<p class="level0"><span Class="bold">-polytext</span> Character in 20/40/20 line (6x13, Times-Roman 10, 6x13). 
+<p class="level0"><span Class="bold">-polytext16</span> 2-byte character in 7/14/7 line (k14, k24). 
+<p class="level0"><span Class="bold">-fitext</span> Character in 80-char image line (6x13). 
+<p class="level0"><span Class="bold">-f8itext</span> Character in 70-char image line (8x13). 
+<p class="level0"><span Class="bold">-f9itext</span> Character in 60-char image line (9x15). 
+<p class="level0"><span Class="bold">-f14itext16</span> 2-byte character in 40-char image line (k14). 
+<p class="level0"><span Class="bold">-f24itext16</span> 2-byte character in 23-char image line (k24). 
+<p class="level0"><span Class="bold">-tr10itext</span> Character in 80-char image line (Times-Roman 10). 
+<p class="level0"><span Class="bold">-tr24itext</span> Character in 30-char image line (Times-Roman 24). 
+<p class="level0"><span Class="bold">-scroll10</span> Scroll 10x10 pixels vertically. 
+<p class="level0"><span Class="bold">-scroll100</span> Scroll 100x100 pixels vertically. 
+<p class="level0"><span Class="bold">-scroll500</span> Scroll 500x500 pixels vertically. 
+<p class="level0"><span Class="bold">-copywinwin10</span> Copy 10x10 square from window to window. 
+<p class="level0"><span Class="bold">-copywinwin100</span> Copy 100x100 square from window to window. 
+<p class="level0"><span Class="bold">-copywinwin500</span> Copy 500x500 square from window to window. 
+<p class="level0"><span Class="bold">-copypixwin10</span> Copy 10x10 square from pixmap to window. 
+<p class="level0"><span Class="bold">-copypixwin100</span> Copy 100x100 square from pixmap to window. 
+<p class="level0"><span Class="bold">-copypixwin500</span> Copy 500x500 square from pixmap to window. 
+<p class="level0"><span Class="bold">-copywinpix10</span> Copy 10x10 square from window to pixmap. 
+<p class="level0"><span Class="bold">-copywinpix100</span> Copy 100x100 square from window to pixmap. 
+<p class="level0"><span Class="bold">-copywinpix500</span> Copy 500x500 square from window to pixmap. 
+<p class="level0"><span Class="bold">-copypixpix10</span> Copy 10x10 square from pixmap to pixmap. 
+<p class="level0"><span Class="bold">-copypixpix100</span> Copy 100x100 square from pixmap to pixmap. 
+<p class="level0"><span Class="bold">-copypixpix500</span> Copy 500x500 square from pixmap to pixmap. 
+<p class="level0"><span Class="bold">-copyplane10</span> Copy 10x10 1-bit deep plane. 
+<p class="level0"><span Class="bold">-copyplane100</span> Copy 100x100 1-bit deep plane. 
+<p class="level0"><span Class="bold">-copyplane500</span> Copy 500x500 1-bit deep plane. 
+<p class="level0"><span Class="bold">-putimage10</span> PutImage 10x10 square. 
+<p class="level0"><span Class="bold">-putimage100</span> PutImage 100x100 square. 
+<p class="level0"><span Class="bold">-putimage500</span> PutImage 500x500 square. 
+<p class="level0"><span Class="bold">-putimagexy10</span> PutImage XY format 10x10 square. 
+<p class="level0"><span Class="bold">-putimagexy100</span> PutImage XY format 100x100 square. 
+<p class="level0"><span Class="bold">-putimagexy500</span> PutImage XY format 500x500 square. 
+<p class="level0"><span Class="bold">-shmput10</span> PutImage 10x10 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-shmput100</span> PutImage 100x100 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-shmput500</span> PutImage 500x500 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-shmputxy10</span> PutImage XY format 10x10 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-shmputxy100</span> PutImage XY format 100x100 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-shmputxy500</span> PutImage XY format 500x500 square, MIT shared memory extension. 
+<p class="level0"><span Class="bold">-getimage10</span> GetImage 10x10 square. 
+<p class="level0"><span Class="bold">-getimage100</span> GetImage 100x100 square. 
+<p class="level0"><span Class="bold">-getimage500</span> GetImage 500x500 square. 
+<p class="level0"><span Class="bold">-getimagexy10</span> GetImage XY format 10x10 square. 
+<p class="level0"><span Class="bold">-getimagexy100</span> GetImage XY format 100x100 square. 
+<p class="level0"><span Class="bold">-getimagexy500</span> GetImage XY format 500x500 square. 
+<p class="level0"><span Class="bold">-noop</span> X protocol NoOperation. 
+<p class="level0"><span Class="bold">-atom</span> GetAtomName. 
+<p class="level0"><span Class="bold">-pointer</span> QueryPointer. 
+<p class="level0"><span Class="bold">-prop</span> GetProperty. 
+<p class="level0"><span Class="bold">-gc</span> Change graphics context. 
+<p class="level0"><span Class="bold">-create</span> Create child window and map using MapSubwindows. 
+<p class="level0"><span Class="bold">-ucreate</span> Create unmapped window. 
+<p class="level0"><span Class="bold">-map</span> Map child window via MapWindow on parent. 
+<p class="level0"><span Class="bold">-unmap</span> Unmap child window via UnmapWindow on parent. 
+<p class="level0"><span Class="bold">-destroy</span> Destroy child window via DestroyWindow parent. 
+<p class="level0"><span Class="bold">-popup</span> Hide/expose window via Map/Unmap popup window. 
+<p class="level0"><span Class="bold">-move</span> Move window. 
+<p class="level0"><span Class="bold">-umove</span> Moved unmapped window. 
+<p class="level0"><span Class="bold">-movetree</span> Move window via MoveWindow on parent. 
+<p class="level0"><span Class="bold">-resize</span> Resize window. 
+<p class="level0"><span Class="bold">-uresize</span> Resize unmapped window. 
+<p class="level0"><span Class="bold">-circulate</span> Circulate lowest window to top. 
+<p class="level0"><span Class="bold">-ucirculate</span> Circulate unmapped window to top. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">There are no X defaults used by this program. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), x11perfcomp(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Joel McCormack <br>Phil Karlton <br>Susan Angebranndt <br>Chris Kent <br>Keith Packard <br>Graeme Gill 

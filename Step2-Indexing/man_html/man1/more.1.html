@@ -1,0 +1,53 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">more - file perusal filter for crt viewing <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">more</span> [options] <span Class="emphasis">file ...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">more</span> is a filter for paging through text one screenful at a time.  This version is especially primitive.  Users should realize that <span Class="manpage">less (1)</span>provides <span Class="manpage">more (1)</span>emulation plus extensive enhancements. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Options are also taken from the environment variable <span Class="bold">MORE</span> (make sure to precede them with a dash 
+<p class="level0">but command-line options will override those. 
+<p class="level0"><span Class="bold">-d</span> Prompt with "[Press space to continue, 'q' to quit.]", and display "[Press 'h' for instructions.]" instead of ringing the bell when an illegal key is pressed. 
+<p class="level0"><span Class="bold">-l</span> Do not pause after any line containing a <span Class="bold">\&^L</span> (form feed). 
+<p class="level0"><span Class="bold">-f</span> Count logical lines, rather than screen lines (i.e., long lines are not folded). 
+<p class="level0"><span Class="bold">-p</span> Do not scroll.  Instead, clear the whole screen and then display the text. Notice that this option is switched on automatically if the executable is named <span Class="manpage">page .</span>
+<p class="level0"><span Class="bold">-c</span> Do not scroll.  Instead, paint each screen from the top, clearing the remainder of each line as it is displayed. 
+<p class="level0"><span Class="bold">-s</span> Squeeze multiple blank lines into one. 
+<p class="level0"><span Class="bold">-u</span> Suppress underlining. 
+<p class="level0"><span Class="bold">- number</span> The screen size to use, in <span Class="emphasis">number</span> of lines. 
+<p class="level0"><span Class="bold">+ number</span> Start displaying each file at line <span Class="emphasis">number .</span> 
+<p class="level0"><span Class="bold">+/ string</span> The <span Class="emphasis">string</span> to be searched in each file before starting to display it. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">Interactive commands for <span Class="bold">more</span> are based on <span Class="manpage">vi (1).</span>Some commands may be preceded by a decimal number, called k in the descriptions below.  In the following descriptions, <span Class="bold">^X</span> means <span Class="manpage">control-X .</span>
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="manpage">h \ or \ ?</span>Help; display a summary of these commands.  If you forget all other commands, remember this one. 
+<p class="level1"><span Class="bold">SPACE</span> Display next k lines of text.  Defaults to current screen size. 
+<p class="level1"><span Class="bold">z</span> Display next k lines of text.  Defaults to current screen size.  Argument becomes new default. 
+<p class="level1"><span Class="bold">RETURN</span> Display next k lines of text.  Defaults to 1.  Argument becomes new default. 
+<p class="level1"><span Class="manpage">d \ or \ \&^D</span>Scroll k lines.  Default is current scroll size, initially 11.  Argument becomes new default. 
+<p class="level1"><span Class="manpage">q \ or \ Q \ or \ INTERRUPT</span>Exit. 
+<p class="level1"><span Class="bold">s</span> Skip forward k lines of text.  Defaults to 1. 
+<p class="level1"><span Class="bold">f</span> Skip forward k screenfuls of text.  Defaults to 1. 
+<p class="level1"><span Class="manpage">b \ or \ \&^B</span>Skip backwards k screenfuls of text.  Defaults to 1.  Only works with files, not pipes. 
+<p class="level1"><span Class="bold">'</span> Go to the place where the last search started. 
+<p class="level1"><span Class="bold">=</span> Display current line number. 
+<p class="level1"><span Class="bold">\&/pattern</span> Search for kth occurrence of regular expression.  Defaults to 1. 
+<p class="level1"><span Class="bold">n</span> Search for kth occurrence of last regular expression.  Defaults to 1. 
+<p class="level1"><span Class="manpage">!command \ or \ :!command</span>Execute <span Class="emphasis">command</span> in a subshell. 
+<p class="level1"><span Class="bold">v</span> Start up an editor at current line.  The editor is taken from the environment variable <span Class="bold">VISUAL</span> if defined, or <span Class="bold">EDITOR</span> if <span Class="bold">VISUAL</span> is not defined, or defaults to <span Class="bold">vi</span> if neither <span Class="bold">VISUAL</span> nor <span Class="bold">EDITOR</span> is defined. 
+<p class="level1"><span Class="bold">\&^L</span> Redraw screen. 
+<p class="level1"><span Class="bold">:n</span> Go to kth next file.  Defaults to 1. 
+<p class="level1"><span Class="bold">:p</span> Go to kth previous file.  Defaults to 1. 
+<p class="level1"><span Class="bold">:f</span> Display current file name and line number. 
+<p class="level1"><span Class="bold">\&.</span> Repeat previous command. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The <span Class="bold">more</span> command respects the following environment variables, if they exist: 
+<p class="level0"><span Class="bold">MORE</span> This variable may be set with favored options to <span Class="manpage">more .</span>
+<p class="level0"><span Class="bold">SHELL</span> Current shell in use (normally set by the shell at login time). 
+<p class="level0"><span Class="bold">TERM</span> The terminal type used by <span Class="bold">more</span> to get the terminal characteristics necessary to manipulate the screen. 
+<p class="level0"><span Class="bold">VISUAL</span> The editor the user prefers.  Invoked when command key <span Class="emphasis">v</span> is pressed. 
+<p class="level0"><span Class="bold">EDITOR</span> The editor of choice when <span Class="bold">VISUAL</span> is not specified. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">vi (1)</span>, <span Class="manpage">less (1)</span><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Eric Shienbrood, UC Berkeley <br>Modified by Geoff Peck, UCB to add underlining, single spacing <br>Modified by John Foderaro, UCB to add -c and MORE environment variable <a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">The <span Class="bold">more</span> command appeared in 3.0BSD.  This man page documents <span Class="bold">more</span> version 5.19 (Berkeley 6/29/88), which is currently in use in the Linux community.  Documentation was produced using several other versions of the man page, and extensive inspection of the source code. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The more command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

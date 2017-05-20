@@ -1,0 +1,206 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">sprof - read and display shared object profiling data <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><pre class="level0">
+<span class="manpage">sprof  [\fIoption\fP]... \fIshared-object-path\fP \</span>[<span class="emphasis">profile-data-path</span>]"
+</pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">sprof</span> command displays a profiling summary for the shared object specified as its first command-line argument. The profiling summary is created using previously generated profiling data in the (optional) second command-line argument. If the profiling data pathname is omitted, then <span Class="bold">sprof</span> will attempt to deduce it using the soname of the shared object, looking for a file with the name <span Class="emphasis">&lt;soname&gt;.profile</span> in the current directory. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The following command-line options specify the profile output to be produced: 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--call-pairs</span>Print a list of pairs of call paths for the interfaces exported by the shared object, along with the number of times each path is used. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--flat-profile</span>Generate a flat profile of all of the functions in the monitored object, with counts and ticks. 
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--graph</span>Generate a call graph. 
+<p class="level0">If none of the above options is specified, then the default behavior is to display a flat profile and a call graph. 
+<p class="level0">The following additional command-line options are available: 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Display a summary of command-line options and arguments and exit. 
+<p class="level0"><span Class="manpage">--usage</span>Display a short usage message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display the program version and exit. <a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">The <span Class="bold">sprof</span> command is a GNU extension, not present in POSIX.1. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">The following example demonstrates the use of , <span Class="manpage">sprof .</span>The example consists of a main program that calls two functions in a shared library. First, the code of the main program: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">cat prog.c</span>
+&#35;include &lt;stdlib.h&gt;
+&nbsp;
+void x1(void);
+void x2(void);
+&nbsp;
+int
+main(int argc, char *argv[])
+{
+&nbsp;   x1();
+&nbsp;   x2();
+&nbsp;   exit(EXIT_SUCCESS);
+}
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The functions <span Class="emphasis">x1()</span> and <span Class="emphasis">x2()</span> are defined in the following source file that is used to construct the shared library: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">cat libdemo.c</span>
+&#35;include &lt;unistd.h&gt;
+&nbsp;
+void
+consumeCpu1(int lim)
+{
+&nbsp;   int j;
+&nbsp;
+&nbsp;   for (j = 0; j &lt; lim; j++)
+	getppid();
+}
+&nbsp;
+void
+x1(void) {
+&nbsp;   int j;
+&nbsp;
+&nbsp;   for (j = 0; j &lt; 100; j++)
+	consumeCpu1(200000);
+}
+&nbsp;
+void
+consumeCpu2(int lim)
+{
+&nbsp;   int j;
+&nbsp;
+&nbsp;   for (j = 0; j &lt; lim; j++)
+	getppid();
+}
+&nbsp;
+void
+x2(void)
+{
+&nbsp;   int j;
+&nbsp;
+&nbsp;   for (j = 0; j &lt; 1000; j++)
+	consumeCpu2(10000);
+}
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Now we construct the shared library with the real name <span Class="emphasis">libdemo.so.1.0.1 ,</span> and the soname <span Class="emphasis">libdemo.so.1 :</span> 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">cc -g -fPIC -shared -Wl,-soname,libdemo.so.1 e</span>
+&nbsp;       <span class="bold">-o libdemo.so.1.0.1 libdemo.c</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Then we construct symbolic links for the library soname and the library linker name: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">ln -sf libdemo.so.1.0.1 libdemo.so.1</span>
+$ <span class="bold">ln -sf libdemo.so.1 libdemo.so</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Next, we compile the main program, linking it against the shared library, and then list the dynamic dependencies of the program: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">cc -g -o prog prog.c -L. -ldemo</span>
+$ <span class="bold">ldd prog</span>
+	linux-vdso.so.1 =&gt;  (0x00007fff86d66000)
+	libdemo.so.1 =&gt; not found
+	libc.so.6 =&gt; /lib64/libc.so.6 (0x00007fd4dc138000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fd4dc51f000)
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">In order to get profiling information for the shared library, we define the environment variable <span Class="manpage">LD_PROFILE</span>with the soname of the library: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">export LD_PROFILE=libdemo.so.1</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">We then define the environment variable <span Class="manpage">LD_PROFILE_OUTPUT</span>with the pathname of the directory where profile output should be written, and create that directory if it does not exist already: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">export LD_PROFILE_OUTPUT=$(pwd)/prof_data</span>
+$ <span class="bold">mkdir -p $LD_PROFILE_OUTPUT</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">LD_PROFILE</span> causes profiling output to be <span Class="emphasis">appended</span> to the output file if it already exists, so we ensure that there is no preexisting profiling data: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">rm -f $LD_PROFILE_OUTPUT/$LD_PROFILE.profile</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">We then run the program to produce the profiling output, which is written to a file in the directory specified in <span Class="manpage">LD_PROFILE_OUTPUT :</span>
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">LD_LIBRARY_PATH=. ./prog</span>
+$ <span class="bold">ls prof_data</span>
+libdemo.so.1.profile
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">We then use the <span Class="manpage">sprof -p</span>option to generate a flat profile with counts and ticks: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">sprof -p libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile</span>
+Flat profile:
+&nbsp;
+Each sample counts as 0.01 seconds.
+&nbsp; %   cumulative   self              self     total
+&nbsp;time   seconds   seconds    calls  us/call  us/call  name
+&nbsp;60.00      0.06     0.06      100   600.00           consumeCpu1
+&nbsp;40.00      0.10     0.04     1000    40.00           consumeCpu2
+&nbsp; 0.00      0.10     0.00        1     0.00           x1
+&nbsp; 0.00      0.10     0.00        1     0.00           x2
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="manpage">sprof -q</span>option generates a call graph: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">sprof -q libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile</span>
+&nbsp;
+index % time    self  children    called     name
+&nbsp;
+&nbsp;               0.00    0.00      100/100         x1 [1]
+[0]    100.0    0.00    0.00      100         consumeCpu1 [0]
+-----------------------------------------------
+&nbsp;               0.00    0.00        1/1           &lt;UNKNOWN&gt;
+[1]      0.0    0.00    0.00        1         x1 [1]
+&nbsp;               0.00    0.00      100/100         consumeCpu1 [0]
+-----------------------------------------------
+&nbsp;               0.00    0.00     1000/1000        x2 [3]
+[2]      0.0    0.00    0.00     1000         consumeCpu2 [2]
+-----------------------------------------------
+&nbsp;               0.00    0.00        1/1           &lt;UNKNOWN&gt;
+[3]      0.0    0.00    0.00        1         x2 [3]
+&nbsp;               0.00    0.00     1000/1000        consumeCpu2 [2]
+-----------------------------------------------
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Above and below, the "&lt;UNKNOWN&gt;" strings represent identifiers that are outside of the profiled object (in this example, these are instances of <span Class="emphasis">main() ).</span> 
+<p class="level0">The <span Class="manpage">sprof -c</span>option generates a list of call pairs and the number of their occurrences: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">sprof -c libdemo.so.1 $LD_PROFILE_OUTPUT/libdemo.so.1.profile</span>
+&lt;UNKNOWN&gt;                  x1                                 1
+x1                         consumeCpu1                      100
+&lt;UNKNOWN&gt;                  x2                                 1
+x2                         consumeCpu2                     1000
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gprof (1)</span>, <span Class="manpage">ldd (1)</span>, <span Class="manpage">ld.so (8)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

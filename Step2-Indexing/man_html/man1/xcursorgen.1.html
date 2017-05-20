@@ -1,0 +1,15 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xcursorgen - create an X cursor file from a collection of PNG images <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xcursorgen</span> [ <span Class="bold">-V</span> ] [ <span Class="bold">--version</span> ] [ <span Class="bold">-?</span> ] [ <span Class="bold">--help</span> ] [ <span Class="bold">-p</span> <span Class="emphasis">dir</span> ] [ <span Class="bold">--prefix</span> <span Class="emphasis">dir</span> ] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Xcursorgen reads the <span Class="emphasis">config-file</span> to find the list of cursor images along with their hotspot and nominal size information.  Xcursorgen converts all of the images to Xcursor format and writes them to the <span Class="emphasis">output-file</span>. 
+<p class="level0">Each line in the config file is of the form: <br>&lt;size&gt; &lt;xhot&gt; &lt;yhot&gt; &lt;filename&gt; &lt;ms-delay&gt; <br>
+<p class="level0">Multiple images with the same &lt;size&gt; are used to create animated cursors, the &lt;ms-delay&gt; value on each line indicates how long each image should be displayed before switching to the next.  &lt;ms-delay&gt; can be elided for static cursors. 
+<p class="level0">If <span Class="emphasis">config-file</span> is not specified, or is specified as "-", standard input is used for the configuration file. If <span Class="emphasis">output-file</span> is not specified, or is specified as "-", standard output is used for the output file. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display the version number and exit. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Display the usage message and exit. 
+<p class="level0"><span Class="manpage">-p \fIdir\fP</span>, <span Class="manpage">--prefix \fIdir\fP</span>Find cursor images in the directory specified by <span Class="emphasis">dir</span>.   If not specified, the current directory is used. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Xcursor(3) 

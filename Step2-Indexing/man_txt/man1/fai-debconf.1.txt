@@ -1,0 +1,50 @@
+fai-debconf(1)                                                  fai-debconf(1)
+
+
+
+NAME
+       fai-debconf - set debconf values using classes
+
+SYNOPSIS
+       fai-debconf [OPTION] DIRECTORY
+
+DESCRIPTION
+       This  command  is only called internally by FAI and not directly by the
+       user.
+
+       fai-debconf reads files in DIRECTORY which are also a defined class. If
+       the  name  of the class is a directory, all files in this directory are
+       read. The files must have the format of debconf-get-selections(1).  All
+       this  input  is used to call debconf-set-selections(1). This is done in
+       the chroot environment, if the variable $ROOTCMD is set. After  setting
+       the  debconf  values,  dpkg-reconfigure(8)  is called for every package
+       which is installed and for which some debconf data was set.
+
+
+OPTIONS
+       -h     Show help, version and summary of options.
+
+       -s     Skip reconfiguration of packages. Only  set  values  in  debconf
+              database.
+
+       -v     Create verbose output.
+
+       -d     Add additional debuging output. Implies the -v option.
+
+       -f     Run  dpkg-reconfigure  for  all packages FAI has information on,
+              not only for those whose database entries were modified.
+
+SEE ALSO
+       debconf-get-selections(1),  debconf-set-selections(1),   dpkg-reconfig-
+       ure(8)
+
+       This  program  is  part  of FAI (Fully Automatic Installation). The FAI
+       homepage is http://fai-project.org.
+
+
+AUTHOR
+       Written by Thomas Lange <lange@informatik.uni-koeln.de>
+
+
+
+FAI 3                          23 September 2008                fai-debconf(1)

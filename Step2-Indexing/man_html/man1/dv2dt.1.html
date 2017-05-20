@@ -1,0 +1,237 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dv2dt - convert a binary TeX DVI file to DTL text representation 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dv2dt</span> <span Class="emphasis">input-DVI-file</span> <span Class="emphasis">output-DTL-file</span> 
+<p class="level0">If the filenames are omitted, then <span Class="emphasis">stdin</span> and <span Class="emphasis">stdout</span> are assumed. 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dv2dt</span> converts a binary *(Te DVI file to an editable text file in DTL 
+<p class="level0">format.  The companion <span Class="manpage">dt2dv (1)</span>utility can convert the DTL file back to a binary DVI file. 
+<p class="level0"><a name="DVI"></a><h2 class="nroffsh">DVI COMMAND DESCRIPTION</h2>
+<p class="level0">*(Te DVI files contain a compact binary description of typeset pages, as a stream of operation code bytes, each immediately followed by zero or more parameter bytes.  The format of DVI files is fully described in Donald E. Knuth, <span Class="emphasis">\*(Te\&: The Program ,</span> Addison-Wesley (1986), ISBN 0-201-13437-3, as well as in the <span Class="manpage">dvitype (1)</span>literate program source code. 
+<p class="level0">For convenience, we provide a summary of DVI commands here.  In the following list, operation code bytes are given as unsigned decimal values, followed by their symbolic names (not present in the DVI file), and a short description.  A designation like <span Class="emphasis">b[+n]</span> means that the operation code byte is followed by a parameter <span Class="emphasis">b</span> which uses <span Class="emphasis">n</span> bytes, and is signed.  Without the plus sign, the parameter is unsigned.  Signed integer parameter values are always represented in two's complement arithmetic, which is the system followed by most computers manufactured today, including all personal computers and workstations. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">0 set_char_0</span> Set character 0 from current font. 
+<p class="level0"><span Class="emphasis">.\|.\|.</span> 
+<p class="level0"><span Class="emphasis">127 set_char_127</span> Set character 127 from current font. 
+<p class="level0"><span Class="emphasis">128 set1  c[1]</span> Set 1-byte unsigned character (uchar) number <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">129 set2  c[2]</span> Set 2-byte uchar number <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">130 set3  c[3]</span> Set 3-byte uchar number <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">131 set4  c[+4]</span> Set 4-byte signed character (schar) number <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">132 set_rule  a[+4]  b[+4]</span> Set rule, height <span Class="emphasis">a ,</span> width <span Class="emphasis">b .</span> 
+<p class="level0"><span Class="emphasis">133 put1  c[1]</span> Put 1-byte uchar <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">134 put2  c[2]</span> Put 2-byte uchar <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">135 put3  c[3]</span> Put 3-byte uchar <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">136 put4  c[+4]</span> Put 4-byte schar <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">137 put_rule  a[+4]  b[+4]</span> Put rule, height <span Class="emphasis">a ,</span> width <span Class="emphasis">b .</span> 
+<p class="level0"><span Class="emphasis">138 nop</span> Do nothing. 
+<p class="level0"><span Class="emphasis">139 bop  c0[+4]  .\|.\|.  c9[+4]  p[+4]</span> Beginning of page.  The parameters <span Class="emphasis">c0  .\|.\|.  c9</span> are the *(Te page counters, the contents of *(Te count registers <span Class="emphasis">\ecount0  .\|.\|.  \ecount9 .</span> The parameter <span Class="emphasis">p</span> is the byte offset from the beginning of the DVI file of the previous <span Class="emphasis">bop</span> operation code byte.  The first such command in the file has <span Class="emphasis">p = -1 .</span> 
+<p class="level0"><span Class="emphasis">140 eop</span> End of page. 
+<p class="level0"><span Class="emphasis">141 push</span> Push 
+<p class="level0">onto stack. 
+<p class="level0"><span Class="emphasis">142 pop</span> Pop 
+<p class="level0">from stack. 
+<p class="level0"><span Class="emphasis">143 right1  b[+1]</span> Move right <span Class="emphasis">b</span> units. 
+<p class="level0"><span Class="emphasis">144 right2  b[+2]</span> Move right <span Class="emphasis">b</span> units. 
+<p class="level0"><span Class="emphasis">145 right3  b[+3]</span> Move right <span Class="emphasis">b</span> units. 
+<p class="level0"><span Class="emphasis">146 right4  b[+4]</span> Move right <span Class="emphasis">b</span> units. 
+<p class="level0"><span Class="emphasis">147 w0</span> Move right <span Class="emphasis">w</span> units. 
+<p class="level0"><span Class="emphasis">148 w1  b[+1]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">w = b .</span> 
+<p class="level0"><span Class="emphasis">149 w2  b[+2]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">w = b .</span> 
+<p class="level0"><span Class="emphasis">150 w3  b[+3]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">w = b .</span> 
+<p class="level0"><span Class="emphasis">151 w4  b[+4]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">w = b .</span> 
+<p class="level0"><span Class="emphasis">152 x0</span> Move right <span Class="emphasis">x</span> units. 
+<p class="level0"><span Class="emphasis">153 x1  b[+1]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">x = b .</span> 
+<p class="level0"><span Class="emphasis">154 x2  b[+2]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">x = b .</span> 
+<p class="level0"><span Class="emphasis">155 x3  b[+3]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">x = b .</span> 
+<p class="level0"><span Class="emphasis">156 x4  b[+4]</span> Move right <span Class="emphasis">b</span> units, and set <span Class="emphasis">x = b .</span> 
+<p class="level0"><span Class="emphasis">157 down1  a[+1]</span> Move down <span Class="emphasis">a</span> units. 
+<p class="level0"><span Class="emphasis">158 down2  a[+2]</span> Move down <span Class="emphasis">a</span> units. 
+<p class="level0"><span Class="emphasis">159 down3  a[+3]</span> Move down <span Class="emphasis">a</span> units. 
+<p class="level0"><span Class="emphasis">160 down4  a[+4]</span> Move down <span Class="emphasis">a</span> units. 
+<p class="level0"><span Class="emphasis">161 y0</span> Move right <span Class="emphasis">y</span> units. 
+<p class="level0"><span Class="emphasis">162 y1  a[+1]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">y = a .</span> 
+<p class="level0"><span Class="emphasis">163 y2  a[+2]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">y = a .</span> 
+<p class="level0"><span Class="emphasis">164 y3  a[+3]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">y = a .</span> 
+<p class="level0"><span Class="emphasis">165 y4  a[+4]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">y = a .</span> 
+<p class="level0"><span Class="emphasis">166 z0</span> Move right <span Class="emphasis">z</span> units. 
+<p class="level0"><span Class="emphasis">167 z1  a[+1]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">z = a .</span> 
+<p class="level0"><span Class="emphasis">168 z2  a[+2]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">z = a .</span> 
+<p class="level0"><span Class="emphasis">169 z3  a[+3]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">z = a .</span> 
+<p class="level0"><span Class="emphasis">170 z4  a[+4]</span> Move right <span Class="emphasis">a</span> units, and set <span Class="emphasis">z = a .</span> 
+<p class="level0"><span Class="emphasis">171 fnt_num_0</span> Set current font number <span Class="emphasis">(f) = 0 .</span> 
+<p class="level0"><span Class="emphasis">.\|.\|.</span> 
+<p class="level0"><span Class="emphasis">234 fnt_num_63</span> Set <span Class="emphasis">f = 63 .</span> 
+<p class="level0"><span Class="emphasis">235 fnt1  k[1]</span> Set <span Class="emphasis">f = k .</span> 
+<p class="level0"><span Class="emphasis">236 fnt2  k[2]</span> Set <span Class="emphasis">f = k .</span> 
+<p class="level0"><span Class="emphasis">237 fnt3  k[3]</span> Set <span Class="emphasis">f = k .</span> 
+<p class="level0"><span Class="emphasis">238 fnt4  k[+4]</span> Set <span Class="emphasis">f = k .</span> 
+<p class="level0"><span Class="emphasis">239 xxx1  k[1]  x[k]</span> Special string <span Class="emphasis">x</span> with <span Class="emphasis">k</span> bytes. 
+<p class="level0"><span Class="emphasis">240 xxx2  k[2]  x[k]</span> Special string <span Class="emphasis">x</span> with <span Class="emphasis">k</span> bytes. 
+<p class="level0"><span Class="emphasis">241 xxx3  k[3]  x[k]</span> Special string <span Class="emphasis">x</span> with <span Class="emphasis">k</span> bytes. 
+<p class="level0"><span Class="emphasis">242 xxx4  k[4]  x[k]</span> Special string <span Class="emphasis">x</span> with (unsigned) <span Class="emphasis">k</span> bytes. 
+<p class="level0"><span Class="emphasis">243 fnt_def1  k[1] c[4] s[4] d[4] a[1] l[1] n[a+l]</span> Define font <span Class="emphasis">k .</span> The parameters are: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">c</span> Checksum for TFM file. 
+<p class="level1"><span Class="emphasis">s</span> Scale factor, in DVI units. 
+<p class="level1"><span Class="emphasis">d</span> Design size, in DVI units. 
+<p class="level1"><span Class="emphasis">a</span> Length of the ``area'' or directory. 
+<p class="level1"><span Class="emphasis">l</span> Length of the font name. 
+<p class="level1"><span Class="emphasis">n</span> Area and font name string(s). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">244 fnt_def2  k[2] c[4] s[4] d[4] a[1] l[1] n[a+l]</span> Define font <span Class="emphasis">k .</span> 
+<p class="level0"><span Class="emphasis">245 fnt_def3  k[3] c[4] s[4] d[4] a[1] l[1] n[a+l]</span> Define font <span Class="emphasis">k .</span> 
+<p class="level0"><span Class="emphasis">246 fnt_def4  k[+4] c[4] s[4] d[4] a[1] l[1] n[a+l]</span> Define font <span Class="emphasis">k .</span> 
+<p class="level0"><span Class="emphasis">247 pre  i[1]  num[4]  den[4]  mag[4]  k[1]  x[k]</span> Begin preamble.  The parameters are: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">i</span> DVI format.  Standard *(Te has <span Class="emphasis">ID = 2 ,</span> and *(Te-*(Xe has <span Class="emphasis">ID = 3 .</span> 
+<p class="level1"><span Class="emphasis">num</span> Numerator of 100 nm / DVI unit. 
+<p class="level1"><span Class="emphasis">den</span> Denominator of 100 nm / DVI unit. 
+<p class="level1"><span Class="emphasis">mag</span> 1000 * magnification. 
+<p class="level1"><span Class="emphasis">k</span> Comment length. 
+<p class="level1"><span Class="emphasis">x</span> Comment string. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">248 post  p[4] num[4] den[4] mag[4] l[4] u[4] s[2] t[2]</span> Begin postamble.  The parameters are: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">p</span> Pointer to final bop. 
+<p class="level1"><span Class="emphasis">num, den, mag</span> Duplicates of values in preamble. 
+<p class="level1"><span Class="emphasis">l</span> Height-plus-depth of tallest page, in DVI units. 
+<p class="level1"><span Class="emphasis">u</span> Width of widest page, in DVI units. 
+<p class="level1"><span Class="emphasis">s</span> Maximum stack depth needed to process this DVI file. 
+<p class="level1"><span Class="emphasis">t</span> Total number of pages 
+<p class="level1">commands) present. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">249 post_post  q[4] i[1] 223 .\|.\|. 223</span> End postamble.  The parameters are: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">q</span> Byte offset from the beginning of the DVI file to the <span Class="emphasis">post</span> command that started the postamble. 
+<p class="level1"><span Class="emphasis">i</span> DVI format ID, as in the preamble. 
+<p class="level1"><span Class="emphasis"></span> 223 At least four <span Class="emphasis">223</span> bytes. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">250</span> Undefined. 
+<p class="level0"><span Class="emphasis">.\|.\|.</span> 
+<p class="level0"><span Class="emphasis">255</span> Undefined. 
+<p class="level0"><a name="DTL"></a><h2 class="nroffsh">DTL COMMAND DESCRIPTION</h2>
+<p class="level0">A DTL file contains one line per command, with a limit of 1024 characters per line.  Each command contains a symbolic operation name, followed by zero or more parameter values.  The parameter value descriptions are not repeated here; they can be found in the previous section. 
+<p class="level0">variety &lt;variety-name&gt; This command specifies the name of the DTL file type; it has no DVI file equivalent. 
+<p class="level0"><span Class="emphasis">(text)</span> Series of set_char commands, for printable ASCII text. 
+<p class="level0"><span Class="emphasis">\e(</span> Literal ASCII left parenthesis in (text). 
+<p class="level0"><span Class="emphasis">\e)</span> Literal ASCII right parenthesis in (text). 
+<p class="level0"><span Class="emphasis">\e\e</span> Literal ASCII backslash in (text). 
+<p class="level0"><span Class="emphasis">\e</span> Literal ASCII double quote in (text). 
+<p class="level0"><span Class="emphasis">\eXY</span> Set_char for character with hexadecimal code XY, not in parentheses, but by itself for readability. 
+<p class="level0"><span Class="emphasis">s1, s2, s2, s3</span> Set, with (1,2,3,4)-byte charcodes. 
+<p class="level0"><span Class="emphasis">sr</span> <span Class="emphasis">set_rule .</span> 
+<p class="level0"><span Class="emphasis">p1, p2, p2, p3</span> Put, with (1,2,3,4)-byte charcodes. 
+<p class="level0"><span Class="emphasis">pr</span> <span Class="emphasis">put_rule .</span> 
+<p class="level0"><span Class="emphasis">nop</span> <span Class="emphasis">nop</span> (do nothing). 
+<p class="level0"><span Class="emphasis">bop</span> <span Class="emphasis">bop</span> (beginning of page). 
+<p class="level0"><span Class="emphasis">eop</span> <span Class="emphasis">eop</span> (end of page). 
+<p class="level0"><span Class="emphasis">[</span> Push. 
+<p class="level0"><span Class="emphasis">]</span> Pop. 
+<p class="level0"><span Class="emphasis">r1, r2, r3, r4</span> Right, with (1,2,3,4)-byte argument. 
+<p class="level0"><span Class="emphasis">w0, w1, w2, w3, w4</span> As in DVI. 
+<p class="level0"><span Class="emphasis">x0, x1, x2, x3, x4</span> As in DVI. 
+<p class="level0"><span Class="emphasis">d1, d2, d3, d4</span> Down, with (1,2,3,4)-byte argument. 
+<p class="level0"><span Class="emphasis">y0, y1, y2, y3, y4</span> As in DVI. 
+<p class="level0"><span Class="emphasis">z0, z1, z2, z3, z4</span> As in DVI. 
+<p class="level0"><span Class="emphasis">fn</span> <span Class="emphasis">fnt_num</span> (set current font to font number in 0 to 63). 
+<p class="level0"><span Class="emphasis">f1, f2, f3, f4</span> <span Class="emphasis">fnt</span> (set current font to (1,2,3,4)-byte font number). 
+<p class="level0"><span Class="emphasis">special</span> <span Class="emphasis">xxx</span> (special commands with (1,2,3,4)-byte string length). 
+<p class="level0"><span Class="emphasis">fd</span> <span Class="emphasis">fnt_def</span> (assign a number to a named font). 
+<p class="level0"><span Class="emphasis">pre</span> Preamble. 
+<p class="level0"><span Class="emphasis">post</span> <span Class="emphasis">post</span> (begin postamble). 
+<p class="level0"><span Class="emphasis">post_post</span> <span Class="emphasis">post_post</span> (end postamble). 
+<p class="level0"><span Class="emphasis">opcode</span> Undefined DVI command (250 to 255). 
+<p class="level0"><a name="SAMPLE"></a><h2 class="nroffsh">SAMPLE DTL FILE</h2>
+<p class="level0">The following 2-line *(Te file 
+<p class="level1"><pre class="level1">
+Hello.
+ebye
+</pre>
+
+<p class="level1">
+<p class="level0">when processed with the commands 
+<p class="level1"><pre class="level1">
+tex hello.tex
+dv2dt hello.dvi hello.dtl
+</pre>
+
+<p class="level1">
+<p class="level0">produces this DTL file: 
+<p class="level1"><pre class="level1">
+variety sequences-6
+pre 2 25400000 473628672 1000 27 ' TeX output 1995.03.02:2334'
+bop 1 0 0 0 0 0 0 0 0 0 -1
+[
+d3 -917504
+]
+d4 42152922
+[
+d4 -41497562
+[
+r3 1310720
+fd1 0 11374260171 655360 655360 0 5 '' 'cmr10'
+fn0
+(Hello.)
+]
+]
+d3 1572864
+[
+r4 15229091
+(1)
+]
+eop
+post 42 25400000 473628672 1000 43725786 30785863 2 1
+fd1 0 11374260171 655360 655360 0 5 'cmr10'
+post_post 152 2 223 223 223 223
+</pre>
+
+<p class="level1">
+<p class="level0">The command 
+<p class="level1"><pre class="level1">
+dt2dv hello.dtl hello.dvi
+</pre>
+
+<p class="level1">
+<p class="level0">will reconstruct the original DVI file. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dt2dv (1)</span>, <span Class="manpage">dvitype (1)</span>, <span Class="manpage">tex (1).</span>
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">*.dvi</span> binary *(Te DVI file. 
+<p class="level0"><span Class="emphasis">*.dtl</span> text representation of a *(Te DVI file in <a class="emphasis" href="#DVI">DVI Text Language</a> format. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">dv2dt</span> and , <span Class="manpage">dt2dv (1)</span>were written by 
+<p class="level1"><pre class="level1">
+Geoffrey Tobin
+Department of Electronic Engineering
+La Trobe University
+Bundoora, Victoria 3083
+Australia
+Tel: +61 3 479 3736
+FAX: +61 3 479 3025
+Email: &lt;G.Tobin@ee.latrobe.edu.au&gt;
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">These manual pages were primarily written by 
+<p class="level1"><pre class="level1">
+Nelson H. F. Beebe, Ph.D.
+Center for Scientific Computing
+Department of Mathematics
+University of Utah
+Salt Lake City, UT 84112
+Tel: +1 801 581 5254
+FAX: +1 801 581 4148
+Email: &lt;beebe@math.utah.edu&gt;
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">

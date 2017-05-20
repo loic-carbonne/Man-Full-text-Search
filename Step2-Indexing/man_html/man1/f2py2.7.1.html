@@ -1,0 +1,75 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">f2py - Fortran to Python interface generator <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">(1) To construct extension module sources: 
+<p class="level0"><span Class="bold">f2py</span> [&lt;options&gt;] &lt;fortran files&gt; [[[only:]||[skip:]] &lt;fortran functions&gt; ] [: &lt;fortran files&gt; ...] 
+<p class="level0">(2) To compile fortran files and build extension modules: 
+<p class="level0"><span Class="bold">f2py</span> -c [&lt;options&gt;, &lt;config_fc options&gt;, &lt;extra options&gt;] &lt;fortran files&gt; 
+<p class="level0">(3) To generate signature files: 
+<p class="level0"><span Class="bold">f2py</span> -h &lt;filename.pyf&gt; ...&lt; same options as in (1) &gt; <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This program generates a Python C/API file (&lt;modulename&gt;module.c) that contains wrappers for given Fortran or C functions so that they can be called from Python. With the -c option the corresponding extension modules are built. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h &lt;filename&gt;</span> Write signatures of the fortran routines to file &lt;filename&gt; and exit. You can then edit &lt;filename&gt; and use it instead of &lt;fortran files&gt;. If &lt;filename&gt;==stdout then the signatures are printed to stdout. 
+<p class="level0"><span Class="bold">&lt;fortran functions&gt;</span> Names of fortran routines for which Python C/API functions will be generated. Default is all that are found in &lt;fortran files&gt;. 
+<p class="level0"><span Class="bold">skip:</span> Ignore fortran functions that follow until `:'. 
+<p class="level0"><span Class="bold">only:</span> Use only fortran functions that follow until `:'. 
+<p class="level0"><span Class="bold">:</span> Get back to &lt;fortran files&gt; mode. 
+<p class="level0"><span Class="bold">-m &lt;modulename&gt;</span> Name of the module; f2py generates a Python/C API file &lt;modulename&gt;module.c or extension module &lt;modulename&gt;.  Default is &acute;untitled&acute;. 
+<p class="level0"><span Class="bold">--[no-]lower</span> Do [not] lower the cases in &lt;fortran files&gt;. By default, --lower is assumed with -h key, and --no-lower without -h key. 
+<p class="level0"><span Class="bold">--build-dir &lt;dirname&gt;</span> All f2py generated files are created in &lt;dirname&gt;. Default is tempfile.mkdtemp(). 
+<p class="level0"><span Class="bold">--overwrite-signature</span> Overwrite existing signature file. 
+<p class="level0"><span Class="bold">--[no-]latex-doc</span> Create (or not) &lt;modulename&gt;module.tex.  Default is --no-latex-doc. 
+<p class="level0"><span Class="bold">--short-latex</span> Create 'incomplete' LaTeX document (without commands \documentclass, \tableofcontents, and \begin{document}, \end{document}). 
+<p class="level0"><span Class="bold">--[no-]rest-doc</span> Create (or not) &lt;modulename&gt;module.rst.  Default is --no-rest-doc. 
+<p class="level0"><span Class="bold">--debug-capi</span> Create C/API code that reports the state of the wrappers during runtime. Useful for debugging. 
+<p class="level0"><span Class="bold">-include\'&lt;includefile&gt;\'</span> Add CPP &#35;include statement to the C/API code.  &lt;includefile&gt; should be in the format of either `"filename.ext"' or `&lt;filename.ext&gt;'.  As a result &lt;includefile&gt; will be included just before wrapper functions part in the C/API code. The option is depreciated, use `usercode` statement in signature files instead. 
+<p class="level0"><span Class="bold">--[no-]wrap-functions</span> Create Fortran subroutine wrappers to Fortran 77 functions. --wrap-functions is default because it ensures maximum portability/compiler independence. 
+<p class="level0"><span Class="bold">--help-link [..]</span> List system resources found by system_info.py. [..] may contain a list of resources names. See also --link-&lt;resource&gt; switch below. 
+<p class="level0"><span Class="bold">--quiet</span> Run quietly. 
+<p class="level0"><span Class="bold">--verbose</span> Run with extra verbosity. 
+<p class="level0"><span Class="bold">-v</span> Print f2py version ID and exit. 
+<p class="level0"><span Class="bold">--include_paths path1:path2:...</span> Search include files (that f2py will scan) from the given directories. <a name="CONFIGFC"></a><h2 class="nroffsh">CONFIG_FC OPTIONS</h2>
+<p class="level0">The following options are effective only when -c switch is used. 
+<p class="level0"><span Class="bold">--help-compiler</span> List available Fortran compilers [DEPRECIATED]. 
+<p class="level0"><span Class="bold">--fcompiler=&lt;name&gt;</span> Specify Fortran compiler type by vendor. 
+<p class="level0"><span Class="bold">--compiler=&lt;name&gt;</span> Specify C compiler type (as defined by distutils) 
+<p class="level0"><span Class="bold">--fcompiler-exec=&lt;path&gt;</span> Specify the path to F77 compiler [DEPRECIATED]. 
+<p class="level0"><span Class="bold">--f90compiler-exec=&lt;path&gt;</span> Specify the path to F90 compiler [DEPRECIATED]. 
+<p class="level0"><span Class="bold">--help-fcompiler</span> List available Fortran compilers and exit. 
+<p class="level0"><span Class="bold">--f77exec=&lt;path&gt;</span> Specify the path to F77 compiler. 
+<p class="level0"><span Class="bold">--f90exec=&lt;path&gt;</span> Specify the path to F90 compiler. 
+<p class="level0"><span Class="bold">--f77flags=...</span> Specify F77 compiler flags. 
+<p class="level0"><span Class="bold">--f90flags=...</span> Specify F90 compiler flags. 
+<p class="level0"><span Class="bold">--opt=...</span> Specify optimization flags. 
+<p class="level0"><span Class="bold">--arch=...</span> Specify architecture specific optimization flags. 
+<p class="level0"><span Class="bold">--noopt</span> Compile without optimization. 
+<p class="level0"><span Class="bold">--noarch</span> Compile without arch-dependent optimization. 
+<p class="level0"><span Class="bold">--debug</span> Compile with debugging information. <a name="EXTRA"></a><h2 class="nroffsh">EXTRA OPTIONS</h2>
+<p class="level0">The following options are effective only when -c switch is used. 
+<p class="level0"><span Class="bold">--link-&lt;resource&gt; </span> Link extension module with &lt;resource&gt; as defined by numpy_distutils/system_info.py. E.g. to link with optimized LAPACK libraries (vecLib on MacOSX, ATLAS elsewhere), use --link-lapack_opt. See also --help-link switch. 
+<p class="level0">
+<p class="level0"><span Class="bold">-L/path/to/lib/ -l&lt;libname&gt;</span> 
+<p class="level0"><span Class="bold">-D&lt;define&gt; -U&lt;name&gt; -I/path/to/include/ </span> 
+<p class="level0"><span Class="bold">&lt;filename&gt;.o &lt;filename&gt;.so &lt;filename&gt;.a</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-DPREPEND_FORTRAN -DNO_APPEND_FORTRAN -DUPPERCASE_FORTRAN -DUNDERSCORE_G77</span> Macros that might be required with non-gcc Fortran compilers.  
+<p class="level0">
+<p class="level0"><span Class="bold">-DF2PY_REPORT_ATEXIT</span> To print out a performance report of F2PY interface when python exits. Available for Linux. 
+<p class="level0">
+<p class="level0"><span Class="bold">-DF2PY_REPORT_ON_ARRAY_COPY=&lt;int&gt;</span> To send a message to stderr whenever F2PY interface makes a copy of an array. Integer &lt;int&gt; sets the threshold for array sizes when a message should be shown. 
+<p class="level0"><a name="REQUIREMENTS"></a><h2 class="nroffsh">REQUIREMENTS</h2>
+<p class="level0">Python 1.5.2 or higher (2.x is supported). 
+<p class="level0">Numerical Python 13 or higher (20.x,21.x,22.x,23.x are supported). 
+<p class="level0">Optional Numarray 0.9 or higher partially supported. 
+<p class="level0">numpy_distutils from Scipy (can be downloaded from F2PY homepage) <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">python(1) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">For instructions on reporting bugs, see  
+<p class="level0">&nbsp; <a href="http://cens.ioc.ee/projects/f2py2e/FAQ.html">http://cens.ioc.ee/projects/f2py2e/FAQ.html</a> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Pearu Peterson &lt;pearu@cens.ioc.ee&gt; <a name="INTERNET"></a><h2 class="nroffsh">INTERNET RESOURCES</h2>
+<p class="level0">Main website: <a href="http://cens.ioc.ee/projects/f2py2e/">http://cens.ioc.ee/projects/f2py2e/</a> 
+<p class="level0">User's Guide: <a href="http://cens.ioc.ee/projects/f2py2e/usersguide/">http://cens.ioc.ee/projects/f2py2e/usersguide/</a> 
+<p class="level0">Mailing list: <a href="http://cens.ioc.ee/mailman/listinfo/f2py-users/">http://cens.ioc.ee/mailman/listinfo/f2py-users/</a> 
+<p class="level0">Scipy website: <a href="http://www.numpy.org">http://www.numpy.org</a> <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright (c) 1999, 2000, 2001, 2002, 2003, 2004, 2005 Pearu Peterson <a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">NumPy License <a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">2.45.241 

@@ -1,0 +1,22 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mountpoint - see if a directory is a mountpoint <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">/bin/mountpoint</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">/path/to/directory</span> <br><span Class="bold">/bin/mountpoint</span> 
+<p class="level0"><span Class="emphasis">/dev/device</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">Mountpoint</span> checks if the directory is a mountpoint. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-qfP"></a><span class="nroffip">\fB-q\fP</span> 
+<p class="level1">Be quiet - don't print anything. 
+<p class="level0"><a name="fB-dfP"></a><span class="nroffip">\fB-d\fP</span> 
+<p class="level1">Print major/minor device number of the filesystem on stdout. 
+<p class="level0"><a name="fB-xfP"></a><span class="nroffip">\fB-x\fP</span> 
+<p class="level1">Print major/minor device number of the blockdevice on stdout. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">Zero if the directory is a mountpoint, non-zero if not. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Symbolic links are not followed, except when the <span Class="bold">-x</span> option is used. To force following symlinks, add a trailing slash to the path of the directory. 
+<p class="level0">The name of the command is misleading when the -x option is used, but the option is useful for comparing if a directory and a device match up, and there is no other command that can print the info easily. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Miquel van Smoorenburg, miquels@cistron.nl <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">stat (1)</span>

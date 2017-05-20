@@ -1,0 +1,155 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">rasterizer - SVG conversion 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">rasterizer </span> <span Class="emphasis">[options] files</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Rasterizer is a program to convert SVG files to various formats, namely PNG, JPEG and PDF. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> &lt;dir|file&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output directory. If there is a single input file, this can be a file. 
+<p class="level1"><span Class="bold">-m</span> &lt;mimeType&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output mime type. Should be one of  <span Class="emphasis">image/jpg ,</span> <span Class="emphasis">image/jpeg ,</span> <span Class="emphasis">image/jpe ,</span> <span Class="emphasis">image/png ,</span> <span Class="emphasis">image/tiff </span> or  <span Class="emphasis">application/pdf .</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">-w</span> &lt;width&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output width. This is a floating point value. 
+<p class="level1"><span Class="bold">-h</span> &lt;height&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output height. This is a floating point value. 
+<p class="level1"><span Class="bold">-maxw</span> &lt;width&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Maximum output width. This is a floating point value. 
+<p class="level1"><span Class="bold">-maxh</span> &lt;height&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Maximum output height. This is a floating point value. 
+<p class="level1"><span Class="bold">-a</span> &lt;area&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output area. The format for &lt;area&gt; is x,y,w,h, where x, y, w and h are floating point values. 
+<p class="level1"><span Class="bold">-bg</span> &lt;color&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output color. The format for &lt;color&gt; is a.r.g.b, where a, r, g and b are integer values. 
+<p class="level1"><span Class="bold">-cssMedia</span> &lt;media&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS media type for which the source SVG files should be converted. 
+<p class="level1"><span Class="bold">-cssAlternate</span> &lt;alternate&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS alternate stylesheet to use when converting the source SVG files. 
+<p class="level1"><span Class="bold">-cssUser</span> &lt;userStylesheet&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS user stylesheet URI to apply to converted SVG documents in addition to any other referened or embeded stylesheets. 
+<p class="level1"><span Class="bold">-font-family</span> &lt;defaultFontFamily&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Value used as a default when no font-family value is specified. 
+<p class="level1"><span Class="bold">-lang</span> &lt;userLanguage&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">User language to use when converting SVG documents. 
+<p class="level1"><span Class="bold">-q</span> &lt;quality&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Quality for the output image. This is only relevant for the image/jpeg mime type. 
+<p class="level1"><span Class="bold">-indexed</span> (1|2|4|8) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Reduces the image to given number of bits per pixel using an adaptive pallete, resulting in an Indexed image.  This is currently only supported for PNG conversion. 
+<p class="level1"><span Class="bold">-dpi</span> &lt;resolution&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Resolution for the ouptut image. 
+<p class="level1"><span Class="bold">-validate</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Controls whether the source SVG files should be validated. 
+<p class="level1"><span Class="bold">-onload</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Controls if the source SVG files must be rasterize after dispatching the 'onload' event. 
+<p class="level1"><span Class="bold">-scriptSecurityOff</span> removes any security check on the scripts running 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">as a result of dispatching the onload event. 
+<p class="level1"><span Class="bold">-anyScriptOrigin</span> controls whether scripts can be loaded from 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">any location. By default, scripts can only be loaded from 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">the same location as the document referencing them. 
+<p class="level1"><span Class="bold">-scripts</span> &lt;listOfAllowedScripts&gt; List of script types (i.e., 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">values for the type attribute in the &lt;script&gt; tag) which should be loaded. 
+<p class="level1"><span Class="bold">-d</span> &lt;dir|file&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output directory. If there is a single input file, this can be a file. 
+<p class="level1"><span Class="bold">-m</span> &lt;mimeType&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output mime type. 
+<p class="level1"><span Class="bold">-w</span> &lt;width&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output width. This is a floating point value. 
+<p class="level1"><span Class="bold">-h</span> &lt;height&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output height. This is a floating point value. 
+<p class="level1"><span Class="bold">-maxw</span> &lt;width&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Maximum output width. This is a floating point value. 
+<p class="level1"><span Class="bold">-maxh</span> &lt;height&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Maximum output height. This is a floating point value. 
+<p class="level1"><span Class="bold">-a</span> &lt;area&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output area. The format for &lt;area&gt; is x,y,w,h, where x, y, w and h are floating point values. 
+<p class="level1"><span Class="bold">-bg</span> &lt;color&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">output color. The format for &lt;color&gt; is a.r.g.b, where a, r, g and b are integer values. 
+<p class="level1"><span Class="bold">-cssMedia</span> &lt;media&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS media type for which the source SVG files should be converted. 
+<p class="level1"><span Class="bold">-cssAlternate</span> &lt;alternate&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS alternate stylesheet to use when converting the source SVG files. 
+<p class="level1"><span Class="bold">-cssUser</span> &lt;userStylesheet&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">CSS user stylesheet URI to apply to converted SVG documents in addition to any other referened or embeded stylesheets. 
+<p class="level1"><span Class="bold">-font-family</span> &lt;defaultFontFamily&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Value used as a default when no font-family value is specified. 
+<p class="level1"><span Class="bold">-lang</span> &lt;userLanguage&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">User language to use when converting SVG documents. 
+<p class="level1"><span Class="bold">-q</span> &lt;quality&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Quality for the output image. This is only relevant for the image/jpeg mime type. 
+<p class="level1"><span Class="bold">-indexed</span> (1|2|4|8) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Reduces the image to given number of bits per pixel using an adaptive pallete, resulting in an Indexed image.  This is currently only supported for PNG conversion. 
+<p class="level1"><span Class="bold">-dpi</span> &lt;resolution&gt; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Resolution for the ouptut image. 
+<p class="level1"><span Class="bold">-validate</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Controls whether the source SVG files should be validated. 
+<p class="level1"><span Class="bold">-onload</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Controls if the source SVG files must be rasterize after dispatching the 'onload' event. 
+<p class="level1"><span Class="bold">-scriptSecurityOff</span> removes any security check on the scripts running as a result of dispatching the onload event. Always enabled, as in most cases,  <span Class="bold">rasterizer</span> just fails to run without this option. See <span Class="emphasis">-scriptSecurityOn</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">-scriptSecurityOn</span> If this is the  <span Class="emphasis">first</span> argument on the command-line, turn security back on. You'll most likely be hit by the possible bug mentioned below. 
+<p class="level1">
+<p class="level1"><span Class="bold">-anyScriptOrigin</span> controls whether scripts can be loaded from any location. By default, scripts can only be loaded from the same location as the document referencing them. 
+<p class="level1"><span Class="bold">-scripts &lt;listOfAllowedScripts&gt; </span> List of script types (i.e., values for the type attribute in the &lt;script&gt; tag) which should be loaded. 
+<p class="level1"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">If  <span Class="bold">rasterizer </span> fails with an error in the spirit of: 
+<p class="level0">Exception in thread "main" java.security.AccessControlException: access denied (java.util.PropertyPermission java.security.policy write) &nbsp;       at java.security.AccessControlContext.checkPermission(AccessControlContext.java:323) &nbsp;       at java.security.AccessController.checkPermission(AccessController.java:546) &nbsp;       at java.lang.SecurityManager.checkPermission(SecurityManager.java:532) &nbsp;       at java.lang.System.setProperty(System.java:727) 
+<p class="level0">Run it with the <span Class="emphasis">-scriptSecurityOff</span> option on. It seems in some cases the security design is slighlty too strong. This might become the default some day. 
+<p class="level0"><a name="JAVA-WRAPPERS"></a><h2 class="nroffsh">JAVA-WRAPPERS NOTE</h2>
+<p class="level0">
+<p class="level0">This program is a shell script wrapper based on <span Class="manpage">java-wrappers (7).</span>You therefore benefit from several features; please see the  <span Class="manpage">java-wrappers (7)</span>manual page for more information about them. 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">rasterizer </span> is part of  <span Class="manpage">batik</span>written by the Apache Software Foundation. 
+<p class="level0">This manual page was written by Vincent Fourmond &lt;fourmond@debian.org&gt; for the Debian Project, but may be used by others. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">The web page of  <span Class="manpage">batik</span><a href="http://xml.apache.org/batik">http://xml.apache.org/batik</a> 
+<p class="level0"><span Class="manpage">java-wrappers (7)</span>

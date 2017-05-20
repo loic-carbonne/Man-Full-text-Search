@@ -1,0 +1,32 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">weave - translate WEB to TeX <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">weave</span> 
+<p class="level0"><span Class="emphasis">webfile [ \fB.web\fP ]</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">weave</span> program is used to create a *(TX file for viewing a *(WB program. It takes appropriate care of typographic details like page layout and the use of indentation, italics, boldface, etc., and it supplies extensive cross-index information that it gathers automatically. The command line arguments are the same as for <span Class="bold">tangle</span> except for the option: <span Class="bold">-x</span> says to omit the index, module name list, and table of contents pages. (A <span Class="emphasis">CONTENTS.tex</span> file will still be written when the *(TX file is processed, however, unless some macros in <span Class="emphasis">webmac.tex</span> are redefined.) 
+<p class="level0">The output *(TX file name is formed by adding <span Class="bold">.tex</span> to the root of the *(WB file name. 
+<p class="level0">There are several macros that probably should be redefined by the programmer at the beginning of the *(WB file. It is a good idea to set \title to the name of the program. And, to cause output of only changed modules, one can say \let\maybe=\iffalse (usually as the first change in the change file). 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The environment variable WEBINPUTS is used to search for the input files, or the system default if WEBINPUTS is not set.  See <span Class="manpage">tex (1)</span>for the details of the searching. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/tex/plain/base/webmac.tex</span> *(TX macros used by <span Class="bold">weave</span> output. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tangle (1)</span>for references, authors, and other information. 

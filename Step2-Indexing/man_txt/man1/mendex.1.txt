@@ -1,0 +1,290 @@
+MENDEX(1)                   General Commands Manual                  MENDEX(1)
+
+
+
+
+       mendex -
+
+
+       mendex  [-ilqrcgEJS]  [-s  sty] [-d dic] [-o ind] [-d dic] [-t log] [-p
+       no] [-I enc] [ idx0 idx1 idx2 ...]
+
+
+       mendex  LaTeX (.idx) makeindex
+
+
+
+
+       -i
+
+       -l          ()
+
+       -q
+
+       -r         "1--5"
+
+       -c
+
+       -g          ""  ""
+
+       -f
+
+       -s sty    sty
+
+       -d dic    dic  < >
+
+       -o ind    ind  .ind
+
+       -t log    log  .ilg
+
+       -p no     no  TeX.log  any()odd()even()
+
+       -E        EUCEUC
+
+       -J        JISJIS
+
+       -S        ShiftJISShiftJIS
+
+       -U        UTF-8UTF-8
+
+       -I enc    enc enc  euc(EUC-JP)  utf8(UTF-8)
+
+
+
+
+        makeindex   < >   `%'
+
+
+
+       keyword  <>                   "\\indexentry"
+
+
+       arg_open  <>                  '{'
+
+
+       arg_close  <>                 '}'
+
+
+       range_open  <>                '('
+
+
+       range_close  <>               ')'
+
+
+       level  <>                     '!'
+
+
+       actual  <>                    '@'
+
+
+       encap  <>                     '|'
+
+
+       page_compositor  <>           "-"
+
+
+       page_precedence  <>           "rnaRA"
+                                      'R''r''n''A''a'
+
+       quote  <>                     '"'
+                                     mendex
+
+       escape  <>                    '\\'
+
+
+
+
+       preamble  <> "\\begin{theindex}\n"
+
+
+       postamble  <>                 "\n\n\\end{theindex}\n"
+
+
+       setpage_prefix  <>            "\n  \\setcounter{page}{"
+
+
+       setpage_suffix  <>            "}\n"
+
+
+       group_skip  <>                "\n\n  \\indexsapce\n"
+                                      ( )
+
+       lethead_prefix  <>            ""
+
+
+       heading_prefix  <>            ""
+                                     lethead_prefix
+
+       lethead_suffix  <>            ""
+
+
+       heading_suffix  <>            ""
+                                     lethead_suffix
+
+       lethead_flag  <>              0
+                                      000
+
+       heading_flag  <>              0
+                                     lethead_flag
+
+       item_0  <>                    "\n  \\item "
+
+
+       item_1  <>                    "\n     \\subitem "
+
+
+       item_2  <>                    "\n       \\subsubitem "
+
+
+       item_01  <>                   "\n    \\subitem "
+
+
+       item_x1  <>                   "\n    \\subitem "
+                                     ()
+
+       item_12  <>                   "\n    \\subsubitem "
+
+
+       item_x2  <>                   "\n    \\subsubitem "
+                                     ()
+
+       delim_0  <>                   ", "
+
+
+       delim_1  <>                   ", "
+
+
+       delim_2  <>                   ", "
+
+
+       delim_n  <>                   ", "
+
+
+       delim_r  <>                   "--"
+
+
+       delim_t  <>                   ""
+
+
+       suffix_2p  <>                 ""
+                                     2 delim_n 2
+
+
+       suffix_3p  <>                 ""
+                                     3 delim_r 3 suffix_mp
+
+
+       suffix_mp  <>                 ""
+                                     3 delim_r
+
+
+       encap_prefix  <>              "\\"
+
+
+       encap_infix  <>               "{"
+
+
+       encap_suffix  <>              "}".
+
+
+       line_max  <>                  72
+
+
+       indent_space  <>              ""
+
+
+       indent_length  <>             16
+
+
+       symhead_positive  <>          "Symbols"
+                                     lethead_flag  heading_flag
+
+       symhead_negative  <>          "symbols"
+                                     lethead_flag  heading_flag
+
+       symbol  <>                    ""
+                                     symbol_flag 0
+       symhead_positive  symhead_negative (mendex)
+        symhead_positive  symhead_negative (mendex)
+
+       symbol_flag  <>               1
+                                      0(mendex)
+
+       letter_head  <>               1
+                                      012(mendex)
+
+       priority  <>                  0
+                                     0(mendex)
+
+       character_order  <>           "SEJ"
+                                      'S''E''J'(mendex)
+
+
+       mendex
+       makeindex ()
+       mendex
+
+
+
+
+
+
+
+
+       <  >
+
+
+
+
+
+
+
+
+       <INDEXDEFAULTDICTIONARY> -d
+
+
+       mendex -l
+
+
+
+
+              X Window                 Xlib
+              Xlib                     XView
+              XView                    X Window
+
+       priority
+
+
+              priority=0               priority=1
+              index sort               ind
+              ind            index sort
+
+
+       mendex
+
+       INDEXSTYLE
+
+
+       INDEXDEFAULTSTYLE
+
+
+       INDEXDICTIONARY
+
+
+       INDEXDEFAULTDICTIONARY
+
+
+
+        makeindex
+
+
+         '-'
+
+         .idx
+
+
+       tex(l), latex(l), makeindex(l)
+
+
+
+                                                                     MENDEX(1)

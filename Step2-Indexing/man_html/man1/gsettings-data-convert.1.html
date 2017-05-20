@@ -1,0 +1,56 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gsettings-data-convert - GConf to GSettings data migration <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-data-convert</span> [option...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-data-convert</span> reads values out of the users GConf database and stores them in GSettings. 
+<p class="level0">The information about the mapping from GConf keys to GSettings keys is taken from files in /usr/share/GConf/gsettings. Each file in that directory is read as a key file, with sections for each GSettings schema that is being converted. The entries in each section map GSettings keys to paths in the GConf database. Currently, <span Class="bold">gsettings-data-convert</span> supports all basic GConf types as well as lists of strings and lists of integers. 
+<p class="level0">A simple example might look like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[org.gnome.fonts]
+antialiasing = /desktop/gnome/font_rendering/antialiasing
+dpi = /desktop/gnome/font_rendering/dpi
+hinting = /desktop/gnome/font_rendering/hinting
+rgba_order = /desktop/gnome/font_rendering/rgba_order
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">If the GSettings schema does not have a fixed path, you must specify the path in the group name, separated by a colon character: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[org.gnome.fonts:/desktop/gnome/font-rendering/]
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-data-convert</span> keeps a list of the key files it has already converted, so it is safe to run it repeatedly to handle newly appeared key files. The expected use of this utility is to make each application install a key file for the GConf keys that it wants to be migrated, and run <span Class="bold">gsettings-data-convert</span> every time a user logs in. <a name="Options"></a><h2 class="nroffsh">Options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print help and exit 
+<p class="level0">
+<p class="level0"><span Class="bold">--dry-run</span> 
+<p class="level1">Do not make any changes, just report what would be done 
+<p class="level0">
+<p class="level0"><span Class="bold">--verbose</span> 
+<p class="level1">Show verbose messages 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">gsettings-schema-convert</span>(1) is a related command that helps with the conversion of schemas from GConf to GSettings. 

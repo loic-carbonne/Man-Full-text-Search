@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">shred - overwrite a file to hide its contents, and optionally delete it <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">shred</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Overwrite the specified FILE(s) repeatedly, in order to make it harder for even very expensive hardware probing to recover the data. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> change permissions to allow writing if necessary 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--iterations</span>=<span Class="emphasis">N</span> overwrite N times instead of the default (3) 
+<p class="level0"><span Class="bold">--random-source</span>=<span Class="emphasis">FILE</span> get random bytes from FILE 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--size</span>=<span Class="emphasis">N</span> shred this many bytes (suffixes like K, M, G accepted) 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--remove</span>[=<span Class="emphasis">HOW</span>] truncate and remove file after overwriting; See below 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> show progress 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--exact</span> do not round file sizes up to the next full block; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">this is the default for non-regular files 
+<p class="level1"><span Class="bold">-z</span>, <span Class="bold">--zero</span> add a final overwrite with zeros to hide shredding 
+<p class="level1"><span Class="bold">--help</span> display this help and exit 
+<p class="level1"><span Class="bold">--version</span> output version information and exit 
+<p class="level1">If FILE is -, shred standard output. 
+<p class="level1">Delete FILE(s) if <span Class="bold">--remove</span> (<span Class="bold">-u</span>) is specified.  The default is not to remove the files because it is common to operate on device files like <span Class="emphasis">/dev/hda</span>, and those files usually should not be removed. The optional HOW parameter indicates how to remove a directory entry: 'unlink' =&gt; use a standard unlink call. 'wipe' =&gt; also first obfuscate bytes in the name. 'wipesync' =&gt; also sync each obfuscated byte to disk. The default mode is 'wipesync', but note it can be expensive. 
+<p class="level1">CAUTION: Note that shred relies on a very important assumption: that the file system overwrites data in place.  This is the traditional way to do things, but many modern file system designs do not satisfy this assumption.  The following are examples of file systems on which shred is not effective, or is not guaranteed to be effective in all file system modes: 
+<p class="level1">* log-structured or journaled file systems, such as those supplied with AIX and Solaris (and JFS, ReiserFS, XFS, Ext3, etc.) 
+<p class="level1">* file systems that write redundant data and carry on even if some writes fail, such as RAID-based file systems 
+<p class="level1">* file systems that make snapshots, such as Network Appliance's NFS server 
+<p class="level1">* file systems that cache in temporary locations, such as NFS version 3 clients 
+<p class="level1">* compressed file systems 
+<p class="level1">In the case of ext3 file systems, the above disclaimer applies (and shred is thus of limited effectiveness) only in data=journal mode, which journals file data in addition to just metadata.  In both the data=ordered (default) and data=writeback modes, shred works as usual. Ext3 journaling modes can be changed by adding the data=something option to the mount options for a particular file system in the <span Class="emphasis">/etc/fstab</span> file, as documented in the mount man page (man mount). 
+<p class="level1">In addition, file system backups and remote mirrors may contain copies of the file that cannot be removed, and that will allow a shredded file to be recovered later. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Colin Plumb. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report shred translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/shred&gt; <br>or available locally via: info (aq(coreutils) shred invocation(aq 

@@ -1,0 +1,82 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jstack - Stack Trace <br>
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jstack</span> [ option ] pid
+f3jstack</span> [ option ] executable core
+f3jstack</span> [ option ] [server-id@]remote-hostname-or-IP
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Options are mutually exclusive. Option, if used, should follow immediately after the command name. See OPTIONS. 
+<p class="level0">
+<p class="level1">
+<p class="level1">pid  process id for which the stack trace is to be printed. The process must be a Java process. To get a list of Java processes running on a machine, jps(1) may be used.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">executable  Java executable from which the core dump was produced.  <br>
+<p class="level1">core  core file for which the stack trace is to be printed.  <br>
+<p class="level1">remote-hostname-or-IP  remote debug server's (see jsadebugd(1)) hostname or IP address.  <br>
+<p class="level1">server-id  optional unique id, if multiple debug servers are running on the same remote host.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3jstack</span> prints Java stack traces of Java threads for a given Java process or core file or a remote debug server. For each Java frame, the full class name, method name, 'bci' (byte code index) and line number, if available, are printed. With the -m option, jstack prints both Java and native frames of all threads along with the 'pc' (program counter). For each native frame, the closest native symbol to 'pc', if available, is printed. C++ mangled names are not demangled. To demangle C++ names, the output of this command may be piped to f3c++filt</span>. If the given process is running on a 64-bit VM, you may need to specify the f2-J-d64</span> option, e.g.: <br>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+jstack -J-d64 -m pid
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3NOTE</span> - This utility is unsupported and may or may not be available in future versions of the JDK. In Windows Systems where dbgeng.dll is not present, 'Debugging Tools For Windows' needs to be installed to have these tools working. Also, f2PATH</span> environment variable should contain the location of f2jvm.dll</span> used by the target process or the location from which the Crash Dump file was produced. 
+<p class="level0">
+<p class="level0">For example, f2set PATH=&lt;jdk&gt;\jre\bin\client;%PATH%</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-F  Force a stack dump when 'jstack [-l] pid' does not respond.  
+<p class="level1">-l  Long listing. Prints additional information about locks such as list of owned java.util.concurrent  
+<p class="level1">f2ownable synchronizers</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/AbstractOwnableSynchronizer.html.">http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/AbstractOwnableSynchronizer.html.</a>  
+<p class="level1">-m  prints mixed mode (both Java and native C/C++ frames) stack trace.  
+<p class="level1">-h  prints a help message. <br><br>
+<p class="level1">-help  prints a help message <br>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o pstack(1)  
+<p class="level1">o c++filt(1)  
+<p class="level1">o jps(1)  
+<p class="level1">o jsadebugd(1)  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="KNOWN"></a><h2 class="nroffsh">KNOWN BUGS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Mixed mode stack trace, the -m option, does not work with the remote debug server. 
+<p class="level0">
+<p class="level0">

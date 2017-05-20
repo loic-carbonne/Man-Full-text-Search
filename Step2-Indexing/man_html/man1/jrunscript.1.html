@@ -1,0 +1,113 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jrunscript - command line script shell 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jrunscript</span> [ f2options</span> ] [ arguments... ]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Options, if used, should follow immediately after the command name.  
+<p class="level1">arguments  Arguments, if used, should follow immediately after options or command name.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3jrunscript</span> is a command line script shell. jrunscript supports both an interactive (read-eval-print) mode and a batch (-f option) mode of script execution. This is a scripting language independent shell. By default, JavaScript is the language used, but the -l option can be used to specify a different language. Through Java to scripting language communication, jrunscript supports "exploratory programming" style. 
+<p class="level0">
+<p class="level0">f3NOTE:</span> This tool is f3experimental</span> and may f3not</span> be available in future versions of the JDK. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-classpath path  Specify where to find the user's .class files that are accessed by the script.  
+<p class="level1">-cp path  This is a synonym for -classpath f2path</span>  
+<p class="level1">-Dname=value  Set a Java system property.  
+<p class="level1">-J&lt;flag&gt;  Pass &lt;flag&gt; directly to the Java virtual machine on which jrunscript is run.  
+<p class="level1">-l language  Use the specified scripting language. By default, JavaScript is used. Note that to use other scripting languages, you also need to specify the corresponding script engine's jar file using -cp or -classpath option.  
+<p class="level1">-e script  Evaluate the given script. This option can be used to run "one liner" scripts specified completely on the command line.  
+<p class="level1">-encoding encoding  Specify the character encoding used while reading script files.  
+<p class="level1">-f script-file  Evaluate the given script file (batch mode).  
+<p class="level1">-f -  Read and evaluate a script from standard input (interactive mode).  
+<p class="level1">-help&nbsp;  Output help message and exit.  
+<p class="level1">-?&nbsp;  Output help message and exit.  
+<p class="level1">-q&nbsp;  List all script engines available and exit.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">If [arguments...] are present and if no f3-e</span> or f3-f</span> option is used, then the first argument is the script file and the rest of the arguments, if any, are passed as script arguments. If [arguments..] and f3-e</span> or f3-f</span> option are used, then all [arguments..] are passed as script arguments. If [arguments..], f3-e</span> and f3-f</span> are missing, interactive mode is used. Script arguments are available to a script in an engine variable named "arguments" of type String array. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Executing inline scripts 
+<p class="level0"><pre class="level0">
+f3
+jrunscript -e "print('hello world')"
+jrunscript -e "cat('http://www.example.com')"
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Use specified language and evaluate given script file 
+<p class="level0"><pre class="level0">
+f3
+jrunscript -l js -f test.js
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Interactive mode 
+<p class="level0"><pre class="level0">
+f3
+jrunscript
+js&gt; print('Hello World\n');
+Hello World
+js&gt; 34 + 55
+89.0
+js&gt; t = new java.lang.Thread(function() { print('Hello World\n'); })
+Thread[Thread-0,5,main]
+js&gt; t.start()
+js&gt; Hello World
+&nbsp;
+js&gt;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Run script file with script arguments 
+<p class="level0"><pre class="level0">
+f3
+jrunscript test.js arg1 arg2 arg3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">test.js is script file to execute and arg1, arg2 and arg3 are passed to script as script arguments. Script can access these using "arguments" array.   <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">If JavaScript is used, then before evaluating any user defined script, jrunscript initializes certain built-in functions and objects. These JavaScript built-ins are documented in  
+<p class="level0">f2jsdocs</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/share/jsdocs/allclasses-noframe.html.">http://docs.oracle.com/javase/7/docs/technotes/tools/share/jsdocs/allclasses-noframe.html.</a> 
+<p class="level0">
+<p class="level0">

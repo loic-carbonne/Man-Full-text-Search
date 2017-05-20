@@ -1,0 +1,63 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jcmd - Sends diagnostic command requests to a running Java Virtual Machine 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jcmd</span> [ f2options</span> ]
+f3jcmd</span> [ f2pid</span> | f2main-class</span> ] f3PerfCounter.print</span>
+f3jcmd</span> [ f2pid</span> | f2main-class</span> ] f2command [arguments]</span>
+f3jcmd</span> [ f2pid</span> | f2main-class</span> ] f3-f</span> f2file</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">options  The command-line options. See Options.  
+<p class="level1">pid  Identifies the process that receives the diagnostic command requests. The process must be a Java process. To get a list of Java processes running on a machine, use jps(1) or jcmd(1).  
+<p class="level1">main-class  The main class of the process that receives the diagnostic command requests. When matching processes, any process whose main class name contains the specified string as a substring is matched. If several running Java processes share the same main class, then the diagnostic command request is sent to all these processes. To get a list of Java processes running on a machine, use jps(1) or jcmd(1).  
+<p class="level1">command [arguments]  The main class of the process that receives the diagnostic command requests. When matching processes, any process whose main class name contains the specified string as a substring is matched. If several running Java processes share the same main class, then the diagnostic command request is sent to all these processes. To get a list of Java processes running on a machine, use jps(1) or jcmd(1).  
+<p class="level1">Perfcounter.print  Print the performance counters available on the targeted Java processes. The list of performance counters might vary with the Java process.  
+<p class="level1">-f file  Read commands from f2file</span> and call them on the targeted Java processes. In f2file</span>, each command must be written on a single line. Lines starting with &#35; are ignored. Processing of f2file</span> ends when all lines have been called or when a line containing the f3stop</span> keyword is read.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3jcmd</span> is a utility to send diagnostic command requests to a Java Virtual Machine supporting this feature. 
+<p class="level0">
+<p class="level0">Used without arguments or with the f3-l</span> option, f3jcmd</span> prints the list of running Java processes with their process ID, their main class and their command-line arguments. 
+<p class="level0">
+<p class="level0">When a process ID is specified on the command line, f3jcmd</span> sends the diagnostic command request to the process with this ID. 
+<p class="level0">
+<p class="level0">When a main class is specified on the command line, f3jcmd</span> sends the diagnostic command request to all Java processes for which the command-line argument is a substring of the Java process' main class. 
+<p class="level0">
+<p class="level0">With the f3PerfCounter.print</span> argument, f3jcmd</span> prints the performance counters available on the targeted Java processes. 
+<p class="level0">
+<p class="level0">With the f3-f</span> option, f3jcmd</span> sends to the targeted Java processes the diagnostic commands stored in the specified f3file</span>. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Options are mutually exclusive. Options, when used, must immediately follow the command name. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-l  Prints the list of running Java processes with their process IDs, their main classes, and their command-line arguments.  
+<p class="level1">-h  Prints a help message.  
+<p class="level1">-help  Prints a help message.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o jps  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,145 @@
+COQ(1)                      General Commands Manual                     COQ(1)
+
+
+
+NAME
+       coqtop - The Coq Proof Assistant toplevel system
+
+
+
+SYNOPSIS
+       coqtop [ options ]
+
+
+DESCRIPTION
+       coqtop  is  the  toplevel system of Coq, for interactive use.  It reads
+       phrases on the standard input, and prints results on the standard  out-
+       put.
+
+       For batch-oriented use of Coq, see coqc(1).
+
+
+
+OPTIONS
+       -h, --help
+              Help.  Will  give  you  the complete list of options accepted by
+              coqtop.
+
+
+       -I dir, --include dir
+              add directory dir in the include path
+
+
+       -R dir coqdir
+              recursively map physical dir to logical coqdir
+
+
+       -top coqdir
+              set the toplevel name to be coqdir instead of Top
+
+
+       -inputstate filename, -is filename
+              read state from file filename.coq
+
+
+       -nois  start with an empty initial state
+
+
+       -outputstatefilename
+              write state in file filename.coq
+
+
+       -load-ml-object filename
+              load ML object file filenname
+
+
+       -load-ml-source filename
+              load ML file filename
+
+
+       -load-vernac-source filename, -l filename
+              load Coq file filename.v (Load filename.)
+
+
+       -load-vernac-source-verbose filename, -lv filename
+              load verbosely Coq file filename.v (Load Verbose filename.)
+
+
+       -load-vernac-object filename
+              load Coq object file filename.vo
+
+
+       -require filename
+              load Coq object file filename.vo and import it  (Require  Import
+              filename.)
+
+
+       -compile filename
+              compile Coq file filename.v (implies -batch )
+
+
+       -compile-verbose filename
+              verbosely compile Coq file filename.v (implies -batch )
+
+
+       -opt   run the native-code version of Coq
+
+
+       -byte  run the bytecode version of Coq
+
+
+       -where print Coq's standard library location and exit
+
+
+       -v     print Coq version and exit
+
+
+       -q     skip loading of rcfile
+
+
+       -init-file filename
+              set the rcfile to filename
+
+
+       -batch batch mode (exits just after arguments parsing)
+
+
+       -boot  boot mode (implies -q and -batch )
+
+
+       -emacs tells Coq it is executed under Emacs
+
+
+       -dump-glob filename
+              dump globalizations in file f (to be used by coqdoc(1) )
+
+
+       -with-geoproof (yes|no)
+              to  (de)activate  special  functions  for Geoproof within Coqide
+              (default is yes )
+
+
+       -impredicative-set
+              set sort Set impredicative
+
+
+       -dont-load-proofs
+              don't load opaque proofs in memory
+
+
+       -xml   export XML files either to the hierarchy rooted in the directory
+              $COQ_XML_LIBRARY_ROOT (if set) or to stdout (if unset)
+
+
+       -quality
+              improve  the legibility of the proof terms produced by some tac-
+              tics
+
+
+SEE ALSO
+       coqc(1), coq-tex(1), coqdep(1).
+       The Coq Reference Manual.  The Coq web site: http://coq.inria.fr
+
+
+
+                               October 11, 2006                         COQ(1)

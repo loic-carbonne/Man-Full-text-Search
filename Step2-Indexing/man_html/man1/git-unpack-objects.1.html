@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-unpack-objects - Unpack objects from a packed archive <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git unpack-objects</span> [-n] [-q] [-r] [--strict] &lt; &lt;pack-file&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Read a packed archive (.pack) from the standard input, expanding the objects contained within and writing them into the repository in "loose" (one object per file) format. 
+<p class="level0">Objects that already exist in the repository will <span Class="bold">not</span> be unpacked from the pack-file. Therefore, nothing will be unpacked if you use this command on a pack-file that exists within the target repository. 
+<p class="level0">See <span Class="bold">git-repack</span>(1) for options to generate new packs and replace existing ones. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-n 
+<p class="level1">Dry run. Check the pack file without actually unpacking the objects. 
+<p class="level0">
+<p class="level0">-q 
+<p class="level1">The command usually shows percentage progress. This flag suppresses it. 
+<p class="level0">
+<p class="level0">-r 
+<p class="level1">When unpacking a corrupt packfile, the command dies at the first corruption. This flag tells it to keep going and make the best effort to recover as many objects as possible. 
+<p class="level0">
+<p class="level0">--strict 
+<p class="level1">Don(cqt write objects with broken content or links. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

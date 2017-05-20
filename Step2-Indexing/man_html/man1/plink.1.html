@@ -1,0 +1,93 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">plink</span> - PuTTY link, command line network connection tool <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">plink</span>&nbsp;[<span class="emphasis">options</span>]&nbsp;[<span class="emphasis">user</span><span class="bold">@</span>]<span class="emphasis">host</span>&nbsp;[<span class="emphasis">command</span>]
+</pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">plink</span> is a network connection tool supporting several protocols. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The command-line options supported by <span Class="bold">plink</span> are: 
+<p class="level0"><a name="fB-VfP"></a><span class="nroffip">\fB-V\fP</span> 
+<p class="level1">Show version information and exit. 
+<p class="level0"><a name="fB-pgpfpfP"></a><span class="nroffip">\fB-pgpfp\fP</span> 
+<p class="level1">Display the fingerprints of the PuTTY PGP Master Keys and exit, to aid in verifying new files released by the PuTTY team. 
+<p class="level0"><a name="fB-vfP"></a><span class="nroffip">\fB-v\fP</span> 
+<p class="level1">Show verbose messages. 
+<p class="level0"><a name="fB-loadfP"></a><span class="nroffip">\fB-load\fP \fIsession\fP</span> 
+<p class="level1">Load settings from saved session. 
+<p class="level0"><a name="fB-sshfP"></a><span class="nroffip">\fB-ssh\fP</span> 
+<p class="level1">Force use of SSH protocol (default). 
+<p class="level0"><a name="fB-telnetfP"></a><span class="nroffip">\fB-telnet\fP</span> 
+<p class="level1">Force use of Telnet protocol. 
+<p class="level0"><a name="fB-rloginfP"></a><span class="nroffip">\fB-rlogin\fP</span> 
+<p class="level1">Force use of rlogin protocol. 
+<p class="level0"><a name="fB-rawfP"></a><span class="nroffip">\fB-raw\fP</span> 
+<p class="level1">Force raw mode. 
+<p class="level0"><a name="fB-serialfP"></a><span class="nroffip">\fB-serial\fP</span> 
+<p class="level1">Force serial mode. 
+<p class="level0"><a name="fB-PfP"></a><span class="nroffip">\fB-P\fP \fIport\fP</span> 
+<p class="level1">Connect to port <span Class="emphasis">port</span>. 
+<p class="level0"><a name="fB-lfP"></a><span class="nroffip">\fB-l\fP \fIuser\fP</span> 
+<p class="level1">Set remote username to <span Class="emphasis">user</span>. 
+<p class="level0"><a name="fB-mfP"></a><span class="nroffip">\fB-m\fP \fIpath\fP</span> 
+<p class="level1">Read remote command(s) from local file <span Class="emphasis">path</span>. 
+<p class="level0"><a name="fB-batchfP"></a><span class="nroffip">\fB-batch\fP</span> 
+<p class="level1">Disable interactive prompts. 
+<p class="level0"><a name="fB-pwfP"></a><span class="nroffip">\fB-pw\fP \fIpassword\fP</span> 
+<p class="level1">Set remote password to <span Class="emphasis">password</span>. <span Class="emphasis">CAUTION:</span> this will likely make the password visible to other users of the local machine (via commands such as `<span Class="bold">w</span>'). 
+<p class="level0"><a name="fB-LfP"></a><span class="nroffip">\fB-L\fP \fB[\fP\fIsrcaddr\fP\fB:]\fP\fIsrcport\fP\fB:\fP\fIdesthost\fP\fB:\fP\fIdestport\fP</span> 
+<p class="level1">Set up a local port forwarding: listen on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and forward any connections over the SSH connection to the destination address <span Class="emphasis">desthost</span>:<span Class="emphasis">destport</span>. Only works in SSH. 
+<p class="level0"><a name="fB-RfP"></a><span class="nroffip">\fB-R\fP \fB[\fP\fIsrcaddr\fP\fB:]\fP\fIsrcport\fP\fB:\fP\fIdesthost\fP\fB:\fP\fIdestport\fP</span> 
+<p class="level1">Set up a remote port forwarding: ask the SSH server to listen on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and to forward any connections back over the SSH connection where the client will pass them on to the destination address <span Class="emphasis">desthost</span>:<span Class="emphasis">destport</span>. Only works in SSH. 
+<p class="level0"><a name="fB-DfP"></a><span class="nroffip">\fB-D\fP [\fIsrcaddr\fP:]\fIsrcport\fP</span> 
+<p class="level1">Set up dynamic port forwarding. The client listens on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and implements a SOCKS server. So you can point SOCKS-aware applications at this port and they will automatically use the SSH connection to tunnel all their connections. Only works in SSH. 
+<p class="level0"><a name="fB-XfP"></a><span class="nroffip">\fB-X\fP</span> 
+<p class="level1">Enable X11 forwarding. 
+<p class="level0"><a name="fB-xfP"></a><span class="nroffip">\fB-x\fP</span> 
+<p class="level1">Disable X11 forwarding (default). 
+<p class="level0"><a name="fB-AfP"></a><span class="nroffip">\fB-A\fP</span> 
+<p class="level1">Enable agent forwarding. 
+<p class="level0"><a name="fB-afP"></a><span class="nroffip">\fB-a\fP</span> 
+<p class="level1">Disable agent forwarding (default). 
+<p class="level0"><a name="fB-tfP"></a><span class="nroffip">\fB-t\fP</span> 
+<p class="level1">Enable pty allocation (default if a command is NOT specified). 
+<p class="level0"><a name="fB-TfP"></a><span class="nroffip">\fB-T\fP</span> 
+<p class="level1">Disable pty allocation (default if a command is specified). 
+<p class="level0"><a name="fB-1fP"></a><span class="nroffip">\fB-1\fP</span> 
+<p class="level1">Force use of SSH protocol version 1. 
+<p class="level0"><a name="fB-2fP"></a><span class="nroffip">\fB-2\fP</span> 
+<p class="level1">Force use of SSH protocol version 2. 
+<p class="level0"><a name="fB-CfP"></a><span class="nroffip">\fB-C\fP</span> 
+<p class="level1">Enable SSH compression. 
+<p class="level0"><a name="fB-ifP"></a><span class="nroffip">\fB-i\fP \fIpath\fP</span> 
+<p class="level1">Private key file for authentication. 
+<p class="level0"><a name="fB-sfP"></a><span class="nroffip">\fB-s\fP</span> 
+<p class="level1">Remote command is SSH subsystem (SSH-2 only). 
+<p class="level0"><a name="fB-NfP"></a><span class="nroffip">\fB-N\fP</span> 
+<p class="level1">Don't start a remote command or shell at all (SSH-2 only). 
+<p class="level0"><a name="fB-sercfgfP"></a><span class="nroffip">\fB-sercfg\fP \fIconfiguration-string\fP</span> 
+<p class="level1">Specify the configuration parameters for the serial port, in <span Class="bold">-serial</span> mode. <span Class="emphasis">configuration-string</span> should be a comma-separated list of configuration parameters as follows: 
+<p class="level2">
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">Any single digit from 5 to 9 sets the number of data bits. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">`<span Class="bold">1</span>', `<span Class="bold">1.5</span>' or `<span Class="bold">2</span>' sets the number of stop bits. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">Any other numeric string is interpreted as a baud rate. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">A single lower-case letter specifies the parity: `<span Class="bold">n</span>' for none, `<span Class="bold">o</span>' for odd, `<span Class="bold">e</span>' for even, `<span Class="bold">m</span>' for mark and `<span Class="bold">s</span>' for space. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">A single upper-case letter specifies the flow control: `<span Class="bold">N</span>' for none, `<span Class="bold">X</span>' for XON/XOFF, `<span Class="bold">R</span>' for RTS/CTS and `<span Class="bold">D</span>' for DSR/DTR. 
+<p class="level1"><a name="MORE"></a><h2 class="nroffsh">MORE INFORMATION</h2>
+<p class="level0">
+<p class="level0">For more information on plink, it's probably best to go and look at the manual on the PuTTY web page: 
+<p class="level0"><span Class="bold">http://www.chiark.greenend.org.uk/~sgtatham/putty/</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">This man page isn't terribly complete. See the above web link for better documentation. 

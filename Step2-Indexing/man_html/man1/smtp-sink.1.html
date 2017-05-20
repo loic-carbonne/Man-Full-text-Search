@@ -1,0 +1,149 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">smtp-sink - multi-threaded SMTP/LMTP test server <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">smtp-sink</span> [<span Class="emphasis">options</span>] [<span Class="bold">inet:</span>][<span Class="emphasis">host</span>]:<span Class="emphasis">port</span> <span Class="emphasis">backlog</span> 
+<p class="level0"><span Class="bold">smtp-sink</span> [<span Class="emphasis">options</span>] <span Class="bold">unix:</span><span Class="emphasis">pathname</span> <span Class="emphasis">backlog</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">smtp-sink</span> listens on the named host (or address) and port. It takes SMTP messages from the network and throws them away. The purpose is to measure client performance, not protocol compliance. 
+<p class="level0"><span Class="bold">smtp-sink</span> may also be configured to capture each mail delivery transaction to file. Since disk latencies are large compared to network delays, this mode of operation can reduce the maximal performance by several orders of magnitude. 
+<p class="level0">Connections can be accepted on IPv4 or IPv6 endpoints, or on UNIX-domain sockets. IPv4 and IPv6 are the default. This program is the complement of the <span Class="bold">smtp-source</span>(1) program. 
+<p class="level0">Note: this is an unsupported test program. No attempt is made to maintain compatibility between successive versions. 
+<p class="level0">Arguments: 
+<p class="level0"><a name="fB-4fR"></a><span class="nroffip">\fB-4\fR</span> 
+<p class="level1">Support IPv4 only. This option has no effect when Postfix is built without IPv6 support. 
+<p class="level0"><a name="fB-6fR"></a><span class="nroffip">\fB-6\fR</span> 
+<p class="level1">Support IPv6 only. This option is not available when Postfix is built without IPv6 support. 
+<p class="level0"><a name="fB-8fR"></a><span class="nroffip">\fB-8\fR</span> 
+<p class="level1">Do not announce 8BITMIME support. 
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR</span> 
+<p class="level1">Do not announce SASL authentication support. 
+<p class="level0"><a name="fB-A"></a><span class="nroffip">\fB-A \fIdelay\fR</span> 
+<p class="level1">Wait <span Class="emphasis">delay</span> seconds after responding to DATA, then abort prematurely with a 550 reply status.  Do not read further input from the client; this is an attempt to block the client before it sends ".".  Specify a zero delay value to abort immediately. 
+<p class="level0"><a name="fB-b"></a><span class="nroffip">\fB-b \fIsoft-bounce-reply\fR</span> 
+<p class="level1">Use <span Class="emphasis">soft-bounce-reply</span> for soft reject responses.  The default reply is "450 4.3.0 Error: command failed". 
+<p class="level0"><a name="fB-B"></a><span class="nroffip">\fB-B \fIhard-bounce-reply\fR</span> 
+<p class="level1">Use <span Class="emphasis">hard-bounce-reply</span> for hard reject responses.  The default reply is "500 5.3.0 Error: command failed". 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR</span> 
+<p class="level1">Display running counters that are updated whenever an SMTP session ends, a QUIT command is executed, or when "." is received. 
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR</span> 
+<p class="level1">Disable XCLIENT support. 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d \fIdump-template\fR</span> 
+<p class="level1">Dump each mail transaction to a single-message file whose name is created by expanding the <span Class="emphasis">dump-template</span> via strftime(3) and appending a pseudo-random hexadecimal number (example: "%Y%m%d%H/%M." expands into "2006081203/05.809a62e3"). If the template contains "/" characters, missing directories are created automatically.  The message dump format is described below. 
+<p class="level1">Note: this option keeps one capture file open for every mail transaction in progress. 
+<p class="level0"><a name="fB-D"></a><span class="nroffip">\fB-D \fIdump-template\fR</span> 
+<p class="level1">Append mail transactions to a multi-message dump file whose name is created by expanding the <span Class="emphasis">dump-template</span> via strftime(3). If the template contains "/" characters, missing directories are created automatically.  The message dump format is described below. 
+<p class="level1">Note: this option keeps one capture file open for every mail transaction in progress. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR</span> 
+<p class="level1">Do not announce ESMTP support. 
+<p class="level0"><a name="fB-EfR"></a><span class="nroffip">\fB-E\fR</span> 
+<p class="level1">Do not announce ENHANCEDSTATUSCODES support. 
+<p class="level0"><a name="fB-f"></a><span class="nroffip">\fB-f \fIcommand,command,...\fR</span> 
+<p class="level1">Reject the specified commands with a hard (5xx) error code. This option implies <span Class="bold">-p</span>. 
+<p class="level1">Examples of commands are CONNECT, HELO, EHLO, LHLO, MAIL, RCPT, VRFY, DATA, ., RSET, NOOP, and QUIT. Separate command names by white space or commas, and use quotes to protect white space from the shell. Command names are case-insensitive. 
+<p class="level0"><a name="fB-FfR"></a><span class="nroffip">\fB-F\fR</span> 
+<p class="level1">Disable XFORWARD support. 
+<p class="level0"><a name="fB-hfI"></a><span class="nroffip">\fB-h\fI hostname\fR</span> 
+<p class="level1">Use <span Class="emphasis">hostname</span> in the SMTP greeting, in the HELO response, and in the EHLO response. The default hostname is "smtp-sink". 
+<p class="level0"><a name="fB-LfR"></a><span class="nroffip">\fB-L\fR</span> 
+<p class="level1">Enable LMTP instead of SMTP. 
+<p class="level0"><a name="fB-m"></a><span class="nroffip">\fB-m \fIcount\fR (default: 256)</span> 
+<p class="level1">An upper bound on the maximal number of simultaneous connections that <span Class="bold">smtp-sink</span> will handle. This prevents the process from running out of file descriptors. Excess connections will stay queued in the TCP/IP stack. 
+<p class="level0"><a name="fB-M"></a><span class="nroffip">\fB-M \fIcount\fR</span> 
+<p class="level1">Terminate after receiving <span Class="emphasis">count</span> messages. 
+<p class="level0"><a name="fB-n"></a><span class="nroffip">\fB-n \fIcount\fR</span> 
+<p class="level1">Terminate after <span Class="emphasis">count</span> sessions. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Do not announce support for ESMTP command pipelining. 
+<p class="level0"><a name="fB-PfR"></a><span class="nroffip">\fB-P\fR</span> 
+<p class="level1">Change the server greeting so that it appears to come through a CISCO PIX system. Implies <span Class="bold">-e</span>. 
+<p class="level0"><a name="fB-q"></a><span class="nroffip">\fB-q \fIcommand,command,...\fR</span> 
+<p class="level1">Disconnect (without replying) after receiving one of the specified commands. 
+<p class="level1">Examples of commands are CONNECT, HELO, EHLO, LHLO, MAIL, RCPT, VRFY, DATA, ., RSET, NOOP, and QUIT. Separate command names by white space or commas, and use quotes to protect white space from the shell. Command names are case-insensitive. 
+<p class="level0"><a name="fB-Q"></a><span class="nroffip">\fB-Q \fIcommand,command,...\fR</span> 
+<p class="level1">Send a 421 reply and disconnect after receiving one of the specified commands. 
+<p class="level1">Examples of commands are CONNECT, HELO, EHLO, LHLO, MAIL, RCPT, VRFY, DATA, ., RSET, NOOP, and QUIT. Separate command names by white space or commas, and use quotes to protect white space from the shell. Command names are case-insensitive. 
+<p class="level0"><a name="fB-r"></a><span class="nroffip">\fB-r \fIcommand,command,...\fR</span> 
+<p class="level1">Reject the specified commands with a soft (4xx) error code. This option implies <span Class="bold">-p</span>. 
+<p class="level1">Examples of commands are CONNECT, HELO, EHLO, LHLO, MAIL, RCPT, VRFY, DATA, ., RSET, NOOP, and QUIT. Separate command names by white space or commas, and use quotes to protect white space from the shell. Command names are case-insensitive. 
+<p class="level0"><a name="fB-R"></a><span class="nroffip">\fB-R \fIroot-directory\fR</span> 
+<p class="level1">Change the process root directory to the specified location. This option requires super-user privileges. See also the <span Class="bold">-u</span> option. 
+<p class="level0"><a name="fB-s"></a><span class="nroffip">\fB-s \fIcommand,command,...\fR</span> 
+<p class="level1">Log the named commands to syslogd. 
+<p class="level1">Examples of commands are CONNECT, HELO, EHLO, LHLO, MAIL, RCPT, VRFY, DATA, ., RSET, NOOP, and QUIT. Separate command names by white space or commas, and use quotes to protect white space from the shell. Command names are case-insensitive. 
+<p class="level0"><a name="fB-S"></a><span class="nroffip">\fB-S start-string\fR</span> 
+<p class="level1">An optional string that is prepended to each message that is written to a dump file (see the dump file format description below). The following C escape sequences are supported: ea (bell), eb (backslace), ef (formfeed), en (newline), er (carriage return), et (horizontal tab), ev (vertical tab), e<span Class="emphasis">ddd</span> (up to three octal digits) and ee (the backslash character). 
+<p class="level0"><a name="fB-t"></a><span class="nroffip">\fB-t \fItimeout\fR (default: 100)</span> 
+<p class="level1">Limit the time for receiving a command or sending a response. The time limit is specified in seconds. 
+<p class="level0"><a name="fB-T"></a><span class="nroffip">\fB-T \fIwindowsize\fR</span> 
+<p class="level1">Override the default TCP window size. To work around broken TCP window scaling implementations, specify a value &gt; 0 and &lt; 65536. 
+<p class="level0"><a name="fB-u"></a><span class="nroffip">\fB-u \fIusername\fR</span> 
+<p class="level1">Switch to the specified user privileges after opening the network socket and optionally changing the process root directory. This option is required when the process runs with super-user privileges. See also the <span Class="bold">-R</span> option. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Show the SMTP conversations. 
+<p class="level0"><a name="fB-w"></a><span class="nroffip">\fB-w \fIdelay\fR</span> 
+<p class="level1">Wait <span Class="emphasis">delay</span> seconds before responding to a DATA command. 
+<p class="level0"><a name="fB-W"></a><span class="nroffip">\fB-W \fIcommand:delay[:odds]\fR</span> 
+<p class="level1">Wait <span Class="emphasis">delay</span> seconds before responding to <span Class="emphasis">command</span>. If <span Class="emphasis">odds</span> is also specified (a number between 1-99 inclusive), wait for a random multiple of <span Class="emphasis">delay</span>. The random multiplier is equal to the number of times the program needs to roll a dice with a range of 0..99 inclusive, before the dice produces a result greater than or equal to <span Class="emphasis">odds</span>. 
+<p class="level0"><a name="fBinetfRfIhostfRfIportfR"></a><span class="nroffip">[\fBinet:\fR][\fIhost\fR]:\fIport\fR</span> 
+<p class="level1">Listen on network interface <span Class="emphasis">host</span> (default: any interface) TCP port <span Class="emphasis">port</span>. Both <span Class="emphasis">host</span> and <span Class="emphasis">port</span> may be specified in numeric or symbolic form. 
+<p class="level0"><a name="fBunixfRfIpathnamefR"></a><span class="nroffip">\fBunix:\fR\fIpathname\fR</span> 
+<p class="level1">Listen on the UNIX-domain socket at <span Class="emphasis">pathname</span>. 
+<p class="level0"><a name="fIbacklogfR"></a><span class="nroffip">\fIbacklog\fR</span> 
+<p class="level1">The maximum length the queue of pending connections, as defined by the <span Class="bold">listen</span>(2) system call. <a name="DUMP"></a><h2 class="nroffsh">DUMP FILE FORMAT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Each dumped message contains a sequence of text lines, terminated with the newline character. The sequence of information is as follows: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">The optional string specified with the <span Class="bold">-S</span> option. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">The <span Class="bold">smtp-sink</span> generated headers as documented below. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">The message header and body as received from the SMTP client. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">An empty line. 
+<p class="level1">The format of the <span Class="bold">smtp-sink</span> generated headers is as follows: 
+<p class="level0"><a name="fBX-Client-Addr"></a><span class="nroffip">\fBX-Client-Addr: \fItext\fR</span> 
+<p class="level1">The client IP address without enclosing []. An IPv6 address is prefixed with "ipv6:". This record is always present. 
+<p class="level0"><a name="fBX-Client-Proto"></a><span class="nroffip">\fBX-Client-Proto: \fItext\fR</span> 
+<p class="level1">The client protocol: SMTP, ESMTP or LMTP. This record is always present. 
+<p class="level0"><a name="fBX-Helo-Args"></a><span class="nroffip">\fBX-Helo-Args: \fItext\fR</span> 
+<p class="level1">The arguments of the last HELO or EHLO command before this mail delivery transaction. This record is present only if the client sent a recognizable HELO or EHLO command before the DATA command. 
+<p class="level0"><a name="fBX-Mail-Args"></a><span class="nroffip">\fBX-Mail-Args: \fItext\fR</span> 
+<p class="level1">The arguments of the MAIL command that started this mail delivery transaction. This record is present exactly once. 
+<p class="level0"><a name="fBX-Rcpt-Args"></a><span class="nroffip">\fBX-Rcpt-Args: \fItext\fR</span> 
+<p class="level1">The arguments of an RCPT command within this mail delivery transaction. There is one record for each RCPT command, and they are in the order as sent by the client. 
+<p class="level0"><a name="fBReceived"></a><span class="nroffip">\fBReceived: \fItext\fR</span> 
+<p class="level1">A message header for compatibility with mail processing software. This three-line header marks the end of the headers provided by <span Class="bold">smtp-sink</span>, and is formatted as follows: 
+<p class="level2">
+<p class="level1"><a name="fBfrom"></a><span class="nroffip">\fBfrom \fIhelo\fB ([\fIaddr\fB])\fR</span> 
+<p class="level2">The HELO or EHLO command argument and client IP address. If the client did not send HELO or EHLO, the client IP address is used instead. 
+<p class="level1"><a name="fBby"></a><span class="nroffip">\fBby \fIhost\fB (smtp-sink) with \fIproto\fB id \fIrandom\fB;\fR</span> 
+<p class="level2">The hostname specified with the <span Class="bold">-h</span> option, the client protocol (see <span Class="bold">X-Client-Proto</span> above), and the pseudo-random portion of the per-message capture file name. 
+<p class="level1"><a name="fItime-stampfR"></a><span class="nroffip">\fItime-stamp\fR</span> 
+<p class="level2">A time stamp as defined in <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a>. 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+smtp-source(1), SMTP/LMTP message generator
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

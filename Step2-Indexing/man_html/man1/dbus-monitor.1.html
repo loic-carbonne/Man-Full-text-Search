@@ -1,0 +1,51 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dbus-monitor - debug probe to print message bus messages <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-monitor</span> [--system | --session | --address&nbsp;<span Class="emphasis">ADDRESS</span>] [--profile | --monitor] [<span Class="emphasis">watch</span>&nbsp;<span Class="emphasis">expressions</span>] <br>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">dbus-monitor</span> command is used to monitor messages going through a D-Bus message bus. See m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/</span>m[] for more information about the big picture. 
+<p class="level0">There are two well-known message buses: the systemwide message bus (installed on many systems as the "messagebus" service) and the per-user-login-session message bus (started each time a user logs in). The --system and --session options direct <span Class="bold">dbus-monitor</span> to monitor the system or session buses respectively. If neither is specified, <span Class="bold">dbus-monitor</span> monitors the session bus. 
+<p class="level0"><span Class="bold">dbus-monitor</span> has two different output modes, the *(Aqclassic*(Aq-style monitoring mode and profiling mode. The profiling format is a compact format with a single line per message and microsecond-resolution timing information. The --profile and --monitor options select the profiling and monitoring output format respectively. If neither is specified, <span Class="bold">dbus-monitor</span> uses the monitoring output format. 
+<p class="level0">In order to get <span Class="bold">dbus-monitor</span> to see the messages you are interested in, you should specify a set of watch expressions as you would expect to be passed to the <span Class="emphasis">dbus_bus_add_match</span> function. 
+<p class="level0">The message bus configuration may keep <span Class="bold">dbus-monitor</span> from seeing all messages, especially if you run the monitor as a non-root user. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span> 
+<p class="level1">Monitor the system message bus. 
+<p class="level0">
+<p class="level0"><span Class="bold">--session</span> 
+<p class="level1">Monitor the session message bus. (This is the default.) 
+<p class="level0">
+<p class="level0"><span Class="bold">--address ADDRESS</span> 
+<p class="level1">Monitor an arbitrary message bus given at ADDRESS. 
+<p class="level0">
+<p class="level0"><span Class="bold">--profile</span> 
+<p class="level1">Use the profiling output format. 
+<p class="level0">
+<p class="level0"><span Class="bold">--monitor</span> 
+<p class="level1">Use the monitoring output format. (This is the default.) 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">Here is an example of using dbus-monitor to watch for the gnome typing monitor to say things 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;
+&nbsp; dbus-monitor "type=*(Aqsignal*(Aq,sender=*(Aqorg.gnome.TypingMonitor*(Aq,interface=*(Aqorg.gnome.TypingMonitor*(Aq"
+&nbsp;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">dbus-monitor was written by Philip Blundell. The profiling output mode was added by Olli Salli. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to the D-Bus mailing list or bug tracker, see m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/</span>m[] 

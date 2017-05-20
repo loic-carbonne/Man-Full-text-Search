@@ -1,0 +1,87 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">locale - get locale-specific information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><pre class="level0">
+<span class="manpage">locale  [\fIoption\fP]</span>, <span class="manpage">locale  [\fIoption\fP] -a</span>, <span class="manpage">locale  [\fIoption\fP] -m</span>, <span class="manpage">locale  [\fIoption\fP] \fIname\fP...</span></pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">locale</span> command displays information about the current locale, or all locales, on standard output. 
+<p class="level0">When invoked without arguments, <span Class="bold">locale</span> displays the current locale settings for each locale category (see <span Class="manpage">locale (5))</span>based on the settings of the environment variables that control the locale (see <span Class="manpage">locale (7)).</span>
+<p class="level0">If either the <span Class="bold">-a</span> or the <span Class="bold">-m</span> option (or one of their long-format equivalents) is specified, the behavior is as follows: 
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--all-locales</span>Display a list of all available locales. The <span Class="bold">-v</span> option causes the <span Class="bold">LC_IDENTIFICATION</span> metadata about each locale to be included in the output. 
+<p class="level0"><span Class="manpage">-m</span>, <span Class="manpage">--charmaps</span>Display the available charmaps (character set description files). 
+<p class="level0">The <span Class="emphasis">locale</span> command can also be provided with one or more arguments, which are the names of locale keywords (for example, <span Class="emphasis">date_fmt ,</span> <span Class="emphasis">ctype-class-names ,</span> <span Class="emphasis">yesexpr ,</span> or <span Class="emphasis">decimal_point )</span> or locale categories (for example, <span Class="manpage">LC_CTYPE</span>or <span Class="manpage">LC_TIME ).</span>For each argument, the following is displayed: 
+<p class="level0"><a name=""></a><span class="nroffip">* 3</span> 
+<p class="level1">For a locale keyword, the value of that keyword to be displayed. 
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">For a locale category, the values of all keywords in that category are displayed. 
+<p class="level1">When arguments are supplied, the following options are meaningful: 
+<p class="level1"><span Class="manpage">-c</span>, <span Class="manpage">--category-name</span>For a category name argument, write the name of the locale category on a separate line preceding the list of keyword values for that category. 
+<p class="level1">For a keyword name argument, write the name of the locale category for this keyword on a separate line preceding the keyword value. 
+<p class="level1">This option improves readability when multiple name arguments are specified. It can be combined with the <span Class="bold">-k</span> option. 
+<p class="level1"><span Class="manpage">-k</span>, <span Class="manpage">--keyword-name</span>For each keyword whose value is being displayed, include also the name of that keyword, so that the output has the format: 
+<p class="level1">&nbsp;   <span Class="emphasis">keyword</span>="<span Class="emphasis">value</span>" 
+<p class="level1">The <span Class="emphasis">locale</span> command also knows about the following options: 
+<p class="level1"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Display additional information for some command-line option and argument combinations. 
+<p class="level1"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Display a summary of command-line options and arguments and exit. 
+<p class="level1"><span Class="manpage">--usage</span>Display a short usage message and exit. 
+<p class="level1"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display the program version and exit. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/lib/locale/locale-archive</span> Usual default locale archive location. 
+<p class="level0"><span Class="emphasis">/usr/share/i18n/locales</span> Usual default path for locale definition files. <a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">POSIX.1-2001, POSIX.1-2008. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0"><pre class="level0">
+$ <span class="bold">locale</span>
+LANG=en_US.UTF-8
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+&nbsp;
+$ <span class="bold">locale date_fmt</span>
+%a %b %e %H:%M:%S %Z %Y
+&nbsp;
+$ <span class="bold">locale -k date_fmt</span>
+date_fmt="%a %b %e %H:%M:%S %Z %Y"
+&nbsp;
+$ <span class="bold">locale -ck date_fmt</span>
+LC_TIME
+date_fmt="%a %b %e %H:%M:%S %Z %Y"
+&nbsp;
+$ <span class="bold">locale LC_TELEPHONE</span>
++%c (%a) %l
+(%a) %l
+11
+1
+UTF-8
+&nbsp;
+$ <span class="bold">locale -k LC_TELEPHONE</span>
+tel_int_fmt="+%c (%a) %l"
+tel_dom_fmt="(%a) %l"
+int_select="11"
+int_prefix="1"
+telephone-codeset="UTF-8"
+</pre>
+
+<p class="level0">
+<p class="level0">The following example compiles a custom locale from the <span Class="emphasis">./wrk</span> directory with the <span Class="manpage">localedef (1)</span>utility under the <span Class="emphasis">$HOME/.locale</span> directory, then tests the result with the <span Class="manpage">date (1)</span>command, and then sets the environment variables <span Class="bold">LOCPATH</span> and <span Class="bold">LANG</span> in the shell profile file so that the custom locale will be used in the subsequent user sessions: 
+<p class="level0"><pre class="level0">
+$ <span class="bold">mkdir -p $HOME/.locale</span>
+$ <span class="bold">I18NPATH=./wrk/ localedef -f UTF-8 -i fi_SE $HOME/.locale/fi_SE.UTF-8</span>
+$ <span class="bold">LOCPATH=$HOME/.locale LC_ALL=fi_SE.UTF-8 date</span>
+$ <span class="bold">echo "export LOCPATH=\$HOME/.locale" &gt;&gt; $HOME/.bashrc</span>
+$ <span class="bold">echo "export LANG=fi_SE.UTF-8" &gt;&gt; $HOME/.bashrc</span>
+</pre>
+
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">localedef (1)</span>, <span Class="manpage">charmap (5)</span>, <span Class="manpage">locale (5)</span>, <span Class="manpage">locale (7)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

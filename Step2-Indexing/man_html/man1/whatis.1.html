@@ -1,0 +1,67 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">whatis - display one-line manual page descriptions <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">whatis </span> 
+<p class="level0">
+<p class="level0">|]  
+<p class="level0"><span Class="emphasis">list \|]</span> 
+<p class="level0"><span Class="emphasis">system \|[\|,.\|.\|.\|]\|]</span> 
+<p class="level0"><span Class="emphasis">path \|] </span> 
+<p class="level0"><span Class="emphasis">locale \|]</span> 
+<p class="level0"><span Class="emphasis">file \|]</span> <span Class="emphasis">name </span> .|.|. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Each manual page has a short description available within it.  <span Class="bold">whatis</span> searches the manual page names and displays the manual page descriptions of any  <span Class="emphasis">name</span> matched. 
+<p class="level0"><span Class="emphasis">name</span> may contain wildcards 
+<p class="level0">or be a regular expression 
+<p class="level0">Using these options, it may be necessary to quote the <span Class="emphasis">name</span> or escape (\) the special characters to stop the shell from interpreting them. 
+<p class="level0"><span Class="bold">index </span> databases are used during the search, and are updated by the <span Class="bold">mandb</span> program. Depending on your installation, this may be run by a periodic cron job, or may need to be run manually after new manual pages have been installed. To produce an old style text <span Class="bold">whatis </span> database from the relative <span Class="bold">index </span> database, issue the command: 
+<p class="level0"><span Class="bold">whatis -M </span> <span Class="emphasis">manpath  </span> <span Class="bold">-w  '*' | sort &gt; </span> <span Class="emphasis">manpath/whatis</span> 
+<p class="level0">where  <span Class="emphasis">manpath </span> is a manual page hierarchy such as  <span Class="emphasis">/usr/man .</span> <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--debug</span>Print debugging information. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Print verbose warning messages. 
+<p class="level0"><span Class="manpage">-r</span>, <span Class="manpage">--regex</span>Interpret each  <span Class="emphasis">name </span> as a regular expression. If a  <span Class="emphasis">name </span> matches any part of a page name, a match will be made. This option causes  <span Class="bold">whatis </span> to be somewhat slower due to the nature of database searches. 
+<p class="level0"><span Class="manpage">-w</span>, <span Class="manpage">--wildcard</span>Interpret each  <span Class="emphasis">name </span> as a pattern containing shell style wildcards. For a match to be made, an expanded  <span Class="emphasis">name </span> must match the entire page name. This option causes <span Class="bold">whatis</span> to be somewhat slower due to the nature of database searches. 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--long</span>Do not trim output to the terminal width. Normally, output will be truncated to the terminal width to avoid ugly results from poorly-written <a class="bold" href="#NAME">NAME</a> sections. 
+<p class="level0"><span Class="bold">-s</span> <span Class="emphasis">list</span>, <span Class="bold">--sections</span> <span Class="emphasis">list</span>, <span Class="bold">--section</span> <span Class="emphasis">list</span> Search only the given manual sections. <span Class="emphasis">list</span> is a colon- or comma-separated list of sections. If an entry in <span Class="emphasis">list</span> is a simple section, for example "3", then the displayed list of descriptions will include pages in sections "3", "3perl", "3x", and so on; while if an entry in <span Class="emphasis">list</span> has an extension, for example "3perl", then the list will only include pages in that exact part of the manual section. 
+<p class="level0"><span Class="bold">-m </span> <span Class="emphasis">system\c </span> |[|,.|.|.|]|, <span Class="bold">--systems= system\c </span> |[|,.|.|.|] 
+<p class="level1">If this system has access to other operating system's manual page names,  they can be accessed using this option. To search NewOS's manual page names, use the option <span Class="bold">-m</span> <span Class="manpage">NewOS .</span>
+<p class="level1">The <span Class="emphasis">system</span> specified can be a combination of comma delimited operating system names. To include a search of the native operating system's manual page names, include the system name <span Class="bold">man</span> in the argument string. This option will override the 
+<p class="level1">environment variable. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M\  path ,\ \fB--manpath= path</span> Specify an alternate set of colon-delimited manual page hierarchies to search. By default, <span Class="bold">whatis</span> uses the 
+<p class="level0">environment variable, unless it is empty or unset, in which case it will determine an appropriate manpath based on your 
+<p class="level0">environment variable. This option overrides the contents of 
+<p class="level0">
+<p class="level0"><span Class="bold">-L\  locale ,\ \fB--locale= locale</span> <span Class="bold">whatis</span> will normally determine your current locale by a call to the C function <span Class="manpage">setlocale (3)</span>which interrogates various environment variables, possibly including 
+<p class="level0">and 
+<p class="level0">To temporarily override the determined value, use this option to supply a <span Class="emphasis">locale</span> string directly to , <span Class="manpage">whatis .</span>Note that it will not take effect until the search for pages actually begins. Output such as the help message will always be displayed in the initially determined locale. 
+<p class="level0"><span Class="bold">-C\  file ,\ \fB--config-file= file</span> Use this user configuration file rather than the default of <span Class="emphasis">~/.manpath .</span> 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Print a help message and exit. 
+<p class="level0"><span Class="manpage">--usage</span>Print a short usage message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">0</span> Successful program execution. 
+<p class="level0"><span Class="bold">1</span> Usage, syntax or configuration file error. 
+<p class="level0"><span Class="bold">2</span> Operational error. 
+<p class="level0"><span Class="bold">16</span> Nothing was found that matched the criteria specified. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">SYSTEM</span> If 
+<p class="level0">is set, it will have the same effect as if it had been specified as the argument to the <span Class="bold">-m</span> option. 
+<p class="level0"><span Class="bold">MANPATH</span> If 
+<p class="level0">is set, its value is interpreted as the colon-delimited manual page hierarchy search path to use. 
+<p class="level0"><span Class="bold">MANWIDTH</span> If 
+<p class="level0">is set, its value is used as the terminal width (see the <span Class="bold">--long</span> option). If it is not set, the terminal width will be calculated using the value of 
+<p class="level0">an , <span Class="manpage">ioctl (2)</span>if available, or falling back to 80 characters if all else fails. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/share/man/index.(bt|db|dir|pag)</span> A traditional global <span Class="emphasis">index</span> database cache. 
+<p class="level0"><span Class="emphasis">/var/cache/man/index.(bt|db|dir|pag)</span> An FHS compliant global <span Class="emphasis">index</span> database cache. 
+<p class="level0"><span Class="emphasis">/usr/share/man/\|.\|.\|.\|/whatis</span> A traditional  <span Class="bold">whatis</span> text database.  <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">apropos (1)</span>, <span Class="manpage">man (1)</span>, <span Class="manpage">mandb (8)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Wilf. (G.Wilford@ee.surrey.ac.uk).
+Fabrizio Polacco (fpolacco@debian.org).
+Colin Watson (cjwatson@debian.org).
+</pre>
+
+<p class="level0">

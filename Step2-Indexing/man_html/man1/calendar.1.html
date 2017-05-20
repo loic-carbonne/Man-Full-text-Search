@@ -1,0 +1,138 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The 
+<p class="level0">utility checks the current directory or the directory specified by the 
+<p class="level0">environment variable for a file named 
+<p class="level0">and displays lines that begin with either today's date or tomorrow's. On Fridays, events on Friday through Monday are displayed. 
+<p class="level0">The options are as follows: 
+<p class="level0">
+<p class="level0">Print lines from today and next 
+<p class="level0">days (forward, future). Defaults to one. (same as -l) 
+<p class="level0">Process the 
+<p class="level0">files of all users and mail the results to them. This requires superuser privileges. 
+<p class="level0">Print lines from today and previous 
+<p class="level0">days (backward, past). 
+<p class="level0">Enforce special date calculation mode for KOI8 calendars. 
+<p class="level0">Print lines from today and next 
+<p class="level0">days (forward, future). Defaults to one. (same as -A) 
+<p class="level0">Print lines from today and next 
+<p class="level0">days, only if today is Friday (forward, future). Defaults to two, which causes 
+<p class="level0">to print entries through the weekend on Fridays. 
+<p class="level0">Use 
+<p class="level0">as the default calendar file. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Act like the specified value is 
+<p class="level0">instead of using the current date. If yy is specified, but cc is not, a value for yy between 69 and 99 results in a cc value of 19. Otherwise, a cc value of 20 is used. 
+<p class="level0">
+<p class="level0">To handle calendars in your national code table you can specify 
+<p class="level0">in the calendar file as early as possible. To handle national Easter names in the calendars, 
+<p class="level0">(for Catholic Easter) or 
+<p class="level0">(for Orthodox Easter) can be used. 
+<p class="level0">A special locale name exists: 
+<p class="level0">Specifying 
+<p class="level0">indicates that the dates will be read using the C locale, and the descriptions will be encoded in UTF-8.  This is usually used for the distributed calendar files. The 
+<p class="level0">variable can be used to specify the style. Only 
+<p class="level0">and 
+<p class="level0">styles are currently supported. Use 
+<p class="level0">to return to the default (Gregorian). 
+<p class="level0">To enforce special date calculation mode for Cyrillic calendars you should specify 
+<p class="level0">and 
+<p class="level0">where &lt;local_name&gt; can be ru_RU.KOI8-R, uk_UA.KOI8-U or by_BY.KOI8-B. 
+<p class="level0">Note that the locale is reset to the user's default for each new file that is read. This is so that locales from one file do not accidentally carry over into another file. 
+<p class="level0">Other lines should begin with a month and day. They may be entered in almost any format, either numeric or as character strings. If proper locale is set, national months and weekdays names can be used. A single asterisk (`*') matches every month. A day without a month matches that day of every week. A month without a day matches the first of that month. Two numbers default to the month followed by the day. Lines with leading tabs default to the last entered date, allowing multiple line specifications for a single date. 
+<p class="level0">(may be followed by a positive or negative integer) is Easter for this year. 
+<p class="level0">(may be followed by a positive or negative integer) is Orthodox Easter for this year. Weekdays may be followed by 
+<p class="level0">
+<p class="level0">
+<p class="level0">(aliases last, first, second, third, fourth) for moving events like 
+<p class="level0">
+<p class="level0">By convention, dates followed by an asterisk 
+<p class="level0">are not fixed, i.e., change from year to year. 
+<p class="level0">Day descriptions start after the first &lt;tab&gt; character in the line; if the line does not contain a &lt;tab&gt; character, it isn't printed out. If the first character in the line is a &lt;tab&gt; character, it is treated as the continuation of the previous description. 
+<p class="level0">The calendar file is preprocessed by 
+<p class="level0">allowing the inclusion of shared files such as company holidays or meetings. If the shared file is not referenced by a full pathname, 
+<p class="level0">searches in the current (or home) directory first, and then in the directory directory 
+<p class="level0">and finally in 
+<p class="level0">Empty lines and lines protected by the C commenting syntax 
+<p class="level0">are ignored. 
+<p class="level0">Some possible calendar entries (a <span Class="bold">et</span> sequence denotes a &lt;tab&gt; character): 
+<p class="level0">LANG=C Easter=Ostern 
+<p class="level0">&#35;include &lt;calendar.usholiday&gt; &#35;include &lt;calendar.birthday&gt; 
+<p class="level0">6/15<span Class="bold">et</span>June 15 (if ambiguous, will default to month/day). Jun. 15<span Class="bold">et</span>June 15. 15 June<span Class="bold">et</span>June 15. Thursday<span Class="bold">et</span>Every Thursday. June<span Class="bold">et</span>Every June 1st. 15 *<span Class="bold">et</span>15th of every month. 
+<p class="level0">May Sun+2<span Class="bold">et</span>second Sunday in May (Muttertag) 04/SunLast<span Class="bold">et</span>last Sunday in April, <span Class="bold">et</span>summer time in Europe Easter<span Class="bold">et</span>Easter Ostern-2<span Class="bold">et</span>Good Friday (2 days before Easter) Paskha<span Class="bold">et</span>Orthodox Easter 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">File in current directory. 
+<p class="level0">Directory in the user's home directory (which 
+<p class="level0">changes into, if it exists). 
+<p class="level0">File to use if no calendar file exists in the current directory. 
+<p class="level0">
+<p class="level0">will not send mail if this file exists. 
+<p class="level0">International and national calendar files. 
+<p class="level0">Births and deaths of famous (and not-so-famous) people. 
+<p class="level0">Christian holidays (should be updated yearly by the local system administrator so that roving holidays are set correctly for the current year). 
+<p class="level0">Days of special significance to computer people. 
+<p class="level0">Croatian calendar. 
+<p class="level0">Discordian calendar (all rites reversed). 
+<p class="level0">Fantasy and fiction dates (mostly LOTR). 
+<p class="level0">French calendar. 
+<p class="level0">German calendar. 
+<p class="level0">Miscellaneous history. 
+<p class="level0">Other holidays (including the not-well-known, obscure, and 
+<p class="level0">obscure). 
+<p class="level0">Jewish holidays (should be updated yearly by the local system administrator so that roving holidays are set correctly for the current year). 
+<p class="level0">Musical events, births, and deaths (strongly oriented toward rock n' roll). 
+<p class="level0">
+<p class="level0">related events. 
+<p class="level0">Pagan holidays, celebrations and festivals. 
+<p class="level0">Russian calendar. 
+<p class="level0">Cosmic history. 
+<p class="level0">U.S. history. 
+<p class="level0">U.S. holidays. 
+<p class="level0">World wide calendar. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">The 
+<p class="level0">program previously selected lines which had the correct date anywhere in the line. This is no longer true: the date is only recognized when it occurs at the beginning of a line. <a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY</h2>
+<p class="level0">The 
+<p class="level0">command will only display lines that use a &lt;tab&gt; character to separate the date and description, or that begin with a &lt;tab&gt;. This is different than in previous releases. 
+<p class="level0">The 
+<p class="level0">flag argument syntax is from the original FreeBSD 
+<p class="level0">program. 
+<p class="level0">The 
+<p class="level0">and 
+<p class="level0">flags are Debian-specific enhancements. Also, the original 
+<p class="level0">program did not accept 
+<p class="level0">as an argument to the 
+<p class="level0">flag. 
+<p class="level0">Using 
+<p class="level0">as a locale name is a Debian-specific enhancement. <a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">A 
+<p class="level0">command appeared in 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">doesn't handle all Jewish holidays or moon phases. 

@@ -1,0 +1,42 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xsetroot - root window parameter setting utility for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xsetroot</span> [-help] [-version] [-def] [-display <span Class="emphasis">display</span>] [-cursor <span Class="emphasis">cursorfile maskfile</span>] [-cursor_name <span Class="emphasis">cursorname</span>] [-xcf <span Class="emphasis">cursorfile</span> <span Class="emphasis">cursorsize</span>] [-bitmap <span Class="emphasis">filename</span>] [-mod <span Class="emphasis">x y</span>] [-gray] [-grey] [-fg <span Class="emphasis">color</span>] [-bg <span Class="emphasis">color</span>] [-rv] [-solid <span Class="emphasis">color</span>] [-name <span Class="emphasis">string</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xsetroot</span> program allows you to tailor the appearance of the background ("root") window on a workstation display running X.  Normally, you experiment with <span Class="emphasis">xsetroot</span> until you find a personalized look that you like, then put the <span Class="emphasis">xsetroot</span> command that produces it into your X startup file. If no options are specified, or if <span Class="emphasis">-def</span> is specified, the window is reset to its default state.  The <span Class="emphasis">-def</span> option can be specified along with other options and only the non-specified characteristics will be reset to the default state. 
+<p class="level0">Only one of the background color/tiling changing options (-solid, -gray, -grey, -bitmap, and -mod) may be specified at a time. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The various options are as follows: 
+<p class="level0"><a name="fB-helpfP"></a><span class="nroffip">\fB-help\fP</span> 
+<p class="level1">Print a usage message and exit. 
+<p class="level0"><a name="fB-versonfP"></a><span class="nroffip">\fB-verson\fP</span> 
+<p class="level1">Print a version message and exit. 
+<p class="level0"><a name="fB-deffP"></a><span class="nroffip">\fB-def\fP</span> 
+<p class="level1">Reset unspecified attributes to the default values.  (Restores the background to the familiar gray mesh and the cursor to the hollow x shape.) 
+<p class="level0"><a name="fB-cursorfP"></a><span class="nroffip">\fB-cursor\fP \fIcursorfile\fP \fImaskfile\fP</span> 
+<p class="level1">This lets you change the pointer cursor to whatever you want when the pointer cursor is outside of any window. Cursor and mask files are bitmaps (little pictures), and can be made with the <span Class="emphasis">bitmap(1)</span> program.  You probably want the mask file to be all black until you get used to the way masks work. 
+<p class="level0"><a name="fB-cursornamefP"></a><span class="nroffip">\fB-cursor_name\fP \fIcursorname\fP</span> 
+<p class="level1">This lets you change the pointer cursor to one of the standard cursors from the cursor font.  Refer to appendix B of the X protocol for the names (except that the XC_ prefix is elided for this option). 
+<p class="level0"><a name="fB-xcffP"></a><span class="nroffip">\fB-xcf\fP \fIcursorfile\fP \fIcursorsize\fP</span> 
+<p class="level1">This lets you change the pointer cursor to one loaded from an Xcursor file as defined by libXcursor, at the specified size. 
+<p class="level0"><a name="fB-bitmapfP"></a><span class="nroffip">\fB-bitmap\fP \fIfilename\fP</span> 
+<p class="level1">Use the bitmap specified in the file to set the window pattern.  You can make your own bitmap files (little pictures) using the <span Class="emphasis">bitmap(1)</span> program.  The entire background will be made up of repeated "tiles" of the bitmap. 
+<p class="level0"><a name="fB-modfP"></a><span class="nroffip">\fB-mod\fP \fIx\fP \fIy\fP</span> 
+<p class="level1">This is used if you want a plaid-like grid pattern on your screen. x and y are integers ranging from 1 to 16.  Try the different combinations. Zero and negative numbers are taken as 1. 
+<p class="level0"><a name="fB-grayfP"></a><span class="nroffip">\fB-gray\fP</span> 
+<p class="level1">Make the entire background gray.  (Easier on the eyes.) 
+<p class="level0"><a name="fB-greyfP"></a><span class="nroffip">\fB-grey\fP</span> 
+<p class="level1">Make the entire background grey. 
+<p class="level0"><a name="fB-fgfP"></a><span class="nroffip">\fB-fg\fP \fIcolor\fP</span> 
+<p class="level1">Use ``color'' as the foreground color.  Foreground and background colors are meaningful only in combination with -cursor, -bitmap, or -mod. 
+<p class="level0"><a name="fB-bgfP"></a><span class="nroffip">\fB-bg\fP \fIcolor\fP</span> 
+<p class="level1">Use ``color'' as the background color. 
+<p class="level0"><a name="fB-rvfP"></a><span class="nroffip">\fB-rv\fP</span> 
+<p class="level1">This exchanges the foreground and background colors.  Normally the foreground color is black and the background color is white. 
+<p class="level0"><a name="fB-solidfP"></a><span class="nroffip">\fB-solid\fP \fIcolor\fP</span> 
+<p class="level1">This sets the background of the root window to the specified color.  This option is only useful on color servers. 
+<p class="level0"><a name="fB-namefP"></a><span class="nroffip">\fB-name\fP \fIstring\fP</span> 
+<p class="level1">Set the name of the root window to ``string''.  There is no default value. Usually a name is assigned to a window so that the window manager can use a text representation when the window is iconified. This option is unused since you can't iconify the background. 
+<p class="level0"><a name="fB-displayfP"></a><span class="nroffip">\fB-display\fP \fIdisplay\fP</span> 
+<p class="level1">Specifies the server to connect to; see <span Class="emphasis">X(7)</span>. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xset(1), xrdb(1), Xcursor(3) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Mark Lillibridge, MIT Project Athena 

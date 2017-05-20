@@ -1,0 +1,27 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xlogo - X Window System logo <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xlogo</span> [-<span Class="emphasis">toolkitoption</span> ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xlogo</span> program displays the X Window System logo. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xlogo</span> accepts all of the standard X Toolkit command line options, as well as the following: 
+<p class="level0"><span Class="bold">-render</span> This option indicates that the logo should be drawn with anti-aliased edges using the RENDER extension. 
+<p class="level0"><span Class="bold">-sharp</span> If -render is also specified, this forces the edges to be rendered in sharp mode, (ie. 1-bit alpha channel). 
+<p class="level0"><span Class="bold">-shape</span> This option indicates that the logo window should be shaped rather than rectangular. <a name="RESOURCES"></a><h2 class="nroffsh">RESOURCES</h2>
+<p class="level0">The default width and the default height are each 100 pixels. This program uses the <span Class="emphasis">Logo</span> widget in the Athena widget set.  It understands all of the Simple widget resource names and classes as well as: 
+<p class="level0"><span Class="bold">foreground (class\fB Foreground)</span> Specifies the color for the logo.  The default is depends on whether <span Class="emphasis">reverseVideo</span> is specified.  If <span Class="emphasis">reverseVideo</span> is specified the default is <span Class="emphasis">XtDefaultForeground</span>, otherwise the default is <span Class="emphasis">XtDefaultBackground</span>. 
+<p class="level0"><span Class="bold">shapeWindow (class\fB ShapeWindow)</span> Specifies that the window is shaped to the X logo.  The default is False. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xlogo</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+XLogo  xlogo
+	Logo  xlogo
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/XLogo</span> specifies required resources <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Ollie Jones of Apollo Computer and Jim Fulton of the MIT X Consortium wrote the logo graphics routine, based on a graphic design by Danny Chong and Ross Chapman of Apollo Computer. 

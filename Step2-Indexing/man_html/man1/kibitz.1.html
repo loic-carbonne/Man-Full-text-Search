@@ -1,0 +1,49 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kibitz - allow two people to interact with one shell <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">kibitz</span> [ <span Class="emphasis">kibitz-args</span> ] <span Class="emphasis">user</span> [ <span Class="emphasis">program program-args...</span> ] <br><span Class="bold">kibitz</span> [ <span Class="emphasis">kibitz-args</span> ] <span Class="emphasis">user@host</span> [ <span Class="emphasis">program program-args...</span> ] <a name="INTRODUCTION"></a><h2 class="nroffsh">INTRODUCTION</h2>
+<p class="level0"><span Class="bold">kibitz</span> allows two (or more) people to interact with one shell (or any arbitrary program).  Uses include: 
+<p class="level1">
+<p class="level1">(bu A novice user can ask an expert user for help.  Using <span Class="manpage">kibitz</span>the expert can see what the user is doing, and offer advice or show how to do it right. 
+<p class="level1">(bu By running <span Class="bold">kibitz</span> and then starting a full-screen editor, people may carry out a conversation, retaining the ability to scroll backwards, save the entire conversation, or even edit it while in progress. 
+<p class="level1">(bu People can team up on games, document editing, or other cooperative tasks where each person has strengths and weaknesses that complement one another. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">To start <span Class="manpage">kibitz</span>user1 runs kibitz with the argument of the user to kibitz.  For example: 
+<p class="level0">	kibitz user2 
+<p class="level0"><span Class="bold">kibitz</span> starts a new shell (or another program, if given on the command line), while prompting user2 to run <span Class="manpage">kibitz .</span>If user2 runs <span Class="bold">kibitz</span> as directed, the keystrokes of both users become the input of the shell.  Similarly, both users receive the output from the shell. 
+<p class="level0">To terminate <span Class="bold">kibitz</span> it suffices to terminate the shell itself.  For example, if either user types ^D (and the shell accepts this to be EOF), the shell terminates followed by <span Class="manpage">kibitz .</span>
+<p class="level0">Normally, all characters are passed uninterpreted.  However, if the escape character (described when <span Class="bold">kibitz</span> starts) is issued, the user may talk directly to the <span Class="bold">kibitz</span> interpreter.  Any <span Class="manpage">Expect (1)</span>or <span Class="manpage">Tcl (3)</span>commands may be given. Also, job control may be used while in the interpreter, to, for example, suspend or restart <span Class="manpage">kibitz .</span>
+<p class="level0">Various processes can provide various effects.  For example, you can emulate a two-way write(1) session with the command: 
+<p class="level0">	kibitz user2 sleep 1000000 <a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0"><span Class="bold">kibitz</span> takes arguments, these should also be separated by whitespace. 
+<p class="level0">The <span Class="bold">-noproc</span> flag runs <span Class="bold">kibitz</span> with no process underneath.  Characters are passed to the other <span Class="manpage">kibitz .</span>This is particularly useful for connecting multiple interactive processes together. In this mode, characters are not echoed back to the typist. 
+<p class="level0"><span Class="bold">-noescape</span> disables the escape character. 
+<p class="level0"><span Class="bold">-escape  char</span> sets the escape character.  The default escape character is ^]. 
+<p class="level0"><span Class="bold">-silent</span> turns off informational messages describing what kibitz is doing to initiate a connection. 
+<p class="level0"><span Class="bold">-tty  ttyname</span> defines the tty to which the invitation should be sent. 
+<p class="level0">If you start <span Class="bold">kibitz</span> to user2 on a remote computer, <span Class="bold">kibitz</span> performs a <span Class="bold">rlogin</span> to the remote computer with your current username. The flag <span Class="bold">-proxy  username</span> causes <span Class="bold">rlogin</span> to use <span Class="emphasis">username</span> for the remote login (e.g. if your account on the remote computer has a  different username). If the <span Class="bold">-proxy</span> flag is not given, <span Class="bold">kibitz</span> tries to determine your current username by (in that order) inspecting the environment variables USER and LOGNAME, then by using the commands <span Class="bold">whoami</span> and <span Class="manpage">logname .</span>
+<p class="level0">The arguments <span Class="bold">-noescape</span> and <span Class="bold">-escape</span> can also be given by user2 when prompted to run <span Class="manpage">kibitz .</span>
+<p class="level0"><a name="MORE"></a><h2 class="nroffsh">MORE THAN TWO USERS</h2>
+<p class="level0">The current implementation of kibitz explicitly understands only two users, however, it is nonetheless possible to have a three (or more) -way kibitz, by kibitzing another <span Class="manpage">kibitz .</span>For example, the following command runs <span Class="bold">kibitz</span> with the current user, user2, and user3: 
+<p class="level0">	% kibitz user2 kibitz user3 
+<p class="level0">Additional users may be added by simply appending more "kibitz user" commands. 
+<p class="level0">The <span Class="bold">xkibitz</span> script is similar to <span Class="bold">kibitz</span> but supports the ability to add additional users (and drop them) dynamically. <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0"><span Class="bold">kibitz</span> assumes the 2nd user has the same terminal type and size as the 1st user. If this assumption is incorrect, graphical programs may display oddly. 
+<p class="level0"><span Class="bold">kibitz</span> handles character graphics, but cannot handle bitmapped graphics.  Thus, <pre class="level0">
+&nbsp;
+	% xterm -e kibitz    will work
+	% kibitz xterm       will not work
+&nbsp;
+</pre>
+
+<p class="level0">However, you can get the effect of the latter command by using <span Class="bold">xkibitz </span> (see SEE ALSO below). <span Class="bold">kibitz</span> uses the same permissions as used by rlogin, rsh, etc.  Thus, you can only <span Class="bold">kibitz</span> to users at hosts for which you can rlogin. Similarly, <span Class="bold">kibitz</span> will prompt for a password on the remote host if rlogin would. 
+<p class="level0">If you <span Class="bold">kibitz</span> to users at remote hosts, <span Class="bold">kibitz</span> needs to distinguish your prompt from other things that may precede it during login. (Ideally, the end of it is preferred but any part should suffice.) If you have an unusual prompt, set the environment variable EXPECT_PROMPT to an egrep(1)-style regular expression. Brackets should be preceded with one backslash in ranges, and three backslashes for literal brackets. The default prompt r.e. is "($|%|&#35;)&nbsp;". 
+<p class="level0"><span Class="bold">kibitz</span> requires the <span Class="bold">kibitz</span> program on both hosts. <span Class="bold">kibitz</span> requires <span Class="manpage">expect (1).</span>
+<p class="level0">By comparison, the <span Class="bold">xkibitz</span> script uses the X authorization mechanism for inter-host communication so it does not need to login, recognize your prompt, or require kibitz on the remote host.  It does however need permission to access the other X servers. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">An early version of Sun's tmpfs had a bug in it that causes <span Class="bold">kibitz</span> to blow up.  If <span Class="bold">kibitz</span> reports "error flushing ...: Is a directory" ask Sun for patch &#35;100174. 
+<p class="level0">If your Expect is not compiled with multiple-process support (i.e., you do not  have a working select or poll), you will not be able to run kibitz. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The environment variable SHELL is used to determine the shell to start, if no other program is given on the command line. 
+<p class="level0">If the environment variable EXPECT_PROMPT exists, it is taken as a regular expression which matches the end of your login prompt (but does not otherwise occur while logging in). See also CAVEATS above. 
+<p class="level0">If the environment variables USER or LOGNAME are defined, they are used to  determine the current user name for a <span Class="bold">kibitz</span> to a remote computer. See description of the <span Class="bold">-proxy</span> option in ARGUMENTS above. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">Tcl (3)</span>, <span Class="manpage">libexpect (3)</span>, <span Class="manpage">xkibitz (1)</span><br><span Class="emphasis"></span> "Exploring Expect: A Tcl-Based Toolkit for Automating Interactive Programs" </span>by Don Libes, O'Reilly and Associates, January 1995. <br><span Class="emphasis"></span> "Kibitz - Connecting Multiple Interactive Programs Together", </span>by Don Libes, Software - Practice & Experience, John Wiley & Sons, West Sussex, England, Vol. 23, No. 5, May, 1993. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Don Libes, National Institute of Standards and Technology 
+<p class="level0"><span Class="bold">kibitz</span> is in the public domain. NIST and I would appreciate credit if this program or parts of it are used. 

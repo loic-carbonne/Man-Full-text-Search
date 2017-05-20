@@ -1,0 +1,12 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kbdinfo - obtain information about the status of a console <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">kbdinfo</span> [-C <span Class="emphasis">DEVICE</span>] getmode [text|graphics] 
+<p class="level0"><span Class="bold">kbdinfo</span> [-C <span Class="emphasis">DEVICE</span>] gkbmode [raw|xlate|mediumraw|unicode] 
+<p class="level0"><span Class="bold">kbdinfo</span> [-C <span Class="emphasis">DEVICE</span>] gkbmeta [metabit|escprefix] 
+<p class="level0"><span Class="bold">kbdinfo</span> [-C <span Class="emphasis">DEVICE</span>] gkbled [scrolllock|numlock|capslock] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">kbdinfo</span> is an interface to KDGETMODE, GKBMODE, GKBMETA and GKBLED ioctls.  Its primary use case is to query the status of the given <span Class="emphasis">CONSOLE</span> (or the currently active one, if no -C option is present) from a shell script. 
+<p class="level0">If the final value argument is not specified, <span Class="bold">kbdinfo</span> will print the result of the desired ioctl to the standard output. Otherwise, the given value is compared to the actual result, and the utility will exit with a status code of 0 for a match, 1 otherwise.  No text is printed for this style of invocation. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">kbd_mode (1)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">kbdinfo is Copyright &copy; 2011 Alexey Gladkov &lt;gladkov.alexey@gmail.com&gt;. 
+<p class="level0">This manual page was written by Michael Schutte &lt;michi@debian.org&gt; for the Debian GNU/Linux system (but may be used by others). 

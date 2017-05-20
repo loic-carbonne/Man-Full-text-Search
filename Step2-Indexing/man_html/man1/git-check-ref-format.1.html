@@ -1,0 +1,221 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-check-ref-format - Ensures that a reference name is well formed <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git check-ref-format</span> [--normalize]
+&nbsp;      [--[no-]allow-onelevel] [--refspec-pattern]
+&nbsp;      &lt;refname&gt;
+<span class="emphasis">git check-ref-format</span> --branch &lt;branchname-shorthand&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Checks if a given <span Class="emphasis">refname</span> is acceptable, and exits with a non-zero status if it is not. 
+<p class="level0">A reference is used in Git to specify branches and tags. A branch head is stored in the refs/heads hierarchy, while a tag is stored in the refs/tags hierarchy of the ref namespace (typically in $GIT_DIR/refs/heads and $GIT_DIR/refs/tags directories or, as entries in file $GIT_DIR/packed-refs if refs are packed by git gc). 
+<p class="level0">Git imposes the following rules on how references are named: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">They can include slash / for hierarchical (directory) grouping, but no slash-separated component can begin with a dot . or end with the sequence .lock. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">They must contain at least one /. This enforces the presence of a category like heads/, tags/ etc. but the actual names are not restricted. If the --allow-onelevel option is used, this rule is waived. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot have two consecutive dots .. anywhere. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot have ASCII control characters (i.e. bytes whose values are lower than e040, or e177 DEL), space, tilde ~, caret ^, or colon : anywhere. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 5.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot have question-mark ?, asterisk *, or open bracket [ anywhere. See the --refspec-pattern option below for an exception to this rule. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 6.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  6. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot begin or end with a slash / or contain multiple consecutive slashes (see the --normalize option below for an exception to this rule) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 7.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  7. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot end with a dot .. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 8.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  8. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot contain a sequence @{. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 9.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  9. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot be the single character @. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'10.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="10"></a><span class="nroffip">10. 4.2</span> 
+<p class="level1">
+<p class="level1">They cannot contain a e. 
+<p class="level0">
+<p class="level0">These rules make it easy for shell script based tools to parse reference names, pathname expansion by the shell when a reference name is used unquoted (by mistake), and also avoids ambiguities in certain reference name expressions (see <span Class="bold">gitrevisions</span>(7)): 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">A double-dot .. is often used as in ref1..ref2, and in some contexts this notation means ^ref1 ref2 (i.e. not in ref1 and in ref2). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">A tilde ~ and caret ^ are used to introduce the postfix <span Class="emphasis">nth parent</span> and <span Class="emphasis">peel onion</span> operation. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">A colon : is used as in srcref:dstref to mean "use srcref(cqs value and store it in dstref" in fetch and push operations. It may also be used to select a specific object such as with <span Class="emphasis">git cat-file</span>: "git cat-file blob v1.3.3:refs.c". 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">at-open-brace @{ is used as a notation to access a reflog entry. 
+<p class="level0">
+<p class="level0">With the --branch option, it expands the (lqprevious branch syntax(rq @{-n}. For example, @{-1} is a way to refer the last branch you were on. This option should be used by porcelains to accept this syntax anywhere a branch name is expected, so they can act as if you typed the branch name. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--[no-]allow-onelevel 
+<p class="level1">Controls whether one-level refnames are accepted (i.e., refnames that do not contain multiple /-separated components). The default is --no-allow-onelevel. 
+<p class="level0">
+<p class="level0">--refspec-pattern 
+<p class="level1">Interpret &lt;refname&gt; as a reference name pattern for a refspec (as used with remote repositories). If this option is enabled, &lt;refname&gt; is allowed to contain a single * in place of a one full pathname component (e.g., foo/*/bar but not foo/bar*). 
+<p class="level0">
+<p class="level0">--normalize 
+<p class="level1">Normalize <span Class="emphasis">refname</span> by removing any leading slash (/) characters and collapsing runs of adjacent slashes between name components into a single slash. Iff the normalized refname is valid then print it to standard output and exit with a status of 0. (--print is a deprecated way to spell --normalize.) 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Print the name of the previous branch: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git check-ref-format --branch @{-1}
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Determine the reference name to use for a new branch: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ ref=$(git check-ref-format --normalize "refs/heads/$newbranch") ||
+die "we do not like *(Aq$newbranch*(Aq as a branch name."
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

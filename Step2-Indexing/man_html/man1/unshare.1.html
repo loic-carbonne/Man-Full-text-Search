@@ -1,0 +1,29 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">unshare - run program with some namespaces unshared from parent <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">unshare</span> [options] <span Class="emphasis">program</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Unshares the indicated namespaces from the parent process and then executes the specified <span Class="emphasis">program</span>.  The namespaces to be unshared are indicated via options.  Unshareable namespaces are: 
+<p class="level0"><span Class="manpage">mount namespace</span>Mounting and unmounting filesystems will not affect the rest of the system (<span Class="bold">CLONE_NEWNS</span> flag), except for filesystems which are explicitly marked as shared (with <span Class="bold">mount --make-shared</span>; see <span Class="emphasis">/proc/self/mountinfo</span> for the <span Class="bold">shared</span> flags). 
+<p class="level0">It's recommended to use <span Class="bold">mount --make-rprivate</span> or <span Class="bold">mount --make-rslave</span> after <span Class="bold">unshare --mount</span> to make sure that mountpoints in the new namespace are really unshared from the parental namespace. 
+<p class="level0"><span Class="manpage">UTS namespace</span>Setting hostname or domainname will not affect the rest of the system. (<span Class="bold">CLONE_NEWUTS</span> flag) 
+<p class="level0"><span Class="manpage">IPC namespace</span>The process will have an independent namespace for System V message queues, semaphore sets and shared memory segments.  (<span Class="bold">CLONE_NEWIPC</span> flag) 
+<p class="level0"><span Class="manpage">network namespace</span>The process will have independent IPv4 and IPv6 stacks, IP routing tables, firewall rules, the <span Class="emphasis">/proc/net</span> and <span Class="emphasis">/sys/class/net</span> directory trees, sockets, etc.  (<span Class="bold">CLONE_NEWNET</span> flag) 
+<p class="level0"><span Class="manpage">pid namespace</span>Children will have a distinct set of PID to process mappings from their parent. (<span Class="bold">CLONE_NEWPID</span> flag) 
+<p class="level0"><span Class="manpage">user namespace</span>The process will have a distinct set of UIDs, GIDs and capabilities. (<span Class="bold">CLONE_NEWUSER</span> flag) 
+<p class="level0">See <span Class="bold">clone</span>(2) for the exact semantics of the flags. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. 
+<p class="level0"><span Class="manpage">-i</span>, <span Class="manpage">--ipc</span>Unshare the IPC namespace. 
+<p class="level0"><span Class="manpage">-m</span>, <span Class="manpage">--mount</span>Unshare the mount namespace. 
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--net</span>Unshare the network namespace. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--pid</span>Unshare the pid namespace. See also the <span Class="bold">--fork</span> and <span Class="bold">--mount-proc</span> options. 
+<p class="level0"><span Class="manpage">-u</span>, <span Class="manpage">--uts</span>Unshare the UTS namespace. 
+<p class="level0"><span Class="manpage">-U</span>, <span Class="manpage">--user</span>Unshare the user namespace. 
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">--fork</span>Fork the specified <span Class="emphasis">program</span> as a child process of <span Class="bold">unshare</span> rather than running it directly.  This is useful when creating a new pid namespace. 
+<p class="level0"><span Class="manpage">--mount-proc [=\fImountpoint\fP]</span>Just before running the program, mount the proc filesystem at <span Class="emphasis">mountpoint</span> (default is /proc).  This is useful when creating a new pid namespace.  It also implies creating a new mount namespace since the /proc mount would otherwise mess up existing programs on the system.  The new proc filesystem is explicitly mounted as private (by MS_PRIVATE|MS_REC). 
+<p class="level0"><span Class="manpage">-r</span>, <span Class="manpage">--map-root-user</span>Run the program only after the current effective user and group IDs have been mapped to the superuser UID and GID in the newly created user namespace.  This makes it possible to conveniently gain capabilities needed to manage various aspects of the newly created namespaces (such as configuring interfaces in the network namespace or mounting filesystems in the mount namespace) even when run unprivileged.  As a mere convenience feature, it does not support more sophisticated use cases, such as mapping multiple ranges of UIDs and GIDs. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">unshare (2)</span>, <span Class="manpage">clone (2)</span>, <span Class="manpage">mount (8)</span><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">None known so far. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Mikhail Gusarov &lt;dottedmag@dottedmag.net&gt; <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The unshare command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

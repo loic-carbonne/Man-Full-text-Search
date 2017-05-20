@@ -1,0 +1,44 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gnuplot - an interactive plotting program <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gnuplot</span> [X11 options] [options] [file ...] <br><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">Gnuplot</span> is a command-driven interactive plotting program. 
+<p class="level0">If file names are given on the command line, gnuplot loads each file with the <span Class="bold">load</span> command, in the order specified, and exits after the last file is processed.  If no files are given, <span Class="bold">gnuplot</span> prompts for interactive commands. 
+<p class="level0">Here are some of its features: 
+<p class="level0">Plots any number of functions, built up of C operators, C math library functions, and some things C doesn't have like **, sgn(), etc.   
+<p class="level0">User-defined constants and functions. 
+<p class="level0">All computations performed in the complex domain.  Just the real part is plotted by default, but functions like imag() and abs() and arg() are available to override this. 
+<p class="level0">Many presentation styles for plotting user data from files, including surface-fitting, error bars, boxplots, histograms, heat maps, and simple manipulation of image data.  There is an on-line demo collection at <br><span Class="emphasis">http://gnuplot.info/demo</span> 
+<p class="level0">Nonlinear least-squares fitting. 
+<p class="level0">2D and 3D plots with mouse-controlled zoom and rotation. 
+<p class="level0">Shell escapes and command line substitution. 
+<p class="level0">Load and save capability. 
+<p class="level0">Support for a huge variety of output devices and file formats. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-p, --persist</span> lets plot windows survive after main gnuplot program exits. 
+<p class="level0"><span Class="bold">-d, --default</span> settings.  Do not read from gnuplotrc or ~/.gnuplot on entry. 
+<p class="level0"><span Class="bold">-e "command list"</span> executes the requested commands before loading the next input file. 
+<p class="level0"><span Class="bold">-h, --help</span> print summary of usage 
+<p class="level0"><span Class="bold">-V</span> show current version <a name="X11"></a><h2 class="nroffsh">X11 OPTIONS</h2>
+<p class="level0"><span Class="bold">Gnuplot</span> provides the <span Class="emphasis">x11</span> terminal type for use with X servers. This terminal type is set automatically at startup if the <span Class="bold">GNUTERM</span> environment variable is set to x11, or if the <span Class="bold">-display</span> command line option is used. For terminal type x11, <span Class="emphasis">gnuplot</span> accepts the standard X Toolkit options and resources such as geometry, font, and background. See the X(1) man page for a description of common options. For additional X options specific to gnuplot, type <span Class="emphasis">help x11</span> on the gnuplot command line. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">A number of shell environment variables are understood by gnuplot.  None of these are required. 
+<p class="level0"><span Class="bold">GNUTERM</span> The name of the terminal type to be used by default.  This can be overridden by the gnuplotrc or .gnuplot start-up files and, of course, by later explicit "set terminal" commands. 
+<p class="level0"><span Class="bold">GNUHELP </span> The pathname of the HELP file (gnuplot.gih). 
+<p class="level0"><span Class="bold">HOME</span> The name of a directory to search for a .gnuplot file. 
+<p class="level0"><span Class="bold">PAGER</span> An output filter for help messages. 
+<p class="level0"><span Class="bold">SHELL</span> The program used for the "shell" command. 
+<p class="level0"><span Class="bold">FIT_SCRIPT</span> Specifies a gnuplot command to be executed when a fit is interrupted---see "help fit".   
+<p class="level0"><span Class="bold">FIT_LOG</span> The name of the logfile maintained by fit. 
+<p class="level0"><span Class="bold">GNUPLOT_LIB</span> Additional search directories for data and command files. The variable may contain a single directory name, or a list of directories separated by ':'. The contents of GNUPLOT_LIB are appended to the "loadpath" variable, but not saved with the "save" and "save set" commands. 
+<p class="level0"><span Class="bold">GDFONTPATH</span> Several gnuplot terminal drivers access TrueType fonts via the gd library. This variable gives the font search path for these drivers. 
+<p class="level0"><span Class="bold">GNUPLOT_DEFAULT_GDFONT</span> The default font for the terminal drivers that access TrueType fonts via the gd library. 
+<p class="level0"><span Class="bold">GNUPLOT_FONTPATH</span> The font search path used by the postscript terminal. The format is the same as for GNUPLOT_LIB. The contents of GNUPLOT_FONTPATH are appended to the "fontpath" variable, but not saved with the "save" and "save set" commands. 
+<p class="level0"><span Class="bold">GNUPLOT_PS_DIR</span> Used by the postscript driver to locate external prologue files. Depending on the build process, gnuplot contains either a builtin copy of those files or simply a default hardcoded path. Use this variable to test the postscript terminal with custom prologue files. See "help postscript prologue". <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">gnuplotrc</span> When gnuplot is run, it first looks for a system-wide initialization file named gnuplotrc.  The standard location of this file expected by the program is reported by the "show loadpath" command. 
+<p class="level0"><span Class="emphasis">.gnuplot</span> After loading the system-wide initialization file, if any, Gnuplot looks for a private initialization file in the HOME directory. It may contain any legal gnuplot commands, but typically they are limited to setting the preferred terminal and line types and defining frequently-used functions or variables. 
+<p class="level0"><span Class="emphasis">fit.log</span> The default name of the logfile output by the "fit" command. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Original authors: Thomas Williams and Colin Kelley. Starting with gnuplot version 3.8, the project source is cooperatively maintained on SourceForge by a large number of contributors. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Please report bugs using the project bug tracker on SourceForge. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">See the printed manual or the on-line help for details on specific commands. Project web site at <a href="http://gnuplot.info">http://gnuplot.info</a> 

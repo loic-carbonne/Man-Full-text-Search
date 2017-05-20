@@ -1,0 +1,48 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">sessreg - manage utmp/wtmp entries for non-init clients <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">sessreg</span> [-w <span Class="emphasis">wtmp-file</span>] [-u <span Class="emphasis">utmp-file</span>] [-L <span Class="emphasis">lastlog-file</span>] [-l <span Class="emphasis">line-name</span>] [-h <span Class="emphasis">host-name</span>] [-s <span Class="emphasis">slot-number</span>] [-x <span Class="emphasis">Xservers-file</span>] [-t <span Class="emphasis">ttys-file</span>] [-V] [-a] [-d] <span Class="emphasis">user-name</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Sessreg</span> is a simple program for managing utmp/wtmp and lastlog entries for xdm sessions. 
+<p class="level0">System V has a better interface to utmp than BSD; it dynamically allocates entries in the file, instead of writing them at fixed positions indexed by position in <span Class="manpage">/etc/ttys .</span>
+<p class="level0">To manage BSD-style utmp files, <span Class="emphasis">sessreg</span> has two strategies.  In conjunction with xdm, the -x option counts the number of lines in <span Class="bold">/etc/ttys</span> and then adds to that the number of the line in the Xservers file which specifies the display.  The display name must be specified as the "line-name" using the -l option.  This sum is used as the "slot-number" in the utmp file that this entry will be written at.  In the more general case, the -s option specifies the slot-number directly.  If for some strange reason your system uses a file other than <span Class="bold">/etc/ttys</span> to manage init, the -t option can direct <span Class="emphasis">sessreg</span> to look elsewhere for a count of terminal sessions. 
+<p class="level0">Conversely, System V managers will not ever need to use these options (-x, -s and -t).  To make the program easier to document and explain, <span Class="emphasis">sessreg</span> accepts the BSD-specific flags in the System V environment and ignores them. 
+<p class="level0">BSD and Linux also have a host-name field in the utmp file which doesn't exist in System V.  This option is also ignored by the System V version of <span Class="emphasis">sessreg</span>. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">In Xstartup, place a call like: <pre class="level0">
+&nbsp;
+&nbsp;      sessreg -a -l $DISPLAY -x /etc/X11/xdm/Xservers $USER
+&nbsp;
+</pre>
+
+<p class="level0">and in Xreset: <pre class="level0">
+&nbsp;
+&nbsp;      sessreg -d -l $DISPLAY -x /etc/X11/xdm/Xservers $USER
+</pre>
+
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-wfP"></a><span class="nroffip">\fB-w\fP \fIwtmp-file\fP</span> 
+<p class="level1">This specifies an alternate wtmp file, instead of <span Class="manpage">/var/log/wtmp .</span>The special name "none" disables writing records to the wtmp file. 
+<p class="level0"><a name="fB-ufP"></a><span class="nroffip">\fB-u\fP \fIutmp-file\fP</span> 
+<p class="level1">This specifies an alternate utmp file, instead of <span Class="manpage">/var/run/utmp .</span>The special name "none" disables writing records to the utmp file. 
+<p class="level0"><a name="fB-LfP"></a><span class="nroffip">\fB-L\fP \fIlastlog-file\fP</span> 
+<p class="level1">This specifies an alternate lastlog file, instead of <span Class="manpage">/var/log/lastlog</span>if the platform supports lastlog files. The special name "none" disables writing records to the lastlog file. 
+<p class="level0"><a name="fB-lfP"></a><span class="nroffip">\fB-l\fP \fIline-name\fP</span> 
+<p class="level1">This describes the "line" name of the entry.  For terminal sessions, this is the final pathname segment of the terminal device filename (e.g. ttyd0).  For X sessions, it should probably be the local display name given to the users session (e.g. :0).  If none is specified, the terminal name will be determined with ttyname(3) and stripped of leading components. 
+<p class="level0"><a name="fB-hfP"></a><span class="nroffip">\fB-h\fP \fIhost-name\fP</span> 
+<p class="level1">This is set for BSD hosts to indicate that the session was initiated from a remote host.  In typical xdm usage, this options is not used. 
+<p class="level0"><a name="fB-sfP"></a><span class="nroffip">\fB-s\fP \fIslot-number\fP</span> 
+<p class="level1">Each potential session has a unique slot number in BSD systems, most are identified by the position of the <span Class="emphasis">line-name</span> in the <span Class="manpage">/etc/ttys file.</span>This option overrides the default position determined with ttyslot(3). This option is inappropriate for use with xdm, the -x option is more useful. 
+<p class="level0"><a name="fB-xfP"></a><span class="nroffip">\fB-x\fP \fIXservers-file\fP</span> 
+<p class="level1">As X sessions are one-per-display, and each display is entered in this file, this options sets the <span Class="emphasis">slot-number</span> to be the number of lines in the <span Class="emphasis">ttys-file</span> plus the index into this file that the <span Class="emphasis">line-name</span> is found. 
+<p class="level0"><a name="fB-tfP"></a><span class="nroffip">\fB-t\fP \fIttys-file\fP</span> 
+<p class="level1">This specifies an alternate file which the <span Class="emphasis">-x</span> option will use to count the number of terminal sessions on a host. 
+<p class="level0"><a name="fB-VfP"></a><span class="nroffip">\fB-V\fP</span> 
+<p class="level1">This option causes the command to print its version and exit. 
+<p class="level0"><a name="fB-afP"></a><span class="nroffip">\fB-a\fP</span> 
+<p class="level1">This session should be added to utmp/wtmp. 
+<p class="level0"><a name="fB-dfP"></a><span class="nroffip">\fB-d\fP</span> 
+<p class="level1">This session should be deleted from utmp/wtmp.  One of -a/-d must be specified. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xdm (1)</span>, <span Class="manpage">utmpx (5)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Keith Packard, MIT X Consortium 

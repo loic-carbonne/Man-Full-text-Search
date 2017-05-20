@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-mergetool--lib - Common Git merge tool shell scriptlets <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">TOOL_MODE=(diff|merge) . "$(git --exec-path)/git-mergetool--lib"</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This is not a command the end user would want to run. Ever. This documentation is meant for people who are studying the Porcelain-ish scripts and/or are writing new ones. 
+<p class="level0">The <span Class="emphasis">git-mergetool--lib</span> scriptlet is designed to be sourced (using .) by other shell scripts to set up functions for working with Git merge tools. 
+<p class="level0">Before sourcing <span Class="emphasis">git-mergetool--lib</span>, your script must set TOOL_MODE to define the operation mode for the functions listed below. <span Class="emphasis">diff</span> and <span Class="emphasis">merge</span> are valid values. <a name="FUNCTIONS"></a><h2 class="nroffsh">FUNCTIONS</h2>
+<p class="level0">
+<p class="level0">get_merge_tool 
+<p class="level1">returns a merge tool. 
+<p class="level0">
+<p class="level0">get_merge_tool_cmd 
+<p class="level1">returns the custom command for a merge tool. 
+<p class="level0">
+<p class="level0">get_merge_tool_path 
+<p class="level1">returns the custom path for a merge tool. 
+<p class="level0">
+<p class="level0">run_merge_tool 
+<p class="level1">launches a merge tool given the tool name and a true/false flag to indicate whether a merge base is present. <span Class="emphasis">$MERGED</span>, <span Class="emphasis">$LOCAL</span>, <span Class="emphasis">$REMOTE</span>, and <span Class="emphasis">$BASE</span> must be defined for use by the merge tool. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

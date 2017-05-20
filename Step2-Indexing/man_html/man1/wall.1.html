@@ -1,0 +1,21 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">wall - write a message to all users <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">wall</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">timeout ]</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">wall</span> displays a <span Class="emphasis">message ,</span> or the contents of a <span Class="emphasis">file ,</span> or otherwise its standard input, on the terminals of all currently logged in users.  The command will wrap lines that are longer than 79 characters. Short lines are whitespace padded to have 79 characters.  The command will always put a carriage return and new line at the end of each line. 
+<p class="level0">Only the superuser can write on the terminals of users who have chosen to deny messages or are using a program which automatically denies messages. 
+<p class="level0">Reading from a <span Class="emphasis">file</span> is refused when the invoker is not superuser and the program is suid or sgid. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--nobanner</span>Suppress the banner. 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--timeout  \fItimeout\fR</span>Abandon the write attempt to the terminals after <span Class="emphasis">timeout</span> seconds. This <span Class="emphasis">timeout</span> must be a positive integer.  The default value is 300 seconds, which is a legacy from the time when people ran terminals over modem lines. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information and exit. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Some sessions, such as wdm, that have in the beginning of , <span Class="manpage">utmp (5)</span>ut_type data a ':' character will not get the message from <span Class="manpage">wall .</span>This is done to avoid write errors. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">mesg (1)</span>, <span Class="manpage">talk (1)</span>, <span Class="manpage">write (1)</span>, <span Class="manpage">shutdown (8)</span><a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">A <span Class="bold">wall</span> command appeared in Version 7 AT&T UNIX. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The wall command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

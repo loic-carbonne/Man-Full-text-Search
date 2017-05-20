@@ -1,0 +1,127 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_pysupport - use the python-support framework to handle Python modules <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dh_pysupport</span> [<span Class="emphasis">debhelper options</span>] [-V <span Class="emphasis">X.Y</span>] [-X <span Class="emphasis">item</span> [...]] [-n] [<span Class="emphasis">module dirs ...</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">dh_pysupport is a debhelper program that will scan your package, detect public modules in <span Class="emphasis">/usr/lib/pythonX.Y/site-packages</span>, and move them to  the shared Python modules location. It will generate appropriate postinst/prerm scripts to byte-compile modules installed there for all available python versions. 
+<p class="level0">It will also look for private Python modules and will byte-compile them with the current Python version. You may have to list the directories containing private Python modules. 
+<p class="level0">If a file named <span Class="emphasis">debian/pyversions</span> exists, it is used to determine the python versions with which the package can work. 
+<p class="level0">Appropriate dependencies on python-support, python and python<span Class="emphasis">X.Y</span> are put in ${python:Depends}.  The ${python:Versions} and ${python:Provides}  optional substitution variables are made available as well. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fImodule"></a><span class="nroffip">\fImodule dirs\fR 4</span> 
+<p class="level1">
+<p class="level1">If your package installs private python modules in non-standard directories, you can make dh_pysupport check those directories by passing their names on the command line. By default, it will check /usr/lib/$PACKAGE, /usr/share/$PACKAGE, /usr/lib/games/$PACKAGE and /usr/share/games/$PACKAGE 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--noscripts\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not modify postinst/postrm scripts. 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR 4</span> 
+<p class="level1">
+<p class="level1">This option is deprecated. 
+<p class="level0"><a name="fB-VfR"></a><span class="nroffip">\fB-V\fR \fIX.Y\fR 4</span> 
+<p class="level1">
+<p class="level1">Force private modules to be bytecompiled with the specific <span Class="emphasis">X.Y</span> python version, regardless of the default python version on the system. 
+<p class="level0"><a name="fB-XfR"></a><span class="nroffip">\fB-X\fR \fIitem\fR, \fB--exclude=\fR\fIitem\fR 4</span> 
+<p class="level1">
+<p class="level1">Exclude files that contain *(L"item*(R" anywhere in their filename from being taken into account to generate the python dependency. It also excludes  them from byte-compilation. You may use this option multiple times to  build up a list of things to exclude. <a name="CONFORMS"></a><h2 class="nroffsh">CONFORMS TO</h2>
+<p class="level0">
+<p class="level0">Python policy as of 2006-08-10 <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debhelper</span>|(7) 
+<p class="level0">This program is a part of python-support but is made to work with debhelper. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Josselin Mouette &lt;joss@debian.org&gt;, Raphael Hertzog &lt;hertzog@debian.org&gt; 

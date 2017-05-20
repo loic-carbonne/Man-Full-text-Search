@@ -1,0 +1,99 @@
+
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">libreoffice - LibreOffice office suite 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">libreoffice</span> [<span class="bold">--accept=<span Class="emphasis">accept-string</span>] [<span Class="bold">--base</span>] [<span Class="bold">--calc</span>] [<span Class="bold">--convert-to</span> output_file_extension[:output_filter_name] [--outdir output_dir] <span Class="emphasis">file</span>]... [<span class="bold">--display <span Class="emphasis">display</span>] [<span Class="bold">--draw</span>] [<span Class="bold">--global</span>] [<span Class="bold">--headless</span>] [<span Class="bold">--help</span>|<span Class="bold">-h</span>|<span Class="bold">-?</span>] [<span Class="bold">--impress</span>] [<span Class="bold">--invisible</span>] [<span Class="bold">--infilter="&lt;filter&gt;"</span>] [<span Class="bold">--math</span>] [<span Class="bold">--minimized</span>] [<span class="bold">-n <span Class="emphasis">file</span>]... [<span Class="bold">--nodefault</span>] [<span Class="bold">--nolockcheck</span>] [<span Class="bold">--nologo</span>] [<span Class="bold">--norestore</span>] [<span class="bold">-o <span Class="emphasis">file</span>]... [<span class="bold">-p <span Class="emphasis">file</span>...] [<span class="bold">--print-to-file [--printer-name printer_name] [--outdir output_dir] file]... [<span class="bold">--pt <span Class="emphasis">printername</span> <span Class="emphasis">file</span>...] [<span class="bold">--show <span Class="emphasis">Impress file</span>]... [<span class="bold">--unaccept=<span Class="emphasis">accept-string</span>] [<span Class="bold">--terminate_after_init</span>] [<span class="bold">--view <span Class="emphasis">file</span>]... [<span Class="bold">--web</span>] [<span Class="bold">--writer</span>]  [<span Class="emphasis">file</span>...] <br><span Class="bold">lobase</span> <br><span Class="bold">localc</span> <br><span Class="bold">lodraw</span> <br><span Class="bold">lofromtemplate</span> <br><span Class="bold">loimpress</span> <br><span Class="bold">lomath</span> <br><span Class="bold">loweb</span> <br><span Class="bold">lowriter</span> <br>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">LibreOffice (LO for short) is a multi-platform office productivity suite. It was derived from OpenOffice.org 3.3 Beta on September 28, 2010. 
+<p class="level0"><span Class="bold">libreoffice</span> is a shell script that sets up the environment and passes the command line arguments to the <span Class="bold">soffice.bin</span> binary. 
+<p class="level0">Alternatively, the following helper scripts start the respective module: 
+<p class="level0">sbase, scalc, sdraw, simpress, smath, sofficerc, swriter 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span class="bold">--accept=<span Class="emphasis">accept-string</span> Specify a UNO connect-string to create a UNO acceptor through which other programs can connect to access the API. 
+<p class="level0">
+<p class="level0"><span Class="bold">--base</span> Starts the wizard for a new Base document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--calc</span> Starts with a new Calc document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--convert-to</span> output_file_extension[:output_filter_name] [--outdir output_dir] <span Class="emphasis">file</span>... Batch converts files. If <span Class="emphasis">--outdir</span> is not specified then the current working directory is used as the output directory for the converted files. 
+<p class="level0">Examples: 
+<p class="level0"><span Class="bold">--convert-to</span> pdf *.doc 
+<p class="level0">Converts all .doc files to PDFs. 
+<p class="level0"><span Class="bold">--convert-to</span> pdf:writer_pdf_Export --outdir /home/user *.doc 
+<p class="level0">Converts all .doc files to PDFs using the settings in the Writer PDF export dialog and saving them in /home/user. 
+<p class="level0">
+<p class="level0"><span class="bold">--display <span Class="emphasis">display</span> This option specifies the X server to use; see <span Class="bold">X</span>(7) 
+<p class="level0">
+<p class="level0"><span Class="bold">--draw</span> Starts with a new Draw document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--global</span> Starts with a new Global document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--headless</span> Starts in "headless mode", which allows using the application without user a interface. 
+<p class="level0">This special mode can be used when the application is controlled by external clients via the API. 
+<p class="level0">It implies --invisible and strictly ignores any GUI environment. --quickstart does not work with this parameter. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span>|<span Class="bold">-h</span>|<span Class="bold">-?</span> Lists LibreOffice command line parameters. 
+<p class="level0">
+<p class="level0"><span Class="bold">--impress</span> Starts with a new Impress document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--invisible</span> Starts in invisible mode. 
+<p class="level0">Neither the start-up logo nor the initial program window will be visible. LO can be controlled and documents and dialogs can be opened via the API. 
+<p class="level0">When started with this parameter, it can only be quit using the taskmanager (Windows) or the kill command (UNIX based systems). 
+<p class="level0">--quickstart does not work with this parameter. 
+<p class="level0">
+<p class="level0"><span Class="bold">--infilter="&lt;filter&gt;"</span> Force an input filter type if possible. For example --infilter="Calc Office Open XML" only 
+<p class="level0">
+<p class="level0"><span Class="bold">--math</span> Starts with a new Math document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--minimized</span> Keeps the splash screen minimized. 
+<p class="level0">
+<p class="level0"><span class="bold">-n <span Class="emphasis">template</span>... Creates the a new document from the given templates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--nodefault</span> Starts LO without creating a new document. The next time you start LO, the welcome screen is shown. 
+<p class="level0">It's used together with <span Class="bold">--nologo</span> by quick starters. Note that <span Class="bold">--quickstart</span> has no longer been supported since OpenOffice.org 2.0.0. 
+<p class="level0">
+<p class="level0"><span Class="bold">--nolockcheck</span> Disables the check for remote instances using the installation. 
+<p class="level0">
+<p class="level0"><span Class="bold">--nologo</span> Disables the splash screen at program start. 
+<p class="level0">
+<p class="level0"><span Class="bold">--norestore</span> Disables restart and file recovery after a system crash. It is possible that LO will try to restore a file it keeps crashing on, if that happens <span Class="bold">--norestore</span> is the only way to start LO. 
+<p class="level0">
+<p class="level0"><span Class="bold">--nosplash</span> Disables the splash screen at program start. 
+<p class="level0">
+<p class="level0"><span class="bold">-o <span Class="emphasis">file</span>... Opens the given files for editing, even templates. 
+<p class="level0">Without <span Class="bold">-o</span> a template file would create a new document derived from that template. 
+<p class="level0">
+<p class="level0"><span class="bold">-p <span Class="emphasis">file</span>... Prints the given files to the default printer and ends. The splash screen does not appear. 
+<p class="level0">If the file name contains spaces, then it must be enclosed in quotation marks. 
+<p class="level0">
+<p class="level0"><span class="bold">--print-to-file [--printer-name printer_name] [--outdir output_dir] file... Batch print files to file. If --printer-name is not specified the default printer is used. If --outdir is not specified then the current working directory is used as the output directory for the converted files. 
+<p class="level0">Examples: 
+<p class="level0">--print-to-file *.doc 
+<p class="level0">Prints all .doc files to the current working directory using the default printer. 
+<p class="level0">--print-to-file --printer-name nasty_lowres_printer --outdir /home/user *.doc 
+<p class="level0">Prints all .doc files to /home/user directory using the nasty_lowres_printer. 
+<p class="level0">
+<p class="level0"><span class="bold">--pt <span Class="emphasis">printername</span> <span Class="emphasis">file</span>... Prints the given files to the printer <span Class="emphasis">printername</span> and ends. The splash screen does not appear. 
+<p class="level0">If a file name contains spaces, then it must be enclosed in quotation marks. 
+<p class="level0">
+<p class="level0"><span class="bold">--quickstart <span class="bold">--quickstart=no Starts LO with it's quick starter. <span class="bold">--quickstart disable the quick starter. 
+<p class="level0">Does not work with --invisible or --headless. 
+<p class="level0">
+<p class="level0"><span class="bold">--show <span Class="emphasis">Impress file</span>... Opens the given Impress files, starts the presentation and quits after they have finished. 
+<p class="level0">
+<p class="level0"><span class="bold">--unaccept=<span Class="emphasis">accept-string</span> Closes an acceptor that was created with <span Class="bold">--accept</span> option. 
+<p class="level0">Use <span Class="bold">--unaccept</span>=<span Class="emphasis">all</span> to close all open acceptors. 
+<p class="level0">
+<p class="level0"><span Class="bold">--terminate_after_init</span> Starts LO and terminates after it registers some UNO services. Doesn't show the splash during startup. 
+<p class="level0">
+<p class="level0"><span class="bold">--view <span Class="emphasis">file</span>... Opens the given files read-only creating a temporary copy of them at $TMPDIR. 
+<p class="level0">
+<p class="level0"><span Class="bold">--web</span> Starts with a new HTML document. 
+<p class="level0">
+<p class="level0"><span Class="bold">--writer</span> Starts with a new Writer document. 
+<p class="level0"><a name="TROUBLESHOOTING"></a><h2 class="nroffsh">TROUBLESHOOTING PROBLEMS</h2>
+<p class="level0">See <span Class="bold">http://wiki.documentfoundation.org/BugReport</span> for more details on how to report bugs in LibreOffice. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">http://www.documentfoundation.org/</span>
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was created by Rene Engelhard &lt;rene@debian.org&gt; for the Debian GNU/Linux Distribution, because the original package does not have one. It was updated for Novell by Petr Mladek &lt;petr.mladek@novell.com&gt; and adapted for LibreOffice by Philipp Weissenbacher &lt;philipp.weissenbacher@gmail.com&gt;. 

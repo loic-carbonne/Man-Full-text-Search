@@ -1,0 +1,22 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mcookie - generate magic cookies for xauth <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mcookie</span> [<span Class="emphasis">options</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">mcookie</span> generates a 128-bit random hexadecimal number for use with the X authority system.  Typical usage: 
+<p class="level1">xauth add :0 . `mcookie` 
+<p class="level0">
+<p class="level0">The "random" number generated is actually the output of the MD5 message digest fed with random information from one of the sources <span Class="emphasis">/dev/urandom ,</span> <span Class="emphasis">/dev/random ,</span> or <span Class="emphasis">libc pseudo-random functions</span> in this preference order. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--file</span>=<span Class="emphasis">FILE</span> Use additional file as a macig cookie random seed.  When file is defined as '-' character input is read from stdin. 
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--max-size</span>=<span Class="emphasis">number</span> Read form <span Class="emphasis">FILE</span> only <span Class="emphasis">number</span> of bytes.  This option is meant to be used when reading additional randomness from a device. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="emphasis">number</span> argument may be followed by the multiplicative suffixes KiB=1024, MiB=1024*1024, and so on for GiB, TiB, PiB, EiB, ZiB and YiB (the "iB" is optional, e.g., "K" has the same meaning as "KiB") or the suffixes KB=1000, MB=1000*1000, and so on for GB, TB, PB, EB, ZB and YB. 
+<p class="level1"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> Inform where randomness originated, with amount of entropy read from each source. 
+<p class="level1"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information and exit. 
+<p class="level1"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">It is assumed that none of the randomness sources will block. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">/dev/urandom</span> <br><span Class="emphasis">/dev/random</span> <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">X (1)</span>, <span Class="manpage">xauth (1)</span>, <span Class="manpage">md5sum (1)</span>, <span Class="manpage">rand (3)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The mcookie command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

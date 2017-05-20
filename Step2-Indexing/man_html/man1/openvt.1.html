@@ -1,0 +1,30 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">openvt - start a program on a new virtual terminal (VT). <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">openvt </span> [-c vtnumber] [OPTIONS] [--] command <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">openvt</span> will find the first available VT, and run on it the given  <span Class="manpage">command</span>with the given  <span Class="manpage">command options</span>standard input, output and error are directed to that terminal. The current search path ($PATH) is used to find the requested command. If no command is specified then the environment variable $SHELL is used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c, --console=VTNUMBER</span> Use the given VT number and not the first available. Note you must have write access to the supplied VT for this to work; 
+<p class="level0"><span Class="emphasis">-f, --force</span> Force opening a VT without checking whether it is already in use; 
+<p class="level0"><span Class="emphasis">-e, --exec</span> Directly execute the given command, without forking. This option is meant for use in <span Class="emphasis">/etc/inittab .</span> If you want to use this feature in another context, be aware that <span Class="bold">openvt</span> has to be a session leader in order for -e to work.  See <span Class="manpage">setsid (2)</span>or <span Class="manpage">setsid (1)</span>on how to achieve this. 
+<p class="level0"><span Class="emphasis">-s, --switch</span> Switch to the new VT when starting the command. The VT of the new command will be made the new current VT; 
+<p class="level0"><span Class="emphasis">-u, --user</span> Figure out the owner of the current VT, and run login as that user. Suitable to be called by init. Shouldn't be used with -c or -l; 
+<p class="level0"><span Class="emphasis">-l, --login</span> Make the command a login shell. A - is prepended to the name of the command to be executed; 
+<p class="level0"><span Class="emphasis">-v, --verbose</span> Be a bit more verbose; 
+<p class="level0"><span Class="emphasis">-w, --wait</span> wait for command to complete. If -w and -s are used together then <span Class="bold">openvt</span> will switch back to the controlling terminal when the command completes; 
+<p class="level0"><span Class="emphasis">-V, --version</span> print program version and exit; 
+<p class="level0"><span Class="emphasis">-h, --help</span> show this text and exit. 
+<p class="level0"><span Class="emphasis">-- </span> end of options to <span Class="manpage">openvt .</span><a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">If <span Class="bold">openvt</span> is compiled with a getopt_long() and you wish to set options to the command to be run, then you must supply the end of options -- flag before the command. <br><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><span Class="bold">openvt</span> can be used to start a shell on the next free VT, by using the command: 
+<p class="level0"><span Class="emphasis">openvt bash</span> 
+<p class="level0">
+<p class="level0">To start the shell as a login shell, use: 
+<p class="level0"><span Class="emphasis">openvt -l bash</span> 
+<p class="level0">
+<p class="level0">To get a long listing you must supply the -- separator: 
+<p class="level0"><span Class="emphasis">openvt -- ls -l</span> <br>
+<p class="level0"><a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">Earlier, <span Class="bold">openvt</span> was called <span Class="manpage">open .</span>It was written by Jon Tombs &lt;jon@gtex02.us.es or jon@robots.ox.ac.uk&gt;. The -w idea is from "sam". 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">chvt (1)</span>, <span Class="manpage">doshell (8)</span>, <span Class="manpage">login (1)</span>

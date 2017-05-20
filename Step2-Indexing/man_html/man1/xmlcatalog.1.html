@@ -1,0 +1,140 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xmlcatalog - Command line tool to parse and manipulate XML or SGML catalog files. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xmlcatalog</span> [<span Class="bold">--sgml</span> | <span Class="bold">--shell</span> | <span Class="bold">--create</span> | <span Class="bold">--del&nbsp;</span><span class="bold"><span Class="emphasis">VALUE(S)</span></span> | [&nbsp;<span Class="bold">--add&nbsp;</span><span class="bold"><span Class="emphasis">TYPE</span></span><span Class="bold">&nbsp;</span><span class="bold"><span Class="emphasis">ORIG</span></span><span Class="bold">&nbsp;</span><span class="bold"><span Class="emphasis">REPLACE</span></span><span Class="bold">&nbsp;</span>&nbsp;|&nbsp;<span Class="bold">--add&nbsp;</span><span class="bold"><span Class="emphasis">FILENAME</span></span>] | <span Class="bold">--noout</span> | <span Class="bold">--no-super-update</span> | [<span Class="bold">-v</span>&nbsp;|&nbsp;<span Class="bold">--verbose</span>]] {<span Class="emphasis">CATALOGFILE</span>} {<span Class="emphasis">ENTITIES</span>...} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">xmlcatalog</span> is a command line application allowing users to monitor and manipulate XML and SGML catalogs. It is included in <span Class="bold">libxml</span>(3). 
+<p class="level0">Its functions can be invoked from a single command from the command line, or it can perform multiple functions in interactive mode. It can operate on both XML and SGML files. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">xmlcatalog</span> accepts the following options (in alphabetical order): 
+<p class="level0"><span Class="bold">--add </span><span class="bold"><span Class="emphasis">TYPE</span></span><span Class="bold"> </span><span class="bold"><span Class="emphasis">ORIG</span></span><span Class="bold"> </span><span class="bold"><span Class="emphasis">REPLACE</span></span><span Class="bold"> </span> 
+<p class="level1">Add an entry to CATALOGFILE. <span Class="emphasis">TYPE</span> indicates the type of entry. Possible types are: <span Class="emphasis">public</span>, <span Class="emphasis">system</span>, <span Class="emphasis">uri</span>, <span Class="emphasis">rewriteSystem</span>, <span Class="emphasis">rewriteURI</span>, <span Class="emphasis">delegatePublic</span>, <span Class="emphasis">delegateSystem</span>, <span Class="emphasis">delegateURI</span>, <span Class="emphasis">nextCatalog</span>. <span Class="emphasis">ORIG</span> is the original reference to be replaced, and <span Class="emphasis">REPLACE</span> is the URI of the replacement entity to be used. The <span Class="bold">--add</span> option will not overwrite CATALOGFILE, outputting to stdout, unless <span Class="bold">--noout</span> is used. The <span Class="bold">--add</span> will always take three parameters even if some of the XML catalog constructs will have only a single argument. 
+<p class="level0">
+<p class="level0"><span Class="bold">--add </span><span class="bold"><span Class="emphasis">FILENAME</span></span> 
+<p class="level1">If the <span Class="bold">--add</span> option is used following the <span Class="bold">--sgml</span> option, only a single argument, a <span Class="emphasis">FILENAME</span>, is used. This is used to add the name of a catalog file to an SGML supercatalog, a file that contains references to other included SGML catalog files. 
+<p class="level0">
+<p class="level0"><span Class="bold">--create</span> 
+<p class="level1">Create a new XML catalog. Outputs to stdout, ignoring <span Class="emphasis">filename</span> unless <span Class="bold">--noout</span> is used, in which case it creates a new catalog file <span Class="emphasis">filename</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--del </span><span class="bold"><span Class="emphasis">VALUE(S)</span></span> 
+<p class="level1">Remove entries from <span Class="emphasis">CATALOGFILE</span> matching <span Class="emphasis">VALUE(S)</span>. The <span Class="bold">--del</span> option will not overwrite <span Class="emphasis">CATALOGFILE</span>, outputting to stdout, unless <span Class="bold">--noout</span> is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">--noout</span> 
+<p class="level1">Save output to the named file rather than outputting to stdout. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-super-update</span> 
+<p class="level1">Do not update the SGML super catalog. 
+<p class="level0">
+<p class="level0"><span Class="bold">--shell</span> 
+<p class="level1">Run a shell allowing interactive queries on catalog file <span Class="emphasis">CATALOGFILE</span>. For the set of available commands see the section called (lqSHELL COMMANDS(rq. 
+<p class="level0">
+<p class="level0"><span Class="bold">--sgml</span> 
+<p class="level1">Uses SGML super catalogs for <span Class="bold">--add</span> and <span Class="bold">--del</span> options. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> 
+<p class="level1">Output debugging information. 
+<p class="level0"><a name="SHELL"></a><h2 class="nroffsh">SHELL COMMANDS</h2>
+<p class="level0">
+<p class="level0">Invoking <span Class="bold">xmlcatalog</span> with the <span Class="bold">--shell </span><span class="bold"><span Class="emphasis">CATALOGFILE</span></span> option opens a command line shell allowing interactive access to the catalog file identified by <span Class="emphasis">CATALOGFILE</span>. Invoking the shell provides a command line prompt after which the following commands (described in alphabetical order) can be entered. 
+<p class="level0"><span Class="bold">add </span><span class="bold"><span Class="emphasis">TYPE</span></span><span Class="bold"> </span><span class="bold"><span Class="emphasis">ORIG</span></span><span Class="bold"> </span><span class="bold"><span Class="emphasis">REPLACE</span></span><span Class="bold"> </span> 
+<p class="level1">Add an entry to the catalog file. <span Class="emphasis">TYPE</span> indicates the type of entry. Possible types are: <span Class="emphasis">public</span>, <span Class="emphasis">system</span>, <span Class="emphasis">uri</span>, <span Class="emphasis">rewriteSystem</span>, <span Class="emphasis">rewriteURI</span>, <span Class="emphasis">delegatePublic</span>, <span Class="emphasis">delegateSystem</span>, <span Class="emphasis">delegateURI</span>, <span Class="emphasis">nextCatalog</span>. <span Class="emphasis">ORIG</span> is the original reference to be replaced, and <span Class="emphasis">REPLACE</span> is the URI of the replacement entity to be used. The <span Class="bold">--add</span> option will not overwrite CATALOGFILE, outputting to stdout, unless <span Class="bold">--noout</span> is used. The <span Class="bold">--add</span> will always take three parameters even if some of the XML catalog constructs will have only a single argument. 
+<p class="level0">
+<p class="level0"><span Class="bold">debug</span> 
+<p class="level1">Print debugging statements showing the steps <span Class="bold">xmlcatalog</span> is executing. 
+<p class="level0">
+<p class="level0"><span Class="bold">del </span><span class="bold"><span Class="emphasis">VALUE(S)</span></span> 
+<p class="level1">Remove the catalog entry corresponding to <span Class="emphasis">VALUE(S)</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">dump</span> 
+<p class="level1">Print the current catalog. 
+<p class="level0">
+<p class="level0"><span Class="bold">exit</span> 
+<p class="level1">Quit the shell. 
+<p class="level0">
+<p class="level0"><span Class="bold">public </span><span class="bold"><span Class="emphasis">PUBLIC-ID</span></span> 
+<p class="level1">Execute a Formal Public Identifier look-up of the catalog entry for <span Class="emphasis">PUBLIC-ID</span>. The corresponding entry will be output to the command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">quiet</span> 
+<p class="level1">Stop printing debugging statements. 
+<p class="level0">
+<p class="level0"><span Class="bold">system </span><span class="bold"><span Class="emphasis">SYSTEM-ID</span></span> 
+<p class="level1">Execute a Formal Public Identifier look-up of the catalog entry for <span Class="emphasis">SYSTEM-ID</span>. The corresponding entry will be output to the command line. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">XML_CATALOG_FILES</span> 
+<p class="level1">XML catalog behavior can be changed by redirecting queries to the user*(Aqs own set of catalogs. This can be done by setting the <span Class="bold">XML_CATALOG_FILES</span> environment variable to a list of catalogs. An empty one should deactivate loading the default /etc/xml/catalog catalog. 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">xmlcatalog</span> return codes provide information that can be used when calling it from scripts. 
+<p class="level0"><span Class="bold">0</span> 
+<p class="level1">No error 
+<p class="level0">
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Failed to remove an entry from the catalog 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">Failed to save to the catalog, check file permissions 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">Failed to add an entry to the catalog 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">Failed to look up an entry in the catalog 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">libxml</span>(3) 
+<p class="level0">More information can be found at 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">libxml</span>(3) web page m[blue]<span Class="bold">%http://www.xmlsoft.org/</span>m[] 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">libxml</span>(3) catalog support web page at m[blue]<span Class="bold">%http://www.xmlsoft.org/catalog.html</span>m[] 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">James Clark*(Aqs SGML catalog page m[blue]<span Class="bold">%http://www.jclark.com/sp/catalog.htm</span>m[] 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">OASIS XML catalog specification m[blue]<span Class="bold">%http://www.oasis-open.org/committees/entity/spec.html</span>m[] 
+<p class="level0">
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">John Fleck</span> &lt;jfleck@inkstain.net&gt; 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2001, 2004 <br>

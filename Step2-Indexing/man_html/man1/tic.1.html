@@ -1,0 +1,95 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0"><span Class="bold">tic</span> - the <span Class="emphasis">terminfo</span> entry-description compiler <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tic</span> [<span class="bold">-\ 0\ 1\ C\ D\ G\ I\ K\ L\ N\ T\ U\ V\ a\ c\ f\ g\ r\ s\ t\ x\ </span>] [<span Class="bold">-e</span> <span Class="emphasis">names</span>] [<span Class="bold">-o</span> <span Class="emphasis">dir</span>] [<span Class="bold">-R</span> <span Class="emphasis">subset</span>] [<span Class="bold">-v</span>[<span Class="emphasis">n</span>]] [<span Class="bold">-w</span>[<span Class="emphasis">n</span>]] <span Class="emphasis">file</span> <br><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">tic</span> command translates a <span Class="bold">terminfo</span> file from source format into compiled format. The compiled format is necessary for use with the library routines in <span Class="bold">ncurses</span>(3NCURSES). 
+<p class="level0">As described in <span Class="bold">term</span>(*n), the database may be either a directory tree (one file per terminal entry) or a hashed database (one record per entry). The <span Class="bold">tic</span> command writes only one type of entry, depending on how it was built: 
+<p class="level0">For directory trees, the top-level directory, e.g., /usr/share/terminfo, specifies the location of the database. 
+<p class="level0">For hashed databases, a filename is needed. If the given file is not found by that name, but can be found by adding the suffix ".db", then that is used. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default name for the hashed database is the same as the default directory name (only adding a ".db" suffix). 
+<p class="level1">In either case (directory or hashed database), <span Class="bold">tic</span> will create the container if it does not exist. For a directory, this would be the "terminfo" leaf, versus a "terminfo.db" file. 
+<p class="level1">The results are normally placed in the system terminfo database <span Class="bold">*d</span>. The compiled terminal description can be placed in a different terminfo database. There are two ways to achieve this: 
+<p class="level1">First, you may override the system default either by using the <span Class="bold">-o</span> option, or by setting the variable <span Class="bold">TERMINFO</span> in your shell environment to a valid database location. 
+<p class="level1">Secondly, if <span Class="bold">tic</span> cannot write in <span Class="emphasis">*d</span> or the location specified using your TERMINFO variable, it looks for the directory <span Class="emphasis">$HOME/.terminfo</span> (or hashed database <span Class="emphasis">$HOME/.terminfo.db)</span>; if that location exists, the entry is placed there. 
+<p class="level1">Libraries that read terminfo entries are expected to check in succession 
+<p class="level1">a location specified with the TERMINFO environment variable, 
+<p class="level1"><span Class="emphasis">$HOME/.terminfo</span>, 
+<p class="level1">directories listed in the TERMINFO_DIRS environment variable, 
+<p class="level1">a compiled-in list of directories (no default value), and 
+<p class="level1">the system terminfo database (<span Class="emphasis">*d</span>). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-0</span> restricts the output to a single line 
+<p class="level0"><span Class="bold">-1</span> restricts the output to a single column 
+<p class="level0"><span Class="bold">-a</span> tells <span Class="bold">tic</span> to retain commented-out capabilities rather than discarding them. Capabilities are commented by prefixing them with a period. This sets the <span Class="bold">-x</span> option, because it treats the commented-out entries as user-defined names. If the source is termcap, accept the 2-character names required by version 6. Otherwise these are ignored. 
+<p class="level0"><span Class="bold">-C</span> Force source translation to termcap format. Note: this differs from the <span Class="bold">-C</span> option of <span Class="bold">infocmp</span>(1) in that it does not merely translate capability names, but also translates terminfo strings to termcap format. Capabilities that are not translatable are left in the entry under their terminfo names but commented out with two preceding dots. The actual format used incorporates some improvements for escaped characters from terminfo format. For a stricter BSD-compatible translation, add the <span Class="bold">-K</span> option. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If this is combined with <span Class="bold">-c</span>, <span Class="bold">tic</span> makes additional checks to report cases where the terminfo values do not have an exact equivalent in termcap form. For example: 
+<p class="level2">
+<p class="level2"><span Class="bold">sgr</span> usually will not convert, because termcap lacks the ability to work with more than two parameters, and because termcap lacks many of the arithmetic/logical operators used in terminfo. 
+<p class="level2">capabilities with more than one delay or with delays before the end of the string will not convert completely. 
+<p class="level1">
+<p class="level1"><span Class="bold">-c</span> tells <span Class="bold">tic</span> to only check <span Class="emphasis">file</span> for errors, including syntax problems and bad use links. If you specify <span Class="bold">-C</span> (<span Class="bold">-I</span>) with this option, the code will print warnings about entries which, after use resolution, are more than 1023 (4096) bytes long. Due to a fixed buffer length in older termcap libraries, as well as buggy checking for the buffer length (and a documented limit in terminfo), these entries may cause core dumps with other implementations. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">tic</span> checks string capabilities to ensure that those with parameters will be valid expressions. It does this check only for the predefined string capabilities; those which are defined with the <span Class="bold">-x</span> option are ignored. 
+<p class="level1"><span Class="bold">-D</span> tells <span Class="bold">tic</span> to print the database locations that it knows about, and exit. The first location shown is the one to which it would write compiled terminal descriptions. If <span Class="bold">tic</span> is not able to find a writable database location according to the rules summarized above, it will print a diagnostic and exit with an error rather than printing a list of database locations. 
+<p class="level1"><span Class="bold">-e </span><span Class="emphasis">names</span> Limit writes and translations to the following comma-separated list of terminals. If any name or alias of a terminal matches one of the names in the list, the entry will be written or translated as normal. Otherwise no output will be generated for it. The option value is interpreted as a file containing the list if it contains a '/'. (Note: depending on how tic was compiled, this option may require <span Class="bold">-I</span> or <span Class="bold">-C</span>.) 
+<p class="level1"><span Class="bold">-f</span> Display complex terminfo strings which contain if/then/else/endif expressions indented for readability. 
+<p class="level1"><span Class="bold">-G</span> Display constant literals in decimal form rather than their character equivalents. 
+<p class="level1"><span Class="bold">-g</span> Display constant character literals in quoted form rather than their decimal equivalents. 
+<p class="level1"><span Class="bold">-I</span> Force source translation to terminfo format. 
+<p class="level1"><span Class="bold">-K</span> Suppress some longstanding ncurses extensions to termcap format, e.g., "\s" for space. 
+<p class="level1"><span Class="bold">-L</span> Force source translation to terminfo format using the long C variable names listed in &lt;<span Class="bold">term.h</span>&gt; 
+<p class="level1"><span Class="bold">-N</span> Disable smart defaults. Normally, when translating from termcap to terminfo, the compiler makes a number of assumptions about the defaults of string capabilities <span Class="bold">reset1_string</span>, <span Class="bold">carriage_return</span>, <span Class="bold">cursor_left</span>, <span Class="bold">cursor_down</span>, <span Class="bold">scroll_forward</span>, <span Class="bold">tab</span>, <span Class="bold">newline</span>, <span Class="bold">key_backspace</span>, <span Class="bold">key_left</span>, and <span Class="bold">key_down</span>, then attempts to use obsolete termcap capabilities to deduce correct values. It also normally suppresses output of obsolete termcap capabilities such as <span Class="bold">bs</span>. This option forces a more literal translation that also preserves the obsolete capabilities. 
+<p class="level1"><span Class="bold">-o</span><span Class="emphasis">dir</span> Write compiled entries to given database location. Overrides the TERMINFO environment variable. 
+<p class="level1"><span Class="bold">-R</span><span Class="emphasis">subset</span> Restrict output to a given subset. This option is for use with archaic versions of terminfo like those on SVr1, Ultrix, or HP/UX that do not support the full set of SVR4/XSI Curses terminfo; and outright broken ports like AIX 3.x that have their own extensions incompatible with SVr4/XSI. Available subsets are "SVr1", "Ultrix", "HP", "BSD" and "AIX"; see <span Class="bold">terminfo</span>(*n) for details. 
+<p class="level1"><span Class="bold">-r</span> Force entry resolution (so there are no remaining tc capabilities) even when doing translation to termcap format. This may be needed if you are preparing a termcap file for a termcap library (such as GNU termcap through version 1.3 or BSD termcap through 4.3BSD) that does not handle multiple tc capabilities per entry. 
+<p class="level1"><span Class="bold">-s</span> Summarize the compile by showing the database location into which entries are written, and the number of entries which are compiled. 
+<p class="level1"><span Class="bold">-T</span> eliminates size-restrictions on the generated text. This is mainly useful for testing and analysis, since the compiled descriptions are limited (e.g., 1023 for termcap, 4096 for terminfo). 
+<p class="level1"><span Class="bold">-t</span> tells <span Class="bold">tic</span> to discard commented-out capabilities. Normally when translating from terminfo to termcap, untranslatable capabilities are commented-out. 
+<p class="level1"><span Class="bold">-U</span> tells <span Class="bold">tic</span> to not post-process the data after parsing the source file. Normally, it infers data which is commonly missing in older terminfo data, or in termcaps. 
+<p class="level1"><span Class="bold">-V</span> reports the version of ncurses which was used in this program, and exits. 
+<p class="level1"><span Class="bold">-v</span><span Class="emphasis">n</span> specifies that (verbose) output be written to standard error trace information showing <span Class="bold">tic</span>'s progress. The optional parameter <span Class="emphasis">n</span> is a number from 1 to 10, inclusive, indicating the desired level of detail of information. If <span Class="emphasis">n</span> is omitted, the default level is 1. If <span Class="emphasis">n</span> is specified and greater than 1, the level of detail is increased. 
+<p class="level2">
+<p class="level2">The debug flag levels are as follows: 
+<p class="level2">1 Names of files created and linked 
+<p class="level2">2 Information related to the *(``use*('' facility 
+<p class="level2">3 Statistics from the hashing algorithm 
+<p class="level2">5 String-table memory allocations 
+<p class="level2">7 Entries into the string-table 
+<p class="level2">8 List of tokens encountered by scanner 
+<p class="level2">9 All values computed in construction of the hash table 
+<p class="level2">If the debug level <span Class="emphasis">n</span> is not given, it is taken to be one. 
+<p class="level1">
+<p class="level1"><span Class="bold">-w</span><span Class="emphasis">n</span> specifies the width of the output. The parameter is optional. If it is omitted, it defaults to 60. 
+<p class="level1"><span Class="bold">-x</span> Treat unknown capabilities as user-defined. That is, if you supply a capability name which <span Class="bold">tic</span> does not recognize, it will infer its type (boolean, number or string) from the syntax and make an extended table entry for that. User-defined capability strings whose name begins with *(``k*('' are treated as function keys. <a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">file</span> contains one or more <span Class="bold">terminfo</span> terminal descriptions in source format [see <span Class="bold">terminfo</span>(*n)]. Each description in the file describes the capabilities of a particular terminal. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If <span Class="emphasis">file</span> is *(``-*('', then the data is read from the standard input. The <span Class="emphasis">file</span> parameter may also be the path of a character-device. <a name="PROCESSING"></a><h2 class="nroffsh">PROCESSING</h2>
+<p class="level0">
+<p class="level0">All but one of the capabilities recognized by <span Class="bold">tic</span> are documented in <span Class="bold">terminfo</span>(*n). The exception is the <span Class="bold">use</span> capability. 
+<p class="level0">When a <span Class="bold">use</span>=<span Class="emphasis">entry</span>-<span Class="emphasis">name</span> field is discovered in a terminal entry currently being compiled, <span Class="bold">tic</span> reads in the binary from <span Class="bold">*d</span> to complete the entry. (Entries created from <span Class="emphasis">file</span> will be used first. <span Class="bold">tic</span> duplicates the capabilities in <span Class="emphasis">entry</span>-<span Class="emphasis">name</span> for the current entry, with the exception of those capabilities that explicitly are defined in the current entry. 
+<p class="level0">When an entry, e.g., <span Class="bold">entry_name_1</span>, contains a <span Class="bold">use=</span><span Class="emphasis">entry</span>_<span Class="emphasis">name</span>_<span Class="emphasis">2</span> field, any canceled capabilities in <span Class="emphasis">entry</span>_<span Class="emphasis">name</span>_<span Class="emphasis">2</span> must also appear in <span Class="bold">entry_name_1</span> before <span Class="bold">use=</span> for these capabilities to be canceled in <span Class="bold">entry_name_1</span>. 
+<p class="level0">Total compiled entries cannot exceed 4096 bytes. The name field cannot exceed 512 bytes. Terminal names exceeding the maximum alias length (32 characters on systems with long filenames, 14 characters otherwise) will be truncated to the maximum alias length and a warning message will be printed. <a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY</h2>
+<p class="level0">There is some evidence that historic <span Class="bold">tic</span> implementations treated description fields with no whitespace in them as additional aliases or short names. This <span Class="bold">tic</span> does not do that, but it does warn when description fields may be treated that way and check them for dangerous characters. <a name="EXTENSIONS"></a><h2 class="nroffsh">EXTENSIONS</h2>
+<p class="level0">Unlike the SVr4 <span Class="bold">tic</span> command, this implementation can actually compile termcap sources. In fact, entries in terminfo and termcap syntax can be mixed in a single source file. See <span Class="bold">terminfo</span>(*n) for the list of termcap names taken to be equivalent to terminfo names. 
+<p class="level0">The SVr4 manual pages are not clear on the resolution rules for <span Class="bold">use</span> capabilities. This implementation of <span Class="bold">tic</span> will find <span Class="bold">use</span> targets anywhere in the source file, or anywhere in the file tree rooted at <span Class="bold">TERMINFO</span> (if <span Class="bold">TERMINFO</span> is defined), or in the user's <span Class="emphasis">$HOME/.terminfo</span> database (if it exists), or (finally) anywhere in the system's file tree of compiled entries. 
+<p class="level0">The error messages from this <span Class="bold">tic</span> have the same format as GNU C error messages, and can be parsed by GNU Emacs's compile facility. 
+<p class="level0">The <span Class="bold">-0</span>, <span Class="bold">-1</span>, <span Class="bold">-C</span>, <span Class="bold">-G</span>, <span Class="bold">-I</span>, <span Class="bold">-N</span>, <span Class="bold">-R</span>, <span Class="bold">-T</span>, <span Class="bold">-V</span>, <span Class="bold">-a</span>, <span Class="bold">-e</span>, <span Class="bold">-f</span>, <span Class="bold">-g</span>, <span Class="bold">-o</span>, <span Class="bold">-r</span>, <span Class="bold">-s</span>, <span Class="bold">-t</span> and <span Class="bold">-x</span> options are not supported under SVr4. The SVr4 <span Class="bold">-c</span> mode does not report bad use links. 
+<p class="level0">System V does not compile entries to or read entries from your <span Class="emphasis">$HOME/.terminfo</span> database unless TERMINFO is explicitly set to it. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">*d/?/*</span> Compiled terminal description database. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">infocmp</span>(1), <span Class="bold">captoinfo</span>(1), <span Class="bold">infotocap</span>(1), <span Class="bold">toe</span>(1), <span Class="bold">ncurses</span>(3NCURSES), <span Class="bold">term</span>(*n). <span Class="bold">terminfo</span>(*n). 
+<p class="level0">This describes <span Class="bold">ncurses</span> version 5.9 (patch 20140913). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Eric S. Raymond &lt;esr@snark.thyrsus.com&gt; and <br>Thomas E. Dickey &lt;dickey@invisible-island.net&gt; 

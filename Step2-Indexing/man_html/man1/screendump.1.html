@@ -1,0 +1,21 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">screendump - dump the contents of a virtual console to stdout 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">screendump </span> [ <span Class="emphasis">N</span> ] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">screendump</span> command dumps the contents of virtual console  <span Class="bold">N</span> , (or the current console if N is omitted) to standard out. 
+<p class="level0">Just saying 
+<p class="level1">cat /dev/vcsN 
+<p class="level0">has a similar effect. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">For security reasons, <span Class="bold">screendump</span> uses linux devices "virtual console screen" and  "virtual console screen with attributes" to give access for screendump. 
+<p class="level0">Ensure these files exist, using 
+<p class="level0">
+<p class="level1">cd /dev for i in 0 1 2 3 ...; do <br>	mknod vcs$i c 7 $i <br>	mknod vcsa$i c 7 `expr 128 + $i` <br>done 
+<p class="level0">
+<p class="level0">(filling in the ellipses) and give the device files appropriate permissions, or run  <span Class="bold">screendump</span> as root. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">setterm(1) 
+<p class="level0">

@@ -1,0 +1,34 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">df - report file system disk space usage <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">df</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents the GNU version of <span Class="manpage">df .</span><span Class="bold">df</span> displays the amount of disk space available on the file system containing each file name argument.  If no file name is given, the space available on all currently mounted file systems is shown.  Disk space is shown in 1K blocks by default, unless the environment variable POSIXLY_CORRECT is set, in which case 512-byte blocks are used. 
+<p class="level0">If an argument is the absolute file name of a disk device node containing a mounted file system, <span Class="bold">df</span> shows the space available on that file system rather than on the file system containing the device node.  This version of <span Class="bold">df</span> cannot show the space available on unmounted file systems, because on most kinds of systems doing so requires very nonportable intimate knowledge of file system structures. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Show information about the file system on which each FILE resides, or all file systems by default. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> include dummy file systems 
+<p class="level0"><span Class="bold">-B</span>, <span Class="bold">--block-size</span>=<span Class="emphasis">SIZE</span> scale sizes by SIZE before printing them; e.g., '-BM' prints sizes in units of 1,048,576 bytes; see SIZE format below 
+<p class="level0"><span Class="bold">--total</span> produce a grand total 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--human-readable</span> print sizes in powers of 1024 (e.g., 1023M) 
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--si</span> print sizes in powers of 1000 (e.g., 1.1G) 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--inodes</span> list inode information instead of block usage 
+<p class="level0"><span Class="bold">-k</span> like <span Class="bold">--block-size</span>=<span Class="emphasis">1K</span> 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--local</span> limit listing to local file systems 
+<p class="level0"><span Class="bold">--no-sync</span> do not invoke sync before getting usage info (default) 
+<p class="level0"><span Class="bold">--output</span>[=<span Class="emphasis">FIELD_LIST</span>] use the output format defined by FIELD_LIST, or print all fields if FIELD_LIST is omitted. 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--portability</span> use the POSIX output format 
+<p class="level0"><span Class="bold">--sync</span> invoke sync before getting usage info 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--type</span>=<span Class="emphasis">TYPE</span> limit listing to file systems of type TYPE 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--print-type</span> print file system type 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--exclude-type</span>=<span Class="emphasis">TYPE</span> limit listing to file systems not of type TYPE 
+<p class="level0"><span Class="bold">-v</span> (ignored) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Display values are in units of the first available SIZE from <span Class="bold">--block-size</span>, and the DF_BLOCK_SIZE, BLOCK_SIZE and BLOCKSIZE environment variables. Otherwise, units default to 1024 bytes (or 512 if POSIXLY_CORRECT is set). 
+<p class="level0">The SIZE argument is an integer and optional unit (example: 10K is 10*1024). Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000). 
+<p class="level0">FIELD_LIST is a comma-separated list of columns to be included.  Valid field names are: 'source', 'fstype', 'itotal', 'iused', 'iavail', 'ipcent', 'size', 'used', 'avail', 'pcent', 'file' and 'target' (see info page). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Torbjorn Granlund, David MacKenzie, and Paul Eggert. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report df translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/df&gt; <br>or available locally via: info (aq(coreutils) df invocation(aq 

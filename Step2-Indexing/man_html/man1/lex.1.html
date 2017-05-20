@@ -1,0 +1,62 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">flex - the fast lexical analyser generator <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">flex</span> [<span Class="emphasis">,OPTIONS/</span>] [<span Class="emphasis">,FILE/</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Generates programs that perform pattern-matching on text. <a name="Table"></a><h2 class="nroffsh">Table Compression:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-Ca</span>, <span Class="bold">--align</span> trade off larger tables for better memory alignment 
+<p class="level0"><span Class="bold">-Ce</span>, <span Class="bold">--ecs</span> construct equivalence classes 
+<p class="level0"><span Class="bold">-Cf</span> do not compress tables; use <span Class="bold">-f</span> representation 
+<p class="level0"><span Class="bold">-CF</span> do not compress tables; use <span Class="bold">-F</span> representation 
+<p class="level0"><span Class="bold">-Cm</span>, <span Class="bold">--meta-ecs</span> construct meta-equivalence classes 
+<p class="level0"><span Class="bold">-Cr</span>, <span Class="bold">--read</span> use read() instead of stdio for scanner input 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--full</span> generate fast, large scanner. Same as <span Class="bold">-Cfr</span> 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--fast</span> use alternate table representation. Same as <span Class="bold">-CFr</span> 
+<p class="level0"><span Class="bold">-Cem</span> default compression (same as <span Class="bold">--ecs</span> <span Class="bold">--meta-ecs</span>) <a name="Debugging"></a><h2 class="nroffsh">Debugging:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--debug</span> enable debug mode in scanner 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--backup</span> write backing-up information to lex.backup 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--perf-report</span> write performance report to stderr 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--nodefault</span> suppress default rule to ECHO unmatched text 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--trace</span> flex should run in trace mode 
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--nowarn</span> do not generate warnings 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> write summary of scanner statistics to stdout <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--outfile</span>=<span Class="emphasis">,FILE/</span> specify output filename 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--skel</span>=<span Class="emphasis">,FILE/</span> specify skeleton file 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--stdout</span> write scanner on stdout instead of lex.yy.c 
+<p class="level0"><span Class="bold">--yyclass</span>=<a class="emphasis" href="#NAME">,NAME/</a> name of C++ class 
+<p class="level0"><span Class="bold">--header-file</span>=<span Class="emphasis">,FILE/</span> create a C header file in addition to the scanner 
+<p class="level0"><span Class="bold">--tables-file</span>[=<span Class="emphasis">,FILE/</span>] write tables to FILE <a name="Scanner"></a><h2 class="nroffsh">Scanner behavior:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-7</span>, <span Class="bold">--7bit</span> generate 7-bit scanner 
+<p class="level0"><span Class="bold">-8</span>, <span Class="bold">--8bit</span> generate 8-bit scanner 
+<p class="level0"><span Class="bold">-B</span>, <span Class="bold">--batch</span> generate batch scanner (opposite of <span Class="bold">-I</span>) 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--case-insensitive</span> ignore case in patterns 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--lex-compat</span> maximal compatibility with original lex 
+<p class="level0"><span Class="bold">-X</span>, <span Class="bold">--posix-compat</span> maximal compatibility with POSIX lex 
+<p class="level0"><span Class="bold">-I</span>, <span Class="bold">--interactive</span> generate interactive scanner (opposite of <span Class="bold">-B</span>) 
+<p class="level0"><span Class="bold">--yylineno</span> track line count in yylineno <a name="Generated"></a><h2 class="nroffsh">Generated code:</h2>
+<p class="level0">
+<p class="level0">-+,  <span Class="bold">--c</span>++ generate C++ scanner class 
+<p class="level0"><span Class="bold">-Dmacro</span>[=<span Class="emphasis">,defn/</span>] &#35;define macro defn  (default defn is '1') 
+<p class="level0"><span Class="bold">-L</span>,  <span Class="bold">--noline</span> suppress &#35;line directives in scanner 
+<p class="level0"><span Class="bold">-P</span>,  <span Class="bold">--prefix</span>=<span Class="emphasis">,STRING/</span> use STRING as prefix instead of "yy" 
+<p class="level0"><span Class="bold">-R</span>,  <span Class="bold">--reentrant</span> generate a reentrant C scanner 
+<p class="level0"><span Class="bold">--bison-bridge</span> scanner for bison pure parser. 
+<p class="level0"><span Class="bold">--bison-locations</span> include yylloc support. 
+<p class="level0"><span Class="bold">--stdinit</span> initialize yyin/yyout to stdin/stdout 
+<p class="level0"><span Class="bold">--noansi-definitions</span> old-style function definitions 
+<p class="level0"><span Class="bold">--noansi-prototypes</span> empty parameter list in prototypes 
+<p class="level0"><span Class="bold">--nounistd</span> do not include &lt;unistd.h&gt; 
+<p class="level0"><span Class="bold">--noFUNCTION</span> do not generate a particular FUNCTION <a name="Miscellaneous"></a><h2 class="nroffsh">Miscellaneous:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> do-nothing POSIX option 
+<p class="level0"><span Class="bold">-n</span> do-nothing POSIX option 
+<p class="level0">-? 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> produce this help message 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> report flex version <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">The full documentation for <span Class="bold">flex</span> is maintained as a Texinfo manual.  If the <span Class="bold">info</span> and <span Class="bold">flex</span> programs are properly installed at your site, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">info flex</span> 
+<p class="level1">should give you access to the complete manual. 

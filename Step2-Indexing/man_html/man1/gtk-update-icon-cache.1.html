@@ -1,0 +1,37 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gtk-update-icon-cache - Icon theme caching utility <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gtk-update-icon-cache</span> [--force] [--ignore-theme-index] [--index-only | --include-image-data] [--source&nbsp;<a class="emphasis" href="#NAME">NAME</a>] [--quiet] [--validate] {iconpath} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gtk-update-icon-cache</span> creates mmap()able cache files for icon themes. 
+<p class="level0">It expects to be given the path to a icon theme directory containing an index.theme, e.g. /usr/share/icons/hicolor, and writes a icon-theme.cache containing cached information about the icons in the directory tree below the given directory. 
+<p class="level0">GTK+ can use the cache files created by <span Class="bold">gtk-update-icon-cache</span> to avoid a lot of system call and disk seek overhead when the application starts. Since the format of the cache files allows them to be mmap()ed shared between multiple applications, the overall memory consumption is reduced as well. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--force, -f 
+<p class="level1">Overwrite an existing cache file even if it appears to be uptodate. 
+<p class="level0">
+<p class="level0">--ignore-theme-index, -t 
+<p class="level1">Don*(Aqt check for the existence of *(Aqindex.theme*(Aq in the icon theme directory. Without this option, <span Class="bold">gtk-update-icon-cache</span> refuses to create an icon cache in a directory which does not appear to be the toplevel directory of an icon theme. 
+<p class="level0">
+<p class="level0">--index-only, -i 
+<p class="level1">Don*(Aqt include image data in the cache. 
+<p class="level0">
+<p class="level0">--include-image-data 
+<p class="level1">Include image data in the cache. 
+<p class="level0">
+<p class="level0">--source, -c 
+<p class="level1">Output a C header file declaring a constant <span Class="emphasis">name</span> with the contents of the icon cache. 
+<p class="level0">
+<p class="level0">--quiet, -q 
+<p class="level1">Turn off verbose output. 
+<p class="level0">
+<p class="level0">--validate, -v 
+<p class="level1">Validate existing icon cache. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">None known yet. 

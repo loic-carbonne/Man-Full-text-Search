@@ -1,0 +1,94 @@
+
+<p class="level0">
+<p class="level0"><span Class="bold">s-1\$1 \$2s0</span> <a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gsftopk - render a ghostscript font in TeX pk form <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gsftopk</span> [-i <span Class="emphasis">path</span>] [-q] [-t] [--debug=<span Class="emphasis">n</span>] [--dosnames] [--interpreter=<span Class="emphasis">path</span>] [--mapline=<span Class="emphasis">line</span>] [--mapfile=<span Class="emphasis">file</span>] [--quiet] [--test] [--help] [--version] <span Class="emphasis">font</span> <span Class="emphasis">dpi</span> <a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0"><a name="fIfontfP"></a><span class="nroffip">\fIfont\fP \w'\fIfont\fP'u+2m</span> 
+<p class="level1">Name of the font to be created. 
+<p class="level0"><a name="fIdpifP"></a><span class="nroffip">\fIdpi\fP</span> 
+<p class="level1">Desired resolution of the font to be created, in dots per inch.  This may be a real number. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">gsftopk</span> is a program which calls up the ghostscript program <span Class="manpage">gs (1)</span>to render a given font at a given resolution.  It packs the resulting characters into the <span Class="bold">pk</span> file format and writes them to a file whose name is formed from the font name and the resolution (rounded to the nearest integer).  The font may be in any format acceptable to Ghostscript, including 
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">files. 
+<p class="level0">This program should normally be called by a script, such as <span Class="manpage">mktexpk</span>to create fonts on demand. 
+<p class="level0"><span Class="bold">gsftopk</span> obtains the character widths from the 
+<p class="level0">file, which must exist in the standard search path.  It also must be able to find the font in a map file (such as <span Class="manpage">psfonts.map )</span>formatted as in <span Class="manpage">dvips (1))</span>unless the <span Class="bold">--mapline</span> option is used.  The set of map files is given by the <span Class="bold">--mapfile</span> option, or in the files <span Class="manpage">config.ps</span>, <span Class="manpage">$HOME/.dvipsrc</span>and <span Class="bold">config.gsftopk</span> (as would be used by <span Class="manpage">dvips -Pgsftopk ).</span>
+<p class="level0">The following <span Class="bold">pk</span> "specials" are added at the end of the output file, to provide an internal check on the contents of the file: "<span Class="bold">jobname=</span><span Class="emphasis">font</span>", "<span Class="bold">mag=1</span>", "<span Class="bold">mode=modeless</span>", and "<span Class="bold">pixels_per_inch=</span><span Class="emphasis">dpi</span>". This is in accordance with the TeX Directory Standard (TDS). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--debug=n</span> Set the <span Class="bold">Kpathsea</span> debug flags according to the integer <span Class="emphasis">n .</span> 
+<p class="level0"><span Class="bold">--dosnames</span> Use a name of the form 
+<p class="level0">instead of 
+<p class="level0">
+<p class="level0"><span Class="bold">-h, --help</span> Print a brief help synopsis and exit. 
+<p class="level0"><span Class="bold">-i path, --interpreter=path</span> Use <span Class="emphasis">path</span> as the Ghostscript interpreter. 
+<p class="level0"><span Class="bold">--mapfile=file</span> Use <span Class="emphasis">file</span> to look for the map information for <span Class="emphasis">font .</span> This should be the full name of the file (in other words, no path searching algorithms are applied). 
+<p class="level0"><span Class="bold">--mapline=line</span> Use <span Class="emphasis">line</span> instead of looking for an entry in a map file. The first word of <span Class="emphasis">line</span> must match <span Class="emphasis">font .</span> 
+<p class="level0"><span Class="bold">-q, --quiet</span> Operate quietly; i.e., without writing any messages to the standard output. 
+<p class="level0"><span Class="bold">-t, --test</span> Test run:  return zero status if the font can be found in the map file(s), and nonzero status if it cannot.  If this option is specified, then the <span Class="emphasis">dpi</span> argument is optional (since the font will not be generated). 
+<p class="level0"><span Class="bold">-v, --version</span> Print the version number and exit. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0"><a name="fBDVIPSRCfP"></a><span class="nroffip">\fBDVIPSRC\fP \w'\fBGSFTOPKHEADERS\fP'u+2m</span> 
+<p class="level1">Name of file to read instead of <span Class="manpage">$HOME/.dvipsrc .</span>This should be the full name of the file (in other words, no path searching algorithms are applied). 
+<p class="level0"><a name="fBGSFTOPKFONTSfP"></a><span class="nroffip">\fBGSFTOPKFONTS\fP</span> 
+<p class="level1">See 
+<p class="level1">
+<p class="level0"><a name="fBGSFTOPKHEADERSfP"></a><span class="nroffip">\fBGSFTOPKHEADERS\fP</span> 
+<p class="level1">See 
+<p class="level1">
+<p class="level0"><a name="fBPSHEADERSfP"></a><span class="nroffip">\fBPSHEADERS\fP</span> 
+<p class="level1">See 
+<p class="level1">
+<p class="level0"><a name="fBTEXCONFIGfP"></a><span class="nroffip">\fBTEXCONFIG\fP</span> 
+<p class="level1">Colon-separated list of paths to search for map files. An extra colon in the list will include the compiled-in default paths at that point.  A double slash will enable recursive subdirectory searching at that point in the path. 
+<p class="level0"><a name="fBTFMFONTSfP"></a><span class="nroffip">\fBTFMFONTS\fP</span> 
+<p class="level1">Colon-separated list of paths to search for the 
+<p class="level1">file associated with the font.  Double slashes and extra colons behave as with 
+<p class="level1">This information may also be supplied by using the environment variables 
+<p class="level1">or 
+<p class="level1">These environment variables are checked in the order 
+<p class="level1">
+<p class="level1">
+<p class="level1">the first one (if any) having a value is used. 
+<p class="level0"><a name="fBTEXPSHEADERSfP"></a><span class="nroffip">\fBTEXPSHEADERS\fP</span> 
+<p class="level1">Colon-separated list of paths to search for the Ghostscript driver file <span Class="bold">render.ps</span> and for any PostScript header or font files 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">or 
+<p class="level1">files).  Double slashes and extra colons behave as with 
+<p class="level1">This information may also be supplied by using the environment variables 
+<p class="level1">or 
+<p class="level1">These environment variables are checked in the order 
+<p class="level1">
+<p class="level1">
+<p class="level1">the first one (if any) having a value is used. 
+<p class="level0"><a name="fBTFMFONTSfP"></a><span class="nroffip">\fBTFMFONTS\fP</span> 
+<p class="level1">See 
+<p class="level1"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">In order to determine the set of map files to be used and the path for finding PostScript files, <span Class="bold">gsftopk</span> reads, in order, the files <span Class="manpage">config.ps</span>, <span Class="manpage">.dvipsrc</span>and <span Class="manpage">config.gsftopk .</span>The files <span Class="bold">config.ps</span> and <span Class="bold">config.gsftopk</span> are searched for using the environment variable 
+<p class="level0">the <span Class="bold">Kpathsea</span> configuration file, or the compiled-in default paths.  The file <span Class="bold">.dvipsrc</span> is searched for in the user's home directory. 
+<p class="level0">These files are in the same format as for <span Class="bold">dvips</span> (as well as being in the same locations).  The entries used by <span Class="bold">gsftopk</span> are as follows. 
+<p class="level0">
+<p class="level0">Indicates that the Ghostscript driver file <span Class="bold">render.ps</span> and the PostScript header and font files are to be searched for using <span Class="emphasis">path .</span> 
+<p class="level0">
+<p class="level0">Indicates that the list of map files is to be erased and replaced by <span Class="emphasis">file .</span> 
+<p class="level0">
+<p class="level0">Indicates that <span Class="emphasis">file</span> is to be added to the list of map files. 
+<p class="level0">All other entries are ignored. 
+<p class="level0">This is similar to the handling of these options when running <span Class="manpage">dvips -Pgsftopk .</span>For more details, see the <span Class="bold">Kpathsea</span> manual. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">gsftopk</span> sometimes has trouble with fonts with very complicated characters (such as the Seal of the University of California).  This is because <span Class="bold">gsftopk</span> uses the <span Class="bold">charpath</span> operator to determine the bounding box of each character.  If the character is too complicated, then old versions of Ghostscript fail, causing <span Class="bold">gsftopk</span> to terminate with an error message 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">Call to gs stopped by signal 10</span> 
+<p class="level1">(The number may vary from system to system; it corresponds to a bus error or a segmentation fault.)  The best way to fix this bug is to install a current version of ghostscript.  As an alternative, <span Class="bold">gsftopk</span> can be instructed to use the bounding box provided with the font (if one exists) instead of finding a bounding box for each character.  To do this, include the string 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">/usefontbbox true def</span> 
+<p class="level1">in the font map file; <span Class="emphasis">e.g. ,</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">ucseal /usefontbbox true def</span> 
+<p class="level1">This will not affect use of the font by <span Class="manpage">dvips .</span><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gs (1)</span>, <span Class="manpage">gftopk (1)</span>, <span Class="manpage">tex (1)</span>, <span Class="manpage">xdvi (1)</span>, <span Class="manpage">dvips (1)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Paul Vojta.  This program was inspired by Karl Berry's <span Class="manpage">gsrenderfont .</span><a name="MODIFICATIONS"></a><h2 class="nroffsh">MODIFICATIONS</h2>
+<p class="level0">Modified by Yves Arrouye to use Karl Berry's <span Class="bold">Kpathsea</span> library. 

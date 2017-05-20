@@ -1,0 +1,586 @@
+INKSCAPE(1)                        Inkscape                        INKSCAPE(1)
+
+
+
+NAME
+       Inkscape - editor SVG (Scalable Vector Graphics).
+
+SYNOPSIS
+       "inkscape [voby] [nzov sboru ...]"
+
+       voby:
+
+           -?, --help
+               --usage
+           -V, --version
+
+           -f, --file=NZOVSBORU
+
+           -e, --export-png=NZOVSBORU
+           -a, --export-area=x0:y0:x1:y1
+           -C, --export-area-canvas
+           -D, --export-area-drawing
+               --export-area-snap
+           -i, --export-id=ID
+           -j, --export-id-only
+           -t, --export-use-hints
+           -b, --export-background=FARBA
+           -y, --export-background-opacity=HODNOTA
+           -d, --export-dpi=DPI
+           -w, --export-width= RKA
+           -h, --export-height=V KA
+
+           -P, --export-ps=NZOVSBORU
+           -E, --export-eps=NZOVSBORU
+           -A, --export-pdf=NZOVSBORU
+
+           -T, --export-text-to-path
+               --export-bbox-page
+
+           -l, --export-plain-svg=NZOVSBORU
+
+           -p, --print=PRINTER
+
+           -I, --query-id=ID
+           -X, --query-x
+           -Y, --query-y
+           -W, --query-width
+           -H, --query-height
+           -S, --query-all
+
+           -x, --extension-directory
+
+               --verb-list
+               --verb=VERB-ID
+               --select=OBJECT-ID
+
+               --shell
+
+           -g, --with-gui
+           -z, --without-gui
+
+               --vacuum-defs
+
+               --g-fatal-warnings
+
+OPIS
+       Inkscape je editor sborov vektorovej grafiky vo formte Scalable Vector
+       Graphics (SVG) s grafickm rozhranm, ktorho schopnosti s podobn Adobe
+       Illustrator, CorelDraw, Xara Xtreme, at. Medzi vlastnosti Inkscape
+       patria vestrann tvary, bzierove krivky, kreslenie vobou rukou,
+       viacriadkov text, text na ceste, alpha blending, ubovon afnne
+       transformcie, farebn prechody a vpl vzorkou, prava uzlov, mnoh formty
+       na export a import vrtane PNG a PDF, zoskupovanie, vrstvy, iv klony a
+       vea inho. Rozhranie je navrhnut pre komfortn a efektvne ovldanie pre
+       sksenho pouvatea, priom dodriava tandardy GNOME, take pouvate oboznmen
+       s inmi aplikciami GNOME si me ovldanie rozhrania rchlo osvoji.
+
+       SVG je tandardn W3C XML formt pre dvojrozmern vektorov grafiku.  Umouje
+       definciu objektov kresby pomocou bodov, ciest a primitvnych tvarov.
+       Farby, psma, rka ahu at sa pri tchto objektoch uvdzaj ako atribty tlu.
+       Zmer je tak, e kee SVG je tandard a jeho sbory s text/xml, bude mon
+       poui SVG sbory vo vekom pote programov v irokom spektre aplikci.
+
+       Inkscape pouva SVG ako svoj natvny formt dokumentu a jeho cieom je sta
+       sa kresliacim programom plne konformnm SVG sborom, dostupnm open source
+       komunite.
+
+VOBY
+       -?, --help
+               Zobraz sprvu s pomocou
+
+       -V, --version
+               Zobraz verziu a dtum zostavenia Inkscape.
+
+       -a x0:y0:x1:y1, --export-area=x0:y0:x1:y1
+               Pri exporte PNG, nastav exportovan oblas v pouvateskch
+               jednotkch SVG (anonymn jednotky dky bene pouvan v Inkscape
+               SVG).  tandardne sa exportuje cel kresliace pltno dokumentu.
+               Bod (0,0) je spodn doln roh.
+
+       -C, --export-area-canvas
+               Pri exporte NG, PDF, PS a EPS je exportovan oblas cel kresliace
+               pltno dokumentu (strnka). Toto je tandardn nastavenie pre PNG,
+               PDF a PS, take ju nemuste uvdza ak nepouvate --export-id na
+               exportovanie konkrtneho objektu. Pri exporte EPS to vak nie je
+               tandardn nastavenie. Naviac pri EPS neumouje pecifikcia formtu
+               aby bolo ohranienie vie ako obsah dokumentu. To znamen, e ak
+               pri exporte EPS pouijete --export-area-canvas, ohranienie pltna
+               sa oree dnu na ohranienie objektu ak je menie.
+
+       -D, --export-area-drawing
+               Pri exporte PNG, PDF, PS a EPS je exportovan oblas cel kresba
+               (nie pltno), t.j. ohranienie vetkch objektov dokumentu (alebo
+               exportovanho objektu ak je pouit --export-id).  S touto vobou
+               bud na exportovanom obrzku iba viditen objekty dokumentu bez
+               okrajov alebo orezania. Toto je tandardn exportn oblas pre EPS.
+               Pri PNG je mon poui tto vobu v kombincii s --export-use-hints.
+
+       --export-area-snap
+               Pri exporte png prichyt oblas exportu smerom von na najbliiu
+               celoseln pouvatesk jednotku SVG (px).  Ak pouvate tandardn
+               rozlenie na export 90 dpi a vaa grafika je zarovnan na pixle
+               aby sa minimalizoval antialiasing, tento prepna vm umon zachova
+               toto zarovnanie aj ak exportujete ohranienie nejakho objektu
+               (pmocou --export-id alebo --export-area-drawing), ktor samotn
+               nie je zarovnan na pixle.
+
+       -b FARBA, --export-background=FARBA
+               Farba pozadia exportovanho PNG.  Toto me by akkovek reazec
+               pecifikujci farbu, ktor SVG podporuje, napr.  #ff007f alebo
+               rgb(255, 0, 128).  Ak nie je nastaven, pouije sa farba nastaven
+               v Inkscape v dialgu Monosti dokumentu (uloen v atribte
+               pagecolor= v sodipodi:namedview).
+
+       -d DPI, --export-dpi=DPI
+               Pouit rozlenie na export PNG.  Tie sa pouva pri rasterizcii
+               filtrovanch objektov pri exporte do PS, EPS a PDF (ak
+               neuvediete --export-ignore-filters na potlaenie rasterizcie).
+                tandardne 90, o zodpoved 1 pouvateskej jednotke SVG.  (px, tie
+               nazvan pouvatesk jednotka) exportovanej na 1 pixel bitmapy.
+               Tto hodnota m precedenciu pred odporanm DPI pri pouit s
+               prepnaom --export-use-hints.
+
+       -e NZOVSBORU, --export-png=NZOVSBORU
+               Nzov sboru pre export PNG.  Ak u existuje, bude prepsan bez
+               ptania sa.
+
+       -f NZOVSBORU, --file=NZOVSBORU
+               Otvor zadan dokumenty.  Je mon vynecha reazec voby, t.j. mete
+               uvies zoznam sborov bez -f.
+
+       -g, --with-gui
+               Poksi sa poui GUI (na unixovch systmoch, poui X server aj ke
+               nie je nastaven premenn $DISPLAY).
+
+       -h V KA, --export-height=V KA
+               Vka generovanch bitmp v pixloch. Tto hodnota m precedenciu pred
+               nastavenm --export-dpi (alebo odporanm DPI pri pouit s prepnaom
+               --export-use-hints).
+
+       -i ID, --export-id=ID
+               Pri exporte PNG, PS, EPS a PDF hodnota atribtu id objektu, ktor
+               chcete exportova z dokumentu. iadne in objekty sa neexportuj.
+                tandardne sa exportuje ohranienie objektu. To mete zmeni
+               pouitm voby --export-area (iba pri PNG) alebo
+               --export-area-canvas.
+
+       -j, --export-id-only
+               Exportova do PNG iba objekt s id zadanm v --export-id. Vetky
+               ostatn objekty sa skryj a nezobrazia sa v exporte ani ke
+               prekrvaj exportovan objekt. Ak nie je uveden --export-id, tto
+               voba sa ignoruje. Pri exporte PDF je toto tandardn voba, take
+               jej uvedenie nem iadny vplyv.
+
+       -l, --export-plain-svg=NZOVSBORU
+               Exportova dokumenty do formtu ist SVG, bez mennch priestorov
+               sodipodi: alebo inkscape: namespaces a bez metadt RDF.
+
+       -x, --extension-directory
+               Vype aktulny adresr rozren, ktor bol nastaven pre Inkscape a
+               potom skon. Vyuvaj to extern rozrenia aby pouili rovnak
+               konfigurciu ako pvodn intalcia Inkscape.
+
+       --verb-list
+               Vype vetky sloves dostupn v Inkscape poda ID. Tieto ID mono
+               poui pri definovan klvesovch mp alebo menu. Tie ich mono poui
+               na prkazovom riadku s vobou --verb.
+
+       --verb=VERB-ID, --select=OBJECT-ID
+               Tieto dve voby spolu poskytuj zkladn monosti skriptovania v
+               Inkscape z prkazovho riadka. Obe sa mu na prkazovom riadku
+               vyskytova ubovon poet krt a vykonaj sa v tomto porad na kadom
+               urenom dokumente.
+
+               Prkaz --verb vykon uveden sloveso ako keby bolo zavolan z menu
+               alebo klvesovou skratkou. Dialgy sa objavia ak s sasou slovesa.
+               Ak chcete vypsa zoznam dostupnch ID, pouite voby prkazovho
+               riadka --verb-list.
+
+               Prkaz --select spsob vber objektov s uvedenm ID.  To umouje
+               vykonvanie slovies na nich.  Ak chcete zrui vetky vbery, pouite
+               --verb=EditDeselect. ID objektov s dostupn v zvislosti na
+               dokumente, ktor sa m nata.
+
+       -p TLAIARE, --print=TLAIARE
+               Vytla dokumenty na urenej tlaiarni pomocou lpr -P TLAIARE.  Ak
+               chcete vstup posla rrou inmu prkazu, mete poui | PRKAZ alebo >
+               NZOVSBORU ak chcete namiesto tlaenia zapsa vstup v PostScripte
+               do sboru.  Pamtajte na to, e muste poui vhodn vodzovky pre v
+               shell, napr.
+
+               inkscape --print='| ps2pdf - mydoc.pdf' mydoc.svg
+
+       -t, --export-use-hints
+               Poui nzov exportovanho sboru a atribt DPI uloen v exportovanom
+               objekte (iba s vobou --export-id).  Tieto daje sa nastavuj
+               automaticky ke exportujete vber z grafickho rozhrania Inkscape.
+               Take napr. ak exportujete tvar s id="path231" ako
+               /home/me/shape.png pri 300 dpi z dokument.svg z grafickho
+               rozhrania Inkscape a ulote dokument, neskr budete mc exportova
+               tvar do rovnakho sboru s rovnakm rozlenm jednoducho spustenm
+
+               inkscape -i path231 -t document.svg
+
+               Ak spolu s touto vobou pouijete --export-dpi, --export-width
+               alebo --export-height bude sa atribt DPI ignorova a pouije sa
+               hodnota zadan na prkazovom riadku.  Ak spolu s touto vobou
+               pouijete --export-png, bude sa atribt nzvov sboru ignorova a
+               pouije sa hodnota zadan na prkazovom riadku.
+
+       -w  RKA, --export-width= RKA
+               Vka generovanch bitmp v pixeloch. Tto hodnota m precedenciu
+               pred nastavenm --export-dpi (alebo odporanm DPI pri pouit s
+               prepnaom --export-use-hints).
+
+       -y HODNOTA, --export-background-opacity=HODNOTA
+               Krytie pozadia exportovanch sborov PNG.  Toto me by hodnota bu
+               medzi 0.0 a 1.0 (kde 0.0 znamen celkom priehadn a 1.0 pln
+               krytie) alebo via ako 1 do 255 (kde 255 znamen pln krytie).  Ak
+               nie je hodnota nastaven a nepouije sa voba -b, pouije sa krytie
+               strnky nastaven v Inkscape v dialgu Vlastnosti dokumentu (uloen
+               v atribte inkscape:pageopacity=  sodipodi:namedview).  Ak nie
+               je hodnota nastaven a pouije sa voba -b pouije sa hodnota 255
+               (pln krytie).
+
+       -P NZOVSBORU, --export-ps=NZOVSBORU
+               Exportova dokumenty do formtu PostScript. Pamtajte, e
+               PostScript nepodporuje priesvitnos, take akkovek priesvitn
+               objekty v pvodnom SVG sa automaticky rasterizuj. Priloia sa
+               pouit psma alebo podmnoina pouitch znakov.  tandardn oblas
+               exportu je pltno a mete ju nastavi na kresbu pomocou
+               --export-area-drawing.  Ak chcete exportova jedin objekt, mete
+               poui --export-id (vetky ostatn sa skryj); v tom prpade bude
+               oblasou exportu ohranienie uvedenho objektu, ale mono ho
+               nastavi na pltno vobou --export-area-canvas.
+
+       -E NZOVSBORU, --export-eps=NZOVSBORU
+               Exportova dokumenty do formtu Encapsulated PostScript.
+               Pamtajte, e PostScript nepodporuje priesvitnos, take akkovek
+               priesvitn objekty v pvodnom SVG sa automaticky rasterizuj.
+               Priloia sa pouit psma alebo podmnoina pouitch znakov.  tandardn
+               oblas exportu je kresba a mete ju vak nastavi na pltno, pozrite
+               si vak obmedzenia v popise voby --export-area-drawing. Ak
+               chcete exportova jedin objekt, mete poui --export-id (vetky
+               ostatn sa skryj).
+
+       -A NZOVSBORU, --export-pdf=NZOVSBORU
+               Exportova dokumenty do formtu PDF format. Tento formt zachovva
+               priesvitnos z pvodnho SVG.  Priloia sa pouit psma alebo
+               podmnoina pouitch znakov.   tandardn oblas exportu je pltno a
+               mete ju nastavi na kresbu pomocou --export-area-drawing.  Ak
+               chcete exportova jedin objekt, mete poui --export-id (vetky
+               ostatn sa skryj); v tom prpade bude oblasou exportu ohranienie
+               uvedenho objektu, ale mono ho nastavi na pltno vobou
+               --export-area-canvas.
+
+       -T, --export-text-to-path
+               Konvertova pri exporte textov objekty na cesty kde sa d (pri
+               exporte PS, EPS a PDF).
+
+       --export-ignore-filters
+               Exportova objekty s filtrami (napr. s rozostrenm) ako vektorov
+               grafiku a ignorova filtre (pri exporte PS, EPS a PDF).
+                tandardne sa vetky objekty s filtrami rasterizuj s rozlenm
+               --export-dpi (tandardne 90 dpi) m sa zachov ich vzhad.
+
+       -I, --query-id
+               Nastavi ID objektu, ktor rozmery zisujeme. Ak nie je nastaven,
+               voby poiadavky vrtia rozmer kresby (t.j. vetkch objektov
+               dokumentu), nie strnky i zobrazenia.
+
+       -X, --query-x
+               Zisti sradnicu X kresby alebo, ak je uren, objektu s
+               --query-id. Vrten hodnota je v px (pouvatesk jednotky SVG).
+
+       -Y, --query-y
+               Zisti sradnicu Y kresby alebo, ak je uren, objektu s
+               --query-id. Vrten hodnota je v px (pouvatesk jednotky SVG).
+
+       -W, --query-width
+               Zisti rku kresby alebo, ak je uren, objektu s --query-id. Vrten
+               hodnota je v px (pouvatesk jednotky SVG).
+
+       -H, --query-height
+               Zisti vku kresby alebo, ak je uren, objektu s --query-id. Vrten
+               hodnota je v px (pouvatesk jednotky SVG).
+
+       -S, --query-all
+               Vype zoznam vetkch objektov v dokumente SVG s definovanm id
+               spolu s ich sradnicou x,y, rkou a vkou vo formte s hodnotami
+               oddelenom iarkami.
+
+       --shell Ak je zadan tento parameter, Inkscape vstpi do interaktvneho
+               reimu prkazovho riadka.  V tomto reime pete prkazy na prkazovom
+               riadku a Inkscape ich vykonva bez toho aby ste museli pri kadom
+               prkaze spa nov intanciu Inkscape. Tto vlastnos je najuitonejia
+               v skriptoch a pri pouit na serveri: nepridva nov schopnosti,
+               ale umouje vm zlepova nroky na rchlos a pam akhokovek skriptu,
+               ktor opakovane vol Inkscape aby vykonal lohy z prkazovho riadka
+               (ako export alebo konverzie). Kad prkaz v reime shellu mus by
+               pln platn prkaz Inkscape ale bez nzvu programu Inkscape, napr.
+               subor.svg --export-pdf=subor.pdf.
+
+       --vacuum-defs
+               Odstrni vetky nepouit poloky zo sekcie <lt>defs<gt> SVG sboru.
+               Ak tto vobu zadte spolu s --export-plain-svg, bude ma vplyv iba
+               na exportovan sbor.  Ak ju pouijete samostatne, zmen sa
+               existujci sbor.
+
+       -z, --without-gui
+               Neotvra grafick rozhranie (na unixovch systmoch nepouva X
+               server), iba spracova sbory z konzoly.  Tto voba sa predpoklad
+               pri vobch -p, -e, -l a --vacuum-defs.
+
+       --g-fatal-warnings
+               Tto tandardn voba GTK vynucuje, e akkovek upozornenia, ktor s
+               zvyajne nekodn, spsobia ukonenie Inkscape (o je uiton pri
+               laden).
+
+       --usage Zobraz strun sprvu o tom ako pouva Inkscape.
+
+KONFIGURCIA
+       Hlavn konfiguran sboor je ~/.config/Inkscape/preferences.xml. Uklad
+       rozlin nastavenia, ktor mete zmeni v Inkscape (prevane v dialgu
+       Nastavenia Inkscape).  Do podadresrov tohto adresra tie mete umiestni
+       vlastn:
+
+       $HOME/.config/Inkscape/extensions/ - rozirujce efekty.
+
+       $HOME/.config/Inkscape/icons/ - ikony.
+
+       $HOME/.config/Inkscape/keys/ - mapy klves.
+
+       $HOME/.config/Inkscape/templates/ - ablny novch sborov.
+
+DIAGNOSTIKA
+       Program vrti nulov hodnotu pri spenom a nenulov pri nespenom ukonen.
+
+       Na tandardn chybov vstup alebo tandardn vstup me vypsa rozlin chybov
+       hlsenia alebo upozornenia. Ak sa program sprva chybne alebo havaruje v
+       svislosti s konkrtnym SVG sborom, prehliadnutie tohto vstupu pome zisti
+       dvod zlyhania.
+
+PRKLADY
+       Hoci je Inkscape zjavne v prvom rade aplikcia s grafickm pouvateskm
+       rozhranm, tie ho mono poui na spracovanie SVG z prkazovho riadka.
+
+       Otvorenie SVG sboru v grafickom rozhran:
+
+           inkscape subor.svg
+
+       Vytlaenie SVG sboru z prkazovho riadka:
+
+           inkscape subor.svg -p '| lpr'
+
+       Export SVG sboru do PNG v predvolenom rozlen 90 dpi (jedna pouvatesk
+       jednotka SVG zodpoved jednmu pixlu bitmapy):
+
+           inkscape subor.svg --export-png=subor.png
+
+       To ist, ale vekos sboru PNG je vynten na 600x400 pixlov:
+
+           inkscape subor.svg --export-png=subor.png -w600 -h400
+
+       To ist, ale exportuje kresbu (ohranienie vetkch objektov), nie strnku:
+
+           inkscape subor.svg --export-png=subor.png --export-area-drawing
+
+       Exportuje do PNG objekt s id="text1555" s pouitm nzvu sboru a rozlenia,
+       ktor boli pouit pri poslednom exporte objektu z grafickho rozhrania:
+
+           inkscape subor.svg --export-id=text1555 --export-use-hints
+
+       To ist, ale poui rozlenie 90 dpi, uri nzov sboru a prichyti exportovan
+       oblas smerom von k najbliej celej hodnte pouvateskej jednotky SVG (aby
+       sa zachovalo zarovnanie objektov na pixle a tak minimalizoval
+       aliasing):
+
+           inkscape subor.svg --export-id=text1555 --export-png=text.png --export-area-snap
+
+       Previes Inkscape SVG na ist SVG dokument:
+
+           inkscape subor1.svg --export-plain-svg=subor2.svg
+
+       Previes SVG dokument na EPS, priom prevedie vetky texty na cesty:
+
+           inkscape subor.svg --export-eps=subor.eps --export-text-to-path
+
+       Zisti rku objektu s id="text1555":
+
+           inkscape subor.svg --query-width --query-id text1555
+
+       Duplikova objekt s id="path1555", otoi duplikt o 90 stupov, uloi SVG a
+       skoni:
+
+           inkscape subor.svg --select=path1555 --verb=EditDuplicate --verb=ObjectRotate90 --verb=FileSave --verb=FileClose
+
+PROSTREDIE
+       DISPLAY zistenie predvolenho hostitea a sla displeja.
+
+       TMPDIR nastavenie predvolenho adresra pre doasn sbory.  Adresr mus
+       existova.
+
+TMY
+       Ak chcete nata odlin sadu ikon ako predvolen sbor
+       $PREFIX/share/inkscape/icons/icons.svg, pouije sa adresr
+       $HOME/.inkscape/icons/. Ikony sa natavaj poda nzvu (napr.
+       fill_none.svg) alebo ak nie s njden z icons.svg.  Ak sa ikona nenata
+       ani z jednho z tchto miest, pouije sa predvolen umiestnenie systmu.
+
+       Potrebn ikony sa natavaj zo SVG sborov hadanm SVG id so zodpovedajcim
+       nzvom ikony. (Napr. pri natan ikony fill_none zo sboru sa ako ikona
+       vykresl ohranienie fill_none, i u pochdza zo sboru fill_none.svg alebo
+       icons.svg.)
+
+AL IE INFORMCIE
+       Umiestnenie kanonickej dokumentcie k Inkscape je na
+       http://www.inkscape.org/. Webov strnka obsahuje novinky, dokumentciu,
+       nvody, prklady, archvy konferenci, posledn vydan verziu programu,
+       databzy chb a iadost o nov funkcie, fra a alie.
+
+POZRI AJ
+       potrace, cairo, rsvg(1), batik, ghostscript, pstoedit.
+
+       Testovac balk konformnosti so tandardom SVG:
+       http://www.w3.org/Graphics/SVG/Test/
+
+       Nstroj na testovanie platnosti SVG:
+       http://jiggles.w3.org/svgvalidator/
+
+       Scalable Vector Graphics (SVG) 1.1 Specification W3C Recommendation 14
+       January 2003 <http://www.w3.org/TR/SVG11/>
+
+       Scalable Vector Graphics (SVG) 1.2 Specification W3C Working Draft 13
+       November 2003 <http://www.w3.org/TR/SVG12/>
+
+       SVG 1.1/1.2/2.0 Requirements W3C Working Draft 22 April 2002
+       <http://www.w3.org/TR/SVG2Reqs/>
+
+       Document Object Model (DOM): Level 2 Core Arnaud Le Hors et al editors,
+       W3C <http://www.w3.org/TR/DOM-Level-2-Core/>
+
+POZNMKY KU GRAFICKMU ROZHRANIU
+       Ak sa chcete naui pracova s grafickm rozhranm Inkscape Pomocnk > Nvody.
+
+       Okrem SVG doke Inkscape importova (Sbor > Importova) vinu bitmapovch
+       formtov (PNG, BMP, JPG, XPM, GIF at.), ist text (vyaduje Perl), PS a
+       EPS (vyaduje Ghostscript), formty PDF a AI (AI verzie 9.0 alebo novia).
+
+       Inkscape exportuje 32-bitov PNG obrzky (Sbor > Exportova) a tie AI, PS,
+       EPS, PDF, DXF, a niekoko alch formtov pomocou Sbor > Uloi ako.
+
+       Inkscape doke cyui informciu o tlaku a sklone grafickho tabletu na
+       nastavenie rky, uhla a sily niektorch nstrojov vrtane kaligrafickho
+       pera.
+
+       Inkscape obsahuje grafick rozhranie k jadru na vektorizciu bitmp
+       Potrace (http://potrace.sf.net), ktor je sasou Inkscape.
+
+       Inkscape doke vyuva extern skripty (filtre tandardnho vstupu/vstupu),
+       ktor predstavuj prkazy v menu Efekty. Skript me ma grafick dialg na
+       nastavenie parametrov a doke zisti ID vybranch objektov na ktor sa bude
+       aplikova prostrednctvom  prkazovho riadka.  Inkscape obsahuje sadu
+       efektov napsanch v jazyku Python.
+
+KLVESOV VZBY
+       pln zoznam skratiek klvesnice a myi njdete v sbore doc/keys.html alebo
+       pomocou prkazu Pouitie klvesnice a myi v menu Pomocnk.
+
+CHYBY
+       Je znmych mnostvo chb. Existujce chyby kontrolujte a nov hlste na
+       webstrnke inkscape.org. Tie si pretajte sekciu Znme problmy v Poznmkach
+       k vydaniu vaej verzie (sbor NEWS).
+
+AUTORI
+       Kd va za svoju existenciu mnostvu prispievateov do jeho rozlinch
+       foriem. Nasledovn zoznam je urite nepln, ale sli na uznanie mnohch
+       ramien, na ktorch tto aplikcia stoj:
+
+       Maximilian Albert, Josh Andler, Tavmjong Bah, Pierre Barbry-Blot, Jean-
+       Franois Barraud, Bill Baxter, John Beard, John Bintz, Arpad Biro,
+       Nicholas Bishop, Joshua L. Blocher, Hanno Bck, Henrik Bohre, Boldewyn,
+       Daniel Borgmann, Bastien Bouclet, Gustav Broberg, Christopher Brown,
+       Hans Breuer, Marcus Brubaker, Luca Bruno, Nicu Buculei, Bulia Byak,
+       Pierre Caclin, Ian Caldwell, Gail Carmichael, Ed Catmur, Chema Celorio,
+       Johan Ceuppens, Zbigniew Chyla, Alexander Clausen, John Cliff, Kees
+       Cook, Ben Cromwell, Robert Crosbie, Jon Cruz, Aurlie De-Cooman, Milosz
+       Derezynski, Daniel Daz, Bruno Dilly, Larry Doolittle, Tim Dwyer, Maxim
+       V. Dziumanenko, Johan Engelen, Miklos Erdelyi, Ulf Erikson, No Falzon,
+       Frank Felfe, Andrew Fitzsimon, Edward Flick, Marcin Floryan, Fred, Ben
+       Fowler, Cedric Gemy, Steren Giannini, Olivier Gondouin, Ted Gould,
+       Toine de Greef, Michael Grosberg, Bryce Harrington, Dale Harvey, Aurlio
+       Adnauer Heckert, Carl Hetherington, Jos Hirth, Hannes Hochreiner,
+       Thomas Holder, Joel Holdsworth, Alan Horkan, Karl Ove Hufthammer,
+       Richard Hughes, Nathan Hurst, inductiveload, Thomas Ingham, Jean-
+       Olivier Irisson, Bob Jamison, jEsuSdA, Lauris Kaplinski, Lynn Kerby,
+       Niko Kiirala, James Kilfiger, Jason Kivlighn, Adrian Knoth, Krzysztof
+       Kosiski, Petr Kovar, Benot Lavorata, Alex Leone, Julien Leray, Raph
+       Levien, Diederik van Lierop, Nicklas Lindgren, Vitaly Lipatov, Ivan
+       Louette, Pierre-Antoine Marc, Aurel-Aim Marmion, Colin Marquardt,
+       Dmitry G. Mastrukov, Matiphas, Michael Meeks, Federico Mena, MenTaLguY,
+       Aubanel Monnier, Vincent Montagne, Tim Mooney, Derek P. Moore, Peter
+       Moulder, Jrg Mller, Yukihiro Nakai, Victor Navez, Christian Neumair,
+       Andreas Nilsson, Mitsuru Oka, Marten Owens, Alvin Penner, Jon Phillips,
+       Zdenko Podobny, Alexandre Prokoudine, Jean-Ren Reinhard, Alexey
+       Remizov, Frederic Rodrigo, Hugo Rodrigues, Juarez Rudsatz, Xavier Conde
+       Rueda, Felipe Corra da Silva Sanches, Christian Schaller, Marco
+       Scholten, Tom von Schwerdtner, Shivaken, Danilo  egan, Michael Sloan,
+       John Smith, Botjan  peti, Aaron Spike, Kaushik Sridharan, Ralf Stephan,
+       Dariusz Stojek, Martin Sucha, ~suv, Pat Suwalski, Adib Taraben, Hugh
+       Tebby, Jonas Termeau, David Turner, Andre Twupack, Aleksandar Uroevi,
+       Alex Valavanis, Lucas Vieites, Michael Wybrow, Daniel Yacob, David Yip,
+       Masatake Yamato
+
+       Tto manulov strnku zostavil Bryce Harrington
+       <brycehar@bryceharrington.com>.
+
+HISTRIA
+       Kd, ktor sa neskr stal kdom Inkscape zaal svoj ivot v roku 1999 ako
+       program Gill, aplikcia GNOME Illustrator, ktor vytvoril Raph Levien.
+       Cieom, ktor si Gill kldol bolo nakoniec podporova kompletn tandard SVG.
+       Raph implementoval bzierov PostScriptov obrazov model vrtane vplne a
+       ahu, tlov zakonenia a spojenia iar, textu at.  Raphhova strnka o Gill
+       je http://www.levien.com/svg/. Prca na Gill sa spomalila alebo
+       zastavila v roku 2000.
+
+       alm stelesnenm kdu sa stal vemi populrny program Sodipodi, ktor viedol
+       Lauris Kaplinski. Kd sa zmenil na vemi mocn ilustran nstroj poas
+       niekokch rokov prce na om po pridan niekokch novch vlasntost, podpory
+       jazykov, portovania na Windows a in operan systmy a odstrnen zvislost.
+
+       Inkscape vytvorili v roku 2003 tyria aktvni vvojri Sodipodi - Bryce
+       Harrington, MenTaLguY, Nathan Hurst a Ted Gould, ktor chceli kd posun
+       novm smerom so zameranm na konformnos s SVG, vzad a sprvanie rozhrania
+       a tbou otvori prleitos vvoja viacerm prispievateom. Projekt postupoval
+       rchlo a zskal si mnostvo vemi aktvnych prispievateov a vlastnost.
+
+       Mnoho prce v ranch doch projektu sa zameriavalo na stabilizciu kdu a
+       internacionalizciu. Pvodn vykresovacie jadro zdeden zo Sodipodi bolo
+       spojen s mnohmi matematickmi hraninmi prpadmi, ktor viedli k neoakvanm
+       havrim pri pouit programu na in ako rutinn lohy.  Toto vykresovacie
+       jadro nahradil Livarot, ktor hoci tie nie je dokonal, bol vrazne menej
+       nchyln na chyby. Projekt tie praktikoval ast zaleovanie kdu a posmeoval
+       pouvateov v pouvan vvojovch verzi programu. To pomohlo s ranou
+       identifikciou chb a zabezpeilo jednoduch spsob ako pouvatelia mohli
+       overi funknos oprv.  V dsledku Inkscape si Inkscape zaslil veobecn
+       reputciu robustnosti a spoahlivosti.
+
+       Tie sa rozvinuli snahy o internacionalizciu a lokalizciu rozhrania,
+       ktor pomohli programu zska prispievateov z celho sveta.
+
+       Inkscape mal prnosn vplyv na vizulnu atraktivitu open source vo
+       veobecnosti, pretoe poskytol nstroj na tvorbu a zdieanie ikon,
+       tartovacch obrazoviek, grafiky webovch strnok at. Istm spsobom okrem
+       toho, e je to len program na kreslenie hral Inkscape dleit lohu pri
+       vylepen vizulnej strnky open source irokmu publiku.
+
+AUTORSK PRVA A LICENCIA
+       Copyright (C) 1999-2008 Autori.
+
+       Inkscape je slobodn softvr; mete ho pouva a ri za podmienok licencie
+       GPL.
+
+
+
+Inkscape-0.48.5                   2009-04-30                       INKSCAPE(1)

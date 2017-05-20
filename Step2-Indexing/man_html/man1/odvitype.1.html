@@ -1,0 +1,38 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dvitype, odvitype - translate a dvi file for humans <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dvitype</span> <span Class="emphasis">dvi_name [ \fB.dvi\fP ]</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">dvitype</span> program translates a DVI (DeVice Independent) file output by (for example) <span Class="manpage">tex (1)</span>or <span Class="manpage">gftodvi (1)</span>to a file that humans can read. It also serves as a DVI file-validating program (i.e., if <span Class="bold">dvitype</span> can read it, it's correct) and as an example of a DVI-reading program for future device drivers. 
+<p class="level0">The output file can include all commands, just the important ones, or none at all (in which case only errors are reported). A subinterval of pages may be selected for transliteration; the magnification and resolution of the ``output device'' may be changed; and so on. All options are specified with an on-line dialog. 
+<p class="level0">The <span Class="bold">.dvi</span> extension is supplied if omitted from  <span Class="emphasis">dvi_name .</span> The output goes to <span Class="emphasis">stdout .</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-dpi= REAL</span> Set resolution to <span Class="emphasis">REAL</span> pixels per inch; default 300.0. 
+<p class="level0">
+<p class="level0"><span Class="bold">-magnification= NUMBER</span> Override existing magnification with <span Class="emphasis">NUMBER .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-max-pages= NUMBER</span> Process <span Class="emphasis">NUMBER</span> pages; default one million. 
+<p class="level0">
+<p class="level0"><span Class="bold">-output-level= NUMBER</span> Verbosity level, from 0 to 4; default 4. 
+<p class="level0">
+<p class="level0"><span Class="bold">-page-start= PAGE-SPEC</span> Start at <span Class="emphasis">PAGE-SPEC ,</span> for example `2' or `5.*.-2'. 
+<p class="level0">
+<p class="level0"><span Class="bold">-show-opcodes</span> Show numeric opcodes (in decimal). 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The environment variable TEXFONTS is used to search for the TFM files used in the DVI file.  See <span Class="manpage">tex (1)</span>for the details of the searching. If TEXFONTS is not set, it uses the system default. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gftype (1)</span>, <span Class="manpage">pktype (1).</span><br>Donald E. Knuth, <span Class="emphasis">\*(OXware .</span> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Donald E. Knuth wrote the program.  It was published as part of the <span Class="emphasis">\*(OXware</span> technical report, available from the *(TX Users Group. Howard Trickey and Pavel Curtis originally ported it to Unix. 

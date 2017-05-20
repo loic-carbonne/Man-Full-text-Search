@@ -1,0 +1,150 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">posttls-finger - Probe the TLS properties of an ESMTP or LMTP server. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">posttls-finger</span> [<span class="emphasis">options</span>] [<span class="bold">inet:</span>]<span class="emphasis">domain</span>[:<span class="emphasis">port</span>] [<span class="emphasis">match ...</span>]
+<br><span class="bold">posttls-finger</span> -S [<span class="emphasis">options</span>] <span class="bold">unix:<span class="emphasis">pathname</span> [<span class="emphasis">match ...</span>]
+</pre>
+<a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">posttls-finger</span>(1) connects to the specified destination and reports TLS-related information about the server. With SMTP, the destination is a domainname; with LMTP it is either a domainname prefixed with <span Class="bold">inet:</span> or a pathname prefixed with <span Class="bold">unix:</span>.  If Postfix is built without TLS support, the resulting posttls-finger program has very limited functionality, and only the <span Class="bold">-a</span>, <span Class="bold">-c</span>, <span Class="bold">-h</span>, <span Class="bold">-o</span>, <span Class="bold">-S</span>, <span Class="bold">-t</span>, <span Class="bold">-T</span> and <span Class="bold">-v</span> options are available. 
+<p class="level0">Note: this is an unsupported test program. No attempt is made to maintain compatibility between successive versions. 
+<p class="level0">For SMTP servers that don't support ESMTP, only the greeting banner and the negative EHLO response are reported. Otherwise, the reported EHLO response details further server capabilities. 
+<p class="level0">If TLS support is enabled when <span Class="bold">posttls-finger</span>(1) is compiled, and the server supports <span Class="bold">STARTTLS</span>, a TLS handshake is attempted. 
+<p class="level0">If DNSSEC support is available, the connection TLS security level (<span Class="bold">-l</span> option) defaults to <span Class="bold">dane</span>; see TLS_README for details. Otherwise, it defaults to <span Class="bold">secure</span>.  This setting determines the certificate matching policy. 
+<p class="level0">If TLS negotiation succeeds, the TLS protocol and cipher details are reported. The server certificate is then verified in accordance with the policy at the chosen (or default) security level.  With public CA-based trust, when the <span Class="bold">-L</span> option includes <span Class="bold">certmatch</span>, (true by default) name matching is performed even if the certificate chain is not trusted.  This logs the names found in the remote SMTP server certificate and which if any would match, were the certificate chain trusted. 
+<p class="level0">Note: <span Class="bold">posttls-finger</span>(1) does not perform any table lookups, so the TLS policy table and obsolete per-site tables are not consulted. It does not communicate with the <span Class="bold">tlsmgr</span>(8) daemon (or any other Postfix daemons); its TLS session cache is held in private memory, and disappears when the process exits. 
+<p class="level0">With the <span class="bold">-r <span Class="emphasis">delay</span> option, if the server assigns a TLS session id, the TLS session is cached. The connection is then closed and re-opened after the specified delay, and <span Class="bold">posttls-finger</span>(1) then reports whether the cached TLS session was re-used. 
+<p class="level0">When the destination is a load-balancer, it may be distributing load between multiple server caches. Typically, each server returns its unique name in its EHLO response. If, upon reconnecting with <span Class="bold">-r</span>, a new server name is detected, another session is cached for the new server, and the reconnect is repeated up to a maximum number of times (default 5) that can be specified via the <span Class="bold">-m</span> option. 
+<p class="level0">The choice of SMTP or LMTP (<span Class="bold">-S</span> option) determines the syntax of the destination argument. With SMTP, one can specify a service on a non-default port as <span Class="emphasis">host</span>:<span Class="emphasis">service</span>, and disable MX (mail exchanger) DNS lookups with [<span Class="emphasis">host</span>] or [<span Class="emphasis">host</span>]:<span Class="emphasis">port</span>. The [] form is required when you specify an IP address instead of a hostname.  An IPv6 address takes the form [<span class="bold">ipv6:<span Class="emphasis">address</span>]. The default port for SMTP is taken from the <span Class="bold">smtp/tcp</span> entry in /etc/services, defaulting to 25 if the entry is not found. 
+<p class="level0">With LMTP, specify <span class="bold">unix:<span Class="emphasis">pathname</span> to connect to a local server listening on a unix-domain socket bound to the specified pathname; otherwise, specify an optional <span Class="bold">inet:</span> prefix followed by a <span Class="emphasis">domain</span> and an optional port, with the same syntax as for SMTP. The default TCP port for LMTP is 24. 
+<p class="level0">Arguments: 
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR \fIfamily\fR (default: \fBany\fR)</span> 
+<p class="level1">Address family preference: <span Class="bold">ipv4</span>, <span Class="bold">ipv6</span> or <span Class="bold">any</span>.  When using <span Class="bold">any</span>, posttls-finger will randomly select one of the two as the more preferred, and exhaust all MX preferences for the first address family before trying any addresses for the other. 
+<p class="level0"><a name="fB-AfR"></a><span class="nroffip">\fB-A\fR \fItrust-anchor.pem\fR (default: none)</span> 
+<p class="level1">A list of PEM trust-anchor files that overrides CAfile and CApath trust chain verification.  Specify the option multiple times to specify multiple files.  See the main.cf documentation for smtp_tls_trust_anchor_file for details. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR</span> 
+<p class="level1">Disable SMTP chat logging; only TLS-related information is logged. 
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR</span> 
+<p class="level1">Print the remote SMTP server certificate trust chain in PEM format. The issuer DN, subject DN, certificate and public key fingerprints (see <span class="bold">-d <span Class="emphasis">mdalg</span> option below) are printed above each PEM certificate block.  If you specify <span class="bold">-F <span Class="emphasis">CAfile</span> or <span class="bold">-P <span Class="emphasis">CApath</span>, the OpenSSL library may augment the chain with missing issuer certificates.  To see the actual chain sent by the remote SMTP server leave <span Class="emphasis">CAfile</span> and <span Class="emphasis">CApath</span> unset. 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d \fImdalg\fR (default: \fBsha1\fR)</span> 
+<p class="level1">The message digest algorithm to use for reporting remote SMTP server fingerprints and matching against user provided certificate fingerprints (with DANE TLSA records the algorithm is specified in the DNS). 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR</span> 
+<p class="level1">Lookup the associated DANE TLSA RRset even when a hostname is not an alias and its address records lie in an unsigned zone.  See smtp_tls_force_insecure_host_tlsa_lookup for details. 
+<p class="level0"><a name="fB-F"></a><span class="nroffip">\fB-F \fICAfile.pem\fR (default: none)</span> 
+<p class="level1">The PEM formatted CAfile for remote SMTP server certificate verification.  By default no CAfile is used and no public CAs are trusted. 
+<p class="level0"><a name="fB-g"></a><span class="nroffip">\fB-g \fIgrade\fR (default: medium)</span> 
+<p class="level1">The minimum TLS cipher grade used by posttls-finger.  See smtp_tls_mandatory_ciphers for details. 
+<p class="level0"><a name="fB-h"></a><span class="nroffip">\fB-h \fIhost_lookup\fR (default: \fBdns\fR)</span> 
+<p class="level1">The hostname lookup methods used for the connection.  See the documentation of smtp_host_lookup for syntax and semantics. 
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l \fIlevel\fR (default: \fBdane\fR or \fBsecure\fR)</span> 
+<p class="level1">The security level for the connection, default <span Class="bold">dane</span> or <span Class="bold">secure</span> depending on whether DNSSEC is available.  For syntax and semantics, see the documentation of smtp_tls_security_level. When <span Class="bold">dane</span> or <span Class="bold">dane-only</span> is supported and selected, if no TLSA records are found, or all the records found are unusable, the <span Class="emphasis">secure</span> level will be used instead.  The <span Class="bold">fingerprint</span> security level allows you to test certificate or public-key fingerprint matches before you deploy them in the policy table. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note, since <span Class="bold">posttls-finger</span> does not actually deliver any email, the <span Class="bold">none</span>, <span Class="bold">may</span> and <span Class="bold">encrypt</span> security levels are not very useful.  Since <span Class="bold">may</span> and <span Class="bold">encrypt</span> don't require peer certificates, they will often negotiate anonymous TLS ciphersuites, so you won't learn much about the remote SMTP server's certificates at these levels if it also supports anonymous TLS (though you may learn that the server supports anonymous TLS). 
+<p class="level0"><a name="fB-L"></a><span class="nroffip">\fB-L \fIlogopts\fR (default: \fBroutine,certmatch\fR)</span> 
+<p class="level1">Fine-grained TLS logging options. To tune the TLS features logged during the TLS handshake, specify one or more of: 
+<p class="level2">
+<p class="level1"><a name="fB0"></a><span class="nroffip">\fB0, none\fR</span> 
+<p class="level2">These yield no TLS logging; you'll generally want more, but this is handy if you just want the trust chain: 
+<p class="level3">
+<p class="level3"><pre class="level3">
+$ posttls-finger -cC -L none destination
+</pre>
+
+<p class="level3">
+<p class="level2">
+<p class="level1"><a name="fB1"></a><span class="nroffip">\fB1, routine, summary\fR</span> 
+<p class="level2">These synonymous values yield a normal one-line summary of the TLS connection. 
+<p class="level1"><a name="fB2"></a><span class="nroffip">\fB2, debug\fR</span> 
+<p class="level2">These synonymous values combine routine, ssl-debug, cache and verbose. 
+<p class="level1"><a name="fB3"></a><span class="nroffip">\fB3, ssl-expert\fR</span> 
+<p class="level2">These synonymous values combine debug with ssl-handshake-packet-dump. For experts only. 
+<p class="level1"><a name="fB4"></a><span class="nroffip">\fB4, ssl-developer\fR</span> 
+<p class="level2">These synonymous values combine ssl-expert with ssl-session-packet-dump. For experts only, and in most cases, use wireshark instead. 
+<p class="level1"><a name="fBssl-debugfR"></a><span class="nroffip">\fBssl-debug\fR</span> 
+<p class="level2">Turn on OpenSSL logging of the progress of the SSL handshake. 
+<p class="level1"><a name="fBssl-handshake-packet-dumpfR"></a><span class="nroffip">\fBssl-handshake-packet-dump\fR</span> 
+<p class="level2">Log hexadecimal packet dumps of the SSL handshake; for experts only. 
+<p class="level1"><a name="fBssl-session-packet-dumpfR"></a><span class="nroffip">\fBssl-session-packet-dump\fR</span> 
+<p class="level2">Log hexadecimal packet dumps of the entire SSL session; only useful to those who can debug SSL protocol problems from hex dumps. 
+<p class="level1"><a name="fBuntrustedfR"></a><span class="nroffip">\fBuntrusted\fR</span> 
+<p class="level2">Logs trust chain verification problems.  This is turned on automatically at security levels that use peer names signed by certificate authorities to validate certificates.  So while this setting is recognized, you should never need to set it explicitly. 
+<p class="level1"><a name="fBpeercertfR"></a><span class="nroffip">\fBpeercert\fR</span> 
+<p class="level2">This logs a one line summary of the remote SMTP server certificate subject, issuer, and fingerprints. 
+<p class="level1"><a name="fBcertmatchfR"></a><span class="nroffip">\fBcertmatch\fR</span> 
+<p class="level2">This logs remote SMTP server certificate matching, showing the CN and each subjectAltName and which name matched.  With DANE, logs matching of TLSA record trust-anchor and end-entity certificates. 
+<p class="level1"><a name="fBcachefR"></a><span class="nroffip">\fBcache\fR</span> 
+<p class="level2">This logs session cache operations, showing whether session caching is effective with the remote SMTP server.  Automatically used when reconnecting with the <span Class="bold">-r</span> option; rarely needs to be set explicitly. 
+<p class="level1"><a name="fBverbosefR"></a><span class="nroffip">\fBverbose\fR</span> 
+<p class="level2">Enables verbose logging in the Postfix TLS driver; includes all of peercert..cache and more. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default is <span Class="bold">routine,certmatch</span>. After a reconnect, <span Class="bold">peercert</span>, <span Class="bold">certmatch</span> and <span Class="bold">verbose</span> are automatically disabled while <span Class="bold">cache</span> and <span Class="bold">summary</span> are enabled. 
+<p class="level0"><a name="fB-m"></a><span class="nroffip">\fB-m \fIcount\fR (default: \fB5\fR)</span> 
+<p class="level1">When the <span class="bold">-r <span Class="emphasis">delay</span> option is specified, the <span Class="bold">-m</span> option determines the maximum number of reconnect attempts to use with a server behind a load-balacer, to see whether connection caching is likely to be effective for this destination.  Some MTAs don't expose the underlying server identity in their EHLO response; with these servers there will never be more than 1 reconnection attempt. 
+<p class="level0"><a name="fB-o"></a><span class="nroffip">\fB-o \fIname=value\fR</span> 
+<p class="level1">Specify zero or more times to override the value of the main.cf parameter <span Class="emphasis">name</span> with <span Class="emphasis">value</span>.  Possible use-cases include overriding the values of TLS library parameters, or "myhostname" to configure the SMTP EHLO name sent to the remote server. 
+<p class="level0"><a name="fB-p"></a><span class="nroffip">\fB-p \fIprotocols\fR (default: !SSLv2)</span> 
+<p class="level1">List of TLS protocols that posttls-finger will exclude or include.  See smtp_tls_mandatory_protocols for details. 
+<p class="level0"><a name="fB-P"></a><span class="nroffip">\fB-P \fICApath/\fR (default: none)</span> 
+<p class="level1">The OpenSSL CApath/ directory (indexed via c_rehash(1)) for remote SMTP server certificate verification.  By default no CApath is used and no public CAs are trusted. 
+<p class="level0"><a name="fB-r"></a><span class="nroffip">\fB-r \fIdelay\fR</span> 
+<p class="level1">With a cachable TLS session, disconnect and reconnect after <span Class="emphasis">delay</span> seconds. Report whether the session is re-used. Retry if a new server is encountered, up to 5 times or as specified with the <span Class="bold">-m</span> option. By default reconnection is disabled, specify a positive delay to enable this behavior. 
+<p class="level0"><a name="fB-SfR"></a><span class="nroffip">\fB-S\fR</span> 
+<p class="level1">Disable SMTP; that is, connect to an LMTP server. The default port for LMTP over TCP is 24.  Alternative ports can specified by appending "<span Class="emphasis">:servicename</span>" or ":<span Class="emphasis">portnumber</span>" to the destination argument. 
+<p class="level0"><a name="fB-t"></a><span class="nroffip">\fB-t \fItimeout\fR (default: \fB30\fR)</span> 
+<p class="level1">The TCP connection timeout to use.  This is also the timeout for reading the remote server's 220 banner. 
+<p class="level0"><a name="fB-T"></a><span class="nroffip">\fB-T \fItimeout\fR (default: \fB30\fR)</span> 
+<p class="level1">The SMTP/LMTP command timeout for EHLO/LHLO, STARTTLS and QUIT. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verose Postfix logging.  Specify more than once to increase the level of verbose logging. 
+<p class="level0"><a name="fBinetfRfIdomainfRfIportfR"></a><span class="nroffip">[\fBinet:\fR]\fIdomain\fR[:\fIport\fR]</span> 
+<p class="level1">Connect via TCP to domain <span Class="emphasis">domain</span>, port <span Class="emphasis">port</span>. The default port is <span Class="bold">smtp</span> (or 24 with LMTP).  With SMTP an MX lookup is performed to resolve the domain to a host, unless the domain is enclosed in <a class="bold" href="#">[]</a>.  If you want to connect to a specific MX host, for instance <span Class="emphasis">mx1.example.com</span>, specify [<span Class="emphasis">mx1.example.com</span>] as the destination and <span Class="emphasis">example.com</span> as a <span Class="bold">match</span> argument. When using DNS, the destination domain is assumed fully qualified and no default domain or search suffixes are applied; you must use fully-qualified names or also enable <span Class="bold">native</span> host lookups (these don't support <span Class="bold">dane</span> or <span Class="bold">dane-only</span> as no DNSSEC validation information is available via <span Class="bold">native</span> lookups). 
+<p class="level0"><a name="fBunixfIpathnamefR"></a><span class="nroffip">\fBunix:\fIpathname\fR</span> 
+<p class="level1">Connect to the UNIX-domain socket at <span Class="emphasis">pathname</span>. LMTP only. 
+<p class="level0"><a name="fBmatch"></a><span class="nroffip">\fBmatch ...\fR</span> 
+<p class="level1">With no match arguments specified, certificate peername matching uses the compiled-in default strategies for each security level.  If you specify one or more arguments, these will be used as the list of certificate or public-key digests to match for the <span Class="bold">fingerprint</span> level, or as the list of DNS names to match in the certificate at the <span Class="bold">verify</span> and <span Class="bold">secure</span> levels.  If the security level is <span Class="bold">dane</span>, or <span Class="bold">dane-only</span> the match names are ignored, and <span Class="bold">hostname, nexthop</span> strategies are used. 
+<p class="level1">
+<p class="level1"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">Read configuration parameters from a non-default location. 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">Same as <span Class="bold">-v</span> option. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+smtp-source(1), SMTP/LMTP message source
+smtp-sink(1), SMTP/LMTP message dump
+&nbsp;
+</pre>
+<a name="README"></a><h2 class="nroffsh">README FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Use "<span Class="bold">postconf readme_directory</span>" or "<span class="bold">postconf html_directory</span>" to locate this information. 
+<p class="level0"><pre class="level0">
+TLS_README, Postfix STARTTLS howto
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA
+&nbsp;
+Viktor Dukhovni

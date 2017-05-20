@@ -1,0 +1,86 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-bootchart - Boot performance graphing tool <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-bootchart</span> is a tool, usually run at system startup, that collects the CPU load, disk load, memory usage, as well as per-process information from a running system. Collected results are output as an SVG graph. Normally, systemd-bootchart is invoked by the kernel by passing <span Class="bold">init=</span><span Class="bold">/lib/systemd/systemd-bootchart</span> on the kernel commandline. systemd-bootchart will then fork the real init off to resume normal system startup, while monitoring and logging startup information in the background. 
+<p class="level0">After collecting a certain amount of data (usually 15-30 seconds, default 20 s) the logging stops and a graph is generated from the logged information. This graph contains vital clues as to which resources are being used, in which order, and where possible problems exist in the startup sequence of the system. It is essentially a more detailed version of the <span Class="bold">systemd-analyze plot</span> function. 
+<p class="level0">Of course, bootchart can also be used at any moment in time to collect and graph some data for an amount of time. It is recommended to use the <span Class="bold">--rel</span> switch in this case. 
+<p class="level0">Bootchart does not require root privileges, and will happily run as a normal user. 
+<p class="level0">Bootchart graphs are by default written time-stamped in /run/log and saved to the journal with <span Class="emphasis">MESSAGE_ID=9f26aa562cf440c2b16c773d0479b518</span>. Journal field <span Class="emphasis">BOOTCHART=</span> contains the bootchart in SVG format. <a name="INVOCATION"></a><h2 class="nroffsh">INVOCATION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-bootchart</span> can be invoked in several different ways: 
+<p class="level0"><span Class="emphasis">Kernel invocation</span> 
+<p class="level1">The kernel can invoke <span Class="bold">systemd-bootchart</span> instead of the init process. In turn, <span Class="bold">systemd-bootchart</span> will invoke <span Class="bold">/sbin/init</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Started as a standalone program</span> 
+<p class="level1">One can execute <span Class="bold">systemd-bootchart</span> as normal application from the commandline. In this mode it is highly recommended to pass the <span Class="bold">-r</span> flag in order to not graph the time elapsed since boot and before systemd-bootchart was started, as it may result in extremely large graphs. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">These options can also be set in the /etc/systemd/bootchart.conf file. See <span Class="bold">bootchart.conf</span>(5). 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--sample </span><span class="bold"><span Class="emphasis">N</span></span> 
+<p class="level1">Specify the number of samples, <span Class="emphasis">N</span>, to record. Samples will be recorded at intervals defined with <span Class="bold">--freq</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--freq </span><span class="bold"><span Class="emphasis">f</span></span> 
+<p class="level1">Specify the sample log frequency, a positive real <span Class="emphasis">f</span>, in Hz. Most systems can cope with values up to 25-50 without creating too much overhead. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--rel</span> 
+<p class="level1">Use relative times instead of absolute times. This is useful for using bootchart at post-boot time to profile an already booted system. Without this option the graph would become extremely large. If set, the horizontal axis starts at the first recorded sample instead of time 0.0. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--no-filter</span> 
+<p class="level1">Disable filtering of tasks that did not contribute significantly to the boot. Processes that are too short-lived (only seen in one sample) or that do not consume any significant CPU time (less than 0.001 s) will not be displayed in the output graph. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span>, <span Class="bold">--cmdline</span> 
+<p class="level1">Display the full command line with arguments of processes, instead of only the process name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--control-group</span> 
+<p class="level1">Display process control group 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output </span><span class="bold"><span Class="emphasis">path</span></span> 
+<p class="level1">Specify the output directory for the graphs. By default, bootchart writes the graphs to /run/log. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--init </span><span class="bold"><span Class="emphasis">path</span></span> 
+<p class="level1">Use this init binary. Defaults to <span Class="bold">/sbin/init</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--pss</span> 
+<p class="level1">Enable logging and graphing of processes*(Aq PSS (Proportional Set Size) memory consumption. See filesystems/proc.txt in the kernel documentation for an explanation of this field. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--entropy</span> 
+<p class="level1">Enable logging and graphing of the kernel random entropy pool size. 
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--scale-x </span><span class="bold"><span Class="emphasis">N</span></span> 
+<p class="level1">Horizontal scaling factor for all variable graph components. 
+<p class="level0">
+<p class="level0"><span Class="bold">-y</span>, <span Class="bold">--scale-y </span><span class="bold"><span Class="emphasis">N</span></span> 
+<p class="level1">Vertical scaling factor for all variable graph components. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-bootchart</span> generates SVG graphs. In order to render those on a graphical display any SVG capable viewer can be used. It should be noted that the SVG render engines in most browsers (including Chrome and Firefox) are many times faster than dedicated graphical applications like Gimp and Inkscape. Just point your browser at m[blue]<span Class="bold">%file:///run/log/</span>m[]! <a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">
+<p class="level0">This version of bootchart was implemented from scratch, but is inspired by former bootchart incantations: 
+<p class="level0"><span Class="emphasis">Original bash</span> 
+<p class="level1">The original bash/shell code implemented bootchart. This version created a compressed tarball for processing with external applications. This version did not graph anything, only generated data. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Ubuntu C Implementation</span> 
+<p class="level1">This version replaced the shell version with a fast and efficient data logger, but also did not graph the data. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Java bootchart</span> 
+<p class="level1">This was the original graphing application for charting the data, written in java. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">pybootchartgui.py</span> 
+<p class="level1">pybootchart created a graph from the data collected by either the bash or C version. 
+<p class="level0">
+<p class="level0">The version of bootchart you are using now combines both the data collection and the charting into a single application, making it more efficient and simpler. There are no longer any timing issues with the data collector and the grapher, as the graphing cannot be run until the data has been collected. Also, the data kept in memory is reduced to the absolute minimum needed. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">bootchart.conf</span>(5) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">systemd-bootchart does not get the model information for the hard drive unless the root device is specified with root=/dev/sdxY. Using UUIDs or PARTUUIDs will boot fine, but the hard drive model will not be added to the chart. 
+<p class="level0">For bugs, please contact the author and current maintainer: 
+<p class="level1">Auke Kok &lt;auke-jan.h.kok@intel.com&gt; 
+<p class="level0">

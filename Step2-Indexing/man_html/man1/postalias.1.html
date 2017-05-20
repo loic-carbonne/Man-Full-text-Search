@@ -1,0 +1,137 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postalias - Postfix alias database maintenance <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">postalias</span> [<span Class="bold">-Nfinoprsvw</span>] [<span class="bold">-c <span Class="emphasis">config_dir</span>] [<span class="bold">-d <span Class="emphasis">key</span>] [<span class="bold">-q <span Class="emphasis">key</span>] &nbsp;       [<span Class="emphasis">file_type</span>:]<span Class="emphasis">file_name</span> ... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postalias</span>(1) command creates or queries one or more Postfix alias databases, or updates an existing one. The input and output file formats are expected to be compatible with Sendmail version 8, and are expected to be suitable for the use as NIS alias maps. 
+<p class="level0">If the result files do not exist they will be created with the same group and other read permissions as their source file. 
+<p class="level0">While a database update is in progress, signal delivery is postponed, and an exclusive, advisory, lock is placed on the entire database, in order to avoid surprises in spectator processes. 
+<p class="level0">The format of Postfix alias input files is described in <span Class="bold">aliases</span>(5). 
+<p class="level0">By default the lookup key is mapped to lowercase to make the lookups case insensitive; as of Postfix 2.3 this case folding happens only with tables whose lookup keys are fixed-case strings such as btree:, dbm: or hash:. With earlier versions, the lookup key is folded even with tables where a lookup field can match both upper and lower case text, such as regexp: and pcre:. This resulted in loss of information with $<span Class="emphasis">number</span> substitutions. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">Read the <span Class="bold">main.cf</span> configuration file in the named directory instead of the default configuration directory. 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d \fIkey\fR</span> 
+<p class="level1">Search the specified maps for <span Class="emphasis">key</span> and remove one entry per map. The exit status is zero when the requested information was found. 
+<p class="level1">If a key value of <span Class="bold">-</span> is specified, the program reads key values from the standard input stream. The exit status is zero when at least one of the requested keys was found. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR</span> 
+<p class="level1">Do not fold the lookup key to lower case while creating or querying a table. 
+<p class="level1">With Postfix version 2.3 and later, this option has no effect for regular expression tables. There, case folding is controlled by appending a flag to a pattern. 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR</span> 
+<p class="level1">Incremental mode. Read entries from standard input and do not truncate an existing database. By default, <span Class="bold">postalias</span>(1) creates a new database from the entries in <span Class="emphasis">file_name</span>. 
+<p class="level0"><a name="fB-NfR"></a><span class="nroffip">\fB-N\fR</span> 
+<p class="level1">Include the terminating null character that terminates lookup keys and values. By default, <span Class="bold">postalias</span>(1) does whatever is the default for the host operating system. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR</span> 
+<p class="level1">Don't include the terminating null character that terminates lookup keys and values. By default, <span Class="bold">postalias</span>(1) does whatever is the default for the host operating system. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR</span> 
+<p class="level1">Do not release root privileges when processing a non-root input file. By default, <span Class="bold">postalias</span>(1) drops root privileges and runs as the source file owner instead. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Do not inherit the file access permissions from the input file when creating a new file.  Instead, create a new file with default access permissions (mode 0644). 
+<p class="level0"><a name="fB-q"></a><span class="nroffip">\fB-q \fIkey\fR</span> 
+<p class="level1">Search the specified maps for <span Class="emphasis">key</span> and write the first value found to the standard output stream. The exit status is zero when the requested information was found. 
+<p class="level1">If a key value of <span Class="bold">-</span> is specified, the program reads key values from the standard input stream and writes one line of <span Class="emphasis">key: value</span> output for each key that was found. The exit status is zero when at least one of the requested keys was found. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR</span> 
+<p class="level1">When updating a table, do not complain about attempts to update existing entries, and make those updates anyway. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR</span> 
+<p class="level1">Retrieve all database elements, and write one line of <span Class="emphasis">key: value</span> output for each element. The elements are printed in database order, which is not necessarily the same as the original input order. This feature is available in Postfix version 2.2 and later, and is not available for all database types. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. 
+<p class="level0"><a name="fB-wfR"></a><span class="nroffip">\fB-w\fR</span> 
+<p class="level1">When updating a table, do not complain about attempts to update existing entries, and ignore those attempts. 
+<p class="level1">Arguments: 
+<p class="level0"><a name="fIfiletypefR"></a><span class="nroffip">\fIfile_type\fR</span> 
+<p class="level1">The database type. To find out what types are supported, use the "<span Class="bold">postconf -m</span>" command. 
+<p class="level1">The <span Class="bold">postalias</span>(1) command can query any supported file type, but it can create only the following file types: 
+<p class="level2">
+<p class="level1"><a name="fBbtreefR"></a><span class="nroffip">\fBbtree\fR</span> 
+<p class="level2">The output is a btree file, named <span class="emphasis">file_name<span Class="bold">.db</span>. This is available on systems with support for <span Class="bold">db</span> databases. 
+<p class="level1"><a name="fBcdbfR"></a><span class="nroffip">\fBcdb\fR</span> 
+<p class="level2">The output is one file named <span class="emphasis">file_name<span Class="bold">.cdb</span>. This is available on systems with support for <span Class="bold">cdb</span> databases. 
+<p class="level1"><a name="fBdbmfR"></a><span class="nroffip">\fBdbm\fR</span> 
+<p class="level2">The output consists of two files, named <span class="emphasis">file_name<span Class="bold">.pag</span> and <span class="emphasis">file_name<span Class="bold">.dir</span>. This is available on systems with support for <span Class="bold">dbm</span> databases. 
+<p class="level1"><a name="fBhashfR"></a><span class="nroffip">\fBhash\fR</span> 
+<p class="level2">The output is a hashed file, named <span class="emphasis">file_name<span Class="bold">.db</span>. This is available on systems with support for <span Class="bold">db</span> databases. 
+<p class="level1"><a name="fBfailfR"></a><span class="nroffip">\fBfail\fR</span> 
+<p class="level2">A table that reliably fails all requests. The lookup table name is used for logging only. This table exists to simplify Postfix error tests. 
+<p class="level1"><a name="fBsdbmfR"></a><span class="nroffip">\fBsdbm\fR</span> 
+<p class="level2">The output consists of two files, named <span class="emphasis">file_name<span Class="bold">.pag</span> and <span class="emphasis">file_name<span Class="bold">.dir</span>. This is available on systems with support for <span Class="bold">sdbm</span> databases. 
+<p class="level2">When no <span Class="emphasis">file_type</span> is specified, the software uses the database type specified via the <span Class="bold">default_database_type</span> configuration parameter. The default value for this parameter depends on the host environment. 
+<p class="level1">
+<p class="level0"><a name="fIfilenamefR"></a><span class="nroffip">\fIfile_name\fR</span> 
+<p class="level1">The name of the alias database source file when creating a database. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Problems are logged to the standard error stream and to <span Class="bold">syslogd</span>(8).  No output means that no problems were detected. Duplicate entries are skipped and are flagged with a warning. 
+<p class="level0"><span Class="bold">postalias</span>(1) terminates with zero exit status in case of success (including successful "<span Class="bold">postalias -q</span>" lookup) and terminates with non-zero exit status in case of failure. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">Directory with Postfix configuration files. 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. 
+<p class="level0">The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBaliasdatabase"></a><span class="nroffip">\fBalias_database (see 'postconf -d' output)\fR</span> 
+<p class="level1">The alias databases for <span Class="bold">local</span>(8) delivery that are updated with "<span Class="bold">newaliases</span>" or with "<span Class="bold">sendmail -bi</span>". 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBberkeleydbcreatebuffersize"></a><span class="nroffip">\fBberkeley_db_create_buffer_size (16777216)\fR</span> 
+<p class="level1">The per-table I/O buffer size for programs that create Berkeley DB hash or btree tables. 
+<p class="level0"><a name="fBberkeleydbreadbuffersize"></a><span class="nroffip">\fBberkeley_db_read_buffer_size (131072)\fR</span> 
+<p class="level1">The per-table I/O buffer size for programs that read Berkeley DB hash or btree tables. 
+<p class="level0"><a name="fBdefaultdatabasetype"></a><span class="nroffip">\fBdefault_database_type (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default database type for use in <span Class="bold">newaliases</span>(1), <span Class="bold">postalias</span>(1) and <span Class="bold">postmap</span>(1) commands. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". <a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+RFC 822 (ARPA Internet Text Messages)
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+aliases(5), format of alias database input file.
+local(8), Postfix local delivery agent.
+postconf(1), supported database types
+postconf(5), configuration parameters
+postmap(1), create/update/query lookup tables
+newaliases(1), Sendmail compatibility interface.
+syslogd(8), system logging
+</pre>
+<a name="README"></a><h2 class="nroffsh">README FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Use "<span Class="bold">postconf readme_directory</span>" or "<span Class="bold">postconf html_directory</span>" to locate this information. 
+<p class="level0"><pre class="level0">
+DATABASE_README, Postfix lookup table overview
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

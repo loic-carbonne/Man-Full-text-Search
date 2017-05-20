@@ -1,0 +1,684 @@
+
+<p class="level0">" FIG : Facility for Interactive Generation of figures 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xfig - Facility for Interactive Generation of figures under X11 <br>Version 3.2.5c <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xfig</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Xfig</span> is a menu-driven tool that allows the user to draw and manipulate objects interactively under the X Window System. <span Class="bold">It runs under X version 11</span> <span Class="bold">release 4 or higher</span> and requires a two- or three-button mouse. <span Class="emphasis">file</span> specifies the name of a file to be edited. The objects in the file will be read at the start of <span Class="emphasis">xfig .</span> 
+<p class="level0">The bulk of the documentation fori <span Class="emphasis">xfig</span> is in an HTML-based reference guide. See the Help menu in <span Class="emphasis">xfig</span> or point your browser at  <span Class="emphasis">Doc/html/index.html</span> (provided with the <span Class="emphasis">xfig</span> distribution, usually in the  <span Class="emphasis">Doc/www</span> directory). There are both English and Japanese versions. 
+<p class="level0">When using a two-button mouse use the <span Class="emphasis">&lt;Meta&gt;</span> key and the right button at the same time to effect the action of the middle button. 
+<p class="level0"><span Class="emphasis">Xfig</span> is available from <a href="http://www.xfig.org">http://www.xfig.org</a> . 
+<p class="level0">The <span Class="emphasis">TransFig</span> package is used when printing or exporting the output from <span Class="emphasis">xfig .</span> The <span Class="emphasis">fig2dev</span> program from the  <span Class="emphasis">TransFig</span> package is automatically called by <span Class="emphasis">xfig</span> as a back-end processor to produce various types of output: 
+<p class="level0">LaTeX, Metafont, PostScript or Encapsulated PostScript, tk (tcl/tk tool command language/tool kit package), GIF, JPEG, PCX, PNG, PPM, TIFF, XBM, XPM, AutoCAD Slide, IBM-GL (HP/GL), Pic PiCTeX, box, epic, eepic and eepicemu. 
+<p class="level0">See man fig2dev for all options. 
+<p class="level0">The <span Class="emphasis">TransFig</span> package is available from <a href="http://www.xfig.org">http://www.xfig.org</a> . <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">-help</span>
+<p class="level0">Print all command-line options for xfig and quit. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-a [ llownegcoords ]</span>
+<p class="level0">Allow panning into the negative region of the canvas. This is the default 
+<p class="level0">
+<p class="level0"><span Class="manpage">-bal [ loon_delay ]</span><span Class="emphasis">msec</span> 
+<p class="level0">Cause popup information balloons to be delayed by <span Class="emphasis">msec</span> milliseconds.  The default is 500 milliseconds. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-bol [ d ]</span><span Class="emphasis">font</span> 
+<p class="level0">Cause the font used for displaying the file name and confirmation messages to be <span Class="emphasis">font</span> (default = 8x13bold). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-butt [ on ]</span><span Class="emphasis">font</span> 
+<p class="level0">Cause the font used for most buttons to be <span Class="emphasis">font</span> (default = 6x13). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-but_ [ per_row ]</span><span Class="emphasis">number</span> 
+<p class="level0">Specify the number of buttons wide the mode panel should be. This is useful in conjunction with the <span Class="bold">-pheight</span> parameter to reduce the canvas height for small screens. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-cbg  color</span>
+<p class="level0">Use <span Class="emphasis">color</span> as the background color for the canvas. If you want to set the background of everything in xfig (e.g. menus, etc.) use the general  <span Class="bold">-bg</span> option. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-center</span>
+<p class="level0">Set the print option to print the figure centered on the page. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-centim [ ers ]</span>
+<p class="level0">Make centimeters the unit of choice.  See also  <span Class="bold">-metric.</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-cfg  color</span>
+<p class="level0">Use <span Class="emphasis">color</span> as the default color for objects. If you want to set the foreground of everything in xfig (e.g. menus, etc.) use the general  <span Class="bold">-fg</span> option. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-correct_font_size</span>
+<p class="level0">Normally,  <span Class="emphasis">fig2dev</span> uses 1/80 inch for font size increments (for historical reasons), instead of the more proper ``points'' (1/72 inch) that <span Class="emphasis">xfig</span> uses.  This option makes xfig call fig2dev with the  <span Class="manpage">-F</span>option to make it use points (1/72 inch). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-deb [ ug ]</span>
+<p class="level0">Turn on debugging mode. Prints various debugging messages like font names etc. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dep [ th ]</span>
+<p class="level0">Choose depth of visual desired.  Your server must support the desired visual and depth chosen. Use <span Class="emphasis">xdpyinfo</span> to see what visuals and depths are supported. See also the <span Class="manpage">-visual</span>option. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-donta [ llownegcoords ]</span>
+<p class="level0">Don't allow panning into the negative region of the canvas. The default is to allow panning in the negative region. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dontshowb [ alloons ]</span>
+<p class="level0">Prevents xfig from popping up the information balloons. See also  <span Class="bold">-showballoons.</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dontshowl [ engths ]</span>
+<p class="level0">Don't show lengths of lines as they are being drawn. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dontshowz [ erolines ]</span>
+<p class="level0">Don't show axis zero lines on the canvas. The default is to show them. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dontsw [ itchcmap ]</span>
+<p class="level0">Prevents xfig from switching to a private colormap if there aren't enough colors available in the default colormap.  See also <span Class="manpage">-max_image_colors.</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-enc [ oding ]</span><span Class="emphasis">encoding</span> 
+<p class="level0">Encode character set using <span Class="emphasis">encoding</span> when exporting LaTeX text.  The default is 1.  This is used for the ISO-8859 encoding of character sets.  Allowed values are 0 (no encoding), 1 (ISO-8859-1) or 2 (ISO-8859-2). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-exportL [ anguage ]</span><span Class="emphasis">language</span> 
+<p class="level0">Specifies the default language to be used for when exporting a fig file. Choices are: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+eepicemu	LaTeX picture + eepicemu macros
+Name	Language
+Vector formats:
+box	LaTeX box (figure boundary)
+latex	LaTeX picture
+epic	LaTeX picture + epic macros
+eepic	LaTeX picture + eepic macros
+eepicemu	LaTeX picture + eepicemu macros
+pictex	PiCTeX macros
+hpl	HPGL (IBMGL)
+eps	Encapuslated PostScript
+eps_ascii	Encapuslated PostScript with ASCII preview
+eps_mono_tiff	Encapuslated PostScript with monochrome binary (TIFF) preview
+eps_color_tiff	Encapuslated PostScript with color binary (TIFF) preview
+ps	PostScript
+pdf	PDF (Portable Document Format)
+pstex	Combined PS/LaTeX (both PS and LaTeX parts)
+pdftex	Combined PDF/LaTeX (both PDF and LaTeX parts)
+textyl	Textyl special commands
+tpic	TPIC
+pic	PIC
+mf	MF (MetaFont)
+mp	MP (MetaPost)
+mmp	MMP (Multi-MetaPost)
+cgm	CGM (Computer Graphics Meta file)
+bcgm	Binary CGM (Computer Graphics Meta file)
+emf	Enhanced Meta file)
+tk	Tk (of the tcl/tk fame)
+svg	SVG (Scalable Vector Graphics (XML variant))
+&nbsp;
+Bitmap formats:
+gif	GIF
+jpeg	JPEG (JFIF)
+pcx	PCX
+png	PNG
+ppm	PPM (portable pixmap package)
+sld	(AutoCad slide)
+tiff	TIFF
+xbm	X11 Bitmap
+xpm	X11 Pixmap (XPM3 package)
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">-export_m [ argin ]</span><span Class="emphasis">width</span> 
+<p class="level0">Set the size of the border margin around the figure for exporting to bitmap, PostScript, Encapsulated PostScript, or HTML MAP formats. This is in units of pixels (1/80th inch). The default is 0. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-fli [ pvisualhints ]</span>
+<p class="level0">Flip left/right mouse indicator messages for mice whose buttons have been switched. The default is to NOT flip the messages. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-flu [ shleft ]</span>
+<p class="level0">Set the print option to print the figure flush left. The default is to center the figure on the page. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-free [ hand_resolution ]</span><span Class="emphasis">resolution</span> 
+<p class="level0">Set the resolution of the freehand drawing mode to <span Class="emphasis">resolution</span> pixels.  This is the number of pixels the mouse must move before xfig  adds another point to the object being drawn. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-geom [ etry ]</span>
+<p class="level0">
+<p class="level0">You may use the -geometry option or resource to <span Class="emphasis">size and/or position the xfig window,</span> or you may use  <span Class="bold">-pwidth </span> and/or  <span Class="bold">-pheight</span> to specify the canvas size in inches or centimeters. If you use the  <span Class="bold">-geom </span> option to make the xfig window smaller than the default, you may have to use the  <span Class="bold">-but_per_row </span> option to  tell xfig to put 3 or 4 buttons per row on the left mode panel. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-gh [ ostscript ]</span><span Class="emphasis">postscript-interpreter</span> 
+<p class="level0">Select the PostScript (tm) interpreter of your choice.  The default is ghostscript (gs). This is needed when importing Encapsulated PostScript files. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-grid_c [ olor ]</span><span Class="emphasis">color</span> 
+<p class="level0">Draw the grid on the canvas in this color (default: red). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-grid_u [ nit ]</span><span Class="emphasis">unit</span> 
+<p class="level0">Only used when in inches mode to choose between showing fractions or decimal inches in the rulers and grid.  Any of the following may be used to force decimal inches: "ten", "tenth", "10, "1/10". If any other value is used for this option, the rulers will show 1/16 inch divisions. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-hidd [ entext ]</span>
+<p class="level0">Start <span Class="emphasis">xfig</span> with the <span Class="emphasis">hidden text</span> mode for text objects. The <span Class="emphasis">Hidden</span> attribute is used for figures that will be used with <span Class="emphasis">LaTeX</span> and is applicable only to the display of the document in <span Class="emphasis">xfig .</span> It means that the text itself is not shown onscreen, but only the string ``&lt;text&gt;''.  This is to keep long sequences of <span Class="emphasis">LaTeX</span> formatting commands from making the screen messy and hard to read. The default for the <span Class="emphasis">Hidden</span> flag is <span Class="emphasis">off .</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-dontshowd [ epthmanager ]</span>
+<p class="level0">Hide the depth manager panel. The default is to show the panel. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-icon_ [ view ]</span>
+<p class="level0">Show the library objects as icons.  This is the default.  The other mode is  <span Class="bold">-list_view.</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-iconG [ eometry ]</span>
+<p class="level0">
+<p class="level0">Specifies the position for the icon. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-im [ age_editor ]</span><span Class="emphasis">editor</span> 
+<p class="level0">Specify bitmap editor to use when ``Edit Image'' button is pressed in Picture Object panel. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-inc [ hes ]</span>, <span Class="manpage">(or -imperial)</span>
+<p class="level0">Make inches the unit of choice. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-ins [ tallowncmap ]</span>
+<p class="level0">Install own colormap. Normally, xfig uses the current colormap. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-internalBW  width</span>
+<p class="level0">Use lines of width <span Class="emphasis">width</span> between all buttons and panels (default = 1). 
+<p class="level0">
+<p class="level0"><span Class="manpage">-international</span>
+<p class="level0">Switch on international support (mainly Japanese and Korean), users of ISO Latin 1 (ISO-8859-1) probably should not use this, therefore the international support is switched off by default for locales using ISO-8859-1* codesets. For all other locales this option is already used by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-jpeg [ _quality ]</span><span Class="emphasis">quality</span> 
+<p class="level0">Set the quality factor for exporting to the jpeg format. The default is 75. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-k [ eyFile ]</span><span Class="emphasis">compose-key-file</span> 
+<p class="level0">Use <span Class="emphasis">compose-key-file</span> instead of <span Class="emphasis">CompKeyDB</span> for compose (meta) key database. If there are no 
+<p class="level0">in the name, the file must reside in the <span Class="emphasis">xfig</span> library directory, <span Class="emphasis">$XFIGLIBDIR ,</span> usually <span Class="manpage">/usr/local/lib/X11/xfig .</span>If there are any 
+<p class="level0">in the name it is taken as is (not relative to <span Class="emphasis">$XFIGLIBDIR ).</span> If there is a leading 
+<p class="level0">in the string then the 
+<p class="level0">is expanded to the user's home directory. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-lan [ dscape ]</span>
+<p class="level0">Make <span Class="emphasis">xfig</span> come up in landscape mode (10.5" x 8"). This is the default; however as the orientation is stored with Fig files, when you load a Fig file the orientation will change as required. This is only true for files of version 3.0 or higher. <br>See also -portrait. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-lat [ exfonts ]</span>
+<p class="level0">Start <span Class="emphasis">xfig</span> with <span Class="emphasis">LaTeX</span> font selection. Normally, the <span Class="emphasis">PostScript</span> fonts are available as the default. This flag selects the <span Class="emphasis">LaTeX</span> fonts to start. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-le [ ft ]</span>
+<p class="level0">Change the position of the side panel window to the left of the canvas window. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-library_d [ ir ]</span><span Class="emphasis">directory</span> 
+<p class="level0">Specify directory where Fig object libraries are located.  There may be sub-directories there and sub-sub-directories, etc. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-library_i [ con_size ]</span><span Class="emphasis">size</span> 
+<p class="level0">Specify the size of the icons shown for library objects.  The default is 60 pixels, with the minimum being 40 and the maximum being 120. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-lis [ t_view ]</span>
+<p class="level0">Show the library objects as a list of names. The default  mode is  <span Class="bold">-icon_view.</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-mag [ nification ]</span><span Class="emphasis">mag</span> 
+<p class="level0">Set export and print magnification in %. 
+<p class="level0"><span Class="manpage">-max [ _image_colors ]</span><span Class="emphasis">numcols</span> 
+<p class="level0">Limit the number of colors used for imported images to <span Class="emphasis">numcols (default 64).</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-me [ tric ]</span>
+<p class="level0">Make centimeters the unit of choice.   The option <span Class="bold">-centimeters</span> may also be used. 
+<p class="level0"><a name=""></a><span class="nroffip">\&</span> 
+<p class="level1">After <span Class="emphasis">xfig</span> is started you may change the units from metric to imperial or vice versa from a popup menu available by pressing mouse button 3 in the <span Class="emphasis">units</span> box where the two rulers meet. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-mo [ nochrome ]</span>
+<p class="level1">Use black and white only. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-mu [ ltiple ]</span>
+<p class="level1">Sets multiple page mode for print or export. See also  <span Class="manpage">-single.</span>
+<p class="level1">
+<p class="level1"><span Class="manpage">-noo [ verlap ]</span>
+<p class="level1">When exporting in multiple page mode, causes no overlap from page to page. This is the default.  See also <span Class="manpage">-overlap.</span>
+<p class="level1">
+<p class="level1"><span Class="manpage">-nor [ mal ]</span><span Class="emphasis">font</span> 
+<p class="level1">Cause the font used for the message window to be <span Class="emphasis">font .</span> This font is also used on the canvas when the selected font is not available in an X11 font (default = 6x13). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-nosc [ alablefonts ]</span>
+<p class="level1">Disables use of the X11R5 or OpenWindows scalable fonts. You might want to use this for debugging. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-nosp [ lash ]</span>
+<p class="level1">Don't show the startup splash screen.  The default is to show it ( <span Class="manpage">-splash</span>). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-not [ rack ]</span>
+<p class="level1">Turn off cursor (mouse) tracking arrows. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-nowrite_bak</span>
+<p class="level1">When saving a drawing into an existing .fig file xfig will first rename that file by appending ".bak" to the name.  This option disables this feature. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-ov [ erlap ]</span>
+<p class="level1">When exporting in multiple page mode, causes overlap from page to page of about 10%. See also <span Class="manpage">-nooverlap.</span>
+<p class="level1">
+<p class="level1"><span Class="manpage">-pag [ eborder ]</span><span Class="emphasis">color</span> 
+<p class="level1">Draw the page border on the canvas in this color (default light blue). The page border is turned on by the  <span Class="bold">-showpageborder</span> option (resource Fig.showpageborder), and shows the edges of the current  <span Class="emphasis">export</span> paper size. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-pap [ er_size ]</span><span Class="emphasis">size</span> 
+<p class="level1">Set the initial paper size for Export and Print.  Choices are 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><pre class="level1">
+tabloid	Tabloid	17in x 11in
+Option	Paper	Size
+letter	Letter	8.5in x 11in
+legal	Legal	8.5in x 14in
+tabloid	Tabloid	17in x 11in
+a	ANSI A	8.5in x 11in
+b	ANSI B	11in x 17in
+c	ANSI C	17in x 22in
+d	ANSI D	22in x 34in
+e	ANSI E	34in x 44in
+a9	ISO A9	37mm x 52mm
+a8	ISO A8	52mm x 74mm
+a7	ISO A7	74mm x 105mm
+a6	ISO A6	105mm x 148mm
+a5	ISO A5	148mm x 210mm
+a4	ISO A4	210mm x 297mm
+a3	ISO A3	297mm x 420mm
+a2	ISO A2	420mm x 594mm
+a1	ISO A1	594mm x 840mm
+a0	ISO A0	840mm x 1189mm
+b10	JIS B10	32mm x 45mm
+b9	JIS B9	45mm x 64mm
+b8	JIS B8	64mm x 91mm
+b7	JIS B7	91mm x 128mm
+b6	JIS B6	128mm x 182mm
+b5	JIS B5	182mm x 257mm
+b4	JIS B4	257mm x 364mm
+b3	JIS B3	364mm x 515mm
+b2	JIS B2	515mm x 728mm
+b1	JIS B1	728mm x 1030mm
+b0	JIS B0	1030mm x 1456mm
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">Note that this doesn't affect the size of the drawing canvas.  Use the  <span Class="bold">-pheight </span> and  <span Class="bold">-pwidth </span> options for that. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-ph [ eight ]</span><span Class="emphasis">height</span> 
+<p class="level1">Make the <span Class="emphasis">xfig</span> canvas <span Class="emphasis">height</span> high (where <span Class="emphasis">height</span> is either cm or in, depending on the  <span Class="bold">-metric </span> setting). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-po [ rtrait ]</span>
+<p class="level1">Make <span Class="emphasis">xfig</span> come up in portrait mode (8.5" x 9").  See note about landscape mode. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-pw [ idth ]</span><span Class="emphasis">width</span> 
+<p class="level1">Make the <span Class="emphasis">xfig</span> canvas <span Class="emphasis">width</span> wide (where <span Class="emphasis">width</span> is either cm or in, depending on the  <span Class="bold">-metric </span> setting). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-righ [ t ]</span>
+<p class="level1">Change the position of the side panel window to the right of the canvas window (default: left). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-rigi [ d ]</span>
+<p class="level1">Start <span Class="emphasis">xfig</span> with the <span Class="emphasis">rigid text</span> mode for text objects. The <span Class="emphasis">Rigid</span> attribute forces text to remain the same size even if inside a compound object that is scaled up or down. The default is <span Class="emphasis">off .</span> 
+<p class="level1">
+<p class="level1"><span Class="manpage">-ru [ lerthick ]</span>
+<p class="level1">Set the height(width) of the top(side) rulers in pixels. The default (and minimum) is 24. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-scala [ blefonts ]</span>
+<p class="level1">Allows use of the X11R5 or OpenWindows scalable fonts (this is the default). If the scalable fonts aren't available <span Class="emphasis">xfig</span> will automatically switch to non-scaling fonts. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-scale_factor</span><span Class="emphasis">scale</span> 
+<p class="level1">Scale every figure read in by this value.  This is useful in conjunction with the  <span Class="bold">-update</span> option to do batch scaling of figures. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showa [ llbuttons ]</span>
+<p class="level1">Show all the <span Class="emphasis">xfig</span> indicator buttons instead of only those relevant to the current drawing mode. Normally, the buttons <span Class="emphasis">line width ,</span> <span Class="emphasis">area-fill ,</span> <span Class="emphasis">grid mode ,</span> <span Class="emphasis">text size ,</span> etc. are only visible when they are relevant to the current drawing mode. The <span Class="bold">-showallbuttons</span> option makes all of the indicator buttons visible at all times. This takes up more screen real estate, but allows the user to see all settable parameters. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showb [ alloons ]</span>
+<p class="level1">Forces  <span Class="emphasis">xfig</span> to pop up the information balloons when the mouse passws over a button. This is the default. See also  <span Class="bold">-dontshowballoons .</span> 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showd [ epthmanager ]</span>
+<p class="level1">Show the depth manager panel.  This panel lets one show or hide objects at various depths. This is the default. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showl [ engths ]</span>
+<p class="level1">Makes  <span Class="emphasis">xfig </span> show the lengths of lines being drawn, in red text near the line itself.  Also, when points are moved or added.  In addition, imagine a triangle formed with the line segment as the hypotenuse, and a vertical and horizontal line forming the other two sides.  These lines and their lengths are also drawn in red as the point is moved or added. This mode is ignored when drawing in freehand mode. <br>This flag may be toggled by pressing &lt;Meta&gt;i (default). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-shown [ ums ]</span>
+<p class="level1">With this option, xfig will draw all objects with a red number next to each vertex. This is generally only useful for debugging. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showp [ ageborder ]</span>
+<p class="level1">Makes  <span Class="emphasis">xfig </span> show the border of the current paper size in the color specified by the  <span Class="bold">-pageborder</span> option (default: light blue). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-showz [ erolines ]</span>
+<p class="level1">Show axis zero lines on the canvas. This is the default 
+<p class="level1">
+<p class="level1"><span Class="manpage">-si [ ngle ]</span>
+<p class="level1">Sets single page mode for print or export.  This is the default.  See also  <span Class="manpage">-multiple.</span>
+<p class="level1">
+<p class="level1"><span Class="manpage">-sm [ ooth_factor ]</span><span Class="emphasis">factor</span> 
+<p class="level1">Enable smoothing when exporting to the bitmap formats (e.g. GIF, PNG, etc.). The allowed values are 0 (no smoothing), 2 or 4 (most smoothing).  This parameter is passed  to ghostscript in the -dTextAlphaBits -dGraphicsAlphaBits options to smooth the figure. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-spec [ ialtext ]</span>
+<p class="level1">Start <span Class="emphasis">xfig</span> with the <span Class="emphasis">special text</span> mode for text objects. Special text means that special characters in the string are not specially processed but are passed directly to <span Class="emphasis">LaTeX .</span> This is most useful for writing LaTeX equations. If this flag is not set, then the backslash character '&acute; is changed to the \backslash command, a brace '{' is turned into a brace command \{, etc. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-spel [ lcheckcommand ]</span><span Class="emphasis">command</span> 
+<p class="level1">Use <span Class="emphasis">command</span> for the external spell checking program when using the spell check/search/replace popup.   The string <span Class="emphasis">command</span> should include the string ``%s'' which is replaced by a temporary filename. Default is ``spell %s''. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-spinner_d [ elay ]</span><span Class="emphasis">msec</span> 
+<p class="level1">The delay (in milliseconds) before the spinner will automatically count up  or down when the button is pressed. Spinners are the (numeric) text widgets with an up- and down-arrow, which when  clicked, cause the value to be incremented/decremented. The default is 500 milliseconds. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-spinner_r [ rate ]</span><span Class="emphasis">msec</span> 
+<p class="level1">The rate (in milliseconds) at which the spinner will count when the up- or down-arrow is pressed. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startfi [ llstyle ]</span><span Class="emphasis">stylenumber</span> 
+<p class="level1">Set the starting fill style for area fill (-1 to 21). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startfo [ ntsize ]</span><span Class="emphasis">pointsize</span> 
+<p class="level1">Set the default font size for text objects (default = 12pt). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startg [ ridmode ]</span><span Class="emphasis">modenumber</span> 
+<p class="level1">Set the starting grid mode (0 to 3).  Mode 0 is no grid. In imperial (inches) mode, grid mode 1 is 1/4 inch, mode 2 is 1/2 inch and mode 3 is 1 inch. In metric mode, grid mode 1 is 5mm, mode 2 is 1cm and mode 3 is 2cm. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startla [ texFont ]</span><span Class="emphasis">font</span> 
+<p class="level1">Set the starting font name for <span Class="emphasis">LaTeX</span> fonts. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startli [ newidth ]</span><span Class="emphasis">width</span> 
+<p class="level1">Set the starting line width. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startpo [ snmode ]</span><span Class="emphasis">modenumber</span> 
+<p class="level1">Set the starting point positioning mode (0 to 4) In imperial (inches) mode, positioning mode 0 is ``any'', mode 1 is 1/16 inch, mode 2 is 1/4 inch, mode 3 is 1/2 inch and mode 4 is 1 inch. In metric mode, mode 0 is ``any'', mode 1 is 1mm, mode 2 is 5mm, mode 3 is 10mm and mode 4 is 20mm. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startp [ sFont ]</span><span Class="emphasis">font</span> 
+<p class="level1">Set the starting font name for <span Class="emphasis">PostScript</span> fonts. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-startt [ extstep ]</span><span Class="emphasis">stepsize</span> 
+<p class="level1">Set the starting text step. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-ta [ blet ]</span>
+<p class="level1">Specifies that xfig should use the input tablet instead of the mouse for drawing.  You must have the XInputExtension in your X server and an input tablet for this to work.  Also, you must modify the Imakefile to include the  <span Class="bold">USETAB </span> and  <span Class="bold">TABLIB </span> variables. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-track</span>
+<p class="level1">Turn on cursor (mouse) tracking arrows (default). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-tran [ sparent_color ]</span><span Class="emphasis">color_number</span> 
+<p class="level1">Make the transparent color for GIF export <span Class="emphasis">color_number.</span> This number is the color number according to the  <span Class="bold">xfig</span> color panel, starting at 0 (black) and ending at 31 (gold), or may be a user-defined color number, which is 32 or higher. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-update</span><span Class="emphasis">file [ file ... ]</span> 
+<p class="level1">Run xfig in an "update" mode, where it will read each Fig file specified on the command line and write it out to the original file, in the current file format for the version of xfig being run. The original Fig file will be preserved with the suffix <span Class="emphasis">.bak</span> attached to the name. <br>In this mode, xfig doesn't connect the X server, so no window is opened, and it exits when finished. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-users [ cale ]</span><span Class="emphasis">scale</span> 
+<p class="level1">Set the multiplier for displayed line lengths etc. This factor is multiplied by the actual length, radius or diameter of the object currently being drawn on the canvas. It is useful for making scale drawings, where e.g. 1 inch = 1 foot (userscale = 12.0) or 1cm = 1m (userscale = 100.0). 
+<p class="level1">
+<p class="level1"><span Class="manpage">-useru [ nit ]</span><span Class="emphasis">units</span> 
+<p class="level1">The <span Class="emphasis">units</span> string is printed with the length information when drawing objects. For example if the <span Class="emphasis">userscale</span> = 1.0 and the <span Class="emphasis">userunit</span> = <span Class="emphasis">ft</span> then a line which is 3 inches long on the canvas would be displayed as ``length = 3 ft'' when it is being drawn. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">After <span Class="emphasis">xfig</span> is started you may change the <span Class="emphasis">userscale</span> and the <span Class="emphasis">userunit</span> from a popup menu available by pressing mouse button 3 in the <span Class="emphasis">units</span> box where the two rulers meet. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-visual</span><span Class="emphasis">visualname</span> 
+<p class="level1">Use <span Class="emphasis">visualname</span> as the visual for xfig.  The names are TrueColor (case is not important), StaticColor, DirectColor, StaticGray, GrayScale and PseudoColor. <span Class="emphasis">xfig</span> uses the default visual unless this is specified.  Your server must support the desired visual. Use <span Class="emphasis">xdpyinfo</span> to see what visuals and depths are supported. See also the <span Class="manpage">-depth</span>option. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-write_bak</span>
+<p class="level1">When saving a drawing into an existing .fig file xfig will first rename that file by appending ".bak" to the name.  This is the default.  Use -nowrite_bak to disable this feature. 
+<p class="level1">
+<p class="level1"><span Class="manpage">-zoom</span><span Class="emphasis">zoomscale</span> 
+<p class="level1">Set the starting zoom scale. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="X"></a><h2 class="nroffsh">X RESOURCES and DEFAULTS</h2>
+<p class="level0">The overall widget name(Class) is xfig(Fig). These resources correspond to the command line arguments: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+Name	Type	Default	Command-line equivalent
+Name	Type	Default	Command-line equivalent
+allownegcoords	boolean	true	-allownegcoords (true),
+			-dontallownegcoords (false)
+axislines	string	pink	-axislines
+balloon_delay	integer	500 (ms)	-balloon_delay
+boldFont	string	8x13bold	-bold
+but_per_row	integer	2	-but_per_row
+buttonFont	string	6x13	-button
+canvasbackground	string	white	-cbg
+canvasforeground	string	black	-cfg
+correctfontsize	boolean	false	-correctfontsize
+debug	boolean	false	-debug
+depth	integer	*	-depth
+dontswitchcmap	boolean	false	-dontswitchcmap
+euc_encoding	boolean	false	(n/a)
+locale_encoding	boolean	false	(n/a)
+encoding	integer	1	-encoding
+exportLanguage	string	eps	-exportLanguage
+export_margin	integer	0	-export_margin
+flipvisualhints	boolean	false	-flipvisualhints
+flushleft	boolean	false	-flushleft (true),
+			-center (false)
+freehand_resolution	integer	25	-freehand_resolution
+grid_color	string	black	-grid_color
+grid_unit	string	1/16 (inch)	-grid_unit
+		0.1 (metric)
+hiddentext	boolean	false	-hiddentext
+icon_view	boolean	true	-icon_view (true),
+			-list_view (false)
+image_editor	string	xv	-image_editor
+inches	boolean	true	-inches (true),
+			-imperial (true),
+			-centimeters (false),
+			-metric (false)
+installowncmap	boolean	false	-installowncmap
+internalborderwidth	integer	1	-internalBW
+international	International	boolean	false	-international
+jpeg_quality	integer	75	-jpeg_quality
+justify	boolean	false	-left (false),
+			-right (true)
+keyFile	string	CompKeyDB	-keyFile
+landscape	boolean	true	-Landscape (true),
+			-landscape (true),
+			-Portrait (false),
+			-portrait (false)
+latexfonts	boolean	false	-latexfonts
+library_dir	string	~/xfiglib	-library_dir
+magnification	float	100	-magnification
+max_image_colors	integer	64	-max_image_colors
+monochrome	boolean	false	-monochrome
+multiple	boolean	false	-multiple
+normalFont	string	6x13	-normal
+overlap	boolean	true	-overlap (true),
+			-nooverlap (false)
+pageborder	string	lightblue	-pageborder
+paper_size	string	Letter (inch)	-paper_size
+		A4 (metric)
+pheight	float	8.5 (landscape)	-pheight
+		9.5 (portrait)
+pwidth	float	11 (landscape)	-pwidth
+		8.5 (portrait)
+rigidtext	boolean	false	-rigid (true)
+rulerthick	integer	24	-rulerthick
+scalablefonts	boolean	true	-scalablefonts (true),
+			-noscalablefonts (false)
+scale_factor	float	1.0	-scale_factor
+showallbuttons	boolean	false	-showallbuttons
+showaxislines	boolean	true	-showaxislines (true),
+			-dontshowaxislines (false)
+showballoons	boolean	true	-showballoons (true),
+			-dontshowballoons (false)
+showdepthmanager	boolean	true	-showdepthmanager (true),
+			-dontshowdepthmanager (false)
+showlengths	boolean	false	-showlengths (true),
+			-dontshowlengths (false)
+shownums	boolean	false	-shownums (true),
+			-dontshownums (false)
+showpageborder	boolean	true	-showpageborder (true),
+			-dontshowpageborder (false)
+single	boolean	true	-single
+smooth_factor	integer	0	-smooth_factor
+specialtext	boolean	false	-specialtext
+splash	boolean	true	-splash (true),
+			-nosplash (false)
+spellcheckcommand	string	spell %s	-spellcheckcommand
+spinner_delay	integer	500 (ms)	-spinner_delay
+spinner_rate	integer	100 (ms)	-spinner_rate
+startfillstyle	integer	0	-startfillstyle
+startfontsize	float	12	-startfontsize
+startgridmode	integer	0	-startgridmode
+startlatexFont	string	Default	-startlatexFont
+startlinewidth	integer	1	-startlinewidth
+startposnmode	integer	1	-startposnmode
+startpsFont	string	Times-Roman	-startpsFont
+starttextstep	float	1.2	-starttextstep
+tablet	boolean	false	-track,
+trackCursor	boolean	true	-track (true),
+			-notrack (false)
+transparent_color	integer	-2 (none)	-transparent_color
+userscale	float	1.0	-userscale
+userunit	string	in (inches)	-userunit
+		cm (metric)
+visual	string	*	-visual
+write_bak	boolean	true	-write_bak
+zoom	float	1.0	-zoom
+&nbsp;
+* Default visual and depth depend on the X server. Use <span class="emphasis">xdpyinfo</span> to see what visuals
+and depths are supported.
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS and RESTRICTIONS</h2>
+<p class="level0">Please send bug reports, fixes, new features etc. to: <br>bvsmith@lbl.gov (Brian V. Smith) 
+<p class="level0">When reporting a bug, please first check if the problem is mentioned in the FAQ section of the HTML files (xfig Help menu).   
+<p class="level0">If it is not mentioned there, be sure to report the operating system you are using (e.g. SunOS 4.1.3), type of X server and version (OpenWindows 3, X11R6.4, XFree86 3.2.2, etc) and color depth (e.g. 8bpp, 16bpp), and most importantly the version of xfig or fig2dev that is having the problem. 
+<p class="level0">It is also VERY useful to me if you can provide a stack trace from a debugger such as gdb, dbx, ups, etc, if the bug causes xfig to crash. 
+<p class="level0">Because of the difference of some fonts in some X servers and the PostScript fonts on printers, text alignment can be problematic. 
+<p class="level0">Not all operations employ smart redrawing of objects which are altered as a by product of the operation. You may need to use <span Class="emphasis">Redraw</span> in these cases. 
+<p class="level0">Some servers do not allow bitmaps/pixmaps taller than the screen height or wider than the screen width. That is why there is a limit on the width of the top ruler and height of the side ruler. If you need wider/taller rulers AND your server allows bigger pixmaps, you may define <span Class="bold">MAX_TOPRULER_WD</span> and/or <span Class="bold">MAX_SIDERULER_HT</span> in your Imakefile in the <span Class="emphasis">DEFINES</span> line. For example, to have a maximum top ruler width of 1160 pixels, add <span Class="bold">-DMAX_TOPRULER_WD=1160</span> to your <span Class="emphasis">DEFINES</span> line in the Imakefile. 
+<p class="level0">If the image is panned or the <span Class="emphasis">xfig</span> window iconified and de-iconified during the middle of an operation (e.g. while drawing a line), the picture will be distorted. This can be corrected using <span Class="emphasis">Redraw</span> after the operation is complete. 
+<p class="level0">When zoomed very large, the length of dashes in dashed lines will top out at 255 pixels long.  This is due to a restriction in X that the dash list is defined by char (255 pixels maximum for a dash). The figure will print correctly, however. 
+<p class="level0">When you do a copy/rotate with multiple copies, only the creation of the last object can be undone with the Undo button. 
+<p class="level0">Modifications to text using the popup search/update/replace/spell check panel  cannot be undone. 
+<p class="level0">See the <span Class="bold">README</span> file for troubleshooting. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">fig2dev(1) 
+<p class="level0">package) 
+<p class="level0">gs(1) 
+<p class="level0">PostScript previewer) <a name="ACKNOWLEDGEMENT"></a><h2 class="nroffsh">ACKNOWLEDGEMENT</h2>
+<p class="level0">(From the original author, Supoj Sutanthavibul): Many thanks goes to Professor Donald E. Fussell who inspired the creation of this tool. 
+<p class="level0">(From current maintainer Brian Smith): Thanks to all the users who have contributed to xfig, especially Paul King who, besides adding many features, revamped the look and feel which became version 2.1. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><pre class="level0">
+Original Copyright (c) 1985 by Supoj Sutanthavibul
+Parts Copyright (c) 1994-1999 by Brian V. Smith
+Parts Copyright (c) 1991 by Paul King
+Other Copyrights may be found in various files
+</pre>
+
+<p class="level0">
+<p class="level0">Any party obtaining a copy of these files is granted, free of charge, a full and unrestricted irrevocable, world-wide, paid up, royalty-free, nonexclusive right and license to deal in this software and documentation files (the "Software"), including without limitation the rights to use, copy, modify, merge, publish and/or distribute copies of the Software, and to permit persons who receive copies from any such  party to do so, with the only requirement being that this copyright  notice remain intact. 
+<p class="level0">Note that although I work at Lawrence Berkeley National Laboratory (LBNL) I don't speak for LBNL nor do I represent LBNL with respect to my work on TransFig and xfig, nor does LBL make any representations about the suitability of this software for any purpose. 
+<p class="level0">Here is the legal part: 
+<p class="level0">THE LAWRENCE BERKELEY NATIONAL LABORATORY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">PostScript</span> is a trademark of Adobe Systems Incorporated. 
+<p class="level0"><pre class="level0">
+Parts Copyright (C) 1989 by Jef Poskanzer.
+Copyright notice for pbmplus code:
+Permission to use, copy, modify, and distribute this
+software and its documentation for any purpose and without
+fee is hereby granted, provided that the above copyright
+notice appear in all copies and that both that copyright
+notice and this permission notice appear in supporting
+documentation.  This software is provided ``as is'' without
+express or implied warranty.
+</pre>
+
+<p class="level0"><br><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">CompKeyDB</span> Data base of compose (meta) key sequences for 8-bit characters. Must be installed in <span Class="bold">$(XFIGLIBDIR)</span> with ``make install'', or may be specified with command line option <span Class="bold">-keyFile</span> or X toolkit resource keyFile. See the <span Class="emphasis">Imakefile .</span> 
+<p class="level0">/usr/share/doc/xfig This directory contains the documentation. 
+<p class="level0">/usr/share/xfig This directory contains the above mentioned CompKeyDB file, and a directory of libraries containing Fig objects such as electrical symbols, logic symbols, etc. 
+<p class="level0"><span Class="bold">Fig.ad and Fig-color.ad</span> Application defaults files which are automatically installed in the system app-defaults directory with the <span Class="emphasis">make install</span> command. 
+<p class="level0"><span Class="bold">Doc/FORMAT3.2</span> Description of Fig file format. 
+<p class="level0"><span Class="bold">README</span> Installation instructions and troubleshooting. 
+<p class="level0"><span Class="bold">CHANGES</span> Description of bug fixes/new features. 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Many people have contributed to <span Class="emphasis">xfig .</span> Here is a list of the people who have contributed the most (in chronological order): 
+<p class="level0"><span Class="bold">Version 1:</span> 
+<p class="level0">
+<p class="level0">Original author: <br>Supoj Sutanthavibul, University of Texas at Austin 
+<p class="level0">The <span Class="emphasis">LaTeX</span> line drawing modes were contributed by: <br>Frank Schmuck, Cornell University 
+<p class="level0">Original X11 port by: <br>Ken Yap, Rochester 
+<p class="level0">Variable window sizes, cleanup of X11 port, right hand side panel: <br>Dana Chee, Bellcore 
+<p class="level0">Cleanup of color port to X11 by: <br>John T. Kohl, MIT 
+<p class="level0">
+<p class="level0"><span Class="bold">Version 2.0:</span> 
+<p class="level0">
+<p class="level0">Area fill, multiple line thicknesses, multiple fonts and font sizes, bottom panel, line style/thickness, (and anything else that wasn't written by the others) by: <br>Brian Smith <br>(standard disclaimer applies) <br>(bvsmith@lbl.gov) 
+<p class="level0">Popup change-object menu by: <br>Jon Tombs <br>Frank Schmuck 
+<p class="level0">Zooming and panning functions, shift key select mechanism by: <br>Dieter Pellkofer <br>Henning Spruth 
+<p class="level0">Depth feature by: <br>Mike Lutz 
+<p class="level0">Cut/Paste by: <br>Tom Tkacik 
+<p class="level0">
+<p class="level0"><span Class="bold">Version 2.1:</span> 
+<p class="level0">
+<p class="level0">Indicator panel, file menu popup, print menu popup, panning with rulers, mouse function window, regular polygon, rubberbanding of circles/ellipses, filled splines on canvas, dashed/dotted splines on canvas, update button, arbitrary angle rotation of objects, alignment in compound, object scaling, constrained copy/move, corner markers for compound, context sensitive corner markers, smarter redraw, undo for compound and point move for boxes, cancel object creation, point positioning to three resolutions, <span Class="emphasis">TransFig</span> scalable text, hidden text, special text, save of figure on crash by: 
+<p class="level0">Paul King (king@cs.uq.oz.au) <br>with help from: <br>Brian Smith and Micah Beck (beck@cs.utk.edu) 
+<p class="level0">Encapsulated <span Class="emphasis">PostScript</span> importing by: <br>Brian Boyter 
+<p class="level0">Pan/zoom with ctrl key/mouse by: <br>Henning Spruth 
+<p class="level0">International characters by: <br>Herve Soulard 
+<p class="level0">Directory Browser based on XDir by: <br>Win Treese, Digital Equipment Corporation 
+<p class="level0">Rotated ellipses by: <br>James Tough, Dept. of Computer Science, Heriot-Watt University, Scotland 
+<p class="level0">Rotated text from the <span Class="emphasis">xvertext</span> package by: <br>Alan Richardson, Space Science Centre, School of MAPS, University of Sussex 
+<p class="level0">Popup scale menu and dynamic switching between inches and cm by: <br>Paul King (king@cs.uq.oz.au) 
+<p class="level0">Extensive man page formatting revisions by: <br>David W. Sanderson 
+<p class="level0">Display Postscript code for IBM RS/6000 by: <br>Dave Hale (dhale@green.mines.colorado.edu) 
+<p class="level0">
+<p class="level0"><span Class="bold">Version 3.0:</span> 
+<p class="level0">
+<p class="level0"><br>New arrowhead types, separate pen/fill colors, new file protocol, more colors with extended color popup panel, new arc style, new fill patterns (bricks, etc), new line join and cap styles, export offset and file load offset, XPM import, XBM import and export (and anything else that wasn't written by the others) by: <br>Brian Smith <br>(Note: the color popup panel was based on <span Class="emphasis">xcoloredit</span> by Richard Hesketh) 
+<p class="level0">
+<p class="level0">GIF header reading code by: <br>David Koblas from the giftoppm part of the pbmplus package 
+<p class="level0">XPM export code (using XPM3 libraries) by: <br>Karel van Houten (K.H.C.vanHouten@research.ptt.nl) 
+<p class="level0">Higher figure resolution (1200dpi) by: <br>Ross Martin (martin@trcsun3.eas.asu.edu) 
+<p class="level0">Color quantization using neural network by: <br>Anthony Dekker (dekker@ACM.org) <br>[NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See ``Kohonen neural networks for optimal colour quantization'' in ``Network: Computation in Neural Systems'' Vol. 5 (1994) pp 351-367. for a discussion of the algorithm.] 
+<p class="level0">Floyd-Steinberg algorithm for dithering color images on monochrome displays lifted from the Pbmplus package by Jef Poskanser. 
+<p class="level0">rotate/flip objects around/about selected anchor point and multiple copies of objects by: <br>Uwe Bonnes (bon@lte.e-technik.uni-erlangen.de) 
+<p class="level0">Input tablet extension by: <br>Greg LaCoste (greg@seismo.do.usbr.gov) 
+<p class="level0">
+<p class="level0"><span Class="bold">Version 3.1:</span> 
+<p class="level0">
+<p class="level0"><br>The only difference between protocol version 3.0 and version 3.1 is that the position of the ``magnet'' has been shifted by 14 fig units. In the 2.1 and older versions of xfig the grid was in multiples of 5 fig units, but they were on intervals 4, 9, 14, 19, etc. When version 3.0 was created, coordinates were simply multiplied by the ratio of the resolutions (1200/80 = 15) so values like 4 became 60 instead of 74 ((4+1)*15 - 1). 
+<p class="level0">The JPEG import/export code uses the Independent JPEG Group software (see jpeg/README for details) 
+<p class="level0">Image browser, editor and screen capture features by: <br>Jim Daley (jdaley@cix.compulink.co.uk) 
+<p class="level0">
+<p class="level0"><span Class="bold">Version 3.2:</span> 
+<p class="level0">
+<p class="level0"><br>The changes to the version 3.2 file protocol are the addition of the paper size, print/export magnification, single/multiple page indicator and a transparent color name used for GIF export to the header of the file. <br>The other difference in the version 3.2 protocol is the mathematical model used for splines. The new version uses X-splines which allows the user to mix interpolation and approximation points in a same curve. More precisely, it means that an X-spline curve is neither an interpolated spline nor an approximated one, it is BOTH (the behaviour of each point is controlled by one single parameter called ``shape factor''). For additional information about X-splines, see: 
+<p class="level0">&nbsp; "X-Splines: A Spline Model Designed for the End User" &nbsp; by C. Blanc and C. Schlick, Proceedings of SIGGRAPH'95 &nbsp; <a href="http://dept-info.labri.u-bordeaux.fr/~schlick/DOC/sig1.html">http://dept-info.labri.u-bordeaux.fr/~schlick/DOC/sig1.html</a> 
+<p class="level0">Caveat: Because previous spline models (quadratic B-splines and Bezier with hidden points) are no longer supported, curves that are present in version 3.1 and older files are automatically converted to X-splines. This translation is only an approximation process. It means that the converted curves are not exactly the same as the original ones. Though they are usually very close, some hand-fitting may be needed in some pathological cases. 
+<p class="level0">Inclusion of X-splines by: <br>Carole Blanc (blanc@labri.u-bordeaux.fr) <br>Christophe Schlick (schlick@labri.u-bordeaux.fr) <br>Note: the initial implementation was done by C. Feuille, S. Grosbois, L. Maziere and L. Minihot as a student practice (Universite Bordeaux, France). 
+<p class="level0">Open/close compound feature written by <br>Bill Taylor (bill@mainstream.com) 
+<p class="level0">Library feature written by  <br>Stephane Mancini (mancini@elecsrv.enst.fr) (object preview by Brian V. Smith) 
+<p class="level0">The library objects in the Electrical and Logic libraries were done by <br>Peter Hiscocks (phiscock@ee.ryerson.ca) 
+<p class="level0">The library objects in the Computer, Networks, and Hospital-Equipment libraries were extracted from the clipart example files by <br>Bill Chimiak (chim@bgsm.edu) 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">Version 3.2.3 and newer:</span> 
+<p class="level0">
+<p class="level0">Please see the CHANGES file for credits for newer releases. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Many bug fixes/cleanups etc. by a host of faithful users 
+<p class="level0">See the <span Class="bold">CHANGES</span> file for all the credits 
+<p class="level0">The <span Class="emphasis">TransFig</span> package was written by Micah Beck and is maintained by Brian Smith 

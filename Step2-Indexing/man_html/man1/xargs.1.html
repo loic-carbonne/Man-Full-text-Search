@@ -1,0 +1,125 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xargs - build and execute command lines from standard input <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xargs</span> 
+<p class="level0">[<span Class="bold">-0prtx</span>]  [<span class="bold">-E <span Class="emphasis">eof-str</span>]  [<span Class="bold">-e</span>[<span Class="emphasis">eof-str</span>]] [<span Class="bold">--eof</span>[=<span Class="emphasis">eof-str</span>]]  [<span Class="bold">--null</span>]  [<span class="bold">-d <span Class="emphasis">delimiter</span>]  [<span class="bold">--delimiter <span Class="emphasis">delimiter</span>]  [<span class="bold">-I <span Class="emphasis">replace-str</span>]  [<span Class="bold">-i</span>[<span Class="emphasis">replace-str</span>]]  [<span Class="bold">--replace</span>[=<span Class="emphasis">replace-str</span>]]  [<span Class="bold">-l</span>[<span Class="emphasis">max-lines</span>]]  [<span class="bold">-L <span Class="emphasis">max-lines</span>]  [<span Class="bold">--max-lines</span>[=<span Class="emphasis">max-lines</span>]]  [<span class="bold">-n <span Class="emphasis">max-args</span>]  [<span Class="bold">--max-args</span>=<span Class="emphasis">max-args</span>]  [<span class="bold">-s <span Class="emphasis">max-chars</span>]  [<span Class="bold">--max-chars</span>=<span Class="emphasis">max-chars</span>]  [<span class="bold">-P <span Class="emphasis">max-procs</span>]  [<span Class="bold">--max-procs</span>=<span Class="emphasis">max-procs</span>] [<span Class="bold">--interactive</span>]  [<span Class="bold">--verbose</span>]  [<span Class="bold">--exit</span>]  [<span Class="bold">--no-run-if-empty</span>]  [<span Class="bold">--arg-file</span>=<span Class="emphasis">file</span>]  [<span Class="bold">--show-limits</span>]  [<span Class="bold">--version</span>]  [<span Class="bold">--help</span>]  [<span Class="emphasis">command</span> [<span Class="emphasis">initial-arguments</span>]] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents the GNU version of <span Class="manpage">xargs .</span><span Class="bold">xargs</span> reads items from the standard input, delimited by blanks (which can be protected with double or single quotes or a backslash) or newlines, and executes the <span Class="emphasis">command</span> (default is  <span Class="emphasis">/bin/echo ) </span> one or more times with any <span Class="emphasis">initial-arguments</span> followed by items read from standard input.  Blank lines on the standard input are ignored. 
+<p class="level0">Because Unix filenames can contain blanks and newlines, this default behaviour is often problematic; filenames containing blanks and/or newlines are incorrectly processed by  <span Class="manpage">xargs .</span>In these situations it is better to use the  <span Class="bold">-0</span> option, which prevents such problems.   When using this option you will need to  ensure that the program which produces the input for  <span Class="bold">xargs </span> also uses a null character as a separator.  If that program is  GNU  <span Class="bold">find</span> for example, the  <span Class="bold">-print0</span> option does this for you. 
+<p class="level0">If any invocation of the command exits with a status of 255,  <span Class="bold">xargs </span> will stop immediately without reading any further input.  An error message is issued on stderr when this happens. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--arg-file= file</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-a  file</span> Read items from  <span Class="emphasis">file</span> instead of standard input.  If you use this option, stdin remains unchanged when commands are run.  Otherwise, stdin is redirected  from  <span Class="emphasis">/dev/null .</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--null</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-0</span> Input items are terminated by a null character instead of by whitespace, and the quotes and backslash are not special (every character is taken literally).  Disables the end of file string, which is treated like any other argument.  Useful when input items might contain white space, quote marks, or backslashes.  The GNU find -print0 option produces input suitable for this mode. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--delimiter= delim</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-d  delim</span> Input items are terminated by the specified character.  Quotes and backslash are not special; every character in the input is taken literally.  Disables the end-of-file string, which is treated like any other argument.  This can be used when the input consists of simply newline-separated items, although it is almost always better to design your program to use  <span Class="bold">--null</span> where this is possible.  The specified delimiter may be a single character, a C-style character escape such as  <span Class="manpage">\en</span>or an octal or hexadecimal escape code.  Octal and hexadecimal escape codes are understood as for the <span Class="bold">printf</span> command.   Multibyte characters are not supported. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E  eof-str</span> Set the end of file string to <span Class="emphasis">eof-str</span>.  If the end of file string occurs as a line of input, the rest of the input is ignored. If neither  <span Class="bold">-E </span> nor  <span Class="bold">-e </span> is used, no end of file string is used. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--eof [\fI=eof-str\fR]</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-e [ \fIeof-str\fR]</span>This option is a synonym for the  <span Class="bold">-E</span> option.  Use  <span Class="bold">-E</span> instead, because it is POSIX compliant while this option is not.  If <span Class="emphasis">eof-str</span> is omitted, there is no end of file string.  If neither <span Class="bold">-E </span> nor  <span Class="bold">-e </span> is used, no end of file string is used. 
+<p class="level0"><span Class="bold">--help</span> Print a summary of the options to <span Class="bold">xargs</span> and exit. 
+<p class="level0"><span Class="bold">-I  replace-str</span> Replace occurrences of <span Class="emphasis">replace-str</span> in the initial-arguments with names read from standard input.  Also, unquoted blanks do not terminate input items; instead the separator is the newline character. Implies  <span Class="bold">-x</span> and  <span Class="bold">-L </span> 1. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--replace [\fI=replace-str\fR]</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-i [\fIreplace-str\fR]</span>This option is a synonym for  <span Class="bold">-I replace-str</span> if  <span Class="emphasis">replace-str</span> is specified, and for  <span Class="manpage">-I {}</span>otherwise.  This option is deprecated; use <span Class="bold">-I </span> instead. 
+<p class="level0"><span Class="bold">-L  max-lines</span> Use at most <span Class="emphasis">max-lines</span> nonblank input lines per command line. Trailing blanks cause an input line to be logically continued on the next input line.  Implies  <span Class="manpage">-x .</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">--max-lines [=\fImax-lines\fR]</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-l [\fImax-lines\fR]</span>Synonym for the  <span Class="bold">-L </span> option.  Unlike  <span Class="manpage">-L</span>the  <span Class="emphasis">max-lines</span> argument is optional.  If  <span Class="emphasis">max-lines</span> is not specified, it defaults to one.  The  <span Class="bold">-l </span> option is deprecated since the POSIX standard specifies  <span Class="bold">-L</span> instead. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--max-args =\fImax-args\fR</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-n  max-args</span> Use at most <span Class="emphasis">max-args</span> arguments per command line.  Fewer than <span Class="emphasis">max-args</span> arguments will be used if the size (see the  <span Class="bold">-s </span> option) is exceeded, unless the  <span Class="bold">-x </span> option is given, in which case  <span Class="bold">xargs will exit.</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--interactive</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span> Prompt the user about whether to run each command line and read a line from the terminal.  Only run the command line if the response starts with `y' or `Y'.  Implies  <span Class="manpage">-t .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">--no-run-if-empty</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> If the standard input does not contain any nonblanks, do not run the command.  Normally, the command is run once even if there is no input. This option is a GNU extension. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--max-chars =\fImax-chars\fR</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-s  max-chars</span> Use at most <span Class="emphasis">max-chars</span> characters per command line, including the command and initial-arguments and the terminating nulls at the ends of the argument strings.  The largest allowed value is system-dependent, and is calculated as the argument length limit for exec, less the size of your environment, less 2048 bytes of headroom.  If this value is more than 128KiB, 128Kib is used as the default value; otherwise, the default value is the maximum.  1KiB is 1024 bytes. 
+<p class="level0">
+<p class="level0"><span Class="bold">--verbose</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> Print the command line on the standard error output before executing it. 
+<p class="level0"><span Class="bold">--version</span> Print the version number of <span Class="bold">xargs</span> and exit. 
+<p class="level0"><span Class="bold">--show\-limits</span> Display the limits on the command-line length which are imposed by the operating system,  <span Class="manpage">xargs '</span>choice of buffer size and the  <span Class="bold">-s </span> option.  Pipe the input from  <span Class="emphasis">/dev/null</span> (and perhaps specify  <span Class="manpage">--no-run-if-empty )</span>if you don't want  <span Class="bold">xargs</span> to do anything. 
+<p class="level0">
+<p class="level0"><span Class="bold">--exit</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span> Exit if the size (see the  <span Class="bold">-s</span> option) is exceeded. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--max-procs =\fImax-procs\fR</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-P  max-procs</span> Run up to  <span Class="emphasis">max-procs</span> processes at a time; the default is 1.  If <span Class="emphasis">max-procs</span> is 0,  <span Class="bold">xargs </span> will run as many processes as possible at a time.  Use the  <span Class="bold">-n</span> option with  <span Class="manpage">-P ;</span>otherwise chances are that only one exec will be done. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><pre class="level0">
+<span class="bold">find /tmp -name core -type f -print | xargs /bin/rm -f</span> 
+&nbsp;
+</pre>
+
+<p class="level0">Find files named  <span Class="bold">core</span> in or below the directory  <span Class="bold">/tmp </span> and delete them.  Note that this will work incorrectly if there are  any filenames containing newlines or spaces. 
+<p class="level0"><span Class="bold">find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f</span> 
+<p class="level0">
+<p class="level0">Find files named  <span Class="bold">core</span> in or below the directory  <span Class="bold">/tmp </span> and delete them, processing filenames in such a way that file or  directory names containing spaces or newlines are correctly handled. 
+<p class="level0">
+<p class="level0"><span Class="bold">find /tmp -depth -name core -type f -delete</span> 
+<p class="level0">
+<p class="level0">Find files named  <span Class="bold">core</span> in or below the directory  <span Class="bold">/tmp </span> and delete them, but more efficiently than in the previous example (because we avoid the need to use  <span Class="manpage">fork (2)</span>and  <span Class="manpage">exec (2)</span>to launch  <span Class="bold">rm</span> and we don't need the extra  <span Class="bold">xargs </span> process). 
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">cut -d: -f1 &lt; /etc/passwd | sort | xargs echo</span> 
+&nbsp;
+</pre>
+
+<p class="level0">Generates a compact listing of all the users on the system. 
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">xargs sh -c 'emacs \(dq$@\(dq &lt; /dev/tty' emacs</span> 
+&nbsp;
+</pre>
+
+<p class="level0">Launches the minimum number of copies of Emacs needed, one after the other, to edit the files listed on  <span Class="manpage">xargs '</span>standard input.  This example achieves the same effect as BSD's  <span Class="bold">-o </span> option, but in a more flexible and portable way. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0"><span Class="bold">xargs</span> exits with the following status: <pre class="level0">
+0 if it succeeds
+123 if any invocation of the command exited with status 1-125
+124 if the command exited with status 255
+125 if the command is killed by a signal
+126 if the command cannot be run
+127 if the command is not found
+1 if some other error occurred.
+</pre>
+
+<p class="level0">
+<p class="level0">Exit codes greater than 128 are used by the shell to indicate that  a program died due to a fatal signal. <a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS CONFORMANCE</h2>
+<p class="level0">As of GNU xargs version 4.2.9, the default behaviour of <span Class="bold">xargs</span> is not to have a logical end-of-file marker.  POSIX (IEEE Std 1003.1, 2004 Edition) allows this. 
+<p class="level0">The -l and -i options appear in the 1997 version of the POSIX standard, but do not appear in the 2004 version of the standard. Therefore you should use -L and -I instead, respectively. 
+<p class="level0">The POSIX standard allows implementations to have a limit on the size of arguments to the  <span Class="bold">exec </span> functions.  This limit could be as low as 4096 bytes including the size of the environment.  For scripts to be portable, they must not rely on a larger value.  However, I know of no implementation whose actual limit is that small.  The  <span Class="bold">--show-limits </span> option can be used to discover the actual limits in force on the current system. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">find</span>(1), <span Class="bold">locate</span>(1), <span Class="bold">locatedb</span>(5), <span Class="bold">updatedb</span>(1), <span Class="bold">fork</span>(2), <span Class="bold">execvp</span>(3),  <span Class="bold">Finding Files</span> (on-line in Info, or printed) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The <span Class="bold">-L </span> option is incompatible with the  <span Class="bold">-I </span> option, but perhaps should not be. 
+<p class="level0">It is not possible for  <span Class="bold">xargs </span> to be used securely, since there will always be a time gap between the  production of the list of input files and their use in the commands that  <span Class="bold">xargs </span> issues.  If other users have access to the system, they can manipulate the filesystem during this time window to force the action of the commands  <span Class="bold">xargs </span> runs to apply to files that you didn't intend.  For a more detailed discussion of this and related problems, please refer to the ``Security Considerations'' chapter in the findutils Texinfo documentation.  The  <span Class="bold">-execdir </span> option of  <span Class="bold">find</span> can often be used as a more secure alternative. 
+<p class="level0">When you use the  <span Class="bold">-I </span> option, each line read from the input is buffered  internally.   This means that there is an upper limit on the length  of input line that  <span Class="bold">xargs </span> will accept when used with the  <span Class="bold">-I </span> option.  To work around this  limitation, you can use the  <span Class="bold">-s </span> option to increase the amount of buffer space that  <span Class="bold">xargs </span> uses, and you can also use an extra invocation of  <span Class="bold">xargs </span> to ensure that very long lines do not occur.   For example:  
+<p class="level0"><span Class="bold">somecommand | xargs -s 50000 echo | xargs -I '{}' -s 100000 rm '{}'</span> 
+<p class="level0">Here, the first invocation of  <span Class="bold">xargs </span> has no input line length limit because it doesn't use the  <span Class="bold">-i </span> option.  The second invocation of <span Class="bold">xargs </span> does have such a limit, but we have ensured that the it never encounters  a line which is longer than it can handle.   This is not an ideal  solution.  Instead, the  <span Class="bold">-i </span> option should not impose a line length limit, which is why this discussion appears in the BUGS section. The problem doesn't occur with the output of  <span Class="manpage">find (1)</span>because it emits just one filename per line. 
+<p class="level0">The best way to report a bug is to use the form at <a href="http://savannah.gnu.org/bugs/?group=findutils.">http://savannah.gnu.org/bugs/?group=findutils.</a>   The reason for this is that you will then be able to track progress in fixing the problem.   Other comments about <span Class="bold">xargs</span>(1) and about the findutils package in general can be sent to the  <span Class="emphasis">bug-findutils</span> mailing list.  To join the list, send email to  <span Class="emphasis">bug-findutils-request@gnu.org .</span> 

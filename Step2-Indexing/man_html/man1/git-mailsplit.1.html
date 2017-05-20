@@ -1,0 +1,52 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-mailsplit - Simple UNIX mbox splitter program <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git mailsplit</span> [-b] [-f&lt;nn&gt;] [-d&lt;prec&gt;] [--keep-cr] -o&lt;directory&gt; [--] [(&lt;mbox&gt;|&lt;Maildir&gt;)...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Splits a mbox file or a Maildir into a list of files: "0001" "0002" .. in the specified directory so you can process them further from there. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level1"><span Class="bold">Important</span> 
+<p class="level1"><br>
+<p class="level1">Maildir splitting relies upon filenames being sorted to output patches in the correct order. 
+<p class="level1">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;mbox&gt; 
+<p class="level1">Mbox file to split. If not given, the mbox is read from the standard input. 
+<p class="level0">
+<p class="level0">&lt;Maildir&gt; 
+<p class="level1">Root of the Maildir to split. This directory should contain the cur, tmp and new subdirectories. 
+<p class="level0">
+<p class="level0">-o&lt;directory&gt; 
+<p class="level1">Directory in which to place the individual messages. 
+<p class="level0">
+<p class="level0">-b 
+<p class="level1">If any file doesn(cqt begin with a From line, assume it is a single mail message instead of signaling error. 
+<p class="level0">
+<p class="level0">-d&lt;prec&gt; 
+<p class="level1">Instead of the default 4 digits with leading zeros, different precision can be specified for the generated filenames. 
+<p class="level0">
+<p class="level0">-f&lt;nn&gt; 
+<p class="level1">Skip the first &lt;nn&gt; numbers, for example if -f3 is specified, start the numbering with 0004. 
+<p class="level0">
+<p class="level0">--keep-cr 
+<p class="level1">Do not remove er from lines ending with eren. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

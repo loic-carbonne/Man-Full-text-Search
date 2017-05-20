@@ -1,0 +1,233 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postmulti - Postfix multi-instance manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">ENABLING MULTI-INSTANCE MANAGEMENT:</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e init</span> [<span Class="bold">-v</span>] 
+<p class="level0"><a class="bold" href="#ITERATOR">ITERATOR MODE:</a> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-l</span> [<span Class="bold">-aRv</span>] [<span class="bold">-g <span Class="emphasis">group</span>] [<span class="bold">-i <span Class="emphasis">name</span>] 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-p</span> [<span Class="bold">-av</span>] [<span class="bold">-g <span Class="emphasis">group</span>] [<span class="bold">-i <span Class="emphasis">name</span>] <span Class="emphasis">command...</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-x</span> [<span Class="bold">-aRv</span>] [<span class="bold">-g <span Class="emphasis">group</span>] [<span class="bold">-i <span Class="emphasis">name</span>] <span Class="emphasis">command...</span> 
+<p class="level0"><a class="bold" href="#LIFE-CYCLE">LIFE-CYCLE MANAGEMENT:</a> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e create</span> [<span Class="bold">-av</span>] [<span class="bold">-g <span Class="emphasis">group</span>] [<span class="bold">-i <span Class="emphasis">name</span>] [<span class="bold">-G <span Class="emphasis">group</span>] [<span class="bold">-I <span Class="emphasis">name</span>] [<span Class="emphasis">param=value</span> ...] 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e import</span> [<span Class="bold">-av</span>] [<span class="bold">-g <span Class="emphasis">group</span>] [<span class="bold">-i <span Class="emphasis">name</span>] [<span class="bold">-G <span Class="emphasis">group</span>] [<span class="bold">-I <span Class="emphasis">name</span>] [<span class="bold">config_directory=<span Class="emphasis">/path</span>] 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e destroy</span> [<span Class="bold">-v</span>] <span class="bold">-i <span Class="emphasis">name</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e deport</span> [<span Class="bold">-v</span>] <span class="bold">-i <span Class="emphasis">name</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e enable</span> [<span Class="bold">-v</span>] <span class="bold">-i <span Class="emphasis">name</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e disable</span> [<span Class="bold">-v</span>] <span class="bold">-i <span Class="emphasis">name</span> 
+<p class="level0"><span Class="bold">postmulti</span> <span Class="bold">-e assign</span> [<span Class="bold">-v</span>] <span class="bold">-i <span Class="emphasis">name</span> [<span class="bold">-I <span Class="emphasis">name</span>] [-G <span Class="emphasis">group</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postmulti</span>(1) command allows a Postfix administrator to manage multiple Postfix instances on a single host. 
+<p class="level0"><span Class="bold">postmulti</span>(1) implements two fundamental modes of operation.  In <span Class="bold">iterator</span> mode, it executes the same command for multiple Postfix instances.  In <span class="bold">life-cycle management</span> mode, it adds or deletes one instance, or changes the multi-instance status of one instance. 
+<p class="level0">Each mode of operation has its own command syntax. For this reason, each mode is documented in separate sections below. <a name="BACKGROUND"></a><h2 class="nroffsh">BACKGROUND</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">A multi-instance configuration consists of one primary Postfix instance, and one or more secondary instances whose configuration directory pathnames are recorded in the primary instance's main.cf file. Postfix instances share program files and documentation, but have their own configuration, queue and data directories. 
+<p class="level0">Currently, only the default Postfix instance can be used as primary instance in a multi-instance configuration. The <span Class="bold">postmulti</span>(1) command does not currently support a <span Class="bold">-c</span> option to select an alternative primary instance, and exits with a fatal error if the <span Class="bold">MAIL_CONFIG</span> environment variable is set to a non-default configuration directory. 
+<p class="level0">See the MULTI_INSTANCE_README tutorial for a more detailed discussion of multi-instance management with <span Class="bold">postmulti</span>(1). <a name="ITERATOR"></a><h2 class="nroffsh">ITERATOR MODE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">In iterator mode, <span Class="bold">postmulti</span> performs the same operation on all Postfix instances in turn. 
+<p class="level0">If multi-instance support is not enabled, the requested command is performed just for the primary instance. 
+<p class="level0">Iterator mode implements the following command options: <a name="Instance"></a><h2 class="nroffsh">Instance selection</h2>
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR</span> 
+<p class="level1">Perform the operation on all instances. This is the default. 
+<p class="level0"><a name="fB-g"></a><span class="nroffip">\fB-g \fIgroup\fR</span> 
+<p class="level1">Perform the operation only for members of the named <span Class="emphasis">group</span>. 
+<p class="level0"><a name="fB-i"></a><span class="nroffip">\fB-i \fIname\fR</span> 
+<p class="level1">Perform the operation only for the instance with the specified <span Class="emphasis">name</span>.  You can specify either the instance name or the absolute pathname of the instance's configuration directory.  Specify "-" to select the primary Postfix instance. 
+<p class="level0"><a name="fB-RfR"></a><span class="nroffip">\fB-R\fR</span> 
+<p class="level1">Reverse the iteration order. This may be appropriate when updating a multi-instance system, where "sink" instances are started before "source" instances. 
+<p class="level1">This option cannot be used with <span Class="bold">-p</span>. <a name="List"></a><h2 class="nroffsh">List mode</h2>
+<p class="level0">
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR</span> 
+<p class="level1">List Postfix instances with their instance name, instance group name, enable/disable status and configuration directory. <a name="Postfix-wrapper"></a><h2 class="nroffsh">Postfix-wrapper mode</h2>
+<p class="level0">
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Invoke <span Class="bold">postfix(1)</span> to execute the specified <span Class="emphasis">command</span>. This option implements the <span Class="bold">postfix-wrapper</span>(5) interface. 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">With "start"-like commands, "postfix check" is executed for instances that are not enabled. The full list of commands is specified with the postmulti_start_commands parameter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">With "stop"-like commands, the iteration order is reversed, and disabled instances are skipped. The full list of commands is specified with the postmulti_stop_commands parameter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">With "reload" and other commands that require a started instance, disabled instances are skipped. The full list of commands is specified with the postmulti_control_commands parameter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">With "status" and other commands that don't require a started instance, the command is executed for all instances. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="bold">-p</span> option can also be used interactively to start/stop/etc.  a named instance or instance group. For example, to start just the instances in the group "msa", invoke <span Class="bold">postmulti</span>(1) as follows: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">&#35; postmulti -g msa -p start 
+<p class="level1"><a name="Command"></a><h2 class="nroffsh">Command mode</h2>
+<p class="level0">
+<p class="level0"><a name="fB-xfR"></a><span class="nroffip">\fB-x\fR</span> 
+<p class="level1">Execute the specified <span Class="emphasis">command</span> for all Postfix instances. The command runs with appropriate environment settings for MAIL_CONFIG, command_directory, daemon_directory, config_directory, queue_directory, data_directory, multi_instance_name, multi_instance_group and multi_instance_enable. <a name="Other"></a><h2 class="nroffsh">Other options</h2>
+<p class="level0">
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. <a name="LIFE-CYCLE"></a><h2 class="nroffsh">LIFE-CYCLE MANAGEMENT MODE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">With the <span Class="bold">-e</span> option <span Class="bold">postmulti</span>(1) can be used to add or delete a Postfix instance, and to manage the multi-instance status of an existing instance. 
+<p class="level0">The following options are implemented: <a name="Existing"></a><h2 class="nroffsh">Existing instance selection</h2>
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR</span> 
+<p class="level1">When creating or importing an instance, place the new instance at the front of the secondary instance list. 
+<p class="level0"><a name="fB-g"></a><span class="nroffip">\fB-g \fIgroup\fR</span> 
+<p class="level1">When creating or importing an instance, place the new instance before the first secondary instance that is a member of the specified group. 
+<p class="level0"><a name="fB-i"></a><span class="nroffip">\fB-i \fIname\fR</span> 
+<p class="level1">When creating or importing an instance, place the new instance before the matching secondary instance. 
+<p class="level1">With other life-cycle operations, apply the operation to the named existing instance.  Specify "-" to select the primary Postfix instance. <a name="New"></a><h2 class="nroffsh">New or existing instance name assignment</h2>
+<p class="level0">
+<p class="level0"><a name="fB-I"></a><span class="nroffip">\fB-I \fIname\fR</span> 
+<p class="level1">Assign the specified instance <span Class="emphasis">name</span> to an existing instance, newly-created instance, or imported instance. Instance names other than "-" (which makes the instance "nameless") must start with "postfix-".  This restriction reduces the likelihood of name collisions with system files. 
+<p class="level0"><a name="fB-G"></a><span class="nroffip">\fB-G \fIgroup\fR</span> 
+<p class="level1">Assign the specified <span Class="emphasis">group</span> name to an existing instance or to a newly created or imported instance. <a name="Instance"></a><h2 class="nroffsh">Instance creation/deletion/status change</h2>
+<p class="level0">
+<p class="level0"><a name="fB-e"></a><span class="nroffip">\fB-e \fIaction\fR</span> 
+<p class="level1">"Edit" managed instances. The following actions are supported: 
+<p class="level2">
+<p class="level1"><a name="fBinitfR"></a><span class="nroffip">\fBinit\fR</span> 
+<p class="level2">This command is required before <span Class="bold">postmulti</span>(1) can be used to manage Postfix instances.  The "postmulti -e init" command updates the primary instance's main.cf file by setting: 
+<p class="level3">
+<p class="level2"><a name=""></a><span class="nroffip"></span> 
+<p class="level3"><pre class="level3">
+multi_instance_wrapper =
+&nbsp;       ${command_directory}/postmulti -p --
+multi_instance_enable = yes
+</pre>
+
+<p class="level3">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">You can set these by other means if you prefer. 
+<p class="level1"><a name="fBcreatefR"></a><span class="nroffip">\fBcreate\fR</span> 
+<p class="level2">Create a new Postfix instance and add it to the multi_instance_directories parameter of the primary instance. The "<span class="bold">-I <span Class="emphasis">name</span>" option is recommended to give the instance a short name that is used to construct default values for the private directories of the new instance. The "<span class="bold">-G <span Class="emphasis">group</span>" option may be specified to assign the instance to a group, otherwise, the new instance is not a member of any groups. 
+<p class="level2">The new instance main.cf is the stock main.cf with the parameters that specify the locations of shared files cloned from the primary instance.  For "nameless" instances, you should manually adjust "syslog_name" to yield a unique "logtag" starting with "postfix-" that will uniquely identify the instance in the mail logs. It is simpler to assign the instance a short name with the "<span class="bold">-I <span Class="emphasis">name</span>" option. 
+<p class="level2">Optional "name=value" arguments specify the instance config_directory, queue_directory and data_directory. For example: 
+<p class="level3">
+<p class="level2"><a name=""></a><span class="nroffip"></span> 
+<p class="level3"><pre class="level3">
+&#35; postmulti -I postfix-mumble e
+&nbsp;       -G mygroup -e create e
+&nbsp;       config_directory=/my/config/dir e
+&nbsp;       queue_directory=/my/queue/dir e
+&nbsp;       data_directory=/my/data/dir
+</pre>
+
+<p class="level3">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">If any of these pathnames is not supplied, the program attempts to generate the pathname by taking the corresponding primary instance pathname, and by replacing the last pathname component by the value of the <span Class="bold">-I</span> option. 
+<p class="level2">If the instance configuration directory already exists, and contains both a main.cf and master.cf file, <span Class="bold">create</span> will "import" the instance as-is. For existing instances, <span Class="bold">create</span> and <span Class="bold">import</span> are identical. 
+<p class="level1"><a name="fBimportfR"></a><span class="nroffip">\fBimport\fR</span> 
+<p class="level2">Import an existing instance into the list of instances managed by the <span Class="bold">postmulti</span>(1) multi-instance manager. This adds the instance to the multi_instance_directories list of the primary instance.  If the "<span class="bold">-I <span Class="emphasis">name</span>" option is provided it specifies the new name for the instance and is used to define a default location for the instance configuration directory (as with <span Class="bold">create</span> above).  The "<span class="bold">-G <span Class="emphasis">group</span>" option may be used to assign the instance to a group. Add a "<span class="bold">config_directory=<span Class="emphasis">/path</span>" argument to override a default pathname based on "<span class="bold">-I <span Class="emphasis">name</span>". 
+<p class="level1"><a name="fBdestroyfR"></a><span class="nroffip">\fBdestroy\fR</span> 
+<p class="level2">Destroy a secondary Postfix instance. To be a candidate for destruction an instance must be disabled, stopped and its queue must not contain any messages. Attempts to destroy the primary Postfix instance trigger a fatal error, without destroying the instance. 
+<p class="level2">The instance is removed from the primary instance main.cf file's alternate_config_directories parameter and its data, queue and configuration directories are cleaned of files and directories created by the Postfix system. The main.cf and master.cf files are removed from the configuration directory even if they have been modified since initial creation. Finally, the instance is "deported" from the list of managed instances. 
+<p class="level2">If other files are present in instance private directories, the directories may not be fully removed, a warning is logged to alert the administrator. It is expected that an instance built using "fresh" directories via the <span Class="bold">create</span> action will be fully removed by the <span Class="bold">destroy</span> action (if first disabled). If the instance configuration and queue directories are populated with additional files (access and rewriting tables, chroot jail content, etc.) the instance directories will not be fully removed. 
+<p class="level2">The <span Class="bold">destroy</span> action triggers potentially dangerous file removal operations. Make sure the instance's data, queue and configuration directories are set correctly and do not contain any valuable files. 
+<p class="level1"><a name="fBdeportfR"></a><span class="nroffip">\fBdeport\fR</span> 
+<p class="level2">Deport a secondary instance from the list of managed instances. This deletes the instance configuration directory from the primary instance's multi_instance_directories list, but does not remove any files or directories. 
+<p class="level1"><a name="fBassignfR"></a><span class="nroffip">\fBassign\fR</span> 
+<p class="level2">Assign a new instance name or a new group name to the selected instance.  Use "<span Class="bold">-G -</span>" to specify "no group" and "<span Class="bold">-I -</span>" to specify "no name".  If you choose to make an instance "nameless", set a suitable syslog_name in the corresponding main.cf file. 
+<p class="level1"><a name="fBenablefR"></a><span class="nroffip">\fBenable\fR</span> 
+<p class="level2">Mark the selected instance as enabled. This just sets the multi_instance_enable parameter to "yes" in the instance's main.cf file. 
+<p class="level1"><a name="fBdisablefR"></a><span class="nroffip">\fBdisable\fR</span> 
+<p class="level2">Mark the selected instance as disabled. This means that the instance will not be started etc. with "postfix start", "postmulti -p start" and so on. The instance can still be started etc. with "postfix -c config-directory start". <a name="Other"></a><h2 class="nroffsh">Other options</h2>
+<p class="level0">
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The <span Class="bold">postmulti</span>(1) command exports the following environment variables before executing the requested <span Class="emphasis">command</span> for a given instance: 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">This is set when the -v command-line option is present. 
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">The location of the configuration directory of the instance. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBdaemondirectory"></a><span class="nroffip">\fBdaemon_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The directory with Postfix support programs and daemon programs. 
+<p class="level0"><a name="fBimportenvironment"></a><span class="nroffip">\fBimport_environment (see 'postconf -d' output)\fR</span> 
+<p class="level1">The list of environment parameters that a Postfix process will import from a non-Postfix parent process. 
+<p class="level0"><a name="fBmultiinstancedirectories"></a><span class="nroffip">\fBmulti_instance_directories (empty)\fR</span> 
+<p class="level1">An optional list of non-default Postfix configuration directories; these directories belong to additional Postfix instances that share the Postfix executable files and documentation with the default Postfix instance, and that are started, stopped, etc., together with the default Postfix instance. 
+<p class="level0"><a name="fBmultiinstancegroup"></a><span class="nroffip">\fBmulti_instance_group (empty)\fR</span> 
+<p class="level1">The optional instance group name of this Postfix instance. 
+<p class="level0"><a name="fBmultiinstancename"></a><span class="nroffip">\fBmulti_instance_name (empty)\fR</span> 
+<p class="level1">The optional instance name of this Postfix instance. 
+<p class="level0"><a name="fBmultiinstanceenable"></a><span class="nroffip">\fBmulti_instance_enable (no)\fR</span> 
+<p class="level1">Allow this Postfix instance to be started, stopped, etc., by a multi-instance manager. 
+<p class="level0"><a name="fBpostmultistartcommands"></a><span class="nroffip">\fBpostmulti_start_commands (start)\fR</span> 
+<p class="level1">The <span Class="bold">postfix</span>(1) commands that the <span Class="bold">postmulti</span>(1) instance manager treats as "start" commands. 
+<p class="level0"><a name="fBpostmultistopcommands"></a><span class="nroffip">\fBpostmulti_stop_commands (see 'postconf -d' output)\fR</span> 
+<p class="level1">The <span Class="bold">postfix</span>(1) commands that the <span Class="bold">postmulti</span>(1) instance manager treats as "stop" commands. 
+<p class="level0"><a name="fBpostmulticontrolcommands"></a><span class="nroffip">\fBpostmulti_control_commands (reload flush)\fR</span> 
+<p class="level1">The <span Class="bold">postfix</span>(1) commands that the <span Class="bold">postmulti</span>(1) instance manager treats as "control" commands, that operate on running instances. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+$daemon_directory/main.cf, stock configuration file
+$daemon_directory/master.cf, stock configuration file
+$daemon_directory/postmulti-script, life-cycle helper program
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+postfix(1), Postfix control program
+postfix-wrapper(5), Postfix multi-instance API
+</pre>
+<a name="README"></a><h2 class="nroffsh">README FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Use "<span Class="bold">postconf readme_directory</span>" or "<span class="bold">postconf html_directory</span>" to locate this information. <pre class="level0">
+MULTI_INSTANCE_README, Postfix multi-instance management
+</pre>
+<a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The <span Class="bold">postmulti</span>(1) command was introduced with Postfix version 2.6. <a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Victor Duchovni
+Morgan Stanley
+&nbsp;
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

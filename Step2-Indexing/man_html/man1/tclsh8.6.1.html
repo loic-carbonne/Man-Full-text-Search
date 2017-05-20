@@ -1,0 +1,147 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 <span Class="emphasis">\$2</span> (\$3) 
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">\$1	<span Class="emphasis">\$2</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">\$1</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+h'-1.5n'L'|\n(^yu-1v'l'\n(^lu+3n(ul'L'\n(^tu+1v-\n(^yu'l'|0u-1.5n(ul'
+h'-1.5n'L'|\n(^yu-1v'h'\n(^lu+3n'L'\n(^tu+1v-\n(^yu'l'|0u-1.5n(ul'
+</pre>
+
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+h'|\n(^lu+3n'L'|\n(^Yu-1v(bv'v'\n(^tu+1v-\n(^Yu'h'-|\n(^lu+3n'
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'ti 0 'nf 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">kxh'-\nxu'h'|\n(^lu+3n'kyL'-\n(^xu'v'\n(^xu'h'|0u'c 
+<p class="level0">
+<p class="level0">'fi 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1"><pre class="level1">
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">'ie '\$1'' .ds So <span Class="bold">options</span> 'el .ds So <span Class="bold">\$1</span> <a name="STANDARD"></a><h2 class="nroffsh">STANDARD OPTIONS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">See the \*(So manual entry for details on the standard options. 
+<p class="level0"><pre class="level0">
+Command-Line Name:	<span class="bold">\$1</span>
+Database Name:	<span class="bold">\$2</span>
+Database Class:	<span class="bold">\$3</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">
+<p class="level2"><pre class="level2">
+</pre>
+
+<p class="level2">
+<p class="level1">\$1l'|0(ul'\$2 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tclsh - Simple shell containing Tcl interpreter <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tclsh</span> ?<span class="bold">-encoding <span Class="emphasis">name</span>? ?<span Class="emphasis">fileName arg arg ...</span>? 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Tclsh</span> is a shell-like application that reads Tcl commands from its standard input or from a file and evaluates them. If invoked with no arguments then it runs interactively, reading Tcl commands from standard input and printing command results and error messages to standard output. It runs until the <span Class="bold">exit</span> command is invoked or until it reaches end-of-file on its standard input. If there exists a file <span Class="bold">.tclshrc</span> (or <span Class="bold">tclshrc.tcl</span> on the Windows platforms) in the home directory of the user, interactive <span Class="bold">tclsh</span> evaluates the file as a Tcl script just before reading the first command from standard input. <a name="SCRIPT"></a><h2 class="nroffsh">SCRIPT FILES</h2>
+<p class="level0">
+<p class="level0">If <span Class="bold">tclsh</span> is invoked with arguments then the first few arguments specify the name of a script file, and, optionally, the encoding of the text data stored in that script file. Any additional arguments are made available to the script as variables (see below). Instead of reading commands from standard input <span Class="bold">tclsh</span> will read Tcl commands from the named file;  <span Class="bold">tclsh</span> will exit when it reaches the end of the file. The end of the file may be marked either by the physical end of the medium, or by the character, 
+<p class="level0">
+<p class="level0">If this character is present in the file, the <span Class="bold">tclsh</span> application will read text up to but not including the character.  An application that requires this character in the file may safely encode it as 
+<p class="level0">
+<p class="level0">or 
+<p class="level0">or may generate it by use of commands such as <span Class="bold">format</span> or <span Class="bold">binary</span>. There is no automatic evaluation of <span Class="bold">.tclshrc</span> when the name of a script file is presented on the <span Class="bold">tclsh</span> command line, but the script file can always <span Class="bold">source</span> it if desired. 
+<p class="level0">If you create a Tcl script in a file whose first line is 
+<p class="level0">
+<p class="level0"><span Class="bold">&#35;!/usr/local/bin/tclsh</span> 
+<p class="level0">
+<p class="level0">then you can invoke the script file directly from your shell if you mark the file as executable. This assumes that <span Class="bold">tclsh</span> has been installed in the default location in /usr/local/bin;  if it is installed somewhere else then you will have to modify the above line to match. Many UNIX systems do not allow the <span Class="bold">&#35;!</span> line to exceed about 30 characters in length, so be sure that the <span Class="bold">tclsh</span> executable can be accessed with a short file name. 
+<p class="level0">An even better approach is to start your script files with the following three lines: 
+<p class="level0">
+<p class="level0"><span class="bold">&#35;!/bin/sh &#35; the next line restarts using tclsh e exec tclsh "$0" ${1+"$@"}</span> 
+<p class="level0">
+<p class="level0">This approach has three advantages over the approach in the previous paragraph.  First, the location of the <span Class="bold">tclsh</span> binary does not have to be hard-wired into the script:  it can be anywhere in your shell search path.  Second, it gets around the 30-character file name limit in the previous approach. Third, this approach will work even if <span Class="bold">tclsh</span> is itself a shell script (this is done on some systems in order to handle multiple architectures or operating systems:  the <span Class="bold">tclsh</span> script selects one of several binaries to run).  The three lines cause both <span Class="bold">sh</span> and <span Class="bold">tclsh</span> to process the script, but the <span Class="bold">exec</span> is only executed by <span Class="bold">sh</span>. <span Class="bold">sh</span> processes the script first;  it treats the second line as a comment and executes the third line. The <span Class="bold">exec</span> statement cause the shell to stop processing and instead to start up <span Class="bold">tclsh</span> to reprocess the entire script. When <span Class="bold">tclsh</span> starts up, it treats all three lines as comments, since the backslash at the end of the second line causes the third line to be treated as part of the comment on the second line. 
+<p class="level0">You should note that it is also common practice to install tclsh with its version number as part of the name.  This has the advantage of allowing multiple versions of Tcl to exist on the same system at once, but also the disadvantage of making it harder to write scripts that start up uniformly across different versions of Tcl. <a name="VARIABLES"></a><h2 class="nroffsh">VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Tclsh</span> sets the following global Tcl variables in addition to those created by the Tcl library itself (such as <span Class="bold">env</span>, which maps environment variables such as <span Class="bold">PATH</span> into Tcl): 
+<p class="level0"><span Class="bold">argc</span> 
+<p class="level0">Contains a count of the number of <span Class="emphasis">arg</span> arguments (0 if none), not including the name of the script file. 
+<p class="level0"><span Class="bold">argv</span> 
+<p class="level0">Contains a Tcl list whose elements are the <span Class="emphasis">arg</span> arguments, in order, or an empty string if there are no <span Class="emphasis">arg</span> arguments. 
+<p class="level0"><span Class="bold">argv0</span> 
+<p class="level0">Contains <span Class="emphasis">fileName</span> if it was specified. Otherwise, contains the name by which <span Class="bold">tclsh</span> was invoked. 
+<p class="level0"><span Class="bold">tcl_interactive</span> 
+<p class="level0">Contains 1 if <span Class="bold">tclsh</span> is running interactively (no <span Class="emphasis">fileName</span> was specified and standard input is a terminal-like device), 0 otherwise. <a name="PROMPTS"></a><h2 class="nroffsh">PROMPTS</h2>
+<p class="level0">
+<p class="level0">When <span Class="bold">tclsh</span> is invoked interactively it normally prompts for each command with 
+<p class="level0">You can change the prompt by setting the global variables <span Class="bold">tcl_prompt1</span> and <span Class="bold">tcl_prompt2</span>.  If variable <span Class="bold">tcl_prompt1</span> exists then it must consist of a Tcl script to output a prompt;  instead of outputting a prompt <span Class="bold">tclsh</span> will evaluate the script in <span Class="bold">tcl_prompt1</span>. The variable <span Class="bold">tcl_prompt2</span> is used in a similar way when a newline is typed but the current command is not yet complete; if <span Class="bold">tcl_prompt2</span> is not set then no prompt is output for incomplete commands. <a name="STANDARD"></a><h2 class="nroffsh">STANDARD CHANNELS</h2>
+<p class="level0">
+<p class="level0">See <span Class="bold">Tcl_StandardChannels</span> for more explanations. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">auto_path(3tcl), encoding(3tcl), env(3tcl), fconfigure(3tcl) <a name="KEYWORDS"></a><h2 class="nroffsh">KEYWORDS</h2>
+<p class="level0">application, argument, interpreter, prompt, script file, shell 

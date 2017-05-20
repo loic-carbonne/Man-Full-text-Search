@@ -1,0 +1,227 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">c++filt - Demangle C++ and Java symbols. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">c++filt [<span Class="bold">-_</span>|<span Class="bold">--strip-underscore</span>] &nbsp;       [<span Class="bold">-n</span>|<span Class="bold">--no-strip-underscore</span>] &nbsp;       [<span Class="bold">-p</span>|<span Class="bold">--no-params</span>] &nbsp;       [<span Class="bold">-t</span>|<span Class="bold">--types</span>] &nbsp;       [<span Class="bold">-i</span>|<span Class="bold">--no-verbose</span>] &nbsp;       [<span Class="bold">-s</span> <span Class="emphasis">format</span>|<span Class="bold">--format=</span><span Class="emphasis">format</span>] &nbsp;       [<span Class="bold">--help</span>]  [<span Class="bold">--version</span>]  [<span Class="emphasis">symbol</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The *(C+ and Java languages provide function overloading, which means that you can write many functions with the same name, providing that each function takes parameters of different types.  In order to be able to distinguish these similarly named functions *(C+ and Java encode them into a low-level assembler name which uniquely identifies each different version.  This process is known as <span Class="emphasis">mangling</span>. The <span Class="bold">c++filt</span> [1] program does the inverse mapping: it decodes (<span Class="emphasis">demangles</span>) low-level names into user-level names so that they can be read. 
+<p class="level0">Every alphanumeric word (consisting of letters, digits, underscores, dollars, or periods) seen in the input is a potential mangled name. If the name decodes into a *(C+ name, the *(C+ name replaces the low-level name in the output, otherwise the original word is output. In this way you can pass an entire assembler source file, containing mangled names, through <span Class="bold">c++filt</span> and see the same source file containing demangled names. 
+<p class="level0">You can also use <span Class="bold">c++filt</span> to decipher individual symbols by passing them on the command line: 
+<p class="level0">
+<p class="level0">&nbsp;       c++filt &lt;symbol&gt; 
+<p class="level0">
+<p class="level0">If no <span Class="emphasis">symbol</span> arguments are given, <span Class="bold">c++filt</span> reads symbol names from the standard input instead.  All the results are printed on the standard output.  The difference between reading names from the command line versus reading names from the standard input is that command line arguments are expected to be just mangled names and no checking is performed to separate them from surrounding text.  Thus for example: 
+<p class="level0">
+<p class="level0">&nbsp;       c++filt -n _Z1fv 
+<p class="level0">
+<p class="level0">will work and demangle the name to *(L"f()*(R" whereas: 
+<p class="level0">
+<p class="level0">&nbsp;       c++filt -n _Z1fv, 
+<p class="level0">
+<p class="level0">will not work.  (Note the extra comma at the end of the mangled name which makes it invalid).  This command however will work: 
+<p class="level0">
+<p class="level0">&nbsp;       echo _Z1fv, | c++filt -n 
+<p class="level0">
+<p class="level0">and will display *(L"f(),*(R", i.e., the demangled name followed by a trailing comma.  This behaviour is because when the names are read from the standard input it is expected that they might be part of an assembler source file where there might be extra, extraneous characters trailing after a mangled name.  For example: 
+<p class="level0">
+<p class="level0">&nbsp;           .type   _Z1fv, @function 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-fR"></a><span class="nroffip">\fB-_\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--strip-underscorefR"></a><span class="nroffip">\fB--strip-underscore\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">On some systems, both the C and *(C+ compilers put an underscore in front of every name.  For example, the C name f(CW*(C`foo*(C'</span> gets the low-level name f(CW*(C`_foo*(C'</span>.  This option removes the initial underscore.  Whether <span Class="bold">c++filt</span> removes the underscore by default is target dependent. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--no-strip-underscorefR"></a><span class="nroffip">\fB--no-strip-underscore\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Do not remove the initial underscore. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--no-paramsfR"></a><span class="nroffip">\fB--no-params\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">When demangling the name of a function, do not display the types of the function's parameters. 
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--typesfR"></a><span class="nroffip">\fB--types\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Attempt to demangle types as well as function names.  This is disabled by default since mangled types are normally only used internally in the compiler, and they can be confused with non-mangled names.  For example, a function called *(L"a*(R" treated as a mangled type name would be demangled to *(L"signed char*(R". 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--no-verbosefR"></a><span class="nroffip">\fB--no-verbose\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Do not include implementation details (if any) in the demangled output. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR \fIformat\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--formatfRfIformatfR"></a><span class="nroffip">\fB--format=\fR\fIformat\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">c++filt</span> can decode various methods of mangling, used by different compilers.  The argument to this option selects which method it uses: 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2">Automatic selection based on executable (the default method) 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1GNU *(C+s0 compiler (g++) 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the Lucid compiler (lcc) 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one specified by the *(C+ Annotated Reference Manual 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1HPs0 compiler (aCC) 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1EDGs0 compiler 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1GNU *(C+s0 compiler (g++) with the V3 s-1ABI.s0 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1GNUs0 Java compiler (gcj) 
+<p class="level2">
+<p class="level2">
+<p class="level2">the one used by the s-1GNUs0 Ada compiler (s-1GNATs0). 
+<p class="level1">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="fB--helpfR"></a><span class="nroffip">\fB--help\fR 4</span> 
+<p class="level1">
+<p class="level1">Print a summary of the options to <span Class="bold">c++filt</span> and exit. 
+<p class="level0"><a name="fB--versionfR"></a><span class="nroffip">\fB--version\fR 4</span> 
+<p class="level1">
+<p class="level1">Print the version number of <span Class="bold">c++filt</span> and exit. 
+<p class="level0"><a name="fBfRfIfilefR"></a><span class="nroffip">\fB@\fR\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Read command-line options from <span Class="emphasis">file</span>.  The options read are inserted in place of the original @<span Class="emphasis">file</span> option.  If <span Class="emphasis">file</span> does not exist, or cannot be read, then the option will be treated literally, and not removed. 
+<p class="level1">Options in <span Class="emphasis">file</span> are separated by whitespace.  A whitespace character may be included in an option by surrounding the entire option in either single or double quotes.  Any character (including a backslash) may be included by prefixing the character to be included with a backslash.  The <span Class="emphasis">file</span> may itself contain additional @<span Class="emphasis">file</span> options; any such options will be processed recursively. <a name="FOOTNOTES"></a><h2 class="nroffsh">FOOTNOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="1"></a><span class="nroffip">1. 4</span> 
+<p class="level1">MS-DOS does not allow f(CW*(C`+*(C'</span> characters in file names, so on MS-DOS this program is named <span Class="bold">s-1CXXFILTs0</span>. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">the Info entries for <span Class="emphasis">binutils</span>. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 1991-2014 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to copy, distribute and/or modify this document under the terms of the s-1GNUs0 Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the license is included in the section entitled *(L"s-1GNUs0 Free Documentation License*(R". 

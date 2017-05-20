@@ -1,0 +1,32 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-count-objects - Count unpacked number of objects and their disk consumption <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git count-objects</span> [-v] [-H | --human-readable]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This counts the number of unpacked object files and disk space consumed by them, to help you decide when it is a good time to repack. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Report in more detail: 
+<p class="level1">count: the number of loose objects 
+<p class="level1">size: disk space consumed by loose objects, in KiB (unless -H is specified) 
+<p class="level1">in-pack: the number of in-pack objects 
+<p class="level1">size-pack: disk space consumed by the packs, in KiB (unless -H is specified) 
+<p class="level1">prune-packable: the number of loose objects that are also present in the packs. These objects could be pruned using git prune-packed. 
+<p class="level1">garbage: the number of files in object database that are neither valid loose objects nor valid packs 
+<p class="level1">size-garbage: disk space consumed by garbage files, in KiB (unless -H is specified) 
+<p class="level0">
+<p class="level0">-H, --human-readable 
+<p class="level1">Print sizes in human readable format 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

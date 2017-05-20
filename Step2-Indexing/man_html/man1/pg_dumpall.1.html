@@ -1,0 +1,166 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_dumpall - extract a PostgreSQL database cluster into a script file <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_dumpall</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_dumpall is a utility for writing out ((lqdumping(rq) all PostgreSQL databases of a cluster into one script file. The script file contains SQL commands that can be used as input to <span Class="bold">psql</span>(1) to restore the databases. It does this by calling <span Class="bold">pg_dump</span>(1) for each database in a cluster. pg_dumpall also dumps global objects that are common to all databases. (pg_dump does not save these objects.) This currently includes information about database users and groups, tablespaces, and properties such as access permissions that apply to databases as a whole. 
+<p class="level0">Since pg_dumpall reads tables from all databases you will most likely have to connect as a database superuser in order to produce a complete dump. Also you will need superuser privileges to execute the saved script in order to be allowed to add users and groups, and to create databases. 
+<p class="level0">The SQL script will be written to the standard output. Use the [-f|file] option or shell operators to redirect it into a file. 
+<p class="level0">
+<p class="level0">pg_dumpall needs to connect several times to the PostgreSQL server (once per database). If you use password authentication it will ask for a password each time. It is convenient to have a ~/.pgpass file in such cases. See Section 31.15, (lqThe Password File(rq, in the documentation for more information. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following command-line options control the content and format of the output. 
+<p class="level0"><span Class="bold">-a</span> <br><span Class="bold">--data-only</span> 
+<p class="level1">Dump only the data, not the schema (data definitions). 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> <br><span Class="bold">--clean</span> 
+<p class="level1">Include SQL commands to clean (drop) databases before recreating them. <span Class="bold">DROP</span> commands for roles and tablespaces are added as well. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f </span><span class="bold"><span Class="emphasis">filename</span></span> <br><span Class="bold">--file=</span><span class="bold"><span Class="emphasis">filename</span></span> 
+<p class="level1">Send output to the specified file. If this is omitted, the standard output is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span> <br><span Class="bold">--globals-only</span> 
+<p class="level1">Dump only global objects (roles and tablespaces), no databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> <br><span Class="bold">--ignore-version</span> 
+<p class="level1">A deprecated option that is now ignored. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span> <br><span Class="bold">--oids</span> 
+<p class="level1">Dump object identifiers (OIDs) as part of the data for every table. Use this option if your application references the OID columns in some way (e.g., in a foreign key constraint). Otherwise, this option should not be used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-O</span> <br><span Class="bold">--no-owner</span> 
+<p class="level1">Do not output commands to set ownership of objects to match the original database. By default, pg_dumpall issues <span Class="bold">ALTER OWNER</span> or <span Class="bold">SET SESSION AUTHORIZATION</span> statements to set ownership of created schema elements. These statements will fail when the script is run unless it is started by a superuser (or the same user that owns all of the objects in the script). To make a script that can be restored by any user, but will give that user ownership of all the objects, specify <span Class="bold">-O</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> <br><span Class="bold">--roles-only</span> 
+<p class="level1">Dump only roles, no databases or tablespaces. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span> <br><span Class="bold">--schema-only</span> 
+<p class="level1">Dump only the object definitions (schema), not data. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--superuser=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">Specify the superuser user name to use when disabling triggers. This is relevant only if <span Class="bold">--disable-triggers</span> is used. (Usually, it*(Aqs better to leave this out, and instead start the resulting script as superuser.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> <br><span Class="bold">--tablespaces-only</span> 
+<p class="level1">Dump only tablespaces, no databases or roles. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">Specifies verbose mode. This will cause pg_dumpall to output start/stop times to the dump file, and progress messages to standard error. It will also enable verbose output in pg_dump. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the pg_dumpall version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span> <br><span Class="bold">--no-privileges</span> <br><span Class="bold">--no-acl</span> 
+<p class="level1">Prevent dumping of access privileges (grant/revoke commands). 
+<p class="level0">
+<p class="level0"><span Class="bold">--binary-upgrade</span> 
+<p class="level1">This option is for use by in-place upgrade utilities. Its use for other purposes is not recommended or supported. The behavior of the option may change in future releases without notice. 
+<p class="level0">
+<p class="level0"><span Class="bold">--column-inserts</span> <br><span Class="bold">--attribute-inserts</span> 
+<p class="level1">Dump data as <span Class="bold">INSERT</span> commands with explicit column names (INSERT INTO <span Class="emphasis">table</span> (<span Class="emphasis">column</span>, ...) VALUES ...). This will make restoration very slow; it is mainly useful for making dumps that can be loaded into non-PostgreSQL databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">--disable-dollar-quoting</span> 
+<p class="level1">This option disables the use of dollar quoting for function bodies, and forces them to be quoted using SQL standard string syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">--disable-triggers</span> 
+<p class="level1">This option is relevant only when creating a data-only dump. It instructs pg_dumpall to include commands to temporarily disable triggers on the target tables while the data is reloaded. Use this if you have referential integrity checks or other triggers on the tables that you do not want to invoke during data reload. 
+<p class="level1">Presently, the commands emitted for <span Class="bold">--disable-triggers</span> must be done as superuser. So, you should also specify a superuser name with <span Class="bold">-S</span>, or preferably be careful to start the resulting script as a superuser. 
+<p class="level0">
+<p class="level0"><span Class="bold">--if-exists</span> 
+<p class="level1">Use conditional commands (i.e. add an IF EXISTS clause) to clean databases and other objects. This option is not valid unless <span Class="bold">--clean</span> is also specified. 
+<p class="level0">
+<p class="level0"><span Class="bold">--inserts</span> 
+<p class="level1">Dump data as <span Class="bold">INSERT</span> commands (rather than <span Class="bold">COPY</span>). This will make restoration very slow; it is mainly useful for making dumps that can be loaded into non-PostgreSQL databases. Note that the restore might fail altogether if you have rearranged column order. The <span Class="bold">--column-inserts</span> option is safer, though even slower. 
+<p class="level0">
+<p class="level0"><span Class="bold">--lock-wait-timeout=</span><span class="bold"><span Class="emphasis">timeout</span></span> 
+<p class="level1">Do not wait forever to acquire shared table locks at the beginning of the dump. Instead, fail if unable to lock a table within the specified <span Class="emphasis">timeout</span>. The timeout may be specified in any of the formats accepted by <span Class="bold">SET statement_timeout</span>. Allowed values vary depending on the server version you are dumping from, but an integer number of milliseconds is accepted by all versions since 7.3. This option is ignored when dumping from a pre-7.3 server. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-security-labels</span> 
+<p class="level1">Do not dump security labels. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-tablespaces</span> 
+<p class="level1">Do not output commands to create tablespaces nor select tablespaces for objects. With this option, all objects will be created in whichever tablespace is the default during restore. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-unlogged-table-data</span> 
+<p class="level1">Do not dump the contents of unlogged tables. This option has no effect on whether or not the table definitions (schema) are dumped; it only suppresses dumping the table data. 
+<p class="level0">
+<p class="level0"><span Class="bold">--quote-all-identifiers</span> 
+<p class="level1">Force quoting of all identifiers. This may be useful when dumping a database for migration to a future version that may have introduced additional keywords. 
+<p class="level0">
+<p class="level0"><span Class="bold">--use-set-session-authorization</span> 
+<p class="level1">Output SQL-standard <span Class="bold">SET SESSION AUTHORIZATION</span> commands instead of <span Class="bold">ALTER OWNER</span> commands to determine object ownership. This makes the dump more standards compatible, but depending on the history of the objects in the dump, might not restore properly. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about pg_dumpall command line arguments, and exit. 
+<p class="level0">
+<p class="level0">The following command-line options control the database connection parameters. 
+<p class="level0"><span Class="bold">-d </span><span class="bold"><span Class="emphasis">connstr</span></span> <br><span Class="bold">--dbname=</span><span class="bold"><span Class="emphasis">connstr</span></span> 
+<p class="level1">Specifies parameters used to connect to the server, as a connection string. See Section 31.1.1, (lqConnection Strings(rq, in the documentation for more information. 
+<p class="level1">The option is called --dbname for consistency with other client applications, but because pg_dumpall needs to connect to many databases, database name in the connection string will be ignored. Use -l option to specify the name of the database used to dump global objects and to discover what other databases should be dumped. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the database server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. The default is taken from the <span Class="bold">PGHOST</span> environment variable, if set, else a Unix domain socket connection is attempted. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l </span><span class="bold"><span Class="emphasis">dbname</span></span> <br><span Class="bold">--database=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to to dump global objects and discover what other databases should be dumped. If not specified, the postgres database will be used, and if that does not exist, template1 will be used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. Defaults to the <span Class="bold">PGPORT</span> environment variable, if set, or a compiled-in default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force pg_dumpall to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since pg_dumpall will automatically prompt for a password if the server demands password authentication. However, pg_dumpall will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level1">Note that the password prompt will occur again for each database to be dumped. Usually, it*(Aqs better to set up a ~/.pgpass file than to rely on manual password entry. 
+<p class="level0">
+<p class="level0"><span Class="bold">--role=</span><span class="bold"><span Class="emphasis">rolename</span></span> 
+<p class="level1">Specifies a role name to be used to create the dump. This option causes pg_dumpall to issue a <span Class="bold">SET ROLE</span> <span Class="emphasis">rolename</span> command after connecting to the database. It is useful when the authenticated user (specified by <span Class="bold">-U</span>) lacks privileges needed by pg_dumpall, but can switch to a role with the required rights. Some installations have a policy against logging in directly as a superuser, and use of this option allows dumps to be made without violating the policy. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGHOST</span> <br><span Class="bold">PGOPTIONS</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Since pg_dumpall calls pg_dump internally, some diagnostic messages will refer to pg_dump. 
+<p class="level0">Once restored, it is wise to run <span Class="bold">ANALYZE</span> on each database so the optimizer has useful statistics. You can also run <span Class="bold">vacuumdb -a -z</span> to analyze all databases. 
+<p class="level0">
+<p class="level0">pg_dumpall requires all needed tablespace directories to exist before the restore; otherwise, database creation will fail for databases in non-default locations. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To dump all databases: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_dumpall &gt; db.out</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To reload database(s) from this file, you can use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">psql -f db.out postgres</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">(It is not important to which database you connect here since the script file created by pg_dumpall will contain the appropriate commands to create and connect to the saved databases.) <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Check <span Class="bold">pg_dump</span>(1) for details on possible error conditions. 

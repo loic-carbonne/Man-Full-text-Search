@@ -1,0 +1,49 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setupcon - sets up the font and the keyboard on the console 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">setupcon</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">setupcon</span> is a program for fast and easy setup of the font and the keyboard on the console.  Most of the time you invoke <span Class="bold">setupcon</span> without arguments.  The keyboard configuration is specified in <span Class="emphasis">~/.keyboard</span> or <span Class="emphasis">/etc/default/keyboard .</span> The font configuration is specified in <span Class="emphasis">~/.console-setup</span> or <span Class="emphasis">/etc/default/console-setup .</span> Consult <span Class="manpage">keyboard (5)</span>and <span Class="manpage">console-setup (5)</span>for instructions how to configure these two files. 
+<p class="level0">If you have to switch often between different encodings, keyboards or languages, you can prepare several alternative configuration files for <span Class="manpage">setupcon .</span>Suppose that most of the time you will use Greek language with Greek keyboard layout, but sometimes you need to type in German with German keyboard layout.  In this situation you should customize the main configuration files 
+<p class="level0">
+<p class="level0">
+<p class="level0">for Greek.  Also, create alternative configuration files for German named 
+<p class="level0"><span Class="emphasis">keyboard.german  and  console-setup.german .</span> 
+<p class="level0">Then in order to configure the console for Greek you will simply run the command with no arguments: <span Class="emphasis">setupcon</span> and in order to configure the console for German you will use 
+<p class="level0"><span Class="emphasis">setupcon\ german .</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">VARIANT</span> Specifies which configuration file to use.  With no variant, the configuration files of <span Class="bold">setupcon</span> are named <span Class="emphasis">console-setup  and  keyboard .</span> On the other hand, if you use e.g. <span Class="emphasis">chukchi</span> as <span Class="emphasis">VARIANT</span> then the configuration files are <span Class="emphasis">console-setup.chukchi  and  keyboard.chukchi .</span> In this way you can have easy access to several different configurations - for example one for the Chukchi language and another for the default configuration. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">\  --verbose</span>Be more verbose.   Use this option if something goes wrong or while experimenting with the configuration files. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-k</span>, <span Class="manpage">\  --keyboard-only</span>Setup the keyboard only, do not setup the font. 
+<p class="level0">
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">\  --font-only</span>Setup the font only, do not setup the keyboard. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--force</span>Do not check whether we are on the console.  Notice that you can be forced to hard-reboot your computer if you run <span Class="bold">setupcon</span> with this option and the screen is controlled by a X server. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--save</span>This option can be useful if you want to use <span Class="bold">setupcon</span> early in the boot process while <span Class="emphasis">/usr</span> is not yet mounted and the required data are not available.  This option will make <span Class="bold">setupcon</span> copy the required files in <span Class="emphasis">/etc/console-setup/</span> in order to make them available before <span Class="emphasis">/usr</span> is mounted.  If you use <span Class="bold">setupcon</span> early in the boot process, then you should run it with this option after every change of the console configuration. 
+<p class="level0">
+<p class="level0"><span Class="manpage">--save-only</span>The same as <span Class="emphasis">--save ,</span> but does not setup the keyboard and the font.  This option can be useful if you want to save the required files while the screen is controlled by a X server. 
+<p class="level0">
+<p class="level0"><span Class="bold">--save-keyboard\  FILE</span> For use by initrd builders.  Do not configure anything.  Save an usable keyboard layout in <span Class="emphasis">FILE .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">--setup-dir\  DIR</span> For use by initrd builders.  Do not configure anything.  Arrange in the directory <span Class="emphasis">DIR</span> everything necessary in order to configure the console.  The file <span Class="emphasis">DIR/morefiles</span> lists all binaries the initrd builder has to install in the initrd image.  All other files in <span Class="emphasis">DIR</span> have to be copied unchanged in the initrd.  In order to configure the console one has to run the script <span Class="emphasis">DIR/bin/setupcon .</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">\  --help</span>Display usage information. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">~/.console-setup</span> <br><span Class="emphasis">~/.keyboard</span> <br><span Class="emphasis">/etc/default/console-setup</span> <br><span Class="emphasis">/etc/default/keyboard</span> <br><span Class="emphasis">/etc/default/console-setup.VARIANT</span> <br><span Class="emphasis">/etc/default/keyboard.VARIANT</span> <br><span Class="emphasis">/etc/console-setup/</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">keyboard (5)</span>, <span Class="manpage">console-setup (5)</span>

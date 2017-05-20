@@ -1,0 +1,82 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">machinectl - Control the systemd machine manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">machinectl</span> [OPTIONS...] {COMMAND} [NAME...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">machinectl</span> may be used to introspect and control the state of the <span Class="bold">systemd</span>(1) virtual machine and container registration manager <span Class="bold">systemd-machined.service</span>(8). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--property=</span> 
+<p class="level1">When showing machine properties, limit the output to certain properties as specified by the argument. If not specified, all set properties are shown. The argument should be a property name, such as "Name". If specified more than once, all properties with the specified names are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> 
+<p class="level1">When showing machine properties, show all properties regardless of whether they are set or not. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--full</span> 
+<p class="level1">Do not ellipsize process tree entries. 
+<p class="level0">
+<p class="level0"><span Class="bold">--kill-who=</span> 
+<p class="level1">When used with <span Class="bold">kill</span>, choose which processes to kill. Must be one of <span Class="bold">leader</span>, or <span Class="bold">all</span> to select whether to kill only the leader process of the machine or all processes of the machine. If omitted, defaults to <span Class="bold">all</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--signal=</span> 
+<p class="level1">When used with <span Class="bold">kill</span>, choose which signal to send to selected processes. Must be one of the well-known signal specifiers, such as <span Class="bold">SIGTERM</span>, <span Class="bold">SIGINT</span> or <span Class="bold">SIGSTOP</span>. If omitted, defaults to <span Class="bold">SIGTERM</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-legend</span> 
+<p class="level1">Do not print the legend, i.e. the column headers and the footer. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">list</span> 
+<p class="level1">List currently running virtual machines and containers. 
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Show terse runtime status information about one or more virtual machines and containers. This function is intended to generate human-readable output. If you are looking for computer-parsable output, use <span Class="bold">show</span> instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">show</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Show properties of one or more registered virtual machines or containers or the manager itself. If no argument is specified, properties of the manager will be shown. If an ID is specified, properties of this virtual machine or container are shown. By default, empty properties are suppressed. Use <span Class="bold">--all</span> to show those too. To select specific properties to show, use <span Class="bold">--property=</span>. This command is intended to be used whenever computer-parsable output is required. Use <span Class="bold">status</span> if you are looking for formatted human-readable output. 
+<p class="level0">
+<p class="level0"><span Class="bold">login</span> <span Class="emphasis">ID</span> 
+<p class="level1">Open a terminal login session to a container. This will create a TTY connection to a specific container and asks for the execution of a getty on it. Note that this is only supported for containers running <span Class="bold">systemd</span>(1) as init system. 
+<p class="level0">
+<p class="level0"><span Class="bold">reboot</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Reboot one or more containers. This will trigger a reboot by sending SIGINT to the container*(Aqs init process, which is roughly equivalent to pressing Ctrl+Alt+Del on a non-containerized system, and is compatible with containers running any init system. 
+<p class="level0">
+<p class="level0"><span Class="bold">poweroff</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Power off one or more containers. This will trigger a reboot by sending SIGRTMIN+4 to the container*(Aqs init process, which causes systemd-compatible init systems to shut down cleanly. This operation does not work on containers that do not run a <span Class="bold">systemd</span>(1)-compatible init system, such as sysvinit. 
+<p class="level0">
+<p class="level0"><span Class="bold">kill</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Send a signal to one or more processes of the virtual machine or container. This means processes as seen by the host, not the processes inside the virtual machine or container. Use <span Class="bold">--kill-who=</span> to select which process to kill. Use <span Class="bold">--signal=</span> to select the signal to send. 
+<p class="level0">
+<p class="level0"><span Class="bold">terminate</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Terminates a virtual machine or container. This kills all processes of the virtual machine or container and deallocates all resources attached to that instance. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-machined.service</span>(8), <span Class="bold">systemd-nspawn</span>(1), <span Class="bold">systemd.special</span>(7) 

@@ -1,0 +1,109 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 2006, 2007, 2008, 2009 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">preconv - convert encoding of input files to something GNU troff understands 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">.\|.\|. ]</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> | <span Class="bold">--help</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> | <span Class="bold">--version</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">It is possible to have whitespace between the <span Class="bold">-e</span> command line option and its parameter. 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">preconv</span> reads <span Class="emphasis">files</span> and converts its encoding(s) to a form GNU <span Class="manpage">troff (1)</span>can process, sending the data to standard output. Currently, this means ASCII characters and `e[uXXXX]' entities, where `XXXX' is a hexadecimal number with four to six digits, representing a Unicode input code. Normally, <span Class="bold">preconv</span> should be invoked with the <span Class="bold">-k</span> and <span Class="bold">-K</span> options of <span Class="manpage">groff .</span>
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> Emit debugging messages to standard error (mainly the used encoding). 
+<p class="level0">
+<p class="level0"><span Class="bold">-D encoding</span> Specify default encoding if everything fails (see below). 
+<p class="level0">
+<p class="level0"><span Class="bold">-e encoding</span> Specify input encoding explicitly, overriding all other methods. This corresponds to <span Class="manpage">groff 's</span><span Class="bold">-K encoding</span> option. Without this switch, <span Class="bold">preconv</span> uses the algorithm described below to select the input encoding. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level0"><span Class="bold">-h</span> Print help message. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> Do not add .lf requests. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level0"><span Class="bold">-v</span> Print version number. 
+<p class="level0">
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0"><span Class="bold">preconv</span> tries to find the input encoding with the following algorithm. 
+<p class="level0">
+<p class="level0"><a name="1"></a><span class="nroffip">1.</span> 
+<p class="level1">If the input encoding has been explicitly specified with option <span Class="manpage">-e</span>use it. 
+<p class="level1">
+<p class="level0"><a name="2"></a><span class="nroffip">2.</span> 
+<p class="level1">Otherwise, check whether the input starts with a <a class="emphasis" href="#Byte">Byte Order Mark</a> (BOM, see below). If found, use it. 
+<p class="level1">
+<p class="level0"><a name="3"></a><span class="nroffip">3.</span> 
+<p class="level1">Finally, check whether there is a known <span Class="emphasis">coding tag</span> (see below) in either the first or second input line. If found, use it. 
+<p class="level1">
+<p class="level0"><a name="4"></a><span class="nroffip">4.</span> 
+<p class="level1">If everything fails, use a default encoding as given with option <span Class="manpage">-D</span>by the current locale, or `latin1' if the locale is set to `C', `POSIX', or empty (in that order). 
+<p class="level1">
+<p class="level1">Note that the <span Class="bold">groff</span> program supports a <span Class="bold">GROFF_ENCODING</span> environment variable which is eventually expanded to option <span Class="manpage">-k .</span>
+<p class="level1"><a name="Byte"></a><h2 class="nroffsh">Byte Order Mark</h2>
+<p class="level0">The Unicode Standard defines character U+FEFF as the Byte Order Mark (BOM). On the other hand, value U+FFFE is guaranteed not be a Unicode character at all. This allows to detect the byte order within the data stream (either big-endian or lower-endian), and the MIME encodings %`UTF-16' and %`UTF-32' mandate that the data stream starts with U+FEFF. Similarly, the data stream encoded as %`UTF-8' might start with a BOM (to ease the conversion from and to %UTF-16 and %UTF-32). In all cases, the byte order mark is <span Class="emphasis">not</span> part of the data but part of the encoding protocol; in other words, <span Class="manpage">preconv 's</span>output doesn't contain it. 
+<p class="level0">
+<p class="level0">Note that U+FEFF not at the start of the input data actually is emitted; it has then the meaning of a `zero width no-break space' character [en] something not needed normally in <span Class="manpage">groff .</span>
+<p class="level0"><a name="Coding"></a><h2 class="nroffsh">Coding Tags</h2>
+<p class="level0">Editors which support more than a single character encoding need tags within the input files to mark the file's encoding. While it is possible to guess the right input encoding with the help of heuristic algorithms for data which represents a greater amount of a natural language, it is still just a guess. Additionally, all algorithms fail easily for input which is either too short or doesn't represent a natural language. 
+<p class="level0">
+<p class="level0">For these reasons, <span Class="bold">preconv</span> supports the coding tag convention (with some restrictions) as used by <span Class="bold">GNU Emacs</span> and <span Class="bold">XEmacs</span> (and probably other programs too). 
+<p class="level0">
+<p class="level0">Coding tags in <span Class="bold">GNU Emacs</span> and <span Class="bold">XEmacs</span> are stored in so-called <span Class="emphasis">File Variables .</span> <span Class="bold">preconv</span> recognizes the following syntax form which must be put into a troff comment in the first or second line. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-*- <span Class="emphasis">tag1 :</span> <span Class="emphasis">value1 ;</span> <span Class="emphasis">tag2 :</span> <span Class="emphasis">value2 ;</span> .|.|. -*- 
+<p class="level0">
+<p class="level0">
+<p class="level0">The only relevant tag for <span Class="bold">preconv</span> is `coding' which can take the values listed below. Here an example line which tells <span Class="bold">Emacs</span> to edit a file in troff mode, and to use %latin2 as its encoding. 
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">.[rs]" -*- mode: troff; coding: latin-2 -*- 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The following list gives all MIME coding tags (either lowercase or uppercase) supported by <span Class="manpage">preconv ;</span>this list is hard-coded in the source. 
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">%big5, %cp1047, %euc-jp, %euc-kr, %gb2312, %iso-8859-1, %iso-8859-2, %iso-8859-5, %iso-8859-7, %iso-8859-9, %iso-8859-13, %iso-8859-15, %koi8-r, %us-ascii, %utf-8, %utf-16, %utf-16be, %utf-16le 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">In addition, the following hard-coded list of other tags is recognized which eventually map to values from the list above. 
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">%ascii, %chinese-big5, %chinese-euc, %chinese-iso-8bit, %cn-big5, %%cn-gb, %cn-gb-2312, %cp878, %csascii, %csisolatin1, %cyrillic-iso-8bit, %cyrillic-koi8, %euc-china, %euc-cn, %euc-japan, %euc-japan-1990, %euc-korea, %greek-iso-8bit, %iso-10646/utf8, %iso-10646/utf-8, %iso-latin-1, %iso-latin-2, %iso-latin-5, %iso-latin-7, %iso-latin-9, %japanese-euc, %japanese-iso-8bit, %jis8, %koi8, %korean-euc, %korean-iso-8bit, %latin-0, %latin1, %latin-1, %latin-2, %latin-5, %latin-7, %latin-9, %mule-utf-8, %mule-utf-16, %mule-utf-16be, %mule-utf-16-be, %mule-utf-16be-with-signature, %mule-utf-16le, %mule-utf-16-le, %mule-utf-16le-with-signature, %utf8, %utf-16-be, %utf-16-be-with-signature, %utf-16be-with-signature, %utf-16-le, %utf-16-le-with-signature, %utf-16le-with-signature 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Those tags are taken from <span Class="bold">GNU Emacs</span> and  , <span Class="manpage">XEmacs</span>together with some aliases. Trailing %`-dos', %`-unix', and %`-mac' suffixes of coding tags (which give the end-of-line convention used in the file) are stripped off before the comparison with the above tags happens. 
+<p class="level0"><a name="Iconv"></a><h2 class="nroffsh">Iconv Issues</h2>
+<p class="level0"><span Class="bold">preconv</span> by itself only supports three encodings: %latin-1, cp1047, and %UTF-8; all other encodings are passed to the <span Class="bold">iconv</span> library functions. At compile time it is searched and checked for a valid <span Class="bold">iconv</span> implementation; a call to `preconv --version' shows whether <span Class="bold">iconv</span> is used. 
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">preconv</span> doesn't support <span Class="emphasis">local variable lists</span> yet. This is a different syntax form to specify local variables at the end of a file. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">groff (1)</span><br>the <span Class="bold">GNU Emacs</span> and <span Class="bold">XEmacs</span> info pages 
+<p class="level0">

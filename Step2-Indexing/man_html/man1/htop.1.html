@@ -1,0 +1,107 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">htop - interactive process viewer <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">htop [-dChusv]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Htop is a free (GPL) ncurses-based process viewer for Linux. 
+<p class="level0">It is similar to top, but allows you to scroll vertically and horizontally, so you can see all the processes running on the system, along with their full command lines. 
+<p class="level0">Tasks related to processes (killing, renicing) can be done without entering their PIDs. <br><a name="COMMAND-LINE"></a><h2 class="nroffsh">COMMAND-LINE OPTIONS</h2>
+<p class="level0">
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d --delay=DELAY</span> Delay between updates, in tenths of seconds 
+<p class="level0"><span Class="bold">-C --no-color --no-colour</span> Start htop in monochrome mode 
+<p class="level0"><span class="bold">-h --help Display a help message and exit 
+<p class="level0"><span Class="bold">-p --pid=PID,PID...</span> Show only the given PIDs 
+<p class="level0"><span Class="bold">-s --sort-key COLUMN</span> Sort by this column (use --sort-key help for a column list) 
+<p class="level0"><span Class="bold">-u --user=USERNAME</span> Show only the processes of a given user 
+<p class="level0"><span class="bold">-v --version Output version information and exit 
+<p class="level0"><br><a name="INTERACTIVE"></a><h2 class="nroffsh">INTERACTIVE COMMANDS</h2>
+<p class="level0">
+<p class="level0">The following commands are supported while in htop: 
+<p class="level0">
+<p class="level0"><span Class="bold">Arrows, PgUP, PgDn, Home, End</span> Scroll the process list. 
+<p class="level0"><span Class="bold">Space</span> Tag or untag a process. Commands that can operate on multiple processes, like "kill", will then apply over the list of tagged processes, instead of the currently highlighted one. 
+<p class="level0"><span Class="bold">U</span> Untag all processes (remove all tags added with the Space key). 
+<p class="level0"><span Class="bold">s</span> Trace process system calls: if strace(1) is installed, pressing this key will attach it to the currently selected process, presenting a live update of system calls issued by the process. 
+<p class="level0"><span Class="bold">l</span> Display open files for a process: if lsof(1) is installed, pressing this key will display the list of file descriptors opened by the process. 
+<p class="level0"><span Class="bold">L</span> Trace process library calls: if ltrace(1) is installed, pressing this key will attach it to the currently selected process, presenting a live update of library calls issued by the process. 
+<p class="level0"><span Class="bold">F1, h, ?</span> Go to the help screen 
+<p class="level0"><span Class="bold">F2, S</span> Go to the setup screen, where you can configure the meters displayed at the top of the screen, set various display options, choose among color schemes, and select which columns are displayed, in which order. 
+<p class="level0"><span Class="bold">F3, /</span> Incrementally search the command lines of all the displayed processes. The currently selected (highlighted) command will update as you type. While in search mode, pressing F3 will cycle through matching occurrences. 
+<p class="level0"><span Class="bold">F4, \\\\</span> Incremental process filtering: type in part of a process command line and only processes whose names match will be shown. To cancel filtering, enter the Filter option again and press Esc. 
+<p class="level0"><span Class="bold">F5, t</span> Tree view: organize processes by parenthood, and layout the relations between them as a tree. Toggling the key will switch between tree and your previously selected sort view. Selecting a sort view will exit tree view. 
+<p class="level0"><span Class="bold">F6</span> On sorted view, select a field for sorting, also accessible through &lt; and &gt;. The current sort field is indicated by a highlight in the header. On tree view, expand or collapse the current subtree. A "+" indicator in the tree node indicates that it is collapsed. 
+<p class="level0"><span Class="bold">F7, ]</span> Increase the selected process's priority (subtract from 'nice' value). This can only be done by the superuser. 
+<p class="level0"><span Class="bold">F8, [</span> Decrease the selected process's priority (add to 'nice' value) 
+<p class="level0"><span Class="bold">F9, k</span> "Kill" process: sends a signal which is selected in a menu, to one or a group of processes. If processes were tagged, sends the signal to all tagged processes. If none is tagged, sends to the currently selected process. 
+<p class="level0"><span Class="bold">F10, q</span> Quit 
+<p class="level0"><span Class="bold">I</span> Invert the sort order: if sort order is increasing, switch to decreasing, and vice-versa. 
+<p class="level0"><span Class="bold">+, - </span> When in tree view mode, expand or collapse subtree. When a subtree is collapsed a "+" sign shows to the left of the process name. 
+<p class="level0"><span Class="bold">a (on multiprocessor machines)</span> Set CPU affinity: mark which CPUs a process is allowed to use. 
+<p class="level0"><span Class="bold">u</span> Show only processes owned by a specified user. 
+<p class="level0"><span Class="bold">M</span> Sort by memory usage (top compatibility key). 
+<p class="level0"><span Class="bold">P</span> Sort by processor usage (top compatibility key). 
+<p class="level0"><span Class="bold">T</span> Sort by time (top compatibility key). 
+<p class="level0"><span Class="bold">F</span> "Follow" process: if the sort order causes the currently selected process to move in the list, make the selection bar follow it. This is useful for monitoring a process: this way, you can keep a process always visible on screen. When a movement key is used, "follow" loses effect. 
+<p class="level0"><span Class="bold">K</span> Hide kernel threads: prevent the threads belonging the kernel to be displayed in the process list. (This is a toggle key.) 
+<p class="level0"><span Class="bold">H</span> Hide user threads: on systems that represent them differently than ordinary processes (such as recent NPTL-based systems), this can hide threads from userspace processes in the process list. (This is a toggle key.) 
+<p class="level0"><span Class="bold">Ctrl-L</span> Refresh: redraw screen and recalculate values. 
+<p class="level0"><span Class="bold">Numbers</span> PID search: type in process ID and the selection highlight will be moved to it. 
+<p class="level0">
+<p class="level0"><a name="COLUMNS"></a><h2 class="nroffsh">COLUMNS</h2>
+<p class="level0">
+<p class="level0">The following columns can display data about each process. A value of '-' in all the rows indicates that a column is unsupported on your system, or currently unimplemented in htop. The names below are the ones used in the "Available Columns" section of the setup screen. If a different name is shown in htop's main screen, it is shown below in parenthesis. 
+<p class="level0">
+<p class="level0"><span Class="bold">Command</span> The full command line of the process (i.e program name and arguments). 
+<p class="level0"><span Class="bold">PID</span> The process ID. 
+<p class="level0"><span Class="bold">PPID</span> The parent process ID. 
+<p class="level0"><span Class="bold">PGRP</span> The process's group ID. 
+<p class="level0"><span Class="bold">SESSION (SESN)</span> The process's session ID. 
+<p class="level0"><span Class="bold">TTY_NR (TTY)</span> The controlling terminal of the process. 
+<p class="level0"><span Class="bold">TPGID</span> The process ID of the foreground process group of the controlling terminal. 
+<p class="level0"><span Class="bold">STATE (S)</span> The state of the process: &nbsp;  <span Class="bold">S</span> for sleeping (idle) &nbsp;  <span Class="bold">R</span> for running &nbsp;  <span Class="bold">D</span> for disk sleep (uninterruptible) &nbsp;  <span Class="bold">Z</span> for zombie (waiting for parent to read its exit status) &nbsp;  <span Class="bold">T</span> for traced or suspended (e.g by SIGTSTP) &nbsp;  <span Class="bold">W</span> for paging 
+<p class="level0"><span Class="bold">PROCESSOR (CPU)</span> The ID of the CPU the process last executed on. 
+<p class="level0"><span Class="bold">NLWP</span> The number of threads in the process. 
+<p class="level0"><span Class="bold">NICE (NI)</span> The nice value of a process, from 19 (low priority) to -20 (high priority). A high value means the process is being nice, letting others have a higher relative priority. Only root can lower the value. 
+<p class="level0"><span Class="bold">PERCENT_CPU (CPU%)</span> The percentage of the CPU time that the process is currently using. 
+<p class="level0"><span Class="bold">UTIME (UTIME+)</span> The user CPU time, which is the amount of time the process has spent executing on the CPU in user mode (i.e everything but system calls), measured in clock ticks. 
+<p class="level0"><span Class="bold">STIME (STIME+)</span> The system CPU time, which is the amount of time the kernel has spent executing system calls on behalf of the process, measured in clock ticks. 
+<p class="level0"><span Class="bold">TIME (TIME+)</span> The time, measured in clock ticks that the process has spent in user and system time (see UTIME, STIME above). 
+<p class="level0"><span Class="bold">CUTIME</span> The children's user CPU time, which is the amount of time the process's waited-for children have spent executing in user mode (see UTIME above). 
+<p class="level0"><span Class="bold">CSTIME</span> The children's system CPU time, which is the amount of time the kernel has spent executing system calls on behalf of all the process's waited-for children (see STIME above). 
+<p class="level0"><span Class="bold">PRIORITY (PRI)</span> The kernel's internal priority for the process, usually just its nice value plus twenty. Different for real-time processes. 
+<p class="level0"><span Class="bold">PERCENT_MEM</span> The percentage of memory the process is currently using (based on the process's resident memory size, see M_RESIDENT below). 
+<p class="level0"><span Class="bold">M_SIZE (VIRT)</span> Size in memory of the total program size. 
+<p class="level0"><span Class="bold">M_RESIDENT (RES)</span> The resident set size, i.e the size of the text and data sections, plus stack usage. 
+<p class="level0"><span Class="bold">M_SHARE (SHR)</span> The size of the process's shared pages 
+<p class="level0"><span Class="bold">M_TRS (CODE)</span> The size of the text segment of the process (i.e the size of the processes executable instructions). 
+<p class="level0"><span Class="bold">M_LRS (LIB)</span> The library size of the process. 
+<p class="level0"><span Class="bold">M_DRS (DATA)</span> The size of the data segment plus stack usage of the process. 
+<p class="level0"><span Class="bold">M_DT (DIRTY)</span> The size of the dirty pages of the process. 
+<p class="level0"><span Class="bold">ST_UID (UID)</span> The user ID of the process owner. 
+<p class="level0"><span Class="bold">USER</span> The username of the process owner, or the user ID if the name can't be determined. 
+<p class="level0"><span Class="bold">STARTTIME</span> The time the process was started. 
+<p class="level0"><span Class="bold">RCHAR (RD_CHAR)</span> The number of bytes the process has read. 
+<p class="level0"><span Class="bold">WCHAR (WR_CHAR)</span> The number of bytes the process has written. 
+<p class="level0"><span Class="bold">SYSCR (RD_SYSC)</span> The number of read(2) syscalls for the process. 
+<p class="level0"><span Class="bold">SYSCW (WR_SYSC)</span> The number of write(2) syscalls for the process. 
+<p class="level0"><span Class="bold">RBYTES (IO_RBYTES)</span> Bytes of read(2) I/O for the process. 
+<p class="level0"><span Class="bold">WBYTES (IO_WBYTES)</span> Bytes of write(2) I/O for the process. 
+<p class="level0"><span Class="bold">IO_READ_RATE (IORR)</span> The I/O rate of read(2) in bytes per second, for the process. 
+<p class="level0"><span Class="bold">IO_WRITE_RATE (IOWR)</span> The I/O rate of write(2) in bytes per second, for the process. 
+<p class="level0"><span Class="bold">IO_RATE (IO)</span> The I/O rate, IO_READ_RATE + IO_WRITE_RATE (see above). 
+<p class="level0"><span Class="bold">CNCLWB (IO_CANCEL)</span> Bytes of cancelled write(2) I/O. 
+<p class="level0"><span Class="bold">CGROUP</span> Which cgroup the process is in. 
+<p class="level0"><span Class="bold">CTID</span> OpenVZ container ID, a.k.a virtual environment ID. 
+<p class="level0"><span Class="bold">VPID</span> OpenVZ process ID. 
+<p class="level0"><span Class="bold">VXID</span> VServer process ID. 
+<p class="level0"><span Class="bold">OOM</span> OOM killer score. 
+<p class="level0"><span Class="bold">All other flags</span> Currently unsupported (always displays '-'). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">proc(5), top(1), free(1), ps(1), uptime(1) 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">htop is developed by Hisham Muhammad &lt;hisham@gobolinux.org&gt;. 
+<p class="level0">This man page was written by Bartosz Fenski &lt;fenio@o2.pl&gt; for the Debian GNU/Linux distribution (but it may be used by others). It was updated by Hisham Muhammad, and later by Vincent Launchbury, who wrote the 'Columns' section. 

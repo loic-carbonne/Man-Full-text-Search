@@ -1,0 +1,118 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">getopt - parse command options (enhanced) <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">getopt</span> <span Class="emphasis">optstring parameters</span> <br><span Class="bold">getopt</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">optstring parameters</span> <br><span Class="bold">getopt</span> 
+<p class="level0"><span Class="manpage">-o | --options</span><span Class="emphasis">optstring</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">parameters</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">getopt</span> is used to break up 
+<p class="level0">options in command lines for easy parsing by shell procedures, and to check for legal options.  It uses the 
+<p class="level0"><span Class="manpage">getopt (3)</span>routines to do this. 
+<p class="level0">The parameters <span Class="bold">getopt</span> is called with can be divided into two parts: options which modify the way <span Class="bold">getopt</span> will do the parsing 
+<p class="level0">and the <span Class="emphasis">optstring</span> in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS )</a>and the parameters which are to be parsed 
+<p class="level0">in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS ).</a>The second part will start at the first non-option parameter that is not an option argument, or after the first occurrence of 
+<p class="level0">If no 
+<p class="level0">or 
+<p class="level0">option is found in the first part, the first parameter of the second part is used as the short options string. 
+<p class="level0">If the environment variable <a class="bold" href="#GETOPTCOMPATIBLE">GETOPT_COMPATIBLE</a> is set, or if the first <span Class="emphasis">parameter</span> is not an option (does not start with a 
+<p class="level0">the first format in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS )</a><span Class="bold">getopt</span> will generate output that is compatible with that of other versions of <span Class="manpage">getopt (1).</span>It will still do parameter shuffling and recognize optional arguments (see section <a class="bold" href="#COMPATIBILITY">COMPATIBILITY</a> for more information). 
+<p class="level0">Traditional implementations of <span Class="manpage">getopt (1)</span>are unable to cope with whitespace and other (shell-specific) special characters in arguments and non-option parameters.  To solve this problem, this implementation can generate quoted output which must once again be interpreted by the shell (usually by using the <span Class="bold">eval</span> command).  This has the effect of preserving those characters, but you must call <span Class="bold">getopt</span> in a way that is no longer compatible with other versions (the second or third format in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS ).</a>To determine whether this enhanced version of <span Class="manpage">getopt (1)</span>is installed, a special test option 
+<p class="level0">can be used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--alternative</span>Allow long options to start with a single 
+<p class="level0">
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit.  No other output is generated. 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--longoptions \fIlongopts\fP</span>The long (multi-character) options to be recognized.  More than one option name may be specified at once, by separating the names with commas.  This option may be given more than once, the <span Class="emphasis">longopts</span> are cumulative.  Each long option name in <span Class="emphasis">longopts</span> may be followed by one colon to indicate it has a required argument, and by two colons to indicate it has an optional argument. 
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--name \fIprogname\fP</span>The name that will be used by the <span Class="manpage">getopt (3)</span>routines when it reports errors.  Note that errors of <span Class="manpage">getopt (1)</span>are still reported as coming from getopt. 
+<p class="level0"><span Class="manpage">-o</span>, <span Class="manpage">--options \fIshortopts\fP</span>The short (one-character) options to be recognized.  If this option is not found, the first parameter of <span Class="bold">getopt</span> that does not start with a 
+<p class="level0">(and is not an option argument) is used as the short options string. Each short option character in <span Class="emphasis">shortopts</span> may be followed by one colon to indicate it has a required argument, and by two colons to indicate it has an optional argument.  The first character of shortopts may be 
+<p class="level0">or 
+<p class="level0">to influence the way options are parsed and output is generated (see section <a class="bold" href="#SCANNING">SCANNING MODES</a> for details). 
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--quiet</span>Disable error reporting by getopt(3). 
+<p class="level0"><span Class="manpage">-Q</span>, <span Class="manpage">--quiet-output</span>Do not generate normal output.  Errors are still reported by <span Class="manpage">getopt (3)</span>unless you also use <span Class="manpage">-q .</span>
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--shell \fIshell\fP</span>Set quoting conventions to those of <span Class="emphasis">shell</span>. If the <span Class="bold">-s</span> option is not given, the 
+<p class="level0">conventions are used.  Valid arguments are currently 
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">
+<p class="level0"><span Class="manpage">-u</span>, <span Class="manpage">--unquoted</span>Do not quote the output.  Note that whitespace and special (shell-dependent) characters can cause havoc in this mode (like they do with other <span Class="manpage">getopt (1)</span>implementations). 
+<p class="level0"><span Class="manpage">-T</span>, <span Class="manpage">--test</span>Test if your <span Class="manpage">getopt (1)</span>is this enhanced version or an old version.  This generates no output, and sets the error status to 4.  Other implementations of <span Class="manpage">getopt (1)</span>and this version if the environment variable <a class="bold" href="#GETOPTCOMPATIBLE">GETOPT_COMPATIBLE</a> is set, will return 
+<p class="level0">and error status 0. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information and exit.  No other output is generated. <a name="PARSING"></a><h2 class="nroffsh">PARSING</h2>
+<p class="level0">This section specifies the format of the second part of the parameters of <span Class="bold">getopt</span> (the <span Class="emphasis">parameters</span> in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS ).</a>The next section 
+<p class="level0">describes the output that is generated.  These parameters were typically the parameters a shell function was called with.  Care must be taken that each parameter the shell function was called with corresponds to exactly one parameter in the parameter list of <span Class="bold">getopt</span> (see the , <a class="manpage" href="#EXAMPLES">EXAMPLES ).</a>All parsing is done by the GNU <span Class="manpage">getopt (3)</span>routines. 
+<p class="level0">The parameters are parsed from left to right.  Each parameter is classified as a short option, a long option, an argument to an option, or a non-option parameter. 
+<p class="level0">A simple short option is a 
+<p class="level0">followed by a short option character.  If the option has a required argument, it may be written directly after the option character or as the next parameter (i.e. separated by whitespace on the command line).  If the option has an optional argument, it must be written directly after the option character if present. 
+<p class="level0">It is possible to specify several short options after one 
+<p class="level0">as long as all (except possibly the last) do not have required or optional arguments. 
+<p class="level0">A long option normally begins with 
+<p class="level0">followed by the long option name.  If the option has a required argument, it may be written directly after the long option name, separated by 
+<p class="level0">or as the next argument (i.e. separated by whitespace on the command line).  If the option has an optional argument, it must be written directly after the long option name, separated by 
+<p class="level0">if present (if you add the 
+<p class="level0">but nothing behind it, it is interpreted as if no argument was present; this is a slight bug, see the <a class="manpage" href="#BUGS">BUGS ).</a>Long options may be abbreviated, as long as the abbreviation is not ambiguous. 
+<p class="level0">Each parameter not starting with a 
+<p class="level0">and not a required argument of a previous option, is a non-option parameter.  Each parameter after a 
+<p class="level0">parameter is always interpreted as a non-option parameter.  If the environment variable <a class="bold" href="#POSIXLYCORRECT">POSIXLY_CORRECT</a> is set, or if the short option string started with a 
+<p class="level0">all remaining parameters are interpreted as non-option parameters as soon as the first non-option parameter is found. <a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">Output is generated for each element described in the previous section.  Output is done in the same order as the elements are specified in the input, except for non-option parameters.  Output can be done in <span Class="emphasis">compatible</span> 
+<p class="level0">mode, or in such way that whitespace and other special characters within arguments and non-option parameters are preserved (see <a class="manpage" href="#QUOTING">QUOTING ).</a>When the output is processed in the shell script, it will seem to be composed of distinct elements that can be processed one by one (by using the shift command in most shell languages).  This is imperfect in unquoted mode, as elements can be split at unexpected places if they contain whitespace or special characters. 
+<p class="level0">If there are problems parsing the parameters, for example because a required argument is not found or an option is not recognized, an error will be reported on stderr, there will be no output for the offending element, and a non-zero error status is returned. 
+<p class="level0">For a short option, a single 
+<p class="level0">and the option character are generated as one parameter.  If the option has an argument, the next parameter will be the argument.  If the option takes an optional argument, but none was found, the next parameter will be generated but be empty in quoting mode, but no second parameter will be generated in unquoted (compatible) mode. Note that many other <span Class="manpage">getopt (1)</span>implementations do not support optional arguments. 
+<p class="level0">If several short options were specified after a single 
+<p class="level0">each will be present in the output as a separate parameter. 
+<p class="level0">For a long option, 
+<p class="level0">and the full option name are generated as one parameter.  This is done regardless whether the option was abbreviated or specified with a single 
+<p class="level0">in the input.  Arguments are handled as with short options. 
+<p class="level0">Normally, no non-option parameters output is generated until all options and their arguments have been generated.  Then 
+<p class="level0">is generated as a single parameter, and after it the non-option parameters in the order they were found, each as a separate parameter.  Only if the first character of the short options string was a 
+<p class="level0">non-option parameter output is generated at the place they are found in the input (this is not supported if the first format of the <a class="bold" href="#SYNOPSIS">SYNOPSIS</a> is used; in that case all preceding occurrences of 
+<p class="level0">and 
+<p class="level0">are ignored). <a name="QUOTING"></a><h2 class="nroffsh">QUOTING</h2>
+<p class="level0">In compatible mode, whitespace or 'special' characters in arguments or non-option parameters are not handled correctly.  As the output is fed to the shell script, the script does not know how it is supposed to break the output into separate parameters.  To circumvent this problem, this implementation offers quoting.  The idea is that output is generated with quotes around each parameter.  When this output is once again fed to the shell (usually by a shell <span Class="bold">eval</span> command), it is split correctly into separate parameters. 
+<p class="level0">Quoting is not enabled if the environment variable <a class="bold" href="#GETOPTCOMPATIBLE">GETOPT_COMPATIBLE</a> is set, if the first form of the <a class="bold" href="#SYNOPSIS">SYNOPSIS</a> is used, or if the option 
+<p class="level0">is found. 
+<p class="level0">Different shells use different quoting conventions.  You can use the 
+<p class="level0">option to select the shell you are using.  The following shells are currently supported: 
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">Actually, only two 'flavors' are distinguished: sh-like quoting conventions and csh-like quoting conventions.  Chances are that if you use another shell script language, one of these flavors can still be used. <a name="SCANNING"></a><h2 class="nroffsh">SCANNING MODES</h2>
+<p class="level0">The first character of the short options string may be a 
+<p class="level0">or a 
+<p class="level0">to indicate a special scanning mode.  If the first calling form in the <a class="bold" href="#SYNOPSIS">SYNOPSIS</a> is used they are ignored; the environment variable <a class="bold" href="#POSIXLYCORRECT">POSIXLY_CORRECT</a> is still examined, though. 
+<p class="level0">If the first character is 
+<p class="level0">or if the environment variable <a class="bold" href="#POSIXLYCORRECT">POSIXLY_CORRECT</a> is set, parsing stops as soon as the first non-option parameter (i.e. a parameter that does not start with a 
+<p class="level0">is found that is not an option argument.  The remaining parameters are all interpreted as non-option parameters. 
+<p class="level0">If the first character is a 
+<p class="level0">non-option parameters are outputted at the place where they are found; in normal operation, they are all collected at the end of output after a 
+<p class="level0">parameter has been generated.  Note that this 
+<p class="level0">parameter is still generated, but it will always be the last parameter in this mode. <a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY</h2>
+<p class="level0">This version of <span Class="manpage">getopt (1)</span>is written to be as compatible as possible to other versions. Usually you can just replace them with this version without any modifications, and with some advantages. 
+<p class="level0">If the first character of the first parameter of getopt is not a 
+<p class="level0"><span Class="bold">getopt</span> goes into compatibility mode.  It will interpret its first parameter as the string of short options, and all other arguments will be parsed.  It will still do parameter shuffling (i.e. all non-option parameters are output at the end), unless the environment variable <a class="bold" href="#POSIXLYCORRECT">POSIXLY_CORRECT</a> is set. 
+<p class="level0">The environment variable <a class="bold" href="#GETOPTCOMPATIBLE">GETOPT_COMPATIBLE</a> forces <span Class="bold">getopt</span> into compatibility mode.  Setting both this environment variable and <a class="bold" href="#POSIXLYCORRECT">POSIXLY_CORRECT</a> offers 100% compatibility for 'difficult' programs.  Usually, though, neither is needed. 
+<p class="level0">In compatibility mode, leading 
+<p class="level0">and 
+<p class="level0">characters in the short options string are ignored. <a name="RETURN"></a><h2 class="nroffsh">RETURN CODES</h2>
+<p class="level0"><span Class="bold">getopt</span> returns error code <span Class="bold">0</span> for successful parsing, <span Class="bold">1</span> if <span Class="manpage">getopt (3)</span>returns errors, <span Class="bold">2</span> if it does not understand its own parameters, <span Class="bold">3</span> if an internal error occurs like out-of-memory, and <span Class="bold">4</span> if it is called with <span Class="manpage">-T .</span><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Example scripts for (ba)sh and (t)csh are provided with the <span Class="manpage">getopt (1)</span>distribution, and are optionally installed in <span Class="manpage">/usr/share/getopt/</span>or <span Class="manpage">/usr/share/doc/</span>in the util-linux subdirectory. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><a name="POSIXLYCORRECT"></a><span class="nroffip">POSIXLY_CORRECT</span> 
+<p class="level1">This environment variable is examined by the <span Class="manpage">getopt (3)</span>routines.  If it is set, parsing stops as soon as a parameter is found that is not an option or an option argument.  All remaining parameters are also interpreted as non-option parameters, regardless whether they start with a 
+<p class="level1">
+<p class="level0"><a name="GETOPTCOMPATIBLE"></a><span class="nroffip">GETOPT_COMPATIBLE</span> 
+<p class="level1">Forces <span Class="bold">getopt</span> to use the first calling format as specified in the <a class="manpage" href="#SYNOPSIS">SYNOPSIS .</a><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="manpage">getopt (3)</span>can parse long options with optional arguments that are given an empty optional argument (but can not do this for short options). This <span Class="manpage">getopt (1)</span>treats optional arguments that are empty as if they were not present. 
+<p class="level0">The syntax if you do not want any short option variables at all is not very intuitive (you have to set them explicitly to the empty string). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Frodo Looijaard 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">getopt (3)</span>, <span Class="manpage">bash (1)</span>, <span Class="manpage">tcsh (1).</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The getopt command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

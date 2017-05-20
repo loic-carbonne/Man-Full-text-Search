@@ -1,0 +1,88 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">coqdep - Compute inter-module dependencies for Coq and Caml programs 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">coqdep</span> [ <span Class="bold">-w</span> ] [ <span Class="bold">-I \ directory</span> ] [ <span Class="bold">-coqlib \ directory</span> ] [ <span Class="bold">-c</span> ] [ <span Class="bold">-i</span> ] [ <span Class="bold">-D</span> ] [ <span Class="bold">-slash</span> ] <span Class="emphasis">filename ...</span> <span Class="emphasis">directory ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">coqdep</span> compute inter-module dependencies for Coq and Caml programs, and prints the dependencies on the standard output in a format readable by make. When a directory is given as argument, it is recursively looked at. 
+<p class="level0">Dependencies of Coq modules are computed by looking at <span Class="emphasis">Require \&</span> commands (Require, Require Export, Require Import), <span Class="emphasis">Declare \& </span> <span Class="emphasis">ML \& </span> <span Class="emphasis">Module \&</span> commands and <span Class="emphasis">Load \&</span> commands. Dependencies relative to modules from the Coq library are not printed. 
+<p class="level0">Dependencies of Caml modules are computed by looking at <span Class="emphasis">open \&</span> directives and the dot notation <span Class="emphasis">module.value \&.</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> Prints the dependencies of Caml modules. (On Caml modules, the behaviour is exactly the same as ocamldep). 
+<p class="level0"><span Class="bold">-w</span> Prints a warning if a Coq command <span Class="emphasis">Declare \& </span> <span Class="emphasis">ML \& </span> <span Class="emphasis">Module \&</span> is incorrect. (For instance, you wrote `Declare ML Module "A".', but the module A contains &#35;open "B"). The correct command is printed (see option -D). The warning is printed on standard error. 
+<p class="level0"><span Class="bold">-D</span> This commands looks for every command <span Class="emphasis">Declare \& </span> <span Class="emphasis">ML \& </span> <span Class="emphasis">Module \&</span> of each Coq file given as argument and complete (if needed) the list of Caml modules. The new command is printed on the standard output. No dependency is computed with this option. 
+<p class="level0"><span Class="bold">-slash</span> Prints paths using a slash instead of the OS specific separator. This option is useful when developping under Cygwin. 
+<p class="level0"><span Class="bold">-I \ directory</span> The files .v .ml .mli of the directory <span Class="emphasis">directory \&</span> are taken into account during the calculus of dependencies, but their own dependencies are not printed. 
+<p class="level0"><span Class="bold">-coqlib \ directory</span> Indicates where is the Coq library. The default value has been determined at installation time, and therefore this option should not be used under normal circumstances. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">ocamlc (1)</span>, <span Class="manpage">coqc (1)</span>, <span Class="manpage">make (1).</span><br>
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Lexers (for Coq and Caml) correctly handle nested comments and strings. 
+<p class="level0">The treatment of symbolic links is primitive. 
+<p class="level0">If two files have the same name, in two different directories, a warning is printed on standard error. 
+<p class="level0">There is no way to limit the scope of the recursive search for directories. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Consider the files (in the same directory): 
+<p class="level0">	A.ml B.ml C.ml D.ml X.v Y.v and Z.v 
+<p class="level0">where 
+<p class="level0"><a class="bold" href="#">\+ </a> D.ml contains the commands `open A', `open B' and `type t = C.t' ; 
+<p class="level0"><a class="bold" href="#">\+</a> Y.v contains the command `Require X' ; 
+<p class="level0"><a class="bold" href="#">\+</a> Z.v contains the commands `Require X' and `Declare ML Module "D"'. 
+<p class="level0">To get the dependencies of the Coq files: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> example% coqdep -I . *.v 
+<p class="level2">
+<p class="level2"><pre class="level2">
+<span class="bold">Z.vo: Z.v ./X.vo ./D.cmo</span> 
+<span class="bold">Y.vo: Y.v ./X.vo</span> 
+<span class="bold">X.vo: X.v</span> 
+</pre>
+
+<p class="level2">
+<p class="level1"><br>
+<p class="level1">
+<p class="level1">With a warning: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> example% coqdep -w -I . *.v 
+<p class="level2">
+<p class="level2"><pre class="level2">
+<span class="bold">Z.vo: Z.v ./X.vo ./D.cmo</span> 
+<span class="bold">Y.vo: Y.v ./X.vo</span> 
+<span class="bold">X.vo: X.v</span> 
+&#35;&#35;&#35; Warning : In file Z.v, the ML modules declaration should be
+&#35;&#35;&#35; Declare ML Module "A" "B" "C" "D".
+</pre>
+
+<p class="level2">
+<p class="level1"><br>
+<p class="level1">
+<p class="level1">To get only the Caml dependencies: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> example% coqdep -c -I . *.ml 
+<p class="level2">
+<p class="level2"><pre class="level2">
+<span class="bold">D.cmo: D.ml ./A.cmo ./B.cmo ./C.cmo</span> 
+<span class="bold">D.cmx: D.ml ./A.cmx ./B.cmx ./C.cmx</span> 
+<span class="bold">C.cmo: C.ml</span> 
+<span class="bold">C.cmx: C.ml</span> 
+<span class="bold">B.cmo: B.ml</span> 
+<span class="bold">B.cmx: B.ml</span> 
+<span class="bold">A.cmo: A.ml</span> 
+<span class="bold">A.cmx: A.ml</span> 
+</pre>
+
+<p class="level2">
+<p class="level1"><br>
+<p class="level1">
+<p class="level1"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please report any bug to <span Class="bold">coq-bugs@pauillac.inria.fr</span> 

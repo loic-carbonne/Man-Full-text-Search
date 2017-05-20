@@ -1,0 +1,50 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xfd - display all the characters in an X font <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xfd</span> [-options ...] <span Class="bold">-fn</span> <span Class="emphasis">fontname</span> 
+<p class="level0"><span Class="bold">xfd</span> [-options ...] <span Class="bold">-fa</span> <span Class="emphasis">fontname</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xfd</span> utility creates a window containing the name of the font being displayed, a row of command buttons, several lines of text for displaying character metrics, and a grid containing one glyph per cell.  The characters are shown in increasing order from left to right, top to bottom.  The first character displayed at the top left will be character number 0 unless the <span Class="bold">-start</span> option has been supplied in which case the character with the number given in the <span Class="bold">-start</span> option will be used. 
+<p class="level0">The characters are displayed in a grid of boxes, each large enough to hold any single character in the font.  Each character glyph is drawn using the PolyText16 request (used by the <span Class="emphasis">Xlib</span> routine <span Class="bold">XDrawString16</span>) or the XftDrawString32 routine, depending on whether the <span Class="bold">-fn</span> or <span Class="bold">-fa</span> option was given. If the <span Class="bold">-box</span> option is given, a rectangle will be drawn around each character, showing where an ImageText16 request (used by the <span Class="emphasis">Xlib</span> routine <span Class="bold">XDrawImageString16</span>) would cause background color to be displayed. 
+<p class="level0">The origin of each glyph is normally set so that the character is drawn in the upper left hand corner of the grid cell.  However, if a glyph has a negative left bearing or an unusually large ascent, descent, or right bearing (as is the case with <span Class="emphasis">cursor</span> font), some character may not appear in their own grid cells.  The <span Class="bold">-center</span> option may be used to force all glyphs to be centered in their respective cells. 
+<p class="level0">All the characters in the font may not fit in the window at once. To see the next page of glyphs, press the <span Class="emphasis">Next</span> button at the top of the window.  To see the previous page, press <span Class="emphasis">Prev</span>.  To exit <span Class="emphasis">xfd</span>, press <span Class="emphasis">Quit</span>. 
+<p class="level0">Individual character metrics (index, width, bearings, ascent and descent) can be displayed at the top of the window by clicking on the desired character. 
+<p class="level0">The font name displayed at the top of the window is the full name of the font, as determined by the server.  See <span Class="emphasis">xlsfonts</span> and <span Class="emphasis">fc-list</span> for ways to generate lists of fonts, as well as more detailed summaries of their metrics and properties. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">xfd</span> accepts all of the standard toolkit command line options along with the additional options listed below: 
+<p class="level0"><span Class="bold">-fn font</span> This option specifies the core X server side font to be displayed. This can also be set with the FontGrid <span Class="bold">font</span> resource.  A font must be specified. 
+<p class="level0"><span Class="bold">-fa font</span> This option specifies a Xft font to be displayed. This can also be set with the FontGrid <span Class="bold">face</span> resource. A font pattern must be specified. 
+<p class="level0"><span Class="bold">-box</span> This option indicates that a box should be displayed outlining the area that would be filled with background color by an ImageText request. This can also be set with the FontGrid <span Class="bold">boxChars</span> resource.  The default is False. 
+<p class="level0"><span Class="bold">-center</span> This option indicates that each glyph should be centered in its grid. This can also be set with the FontGrid <span Class="bold">centerChars</span> resource.  The default is False. 
+<p class="level0"><span Class="bold">-start number</span> This option specifies the glyph index of the upper left hand corner of the grid.  This is used to view characters at arbitrary locations in the font. This can also be set with the FontGrid <span Class="bold">startChar</span> resource.  The default is 0. 
+<p class="level0"><span Class="bold">-bc color</span> This option specifies the color to be used if ImageText boxes are drawn. This can also be set with the FontGrid <span Class="bold">boxColor</span> resource. 
+<p class="level0"><span Class="bold">-rows numrows</span> This option specifies the number of rows in the grid. This can also be set with the FontGrid <span Class="bold">cellRows</span> resource. 
+<p class="level0"><span Class="bold">-columns numcols</span> This option specifies the number of columns in the grid. This can also be set with the FontGrid <span Class="bold">cellColumns</span> resource. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the widgets which compose <span Class="emphasis">xfd</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. The application class name is Xfd. 
+<p class="level0"><pre class="level0">
+Xfd  xfd
+	Paned  pane
+		Label  fontname
+		Box  box
+			Command  quit
+			Command  prev
+			Command  next
+		Label  select
+		Label  metrics
+		Label  range
+		Label  start
+		Form  form
+			FontGrid  grid
+</pre>
+
+<p class="level0"><a name="FONTGRID"></a><h2 class="nroffsh">FONTGRID RESOURCES</h2>
+<p class="level0">The FontGrid widget is an application-specific widget, and a subclass of the Simple widget in the Athena widget set.  The effects and instance names of this widget's resources are given in the <a class="bold" href="#OPTIONS">OPTIONS</a> section.  Capitalize the first letter of the resource instance name to get the corresponding class name. <a name="APPLICATION"></a><h2 class="nroffsh">APPLICATION SPECIFIC RESOURCES</h2>
+<p class="level0">The instance names of the application specific resources are given below.  Capitalize the first letter of the resource instance name to get the corresponding class name. These resources are unlikely to be interesting unless you are localizing xfd for a different language. 
+<p class="level0"><span Class="bold">selectFormat</span> Specifies a printf-style format string used to display information about the selected character.  The default is "character 0x%02x%02x (%u,%u) (%&#35;o,%&#35;o)".  The arguments that will come after the format string are char.byte1, char.byte2, char.byte1, char.byte2, char.byte1, char.byte2. char.byte1 is byte 1 of the selected character. char.byte2 is byte 2 of the selected character. 
+<p class="level0"><span Class="bold">metricsFormat</span> Specifies a printf-style format string used to display character metrics.  The default is "width %d; left %d, right %d; ascent %d, descent %d (font %d, %d)".  The arguments that will come after the format string are the character metrics width, lbearing, rbearing, character ascent, character descent, font ascent, and font descent. 
+<p class="level0"><span Class="bold">rangeFormat</span> Specifies a printf-style format string used to display the range of characters currently being displayed.  The default is "range: 0x%02x%02x (%u,%u) thru 0x%02x%02x (%u,%u)".  The arguments that will come after the format string are the following fields from the XFontStruct that is returned from opening the font: min_byte1, min_char_or_byte2, min_byte1, min_char_or_byte2, max_byte1, max_char_or_byte2, max_byte1, max_char_or_byte2. 
+<p class="level0"><span Class="bold">startFormat</span> Specifies a printf-style format string used to display information about the character at the upper left corner of the font grid.  The default is "upper left: 0x%04x (%d,%d)".  The arguments that will come after the format string are the new character, the high byte of the new character, and the low byte of the new character. 
+<p class="level0"><span Class="bold">nocharFormat</span> Specifies a printf-style format string to display when the selected character does not exist.  The default is "no such character 0x%02x%02x (%u,%u) (%&#35;o,%&#35;o)".  The arguments that will come after the format string are the same as for the <span Class="bold">selectFormat</span> resource. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xlsfonts(1), xrdb(1), xfontsel(1), fc-list(1), fonts.conf(5), <span Class="emphasis">X Logical Font Description Conventions</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The program should skip over pages full of non-existent characters. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jim Fulton, MIT X Consortium; previous program of the same name by Mark Lillibridge, MIT Project Athena. 
+<p class="level0">

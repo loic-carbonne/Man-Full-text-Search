@@ -1,0 +1,687 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-pull - Fetch from and integrate with another repository or a local branch <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git pull</span> [options] [&lt;repository&gt; [&lt;refspec&gt;...]]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Incorporates changes from a remote repository into the current branch. In its default mode, git pull is shorthand for git fetch followed by git merge FETCH_HEAD. 
+<p class="level0">More precisely, <span Class="emphasis">git pull</span> runs <span Class="emphasis">git fetch</span> with the given parameters and calls <span Class="emphasis">git merge</span> to merge the retrieved branch heads into the current branch. With --rebase, it runs <span Class="emphasis">git rebase</span> instead of <span Class="emphasis">git merge</span>. 
+<p class="level0">&lt;repository&gt; should be the name of a remote repository as passed to <span Class="bold">git-fetch</span>(1). &lt;refspec&gt; can name an arbitrary remote ref (for example, the name of a tag) or even a collection of refs with corresponding remote-tracking branches (e.g., refs/heads/*:refs/remotes/origin/*), but usually it is the name of a branch in the remote repository. 
+<p class="level0">Default values for &lt;repository&gt; and &lt;branch&gt; are read from the "remote" and "merge" configuration for the current branch as set by <span Class="bold">git-branch</span>(1) --track. 
+<p class="level0">Assume the following history exists and the current branch is "master": 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;         A---B---C master on origin
+&nbsp;        /
+&nbsp;   D---E---F---G master
+&nbsp;       ^
+&nbsp;       origin/master in your repository
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Then "git pull" will fetch and replay the changes from the remote master branch since it diverged from the local master (i.e., E) until its current commit (C) on top of master and record the result in a new commit along with the names of the two parent commits and a log message from the user describing the changes. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;         A---B---C origin/master
+&nbsp;        /         e
+&nbsp;   D---E---F---G---H master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">See <span Class="bold">git-merge</span>(1) for details, including how conflicts are presented and handled. 
+<p class="level0">In Git 1.7.0 or later, to cancel a conflicting merge, use git reset --merge. <span Class="bold">Warning</span>: In older versions of Git, running <span Class="emphasis">git pull</span> with uncommitted changes is discouraged: while possible, it leaves you in a state that may be hard to back out of in the case of a conflict. 
+<p class="level0">If any of the remote changes overlap with local uncommitted changes, the merge will be automatically cancelled and the work tree untouched. It is generally best to get any local changes in working order before pulling or stash them away with <span Class="bold">git-stash</span>(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Options meant for <span Class="emphasis">git pull</span> itself and the underlying <span Class="emphasis">git merge</span> must be given before the options meant for <span Class="emphasis">git fetch</span>. 
+<p class="level0">-q, --quiet 
+<p class="level1">This is passed to both underlying git-fetch to squelch reporting of during transfer, and underlying git-merge to squelch output during merging. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Pass --verbose to git-fetch and git-merge. 
+<p class="level0">
+<p class="level0">--[no-]recurse-submodules[=yes|on-demand|no] 
+<p class="level1">This option controls if new commits of all populated submodules should be fetched too (see <span Class="bold">git-config</span>(1) and <span Class="bold">gitmodules</span>(5)). That might be necessary to get the data needed for merging submodule commits, a feature Git learned in 1.7.3. Notice that the result of a merge will not be checked out in the submodule, "git submodule update" has to be called afterwards to bring the work tree up to date with the merge result. 
+<p class="level0"><a name="Options"></a><h2 class="nroffsh">Options related to merging</h2>
+<p class="level0">
+<p class="level0">--commit, --no-commit 
+<p class="level1">Perform the merge and commit the result. This option can be used to override --no-commit. 
+<p class="level1">With --no-commit perform the merge but pretend the merge failed and do not autocommit, to give the user a chance to inspect and further tweak the merge result before committing. 
+<p class="level0">
+<p class="level0">--edit, -e, --no-edit 
+<p class="level1">Invoke an editor before committing successful mechanical merge to further edit the auto-generated merge message, so that the user can explain and justify the merge. The --no-edit option can be used to accept the auto-generated message (this is generally discouraged). 
+<p class="level1">Older scripts may depend on the historical behaviour of not allowing the user to edit the merge log message. They will see an editor opened when they run git merge. To make it easier to adjust such scripts to the updated behaviour, the environment variable GIT_MERGE_AUTOEDIT can be set to no at the beginning of them. 
+<p class="level0">
+<p class="level0">--ff 
+<p class="level1">When the merge resolves as a fast-forward, only update the branch pointer, without creating a merge commit. This is the default behavior. 
+<p class="level0">
+<p class="level0">--no-ff 
+<p class="level1">Create a merge commit even when the merge resolves as a fast-forward. This is the default behaviour when merging an annotated (and possibly signed) tag. 
+<p class="level0">
+<p class="level0">--ff-only 
+<p class="level1">Refuse to merge and exit with a non-zero status unless the current HEAD is already up-to-date or the merge can be resolved as a fast-forward. 
+<p class="level0">
+<p class="level0">--log[=&lt;n&gt;], --no-log 
+<p class="level1">In addition to branch names, populate the log message with one-line descriptions from at most &lt;n&gt; actual commits that are being merged. See also <span Class="bold">git-fmt-merge-msg</span>(1). 
+<p class="level1">With --no-log do not list one-line descriptions from the actual commits being merged. 
+<p class="level0">
+<p class="level0">--stat, -n, --no-stat 
+<p class="level1">Show a diffstat at the end of the merge. The diffstat is also controlled by the configuration option merge.stat. 
+<p class="level1">With -n or --no-stat do not show a diffstat at the end of the merge. 
+<p class="level0">
+<p class="level0">--squash, --no-squash 
+<p class="level1">Produce the working tree and index state as if a real merge happened (except for the merge information), but do not actually make a commit, move the HEAD, or record $GIT_DIR/MERGE_HEAD (to cause the next git commit command to create a merge commit). This allows you to create a single commit on top of the current branch whose effect is the same as merging another branch (or more in case of an octopus). 
+<p class="level1">With --no-squash perform the merge and commit the result. This option can be used to override --squash. 
+<p class="level0">
+<p class="level0">-s &lt;strategy&gt;, --strategy=&lt;strategy&gt; 
+<p class="level1">Use the given merge strategy; can be supplied more than once to specify them in the order they should be tried. If there is no -s option, a built-in list of strategies is used instead (<span Class="emphasis">git merge-recursive</span> when merging a single head, <span Class="emphasis">git merge-octopus</span> otherwise). 
+<p class="level0">
+<p class="level0">-X &lt;option&gt;, --strategy-option=&lt;option&gt; 
+<p class="level1">Pass merge strategy specific option through to the merge strategy. 
+<p class="level0">
+<p class="level0">--verify-signatures, --no-verify-signatures 
+<p class="level1">Verify that the commits being merged have good and trusted GPG signatures and abort the merge in case they do not. 
+<p class="level0">
+<p class="level0">--summary, --no-summary 
+<p class="level1">Synonyms to --stat and --no-stat; these are deprecated and will be removed in the future. 
+<p class="level0">
+<p class="level0">-r, --rebase[=false|true|preserve] 
+<p class="level1">When true, rebase the current branch on top of the upstream branch after fetching. If there is a remote-tracking branch corresponding to the upstream branch and the upstream branch was rebased since last fetched, the rebase uses that information to avoid rebasing non-local changes. 
+<p class="level1">When preserve, also rebase the current branch on top of the upstream branch, but pass --preserve-merges along to git rebase so that locally created merge commits will not be flattened. 
+<p class="level1">When false, merge the current branch into the upstream branch. 
+<p class="level1">See pull.rebase, branch.&lt;name&gt;.rebase and branch.autosetuprebase in <span Class="bold">git-config</span>(1) if you want to make git pull always use --rebase instead of merging. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Note</span> 
+<p class="level2"><br>This is a potentially <span Class="emphasis">dangerous</span> mode of operation. It rewrites history, which does not bode well when you published that history already. Do <span Class="bold">not</span> use this option unless you have read <span Class="bold">git-rebase</span>(1) carefully. 
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0">--no-rebase 
+<p class="level1">Override earlier --rebase. 
+<p class="level0"><a name="Options"></a><h2 class="nroffsh">Options related to fetching</h2>
+<p class="level0">
+<p class="level0">--all 
+<p class="level1">Fetch all remotes. 
+<p class="level0">
+<p class="level0">-a, --append 
+<p class="level1">Append ref names and object names of fetched refs to the existing contents of .git/FETCH_HEAD. Without this option old data in .git/FETCH_HEAD will be overwritten. 
+<p class="level0">
+<p class="level0">--depth=&lt;depth&gt; 
+<p class="level1">Deepen or shorten the history of a <span Class="emphasis">shallow</span> repository created by git clone with --depth=&lt;depth&gt; option (see <span Class="bold">git-clone</span>(1)) to the specified number of commits from the tip of each remote branch history. Tags for the deepened commits are not fetched. 
+<p class="level0">
+<p class="level0">--unshallow 
+<p class="level1">If the source repository is complete, convert a shallow repository to a complete one, removing all the limitations imposed by shallow repositories. 
+<p class="level1">If the source repository is shallow, fetch as much as possible so that the current repository has the same history as the source repository. 
+<p class="level0">
+<p class="level0">--update-shallow 
+<p class="level1">By default when fetching from a shallow repository, git fetch refuses refs that require updating .git/shallow. This option updates .git/shallow and accept such refs. 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">When <span Class="emphasis">git fetch</span> is used with &lt;rbranch&gt;:&lt;lbranch&gt; refspec, it refuses to update the local branch &lt;lbranch&gt; unless the remote branch &lt;rbranch&gt; it fetches is a descendant of &lt;lbranch&gt;. This option overrides that check. 
+<p class="level0">
+<p class="level0">-k, --keep 
+<p class="level1">Keep downloaded pack. 
+<p class="level0">
+<p class="level0">--no-tags 
+<p class="level1">By default, tags that point at objects that are downloaded from the remote repository are fetched and stored locally. This option disables this automatic tag following. The default behavior for a remote may be specified with the remote.&lt;name&gt;.tagopt setting. See <span Class="bold">git-config</span>(1). 
+<p class="level0">
+<p class="level0">-u, --update-head-ok 
+<p class="level1">By default <span Class="emphasis">git fetch</span> refuses to update the head which corresponds to the current branch. This flag disables the check. This is purely for the internal use for <span Class="emphasis">git pull</span> to communicate with <span Class="emphasis">git fetch</span>, and unless you are implementing your own Porcelain you are not supposed to use it. 
+<p class="level0">
+<p class="level0">--upload-pack &lt;upload-pack&gt; 
+<p class="level1">When given, and the repository to fetch from is handled by <span Class="emphasis">git fetch-pack</span>, <span Class="emphasis">--exec=&lt;upload-pack&gt;</span> is passed to the command to specify non-default path for the command run on the other end. 
+<p class="level0">
+<p class="level0">--progress 
+<p class="level1">Progress status is reported on the standard error stream by default when it is attached to a terminal, unless -q is specified. This flag forces progress status even if the standard error stream is not directed to a terminal. 
+<p class="level0">
+<p class="level0">&lt;repository&gt; 
+<p class="level1">The "remote" repository that is the source of a fetch or pull operation. This parameter can be either a URL (see the section GIT URLS below) or the name of a remote (see the section REMOTES below). 
+<p class="level0">
+<p class="level0">&lt;refspec&gt; 
+<p class="level1">Specifies which refs to fetch and which local refs to update. When no &lt;refspec&gt;s appear on the command line, the refs to fetch are read from remote.&lt;repository&gt;.fetch variables instead (see <span Class="bold">git-fetch</span>(1)). 
+<p class="level1">The format of a &lt;refspec&gt; parameter is an optional plus +, followed by the source ref &lt;src&gt;, followed by a colon :, followed by the destination ref &lt;dst&gt;. The colon can be omitted when &lt;dst&gt; is empty. 
+<p class="level1">tag &lt;tag&gt; means the same as refs/tags/&lt;tag&gt;:refs/tags/&lt;tag&gt;; it requests fetching everything up to the given tag. 
+<p class="level1">The remote ref that matches &lt;src&gt; is fetched, and if &lt;dst&gt; is not empty string, the local ref that matches it is fast-forwarded using &lt;src&gt;. If the optional plus + is used, the local ref is updated even if it does not result in a fast-forward update. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Note</span> 
+<p class="level2"><br>When the remote branch you want to fetch is known to be rewound and rebased regularly, it is expected that its new tip will not be descendant of its previous tip (as stored in your remote-tracking branch the last time you fetched). You would want to use the + sign to indicate non-fast-forward updates will be needed for such branches. There is no way to determine or declare that a branch will be made available in a repository with this behavior; the pulling user simply must know this is the expected usage pattern for a branch. 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Note</span> 
+<p class="level2"><br>There is a difference between listing multiple &lt;refspec&gt; directly on <span Class="emphasis">git pull</span> command line and having multiple remote.&lt;repository&gt;.fetch entries in your configuration for a &lt;repository&gt; and running a <span Class="emphasis">git pull</span> command without any explicit &lt;refspec&gt; parameters. &lt;refspec&gt;s listed explicitly on the command line are always merged into the current branch after fetching. In other words, if you list more than one remote ref, <span Class="emphasis">git pull</span> will create an Octopus merge. On the other hand, if you do not list any explicit &lt;refspec&gt; parameter on the command line, <span Class="emphasis">git pull</span> will fetch all the &lt;refspec&gt;s it finds in the remote.&lt;repository&gt;.fetch configuration and merge only the first &lt;refspec&gt; found into the current branch. This is because making an Octopus from remote refs is rarely done, while keeping track of multiple remote heads in one-go by fetching more than one is often useful. 
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT URLS</h2>
+<p class="level0">
+<p class="level0">In general, URLs contain information about the transport protocol, the address of the remote server, and the path to the repository. Depending on the transport protocol, some of this information may be absent. 
+<p class="level0">Git supports ssh, git, http, and https protocols (in addition, ftp, and ftps can be used for fetching and rsync can be used for fetching and pushing, but these are inefficient and deprecated; do not use them). 
+<p class="level0">The native transport (i.e. git:// URL) does no authentication and should be used with caution on unsecured networks. 
+<p class="level0">The following syntaxes may be used with them: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">ssh://[user@]host.xz[:port]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">git://host.xz[:port]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">http[s]://host.xz[:port]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">ftp[s]://host.xz[:port]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">rsync://host.xz/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">An alternative scp-like syntax may also be used with the ssh protocol: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">[user@]host.xz:path/to/repo.git/ 
+<p class="level0">
+<p class="level0">This syntax is only recognized if there are no slashes before the first colon. This helps differentiate a local path that contains a colon. For example the local path foo:bar could be specified as an absolute path or ./foo:bar to avoid being misinterpreted as an ssh url. 
+<p class="level0">The ssh and git protocols additionally support ~username expansion: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">ssh://[user@]host.xz[:port]/~[user]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">git://host.xz[:port]/~[user]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">[user@]host.xz:/~[user]/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">For local repositories, also supported by Git natively, the following syntaxes may be used: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/path/to/repo.git/ 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">file:///path/to/repo.git/ 
+<p class="level0">
+<p class="level0">These two syntaxes are mostly equivalent, except when cloning, when the former implies --local option. See <span Class="bold">git-clone</span>(1) for details. 
+<p class="level0">When Git doesn(cqt know how to handle a certain transport protocol, it attempts to use the <span Class="emphasis">remote-&lt;transport&gt;</span> remote helper, if one exists. To explicitly request a remote helper, the following syntax may be used: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">&lt;transport&gt;::&lt;address&gt; 
+<p class="level0">
+<p class="level0">where &lt;address&gt; may be a path, a server and path, or an arbitrary URL-like string recognized by the specific remote helper being invoked. See <span Class="bold">gitremote-helpers</span>(1) for details. 
+<p class="level0">If there are a large number of similarly-named remote repositories and you want to use a different format for them (such that the URLs you use will be rewritten into URLs that work), you can create a configuration section of the form: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [url "&lt;actual url base&gt;"]
+&nbsp;               insteadOf = &lt;other url base&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For example, with this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [url "git://git.host.xz/"]
+&nbsp;               insteadOf = host.xz:/path/to/
+&nbsp;               insteadOf = work:
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be rewritten in any context that takes a URL to be "git://git.host.xz/repo.git". 
+<p class="level0">If you want to rewrite URLs for push only, you can create a configuration section of the form: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [url "&lt;actual url base&gt;"]
+&nbsp;               pushInsteadOf = &lt;other url base&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For example, with this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [url "ssh://example.org/"]
+&nbsp;               pushInsteadOf = git://example.org/
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">a URL like "git://example.org/path/to/repo.git" will be rewritten to "ssh://example.org/path/to/repo.git" for pushes, but pulls will still use the original URL. <a name="REMOTES"></a><h2 class="nroffsh">REMOTES</h2>
+<p class="level0">
+<p class="level0">The name of one of the following can be used instead of a URL as &lt;repository&gt; argument: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">a remote in the Git configuration file: $GIT_DIR/config, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">a file in the $GIT_DIR/remotes directory, or 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">a file in the $GIT_DIR/branches directory. 
+<p class="level0">
+<p class="level0">All of these also allow you to omit the refspec from the command line because they each contain a refspec which git will use by default. <a name="Named"></a><h2 class="nroffsh">Named remote in configuration file</h2>
+<p class="level0">
+<p class="level0">You can choose to provide the name of a remote which you had previously configured using <span Class="bold">git-remote</span>(1), <span Class="bold">git-config</span>(1) or even by a manual edit to the $GIT_DIR/config file. The URL of this remote will be used to access the repository. The refspec of this remote will be used by default when you do not provide a refspec on the command line. The entry in the config file would appear like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [remote "&lt;name&gt;"]
+&nbsp;               url = &lt;url&gt;
+&nbsp;               pushurl = &lt;pushurl&gt;
+&nbsp;               push = &lt;refspec&gt;
+&nbsp;               fetch = &lt;refspec&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The &lt;pushurl&gt; is used for pushes only. It is optional and defaults to &lt;url&gt;. <a name="Named"></a><h2 class="nroffsh">Named file in $GIT_DIR/remotes</h2>
+<p class="level0">
+<p class="level0">You can choose to provide the name of a file in $GIT_DIR/remotes. The URL in this file will be used to access the repository. The refspec in this file will be used as default when you do not provide a refspec on the command line. This file should have the following format: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       URL: one of the above URL format
+&nbsp;       Push: &lt;refspec&gt;
+&nbsp;       Pull: &lt;refspec&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Push: lines are used by <span Class="emphasis">git push</span> and Pull: lines are used by <span Class="emphasis">git pull</span> and <span Class="emphasis">git fetch</span>. Multiple Push: and Pull: lines may be specified for additional branch mappings. <a name="Named"></a><h2 class="nroffsh">Named file in $GIT_DIR/branches</h2>
+<p class="level0">
+<p class="level0">You can choose to provide the name of a file in $GIT_DIR/branches. The URL in this file will be used to access the repository. This file should have the following format: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       &lt;url&gt;&#35;&lt;head&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">&lt;url&gt; is required; &#35;&lt;head&gt; is optional. 
+<p class="level0">Depending on the operation, git will use one of the following refspecs, if you don(cqt provide one on the command line. &lt;branch&gt; is the name of this file in $GIT_DIR/branches and &lt;head&gt; defaults to master. 
+<p class="level0">git fetch uses: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">git push uses: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       HEAD:refs/heads/&lt;head&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="MERGE"></a><h2 class="nroffsh">MERGE STRATEGIES</h2>
+<p class="level0">
+<p class="level0">The merge mechanism (git merge and git pull commands) allows the backend <span Class="emphasis">merge strategies</span> to be chosen with -s option. Some strategies can also take their own options, which can be passed by giving -X&lt;option&gt; arguments to git merge and/or git pull. 
+<p class="level0">resolve 
+<p class="level1">This can only resolve two heads (i.e. the current branch and another branch you pulled from) using a 3-way merge algorithm. It tries to carefully detect criss-cross merge ambiguities and is considered generally safe and fast. 
+<p class="level0">
+<p class="level0">recursive 
+<p class="level1">This can only resolve two heads using a 3-way merge algorithm. When there is more than one common ancestor that can be used for 3-way merge, it creates a merged tree of the common ancestors and uses that as the reference tree for the 3-way merge. This has been reported to result in fewer merge conflicts without causing mismerges by tests done on actual merge commits taken from Linux 2.6 kernel development history. Additionally this can detect and handle merges involving renames. This is the default merge strategy when pulling or merging one branch. 
+<p class="level1">The <span Class="emphasis">recursive</span> strategy can take the following options: 
+<p class="level1">ours 
+<p class="level2">This option forces conflicting hunks to be auto-resolved cleanly by favoring <span Class="emphasis">our</span> version. Changes from the other tree that do not conflict with our side are reflected to the merge result. For a binary file, the entire contents are taken from our side. 
+<p class="level2">This should not be confused with the <span Class="emphasis">ours</span> merge strategy, which does not even look at what the other tree contains at all. It discards everything the other tree did, declaring <span Class="emphasis">our</span> history contains all that happened in it. 
+<p class="level1">
+<p class="level1">theirs 
+<p class="level2">This is the opposite of <span Class="emphasis">ours</span>. 
+<p class="level1">
+<p class="level1">patience 
+<p class="level2">With this option, <span Class="emphasis">merge-recursive</span> spends a little extra time to avoid mismerges that sometimes occur due to unimportant matching lines (e.g., braces from distinct functions). Use this when the branches to be merged have diverged wildly. See also <span Class="bold">git-diff</span>(1)--patience. 
+<p class="level1">
+<p class="level1">diff-algorithm=[patience|minimal|histogram|myers] 
+<p class="level2">Tells <span Class="emphasis">merge-recursive</span> to use a different diff algorithm, which can help avoid mismerges that occur due to unimportant matching lines (such as braces from distinct functions). See also <span Class="bold">git-diff</span>(1)--diff-algorithm. 
+<p class="level1">
+<p class="level1">ignore-space-change, ignore-all-space, ignore-space-at-eol 
+<p class="level2">Treats lines with the indicated type of whitespace change as unchanged for the sake of a three-way merge. Whitespace changes mixed with other changes to a line are not ignored. See also <span Class="bold">git-diff</span>(1)-b, -w, and --ignore-space-at-eol. 
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">If <span Class="emphasis">their</span> version only introduces whitespace changes to a line, <span Class="emphasis">our</span> version is used; 
+<p class="level2">
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">If <span Class="emphasis">our</span> version introduces whitespace changes but <span Class="emphasis">their</span> version includes a substantial change, <span Class="emphasis">their</span> version is used; 
+<p class="level2">
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">Otherwise, the merge proceeds in the usual way. 
+<p class="level2">
+<p class="level1">
+<p class="level1">renormalize 
+<p class="level2">This runs a virtual check-out and check-in of all three stages of a file when resolving a three-way merge. This option is meant to be used when merging branches with different clean filters or end-of-line normalization rules. See "Merging branches with differing checkin/checkout attributes" in <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level1">
+<p class="level1">no-renormalize 
+<p class="level2">Disables the renormalize option. This overrides the merge.renormalize configuration variable. 
+<p class="level1">
+<p class="level1">rename-threshold=&lt;n&gt; 
+<p class="level2">Controls the similarity threshold used for rename detection. See also <span Class="bold">git-diff</span>(1)-M. 
+<p class="level1">
+<p class="level1">subtree[=&lt;path&gt;] 
+<p class="level2">This option is a more advanced form of <span Class="emphasis">subtree</span> strategy, where the strategy makes a guess on how two trees must be shifted to match with each other when merging. Instead, the specified path is prefixed (or stripped from the beginning) to make the shape of two trees to match. 
+<p class="level1">
+<p class="level0">
+<p class="level0">octopus 
+<p class="level1">This resolves cases with more than two heads, but refuses to do a complex merge that needs manual resolution. It is primarily meant to be used for bundling topic branch heads together. This is the default merge strategy when pulling or merging more than one branch. 
+<p class="level0">
+<p class="level0">ours 
+<p class="level1">This resolves any number of heads, but the resulting tree of the merge is always that of the current branch head, effectively ignoring all changes from all other branches. It is meant to be used to supersede old development history of side branches. Note that this is different from the -Xours option to the <span Class="emphasis">recursive</span> merge strategy. 
+<p class="level0">
+<p class="level0">subtree 
+<p class="level1">This is a modified recursive strategy. When merging trees A and B, if B corresponds to a subtree of A, B is first adjusted to match the tree structure of A, instead of reading the trees at the same level. This adjustment is also done to the common ancestor tree. 
+<p class="level0">
+<p class="level0">With the strategies that use 3-way merge (including the default, <span Class="emphasis">recursive</span>), if a change is made on both branches, but later reverted on one of the branches, that change will be present in the merged result; some people find this behavior confusing. It occurs because only the heads and the merge base are considered when performing a merge, not the individual commits. The merge algorithm therefore considers the reverted change as no change at all, and substitutes the changed version instead. <a name="DEFAULT"></a><h2 class="nroffsh">DEFAULT BEHAVIOUR</h2>
+<p class="level0">
+<p class="level0">Often people use git pull without giving any parameter. Traditionally, this has been equivalent to saying git pull origin. However, when configuration branch.&lt;name&gt;.remote is present while on branch &lt;name&gt;, that value is used instead of origin. 
+<p class="level0">In order to determine what URL to use to fetch from, the value of the configuration remote.&lt;origin&gt;.url is consulted and if there is not any such variable, the value on URL: ` line in `$GIT_DIR/remotes/&lt;origin&gt; file is used. 
+<p class="level0">In order to determine what remote branches to fetch (and optionally store in the remote-tracking branches) when the command is run without any refspec parameters on the command line, values of the configuration variable remote.&lt;origin&gt;.fetch are consulted, and if there aren(cqt any, $GIT_DIR/remotes/&lt;origin&gt; file is consulted and its `Pull: ` lines are used. In addition to the refspec formats described in the OPTIONS section, you can have a globbing refspec that looks like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+refs/heads/*:refs/remotes/origin/*
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">A globbing refspec must have a non-empty RHS (i.e. must store what were fetched in remote-tracking branches), and its LHS and RHS must end with /*. The above specifies that all remote branches are tracked using remote-tracking branches in refs/remotes/origin/ hierarchy under the same name. 
+<p class="level0">The rule to determine which remote branch to merge after fetching is a bit involved, in order not to break backward compatibility. 
+<p class="level0">If explicit refspecs were given on the command line of git pull, they are all merged. 
+<p class="level0">When no refspec was given on the command line, then git pull uses the refspec from the configuration or $GIT_DIR/remotes/&lt;origin&gt;. In such cases, the following rules apply: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">If branch.&lt;name&gt;.merge configuration for the current branch &lt;name&gt; exists, that is the name of the branch at the remote site that is merged. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">If the refspec is a globbing one, nothing is merged. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">Otherwise the remote branch of the first refspec is merged. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Update the remote-tracking branches for the repository you cloned from, then merge one of them into your current branch: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git pull, git pull origin
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Normally the branch merged in is the HEAD of the remote repository, but the choice is determined by the branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge options; see <span Class="bold">git-config</span>(1) for details. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Merge into the current branch the remote branch next: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git pull origin next
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">This leaves a copy of next temporarily in FETCH_HEAD, but does not update any remote-tracking branches. Using remote-tracking branches, the same can be done by invoking fetch and merge: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git fetch origin
+$ git merge origin/next
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">If you tried a pull which resulted in complex conflicts and would want to start over, you can recover with <span Class="emphasis">git reset</span>. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Using --recurse-submodules can only fetch new commits in already checked out submodules right now. When e.g. upstream added a new submodule in the just fetched commits of the superproject the submodule itself can not be fetched, making it impossible to check out that submodule later without having to do a fetch again. This is expected to be fixed in a future Git version. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-fetch</span>(1), <span Class="bold">git-merge</span>(1), <span Class="bold">git-config</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

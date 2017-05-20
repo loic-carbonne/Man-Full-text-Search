@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xconsole - monitor system console messages with X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xconsole</span> [-<span Class="emphasis">toolkitoption</span> ...] [-file <span Class="emphasis">file-name</span>] [-notify] [-stripNonprint] [-daemon] [-verbose] [-exitOnFail] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xconsole</span> program displays messages which are usually sent to /dev/console. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xconsole</span> accepts all of the standard X Toolkit command line options along with the additional options listed below: 
+<p class="level0"><span Class="bold">-file file-name</span> To monitor some other device, use this option to specify the device name. This does not work on regular files as they are always ready to be read from. 
+<p class="level0"><span Class="bold">-notify -nonotify</span> When new data are received from the console and the notify option is set, the icon name of the application has " *" appended, so that it is evident even when the application is iconified.  -notify is the default. 
+<p class="level0"><span Class="bold">-daemon</span> This option causes <span Class="emphasis">xconsole</span> to place itself in the background, using fork/exit. 
+<p class="level0"><span Class="bold">-verbose</span> When set, this option directs <span Class="emphasis">xconsole</span> to display an informative message in the first line of the text buffer. 
+<p class="level0"><span Class="bold">-exitOnFail</span> When set, this option directs <span Class="emphasis">xconsole</span> to exit when it is unable to redirect the console output. 
+<p class="level0"><span Class="bold">-saveLines count</span> When set, <span Class="emphasis">xconsole</span> only preserves <span Class="emphasis">count</span> lines of message history instead of growing the text buffer without bound (a <span Class="emphasis">count</span> of zero - the default - is treated as placing no limit on the history). <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">This program uses the <span Class="emphasis">Athena Text</span> widget, look in the <span Class="emphasis">Athena Widget Set</span> documentation for controlling it. 
+<p class="level0"><span Class="emphasis">Xconsole</span> otherwise accepts resources of the same names as the command-line options (without the leading dash).  "file" is a string type, "saveLines" an integer, and the remaining options are booleans. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xconsole</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+XConsole  xconsole
+&nbsp;    XConsole  text
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/XConsole</span> specifies required resources <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1), Athena Text widget <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Keith Packard (MIT X Consortium) 

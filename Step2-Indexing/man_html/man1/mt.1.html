@@ -1,0 +1,48 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mt - control magnetic tape drive operation <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mt</span> [-V] [-f device] [--file=device] [--rsh-command=command] [--version] operation [count] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents the GNU version of <span Class="manpage">mt .</span><span Class="bold">mt</span> performs the given <span Class="emphasis">operation ,</span> which must be one of the tape operations listed below, on a tape drive. 
+<p class="level0">The default tape device to operate on is taken from the file <span Class="emphasis">/usr/include/sys/mtio.h</span> when <span Class="bold">mt</span> is compiled.  It can be overridden by giving a device file name in the environment variable <span Class="manpage">TAPE</span>or by a command line option (see below), which also overrides the environment variable. 
+<p class="level0">The device must be either a character special file or a remote tape drive.  To use a tape drive on another machine as the archive, use a filename that starts with `HOSTNAME:'.  The hostname can be preceded by a username and an `@' to access the remote tape drive as that user, if you have permission to do so (typically an entry in that user's `~/.rhosts' file). 
+<p class="level0">The available operations are listed below.  Unique abbreviations are accepted.  Not all operations are available on all systems, or work on all types of tape drives. Some operations optionally take a repeat count, which can be given after the operation name and defaults to 1. 
+<p class="level0"><a name="eof"></a><span class="nroffip">eof, weof</span> 
+<p class="level1">Write <span Class="emphasis">count</span> EOF marks at current position. 
+<p class="level0"><a name="fsf"></a><span class="nroffip">fsf</span> 
+<p class="level1">Forward space <span Class="emphasis">count</span> files. The tape is positioned on the first block of the next file. 
+<p class="level0"><a name="bsf"></a><span class="nroffip">bsf</span> 
+<p class="level1">Backward space <span Class="emphasis">count</span> files. The tape is positioned on the first block of the next file. 
+<p class="level0"><a name="fsr"></a><span class="nroffip">fsr</span> 
+<p class="level1">Forward space <span Class="emphasis">count</span> records. 
+<p class="level0"><a name="bsr"></a><span class="nroffip">bsr</span> 
+<p class="level1">Backward space <span Class="emphasis">count</span> records. 
+<p class="level0"><a name="bsfm"></a><span class="nroffip">bsfm</span> 
+<p class="level1">Backward space <span Class="emphasis">count</span> file marks. The tape is positioned on the beginning-of-the-tape side of the file mark. 
+<p class="level0"><a name="fsfm"></a><span class="nroffip">fsfm</span> 
+<p class="level1">Forward space <span Class="emphasis">count</span> file marks. The tape is positioned on the beginning-of-the-tape side of the file mark. 
+<p class="level0"><a name="asf"></a><span class="nroffip">asf</span> 
+<p class="level1">Absolute space to file number <span Class="emphasis">count .</span> Equivalent to rewind followed by fsf <span Class="emphasis">count .</span> 
+<p class="level0"><a name="seek"></a><span class="nroffip">seek</span> 
+<p class="level1">Seek to block number <span Class="emphasis">count .</span> 
+<p class="level0"><a name="eom"></a><span class="nroffip">eom</span> 
+<p class="level1">Space to the end of the recorded media on the tape (for appending files onto tapes). 
+<p class="level0"><a name="rewind"></a><span class="nroffip">rewind</span> 
+<p class="level1">Rewind the tape. 
+<p class="level0"><a name="offline"></a><span class="nroffip">offline, rewoffl</span> 
+<p class="level1">Rewind the tape and, if applicable, unload the tape. 
+<p class="level0"><a name="status"></a><span class="nroffip">status</span> 
+<p class="level1">Print status information about the tape unit. 
+<p class="level0"><a name="retension"></a><span class="nroffip">retension</span> 
+<p class="level1">Rewind the tape, then wind it to the end of the reel, then rewind it again. 
+<p class="level0"><a name="erase"></a><span class="nroffip">erase</span> 
+<p class="level1">Erase the tape. 
+<p class="level1"><span Class="bold">mt</span> exits with a status of 0 if the operation succeeded, 1 if the operation or device name given was invalid, or 2 if the operation failed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">-f, --file=device</span> Use <span Class="emphasis">device</span> as the file name of the tape drive to operate on. To use a tape drive on another machine, use a filename that starts with `HOSTNAME:'.  The hostname can be preceded by a username and an `@' to access the remote tape drive as that user, if you have permission to do so (typically an entry in that user's `~/.rhosts' file). 
+<p class="level0"><span Class="emphasis">--rsh-command=command</span> Notifies <span Class="bold">mt</span> that it should use <span Class="emphasis">command</span> to communicate with remote devices instead of <span Class="emphasis">/usr/bin/ssh</span> or <span Class="emphasis">/usr/bin/rsh .</span> 
+<p class="level0"><span Class="emphasis">-V, --version</span> Print the version number of <span Class="manpage">mt .</span><a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report cpio bugs to bug-cpio@gnu.org 
+<p class="level0">GNU cpio home page: &lt;http://www.gnu.org/software/cpio/&gt; 
+<p class="level0">General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt; 
+<p class="level0">Report cpio translation bugs to &lt;http://translationproject.org/team/&gt; 
+<p class="level0">

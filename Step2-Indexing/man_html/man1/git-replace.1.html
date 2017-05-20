@@ -1,0 +1,118 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-replace - Create, list, delete refs to replace objects <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git replace</span> [-f] &lt;object&gt; &lt;replacement&gt;
+<span class="emphasis">git replace</span> [-f] --edit &lt;object&gt;
+<span class="emphasis">git replace</span> [-f] --graft &lt;commit&gt; [&lt;parent&gt;...]
+<span class="emphasis">git replace</span> -d &lt;object&gt;...
+<span class="emphasis">git replace</span> [--format=&lt;format&gt;] [-l [&lt;pattern&gt;]]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Adds a <span Class="emphasis">replace</span> reference in refs/replace/ namespace. 
+<p class="level0">The name of the <span Class="emphasis">replace</span> reference is the SHA-1 of the object that is replaced. The content of the <span Class="emphasis">replace</span> reference is the SHA-1 of the replacement object. 
+<p class="level0">The replaced object and the replacement object must be of the same type. This restriction can be bypassed using -f. 
+<p class="level0">Unless -f is given, the <span Class="emphasis">replace</span> reference must not yet exist. 
+<p class="level0">There is no other restriction on the replaced and replacement objects. Merge commits can be replaced by non-merge commits and vice versa. 
+<p class="level0">Replacement references will be used by default by all Git commands except those doing reachability traversal (prune, pack transfer and fsck). 
+<p class="level0">It is possible to disable use of replacement references for any command using the --no-replace-objects option just after <span Class="emphasis">git</span>. 
+<p class="level0">For example if commit <span Class="emphasis">foo</span> has been replaced by commit <span Class="emphasis">bar</span>: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git --no-replace-objects cat-file commit foo
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">shows information about commit <span Class="emphasis">foo</span>, while: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git cat-file commit foo
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">shows information about commit <span Class="emphasis">bar</span>. 
+<p class="level0">The <span Class="emphasis">GIT_NO_REPLACE_OBJECTS</span> environment variable can be set to achieve the same effect as the --no-replace-objects option. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">If an existing replace ref for the same object exists, it will be overwritten (instead of failing). 
+<p class="level0">
+<p class="level0">-d, --delete 
+<p class="level1">Delete existing replace refs for the given objects. 
+<p class="level0">
+<p class="level0">--edit &lt;object&gt; 
+<p class="level1">Edit an object(cqs content interactively. The existing content for &lt;object&gt; is pretty-printed into a temporary file, an editor is launched on the file, and the result is parsed to create a new object of the same type as &lt;object&gt;. A replacement ref is then created to replace &lt;object&gt; with the newly created object. See <span Class="bold">git-var</span>(1) for details about how the editor will be chosen. 
+<p class="level0">
+<p class="level0">--raw 
+<p class="level1">When editing, provide the raw object contents rather than pretty-printed ones. Currently this only affects trees, which will be shown in their binary form. This is harder to work with, but can help when repairing a tree that is so corrupted it cannot be pretty-printed. Note that you may need to configure your editor to cleanly read and write binary data. 
+<p class="level0">
+<p class="level0">--graft &lt;commit&gt; [&lt;parent&gt;...] 
+<p class="level1">Create a graft commit. A new commit is created with the same content as &lt;commit&gt; except that its parents will be [&lt;parent&gt;...] instead of &lt;commit&gt;*(Aqs parents. A replacement ref is then created to replace &lt;commit&gt; with the newly created commit. See contrib/convert-grafts-to-replace-refs.sh for an example script based on this option that can convert grafts to replace refs. 
+<p class="level0">
+<p class="level0">-l &lt;pattern&gt;, --list &lt;pattern&gt; 
+<p class="level1">List replace refs for objects that match the given pattern (or all if no pattern is given). Typing "git replace" without arguments, also lists all replace refs. 
+<p class="level0">
+<p class="level0">--format=&lt;format&gt; 
+<p class="level1">When listing, use the specified &lt;format&gt;, which can be one of <span Class="emphasis">short</span>, <span Class="emphasis">medium</span> and <span Class="emphasis">long</span>. When omitted, the format defaults to <span Class="emphasis">short</span>. 
+<p class="level0"><a name="FORMATS"></a><h2 class="nroffsh">FORMATS</h2>
+<p class="level0">
+<p class="level0">The following format are available: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">short</span>: &lt;replaced sha1&gt; 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">medium</span>: &lt;replaced sha1&gt; (-&gt; &lt;replacement sha1&gt; 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">long</span>: &lt;replaced sha1&gt; (&lt;replaced type&gt;) (-&gt; &lt;replacement sha1&gt; (&lt;replacement type&gt;) 
+<p class="level0"><a name="CREATING"></a><h2 class="nroffsh">CREATING REPLACEMENT OBJECTS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-filter-branch</span>(1), <span Class="bold">git-hash-object</span>(1) and <span Class="bold">git-rebase</span>(1), among other git commands, can be used to create replacement objects from existing objects. The --edit option can also be used with <span Class="emphasis">git replace</span> to create a replacement object by editing an existing object. 
+<p class="level0">If you want to replace many blobs, trees or commits that are part of a string of commits, you may just want to create a replacement string of commits and then only replace the commit at the tip of the target string of commits with the commit at the tip of the replacement string of commits. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Comparing blobs or trees that have been replaced with those that replace them will not work properly. And using git reset --hard to go back to a replaced commit will move the branch to the replacement commit instead of the replaced commit. 
+<p class="level0">There may be other problems when using <span Class="emphasis">git rev-list</span> related to pending objects. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-hash-object</span>(1) <span Class="bold">git-filter-branch</span>(1) <span Class="bold">git-rebase</span>(1) <span Class="bold">git-tag</span>(1) <span Class="bold">git-branch</span>(1) <span Class="bold">git-commit</span>(1) <span Class="bold">git-var</span>(1) <span Class="bold">git</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

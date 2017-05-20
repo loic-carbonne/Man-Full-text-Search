@@ -1,0 +1,82 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">localedef - compile locale definition files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">localedef</span> 
+<p class="level0"><span Class="emphasis">outputpath</span> <br><span Class="bold">localedef --list-archive</span> 
+<p class="level0"><br><span Class="bold">localedef --delete-from-archive</span> 
+<p class="level0"><span Class="emphasis">localename  ...</span> <br><span Class="bold">localedef --add-to-archive</span> 
+<p class="level0"><span Class="emphasis">compiledpath</span> <br><span Class="bold">localedef --version</span> <br><span Class="bold">localedef --help</span> <br><span Class="bold">localedef --usage</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">localedef</span> program reads the indicated <span Class="emphasis">charmap</span> and <span Class="emphasis">input</span> files, compiles them to a binary form quickly usable by the locale functions in the C library 
+<p class="level0"><span Class="manpage">localeconv (3)</span>etc.), and places the output in <span Class="emphasis">outputpath .</span> 
+<p class="level0">The <span Class="emphasis">outputpath</span> argument is interpreted as follows: 
+<p class="level0"><a name=""></a><span class="nroffip">* 3</span> 
+<p class="level1">If <span Class="emphasis">outputpath</span> contains a slash character ('/'), it is interpreted as the name of the directory where the output defintions are to be stored. In this case, there is a separate output file for each locale category 
+<p class="level1"><span Class="emphasis">LC_NUMERIC ,</span> and so on). 
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">If the <span Class="bold">--no-archive</span> option is used, <span Class="emphasis">outputpath</span> is the name of a subdirectory in <span Class="emphasis">/usr/lib/locale</span> where per-category compiled files are placed. 
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">Otherwise, <span Class="emphasis">outputpath</span> is the name of a locale and the compiled locale data is added to the archive file <span Class="emphasis">/usr/lib/locale/locale-archive .</span> A locale archive is a memory-mapped file which contains all the system-provided locales; it is used by all localized programs when the environment variable <span Class="bold">LOCPATH</span> is not set. 
+<p class="level1">In any case, <span Class="bold">localedef</span> aborts if the directory in which it tries to write locale files has not already been created. 
+<p class="level1">If no <span Class="emphasis">charmapfile</span> is given, the value <span Class="emphasis">ANSI_X3.4-1968</span> (for ASCII) is used by default. If no <span Class="emphasis">inputfile</span> is given, or if it is given as a dash (-), <span Class="bold">localedef</span> reads from standard input. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><a name="Operation-selection"></a><h2 class="nroffsh">Operation-selection options</h2>
+<p class="level0">A few options direct <span Class="bold">localedef</span> to do something other than compile locale definitions. Only one of these options should be used at a time. 
+<p class="level0"><span Class="bold">--delete-from-archive</span> Delete the named locales from the locale archive file. 
+<p class="level0"><span Class="bold">--list-archive</span> List the locales contained in the locale archive file. 
+<p class="level0"><span Class="bold">--add-to-archive</span> Add the <span Class="emphasis">compiledpath</span> directories to the locale archive file. The directories should have been created by previous runs of <span Class="manpage">localedef</span>using <span Class="manpage">--no-archive .</span><a name="Other"></a><h2 class="nroffsh">Other options</h2>
+<p class="level0">Some of the following options are only sensible for certain operations; generally, it should be self-evident which ones. 
+<p class="level0"><span Class="bold">-f  charmapfile , --charmap= charmapfile</span> Specify the file that defines the character set that is used by the input file. If <span Class="emphasis">charmapfile</span> contains a slash character ('/'), it is interpreted as the name of the character map. Otherwise, the file is sought in the current directory and the default directory for character maps. If the environment variable <span Class="bold">I18NPATH</span> is set, <span Class="emphasis">$I18NPATH/charmaps/</span> and <span Class="emphasis">$I18NPATH/</span> are also searched after the current directory. The default directory for character maps is printed by <span Class="manpage">localedef --help .</span>
+<p class="level0"><span Class="bold">-i  inputfile , --inputfile= inputfile</span> Specify the locale definition file to compile. The file is sought in the current directory and the default directory for locale definition files. If the environment variable <span Class="bold">I18NPATH</span> is set, <span Class="emphasis">$I18NPATH/locales/</span> and <span Class="emphasis">$I18NPATH</span> are also searched after the current directory. The default directory for locale definition files is printed by <span Class="manpage">localedef --help .</span>
+<p class="level0"><span Class="bold">-u  repertoirefile , --repertoire-map= repertoirefile</span> Read mappings from symbolic names to Unicode code points from <span Class="emphasis">repertoirefile .</span> If <span Class="emphasis">repertoirefile</span> contains a slash character ('/'), it is interpreted as the pathname of the repertoire map. Otherwise, the file is sought in the current directory and the default directory for repertoire maps. If the environment variable <span Class="bold">I18NPATH</span> is set, <span Class="emphasis">$I18NPATH/repertoiremaps/</span> and <span Class="emphasis">$I18NPATH</span> are also searched after the current directory. The default directory for repertoire maps is printed by <span Class="manpage">localedef --help .</span>
+<p class="level0"><span Class="bold">-A  aliasfile , --alias-file= aliasfile</span> Use <span Class="emphasis">aliasfile</span> to look up aliases for locale names. There is no default aliases file. 
+<p class="level0"><span Class="bold">--prefix= pathname</span> Set the prefix to be prepended to the full archive pathname. By default, the prefix is empty. Setting the prefix to <span Class="emphasis">foo ,</span> the archive would be placed in <span Class="emphasis">foo/usr/lib/locale/locale-archive .</span> 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--force</span>Write the output files even if warnings were generated about the input file. 
+<p class="level0"><span Class="bold">--old-style</span> Create old-style hash tables instead of 3-level access tables. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Generate extra warnings about errors that are normally ignored. 
+<p class="level0"><span Class="bold">--quiet</span> Suppress all notifications and warnings, and report only fatal errors. 
+<p class="level0"><span Class="bold">--posix</span> Conform strictly to POSIX.  Implies <span Class="manpage">--verbose .</span>This option currently has no other effect. POSIX conformance is assumed if the environment variable <span Class="bold">POSIXLY_CORRECT</span> is set. 
+<p class="level0"><span Class="bold">--replace</span> Replace a locale in the locale archive file. Without this option, if the locale is in the archive file already, an error occurs. 
+<p class="level0"><span Class="bold">--no-archive</span> Do not use the locale archive file, instead create <span Class="emphasis">outputpath</span> as a subdirectory in the same directory as the locale archive file, and create separate output files for locale categories in it. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Print a usage summary and exit. Also prints the default paths used by <span Class="manpage">localedef .</span>
+<p class="level0"><span Class="bold">--usage</span> Print a short usage summary and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Print the version number, license, and disclaimer of warranty for <span Class="manpage">localedef .</span><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">One of the following exit values can be returned by <span Class="manpage">localedef :</span>
+<p class="level1">
+<p class="level1"><span Class="bold">0</span> Command completed successfully. 
+<p class="level1"><span Class="bold">1</span> Warnings or errors occurred, output files were written. 
+<p class="level1"><span Class="bold">4</span> Errors encountered, no output created. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">POSIXLY_CORRECT</span> The <span Class="bold">--posix</span> flag is assumed if this environment variable is set. 
+<p class="level0"><span Class="bold">I18NPATH</span> A colon-separated list of search directories for files. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/share/i18n/charmaps</span> Usual default character map path. 
+<p class="level0"><span Class="emphasis">/usr/share/i18n/locales</span> Usual default path for locale definition files. 
+<p class="level0"><span Class="emphasis">/usr/share/i18n/repertoiremaps</span> Usual default repertoire map path. 
+<p class="level0"><span Class="emphasis">/usr/lib/locale/locale-archive</span> Usual default locale archive location. 
+<p class="level0"><span Class="emphasis">outputpath/LC_ADDRESS</span> An output file that contains information about formatting of addresses and geography-related items. 
+<p class="level0"><span Class="emphasis">outputpath/LC_COLLATE</span> An output file that contains information about the rules for comparing strings. 
+<p class="level0"><span Class="emphasis">outputpath/LC_CTYPE</span> An output file that contains information about character classes. 
+<p class="level0"><span Class="emphasis">outputpath/LC_IDENTIFICATION</span> An output file that contains metadata about the locale. 
+<p class="level0"><span Class="emphasis">outputpath/LC_MEASUREMENT</span> An output file that contains information about locale measurements (metric versus US customary). 
+<p class="level0"><span Class="emphasis">outputpath/LC_MESSAGES/SYS_LC_MESSAGES</span> An output file that contains information about the language messages should be printed in, and what an affirmative or negative answer looks like. 
+<p class="level0"><span Class="emphasis">outputpath/LC_MONETARY</span> An output file that contains information about formatting of monetary values. 
+<p class="level0"><span Class="emphasis">outputpath/LC_NAME</span> An output file that contains information about salutations for persons. 
+<p class="level0"><span Class="emphasis">outputpath/LC_NUMERIC</span> An output file that contains information about formatting of nonmonetary numeric values. 
+<p class="level0"><span Class="emphasis">outputpath/LC_PAPER</span> An output file that contains information about settings related to standard paper size. 
+<p class="level0"><span Class="emphasis">outputpath/LC_TELEPHONE</span> An output file that contains information about formats to be used with telephone services. 
+<p class="level0"><span Class="emphasis">outputpath/LC_TIME</span> An output file that contains information about formatting of data and time values. <a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">POSIX.1-2008. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">Compile the locale files for Finnish in the UTF-8 character set and add it to the default locale archive with the name <span Class="manpage">fi_FI.UTF-8 :</span>
+<p class="level0">
+<p class="level1">localedef -f UTF-8 -i fi_FI fi_FI.UTF-8 
+<p class="level0">
+<p class="level0">The next example does the same thing, but generates files into the <span Class="emphasis">fi_FI.UTF-8</span> directory which can then be used by programs when the environment variable <span Class="bold">LOCPATH</span> is set to the current directory (note that the last argument must contain a slash): 
+<p class="level0">
+<p class="level1">localedef -f UTF-8 -i fi_FI ./fi_FI.UTF-8 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">locale (1)</span>, <span Class="manpage">charmap (5)</span>, <span Class="manpage">locale (5)</span>, <span Class="manpage">repertoiremap (5)</span>, <span Class="manpage">locale (7)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

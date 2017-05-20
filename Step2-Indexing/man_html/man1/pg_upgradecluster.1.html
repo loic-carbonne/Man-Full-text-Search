@@ -1,0 +1,163 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_upgradecluster - upgrade an existing PostgreSQL cluster to a new major version. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_upgradecluster</span> [<span Class="bold">-v</span> <span Class="emphasis">newversion</span>] <span Class="emphasis">oldversion</span> <span Class="emphasis">name</span> [<span Class="emphasis">newdatadir</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_upgradecluster</span> upgrades an existing PostgreSQL server cluster (i. e. a collection of databases served by a <span Class="bold">postmaster</span> instance) to a new version specified by <span Class="emphasis">newversion</span> (default: latest available version).  The configuration files of the old version are copied to the new cluster. 
+<p class="level0">The cluster of the old version will be configured to use a previously unused port since the upgraded one will use the original port. The old cluster is not automatically removed. After upgrading, please verify that the new cluster indeed works as expected; if so, you should remove the old cluster with <span Class="emphasis">pg_dropcluster</span>|(8). Please note that the old cluster is set to *(L"manual*(R" startup mode, in order to avoid inadvertently changing it; this means that it will not be started automatically on system boot, and you have to use <span Class="emphasis">pg_ctlcluster</span>|(8) to start/stop it. See section *(L"s-1STARTUP CONTROL*(R"s0 in <span Class="emphasis">pg_createcluster</span>|(8) for details. 
+<p class="level0">The <span Class="emphasis">newdatadir</span> argument can be used to specify a non-default data directory of the upgraded cluster. It is passed to <span Class="bold">pg_createcluster</span>. If not specified, this defaults to /var/lib/postgresql/<span Class="emphasis">newversion</span>/<span Class="emphasis">name</span>. 
+<p class="level0">Please note that this program cannot upgrade clusters which use tablespaces. If you use those, you have to upgrade manually. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR \fInewversion\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the version to upgrade to (default: latest available). 
+<p class="level0"><a name="fB--logfilefR"></a><span class="nroffip">\fB--logfile\fR \fIfilel\fR 4</span> 
+<p class="level1">
+<p class="level1">Set a custom log file path for the upgraded database cluster. 
+<p class="level0"><a name="fB--localefRfIlocalefR"></a><span class="nroffip">\fB--locale=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the default locale for the upgraded database cluster. If this option is not specified, the locale is inherited from the old cluster. 
+<p class="level0"><a name="fB--lc-collatefRfIlocalefR"></a><span class="nroffip">\fB--lc-collate=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-ctypefRfIlocalefR"></a><span class="nroffip">\fB--lc-ctype=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-messagesfRfIlocalefR"></a><span class="nroffip">\fB--lc-messages=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-monetaryfRfIlocalefR"></a><span class="nroffip">\fB--lc-monetary=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-numericfRfIlocalefR"></a><span class="nroffip">\fB--lc-numeric=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-timefRfIlocalefR"></a><span class="nroffip">\fB--lc-time=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Like <span Class="bold">--locale</span>, but only sets the locale in the specified category. 
+<p class="level0"><a name="fB-mfR"></a><span class="nroffip">\fB-m\fR, \fB--method=\fRdump|upgrade 4</span> 
+<p class="level1">
+<p class="level1">Specify the upgrade method.  *(L"dump*(R" uses <span Class="emphasis">pg_dump</span>|(1) and <span Class="emphasis">pg_restore</span>|(1), *(L"upgrade*(R" uses <span Class="emphasis">pg_upgrade</span>|(1).  The default is *(L"dump*(R". 
+<p class="level0"><a name="fB-kfR"></a><span class="nroffip">\fB-k\fR, \fB--link\fR 4</span> 
+<p class="level1">
+<p class="level1">In pg_upgrade mode, use hard links instead of copying files to the new cluster.  This option is merely passed on to pg_upgrade.  See <span Class="emphasis">pg_upgrade</span>|(1) for details. <a name="HOOK"></a><h2 class="nroffsh">HOOK SCRIPTS</h2>
+<p class="level0">
+<p class="level0">Some PostgreSQL extensions like PostGIS need metadata in auxiliary tables which must not be upgraded from the old version, but rather initialized for the new version before copying the table data. For this purpose, extensions (as well as administrators, of course) can drop upgrade hook scripts into  f(CW*(C`/etc/postgresql-common/pg_upgradecluster.d/*(C'</span>. Script file names must consist entirely of upper and lower case letters, digits, underscores, and hyphens; in particular, dots (i. e. file extensions) are not allowed. 
+<p class="level0">Scripts in that directory will be called with the following arguments: 
+<p class="level0">&lt;old version&gt; &lt;cluster name&gt; &lt;new version&gt; &lt;phase&gt; 
+<p class="level0">Phases: 
+<p class="level0"><a name="fBinitfR"></a><span class="nroffip">\fBinit\fR 4</span> 
+<p class="level1">
+<p class="level1">A virgin cluster of version <span Class="emphasis">new version</span> has been created, i. e.  this new cluster will already have <span Class="bold">template1</span>, but no user databases. Please note that you should not create tables in this phase, since they will be overwritten by the dump/restore or <span Class="bold">pg_upgrade</span> operation. 
+<p class="level0"><a name="fBfinishfR"></a><span class="nroffip">\fBfinish\fR 4</span> 
+<p class="level1">
+<p class="level1">All data from the old version cluster has been dumped/reloaded into the new one. The old cluster still exists, but is not running. 
+<p class="level1">Failing scripts will abort the upgrade. The scripts are called as the user who owns the database. 
+<p class="level1">When <span Class="bold">--mode=dump</span> and upgrade hook scripts are used, pg_restore is invoked with <span Class="bold">--no-data-for-failed-tables</span>. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">pg_createcluster</span>|(8), <span Class="emphasis">pg_dropcluster</span>|(8), <span Class="emphasis">pg_lsclusters</span>|(1), <span Class="emphasis">pg_wrapper</span>|(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Martin Pitt &lt;mpitt@debian.org&gt; 

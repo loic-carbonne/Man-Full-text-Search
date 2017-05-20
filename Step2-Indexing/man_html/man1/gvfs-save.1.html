@@ -1,0 +1,43 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gvfs-save - Save standard input <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gvfs-save </span><span Class="bold">[OPTION...]</span><span Class="bold"> </span><span Class="bold">{DEST}</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gvfs-save</span> reads from the standard input and saves the data to the given location. 
+<p class="level0">This is similar to just redirecting output to a file using traditional shell syntax, but <span Class="bold">gvfs-save</span> allows using gvfs locations instead of local files: for example you can use something like smb://server/resource/file.txt as location. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Prints a short help text and exits. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Shows the version number and exits. 
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--backup</span> 
+<p class="level1">If the destination file already exists, save a backup. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--create</span> 
+<p class="level1">Only create the destination file if it does not exist yet. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--append</span> 
+<p class="level1">Append to the end of the destination file, if it already exists. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--private</span> 
+<p class="level1">When creating a new file, restrict access to the current user only. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unlink</span> 
+<p class="level1">When replacing an existing file, replace the destination as if it does not exist. Think of it as unlinking the destination before writing. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--print-etag</span> 
+<p class="level1">Print the new etag at the end. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--etag=ETAG</span> 
+<p class="level1">The etag of the file being overwritten. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success 0 is returned, a non-zero failure code otherwise. 

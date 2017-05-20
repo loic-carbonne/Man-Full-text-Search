@@ -1,0 +1,503 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">idlj - The IDL-to-Java Compiler 
+<p class="level0">f3idlj</span> generates Java bindings from a given IDL file.  <a name="Synopsis"></a><h2 class="nroffsh">Synopsis</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+idlj [ </span>f3options</span>f3 ] </span>f4idl-file</span>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">where f2idl-file</span> is the name of a file containing Interface Definition Language (IDL) definitions. f2Options</span> may appear in any order, but must precede the f2idl-file</span>. 
+<p class="level0"><a name="Description"></a><h2 class="nroffsh">Description</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The IDL-to-Java Compiler generates the Java bindings for a given IDL file.&nbsp; For binding details, see the  
+<p class="level0">f2OMG IDL to Java Language Language Mapping Specification</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/idl/mapping/jidlMapping.html.">http://docs.oracle.com/javase/7/docs/technotes/guides/idl/mapping/jidlMapping.html.</a> Some previous releases of the IDL-to-Java compiler were named f2idltojava</span>. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Emitting Client and Server Bindings 
+<p class="level0">
+<p class="level0">To generate Java bindings for an IDL file named My.idl: 
+<p class="level0"><pre class="level0">
+f3
+idlj My.idl
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This generates the client-side bindings and is equivalent to: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-fclient</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The client-side bindings do not include the server-side skeleton. If you want to generate the server-side bindings for the interfaces: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-fserver</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Server-side bindings include the client-side bindings plus the skeleton, all of which are f2POA</span> (that is, Inheritance Model) classes. If you want to generate both client and server-side bindings, use one of the following (equivalent) commands: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-fclient -fserver</span> My.idl
+idlj f3-fall</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">There are two possible server-side models: the Inheritance Model and the Tie Delegation Model. 
+<p class="level0">
+<p class="level0">The default server-side model is the f2Portable Servant Inheritance Model</span>. Given an interface f2My</span> defined in f2My.idl</span>, the file f2MyPOA.java</span> is generated. You must provide the implementation for f2My</span> and it must inherit from f2MyPOA</span>. 
+<p class="level0">
+<p class="level0">f2MyPOA.java</span> is a stream-based skeleton that extends  
+<p class="level0">f2org.omg.PortableServer.Servant</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/api/org/omg/PortableServer/Servant.html">http://docs.oracle.com/javase/7/docs/api/org/omg/PortableServer/Servant.html</a> and implements the f2InvokeHandler</span> interface and the operations interface associated with the IDL interface the skeleton implements. 
+<p class="level0">
+<p class="level0">The f2PortableServer</span> module for the  
+<p class="level0">f2Portable Object Adapter (POA)</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/idl/POA.html">http://docs.oracle.com/javase/7/docs/technotes/guides/idl/POA.html</a> defines the native f2Servant</span> type. In the Java programming language, the f2Servant</span> type is mapped to the Java f2org.omg.PortableServer.Servant</span> class. It serves as the base class for all POA servant implementations and provides a number of methods that may be invoked by the application programmer, as well as methods which are invoked by the POA itself and may be overridden by the user to control aspects of servant behavior. 
+<p class="level0">
+<p class="level0">Another option for the Inheritance Model is to use the f2-oldImplBase</span> flag in order to generate server-side bindings that are compatible with versions of the Java programming language prior to J2SE 1.4. Note that using the f2-oldImplBase</span> flag is non-standard: these APIs are being deprecated. You would use this flag ONLY for compatibility with existing servers written in J2SE 1.3. In that case, you would need to modify an existing MAKEFILE to add the f2-oldImplBase</span> flag to the f2idlj</span> compiler, otherwise POA-based server-side mappings will be generated. To generate server-side bindings that are backwards compatible: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-fclient -fserver</span> f3-oldImplBase</span> My.idl
+idlj f3-fall</span> f3-oldImplBase</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Given an interface f2My</span> defined in f2My.idl</span>, the file f2_MyImplBase.java</span> is generated. You must provide the implementation for f2My</span> and it must inherit from f2_MyImplBase</span>. 
+<p class="level0">
+<p class="level0">The other server-side model is called the Tie Model. This is a delegation model. Because it is not possible to generate ties and skeletons at the same time, they must be generated separately. The following commands generate the bindings for the Tie Model: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-fall</span> My.idl
+idlj f3-fallTIE</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For the interface f2My</span>, the second command generates f2MyPOATie.java</span>. The constructor to f2MyPOATie</span> takes a f2delegate</span>. In this example, using the default POA model, the constructor also needs a f2poa</span>. You must provide the implementation for f2delegate</span>, but it does not have to inherit from any other class, only the interface f2MyOperations</span>. But to use it with the ORB, you must wrap your implementation within f2MyPOATie</span>. For instance: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;   ORB orb = ORB.init(args, System.getProperties());
+&nbsp;
+&nbsp;   // Get reference to rootpoa & activate the POAManager
+&nbsp;   POA rootpoa = (POA)orb.resolve_initial_references("RootPOA");
+&nbsp;   rootpoa.the_POAManager().activate();
+&nbsp;
+&nbsp;   // create servant and register it with the ORB
+&nbsp;   MyServant myDelegate = new MyServant();
+&nbsp;   myDelegate.setORB(orb); 
+&nbsp;
+&nbsp;   // create a tie, with servant being the delegate.
+&nbsp;   MyPOATie tie = new MyPOATie(myDelegate, rootpoa);
+&nbsp;
+&nbsp;   // obtain the objectRef for the tie
+&nbsp;   My ref = tie._this(orb);
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">You might want to use the Tie model instead of the typical Inheritance model if your implementation must inherit from some other implementation. Java allows any number of interface inheritance, but there is only one slot for class inheritance. If you use the inheritance model, that slot is used up . By using the Tie Model, that slot is freed up for your own use. The drawback is that it introduces a level of indirection: one extra method call occurs when invoking a method. 
+<p class="level0">
+<p class="level0">To generate server-side, Tie model bindings that are compatible with versions of the IDL to Java language mapping in versions prior to J2SE 1.4. 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-oldImplBase</span> f3-fall</span> My.idl
+idlj f3-oldImplBase</span> f3-fallTIE</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For the interface f2My</span>, this will generate f2My_Tie.java</span>. The constructor to f2My_Tie</span> takes a f2impl</span>. You must provide the implementation for f2impl</span>, but it does not have to inherit from any other class, only the interface f2HelloOperations</span>. But to use it with the ORB, you must wrap your implementation within f2My_Tie</span>. For instance: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;   ORB orb = ORB.init(args, System.getProperties());
+&nbsp;
+&nbsp;   // create servant and register it with the ORB
+&nbsp;   MyServant myDelegate = new MyServant();
+&nbsp;   myDelegate.setORB(orb); 
+&nbsp;
+&nbsp;   // create a tie, with servant being the delegate.
+&nbsp;   MyPOATie tie = new MyPOATie(myDelegate);
+&nbsp;
+&nbsp;   // obtain the objectRef for the tie
+&nbsp;   My ref = tie._this(orb);
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Specifying Alternate Locations for Emitted Files 
+<p class="level0">
+<p class="level0">If you want to direct the emitted files to a directory other than the current directory, invoke the compiler as: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-td /altdir</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For the interface f2My</span>, the bindings will be emitted to f2/altdir/My.java</span>, etc., instead of f2./My.java</span>. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Specifying Alternate Locations for Include Files 
+<p class="level0">
+<p class="level0">If f2My.idl</span> included another idl file, f2MyOther.idl</span>, the compiler assumes that f2MyOther.idl</span> resides in the local directory. If it resides in f2/includes</span>, for example, then you would invoke the compiler with the following command: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-i /includes</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If f2My.idl</span> also included f2Another.idl</span> that resided in f2/moreIncludes</span>, for example, then you would invoke the compiler with the following command: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-i /includes -i /moreIncludes</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Since this form of include can become irritatingly long, another means of indicating to the compiler where to search for included files is provided. This technique is similar to the idea of an environment variable. Create a file named f2idl.config</span> in a directory that is listed in your CLASSPATH. Inside of f2idl.config</span>, provide a line with the following form: 
+<p class="level0"><pre class="level0">
+f3
+includes=/includes;/moreIncludes
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The compiler will find this file and read in the includes list. Note that in this example the separator character between the two directories is a semicolon (;). This separator character is platform dependent. On the Windows platform, use a semicolon, on the Unix platform, use a colon, etc. For more information on f2includes</span>, see the  
+<p class="level0">f2Setting the Classpath</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;general.">http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;general.</a> 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Emitting Bindings for Include Files 
+<p class="level0">
+<p class="level0">By default, only those interfaces, structs, etc, that are defined in the idl file on the command line have Java bindings generated for them. The types defined in included files are not generated. For example, assume the following two idl files: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4My.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+&#35;include &lt;MyOther.idl&gt;
+interface My
+{
+};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4MyOther.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+interface MyOther
+{
+};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The following command will only generate the java bindings for f2My</span>: 
+<p class="level0"><pre class="level0">
+f3
+idlj My.idl
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">To generate all of the types in f2My.idl</span> and all of the types in the files that f2My.idl</span> includes (in this example, f2MyOther.idl</span>), use the following command: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-emitAll</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">There is a caveat to the default rule. f2&#35;include</span> statements which appear at global scope are treated as described. These f2&#35;include</span> statements can be thought of as import statements. f2&#35;include</span> statements which appear within some enclosing scope are treated as true f2&#35;include</span> statements, meaning that the code within the included file is treated as if it appeared in the original file and, therefore, Java bindings are emitted for it. Here is an example: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4My.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+&#35;include &lt;MyOther.idl&gt;
+interface My
+{
+&nbsp; &#35;include &lt;Embedded.idl&gt;
+};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4MyOther.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+interface MyOther
+{
+};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4Embedded.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+enum E {one, two, three};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Running the following command: 
+<p class="level0"><pre class="level0">
+f3
+idlj My.idl
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will generate the following list of Java files: 
+<p class="level0"><pre class="level0">
+f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Notice that f2MyOther.java</span> was not generated because it is defined in an import-like f2&#35;include</span>. But f2E.java</span> f2was</span> generated because it was defined in a true f2&#35;include</span>. Also notice that since f2Embedded.idl</span> was included within the scope of the interface f2My</span>, it appears within the scope of f2My</span> (that is,in f2MyPackage</span>). 
+<p class="level0">
+<p class="level0">If the f2-emitAll</span> flag had been used in the previous example, then all types in all included files would be emitted. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Inserting Package Prefixes 
+<p class="level0">
+<p class="level0">Suppose that you work for a company named ABC that has constructed the following IDL file: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4Widgets.idl</span> 
+<p class="level0"><pre class="level0">
+f3
+module Widgets
+{
+&nbsp; interface W1 {...};
+&nbsp; interface W2 {...};
+};
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Running this file through the IDL-to-Java compiler will place the Java bindings for f2W1</span> and f2W2</span> within the package f2Widgets</span>. But there is an industry convention that states that a company's packages should reside within a package named f2com.&lt;company name&gt;</span>. The f2Widgets</span> package is not good enough. To follow convention, it should be f2com.abc.Widgets</span>. To place this package prefix onto the f2Widgets</span> module, execute the following: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-pkgPrefix Widgets com.abc</span> Widgets.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you have an IDL file which includes f2Widgets.idl</span>, the f2-pkgPrefix</span> flag must appear in that command also. If it does not, then your IDL file will be looking for a f2Widgets</span> package rather than a f2com.abc.Widgets</span> package. 
+<p class="level0">
+<p class="level0">If you have a number of these packages that require prefixes, it might be easier to place them into the f2idl.config</span> file described above. Each package prefix line should be of the form: 
+<p class="level0"><pre class="level0">
+f3
+PkgPrefix.&lt;type&gt;=&lt;prefix&gt;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">So the line for the above example would be:  <pre class="level0">
+f3
+PkgPrefix.Widgets=com.abc
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The use of this option does not affect the Repository ID. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Defining Symbols Before Compilation 
+<p class="level0">
+<p class="level0">You may need to define a symbol for compilation that is not defined within the IDL file, perhaps to include debugging code in the bindings. The command 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-d</span> MYDEF My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">is the equivalent of putting the line f2&#35;define MYDEF</span> inside f2My.idl</span>. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Preserving Pre-Existing Bindings 
+<p class="level0">
+<p class="level0">If the Java binding files already exist, the f2-keep</span> flag will keep the compiler from overwriting them. The default is to generate all files without considering if they already exist. If you've customized those files (which you should not do unless you are very comfortable with their contents), then the f2-keep</span> option is very useful. The command 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-keep</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">emits all client-side bindings that do not already exist. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Viewing Progress of Compilation 
+<p class="level0">
+<p class="level0">The IDL-to-Java compiler will generate status messages as it progresses through its phases of execution. Use the f2-v</span> option to activate this "verbose" mode: 
+<p class="level0"><pre class="level0">
+f3
+idlj </span>f3-v</span> My.idl
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">By default the compiler does not operate in verbose mode. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Displaying Version Information 
+<p class="level0">
+<p class="level0">To display the build version of the IDL-to-Java compiler, specify the f2-version</span> option on the command-line: 
+<p class="level0"><pre class="level0">
+f3
+idlj -version
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Version information also appears within the bindings generated by the compiler. Any additional options appearing on the command-line are ignored. 
+<p class="level0"><a name="Options"></a><h2 class="nroffsh">Options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-d symbol  This is equivalent to the following line in an IDL file:  <pre class="level1">
+f3
+&#35;define </span>f4symbol</span>f3
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">-emitAll  Emit all types, including those found in f2&#35;include</span> files.  
+<p class="level1">-fside  Defines what bindings to emit. f2side</span> is one of f2client</span>, f2server</span>, f2serverTIE</span>, f2all</span>, or f2allTIE</span>. The f2-fserverTIE</span> and f2-fallTIE</span> options cause delegate model skeletons to be emitted. Assumes f2-fclient</span> if the flag is not specified.  
+<p class="level1">-i include-path  By default, the current directory is scanned for included files. This option adds another directory.  
+<p class="level1">-keep  If a file to be generated already exists, do not overwrite it. By default it is overwritten.  
+<p class="level1">-noWarn  Suppresses warning messages.  
+<p class="level1">-oldImplBase  Generates skeletons compatible with pre-1.4 JDK ORBs. By default, the POA Inheritance Model server-side bindings are generated. This option provides backward-compatibility with older versions of the Java programming language by generating server-side bindings that are f2ImplBase</span> Inheritance Model classes.  
+<p class="level1">-pkgPrefix type prefix  Wherever f2type</span> is encountered at file scope, prefix the generated Java package name with f2prefix</span> for all files generated for that type. The f2type</span> is the simple name of either a top-level module, or an IDL type defined outside of any module.  
+<p class="level1">-pkgTranslate type package  Whenever the module name f2type</span> is encountered in an identifier, replace it in the identifier with f2package</span> for all files in the generated Java package. Note that f2pkgPrefix</span> changes are made first. f2type</span> is the simple name of either a top-level module, or an IDL type defined outside of any module, and must match the full package name exactly. <br><br>If more than one translation matches an identifier, the longest match is chosen. For example, if the arguments include:  <pre class="level1">
+f3
+&nbsp; -pkgTranslate foo bar -pkgTranslate foo.baz buzz.fizz
+</span>
+</pre>
+
+<p class="level1">The following translations would occur:  <pre class="level1">
+f3
+foo          =&gt; bar
+foo.boo      =&gt; bar.boo
+foo.baz      =&gt; buzz.fizz
+foo.baz.bar  =&gt; buzz.fizz.bar
+</span>
+</pre>
+
+<p class="level1">The following package names cannot be translated:  
+<p class="level2">
+<p class="level2">o f2org</span>  
+<p class="level2">o f2org.omg</span> or any subpackages of f2org.omg</span>  
+<p class="level1">Any attempt to translate these packages will result in uncompilable code, and the use of these packages as the first argument after f2-pkgTranslate</span> will be treated as an error.  
+<p class="level1">-skeletonName xxx%yyy  Use f2xxx%yyy</span> as the pattern for naming the skeleton. The defaults are:  
+<p class="level2">
+<p class="level2">o %POA for the f2POA</span> base class (f2-fserver</span> or f2-fall</span>)  
+<p class="level2">o _%ImplBase for the f2oldImplBase</span> class (f2-oldImplBase</span> and (f2-fserver</span> or f2-fall</span>))  
+<p class="level1">
+<p class="level1">-td dir  Use f2dir</span> for the output directory instead of the current directory.  
+<p class="level1">-tieName xxx%yyy  Name the tie according to the pattern. The defaults are:  
+<p class="level2">
+<p class="level2">o %POATie for the f2POA</span> tie base class (f2-fserverTie</span> or f2-fallTie</span>)  
+<p class="level2">o %_Tie for the f2oldImplBase</span> tie class (f2-oldImplBase</span> and (f2-fserverTie</span> or f2-fallTie</span>))  
+<p class="level1">
+<p class="level1">-nowarn, -verbose  Verbose mode.  
+<p class="level1">-version  Display version information and terminate.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">See the Description section for more option information. 
+<p class="level0"><a name="Restrictions"></a><h2 class="nroffsh">Restrictions:</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o Escaped identifiers in the global scope may not have the same spelling as IDL primitive types, f2Object</span>, or f2ValueBase</span>. This is because the symbol table is pre-loaded with these identifiers; allowing them to be redefined would overwrite their original definitions. (Possible permanent restriction).  
+<p class="level1">o The f2fixed</span> IDL type is not supported.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Known"></a><h2 class="nroffsh">Known Problems:</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o No import generated for global identifiers. If you invoke on an unexported local impl, you do get an exception, but it seems to be due to a f2NullPointerException</span> in the f2ServerDelegate</span> DSI code.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

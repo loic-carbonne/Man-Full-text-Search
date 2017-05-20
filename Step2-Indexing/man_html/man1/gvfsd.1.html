@@ -1,0 +1,35 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gvfsd - Main daemon for gvfs <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gvfsd</span> [OPTION...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gvfsd</span> is the main daemon for the gvfs virtual filesystem. It provides the <span Class="emphasis">org.gtk.vfs.Daemon</span> name on the session bus. gvfsd is autostarted by GIO clients if it is not running. 
+<p class="level0">The primary task of <span Class="bold">gvfsd</span> is to act as a mount tracker/manager. It spawns new backends when requested and keeps track fo their lifecycle, maintaining a list of active mounts and creates direct connections to them. 
+<p class="level0">Since gvfs backends are running as children of the gvfsd process, it is possible to start gvfsd in a terminal and set environment variables to get debug output from individual backends. 
+<p class="level0"><span Class="bold">gvfsd</span> also starts the <span Class="bold">gvfsd-fuse</span>(1), and provides it the mount point where the fuse file system should be mounted. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Prints a short help text and exits. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Shows the version number and exits. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--replace</span> 
+<p class="level1">Replace the currently running gvfsd instance. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-fuse</span> 
+<p class="level1">Don*(Aqt start the fuse filesystem. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">GVFS_DISABLE_FUSE</span> 
+<p class="level1">If this environment variable is set, gvfsd will not start the fuse filesystem. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success 0 is returned, a non-zero failure code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gvfs</span>(8), <span Class="bold">gvfsd-fuse</span>(1) 

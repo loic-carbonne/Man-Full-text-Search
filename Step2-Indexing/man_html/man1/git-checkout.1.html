@@ -1,0 +1,428 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-checkout - Checkout a branch or paths to the working tree <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git checkout</span> [-q] [-f] [-m] [&lt;branch&gt;]
+<span class="emphasis">git checkout</span> [-q] [-f] [-m] --detach [&lt;branch&gt;]
+<span class="emphasis">git checkout</span> [-q] [-f] [-m] [--detach] &lt;commit&gt;
+<span class="emphasis">git checkout</span> [-q] [-f] [-m] [[-b|-B|--orphan] &lt;new_branch&gt;] [&lt;start_point&gt;]
+<span class="emphasis">git checkout</span> [-f|--ours|--theirs|-m|--conflict=&lt;style&gt;] [&lt;tree-ish&gt;] [--] &lt;paths&gt;...
+<span class="emphasis">git checkout</span> [-p|--patch] [&lt;tree-ish&gt;] [--] [&lt;paths&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Updates files in the working tree to match the version in the index or the specified tree. If no paths are given, <span Class="emphasis">git checkout</span> will also update HEAD to set the specified branch as the current branch. 
+<p class="level0"><span Class="emphasis">git checkout</span> &lt;branch&gt; 
+<p class="level1">To prepare for working on &lt;branch&gt;, switch to it by updating the index and the files in the working tree, and by pointing HEAD at the branch. Local modifications to the files in the working tree are kept, so that they can be committed to the &lt;branch&gt;. 
+<p class="level1">If &lt;branch&gt; is not found but there does exist a tracking branch in exactly one remote (call it &lt;remote&gt;) with a matching name, treat as equivalent to 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout -b &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">You could omit &lt;branch&gt;, in which case the command degenerates to "check out the current branch", which is a glorified no-op with a rather expensive side-effects to show only the tracking information, if exists, for the current branch. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">git checkout</span> -b|-B &lt;new_branch&gt; [&lt;start point&gt;] 
+<p class="level1">Specifying -b causes a new branch to be created as if <span Class="bold">git-branch</span>(1) were called and then checked out. In this case you can use the --track or --no-track options, which will be passed to <span Class="emphasis">git branch</span>. As a convenience, --track without -b implies branch creation; see the description of --track below. 
+<p class="level1">If -B is given, &lt;new_branch&gt; is created if it doesn(cqt exist; otherwise, it is reset. This is the transactional equivalent of 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git branch -f &lt;branch&gt; [&lt;start point&gt;]
+$ git checkout &lt;branch&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">that is to say, the branch is not reset/created unless "git checkout" is successful. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">git checkout</span> --detach [&lt;branch&gt;], <span Class="emphasis">git checkout</span> [--detach] &lt;commit&gt; 
+<p class="level1">Prepare to work on top of &lt;commit&gt;, by detaching HEAD at it (see "DETACHED HEAD" section), and updating the index and the files in the working tree. Local modifications to the files in the working tree are kept, so that the resulting working tree will be the state recorded in the commit plus the local modifications. 
+<p class="level1">When the &lt;commit&gt; argument is a branch name, the --detach option can be used to detach HEAD at the tip of the branch (git checkout &lt;branch&gt; would check out that branch without detaching HEAD). 
+<p class="level1">Omitting &lt;branch&gt; detaches HEAD at the tip of the current branch. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">git checkout</span> [-p|--patch] [&lt;tree-ish&gt;] [--] &lt;pathspec&gt;... 
+<p class="level1">When &lt;paths&gt; or --patch are given, <span Class="emphasis">git checkout</span> does <span Class="bold">not</span> switch branches. It updates the named paths in the working tree from the index file or from a named &lt;tree-ish&gt; (most often a commit). In this case, the -b and --track options are meaningless and giving either of them results in an error. The &lt;tree-ish&gt; argument can be used to specify a specific tree-ish (i.e. commit, tag or tree) to update the index for the given paths before updating the working tree. 
+<p class="level1">The index may contain unmerged entries because of a previous failed merge. By default, if you try to check out such an entry from the index, the checkout operation will fail and nothing will be checked out. Using -f will ignore these unmerged entries. The contents from a specific side of the merge can be checked out of the index by using --ours or --theirs. With -m, changes made to the working tree file can be discarded to re-create the original conflicted merge result. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Quiet, suppress feedback messages. 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">When switching branches, proceed even if the index or the working tree differs from HEAD. This is used to throw away local changes. 
+<p class="level1">When checking out paths from the index, do not fail upon unmerged entries; instead, unmerged entries are ignored. 
+<p class="level0">
+<p class="level0">--ours, --theirs 
+<p class="level1">When checking out paths from the index, check out stage &#35;2 (<span Class="emphasis">ours</span>) or &#35;3 (<span Class="emphasis">theirs</span>) for unmerged paths. 
+<p class="level0">
+<p class="level0">-b &lt;new_branch&gt; 
+<p class="level1">Create a new branch named &lt;new_branch&gt; and start it at &lt;start_point&gt;; see <span Class="bold">git-branch</span>(1) for details. 
+<p class="level0">
+<p class="level0">-B &lt;new_branch&gt; 
+<p class="level1">Creates the branch &lt;new_branch&gt; and start it at &lt;start_point&gt;; if it already exists, then reset it to &lt;start_point&gt;. This is equivalent to running "git branch" with "-f"; see <span Class="bold">git-branch</span>(1) for details. 
+<p class="level0">
+<p class="level0">-t, --track 
+<p class="level1">When creating a new branch, set up "upstream" configuration. See "--track" in <span Class="bold">git-branch</span>(1) for details. 
+<p class="level1">If no <span Class="emphasis">-b</span> option is given, the name of the new branch will be derived from the remote-tracking branch, by looking at the local part of the refspec configured for the corresponding remote, and then stripping the initial part up to the "*". This would tell us to use "hack" as the local branch when branching off of "origin/hack" (or "remotes/origin/hack", or even "refs/remotes/origin/hack"). If the given name has no slash, or the above guessing results in an empty name, the guessing is aborted. You can explicitly give a name with <span Class="emphasis">-b</span> in such a case. 
+<p class="level0">
+<p class="level0">--no-track 
+<p class="level1">Do not set up "upstream" configuration, even if the branch.autosetupmerge configuration variable is true. 
+<p class="level0">
+<p class="level0">-l 
+<p class="level1">Create the new branch(cqs reflog; see <span Class="bold">git-branch</span>(1) for details. 
+<p class="level0">
+<p class="level0">--detach 
+<p class="level1">Rather than checking out a branch to work on it, check out a commit for inspection and discardable experiments. This is the default behavior of "git checkout &lt;commit&gt;" when &lt;commit&gt; is not a branch name. See the "DETACHED HEAD" section below for details. 
+<p class="level0">
+<p class="level0">--orphan &lt;new_branch&gt; 
+<p class="level1">Create a new <span Class="emphasis">orphan</span> branch, named &lt;new_branch&gt;, started from &lt;start_point&gt; and switch to it. The first commit made on this new branch will have no parents and it will be the root of a new history totally disconnected from all the other branches and commits. 
+<p class="level1">The index and the working tree are adjusted as if you had previously run "git checkout &lt;start_point&gt;". This allows you to start a new history that records a set of paths similar to &lt;start_point&gt; by easily running "git commit -a" to make the root commit. 
+<p class="level1">This can be useful when you want to publish the tree from a commit without exposing its full history. You might want to do this to publish an open source branch of a project whose current tree is "clean", but whose full history contains proprietary or otherwise encumbered bits of code. 
+<p class="level1">If you want to start a disconnected history that records a set of paths that is totally different from the one of &lt;start_point&gt;, then you should clear the index and the working tree right after creating the orphan branch by running "git rm -rf ." from the top level of the working tree. Afterwards you will be ready to prepare your new files, repopulating the working tree, by copying them from elsewhere, extracting a tarball, etc. 
+<p class="level0">
+<p class="level0">--ignore-skip-worktree-bits 
+<p class="level1">In sparse checkout mode, git checkout -- &lt;paths&gt; would update only entries matched by &lt;paths&gt; and sparse patterns in $GIT_DIR/info/sparse-checkout. This option ignores the sparse patterns and adds back any files in &lt;paths&gt;. 
+<p class="level0">
+<p class="level0">-m, --merge 
+<p class="level1">When switching branches, if you have local modifications to one or more files that are different between the current branch and the branch to which you are switching, the command refuses to switch branches in order to preserve your modifications in context. However, with this option, a three-way merge between the current branch, your working tree contents, and the new branch is done, and you will be on the new branch. 
+<p class="level1">When a merge conflict happens, the index entries for conflicting paths are left unmerged, and you need to resolve the conflicts and mark the resolved paths with git add (or git rm if the merge should result in deletion of the path). 
+<p class="level1">When checking out paths from the index, this option lets you recreate the conflicted merge in the specified paths. 
+<p class="level0">
+<p class="level0">--conflict=&lt;style&gt; 
+<p class="level1">The same as --merge option above, but changes the way the conflicting hunks are presented, overriding the merge.conflictstyle configuration variable. Possible values are "merge" (default) and "diff3" (in addition to what is shown by "merge" style, shows the original contents). 
+<p class="level0">
+<p class="level0">-p, --patch 
+<p class="level1">Interactively select hunks in the difference between the &lt;tree-ish&gt; (or the index, if unspecified) and the working tree. The chosen hunks are then applied in reverse to the working tree (and if a &lt;tree-ish&gt; was specified, the index). 
+<p class="level1">This means that you can use git checkout -p to selectively discard edits from your current working tree. See the (lqInteractive Mode(rq section of <span Class="bold">git-add</span>(1) to learn how to operate the --patch mode. 
+<p class="level0">
+<p class="level0">&lt;branch&gt; 
+<p class="level1">Branch to checkout; if it refers to a branch (i.e., a name that, when prepended with "refs/heads/", is a valid ref), then that branch is checked out. Otherwise, if it refers to a valid commit, your HEAD becomes "detached" and you are no longer on any branch (see below for details). 
+<p class="level1">As a special case, the "@{-N}" syntax for the N-th last branch/commit checks out branches (instead of detaching). You may also specify - which is synonymous with "@{-1}". 
+<p class="level1">As a further special case, you may use "A...B" as a shortcut for the merge base of A and B if there is exactly one merge base. You can leave out at most one of A and B, in which case it defaults to HEAD. 
+<p class="level0">
+<p class="level0">&lt;new_branch&gt; 
+<p class="level1">Name for the new branch. 
+<p class="level0">
+<p class="level0">&lt;start_point&gt; 
+<p class="level1">The name of a commit at which to start the new branch; see <span Class="bold">git-branch</span>(1) for details. Defaults to HEAD. 
+<p class="level0">
+<p class="level0">&lt;tree-ish&gt; 
+<p class="level1">Tree to checkout from (when paths are given). If not specified, the index will be used. 
+<p class="level0"><a name="DETACHED"></a><h2 class="nroffsh">DETACHED HEAD</h2>
+<p class="level0">
+<p class="level0">HEAD normally refers to a named branch (e.g. <span Class="emphasis">master</span>). Meanwhile, each branch refers to a specific commit. Let(cqs look at a repo with three commits, one of them tagged, and with branch <span Class="emphasis">master</span> checked out: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;          HEAD (refers to branch *(Aqmaster*(Aq)
+&nbsp;           |
+&nbsp;           v
+a---b---c  branch *(Aqmaster*(Aq (refers to commit *(Aqc*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">When a commit is created in this state, the branch is updated to refer to the new commit. Specifically, <span Class="emphasis">git commit</span> creates a new commit <span Class="emphasis">d</span>, whose parent is commit <span Class="emphasis">c</span>, and then updates branch <span Class="emphasis">master</span> to refer to new commit <span Class="emphasis">d</span>. HEAD still refers to branch <span Class="emphasis">master</span> and so indirectly now refers to commit <span Class="emphasis">d</span>: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ edit; git add; git commit
+&nbsp;
+&nbsp;              HEAD (refers to branch *(Aqmaster*(Aq)
+&nbsp;               |
+&nbsp;               v
+a---b---c---d  branch *(Aqmaster*(Aq (refers to commit *(Aqd*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">It is sometimes useful to be able to checkout a commit that is not at the tip of any named branch, or even to create a new commit that is not referenced by a named branch. Let(cqs look at what happens when we checkout commit <span Class="emphasis">b</span> (here we show two ways this may be done): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git checkout v2.0  &#35; or
+$ git checkout master^^
+&nbsp;
+&nbsp;  HEAD (refers to commit *(Aqb*(Aq)
+&nbsp;   |
+&nbsp;   v
+a---b---c---d  branch *(Aqmaster*(Aq (refers to commit *(Aqd*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Notice that regardless of which checkout command we use, HEAD now refers directly to commit <span Class="emphasis">b</span>. This is known as being in detached HEAD state. It means simply that HEAD refers to a specific commit, as opposed to referring to a named branch. Let(cqs see what happens when we create a commit: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ edit; git add; git commit
+&nbsp;
+&nbsp;    HEAD (refers to commit *(Aqe*(Aq)
+&nbsp;     |
+&nbsp;     v
+&nbsp;     e
+&nbsp;    /
+a---b---c---d  branch *(Aqmaster*(Aq (refers to commit *(Aqd*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">There is now a new commit <span Class="emphasis">e</span>, but it is referenced only by HEAD. We can of course add yet another commit in this state: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ edit; git add; git commit
+&nbsp;
+&nbsp;        HEAD (refers to commit *(Aqf*(Aq)
+&nbsp;         |
+&nbsp;         v
+&nbsp;     e---f
+&nbsp;    /
+a---b---c---d  branch *(Aqmaster*(Aq (refers to commit *(Aqd*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">In fact, we can perform all the normal Git operations. But, let(cqs look at what happens when we then checkout master: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git checkout master
+&nbsp;
+&nbsp;              HEAD (refers to branch *(Aqmaster*(Aq)
+&nbsp;     e---f     |
+&nbsp;    /          v
+a---b---c---d  branch *(Aqmaster*(Aq (refers to commit *(Aqd*(Aq)
+&nbsp;   ^
+&nbsp;   |
+&nbsp; tag *(Aqv2.0*(Aq (refers to commit *(Aqb*(Aq)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">It is important to realize that at this point nothing refers to commit <span Class="emphasis">f</span>. Eventually commit <span Class="emphasis">f</span> (and by extension commit <span Class="emphasis">e</span>) will be deleted by the routine Git garbage collection process, unless we create a reference before that happens. If we have not yet moved away from commit <span Class="emphasis">f</span>, any of these will create a reference to it: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git checkout -b foo   <span class="bold">(1)</span>
+$ git branch foo        <span class="bold">(2)</span>
+$ git tag foo           <span class="bold">(3)</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">1. </span>creates a new branch <span Class="emphasis">foo</span>, which refers to commit <span Class="emphasis">f</span>, and then updates HEAD to refer to branch <span Class="emphasis">foo</span>. In other words, we(cqll no longer be in detached HEAD state after this command. <br><span Class="bold">2. </span>similarly creates a new branch <span Class="emphasis">foo</span>, which refers to commit <span Class="emphasis">f</span>, but leaves HEAD detached. <br><span Class="bold">3. </span>creates a new tag <span Class="emphasis">foo</span>, which refers to commit <span Class="emphasis">f</span>, leaving HEAD detached. <br>
+<p class="level0">If we have moved away from commit <span Class="emphasis">f</span>, then we must first recover its object name (typically by using git reflog), and then we can create a reference to it. For example, to see the last two commits to which HEAD referred, we can use either of these commands: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git reflog -2 HEAD &#35; or
+$ git log -g -2 HEAD
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">The following sequence checks out the master branch, reverts the Makefile to two revisions back, deletes hello.c by mistake, and gets it back from the index. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout master             <span class="bold">(1)</span>
+$ git checkout master~2 Makefile  <span class="bold">(2)</span>
+$ rm -f hello.c
+$ git checkout hello.c            <span class="bold">(3)</span>
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">1. </span>switch branch <br><span Class="bold">2. </span>take a file out of another commit <br><span Class="bold">3. </span>restore hello.c from the index 
+<p class="level1">If you want to check out <span Class="emphasis">all</span> C source files out of the index, you can say 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout -- *(Aq*.c*(Aq
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Note the quotes around *.c. The file hello.c will also be checked out, even though it is no longer in the working tree, because the file globbing is used to match entries in the index (not in the working tree by the shell). 
+<p class="level1">If you have an unfortunate branch that is named hello.c, this step would be confused as an instruction to switch to that branch. You should instead write: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout -- hello.c
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">After working in the wrong branch, switching to the correct branch would be done using: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout mytopic
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">However, your "wrong" branch and correct "mytopic" branch may differ in files that you have modified locally, in which case the above checkout would fail like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout mytopic
+error: You have local changes to *(Aqfrotz*(Aq; not switching branches.
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">You can give the -m flag to the command, which would try a three-way merge: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout -m mytopic
+Auto-merging frotz
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">After this three-way merge, the local modifications are <span Class="emphasis">not</span> registered in your index file, so git diff would show you what changes you made since the tip of the new branch. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">When a merge conflict happens during switching branches with the -m option, you would see something like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git checkout -m mytopic
+Auto-merging frotz
+ERROR: Merge conflict in frotz
+fatal: merge program failed
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">At this point, git diff shows the changes cleanly merged as in the previous example, as well as the changes in the conflicted files. Edit and resolve the conflict and mark it resolved with git add as usual: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ edit frotz
+$ git add frotz
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

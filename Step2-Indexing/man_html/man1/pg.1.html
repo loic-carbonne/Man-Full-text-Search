@@ -1,0 +1,64 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg - browse pagewise through text files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pg</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">prompt ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">pg</span> displays a text file on a 
+<p class="level0">one screenful at once. After each page, a prompt is displayed.  The user may then either press the newline key to view the next page or one of the keys described below. 
+<p class="level0">If no filename is given on the command line, <span Class="bold">pg</span> reads from standard input. If standard output is not a terminal, <span Class="bold">pg</span> acts like <span Class="emphasis">cat (1)</span> but precedes each file with its name if there is more than one. 
+<p class="level0">If input comes from a pipe, <span Class="bold">pg</span> stores the data in a buffer file while reading, to make navigation possible. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="bold">pg</span> accepts the following options: 
+<p class="level0"><span Class="bold">+ number</span> Start at the given line number. 
+<p class="level0"><span Class="bold">+/ pattern /</span> Start at the line containing the Basic Regular Expression <span Class="emphasis">pattern</span> given. 
+<p class="level0"><span Class="bold">- number</span> The number of lines per page.  By default, this is the number of 
+<p class="level0">lines minus one. 
+<p class="level0"><span Class="bold">-c</span> Clear the screen before a page is displayed, if the terminfo entry for the terminal provides this capability. 
+<p class="level0"><span Class="bold">-e</span> Do not pause and display 
+<p class="level0">at the end of a file. 
+<p class="level0"><span Class="bold">-f</span> Do not split long lines. 
+<p class="level0"><span Class="bold">-n</span> Without this option, commands must be terminated by a newline character. With this option, <span Class="bold">pg</span> advances once a command letter is entered. 
+<p class="level0"><span Class="bold">-p \ string</span> Instead of the normal prompt <span Class="emphasis">: ,</span> <span Class="emphasis">string</span> is displayed. If <span Class="emphasis">string</span> contains <span Class="manpage">%d</span>its first occurrence is replaced by the number of the current page. 
+<p class="level0"><span Class="bold">-r</span> Disallow the shell escape. 
+<p class="level0"><span Class="bold">-s</span> Print messages in <span Class="emphasis">standout</span> mode, if the terminfo entry for the terminal provides this capability. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Disaplay version information and exit. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">The following commands may be entered at the prompt.  Commands preceded by <span Class="emphasis">i</span> in this document accept a number as argument, positive or negative. If this argument starts with <span Class="bold">+</span> or <span Class="manpage">-</span>it is interpreted relative to the current position in the input file, otherwise relative to the beginning. 
+<p class="level0">
+<p class="level0">Display the next or the indicated page. 
+<p class="level0"><span Class="emphasis">i</span><span Class="bold">d</span> or <span Class="bold">^D</span> Display the next halfpage.  If <span Class="emphasis">i</span> is given, it is always interpreted relative to the current position. 
+<p class="level0">
+<p class="level0">Display the next or the indicated line. 
+<p class="level0">
+<p class="level0">Skip a page forward. <span Class="emphasis">i</span> must be a positive number and is always interpreted relative to the current position. 
+<p class="level0"><span Class="emphasis">i</span><span Class="bold">w</span> or <span Class="emphasis">i</span><span Class="bold">z</span> As <span Class="bold">&lt;Enter&gt;</span> except that <span Class="emphasis">i</span> becomes the new page size. 
+<p class="level0"><span Class="manpage">.  or  ^L</span>Redraw the screen. 
+<p class="level0"><span Class="bold">$</span> Advance to the last line of the input file. 
+<p class="level0">
+<p class="level0">Search forward until the first or the <span Class="emphasis">i</span>-th occurrence of the Basic Regular Expression <span Class="emphasis">pattern</span> is found.  The search starts after the current page and stops at the end of the file. No wrap-around is performed. <span Class="emphasis">i</span> must be a positive number. 
+<p class="level0"><span Class="emphasis">i</span><span Class="bold">?</span><span Class="emphasis">pattern</span><span Class="bold">?</span> or <span Class="emphasis">i</span><span Class="bold">^</span><span Class="emphasis">pattern</span><span Class="bold">^</span> Search backward until the first or the <span Class="emphasis">i</span>-th occurrence of the Basic Regular Expression <span Class="emphasis">pattern</span> is found.  The search starts before the current page and stops at the beginning of the file. No wrap-around is performed. <span Class="emphasis">i</span> must be a positive number. 
+<p class="level0">The search commands accept an added letter.  If <span Class="bold">t</span> is given, the line containing the pattern is displayed at the top of the screen, which is the default. <span Class="bold">m</span> selects the middle and <span Class="bold">b</span> the bottom of the screen. The selected position is used in following searches, too. 
+<p class="level0">
+<p class="level0">Advance to the next file or <span Class="emphasis">i</span> files forward. 
+<p class="level0">
+<p class="level0">Reread the previous file or <span Class="emphasis">i</span> files backward. 
+<p class="level0"><span Class="bold">s \ filename</span> Save the current file to the given <span Class="emphasis">filename.</span> 
+<p class="level0"><span Class="bold">h</span> Display a command summary. 
+<p class="level0"><span Class="bold">! command</span> Execute <span Class="emphasis">command</span> using the shell. 
+<p class="level0"><span Class="manpage">q  or  Q</span>Quit. 
+<p class="level0">If the user presses the interrupt or quit key while <span Class="bold">pg</span> reads from the input file or writes on the terminal, <span Class="bold">pg</span> will immediately display the prompt. In all other situations these keys will terminate <span Class="manpage">pg .</span><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">The following environment variables affect the behavior of <span Class="manpage">pg :</span>
+<p class="level0"><span Class="bold">COLUMNS</span> Overrides the system-supplied number of columns if set. 
+<p class="level0"><span Class="manpage">LANG</span>, <span Class="manpage">\  LC_ALL</span>, <span Class="manpage">\  LC_COLLATE</span>, <span Class="manpage">\  LC_CTYPE</span>, <span Class="manpage">\  LC_MESSAGES</span>See <span Class="emphasis">locale (7).</span> 
+<p class="level0"><span Class="bold">LINES</span> Overrides the system-supplied number of lines if set. 
+<p class="level0"><span Class="bold">SHELL</span> Used by the <span Class="manpage">!  command.</span>
+<p class="level0"><span Class="bold">TERM</span> Determines the terminal type. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">cat (1)</span>, <span Class="manpage">more (1)</span>, <span Class="manpage">sh (1)</span>, <span Class="manpage">terminfo (5)</span>, <span Class="manpage">locale (7)</span>, <span Class="manpage">regex (7)</span>, <span Class="manpage">term (7)</span><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0"><span Class="bold">pg</span> expects the terminal tabulators to be set every eight positions. 
+<p class="level0">Files that include 
+<p class="level0">characters cannot be displayed by <span Class="manpage">pg .</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The pg command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

@@ -1,0 +1,151 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xedit - simple text editor for X <a name="SYNTAX"></a><h2 class="nroffsh">SYNTAX</h2>
+<p class="level0"><span Class="bold">xedit</span> [ <span Class="emphasis">-toolkitoption</span> .|.|. ] [ <span Class="emphasis">filename</span> .|.|. ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Xedit</span> provides a window consisting of the following four areas: 
+<p class="level0"><a name="Commands"></a><span class="nroffip">Commands Section 25</span> 
+<p class="level1">A set of commands that allow you to exit <span Class="emphasis">xedit</span>, save the file, or load a new file into the edit window. 
+<p class="level0"><a name="Message"></a><span class="nroffip">Message Window 25</span> 
+<p class="level1">Displays <span Class="emphasis">xedit</span> messages. In addition, this window can be also used as a scratch pad. 
+<p class="level0"><a name="Filename"></a><span class="nroffip">Filename Display</span> 
+<p class="level1">Displays the name of the file currently being edited, and whether this file is <span Class="emphasis">Read-Write</span> or <span Class="emphasis">Read Only</span>. 
+<p class="level0"><a name="Edit"></a><span class="nroffip">Edit Window 25</span> 
+<p class="level1">Displays the text of the file that you are editing or creating. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xedit</span> accepts all of the standard X Toolkit command line options (see <span Class="emphasis">X (7)).</span> The order of the command line options is not important. 
+<p class="level0"><span Class="emphasis">filename</span> Specifies the file(s) that are to be loaded during start-up. This is the file which will be edited. If a file is not specified, <span Class="emphasis">xedit</span> lets you load files or create new files after it has started up. <a name="EDITING"></a><h2 class="nroffsh">EDITING</h2>
+<p class="level0">The Athena Text widget is used for the three sections of this application that allow text input.  The characters typed will go to the Text widget that has the input focus, or the Text widget that the pointer cursor is currently over. 
+<p class="level0">
+<p class="level0">The following keystroke combinations are defined: 
+<p class="level0">
+<p class="level0">l l. Ctrl-a	Beginning Of Line Meta-b	Backward Word Ctrl-b	Backward Character Meta-f	Forward Word Ctrl-d	Delete Next Character Meta-i	Insert File Ctrl-e	End Of Line Meta-k	Kill To End Of Paragraph Ctrl-f	Forward Character Meta-q	Form Paragraph Ctrl-g	Keyboard Reset Meta-v	Previous Page Ctrl-h	Delete Previous Character Meta-y	Insert Current Selection Ctrl-j	Newline And Indent Meta-z	Scroll One Line Down Ctrl-k	Kill To End Of Line Meta-d	Delete Next Word Ctrl-l	Redraw Display Meta-D	Kill Word Ctrl-m	Newline	Meta-h Delete Previous Word Ctrl-n	Next Line Meta-H	Backward Kill Word Ctrl-o	Newline And Backup Meta-&lt;	Beginning Of File Ctrl-p	Previous Line Meta-&gt;	End Of File Ctrl-r	Search/Replace Backward Meta-]	Forward Paragraph Ctrl-s	Search/Replace Forward Meta-[	Backward Paragraph Ctrl-t	Transpose Characters Ctrl-u [<span Class="emphasis">number</span>]	Multiply by 4 or <span Class="emphasis">number</span> Meta-Delete	Delete Previous Word Ctrl-v	Next Page Meta-Shift Delete	Kill Previous Word Ctrl-w	Kill Selection	 Meta-Backspace	Delete Previous Word Ctrl-y	Unkill	Meta-Shift Backspace Kill Previous Word Ctrl-z	Scroll One Line Up Meta-z	Scroll One Line Down Ctrl-_	Undo Escape	Line Edit Mode 
+<p class="level0">
+<p class="level0">In addition, the pointer may be used to cut and paste text: 
+<p class="level0">l l. Button 1 Down	Start Selection Button 1 Motion	Adjust Selection Button 1 Up	End Selection (cut) 
+<p class="level0">Button 2 Down	Insert Current Selection (paste) 
+<p class="level0">Button 3 Down	Extend Current Selection Button 3 Motion	Adjust Selection Button 3 Up	End Selection (cut) 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="LINE"></a><h2 class="nroffsh">LINE EDIT MODE</h2>
+<p class="level0"><span Class="emphasis">Line edit mode</span> enables several shortcut commands for searching and replacing text in a xedit buffer. <span Class="emphasis">Line edit mode</span> commands have the format: <br><pre class="level0">
+&nbsp;
+	[<span class="emphasis">line-number</span>[,<span class="emphasis">line-number</span>]]<span class="emphasis">command</span>[<span class="emphasis">parameters</span>]
+&nbsp;
+</pre>
+
+<p class="level0"><span Class="emphasis">Line number</span> may be specified as: 
+<p class="level0">. The current text line. 
+<p class="level0">$ The last line of the file. 
+<p class="level0">number The literal line <span Class="emphasis">number</span>. 
+<p class="level0">- or ^ The previous line. Equivalent to <span Class="emphasis">-1</span>. 
+<p class="level0">-number or ^number The current line minus <span Class="emphasis">number</span>. 
+<p class="level0">+ The next line. Equivalent to <span Class="emphasis">+1</span>. 
+<p class="level0">+number The current line plus <span Class="emphasis">number</span>. 
+<p class="level0">, or % From the first to the last line. Equivalent to <span Class="emphasis">1,$</span>. 
+<p class="level0">; From the current to the last line. Equivalent to <span Class="emphasis">.,$</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Command</span> may be specified as: 
+<p class="level0">s Substitute text in the specified lines. 
+<p class="level0">/re/ Search forward for the regular expression pattern <span Class="emphasis">re</span>. 
+<p class="level0">?re? Search backward for the regular expression pattern <span Class="emphasis">re</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Parameters</span> may be specified as: 
+<p class="level0">/re/ Works as a parameter to <span Class="emphasis">i</span> or as a command. 
+<p class="level0">/re/text/ Search forward for <span Class="emphasis">re</span> and substitute by <span Class="emphasis">text</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Options</span> may follow or be parameters, known values are: 
+<p class="level0">i Case insensitive search. 
+<p class="level0">g <span Class="emphasis">Global</span> match when replacing text. Unless specified, only the nth, that defaults to 1, match will be replaced. 
+<p class="level0">c <span Class="emphasis">Confirm</span> before replacing text. 
+<p class="level0">number Replace only the occurrence referenced by <span Class="emphasis">number</span>. 
+<p class="level0">
+<p class="level0">Commands accept some variations, examples: <br><pre class="level0">
+	/pattern/i
+	i/pattern/
+	i/pattern
+</pre>
+
+<p class="level0">Search forward for <span Class="emphasis">pattern</span>. <br><pre class="level0">
+&nbsp;
+	,sc/pattern/text
+	,sc/pattern/text/
+	,s/pattern/text/c
+</pre>
+
+<p class="level0">Search the entire buffer and ask confirmation to replace <span Class="emphasis">pattern</span> with <span Class="emphasis">text</span>. <br><pre class="level0">
+&nbsp;
+	,s/pattern/text/number
+</pre>
+
+<p class="level0">Replace the match <span Class="emphasis">number</span> in the text line. If not specified, defaults to the first occurrence. 
+<p class="level0">
+<p class="level0">When searching for text, type &lt;Return&gt; to go to the next match. When interactively replacing text, type <span Class="emphasis">y</span> or <span Class="emphasis">Y</span> to accept the change, and <span Class="emphasis">n</span> or <span Class="emphasis">N</span> to ignore it and go to the next match. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><a name="Quit"></a><span class="nroffip">Quit 8</span> 
+<p class="level1">Quits the current editing session. If any changes have not been saved, <span Class="emphasis">xedit</span> displays a warning message, allowing the user to save them. 
+<p class="level0"><a name="Save"></a><span class="nroffip">Save</span> 
+<p class="level1">If file backups are enabled (see RESOURCES, below) <span Class="emphasis">xedit</span> stores a copy of the original, unedited file in &lt;prefix&gt;<span Class="emphasis">file</span>&lt;suffix&gt;, then overwrites the <span Class="emphasis">file</span> with the contents of the edit window.  The filename is retrieved from the Text widget directly to the right of the <a class="emphasis" href="#Load">Load</a> button. 
+<p class="level0"><a name="Load"></a><span class="nroffip">Load</span> 
+<p class="level1">Loads the file named in the text widget immediately to the right of the this button and displays it in the Edit window. <a name="RESOURCES"></a><h2 class="nroffsh">RESOURCES</h2>
+<p class="level0">For <span Class="emphasis">xedit</span> the available resources are: 
+<p class="level0"><span Class="bold">tagsName (Class\fB TagsName)</span> Specifies the name of the tags file to search when loading a new file. Default value is <span Class="emphasis">tags</span>. 
+<p class="level0"><span Class="bold">loadTags (Class\fB LoadTags)</span> Boolean value to enable or disabling searching for tags files. Default is <span Class="emphasis">True</span>. 
+<p class="level0"><span Class="bold">enableBackups (Class\fB EnableBackups)</span> Specifies that, when edits made to an existing file are saved, <span Class="emphasis">xedit</span> is to copy the original version of that file to &lt;prefix&gt;<span Class="emphasis">file</span>&lt;suffix&gt; before it saves the changes.  The default value for this resource is ``on,'' stating that backups should be created. 
+<p class="level0"><span Class="bold">backupNamePrefix (Class\fB BackupNamePrefix)</span> Specifies a string that is to be prepended to the backup filename.  The default is that no string shall be prepended. 
+<p class="level0"><span Class="bold">backupNameSuffix (Class\fB BackupNameSuffix)</span> Specifies a string that is to be appended to the backup filename.  The default is to use ``~'' as the suffix. 
+<p class="level0"><span Class="bold">positionFormat (Class\fB Format)</span> Specifies a format string used to display the cursor position.  This string uses printf(3) like notation, where <span Class="bold">%l</span> prints the line number, <span Class="bold">%c</span> prints the column number, <span Class="bold">%p</span> prints the insert position offset, and <span Class="bold">%s</span> prints the current file size.  It is also allowed to specify field sizes, with the notation <span Class="bold">%-?[0-9]+</span> .  The default format string is ``L%l'', which shows the character ``L'' followed by the line number. 
+<p class="level0"><span Class="bold">hints (Class\fB Hints)</span> Specifies a list of strings, separated by new lines, that will be displayed in the bc_label window. 
+<p class="level0"><span Class="bold">hintsInterval (Class \fBInterval)</span> Specifies the interval in seconds, which the hint string in the bc_label window will be changed. 
+<p class="level0"><span Class="bold">changedBitmap (Class \fBBitmap)</span> Specifies the name of the Bitmap that will be displayed in the fileMenu, when the file being edited is changed. 
+<p class="level0"><span Class="bold">autoReplace (Class \fBReplace)</span> This resource is useful to automatically correct common misspelling errors, but can also be used to create simple macros. The format is <span Class="emphasis">{non-blanks}{blanks}[{string}]</span>. Fields are separated by newlines. Example of use: " <br><pre class="level0">
+nto	  not\n\
+/macro some long string with \\\n newlines \\\n
+</pre>
+
+<p class="level0">" <br>Will automatically replace the word <span Class="emphasis">nto</span> by <span Class="emphasis">not</span>, and <span Class="emphasis">/macro</span> by <span class="emphasis">some long string with &nbsp;newlines </span> when you type that words. 
+<p class="level0"><span Class="bold">ispell.dictionaries (Class \fBispell.Dictionary)</span> Specifies a list of dictionary names, separated by spaces, available to the ispell program. The default value is <span Class="emphasis">"american americamed+ english"</span>. 
+<p class="level0"><span Class="bold">ispell.dictionary (Class \fBispell.Dictionary)</span> Specifies the default dictionary to use. 
+<p class="level0"><span Class="bold">ispell*&lt;DICTIONARY&gt;.wordChars (Class \fBispell*Chars)</span> Specifies a set of characters that can be part of a legal word. The <span Class="emphasis">&lt;DICTIONARY&gt;</span> field is one of the dictionaries specified in the <span Class="emphasis">dictionaries</span> resource. 
+<p class="level0"><span Class="bold">ispell.ispellCommand (Class \fBispell.CommandLine)</span> The path to the ispell program, and possibly, additional arguments. You don't need to specify the ``-w'' option, neither the ``-a'' option. Refer to the <span Class="emphasis">ispell</span>(1) manpage for more information on ispell options. 
+<p class="level0"><span Class="bold">ispell.formatting (Class ispell.TextFormat)</span> Specifies which text formatting to use while spell checking the file. The available formats are <span Class="emphasis">text</span> and <span Class="emphasis">html</span>. 
+<p class="level0"><span Class="bold">ispell*text.skipLines (Class \fBispell*text.Skip)</span> Lines starting with one of the characters in this string will not be spell checked. This resource is only used in <span Class="emphasis">text</span> mode. 
+<p class="level0"><span Class="bold">ispell.terseMode (Class \fBispell.Terse)</span> When enabled, runs ispell in terse mode, not asking user interaction for words generated through compound formation (when using the ispell ``-C'' option), or words generated through affix removal. The default value is False. 
+<p class="level0"><span Class="bold">ispell.lookCommand (Class \fBispell.CommandLine)</span> The path to the program to search for alternate words, and possibly, additional arguments. The default program used is <span Class="emphasis">/usr/bin/egrep</span>. 
+<p class="level0"><span Class="bold">ispell.wordsFile (Class \fBispell.Words)</span> The path to the file[s] to search for alternate words. The default file is <span Class="emphasis">/usr/share/dict/words</span>. 
+<p class="level0"><span Class="bold">ispell.guessLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when ispell returns a guess list of one or more words. The default value is <span Class="emphasis">Guess</span>. 
+<p class="level0"><span Class="bold">ispell.missLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when ispell returns a list of one or more words to match a misspelled one. The default value is <span Class="emphasis">Miss</span>. 
+<p class="level0"><span Class="bold">ispell.rootLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when the word is not in the dictionary, but it can be formed through a root one. The default value is <span Class="emphasis">Root:</span>, and is followed by a space and the root word. 
+<p class="level0"><span Class="bold">ispell.noneLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when there is no near misses. The default value is <span Class="emphasis">None</span>. 
+<p class="level0"><span Class="bold">ispell.compoundLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when the word being checked is formed by concatenation of two words. The default value is <span Class="emphasis">Compound</span>. 
+<p class="level0"><span Class="bold">ispell.okLabel (Class \fBispell.Status)</span> String displayed in the ispell status bar when the checked word is in the dictionary. This string is only displayed when using the <span Class="emphasis">check</span> button in the xedit ispell interface. The default value is <span Class="emphasis">Ok</span>. 
+<p class="level0"><span Class="bold">ispell.eofLabel (Class \fBispell.Status)</span> The string displayed in the ispell status bar when the end of the file is reached. The default value is <span Class="emphasis">End Of File</span>. 
+<p class="level0"><span Class="bold">ispell.repeatLabel (Class \fBispell.Status)</span> The string displayed in the ispell status bar when two identical words are found together in the file. The default value is <span Class="emphasis">Repeat</span>. 
+<p class="level0"><span Class="bold">ispell.lookLabel (Class \fBispell.Status)</span> The string displayed in the ispell status bar after displaying the results of the <span Class="emphasis">Look</span> command. If no results are found, the value of the <span Class="emphasis">ispell.noneLabel</span> resource is shown. 
+<p class="level0"><span Class="bold">ispell.workingLabel (Class \fBispell.Status)</span> The string displayed in the ispell status bar while xedit is communicating with ispell. The default value is <span Class="emphasis">...</span>. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xedit</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+Xedit  xedit
+&nbsp;       Paned  paned
+&nbsp;               Paned  buttons
+&nbsp;                       Command  quit
+&nbsp;                       Command  save
+&nbsp;                       Command  load
+&nbsp;                       Text     filename
+&nbsp;               Label  bc_label
+&nbsp;               Text   messageWindow
+&nbsp;               Label  labelWindow
+&nbsp;               Text   editWindow
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="emphasis">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/Xedit</span> specifies required resources <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">X (7),</span> <span Class="emphasis">xrdb (1),</span> <span Class="emphasis">Athena Widget Set</span> <a name="RESTRICTIONS"></a><h2 class="nroffsh">RESTRICTIONS</h2>
+<p class="level0">Xedit is not a replacement to Emacs. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1988, Digital Equipment Corporation. <br>Copyright 1989, X Consortium <br>Copyright 1998, The XFree86 Project <br>See <span Class="emphasis">X (7)</span> for a full statement of rights and permissions. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Chris D. Peterson, MIT X Consortium <br>Paulo Cesar Pereira de Andrade, The XFree86 Project 

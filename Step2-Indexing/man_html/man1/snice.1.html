@@ -1,0 +1,43 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">skill, snice - send a signal or report process status <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">skill</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">expression</span> <br><span Class="bold">snice</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">expression</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">These tools are obsolete and unportable.  The command syntax is poorly defined.  Consider using the killall, pkill, and pgrep commands instead. 
+<p class="level0">The default signal for skill is TERM.  Use -l or -L to list available signals.  Particularly useful signals include HUP, INT, KILL, STOP, CONT, and 0.  Alternate signals may be specified in three ways: -9 -SIGKILL -KILL. 
+<p class="level0">The default priority for snice is +4.  Priority numbers range from +20 (slowest) to -20 (fastest).  Negative priority numbers are restricted to administrative users. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">\ --fast</span>Fast mode.  This option has not been implemented. 
+<p class="level0"><span Class="manpage">-i</span>, <span Class="manpage">\ --interactive</span>Interactive use.  You will be asked to approve each action. 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">\ --list</span>List all signal names. 
+<p class="level0"><span Class="manpage">-L</span>, <span Class="manpage">\ --table</span>List all signal names in a nice table. 
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">\ --no-action</span>No action; perform a simulation of events that would occur but do not actually change the system. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">\ --verbose</span>Verbose; explain what is being done. 
+<p class="level0"><span Class="manpage">-w</span>, <span Class="manpage">\ --warnings</span>Enable warnings.  This option has not been implemented. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information. 
+<p class="level0"><a name="PROCESS"></a><h2 class="nroffsh">PROCESS SELECTION OPTIONS</h2>
+<p class="level0">Selection criteria can be: terminal, user, pid, command.  The options below may be used to ensure correct interpretation. 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--tty</span> <span Class="emphasis">tty</span> The next expression is a terminal (tty or pty). 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--user</span> <span Class="emphasis">user</span> The next expression is a username. 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--pid</span> <span Class="emphasis">pid</span> The next expression is a process ID number. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--command</span> <span Class="emphasis">command</span> The next expression is a command name. 
+<p class="level0"><span class="bold">--ns <span Class="emphasis">pid</span> Match the processes that belong to the same namespace as pid. 
+<p class="level0"><span class="bold">--nslist <span Class="emphasis">ns,...</span> list which namespaces will be considered for the --ns option. Available namespaces: ipc, mnt, net, pid, user, uts. 
+<p class="level0"><a name="SIGNALS"></a><h2 class="nroffsh">SIGNALS</h2>
+<p class="level0">The behavior of signals is explained in , <span Class="manpage">signal (7)</span>manual page. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">snice -c seti -c crack +7</span> Slow down seti and crack commands. 
+<p class="level0"><span Class="bold">skill -KILL -t /dev/pts/*</span> Kill users on PTY devices. 
+<p class="level0"><span Class="bold">skill -STOP -u viro -u lm -u davem</span> Stop three users. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">kill (1)</span>, <span Class="manpage">kill (2)</span>, <span Class="manpage">killall (1)</span>, <span Class="manpage">nice (1)</span>, <span Class="manpage">pkill (1)</span>, <span Class="manpage">renice (1)</span>, <span Class="manpage">signal (7)</span><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">No standards apply. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Albert Cahalan 
+<p class="level0">wrote skill and snice in 1999 as a replacement for a non-free version. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Please send bug reports to 
+<p class="level0">
+<p class="level0">

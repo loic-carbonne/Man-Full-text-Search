@@ -1,0 +1,100 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">alsaloop - command-line PCM loopback <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">alsaloop</span> [<span Class="emphasis">-option</span>] [<span Class="emphasis">cmd</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">alsaloop</span> allows create a PCM loopback between a PCM capture device and a PCM playback device. 
+<p class="level0"><span Class="bold">alsaloop</span> supports multiple soundcards, adaptive clock synchronization, adaptive rate resampling using the samplerate library (if available in the system). Also, mixer controls can be redirected from one card to another (for example Master and PCM). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h</span> | <span Class="emphasis">--help</span> 
+<p class="level0">Prints the help information. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-g &lt;file&gt;</span> | <span Class="emphasis">--config=&lt;file&gt;</span> 
+<p class="level0">Use given configuration file. The syntax of this file is simple: one line contains the command line options for one job. The '&#35;' means comment and rest of line is ignored. Example: 
+<p class="level0">&nbsp; &#35; First line - comment, second line - first job &nbsp; -C hw:1,0 -P hw:0,0 -t 50000 -T 1 &nbsp; &#35; Third line - comment, fourth line - second job &nbsp; -C hw:1,1 -P hw:0,1 -t 40000 -T 2 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-d</span> | <span Class="emphasis">--daemonize</span> 
+<p class="level0">Daemonize the main process and use syslog for messages. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-P &lt;device&gt;</span> | <span Class="emphasis">--pdevice=&lt;device&gt;</span> 
+<p class="level0">Use given playback device. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-C &lt;device&gt;</span> | <span Class="emphasis">--cdevice=&lt;device&gt;</span> 
+<p class="level0">Use given capture device. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-X &lt;device&gt;</span> | <span Class="emphasis">--pctl=&lt;device&gt;</span> 
+<p class="level0">Use given CTL device for playback. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-Y &lt;device&gt;</span> | <span Class="emphasis">--cctl=&lt;device&gt;</span> 
+<p class="level0">Use given CTL device for capture. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-l &lt;latency&gt;</span> | <span Class="emphasis">--latency=&lt;frames&gt;</span> 
+<p class="level0">Requested latency in frames. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-t &lt;usec&gt;</span> | <span Class="emphasis">--tlatency=&lt;usec&gt;</span> 
+<p class="level0">Requested latency in usec (1/1000000sec). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-f &lt;format&gt;</span> | <span Class="emphasis">--format=&lt;format&gt;</span> 
+<p class="level0">Format specification (usually S16_LE S32_LE). Use -h to list all formats. Default format is S16_LE. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c &lt;channels&gt;</span> | <span Class="emphasis">--channels=&lt;channels&gt;</span> 
+<p class="level0">Channel count specification. Default value is 2. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c &lt;rate&gt;</span> | <span Class="emphasis">--rate=&lt;rate&gt;</span> 
+<p class="level0">Rate specification. Default value is 48000 (Hz). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-n</span> | <span Class="emphasis">--resample</span> 
+<p class="level0">Allow rate resampling using alsa-lib. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-A &lt;converter&gt;</span> | <span Class="emphasis">--samplerate=&lt;converter&gt;</span> 
+<p class="level0">Use libsamplerate and choose a converter: 
+<p class="level0">&nbsp; 0 or sincbest     - best quality &nbsp; 1 or sincmedium   - medium quality &nbsp; 2 or sincfastest  - lowest quality &nbsp; 3 or zerohold     - hold zero samples &nbsp; 4 or linear       - worst quality - linear resampling &nbsp; 5 or auto         - choose best method 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-B &lt;size&gt;</span> | <span Class="emphasis">--buffer=&lt;size&gt;</span> 
+<p class="level0">Buffer size in frames. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-E &lt;size&gt;</span> | <span Class="emphasis">--period=&lt;size&gt;</span> 
+<p class="level0">Period size in frames. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-s &lt;secs&gt;</span> | <span Class="emphasis">--seconds=&lt;secs&gt;</span> 
+<p class="level0">Duration of loop in seconds. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-b</span> | <span Class="emphasis">--nblock</span> 
+<p class="level0">Non-block mode (very early process wakeup). Eats more CPU. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-S &lt;mode&gt;</span> | <span Class="emphasis">--sync=&lt;mode&gt;</span> 
+<p class="level0">Sync mode specification for capture to playback stream: &nbsp; 0 or none       - do not touch the stream &nbsp; 1 or simple     - add or remove samples to keep &nbsp;                   both streams synchronized &nbsp; 2 or captshift  - use driver for the capture device &nbsp;                   (if supported) to compensate &nbsp;                   the rate shift &nbsp; 3 or playshift  - use driver for the playback device &nbsp;                   (if supported) to compensate &nbsp;                   the rate shift &nbsp; 4 or samplerate - use samplerate library to do rate resampling &nbsp; 5 or auto       - automatically selects the best method &nbsp;                   in this order: captshift, playshift, &nbsp;                   samplerate, simple 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-T &lt;num&gt;</span> | <span Class="emphasis">--thread=&lt;num&gt;</span> 
+<p class="level0">Thread number (-1 means create a unique thread). All jobs with same thread numbers are run within one thread. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-m &lt;mixid&gt;</span> | <span Class="emphasis">--mixer=&lt;midid&gt;</span> 
+<p class="level0">Redirect mixer control from the playback card to the capture card. Format of <span Class="emphasis">mixid</span> is SRCID(PLAYBACK)[@DSTID(PLAYBACK)]: 
+<p class="level0">&nbsp; "name='Master Playback Switch'@name='Another Switch'" &nbsp; "name='PCM Playback Volume'" 
+<p class="level0">Known attributes: 
+<p class="level0">&nbsp; name      - control ID name &nbsp; index     - control ID index &nbsp; device    - control ID device &nbsp; subdevice - control ID subdevice &nbsp; iface     - control ID interface &nbsp; numid     - control ID numid 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-O &lt;ossmixid&gt;</span> | <span Class="emphasis">--ossmixer=&lt;midid&gt;</span> 
+<p class="level0">Redirect mixer control from the OSS Mixer emulation layer (capture card) to the ALSA layer (capture card). Format of <span Class="emphasis">ossmixid</span> is ALSAID[,INDEX]@OSSID: 
+<p class="level0">&nbsp; "Master@VOLUME" &nbsp; "PCM,1@ALTPCM" 
+<p class="level0">Known OSS attributes: 
+<p class="level0">&nbsp; VOLUME, BASS, TREBLE, SYNTH, PCM, SPEAKER, LINE, MIC, CD, IMIX, ALTPCM, &nbsp; RECLEV, IGAIN, OGAIN, LINE1, LINE2, LINE3, DIGITAL1, DIGITAL2, DIGITAL3, &nbsp; PHONEIN, PHONEOUT, VIDEO, RADIO, MONITOR 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-v</span> | <span Class="emphasis">--verbose</span> 
+<p class="level0">Verbose mode. Use multiple times to increase verbosity. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-U</span> | <span Class="emphasis">--xrun</span> 
+<p class="level0">Verbose xrun profiling. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-W &lt;timeout&gt;</span> | <span Class="emphasis">--wake=&lt;timeout&gt;</span> 
+<p class="level0">Set process wake timeout. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">alsaloop -C hw:0,0 -P hw:1,0 -t 50000</span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">None known. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">alsaloop</span> is by Jaroslav Kysela &lt;perex@perex.cz&gt;. This document is by Jaroslav Kysela &lt;perex@perex.cz&gt;. 

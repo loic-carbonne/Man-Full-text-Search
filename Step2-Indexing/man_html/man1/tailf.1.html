@@ -1,0 +1,14 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tailf - follow the growth of a log file <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tailf</span> [option] <span Class="emphasis">file</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">tailf</span> will print out the last 10 lines of the given <span Class="emphasis">file</span> and then wait for this <span Class="emphasis">file</span> to grow.  It is similar to <span Class="bold">tail -f</span> but does not access the file when it is not growing.  This has the side effect of not updating the access time for the file, so a filesystem flush does not occur periodically when no log activity is happening. 
+<p class="level0"><span Class="bold">tailf</span> is extremely useful for monitoring log files on a laptop when logging is infrequent and the user desires that the hard disk spin down to conserve battery life. 
+<p class="level0"><span Class="manpage">-n</span>, <span Class="manpage">--lines=\fInumber\fR</span>, <span Class="manpage">-\fInumber\fR</span>Output the last <span Class="emphasis">number</span> lines, instead of the last 10. 
+<p class="level0"><span Class="bold">-V</span>, <span class="bold">--version Display version information and exit. 
+<p class="level0"><span Class="bold">-h</span>, <span class="bold">--help Display help text and exit. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This program was originally written by Rik Faith (faith@acm.org) and may be freely distributed under the terms of the X11/MIT License.  There is ABSOLUTELY NO WARRANTY for this program. 
+<p class="level0">The latest inotify-based implementation was written by Karel Zak (kzak@redhat.com). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tail (1)</span>, <span Class="manpage">less (1)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The tailf command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

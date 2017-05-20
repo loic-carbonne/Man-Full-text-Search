@@ -1,0 +1,103 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pdftex, pdfinitex, pdfvirtex - PDF output from TeX <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pdftex</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Run the pdf*(TX typesetter on <span Class="emphasis">file ,</span> usually creating <span Class="emphasis">file.pdf .</span> If the file argument has no extension, ".tex" will be appended to it.  Instead of a filename, a set of pdf*(TX commands can be given, the first of which must start with a backslash. With a  <span Class="bold">& format</span> argument pdf*(TX uses a different set of precompiled commands, contained in <span Class="emphasis">format\fB.fmt\fP ;</span> it is usually better to use the <span Class="bold">-fmt</span> <span Class="emphasis">format</span> option instead. 
+<p class="level0">pdf*(TX is a version of *(TX, with the e-*(TX extensions, that can create <span Class="emphasis">PDF</span> files as well as <span Class="emphasis">DVI</span> files. 
+<p class="level0">In <span Class="emphasis">DVI</span> mode, pdf*(TX can be used as a complete replacement for the *(TX engine. 
+<p class="level0">The typical use of pdf*(TX is with a pregenerated formats for which PDF output has been enabled.  The <span Class="bold">pdftex</span> command uses the equivalent of the plain *(TX format, and the <span Class="bold">pdflatex</span> command uses the equivalent of the *(LX format. To generate formats, use the <span Class="bold">-ini</span> switch. 
+<p class="level0">The <span Class="bold">pdfinitex</span> and <span Class="bold">pdfvirtex</span> commands are pdf*(TX's analogues to the <span Class="bold">initex</span> and <span Class="bold">virtex</span> commands.  In this installation, if the links exist, they are symbolic links to the <span Class="bold">pdftex</span> executable. 
+<p class="level0">In <span Class="emphasis">PDF</span> mode, pdf*(TX can natively handle the <span Class="emphasis">PDF ,</span> <span Class="emphasis">JPG ,</span> <span Class="emphasis">JBIG2 ,</span> and <span Class="emphasis">PNG</span> graphics formats.  pdf*(TX cannot include PostScript or Encapsulated PostScript (EPS) graphics files; first convert them to PDF using  <span Class="manpage">epstopdf (1).</span>pdf*(TX's handling of its command-line arguments is similar to that of of the other *(TX programs in the <span Class="emphasis">web2c</span> implementation. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">This version of pdf*(TX understands the following command line options. 
+<p class="level0"><span Class="bold">-draftmode</span> Sets epdfdraftmode so pdf*(TX doesn't write a PDF and doesn't read any included images, thus speeding up execution. 
+<p class="level0"><span Class="bold">-enc</span> Enable the enc*(TX extensions.  This option is only effective in combination with <span Class="manpage">-ini .</span>For documentation of the enc*(TX extensions see <span Class="manpage">http://www.olsak.net/enctex.html .</span>
+<p class="level0"><span Class="bold">-etex</span> Enable the e-*(TX extensions.  This option is only effective in combination with <span Class="manpage">-ini .</span>See <span Class="manpage">etex (1).</span>
+<p class="level0"><span Class="bold">-file-line-error</span> Print error messages in the form <span Class="emphasis">file:line:error</span> which is similar to the way many compilers format them. 
+<p class="level0"><span Class="bold">-no-file-line-error</span> Disable printing error messages in the <span Class="emphasis">file:line:error</span> style. 
+<p class="level0"><span Class="bold">-file-line-error-style</span> This is the old name of the <span Class="bold">-file-line-error</span> option. 
+<p class="level0"><span Class="bold">-fmt \ format</span> Use <span Class="emphasis">format</span> as the name of the format to be used, instead of the name by which pdf*(TX was called or a <span Class="emphasis">%&</span> line. 
+<p class="level0"><span Class="bold">-halt-on-error</span> Exit with an error code when an error is encountered during processing. 
+<p class="level0"><span Class="bold">-help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">-ini</span> Start in <span Class="emphasis">INI</span> mode, which is used to dump formats.  The <span Class="emphasis">INI</span> mode can be used for typesetting, but no format is preloaded, and basic initializations like setting catcodes may be required. 
+<p class="level0"><span Class="bold">-interaction \ mode</span> Sets the interaction mode.  The mode can be either <span Class="emphasis">batchmode ,</span> <span Class="emphasis">nonstopmode ,</span> <span Class="emphasis">scrollmode ,</span> and <span Class="emphasis">errorstopmode .</span> The meaning of these modes is the same as that of the corresponding ecommands. 
+<p class="level0"><span Class="bold">-ipc</span> Send DVI or PDF output to a socket as well as the usual output file. Whether this option is available is the choice of the installer. 
+<p class="level0"><span Class="bold">-ipc-start</span> As <span Class="manpage">-ipc</span>and starts the server at the other end as well.  Whether this option is available is the choice of the installer. 
+<p class="level0"><span Class="bold">-jobname \ name</span> Use <span Class="emphasis">name</span> for the job name, instead of deriving it from the name of the input file. 
+<p class="level0"><span Class="bold">-kpathsea-debug \ bitmask</span> Sets path searching debugging flags according to the bitmask.  See the <span Class="emphasis">Kpathsea</span> manual for details. 
+<p class="level0"><span Class="bold">-mktex \ fmt</span> Enable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be either <span Class="emphasis">tex</span> or <span Class="emphasis">tfm .</span> 
+<p class="level0"><span Class="bold">-mltex</span> Enable ML*(TX extensions.  Only effective in combination with <span Class="manpage">-ini .</span>
+<p class="level0"><span Class="bold">-no-mktex \ fmt</span> Disable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be either <span Class="emphasis">tex</span> or <span Class="emphasis">tfm .</span> 
+<p class="level0"><span Class="bold">-output-comment \ string</span> In <span Class="emphasis">DVI</span> mode, use <span Class="emphasis">string</span> for the <span Class="emphasis">DVI</span> file comment instead of the date.  This option is ignored in <span Class="emphasis">PDF</span> mode. 
+<p class="level0"><span Class="bold">-output-directory \ directory</span> Write output files in <span Class="emphasis">directory</span> instead of the current directory.  Look up input files in <span Class="emphasis">directory</span> first, the along the normal search path. 
+<p class="level0"><span Class="bold">-output-format \ format</span> Set the output format mode, where <span Class="emphasis">format</span> must be either <span Class="emphasis">pdf</span> or <span Class="emphasis">dvi .</span> This also influences the set of graphics formats understood by pdf*(TX. 
+<p class="level0"><span Class="bold">-parse-first-line</span> If the first line of the main input file begins with <span Class="emphasis">%&</span> parse it to look for a dump name or a <span Class="bold">-translate-file</span> option. 
+<p class="level0"><span Class="bold">-no-parse-first-line</span> Disable parsing of the first line of the main input file. 
+<p class="level0"><span Class="bold">-progname \ name</span> Pretend to be program <span Class="emphasis">name .</span> This affects both the format used and the search paths. 
+<p class="level0"><span Class="bold">-recorder</span> Enable the filename recorder. This leaves a trace of the files opened for input and output in a file with extension <span Class="emphasis">.fls .</span> 
+<p class="level0"><span Class="bold">-shell-escape</span> Enable the <span Class="bold">\ewrite18{ command }</span> construct.  The <span Class="emphasis">command</span> can be any shell command.  This construct is normally disallowed for security reasons. 
+<p class="level0"><span Class="bold">-no-shell-escape</span> Disable the <span Class="bold">\ewrite18{ command }</span> construct, even if it is enabled in the <span Class="emphasis">texmf.cnf</span> file. 
+<p class="level0"><span Class="bold">-src-specials</span> In <span Class="emphasis">DVI</span> mode, insert source specials into the <span Class="emphasis">DVI</span> file. This option is ignored in <span Class="emphasis">PDF</span> mode. 
+<p class="level0"><span Class="bold">-src-specials \ where</span> In <span Class="emphasis">DVI</span> mode, insert source specials in certain placed of the <span Class="emphasis">DVI</span> file. <span Class="emphasis">where</span> is a comma-separated value list: <span Class="emphasis">cr ,</span> <span Class="emphasis">display ,</span> <span Class="emphasis">hbox ,</span> <span Class="emphasis">math ,</span> <span Class="emphasis">par ,</span> <span Class="emphasis">parent ,</span> or <span Class="emphasis">vbox .</span> This option is ignored in <span Class="emphasis">PDF</span> mode. 
+<p class="level0"><span Class="bold">-translate-file \ tcxname</span> Use the <span Class="emphasis">tcxname</span> translation table to set the mapping of input characters and re-mapping of output characters. 
+<p class="level0"><span Class="bold">-default-translate-file \ tcxname</span> Like <span Class="bold">-translate-file</span> except that a <span Class="emphasis">%&</span> line can overrule this setting. 
+<p class="level0"><span Class="bold">-version</span> Print version information and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">See the Kpathsearch library documentation (the `Path specifications' node) for precise details of how the environment variables are used. The <span Class="bold">kpsewhich</span> utility can be used to query the values of the variables. 
+<p class="level0">One caveat: In most pdf*(TX formats, you cannot use ~ in a filename you give directly to pdf*(TX, because ~ is an active character, and hence is expanded, not taken as part of the filename.  Other programs, such as *(MF, do not have this problem. 
+<p class="level0">
+<p class="level0"><span Class="bold">TEXMFOUTPUT</span> Normally, pdf*(TX puts its output files in the current directory.  If any output file cannot be opened there, it tries to open it in the directory specified in the environment variable TEXMFOUTPUT. There is no default value for that variable.  For example, if you say <span Class="emphasis">pdftex paper</span> and the current directory is not writable and TEXMFOUTPUT has the value <span Class="emphasis">/tmp ,</span> pdf*(TX attempts to create <span Class="emphasis">/tmp/paper.log</span> (and <span Class="emphasis">/tmp/paper.pdf ,</span> if any output is produced.)  TEXMFOUTPUT is also checked for input files, as *(TX often generates files that need to be subsequently read; for input, no suffixes (such as ``.tex'') are added by default, the input name is simply checked as given. 
+<p class="level0"><span Class="bold">TEXINPUTS</span> Search path for <span Class="emphasis">\einput</span> and <span Class="emphasis">\eopenin</span> files. This should start with ``.'', so that user files are found before system files.  An empty path component will be replaced with the paths defined in the <span Class="emphasis">texmf.cnf</span> file.  For example, set TEXINPUTS to ".:/home/user/tex:" to prepend the current directory and ``/home/user/tex'' to the standard search path. 
+<p class="level0"><span Class="bold">TEXFORMATS</span> Search path for format files. 
+<p class="level0"><span Class="bold">TEXPOOL</span> search path for <span Class="bold">pdftex</span> internal strings. 
+<p class="level0"><span Class="bold">TEXEDIT</span> Command template for switching to editor.  The default, usually <span Class="manpage">vi</span>is set when pdf*(TX is compiled. 
+<p class="level0"><span Class="bold">TFMFONTS</span> Search path for font metric 
+<p class="level0">files. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">The location of the files mentioned below varies from system to system.  Use the <span Class="bold">kpsewhich</span> utility to find their locations. 
+<p class="level0"><span Class="emphasis">pdftex.pool</span> Text file containing pdf*(TX's internal strings. 
+<p class="level0"><span Class="emphasis">pdftex.map</span> Filename mapping definitions. 
+<p class="level0"><span Class="emphasis">*.tfm</span> Metric files for pdf*(TX's fonts. 
+<p class="level0"><span Class="emphasis">*.fmt</span> Predigested pdf*(TX format (.|fmt) files. <br>
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">Starting with version 1.40, pdf*(TX incorporates the e-*(TX extensions, and pdfe*(TX is just a copy of pdf*(TX.  See  , <span Class="manpage">etex (1).</span>This manual page is not meant to be exhaustive.  The complete documentation for this version of pdf*(TX can be found in the  <span Class="emphasis">pdf\*(TX manual</span> and the info manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">This version of pdf*(TX implements a number of optional extensions. In fact, many of these extensions conflict to a greater or lesser extent with the definition of pdf*(TX.  When such extensions are enabled, the banner printed when pdf*(TX starts is changed to print <span Class="bold">pdfTeXk</span> instead of <span Class="manpage">pdfTeX .</span>
+<p class="level0">This version of pdf*(TX fails to trap arithmetic overflow when dimensions are added or subtracted.  Cases where this occurs are rare, but when it does the generated <span Class="emphasis">DVI</span> file will be invalid.  Whether a generated <span Class="emphasis">PDF</span> file would be usable is unknown. 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">pdf*(TX is available for a large variety of machine architectures and operation systems. pdf*(TX is part of all major *(TX distributions. 
+<p class="level0">Information on how to get pdf*(TX and related information is available at the <span Class="bold">http://www.pdftex.org</span> <span Class="emphasis">pdf\*(TX</span> web site. 
+<p class="level0">The following pdfe*(TX related mailing list is available: <span Class="manpage">pdftex@tug.org .</span>This is a mailman list; to subscribe send a message containing <span Class="emphasis">subscribe</span> to <span Class="manpage">pdftex-request@tug.org .</span>A web interface and list archives can be found at the <span Class="bold">http://lists.tug.org/pdftex</span> mailing list web site. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">epstopdf (1)</span>, <span Class="manpage">etex (1)</span>, <span Class="manpage">latex (1)</span>, <span Class="manpage">mptopdf (1)</span>, <span Class="manpage">tex (1)</span>, <span Class="manpage">mf (1).</span><a href="http://tug.org/applications/pdftex,">http://tug.org/applications/pdftex,</a> <a href="http://tug.org/web2c.">http://tug.org/web2c.</a> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">The primary authors of pdf*(TX are Han The Thanh, Petr Sojka, Jiri Zlatuska, and Peter Breitenlohner (e*(TX). 
+<p class="level0">*(TX was designed by Donald E. Knuth, who implemented it using his *(WB system for Pascal programs. It was ported to Unix at Stanford by Howard Trickey, and at Cornell by Pavel Curtis. The version now offered with the Unix *(TX distribution is that generated by the *(WB to C system 
+<p class="level0">originally written by Tomas Rokicki and Tim Morgan. 
+<p class="level0">The enc*(TX extensions were written by Petr Olsak. 

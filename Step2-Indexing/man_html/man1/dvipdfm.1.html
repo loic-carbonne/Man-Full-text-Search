@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dvipdfmx, xdvipdfmx, dvipdfm - produce PDF files directly from DVI files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dvipdfmx</span> or <span Class="bold">dvipdfm</span> 
+<p class="level0"><span Class="emphasis">file\c</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The program <span Class="bold">dvipdfmx</span> generates a PDF file from a DVI file.  DVI files are the output produced by TeX. <span Class="bold">groff</span> can also generate DVI files using <span Class="manpage">grodvi (-Tdvi).</span>
+<p class="level0">In TeX Live, <span Class="bold">dvipdfm</span> is another incarnation of <span Class="bold">dvipdfmx</span> rather than a separate program.  Compatibility is attempted as best as possible.   
+<p class="level0">In addition, <span Class="bold">xdvipdfmx</span> is yet another incarnation.  It is used as the back end for <span Class="manpage">xetex (1)</span>and is not intended to be invoked directly. 
+<p class="level0"><span Class="bold">dvipdfmx</span> recognizes several commonly used <span Class="manpage">\especial</span>commands, which are extensions to the DVI format.  Specifically, it understands color specials, papersize specials, tpic specials (which allow it to be used with <span Class="manpage">pic )</span>hypertex specials, and some PostScript specials.  These extensions allow documents to contain color, figures, and hyperlinks.  The program tries to mimic the behavior of <span Class="bold">dvips</span> where possible, so that many macro packages produced for use with <span Class="bold">dvips</span> will also work with  <span Class="bold">dvipdfmx.</span> In addition, <span Class="bold">Dvipdfmx </span> understands its own specific <span Class="bold">\especial</span> commands to allow access to PDF features such as annotations and bookmarks. 
+<p class="level0">Unrecognized specials will generate warning messages. Packages that may need a  <span Class="bold">dvipdfm </span> or <span Class="bold">dvipdfmx </span> driver option include  <span Class="emphasis">geometry,</span> <span Class="emphasis">hyperref,</span> <span Class="emphasis">bookmark,</span> <span Class="emphasis">graphicx,</span> and <span Class="emphasis">xcolor.</span> 
+<p class="level0">For issues related to bounding boxes (and hence image sizes), see <span Class="manpage">extractbb (1).</span><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Unlike with many other programs, argument values must be separated from option names by a space, not an = sign; option names cannot be abbreviated; and - and -- cannot be used interchangeably. 
+<p class="level0"><span Class="bold">-\^c</span> Ignore (or accept) color , <span Class="manpage">\especials .</span>By default, color <span Class="manpage">\especial s</span>are interpreted normally (changeable in the configuration file).  The <span Class="bold">-\^c</span> option may be used to produce a black and white document from a document containing color TeX <span Class="bold">\especial</span> commands. 
+<p class="level0"><span Class="bold">--\^dvipdfm</span> Enable <span Class="bold">dvipdfm</span> emulation mode.  This is the default if the executable name is `dvipdfm'. 
+<p class="level0"><span Class="bold">-\^d number</span> Specify the number of decimal digits in the PDF output; must be between 0 and 5, default is 2. 
+<p class="level0"><span Class="bold">-\^e</span> Ignored, for (semi-)compatibility with <span Class="manpage">dvipdfm .</span>
+<p class="level0"><span Class="bold">-\^f map_file</span> Read the font map file given by <span Class="emphasis">map_file .</span> The default map file in TeX Live is <span Class="emphasis">pdftex.map ,</span> as defined in the configuration file. <span Class="bold">--\^help</span> Show a help message and exit successfully. 
+<p class="level0"><span Class="bold">-\^l</span> Select landscape mode.  In other words, exchange the  <span Class="emphasis">x</span> and <span Class="emphasis">y</span> dimensions of the paper. 
+<p class="level0"><span Class="bold">-\^m  mag</span> Magnify the input document by <span Class="emphasis">mag .</span> 
+<p class="level0"><span Class="bold">-\^o  filename</span> Set the PDF output file name; use `-' for stdout. By default, the name of the output file is derived from the input, that is, <span Class="emphasis">file .pdf.</span> 
+<p class="level0"><span Class="bold">-\^p  paper</span> Select the papersize by name (e.g., <span Class="manpage">letter</span>, <span Class="manpage">legal</span>, <span Class="manpage">ledger</span>, <span Class="manpage">tabloid</span>, <span Class="manpage">a3</span>, <span Class="manpage">a4</span>, <span Class="manpage">or  a5</span>) 
+<p class="level0"><span Class="bold">-\^q</span> Quiet mode. 
+<p class="level0"><span Class="bold">-\^r  size</span> Set resolution of bitmapped fonts to <span Class="bold">size</span> dots per inch.  Bitmapped fonts are generated by the Kpathsea library, which uses Metafont.  Bitmapped fonts are included as Type 3 fonts in the PDF output file.  Default is 600. 
+<p class="level0"><span Class="bold">-\^s  page_specifications</span> Select the pages of the DVI file to be processed; default is `-', meaning all pages.  The <span Class="emphasis">page_specifications</span> consists of a comma separated list of <span Class="emphasis">page_ranges :</span> 
+<p class="level0"><span Class="emphasis">page_specifications := page_specification [, page_specifications ]</span> 
+<p class="level0">where 
+<p class="level0"><span Class="emphasis">page_specification := single_page | page_range</span> <span Class="emphasis">page_range :=  [ first_page ]\^-\^[ last_page ]</span> 
+<p class="level0">An empty <span Class="emphasis">first_page</span> is treated as the first page of the DVI file, and an empty <span Class="emphasis">last_page</span> is treated as the last page of the DVI file. 
+<p class="level0">Examples: 
+<p class="level1">
+<p class="level1"><span Class="bold">-\^s 1,3,5</span> includes pages 1, 3, and 5; 
+<p class="level1"><span Class="bold">-\^s -</span> includes all pages; 
+<p class="level1"><span Class="bold">-\^s -,-</span> includes two copies of all pages in the DVI file; and 
+<p class="level1"><span Class="bold">-\^s 1-10</span> includes the first ten pages of the DVI file. 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^t</span> Search for thumbnail images of each page in the directory named by the <span Class="bold">TMPDIR</span> environment variable.  The thumbnail images must be named in a specific format: the same base name as the DVI file and the page number as the extension to the file name. <span Class="bold">dvipdfmx</span> does not generate such thumbnails itself, but it is distributed with a wrapper program named <span Class="bold">dvipdft </span> that does so. 
+<p class="level0"><span Class="bold">--\^version</span> Show a help message and exit successfully. 
+<p class="level0"><span Class="bold">-\^v </span> Increase verbosity. Results of the  <span Class="bold">-\^v</span> option are cumulative (e.g.,  <span Class="bold">-\^vv</span> increases the verbosity by two increments).  Maximum verbosity is four. 
+<p class="level0"><span Class="bold">--\^kpathsea-debug number</span> Have Kpathsea output debugging information; `-1' for everything (voluminous). 
+<p class="level0"><span Class="bold">-\^x x_offset</span> Set the left margin to  <span Class="emphasis">x_offset .</span> The default left margin is <span Class="manpage">1.0in .</span>The dimension may be specified in any units understood by TeX (e.g., <span Class="manpage">bp</span>, <span Class="manpage">pt</span>, <span Class="manpage">in</span>, <span Class="manpage">cm ).</span>
+<p class="level0"><span Class="bold">-\^y y_offset</span> Set the top margin to  <span Class="emphasis">y_offset .</span> The default top margin is <span Class="manpage">1.0in .</span>The dimension may be specified in any units understood by TeX (e.g., <span Class="manpage">bpt</span>, <span Class="manpage">pt</span>, <span Class="manpage">in</span>, <span Class="manpage">cm ).</span>
+<p class="level0"><span Class="bold">-\^z number</span> Set the compression level to  <span Class="emphasis">compression_level .</span> Compression levels range from 0 (no compression) to 9 (maximum compression) and correspond to the values understood by zlib; default is 9. 
+<p class="level0"><span Class="bold">-\^C number</span> Miscellaneous option flags; see the --help output for details. 
+<p class="level0"><span Class="bold">-\^D template</span> PostScript to PDF conversion command line template; the default is taken from the configuration file, which also gives all the details and mentions several possibilities. 
+<p class="level0"><span Class="bold">-\^E</span> Always try to embed fonts, ignoring licensing flags, etc. 
+<p class="level0"><span Class="bold">-\^I number</span> Image cache life in hours; default is -2, meaning to not cache images at all.  A value of -1 means to erase all old images and also new images; 0 means to erase all old images but leave new images. 
+<p class="level0"><span Class="bold">-\^K number</span> Encryption key length; default 40. 
+<p class="level0"><span Class="bold">-\^M</span> Process MetaPost PostScript output. 
+<p class="level0"><span Class="bold">-\^O number</span> Set maximum depth of open bookmark items; default 0. 
+<p class="level0"><span Class="bold">-\^P number</span> Set permission flags for PDF encryption; default 0x003C. 
+<p class="level0"><span Class="bold">-\^S</span> Enable PDF encryption. 
+<p class="level0"><span Class="bold">-\^V number</span> Set PDF minor version; default 5 (from the configuration file). <a name="IMAGE"></a><h2 class="nroffsh">IMAGE BOUNDING BOXES</h2>
+<p class="level0">When including images with  <span Class="manpage">dvipdfmx</span>their bounding boxes should be generated by running <span Class="manpage">extractbb .</span>The result will be in an <span Class="bold">.xbb</span> file; the xbb information is the same as for the PDF format. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0"><span Class="bold">dvipdfmx </span> uses the <span Class="bold">kpathsea</span> library for locating the files that it opens.  Hence, the environment variables documented in the <span Class="emphasis">Kpathsea library</span> documentation influence <span Class="manpage">dvipdfmx .</span>It also uses the value of the environment variable TMPDIR as the directory to search for thumbnail images of each page. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">The precise location of the following files is determined by the <span Class="emphasis">Kpathsea library</span> configuration.  The location may be determined by using kpsewhich, e.g., <pre class="level0">
+<span class="bold">kpsewhich -progname=dvipdfmx -format='other text files' dvipdfmx.cfg</span> 
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="emphasis">dvipdfmx.cfg</span> Default configuration file 
+<p class="level0"><span Class="emphasis">pdftex.map</span> The default font map file (this may be changed in the config file). 
+<p class="level0"><span Class="emphasis">*.tfm</span> TeX font metrics 
+<p class="level0"><span Class="emphasis">*.vf</span> TeX virtual font files 
+<p class="level0"><span Class="emphasis">*.pfb</span> PostScript Type 1 font files 
+<p class="level0"><span Class="emphasis"></span> texmf.cnf The Kpathsea library configuration file. The location of this file may be found by typing <pre class="level0">
+<span class="bold">kpsewhich texmf.cnf</span> 
+</pre>
+
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dvipdft (1)</span>, <span Class="manpage">extractbb (1)</span>, <span Class="manpage">tex (1)</span>, <span Class="manpage">dvips (1)</span>, <span Class="manpage">groff (1)</span>, <span Class="manpage">grodvi (1)</span>, <span Class="manpage">pic (1)</span>and the <span Class="emphasis">Kpathsea library</span> Info documentation (http://tug.org/kpathsea). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Primarily Mark A. Wicks; dvipdfmx extensions primarily by Jin-Hwan Cho, Shunsaku Hirata, and Matthias Franz.  For the version in TeX Live, all bugs and other reports should go to the <span Class="bold">dvipdfmx</span> maintainers at tex-k (at) tug.org.  This man page edited for TeX Live by Bob Tennent and others. 

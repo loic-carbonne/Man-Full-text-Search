@@ -1,0 +1,142 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">config_data - Query or change configuration of Perl modules <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp; &#35; Get config/feature values &nbsp; config_data --module Foo::Bar --feature bazzable &nbsp; config_data --module Foo::Bar --config magic_number 
+<p class="level0">&nbsp; &#35; Set config/feature values &nbsp; config_data --module Foo::Bar --set_feature bazzable=1 &nbsp; config_data --module Foo::Bar --set_config magic_number=42 
+<p class="level0">&nbsp; &#35; Print a usage message &nbsp; config_data --help 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The f(CW*(C`config_data*(C'</span> tool provides a command-line interface to the configuration of Perl modules.  By *(L"configuration*(R", we mean something akin to *(L"user preferences*(R" or *(L"local settings*(R".  This is a formalization and abstraction of the systems that people like Andreas Koenig (f(CW*(C`CPAN::Config*(C'</span>), Jon Swartz (f(CW*(C`HTML::Mason::Config*(C'</span>), Andy Wardley (f(CW*(C`Template::Config*(C'</span>), and Larry Wall (perl's own Config.pm) have developed independently. 
+<p class="level0">The configuration system employed here was developed in the context of f(CW*(C`Module::Build*(C'</span>.  Under this system, configuration information for a module f(CW*(C`Foo*(C'</span>, for example, is stored in a module called f(CW*(C`Foo::ConfigData*(C'</span>) (I would have called it f(CW*(C`Foo::Config*(C'</span>, but that was taken by all those other systems mentioned in the previous paragraph...).  These f(CW*(C`...::ConfigData*(C'</span> modules contain the configuration data, as well as publicly accessible methods for querying and setting (yes, actually re-writing) the configuration data.  The f(CW*(C`config_data*(C'</span> script (whose docs you are currently reading) is merely a front-end for those methods.  If you wish, you may create alternate front-ends. 
+<p class="level0">The two types of data that may be stored are called f(CW*(C`config*(C'</span> values and f(CW*(C`feature*(C'</span> values.  A f(CW*(C`config*(C'</span> value may be any perl scalar, including references to complex data structures.  It must, however, be serializable using f(CW*(C`Data::Dumper*(C'</span>.  A f(CW*(C`feature*(C'</span> is a boolean (1 or 0) value. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">This script functions as a basic getter/setter wrapper around the configuration of a single module.  On the command line, specify which module's configuration you're interested in, and pass options to get or set f(CW*(C`config*(C'</span> or f(CW*(C`feature*(C'</span> values.  The following options are supported: 
+<p class="level0"><a name="module"></a><span class="nroffip">module 4</span> 
+<p class="level1">
+<p class="level1">Specifies the name of the module to configure (required). 
+<p class="level0"><a name="feature"></a><span class="nroffip">feature 4</span> 
+<p class="level1">
+<p class="level1">When passed the name of a f(CW*(C`feature*(C'</span>, shows its value.  The value will be 1 if the feature is enabled, 0 if the feature is not enabled, or empty if the feature is unknown.  When no feature name is supplied, the names and values of all known features will be shown. 
+<p class="level0"><a name="config"></a><span class="nroffip">config 4</span> 
+<p class="level1">
+<p class="level1">When passed the name of a f(CW*(C`config*(C'</span> entry, shows its value.  The value will be displayed using f(CW*(C`Data::Dumper*(C'</span> (or similar) as perl code. When no config name is supplied, the names and values of all known config entries will be shown. 
+<p class="level0"><a name="setfeature"></a><span class="nroffip">set_feature 4</span> 
+<p class="level1">
+<p class="level1">Sets the given f(CW*(C`feature*(C'</span> to the given boolean value.  Specify the value as either 1 or 0. 
+<p class="level0"><a name="setconfig"></a><span class="nroffip">set_config 4</span> 
+<p class="level1">
+<p class="level1">Sets the given f(CW*(C`config*(C'</span> entry to the given value. 
+<p class="level0"><a name="eval"></a><span class="nroffip">eval 4</span> 
+<p class="level1">
+<p class="level1">If the f(CW*(C`--eval*(C'</span> option is used, the values in f(CW*(C`set_config*(C'</span> will be evaluated as perl code before being stored.  This allows moderately complicated data structures to be stored.  For really complicated structures, you probably shouldn't use this command-line interface, just use the Perl s-1APIs0 instead. 
+<p class="level0"><a name="help"></a><span class="nroffip">help 4</span> 
+<p class="level1">
+<p class="level1">Prints a help message, including a few examples, and exits. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Ken Williams, kwilliams@cpan.org <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 1999, Ken Williams.  All rights reserved. 
+<p class="level0">This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Module::Build</span>|(3), <span Class="emphasis">perl</span>|(1). 

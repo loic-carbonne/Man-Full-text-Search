@@ -1,0 +1,52 @@
+
+<p class="level0">\$2 (laURL: \$1 (ra\$3 
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dvipos - compute positions in a DVI file 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dvipos</span> [ <span Class="emphasis">OPTION</span>... ] <span Class="emphasis">infile[.dvi]</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dvipos</span> parses a DVI file looking for <span Class="emphasis">pos:</span> specials.  It currently recognizes <span Class="emphasis">pos:pxy</span>, <span Class="emphasis">pos:pxywhd</span>, <span Class="emphasis">pos:pxyplus</span>, <span Class="emphasis">pos:begbox</span>, <span Class="emphasis">pos:endbox</span>, <span Class="emphasis">pos:beglines</span>, and <span Class="emphasis">pos:endlines</span>.  It then outputs the information from those specials along with information that only a DVI postprocessor could determine, such as the current <span Class="emphasis">x</span> and <span Class="emphasis">y</span> location.  The output looks like: 
+<p class="level0">\pospxywhd{text:54}{54}{10663sp}{8535sp}{21326sp}{34081sp}{0sp} 
+<p class="level0">and is suitable for including in a  <span Class="manpage">tex (1)</span>or <span Class="manpage">pdftex (1)</span>auxilliary file, such as <span Class="emphasis">document.tuo</span>, to be read in by the next run of the <span Class="manpage">tex (1)</span>or similar typesetting engine. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h, --help</span> print usage. 
+<p class="level0"><span Class="bold">-W, --warning</span> print warnings. 
+<p class="level0"><span Class="bold">-v, --verbose</span> print verbose output. 
+<p class="level0"><span Class="bold">-d, --debug</span> print  <span Class="manpage">dvitype (1)</span>debugging data. 
+<p class="level0"><span Class="bold">-s, --smashchars</span> regard height and depth as zero. 
+<p class="level0"><span class="bold">-o, --output=<span Class="emphasis">FILE</span> send all output to FILE.  Without this option, output goes to stdout. 
+<p class="level0"><span Class="bold">-b, --bbox[=</span><span Class="emphasis">FILE</span>]</span> send bounding box to FILE (default FILE is <span Class="emphasis">infile.pos</span>). 
+<p class="level0"><span Class="bold">-f, --framed[=</span><span Class="emphasis">BASE</span>]</span> request copy of DVI file, <span Class="emphasis">BASE.dvi</span>, with bounding boxes <span Class="bold">framed</span> (default FILE is <span Class="emphasis">infile_frames.dvi</span>).  See the <span Class="bold">--framesize</span> option. 
+<p class="level0"><span class="bold">-m, --mag=<span Class="emphasis">INT</span> override  <span Class="manpage">tex (1)</span>magnification by INT. 
+<p class="level0"><span class="bold">-w, --framesize=<span Class="emphasis">INT</span> set frame rule size by INT (default 6554 = .1pt). 
+<p class="level0"><span class="bold">-p, --pages=<span Class="emphasis">X:Y</span> set page ranges from X to Y. 
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0"><span Class="bold">dvipos</span> is run mostly behind the scenes by ConTeXt's <span Class="manpage">texexec (1)</span>between runs of  <span Class="manpage">tex (1)</span>or <span Class="manpage">pdftex (1)</span>in order to provide information to and get information about positional graphics.  These graphics are provided by the MetaFun interface to <span Class="manpage">mpost (1).</span><span Class="bold">dvipos</span> is not used (or needed) in PDF-output mode but is needed for DVI-output mode.   <span Class="manpage">pdftex (1)</span>starting with version 1.40 can produce position information even in DVI mode, so once the ConTeXt macros take advantage of this feature, the need for <span Class="bold">dvipos</span> will fade. 
+<p class="level0">Until then, here is a typical use of <span Class="bold">dvipos</span>: 
+<p class="level0">dvipos notes.dvi 
+<p class="level0">The position information that is output is collected by <span Class="manpage">texexec (1)</span>to include in the <span Class="emphasis">notes.tuo</span> auxilliary file to use in the next run. 
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Extract positions from <span Class="emphasis">doc.dvi</span>, with output to <span Class="emphasis">doc.loc</span>: f(CWdvipos -o doc.loc doc.dvi</span> 
+<p class="level0">Same as above, but also send bbox information to <span Class="emphasis">doc.pos</span>: f(CWdvipos -b -o doc.loc doc.dvi</span> 
+<p class="level0">Instead send bbox information to <span Class="emphasis">/tmp/debug.pos</span>: f(CWdvipos -b=/tmp/debug.pos -o doc.loc doc.dvi</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dvips (1)</span>, <span Class="manpage">dvitype (1)</span>, <span Class="manpage">mpost (1)</span>, <span Class="manpage">pdftex (1)</span>, <span Class="manpage">tex (1)</span>, <span Class="manpage">texexec (1).</span>
+<p class="level0">For more about positional graphics, see the MetaFun documentation on the 
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">If you specify a file for the <span Class="bold">-b</span> option, you must join the option and name with <span Class="bold">=</span> rather than (the more common) space: 
+<p class="level0">dvipos -b=/tmp/debug.pos notes.dvi 
+<p class="level0">works, but 
+<p class="level0">dvipos -b /tmp/debug.pos notes.dvi 
+<p class="level0">does not. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">dvipos</span> is written by Jin-Hwan Cho &lt;chofchof@ktug.or.kr&gt;.  It is free software (GPLv2 or later).  This manpage was written by Sanjoy Mahajan &lt;sanjoy@mit.edu&gt; and is in the public domain. 

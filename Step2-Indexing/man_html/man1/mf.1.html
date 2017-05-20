@@ -1,0 +1,95 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mf, mf-nowin, inimf, virmf - Metafont, a language for font and logo design <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mf</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">*(MF reads the program in the specified files and outputs font rasters (in <span Class="emphasis">gf</span> format) and font metrics (in <span Class="emphasis">tfm</span> format).  The *(MF language is described in <span Class="emphasis">The \*(MF\^book .</span> 
+<p class="level0">Like *(TX, *(MF is normally used with a large body of precompiled macros, and font generation in particular requires the support of several macro files.  This version of *(MF looks at its command line to see what name it was called under.  Both <span Class="bold">inimf</span> and <span Class="bold">virmf</span> are symlinks to the <span Class="bold">mf</span> executable.  When called as <span Class="manpage">inimf</span>(or when the <span Class="bold">-ini</span> option is given) it can be used to precompile macros into a <span Class="emphasis">.base</span> file.  When called as <span Class="bold">virmf</span> it will use the <span Class="emphasis">plain</span> base.  When called under any other name, *(MF will use that name as the name of the base to use.  For example, when called as <span Class="bold">mf</span> the <span Class="emphasis">mf</span> base is used, which is identical to the <span Class="emphasis">plain</span> base.  Other bases than <span Class="emphasis">plain</span> are rarely used. 
+<p class="level0">The <span Class="emphasis">commands</span> given on the command line to the *(MF program are passed to it as the first input line.  (But it is often easier to type extended arguments as the first input line, since UNIX shells tend to gobble up or misinterpret *(MF's favorite symbols, like semicolons, unless you quote them.)  As described in <span Class="emphasis">The \*(MF\^book ,</span> that first line should begin with a filename, a 
+<p class="level0">or a <span Class="emphasis">&basename .</span> 
+<p class="level0">The normal usage is to say 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">mf&nbsp;</span> '\|mode=&lt;printengine&gt;^;^ [^mag=magstep(<span Class="emphasis">^n</span>^)^;^]' input&nbsp;^<span Class="emphasis"> font </span> 
+<p class="level1">to start processing <span Class="emphasis">font.mf .</span> The single quotes are the best way of keeping the Unix shell from misinterpreting the semicolons and from removing the &nbsp;character, which is needed here to keep *(MF from thinking that you want to produce a font called <span Class="emphasis">mode .</span> (Or you can just say <span Class="emphasis">mf</span> and give the other stuff on the next line, without quotes.)  Other control sequences, such as <span Class="emphasis">batchmode</span> (for silent operation) can also appear. The name <span Class="emphasis">font</span> will be the ``jobname'', and is used in forming output file names. If *(MF doesn't get a file name in the first line, the jobname is <span Class="emphasis">mfput .</span> The default extension, <span Class="emphasis">.mf ,</span> can be overridden by specifying an extension explicitly. 
+<p class="level1">A log of error messages goes into the file <span Class="emphasis">jobname</span><a class="bold" href="#">^.^</a><span Class="emphasis">log</span>. The output files are <span Class="emphasis">jobname</span><a class="bold" href="#">^.^</a><span Class="emphasis">tfm</span> and <span Class="emphasis">jobname</span><a class="bold" href="#">^.^</a><span Class="emphasis">&lt;</span>^number^<span Class="emphasis">&gt;gf</span>, where &lt;number&gt; depends on the resolution and magnification of the font.  The <span Class="emphasis">mode</span> in this example is shown generically as &lt;printengine&gt;, a symbolic term for which the name of an actual device or, most commonly, the name <span Class="emphasis">localfont</span> (see below) must be substituted.  If the mode is not specified or is not valid for your site, *(MF will default to <span Class="emphasis">proof</span> mode which produces large character images for use in font design and refinement.  Proof mode can be recognized by the suffix <span Class="emphasis">.2602gf</span> after the jobname.  Examples of proof mode output can be found in <span Class="emphasis">Computer Modern Typefaces</span> (Volume E of <span Class="emphasis">Computers and Typesetting ).</span> The system of <span Class="emphasis">magsteps</span> is identical to the system used by *(TX, with values generally in the range 0.5, 1.0, 2.0, 3.0, 4.0 and 5.0. A listing of <span Class="emphasis">gf</span> numbers for 118-dpi, 240-dpi and 300-dpi fonts is shown below. 
+<p class="level1">tab(:); c c c c l l l l. MAGSTEP:118 dpi:240 dpi:300 dpi mag=magstep(0):118:240:300 mag=magstep(0.5):129:263:329 mag=magstep(1):142:288:360 mag=magstep(2):170:346:432 mag=magstep(3):204:415:518 mag=magstep(4):245:498:622 mag=magstep(5):294:597:746 
+<p class="level1">
+<p class="level1">Magnification can also be specified not as a magstep but as an arbitrary value, such as 1.315, to create special character sizes. 
+<p class="level1">Before font production can begin, it is necessary to set up the appropriate base files.  The minimum set of components for font production for a given print-engine is the <span Class="emphasis">plain.mf</span> macro file and the local <span Class="emphasis">mode_def</span> file.  The macros in <span Class="emphasis">plain.mf</span> can be studied in an appendix to the <span Class="emphasis">\*(MF\^book ;</span> they were developed by Donald E. Knuth, and this file should never be altered except when it is officially upgraded. Each <span Class="emphasis">mode_def</span> specification helps adapt fonts to a particular print-engine. There is a regular discussion of <span Class="emphasis">mode_def s</span> in <span Class="emphasis">TUGboat ,</span> the journal of the *(TX Users Group. The local ones in use on this computer should be in <span Class="emphasis">modes.mf .</span> 
+<p class="level1">The <span Class="emphasis">e</span> response to *(MF|'s error-recovery mode invokes the system default editor at the erroneous line of the source file. There is an environment variable, MFEDIT, that overrides the default editor. It should contain a string with "%s" indicating where the filename goes and "%d" indicating where the decimal linenumber (if any) goes. For example, an MFEDIT string for the <span Class="bold">vi</span> editor can be set with the <span Class="bold">csh</span> command 
+<p class="level2"><span Class="emphasis">setenv MFEDIT "vi +%d %s"</span> 
+<p class="level1">
+<p class="level1">A convenient file in the library is <span Class="emphasis">null.mf ,</span> containing nothing. When <span Class="bold">mf</span> can't find the file it thinks you want to input, it keeps asking you for another file name; responding `null' gets you out of the loop if you don't want to input anything. 
+<p class="level1"><a name="ONLINE"></a><h2 class="nroffsh">ONLINE GRAPHICS OUTPUT</h2>
+<p class="level0">*(MF can use most modern displays, so you can see its output without printing.  Chapter 23 of <span Class="emphasis">The \*(MF\^book</span> describes what you can do.  This implementation of *(MF uses environment variables to determine which display device you want to use. First it looks for a variable MFTERM, and then for TERM. If it can't find either, you get no online output.  Otherwise, the value of the variable determines the device to use: <span Class="manpage">hp2627</span><span Class="bold">sun</span> (for old SunView), <span Class="manpage">tek</span><span Class="bold">uniterm</span> (for an Atari ST Tek 4014 emulator), <span Class="bold">xterm</span> (for either X10 or X11). Some of these devices may not be supported in all *(MF executables; the choice is made at compilation time. 
+<p class="level0">On some systems, there are two *(MF binaries, <span Class="bold">mf</span> and <span Class="manpage">mf-nowin .</span>On those systems the <span Class="bold">mf</span> binary supports graphics, while the <span Class="bold">mf-nowin</span> binary does not.  The <span Class="bold">mf-nowin</span> binary is used by scripts like <span Class="bold">mktexpk</span> where graphics support is a nuisance rather than something helpful. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">This version of *(MF understands the following command line options. 
+<p class="level0"><span Class="bold">-base \ base</span> Use <span Class="emphasis">base</span> as the name of the base to be used, instead of the name by which *(MF was called or a <a class="emphasis" href="#">%&</a> line. 
+<p class="level0"><span Class="bold">-file-line-error</span> Print error messages in the form <span Class="emphasis">file:line:error</span> which is similar to the way many compilers format them. 
+<p class="level0"><span Class="bold">-no-file-line-error</span> Disable printing error messages in the <span Class="emphasis">file:line:error</span> style. 
+<p class="level0"><span Class="bold">-file-line-error-style</span> This is the old name of the <span Class="bold">-file-line-error</span> option. 
+<p class="level0"><span Class="bold">-halt-on-error</span> Exit with an error code when an error is encountered during processing. 
+<p class="level0"><span Class="bold">-help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">-ini</span> Be <span Class="manpage">inimf</span>for dumping bases; this is implicitly true if the program is called as <span Class="manpage">inimf .</span>
+<p class="level0"><span Class="bold">-interaction \ mode</span> Sets the interaction mode.  The mode can be one of <span Class="emphasis">batchmode ,</span> <span Class="emphasis">nonstopmode ,</span> <span Class="emphasis">scrollmode ,</span> and <span Class="emphasis">errorstopmode .</span> The meaning of these modes is the same as that of the corresponding commands. 
+<p class="level0"><span Class="bold">-jobname \ name</span> Use <span Class="emphasis">name</span> for the job name, instead of deriving it from the name of the input file. 
+<p class="level0"><span Class="bold">-kpathsea-debug \ bitmask</span> Sets path searching debugging flags according to the bitmask.  See the <span Class="emphasis">Kpathsea</span> manual for details. 
+<p class="level0"><span Class="bold">-maketex \ fmt</span> Enable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be <span Class="emphasis">mf .</span> 
+<p class="level0"><span Class="bold">-no-maketex \ fmt</span> Disable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be <span Class="emphasis">mf .</span> 
+<p class="level0"><span Class="bold">-output-directory \ directory</span> Write output files in <span Class="emphasis">directory</span> instead of the current directory.  Look up input files in <span Class="emphasis">directory</span> first, the along the normal search path. 
+<p class="level0"><span Class="bold">-parse-first-line</span> If the first line of the main input file begins with <a class="emphasis" href="#">%&</a> parse it to look for a dump name or a <span Class="bold">-translate-file</span> option. 
+<p class="level0"><span Class="bold">-no-parse-first-line</span> Disable parsing of the first line of the main input file. 
+<p class="level0"><span Class="bold">-progname \ name</span> Pretend to be program <span Class="emphasis">name .</span> This affects both the format used and the search paths. 
+<p class="level0"><span Class="bold">-recorder</span> Enable the filename recorder.  This leaves a trace of the files opened for input and output in a file with extension <span Class="emphasis">.fls .</span> 
+<p class="level0"><span Class="bold">-translate-file \ tcxname</span> Use the <span Class="emphasis">tcxname</span> translation table. 
+<p class="level0"><span Class="bold">-version</span> Print version information and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">See the Kpathsearch library documentation (the `Path specifications' node) for the details of how the environment variables are use when searching.  The <span Class="bold">kpsewhich</span> utility can be used to query the values of the variables. 
+<p class="level0">If the environment variable <span Class="bold">TEXMFOUTPUT</span> is set, *(MF attempts to put its output files in it, if they cannot be put in the current directory.  Again, see <span Class="manpage">tex (1).</span>
+<p class="level0"><span Class="bold">MFINPUTS</span> Search path for <span Class="emphasis">input</span> and <span Class="emphasis">opening</span> files. 
+<p class="level0"><span Class="bold">MFEDIT</span> Command template for switching to editor. 
+<p class="level0"><span Class="bold">MFTERM</span> Determines the online graphics display.  If MFTERM is not set, and DISPLAY is set, the Metafont window support for X is used. (DISPLAY must be set to a valid X server specification, as usual.) If neither MFTERM nor DISPLAY is set, TERM is used to guess the window support to use. 
+<p class="level0"><a name="FONT"></a><h2 class="nroffsh">FONT UTILITIES</h2>
+<p class="level0">A number of utility programs are available. The following is a partial list of available utilities and their purpose. Consult your local *(MF guru for details. <br>
+<p class="level0"><span Class="bold">gftopk</span> Takes a <span Class="emphasis">gf</span> file and produces a more tightly packed <span Class="emphasis">pk</span> font file. 
+<p class="level0"><span Class="bold">gftodvi</span> Produces proof sheets for fonts. 
+<p class="level0"><span Class="bold">gftype</span> Displays the contents of a <span Class="emphasis">gf</span> file in mnemonics and/or images. 
+<p class="level0"><span Class="bold">pktype</span> Mnemonically displays the contents of a <span Class="emphasis">pk</span> file. 
+<p class="level0"><span Class="bold">mft</span> Formats a source file as shown in <span Class="emphasis">Computer Modern Typefaces .</span> 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">mf.pool</span> Encoded text of *(MF's messages. 
+<p class="level0"><span Class="emphasis">*.base</span> Predigested *(MF base files. 
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/metafont/base/plain.mf</span> The standard base. 
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/metafont/misc/modes.mf</span> The file of <span Class="emphasis">mode_def s</span> for your site's various printers 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(MF can be found in the info manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">On January 4, 1986 the ``final'' bug in *(MF was discovered and removed.  If an error still lurks in the code, Donald E. Knuth promises to pay a finder's fee which doubles every year to the first person who finds it.  Happy hunting. 
+<p class="level0"><a name="SUGGESTED"></a><h2 class="nroffsh">SUGGESTED READING</h2>
+<p class="level0">Donald E. Knuth, <span Class="emphasis">The \*(MF\^book</span> (Volume C of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13445-4. <br>Donald E. Knuth, <span Class="emphasis">\*(MF:\^ The Program</span> (Volume D of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13438-1. <br>Donald E. Knuth, <span Class="emphasis">Computer Modern Typefaces</span> (Volume E of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13446-2. <br><span Class="emphasis">TUGboat</span> (the journal of the *(TX Users Group). 
+<p class="level0"><a name="COMMENTS"></a><h2 class="nroffsh">COMMENTS</h2>
+<p class="level0">Warning: ``Type design can be hazardous to your other interests. Once you get hooked, you will develop intense feelings about letterforms; the medium will intrude on the messages that you read. And you will perpetually be thinking of improvements to the fonts that you see everywhere, especially those of your own design.'' 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gftopk (1)</span>, <span Class="manpage">gftodvi (1)</span>, <span Class="manpage">gftype (1)</span>, <span Class="manpage">mft (1)</span>, <span Class="manpage">pltotf (1)</span>, <span Class="manpage">tftopl (1).</span>
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">*(MF was designed by Donald E. Knuth, who implemented it using his *(WB system for Pascal programs.  It was originally ported to Unix by Paul Richards at the University of Illinois at Urbana-Champaign.  This page was mostly written by Pierre MacKay. 

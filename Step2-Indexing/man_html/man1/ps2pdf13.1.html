@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ps2pdf - Convert PostScript to PDF using ghostscript <br>ps2pdf12 - Convert PostScript to PDF&nbsp;1.2 (Acrobat&nbsp;3-and-later compatible) using ghostscript <br>ps2pdf13 - Convert PostScript to PDF&nbsp;1.3 (Acrobat&nbsp;4-and-later compatible) using ghostscript <br>ps2pdf14 - Convert PostScript to PDF&nbsp;1.4 (Acrobat&nbsp;5-and-later compatible) using ghostscript <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ps2pdf</span>  [options...] {input.[e]ps|-} [output.pdf|-] <br><span Class="bold">ps2pdf12</span>  [options...] {input.[e]ps|-} [output.pdf|-] <br><span Class="bold">ps2pdf13</span>  [options...] {input.[e]ps|-} [output.pdf|-] <br><span Class="bold">ps2pdf14</span>  [options...] {input.[e]ps|-} [output.pdf|-] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">ps2pdf</span> scripts are work-alikes for nearly all the functionality (but not the user interface) of Adobe's Acrobat(TM) Distiller(TM) product: they convert PostScript files to Portable Document Format (PDF) files.  
+<p class="level0">If the output filename is not specified, the output is placed in a file of the same name with a '.pdf' extension in the current working directory. Either the input filename or the output filename can be '-' to request reading from stdin or writing to stdout, respectively, when used as a filter. 
+<p class="level0">The three scripts differ as follows: 
+<p class="level0"><a name="-"></a><span class="nroffip">-</span> 
+<p class="level1"><span Class="bold">ps2pdf12</span> will always produce PDF 1.2 output (Acrobat 3-and-later compatible). 
+<p class="level0"><a name="-"></a><span class="nroffip">-</span> 
+<p class="level1"><span Class="bold">ps2pdf13</span> will always produce PDF 1.3 output (Acrobat 4-and-later compatible). 
+<p class="level0"><a name="-"></a><span class="nroffip">-</span> 
+<p class="level1"><span Class="bold">ps2pdf14</span> will always produce PDF 1.4 output (Acrobat 5-and-later compatible). 
+<p class="level0"><a name="-"></a><span class="nroffip">-</span> 
+<p class="level1"><span Class="bold">ps2pdf</span> per se currently produces PDF 1.4 output. However, this may change in the future. If you care about the compatibility level of the output, use <span Class="manpage">ps2pdf12</span><span Class="bold">ps2pdf13</span> or <span Class="manpage">ps2pdf14</span>or use the <span Class="bold">-dCompatibility=1.x</span> switch in the command line. 
+<p class="level1">There are some limitations in <span Class="manpage">ps2pdf 's</span>conversion. See the HTML documentation for more information. A large  number of Adobe Distiller(TM) parameters which can be used to control the conversion are also documented there, including instructions for  generating PDF/X and PDF/A documents. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The <span Class="bold">ps2pdf</span> scripts use the same options as gs(1). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Converting a figure.ps to figure.pdf: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">ps2pdf</span> <span Class="emphasis">figure.ps</span> 
+<p class="level1">A conversion with more specifics: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">ps2pdf</span> -dPDFSETTINGS=/prepress  <span Class="emphasis">figure.ps proof.pdf</span> 
+<p class="level1">Converting as part of a pipe: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">make_report.pl </span> -t ps | <span Class="bold">ps2pdf</span> -dCompatibility=1.3 - - | <span Class="bold">lpr</span> <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">gs(1), ps2pdfwr(1), <br>Ps2pdf.htm in the Ghostscript documentation <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">See <a href="http://bugs.ghostscript.com/">http://bugs.ghostscript.com/</a> and the Usenet news group comp.lang.postscript. <a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">This document was last revised for Ghostscript version 9.06. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Artifex Software, Inc. are the primary maintainers of Ghostscript. This manpage by George Ferguson. 

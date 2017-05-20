@@ -1,0 +1,36 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xstdcmap - X standard colormap utility <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xstdcmap</span> [-all] [-best] [-blue] [-default] [-delete <span Class="emphasis">map</span>] [-display <span Class="emphasis">display</span>] [-gray] [-green] [-help] [-red] [-verbose] [-version] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="emphasis">xstdcmap</span> utility can be used to selectively define standard colormap properties.  It is intended to be run from a user's X startup script to create standard colormap definitions in order to facilitate sharing of scarce colormap resources among clients.  Where at all possible, colormaps are created with read-only allocations. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options may be used with <span Class="emphasis">xstdcmap</span>: 
+<p class="level0"><span Class="bold">-all</span> This option indicates that all six standard colormap properties should be defined on each screen of the display.  Not all screens will support visuals under which all six standard colormap properties are meaningful. <span Class="emphasis">xstdcmap</span> will determine the best allocations and visuals for the colormap properties of a screen. Any previously existing standard colormap properties will be replaced. 
+<p class="level0"><span Class="bold">-best</span> This option indicates that the RGB_BEST_MAP should be defined. 
+<p class="level0"><span Class="bold">-blue</span> This option indicates that the RGB_BLUE_MAP should be defined. 
+<p class="level0"><span Class="bold">-default</span> This option indicates that the RGB_DEFAULT_MAP should be defined. 
+<p class="level0"><span Class="bold">-delete map</span> This option specifies that a specific standard colormap property, or all such properties, should be removed. <span Class="emphasis">map</span> may be one of: default, best, red, green, blue, gray, or all. 
+<p class="level0"><span Class="bold">-display display</span> This option specifies the host and display to use; see <span Class="emphasis">X(7)</span>. 
+<p class="level0"><span Class="bold">-gray</span> This option indicates that the RGB_GRAY_MAP should be defined. 
+<p class="level0"><span Class="bold">-green</span> This option indicates that the RGB_GREEN_MAP should be defined. 
+<p class="level0"><span Class="bold">-help</span> This option indicates that a brief description of the command line arguments should be printed on the standard error.  This will be done whenever an unhandled argument is given to <span Class="emphasis">xstdcmap.</span> 
+<p class="level0"><span Class="bold">-red</span> This option indicates that the RGB_RED_MAP should be defined. 
+<p class="level0"><span Class="bold">-verbose</span> This option indicates that <span Class="emphasis">xstdcmap</span> should print logging information as it parses its input and defines the standard colormap properties. 
+<p class="level0"><span Class="bold">-version</span> This option indicates that <span Class="emphasis">xstdcmap</span> should print its version and exit. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get default host and display number. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Donna Converse, MIT X Consortium 
+<p class="level0">
+<p class="level0">

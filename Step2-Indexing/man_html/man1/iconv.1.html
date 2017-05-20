@@ -1,0 +1,53 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">iconv - convert text from one character encoding to another <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">iconv</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">iconv</span> program reads in text in one encoding and outputs the text in another encoding. If no input files are given, or if it is given as a dash (-), <span Class="bold">iconv</span> reads from standard input. If no output file is given, <span Class="bold">iconv</span> writes to standard output. 
+<p class="level0">If no <span Class="emphasis">from-encoding</span> is given, the default is derived from the current locale's character encoding. If no <span Class="emphasis">to-encoding</span> is given, the default is derived from the current locale's character encoding. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-f  from-encoding , --from-code= from-encoding</span> Use <span Class="emphasis">from-encoding</span> for input characters. 
+<p class="level0"><span Class="bold">-t  to-encoding , --to-code= to-encoding</span> Use <span Class="emphasis">to-encoding</span> for output characters. 
+<p class="level0">If the string <span Class="manpage">//IGNORE</span>is appended to <span Class="emphasis">to-encoding ,</span> characters that cannot be converted are discarded and an error is printed after conversion. 
+<p class="level0">If the string <span Class="manpage">//TRANSLIT</span>is appended to <span Class="emphasis">to-encoding ,</span> characters being converted are transliterated when needed and possible. This means that when a character cannot be represented in the target character set, it can be approximated through one or several similar looking characters. Characters that are outside of the target character set and cannot be transliterated are replaced with a question mark (?) in the output. 
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--list</span>List all known character set encodings. 
+<p class="level0"><span Class="bold">-c</span> Silently discard characters that cannot be converted instead of terminating when encountering such characters. 
+<p class="level0"><span Class="bold">-o  outputfile , --output= outputfile</span> Use <span Class="emphasis">outputfile</span> for output. 
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--silent</span>This option is ignored; it is provided only for compatibility. 
+<p class="level0"><span Class="bold">--verbose</span> Print progress information on standard error when processing multiple files. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Print a usage summary and exit. 
+<p class="level0"><span Class="bold">--usage</span> Print a short usage summary and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Print the version number, license, and disclaimer of warranty for <span Class="manpage">iconv .</span><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">Zero on success, non-zero on errors. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">Internally, the <span Class="bold">iconv</span> program uses the , <span Class="manpage">iconv (3)</span>function which in turn uses <span Class="emphasis">gconv</span> modules (dynamically loaded shared libraries) to convert to and from a character set. Before calling <span Class="manpage">iconv (3)</span>the <span Class="bold">iconv</span> program must first allocate a conversion descriptor using <span Class="manpage">iconv_open (3).</span>The operation of the latter function is influenced by the setting of the <span Class="bold">GCONV_PATH</span> environment variable: 
+<p class="level0"><a name=""></a><span class="nroffip">* 3</span> 
+<p class="level1">If <span Class="bold">GCONV_PATH</span> is not set, <span Class="manpage">iconv_open (3)</span>loads the system gconv module configuration cache file created by <span Class="manpage">iconvconfig (8)</span>and then, based on the configuration, loads the gconv modules needed to perform the conversion. If the system gconv module configuration cache file is not available then the system gconv module configuration file is used. 
+<p class="level0"><a name=""></a><span class="nroffip">*</span> 
+<p class="level1">If <span Class="bold">GCONV_PATH</span> is defined (as a colon-separated list of pathnames), the system gconv module configuration cache is not used. Instead, , <span Class="manpage">iconv_open (3)</span>first tries to load the configuration files by searching the directories in <span Class="manpage">GCONV_PATH</span>in order, followed by the system default gconv module configuration file. If a directory does not contain a gconv module configuration file, any gconv modules that it may contain are ignored. If a directory contains a gconv module configuration file and it is determined that a module needed for this conversion is available in the directory, then the needed module is loaded from that directory, the order being such that the first suitable module found in <span Class="bold">GCONV_PATH</span> is used. This allows users to use custom modules and even replace system-provided modules by providing such modules in <span Class="bold">GCONV_PATH</span> directories. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/lib/gconv</span> Usual default gconv module path. 
+<p class="level0"><span Class="emphasis">/usr/lib/gconv/gconv-modules</span> Usual system default gconv module configuration file. 
+<p class="level0"><span Class="emphasis">/usr/lib/gconv/gconv-modules.cache</span> Usual system gconv module configuration cache. <a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">POSIX.1-2001. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">Convert text from the ISO 8859-15 character encoding to UTF-8: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">iconv -f ISO-8859-15 -t UTF-8 &lt; input.txt &gt; output.txt</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The next example converts from UTF-8 to ASCII, transliterating when possible: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">echo abc ß α € àḃç | iconv -f UTF-8 -t ASCII//TRANSLIT</span>
+abc ss ? EUR abc
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">locale (1)</span>, <span Class="manpage">iconv (3)</span>, <span Class="manpage">nl_langinfo (3)</span>, <span Class="manpage">charsets (7)</span>, <span Class="manpage">iconvconfig (8)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

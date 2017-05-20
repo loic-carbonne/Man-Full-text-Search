@@ -1,0 +1,35 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pldd - display dynamic shared objects linked into a process <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><pre class="level0">
+<span class="bold">pldd  PID</span> 
+<span class="manpage">pldd  OPTION</span></pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">pldd</span> command displays a list of the dynamic shared objects that are linked into the process with the specified process ID. The list includes the libraries that have been dynamically loaded using <span Class="manpage">dlopen (3).</span><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Display program help message. 
+<p class="level0"><span Class="manpage">--usage</span>Display a short usage message. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display the program version. <a name="VERSIONS"></a><h2 class="nroffsh">VERSIONS</h2>
+<p class="level0"><span Class="bold">pldd</span> is available since glibc 2.15. <a name="CONFORMING"></a><h2 class="nroffsh">CONFORMING TO</h2>
+<p class="level0">The <span Class="bold">pldd</span> command is not specified by POSIX.1. Some other systems have a similar command. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">On success, <span Class="bold">pldd</span> exits with the status 0. If the specified process does not exist, the user does not have permission to access its dynamic shared object list, or no command-line arguments are supplied, <span Class="bold">pldd</span> exists with a status of 1. If given an invalid option, it exits with the status 64. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0"><pre class="level0">
+$ <span class="bold">echo $$</span>               &#35; Display PID of shell
+1143
+$ <span class="bold">pldd $$</span>               &#35; Display DSOs linked into the shell
+1143:	/usr/bin/bash
+linux-vdso.so.1
+/lib64/libtinfo.so.5
+/lib64/libdl.so.2
+/lib64/libc.so.6
+/lib64/ld-linux-x86-64.so.2
+/lib64/libnss_files.so.2
+</pre>
+
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">The command 
+<p class="level0">&nbsp;    lsof -p PID 
+<p class="level0">also shows output that includes the dynamic shared objects that are linked into a process. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ldd (1)</span>, <span Class="manpage">lsof (1)</span>, <span Class="manpage">dlopen (3)</span>, <span Class="manpage">ld.so (8)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

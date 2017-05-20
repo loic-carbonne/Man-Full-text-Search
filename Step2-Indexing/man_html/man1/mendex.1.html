@@ -1,0 +1,240 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh">名称</h2>
+<p class="level0">mendex - 索引整形ツール <a name=""></a><h2 class="nroffsh">使用法</h2>
+<p class="level0"><span Class="bold">mendex</span> [-ilqrcgEJS] [<span class="bold">-s<span Class="emphasis"> sty</span>] [<span class="bold">-d<span Class="emphasis"> dic</span>] [<span class="bold">-o<span Class="emphasis"> ind</span>] [<span class="bold">-d<span Class="emphasis"> dic</span>] [<span class="bold">-t<span Class="emphasis"> log</span>] [<span class="bold">-p<span Class="emphasis"> no</span>] [<span class="bold">-I<span Class="emphasis"> enc</span>] [<span Class="emphasis"> idx0 idx1 idx2 ...</span>] <a name=""></a><h2 class="nroffsh">解説</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">mendex</span> は文書の索引を作成するツールです。 LaTeX により抽出された索引リストファイル(<span Class="emphasis">.idx</span>)を並べ替え、実際の索引のソースファイルの形に整形します。 <span Class="emphasis">makeindex</span> と互換性があり、さらに「読み」の扱いの手間を減らすように特殊化されています。 
+<p class="level-1">出力される索引の形式は、スタイルファイルに従って決定されます。また、辞書ファイルを与えることにより、索引中の熟語の読みが登録されます。 
+<p class="level-2">索引の階層は３段階まで作成することができます。 <a name=""></a><h2 class="nroffsh">オプション</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> 索引リストファイルが指定されている場合でも、標準入力を索引リストとして使用します。 
+<p class="level0"><span Class="bold">-l</span> 索引のソートを文字順で行います。指定されなければ単語順のソートになります(ソート方法については後述)。 
+<p class="level0"><span Class="bold">-q</span> 静粛モードです。エラーおよび警告以外は標準エラー出力に出力しません。 
+<p class="level0"><span Class="bold">-r</span> ページ範囲表現を無効にします。指定しないと、連続して出てくる索引については "1--5" のようにページ範囲で表現されます。 
+<p class="level0"><span Class="bold">-c</span> スペースやタブといったブランクを短縮して、すべて１個の半角スペースにします。また、前後のブランクは削除されます。 
+<p class="level0"><span Class="bold">-g</span> 日本語の頭文字の区切りを "あかさた・・・わ" にします。指定しないと "あいうえ・・・わをん" になります。 
+<p class="level0"><span Class="bold">-f</span> 辞書ファイルにない漢字も強制的に出力するモードです。 
+<p class="level0"><span class="bold">-s<span Class="emphasis"> sty</span> <span Class="emphasis">sty</span> ファイルをスタイルファイルと見なします。スタイルファイルを指定しなければ、デフォルトの索引形式で作成します。 
+<p class="level0"><span class="bold">-d<span Class="emphasis"> dic</span> <span Class="emphasis">dic</span> ファイルを辞書ファイルと見なします。辞書ファイルは日本語の &lt;<a class="emphasis" href="#">熟語</a>&nbsp;<a class="emphasis" href="#">読み</a>&gt; のリストで構成されます。 
+<p class="level0"><span class="bold">-o<span Class="emphasis"> ind</span> <span Class="emphasis">ind</span> ファイルを出力ファイルと見なします。指定がない場合は最初の入力ファイルの拡張子を.indとしたもの、入力ファイルが標準入力のみであれば標準出力に出力します。 
+<p class="level0"><span class="bold">-t<span Class="emphasis"> log</span> <span Class="emphasis">log</span> ファイルをログファイルと見なします。指定がない場合は最初の入力ファイルの拡張子を.ilgとしたもの、入力ファイルが標準入力のみであれば標準エラー出力のみに出力されます。 
+<p class="level0"><span class="bold">-p<span Class="emphasis"> no</span> <span Class="emphasis">no</span> を索引ページの先頭ページとして指定します。また、TeXの.log ファイルを参照することにより <span Class="emphasis">any</span>(最終ページの次のページから)、<span Class="emphasis">odd</span>(最終ページの次の奇数ページから)、<span Class="emphasis">even</span>(最終ページの次の偶数ページから)といった指定の仕方も可能です。 
+<p class="level0"><span Class="bold">-E</span> 漢字コードをEUCに指定します。入力ファイル、出力ファイルともEUCとして扱います。 
+<p class="level0"><span Class="bold">-J</span> 漢字コードをJISに指定します。入力ファイル、出力ファイルともJISとして扱います。 
+<p class="level0"><span Class="bold">-S</span> 漢字コードをShiftJISに指定します。入力ファイル、出力ファイルともShiftJISとして扱います。 
+<p class="level0"><span Class="bold">-U</span> 漢字コードをUTF-8に指定します。入力ファイル、出力ファイルともUTF-8として扱います。 
+<p class="level0"><span class="bold">-I<span Class="emphasis"> enc</span> 内部バッファのコードを<span Class="emphasis">enc</span> に指定します。<span Class="emphasis">enc</span> には <span Class="emphasis">euc</span>(EUC-JP) または <span Class="emphasis">utf8</span>(UTF-8)が指定可能です。 
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh">スタイルファイル</h2>
+<p class="level0">スタイルファイルは makeindex のものと上位互換です。 形式は &lt;<a class="emphasis" href="#">スタイルパラメータ</a>&nbsp;<a class="emphasis" href="#">引数</a>&gt; のリストで構成されます。パラメータの順序は自由です。 以下にスタイルパラメータの一覧を示します。 `%'以降はコメントと見なされます。 
+<p class="level0"><a class="bold" href="#"> 入力ファイルスタイルパラメータ</a> 
+<p class="level0"><span Class="bold">keyword</span>  &lt;文字列&gt; "\\indexentry" 
+<p class="level1">索引エントリを引数として持つコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">arg_open</span>  &lt;文字&gt; &acute;{&acute; 
+<p class="level1">索引エントリ文字列開始を表す文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">arg_close</span>  &lt;文字&gt; &acute;}&acute; 
+<p class="level1">索引エントリ文字列終了を表す文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">range_open</span>  &lt;文字&gt; &acute;(&acute; 
+<p class="level1">ページ範囲の開始を示す文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">range_close</span>  &lt;文字&gt; &acute;)&acute; 
+<p class="level1">ページ範囲の終了を示す文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">level</span>  &lt;文字&gt; &acute;!&acute; 
+<p class="level1">従属レベルであることを示す文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">actual</span>  &lt;文字&gt; &acute;@&acute; 
+<p class="level1">このシンボルに続く文字列が実際の索引文字列として出力ファイルに書かれる。 
+<p class="level0">
+<p class="level0"><span Class="bold">encap</span>  &lt;文字&gt; &acute;|&acute; 
+<p class="level1">このシンボルに続く文字列が、ページ番号に付くコマンド名として使われる。 
+<p class="level0">
+<p class="level0"><span Class="bold">page_compositor</span>  &lt;文字列&gt; "-" 
+<p class="level1">階層化されたページ番号における階層間の区切り文字。 
+<p class="level0">
+<p class="level0"><span Class="bold">page_precedence</span>  &lt;文字列&gt; "rnaRA" 
+<p class="level1">ページ番号の記法の優先順位。&acute;R&acute;および&acute;r&acute;はローマ数字、&acute;n&acute;はアラビア数字、&acute;A&acute;および&acute;a&acute;はアルファベットによる記法を表す。 
+<p class="level0">
+<p class="level0"><span Class="bold">quote</span>  &lt;文字&gt; &acute;"&acute; 
+<p class="level1">mendexのパラメータ文字に対するエスケープキャラクタ。 
+<p class="level0">
+<p class="level0"><span Class="bold">escape</span>  &lt;文字&gt; &acute;\\&acute; 
+<p class="level1">一般的な文字に対するエスケープキャラクタ。 
+<p class="level0">
+<p class="level0"><a class="bold" href="#"> 出力ファイルスタイルパラメータ</a> 
+<p class="level0"><span Class="bold">preamble</span>  &lt;文字列&gt; "\\begin{theindex}\n" 
+<p class="level1">出力ファイルの文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">postamble</span>  &lt;文字列&gt; "\n\n\\end{theindex}\n" 
+<p class="level1">出力ファイルの末尾の文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">setpage_prefix</span>  &lt;文字列&gt; "\n  \\setcounter{page}{" 
+<p class="level1">開始ページを設定するときの、ページ番号の前に付ける文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">setpage_suffix</span>  &lt;文字列&gt; "}\n" 
+<p class="level1">開始ページを設定するときの、ページ番号の後に付ける文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">group_skip</span>  &lt;文字列&gt; "\n\n  \\indexsapce\n" 
+<p class="level1">新項目(頭文字)の前に挿入する縦スペースを表す文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">lethead_prefix</span>  &lt;文字列&gt; "" 
+<p class="level1">頭文字の前に付けるコマンド文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">heading_prefix</span>  &lt;文字列&gt; "" 
+<p class="level1">lethead_prefixと同じ。 
+<p class="level0">
+<p class="level0"><span Class="bold">lethead_suffix</span>  &lt;文字列&gt; "" 
+<p class="level1">頭文字の後に付けるコマンド文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">heading_suffix</span>  &lt;文字列&gt; "" 
+<p class="level1">lethead_suffixと同じ。 
+<p class="level0">
+<p class="level0"><span Class="bold">lethead_flag</span>  &lt;文字列&gt; 0 
+<p class="level1">頭文字の出力のフラグ。0のとき出力しない。0より大きいときは英字を大文字で、0より小さいときは小文字で出力する。 
+<p class="level0">
+<p class="level0"><span Class="bold">heading_flag</span>  &lt;文字列&gt; 0 
+<p class="level1">lethead_flagと同じ。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_0</span>  &lt;文字列&gt; "\n  \\item " 
+<p class="level1">主エントリ間に挿入するコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_1</span>  &lt;文字列&gt; "\n     \\subitem " 
+<p class="level1">サブエントリ間に挿入するコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_2</span>  &lt;文字列&gt; "\n       \\subsubitem " 
+<p class="level1">サブサブエントリ間に挿入するコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_01</span>  &lt;文字列&gt; "\n    \\subitem " 
+<p class="level1">主〜サブエントリ間に挿入するコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_x1</span>  &lt;文字列&gt; "\n    \\subitem " 
+<p class="level1">主〜サブエントリ間に挿入するコマンド。(主エントリにページ番号がないとき) 
+<p class="level0">
+<p class="level0"><span Class="bold">item_12</span>  &lt;文字列&gt; "\n    \\subsubitem " 
+<p class="level1">サブ〜サブサブエントリ間に挿入するコマンド。 
+<p class="level0">
+<p class="level0"><span Class="bold">item_x2</span>  &lt;文字列&gt; "\n    \\subsubitem " 
+<p class="level1">サブ〜サブサブエントリ間に挿入するコマンド。(サブエントリにページ番号がないとき) 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_0</span>  &lt;文字列&gt; ", " 
+<p class="level1">主エントリと最初のページ番号の間の区切り文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_1</span>  &lt;文字列&gt; ", " 
+<p class="level1">サブエントリと最初のページ番号の間の区切り文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_2</span>  &lt;文字列&gt; ", " 
+<p class="level1">サブサブエントリと最初のページ番号の間の区切り文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_n</span>  &lt;文字列&gt; ", " 
+<p class="level1">ページ番号間の区切り文字列。どのエントリレベルにも共通。 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_r</span>  &lt;文字列&gt; "--" 
+<p class="level1">ページ範囲を示すときの、ページ番号間の区切り文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">delim_t</span>  &lt;文字列&gt; "" 
+<p class="level1">ページ番号のリストの終端に出力する文字列。 
+<p class="level0">
+<p class="level0"><span Class="bold">suffix_2p</span>  &lt;文字列&gt; "" 
+<p class="level1">ページ番号が2ページ連続する場合に、delim_n と2ページ目の番号の代わりに付加する文字列。 
+<p class="level0">文字列が定義されている場合にのみ有効。 
+<p class="level-1">
+<p class="level-1"><span Class="bold">suffix_3p</span>  &lt;文字列&gt; "" 
+<p class="level0">ページ番号が3ページ連続する場合に、delim_r と3ページ目の番号の代わりに付加する文字列。suffix_mp より優先される。 
+<p class="level-1">文字列が定義されている場合にのみ有効。 
+<p class="level-2">
+<p class="level-2"><span Class="bold">suffix_mp</span>  &lt;文字列&gt; "" 
+<p class="level-1">ページ番号が3ページまたはそれ以上連続する場合に、delim_r と末尾のページ番号の代わりに付加する文字列。 
+<p class="level-2">文字列が定義されている場合にのみ有効。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">encap_prefix</span>  &lt;文字列&gt; "\\" 
+<p class="level-2">ページ番号にコマンドを付けるときの、コマンド名の前に付ける文字列。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">encap_infix</span>  &lt;文字列&gt; "{" 
+<p class="level-2">ページ番号にコマンドを付けるときの、ページ番号の前に付ける文字列。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">encap_suffix</span>  &lt;文字列&gt; "}". 
+<p class="level-2">ページ番号にコマンドを付けるときの、ページ番号の後に付ける文字列。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">line_max</span>  &lt;数値&gt; 72 
+<p class="level-2">１行の最大文字数。それを超えると折り返す。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">indent_space</span>  &lt;文字列&gt; "tt" 
+<p class="level-2">折り返した行の頭に挿入するスペース。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">indent_length</span>  &lt;数値&gt; 16 
+<p class="level-2">折り返した行の頭に挿入されるスペースの長さ。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">symhead_positive</span>  &lt;文字列&gt; "Symbols" 
+<p class="level-2">lethead_flag または heading_flag が正数の場合に数字・記号の頭文字として出力する文字列。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">symhead_negative</span>  &lt;文字列&gt; "symbols" 
+<p class="level-2">lethead_flag または heading_flag が負数の場合に数字・記号の頭文字として出力する文字列。 
+<p class="level-3">
+<p class="level-3"><span Class="bold">symbol</span>  &lt;文字列&gt; "" 
+<p class="level-2">symbol_flag が0でない場合に、数字・記号の頭文字として出力する文字列。 
+<p class="level-3">文字列が定義されていれば、symhead_positive および symhead_negative より優先される。(mendex専用) 
+<p class="level-4">このパラメータが定義された場合、symhead_positive および symhead_negative より優先される。(mendex専用) 
+<p class="level-5">
+<p class="level-5"><span Class="bold">symbol_flag</span>  &lt;数値&gt; 1 
+<p class="level-4">数字・記号の頭文字の出力フラグ。0のとき出力しない。(mendex専用) 
+<p class="level-5">
+<p class="level-5"><span Class="bold">letter_head</span>  &lt;数値&gt; 1 
+<p class="level-4">日本語の頭文字の出力のフラグ。0のとき出力しない。1のときカタカナ、2のときひらがなで出力する。(mendex専用) 
+<p class="level-5">
+<p class="level-5"><span Class="bold">priority</span>  &lt;数値&gt; 0 
+<p class="level-4">英字と日本語との混在した索引語のソート方法についてのフラグ。0でなければ英字と日本語との間に半角スペースを入れた状態でソートする。(mendex専用) 
+<p class="level-5">
+<p class="level-5"><span Class="bold">character_order</span>  &lt;文字列&gt; "SEJ" 
+<p class="level-4">記号、英字、日本語の優先順位。&acute;S&acute;は記号、&acute;E&acute;は英字、&acute;J&acute;は日本語を表す。(mendex専用) 
+<p class="level-5">
+<p class="level-5"><a name=""></a><h2 class="nroffsh">日本語の扱いについて</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">mendex</span> は日本語の索引をできるだけ楽に扱えるようになっています。 
+<p class="level-1">makeindexでは日本語の索引が正しく辞書順にソートするためにはひらがなまたはカタカナに揃え、拗音、撥音、濁点を除いた読みを付けなければなりませんでした(自動的に揃えるバージョンもある)。 
+<p class="level-2">mendexではカナについてはすべて自動的に揃え、また漢字については辞書ファイルを設定することにより各索引語ごとに読みを付ける作業をかなり解消できます。 
+<p class="level-2">
+<p class="level-2">以下に内部でのカナの変換例を示します。 
+<p class="level-2">
+<p class="level-1"><br>かぶしきがいしゃ		かふしきかいしや <br>マッキントッシュ		まつきんとつしゆ <br>ワープロ				わあふろ 
+<p class="level-2">
+<p class="level-2">辞書ファイルは&lt;<span Class="emphasis">熟語&nbsp;&nbsp;読み</span>&gt;のリストで構成されます。 熟語と読みの区切りはタブまたはスペースです。 
+<p class="level-3">以下に辞書の例を示します。 
+<p class="level-3">
+<p class="level-2"><br>漢字		かんじ <br>読み		よみ <br>環境		かんきょう <br>α		アルファ 
+<p class="level-3">
+<p class="level-3">辞書に登録する熟語については、読み方が１通りになるよう送り仮名を付けてください。 「表」、「性質」のように送り仮名によらず２通りの読み方ができる語についてはどちらか１つしか登録できません。他の読み方については各索引語へ読みを付けることで対応してください。 
+<p class="level-4">また、環境変数&lt;<span Class="emphasis">INDEXDEFAULTDICTIONARY</span>&gt;に辞書ファイルを登録することにより、自動的に辞書を参照します。環境変数に登録した辞書は -d で指定した辞書と併用できます。 
+<p class="level-4"><a name=""></a><h2 class="nroffsh">ソート方法について</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">mendex</span> は通常は入力された索引語をそのままソートします。<span Class="emphasis">-l</span>オプションが付けられた場合、複数の単語で構成される索引語については、ソートするときに単語と単語の間のスペースを詰めてソートします。 ここでは前者を単語順ソート、後者を文字順ソートと呼ぶことにします。 
+<p class="level-1">文字順ソートの場合、実際に出力される文字列はスペースを含んだ状態のものですので、索引語自体が変化することはありません。 
+<p class="level-2">以下に例を示します。 
+<p class="level-2">
+<p class="level-1"><a class="emphasis" href="#">単語順ソート			文字順ソート</a> <br>X Window				Xlib <br>Xlib					XView <br>XView				X Window 
+<p class="level-2">
+<p class="level-2">また、日本語〜英字間でも似たようなソート方法があります。スタイルファイルで<span Class="emphasis">priority</span>を０以外に指定した場合、隣接した日本語と英字の間にスペースを入れてソートします。 
+<p class="level-3">以下に例を示します。 
+<p class="level-3">
+<p class="level-2"><span Class="emphasis">priority=0			priority=1</span> <br>index sort			indファイル <br>indファイル			index sort 
+<p class="level-3">
+<p class="level-3"><a name=""></a><h2 class="nroffsh">環境変数</h2>
+<p class="level0"><span Class="emphasis">mendex</span> では以下のような環境変数を使用しています。 
+<p class="level0">
+<p class="level0"><span Class="emphasis">INDEXSTYLE</span> 索引スタイルファイルがあるディレクトリ 
+<p class="level0"><span Class="emphasis">INDEXDEFAULTSTYLE</span> デフォルトで参照する索引スタイルファイル 
+<p class="level0"><span Class="emphasis">INDEXDICTIONARY</span> 辞書があるディレクトリ 
+<p class="level0"><span Class="emphasis">INDEXDEFAULTDICTIONARY</span> 常に参照する辞書ファイル 
+<p class="level0"><a name=""></a><h2 class="nroffsh">詳細について</h2>
+<p class="level0">その他、詳細については <span Class="emphasis">makeindex</span> に準拠。 
+<p class="level0"><a name=""></a><h2 class="nroffsh">問題点等</h2>
+<p class="level0">ファイル名の先頭の文字が '-' であるファイルは扱えません。 
+<p class="level0">複数のページ記法を使用する場合、ページ順に.idxファイルを与えないとページ番号を誤認することがあります。 
+<p class="level0"><a name=""></a><h2 class="nroffsh">参照</h2>
+<p class="level0">tex(l), latex(l), makeindex(l) 
+<p class="level-1">

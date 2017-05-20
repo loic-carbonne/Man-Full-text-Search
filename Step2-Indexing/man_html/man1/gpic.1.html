@@ -1,0 +1,343 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2004, 2007, 2009, 2011 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">pic - compile pictures for troff or TeX 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pic</span> [ <span Class="bold">-nvCSU</span> ] [ <span Class="emphasis">filename</span> .|.|. ] <br><span Class="bold">pic</span> <span Class="bold">-t</span> [ <span Class="bold">-cvzCSU</span> ] [ <span Class="emphasis">filename</span> .|.|. ] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This manual page describes the GNU version of <span Class="manpage">pic</span>which is part of the groff document formatting system. <span Class="bold">pic</span> compiles descriptions of pictures embedded within <span Class="bold">troff</span> or *(tx input files into commands that are understood by *(tx or <span Class="manpage">troff .</span>Each picture starts with a line beginning with <span Class="bold">.PS</span> and ends with a line beginning with <span Class="manpage">.PE .</span>Anything outside of <span Class="bold">.PS</span> and <span Class="bold">.PE</span> is passed through without change. 
+<p class="level0">It is the user's responsibility to provide appropriate definitions of the <span Class="bold">PS</span> and <span Class="bold">PE</span> macros. When the macro package being used does not supply such definitions (for example, old versions of -ms), appropriate definitions can be obtained with <span Class="manpage">-mpic :</span>These will center each picture. 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Options that do not take arguments may be grouped behind a single <span Class="manpage">- .</span>The special option <span Class="bold">-\^-</span> can be used to mark the end of the options. A filename of <span Class="bold">-</span> refers to the standard input. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> Recognize <span Class="bold">.PS</span> and <span Class="bold">.PE</span> even when followed by a character other than space or newline. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S</span> Safer mode; do not execute <span Class="bold">sh</span> commands. This can be useful when operating on untrustworthy input. (enabled by default) 
+<p class="level0">
+<p class="level0"><span Class="bold">-U</span> Unsafe mode; revert the default option , <span Class="manpage">-S .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span> Don't use the groff extensions to the troff drawing commands. You should use this if you are using a postprocessor that doesn't support these extensions. The extensions are described in <span Class="manpage">groff_out (5).</span>The <span Class="bold">-n</span> option also causes <span Class="bold">pic</span> not to use zero-length lines to draw dots in troff mode. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> *(tx mode. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> Be more compatible with <span Class="manpage">tpic .</span>Implies <span Class="manpage">-t .</span>Lines beginning with <span Class="bold">\e</span> are not passed through transparently. Lines beginning with <a class="bold" href="#">.</a> are passed through with the initial <a class="bold" href="#">.</a> changed to <span Class="manpage">\e .</span>A line beginning with <span Class="bold">.ps</span> is given special treatment: it takes an optional integer argument specifying the line thickness (pen size) in milliinches; a missing argument restores the previous line thickness; the default line thickness is 8 milliinches. The line thickness thus specified takes effect only when a non-negative line thickness has not been specified by use of the <span Class="bold">thickness</span> attribute or by setting the <span Class="bold">linethick</span> variable. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> Print the version number. 
+<p class="level0">
+<p class="level0"><span Class="bold">-z</span> In *(tx mode draw dots using zero-length lines. 
+<p class="level0">
+<p class="level0">The following options supported by other versions of <span Class="bold">pic</span> are ignored: 
+<p class="level0">
+<p class="level0"><span Class="bold">-D</span> Draw all lines using the eD escape sequence. <span Class="bold">pic</span> always does this. 
+<p class="level0">
+<p class="level0"><span Class="bold">-T \ dev</span> Generate output for the <span Class="bold">troff</span> device <span Class="emphasis">dev .</span> This is unnecessary because the <span Class="bold">troff</span> output generated by <span Class="bold">pic</span> is device-independent. 
+<p class="level0">
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">This section describes only the differences between GNU <span Class="bold">pic</span> and the original version of <span Class="manpage">pic .</span>Many of these differences also apply to newer versions of Unix <span Class="manpage">pic .</span>A complete documentation is available in the file 
+<p class="level0">
+<p class="level1"><span Class="bold">/usr/share/doc/groff-base/pic.ms.gz</span> 
+<p class="level0">
+<p class="level0"><a name="tx"></a><h2 class="nroffsh">\*(tx mode</h2>
+<p class="level0">
+<p class="level0">*(tx mode is enabled by the <span Class="bold">-t</span> option. In *(tx mode, <span Class="bold">pic</span> will define a vbox called <span Class="bold">\egraph</span> for each picture. Use the <span Class="bold">figname</span> command to change the name of the vbox. You must yourself print that vbox using, for example, the command 
+<p class="level1">
+<p class="level1"><a class="bold" href="#"></a> ecenterline{eboxegraph} 
+<p class="level0">
+<p class="level0">Actually, since the vbox has a height of zero (it is defined with evtop) this will produce slightly more vertical space above the picture than below it; 
+<p class="level1">
+<p class="level1"><a class="bold" href="#"></a> ecenterline{eraise 1emeboxegraph} 
+<p class="level0">
+<p class="level0">would avoid this. 
+<p class="level0">To make the vbox having a positive height and a depth of zero (as used e.g. by *(lx's <span Class="manpage">\%graphics.sty )</span>define the following macro in your document: 
+<p class="level1">
+<p class="level1"><span Class="bold">\edef\egpicbox#1{%</span> <br><span Class="bold">   \evbox{\eunvbox\ecsname #1\eendcsname\ekern 0pt}}</span> 
+<p class="level0">
+<p class="level0">Now you can simply say <span Class="bold">\egpicbox{graph}</span> instead of eboxegraph. 
+<p class="level0">You must use a *(tx driver that supports the <span Class="bold">tpic</span> specials, version 2. 
+<p class="level0">Lines beginning with <span Class="bold">\e</span> are passed through transparently; a <a class="bold" href="#">%</a> is added to the end of the line to avoid unwanted spaces. You can safely use this feature to change fonts or to change the value of <span Class="manpage">\ebaselineskip .</span>Anything else may well produce undesirable results; use at your own risk. Lines beginning with a period are not given any special treatment. 
+<p class="level0"><a name="Commands"></a><h2 class="nroffsh">Commands</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">for</span> <span Class="emphasis">variable</span> <a class="bold" href="#">=</a> <span Class="emphasis">expr1</span> <span Class="bold">to</span> <span Class="emphasis">expr2</span> \ [<span Class="bold">by</span> [<a class="bold" href="#">*</a>]<span Class="emphasis">expr3</span>] <span Class="bold">do</span> <span Class="emphasis">X</span> <span Class="emphasis">body</span> <span Class="emphasis">X</span> Set <span Class="emphasis">variable</span> to <span Class="emphasis">expr1 .</span> While the value of <span Class="emphasis">variable</span> is less than or equal to <span Class="emphasis">expr2 ,</span> do <span Class="emphasis">body</span> and increment <span Class="emphasis">variable</span> by <span Class="emphasis">expr3 ;</span> if <span Class="bold">by</span> is not given, increment <span Class="emphasis">variable</span> by 1. If <span Class="emphasis">expr3</span> is prefixed by <a class="bold" href="#">*</a> then <span Class="emphasis">variable</span> will instead be multiplied by <span Class="emphasis">expr3 .</span> The value of <span Class="emphasis">expr3</span> can be negative for the additive case; <span Class="emphasis">variable</span> is then tested whether it is greater than or equal to <span Class="emphasis">expr2 .</span> For the multiplicative case, <span Class="emphasis">expr3</span> must be greater than zero. If the constraints aren't met, the loop isn't executed. <span Class="emphasis">X</span> can be any character not occurring in <span Class="emphasis">body .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">if</span> <span Class="emphasis">expr</span> <span Class="bold">then</span> <span Class="emphasis">X</span> <span Class="emphasis">if-true</span> <span Class="emphasis">X</span> \ [<span Class="bold">else</span> <span Class="emphasis">Y</span> <span Class="emphasis">if-false</span> <span Class="emphasis">Y</span>] Evaluate <span Class="emphasis">expr ;</span> if it is non-zero then do <span Class="emphasis">if-true ,</span> otherwise do <span Class="emphasis">if-false .</span> <span Class="emphasis">X</span> can be any character not occurring in <span Class="emphasis">if-true .</span> <span Class="emphasis">Y</span> can be any character not occurring in <span Class="emphasis">if-false .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">print</span> <span Class="emphasis">arg</span>|.|.|. Concatenate the arguments and print as a line on stderr. Each <span Class="emphasis">arg</span> must be an expression, a position, or text. This is useful for debugging. 
+<p class="level0">
+<p class="level0"><span Class="bold">command</span> <span Class="emphasis">arg</span>|.|.|. Concatenate the arguments and pass them through as a line to troff or *(tx. Each <span Class="emphasis">arg</span> must be an expression, a position, or text. This has a similar effect to a line beginning with <a class="bold" href="#">.\&</a> or <span Class="manpage">\e</span>but allows the values of variables to be passed through. For example, 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><pre class="level1">
+.PS
+x = 14
+command ".ds string x is " x "."
+.PE
+e*[string]
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">prints 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">x is 14.</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">sh</span> <span Class="emphasis">X</span> <span Class="emphasis">command</span> <span Class="emphasis">X</span> Pass <span Class="emphasis">command</span> to a shell. <span Class="emphasis">X</span> can be any character not occurring in <span Class="emphasis">command .</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">copy</span> <span class="bold">"<span class="emphasis">filename<a class="bold" href="#">"</a> Include <span Class="emphasis">filename</span> at this point in the file. 
+<p class="level1">
+<p class="level1"><span Class="bold">copy</span> [<span class="bold">"<span class="emphasis">filename<a class="bold" href="#">"</a>] <span Class="bold">thru</span> <span Class="emphasis">X</span> <span Class="emphasis">body</span> <span Class="emphasis">X</span> \ [<span Class="bold">until</span> <span class="bold">"<span class="emphasis">word*(ic<a class="bold" href="#">"</a>] 
+<p class="level1">
+<p class="level1"><span Class="bold">copy</span> [<span class="bold">"<span class="emphasis">filename<a class="bold" href="#">"</a>] <span Class="bold">thru</span> <span Class="emphasis">macro</span> \ [<span Class="bold">until</span> <span class="bold">"<span class="emphasis">word*(ic<a class="bold" href="#">"</a>] This construct does <span Class="emphasis">body</span> once for each line of <span Class="emphasis">filename ;</span> the line is split into blank-delimited words, and occurrences of <a class="bold" href="#">$ i</a> in <span Class="emphasis">body ,</span> for <span Class="emphasis">i</span> between 1 and 9, are replaced by the <span Class="emphasis">i -th</span> word of the line. If <span Class="emphasis">filename</span> is not given, lines are taken from the current input up to <span Class="manpage">.PE .</span>If an <span Class="bold">until</span> clause is specified, lines will be read only until a line the first word of which is <span Class="emphasis">word ;</span> that line will then be discarded. <span Class="emphasis">X</span> can be any character not occurring in <span Class="emphasis">body .</span> For example, 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><pre class="level2">
+.PS
+copy thru % circle at ($1,$2) % until "END"
+1 2
+3 4
+5 6
+END
+box
+.PE
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">is equivalent to 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><pre class="level2">
+.PS
+circle at (1,2)
+circle at (3,4)
+circle at (5,6)
+box
+.PE
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The commands to be performed for each line can also be taken from a macro defined earlier by giving the name of the macro as the argument to <span Class="manpage">thru .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">reset</span> <br>
+<p class="level1">
+<p class="level1"><span class="bold">reset<span Class="emphasis"> variable1</span>[<a class="bold" href="#">,</a>]<span class="emphasis"> variable2 .^.^. Reset pre-defined variables <span Class="emphasis">variable1 ,</span> <span Class="emphasis">variable2</span> .^.^. to their default values. If no arguments are given, reset all pre-defined variables to their default values. Note that assigning a value to <span Class="bold">scale</span> also causes all pre-defined variables that control dimensions to be reset to their default values times the new value of scale. 
+<p class="level1">
+<p class="level1"><span Class="bold">plot</span> <span Class="emphasis">expr</span> [<span class="bold">"<span class="emphasis">text*(ic<a class="bold" href="#">"</a>] This is a text object which is constructed by using <span Class="emphasis">text</span> as a format string for sprintf with an argument of <span Class="emphasis">expr .</span> If <span Class="emphasis">text</span> is omitted a format string of <span Class="bold">\(ts%g\(ts</span> is used. Attributes can be specified in the same way as for a normal text object. Be very careful that you specify an appropriate format string; <span Class="bold">pic</span> does only very limited checking of the string. This is deprecated in favour of <span Class="manpage">sprintf .</span>
+<p class="level1">
+<p class="level1">
+<p class="level1">This is similar to <a class="bold" href="#">=</a> except <span Class="emphasis">variable</span> must already be defined, and <span Class="emphasis">expr</span> will be assigned to <span Class="emphasis">variable</span> without creating a variable local to the current block. (By contrast, <a class="bold" href="#">=</a> defines the variable in the current block if it is not already defined there, and then changes the value in the current block only.) For example, the following: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><pre class="level2">
+.PS
+x = 3
+y = 3
+[
+&nbsp; x := 5
+&nbsp; y = 5
+]
+print x " " y
+.PE
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">prints 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">5 3</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Arguments of the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="emphasis">X anything X</span> 
+<p class="level1">are also allowed to be of the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#">{\  anything\  }</a> 
+<p class="level1">In this case <span Class="emphasis">anything</span> can contain balanced occurrences of <a class="bold" href="#">{</a> and <a class="manpage" href="#">} .</a>Strings may contain <span Class="emphasis">X</span> or imbalanced occurrences of <a class="bold" href="#">{</a> and <a class="manpage" href="#">} .</a>
+<p class="level1"><a name="Expressions"></a><h2 class="nroffsh">Expressions</h2>
+<p class="level0">
+<p class="level0">The syntax for expressions has been significantly extended: 
+<p class="level0">
+<p class="level0">
+<p class="level0">(exponentiation) <br><span Class="bold">sin( x )</span> <br><span Class="bold">cos( x )</span> <br><span Class="bold">atan2( y , \ x )</span> <br><span Class="bold">log( x )</span> (base 10) <br><span Class="bold">exp( x )</span> (base 10, ie 
+<p class="level0">
+<p class="level0"><br><span Class="bold">sqrt( x )</span> <br><span Class="bold">int( x )</span> <br><span Class="bold">rand()</span> (return a random number between 0 and 1) <br><span Class="bold">rand( x )</span> (return a random number between 1 and <span Class="emphasis">x ;</span> deprecated) <br><span Class="bold">srand( x )</span> (set the random number seed) <br><span Class="bold">max( e1 , \ e2 )</span> <br><span Class="bold">min( e1 , \ e2 )</span> <br><a class="bold" href="#">! e</a> <br><span class="emphasis">e1<span class="bold"> && <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> || <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> == <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> != <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> &gt;= <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> &gt; <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> &lt;= <span Class="emphasis">e2</span> <br><span class="emphasis">e1<span class="bold"> &lt; <span Class="emphasis">e2</span> <br><span class="bold">"<span class="emphasis">str1*(ic<span class="bold">" == "<span class="emphasis">str2*(ic<a class="bold" href="#">"</a> <br><span class="bold">"<span class="emphasis">str1*(ic<span class="bold">" != "<span class="emphasis">str2*(ic<a class="bold" href="#">"</a> <br>
+<p class="level0">
+<p class="level0">String comparison expressions must be parenthesised in some contexts to avoid ambiguity. 
+<p class="level0"><a name="Other"></a><h2 class="nroffsh">Other Changes</h2>
+<p class="level0">
+<p class="level0">A bare expression, <span Class="emphasis">expr ,</span> is acceptable as an attribute; it is equivalent to <span Class="emphasis">dir\ expr ,</span> where <span Class="emphasis">dir</span> is the current direction. For example 
+<p class="level0">
+<p class="level1"><span Class="bold">line 2i</span> 
+<p class="level0">
+<p class="level0">means draw a line 2&nbsp;inches long in the current direction. The `i' (or `I') character is ignored; to use another measurement unit, set the <span Class="emphasis">scale</span> variable to an appropriate value. 
+<p class="level0">
+<p class="level0">The maximum width and height of the picture are taken from the variables <span Class="bold">maxpswid</span> and <span Class="manpage">maxpsht .</span>Initially these have values 8.5 and 11. 
+<p class="level0">
+<p class="level0">Scientific notation is allowed for numbers. For example 
+<p class="level1">
+<p class="level1"><a class="bold" href="#"></a> x = 5e-2 
+<p class="level0">
+<p class="level0">
+<p class="level0">Text attributes can be compounded. For example, 
+<p class="level1">
+<p class="level1"><a class="bold" href="#"></a> "foo" above ljust 
+<p class="level0">
+<p class="level0">is valid. 
+<p class="level0">
+<p class="level0">There is no limit to the depth to which blocks can be examined. For example, 
+<p class="level1">
+<p class="level1"><a class="bold" href="#"></a> [A: [B: [C: box ]]] with .A.B.C.sw at 1,2 <br><a class="bold" href="#"></a> circle at last [^].A.B.C 
+<p class="level0">
+<p class="level0">is acceptable. 
+<p class="level0">
+<p class="level0">Arcs now have compass points determined by the circle of which the arc is a part. 
+<p class="level0">
+<p class="level0">Circles, ellipses, and arcs can be dotted or dashed. In *(tx mode splines can be dotted or dashed also. 
+<p class="level0">
+<p class="level0">Boxes can have rounded corners. The <span Class="bold">rad</span> attribute specifies the radius of the quarter-circles at each corner. If no <span Class="bold">rad</span> or <span Class="bold">diam</span> attribute is given, a radius of <span Class="bold">boxrad</span> is used. Initially, <span Class="bold">boxrad</span> has a value of&nbsp;0. A box with rounded corners can be dotted or dashed. 
+<p class="level0">
+<p class="level0">Boxes can have slanted sides. This effectively changes the shape of a box from a rectangle to an arbitrary parallelogram. The <span Class="bold">xslanted</span> and <span Class="bold">yslanted</span> attributes specify the x and y~offset of the box's upper right corner from its default position. 
+<p class="level0">
+<p class="level0">The <span Class="bold">.PS</span> line can have a second argument specifying a maximum height for the picture. If the width of zero is specified the width will be ignored in computing the scaling factor for the picture. Note that GNU <span Class="bold">pic</span> will always scale a picture by the same amount vertically as well as horizontally. This is different from the 
+<p class="level0">2.0 <span Class="bold">pic</span> which may scale a picture by a different amount vertically than horizontally if a height is specified. 
+<p class="level0">
+<p class="level0">Each text object has an invisible box associated with it. The compass points of a text object are determined by this box. The implicit motion associated with the object is also determined by this box. The dimensions of this box are taken from the width and height attributes; if the width attribute is not supplied then the width will be taken to be <span Class="manpage">textwid ;</span>if the height attribute is not supplied then the height will be taken to be the number of text strings associated with the object times <span Class="manpage">textht .</span>Initially <span Class="bold">textwid</span> and <span Class="bold">textht</span> have a value of 0. 
+<p class="level0">
+<p class="level0">In (almost all) places where a quoted text string can be used, an expression of the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">sprintf(\(ts format \(ts,\  arg ,.\|.\|.\fB)</span> 
+<p class="level1">can also be used; this will produce the arguments formatted according to <span Class="emphasis">format ,</span> which should be a string as described in <span Class="manpage">printf (3)</span>appropriate for the number of arguments supplied. 
+<p class="level1">
+<p class="level1">The thickness of the lines used to draw objects is controlled by the <span Class="bold">linethick</span> variable. This gives the thickness of lines in points. A negative value means use the default thickness: in *(tx output mode, this means use a thickness of 8 milliinches; in *(tx output mode with the <span Class="bold">-c</span> option, this means use the line thickness specified by <span Class="bold">.ps</span> lines; in troff output mode, this means use a thickness proportional to the pointsize. A zero value means draw the thinnest possible line supported by the output device. Initially it has a value of -1. There is also a <span Class="manpage">thick [ ness ]</span>attribute. For example, 
+<p class="level2">
+<p class="level2"><span Class="bold">circle thickness 1.5</span> 
+<p class="level1">
+<p class="level1">would draw a circle using a line with a thickness of 1.5 points. The thickness of lines is not affected by the value of the <span Class="bold">scale</span> variable, nor by the width or height given in the <span Class="bold">.PS</span> line. 
+<p class="level1">
+<p class="level1">Boxes (including boxes with rounded corners or slanted sides), circles and ellipses can be filled by giving them an attribute of <span Class="manpage">fill [ ed ].</span>This takes an optional argument of an expression with a value between 0 and 1; 0 will fill it with white, 1 with black, values in between with a proportionally gray shade. A value greater than 1 can also be used: this means fill with the shade of gray that is currently being used for text and lines. Normally this will be black, but output devices may provide a mechanism for changing this. Without an argument, then the value of the variable <span Class="bold">fillval</span> will be used. Initially this has a value of 0.5. The invisible attribute does not affect the filling of objects. Any text associated with a filled object will be added after the object has been filled, so that the text will not be obscured by the filling. 
+<p class="level1">
+<p class="level1">Three additional modifiers are available to specify colored objects: <span Class="manpage">outline [ d ]</span>sets the color of the outline, <span Class="bold">shaded</span> the fill color, and <span Class="bold">colo[u]r[ed]</span> sets both. All three keywords expect a suffix specifying the color, for example 
+<p class="level2">
+<p class="level2"><span Class="bold">circle shaded green outline black</span> 
+<p class="level1">
+<p class="level1">Currently, color support isn't available in *(tx mode. Predefined color names for <span Class="bold">groff</span> are in the device macro files, for example <span Class="manpage">ps.tmac ;</span>additional colors can be defined with the <span Class="bold">.defcolor</span> request (see the manual page of <span Class="manpage">troff (1)</span>for more details). 
+<p class="level1">To change the name of the vbox in *(tx mode, set the pseudo-variable <span Class="bold">figname</span> (which is actually a specially parsed command) within a picture. Example: 
+<p class="level2">
+<p class="level2"><span Class="bold">.PS</span> <br><span Class="bold">figname = foobar;</span> <br><a class="bold" href="#">...</a> <br><span Class="bold">.PE</span> 
+<p class="level1">
+<p class="level1">The picture is then available in the box <span Class="manpage">\efoobar .</span>
+<p class="level1"><span Class="bold">pic</span> assumes that at the beginning of a picture both glyph and fill color are set to the default value. 
+<p class="level1">
+<p class="level1">Arrow heads will be drawn as solid triangles if the variable <span Class="bold">arrowhead</span> is non-zero and either *(tx mode is enabled or the <span Class="bold">-n</span> option has not been given. Initially <span Class="bold">arrowhead</span> has a value of&nbsp;1. Note that solid arrow heads are always filled with the current outline color. 
+<p class="level1">
+<p class="level1">The troff output of <span Class="bold">pic</span> is device-independent. The <span Class="bold">-T</span> option is therefore redundant. All numbers are taken to be in inches; numbers are never interpreted to be in troff machine units. 
+<p class="level1">
+<p class="level1">Objects can have an <span Class="bold">aligned</span> attribute. This will only work if the postprocessor is <span Class="manpage">grops</span>or <span Class="manpage">gropdf .</span>Any text associated with an object having the <span Class="bold">aligned</span> attribute will be rotated about the center of the object so that it is aligned in the direction from the start point to the end point of the object. Note that this attribute will have no effect for objects whose start and end points are coincident. 
+<p class="level1">
+<p class="level1">In places where 
+<p class="level1">is allowed <a class="bold" href="#">` expr 'th</a> is also allowed. Note that <span Class="bold">'th</span> is a single token: no space is allowed between the <a class="bold" href="#">'</a> and the <span Class="manpage">th .</span>For example, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><pre class="level1">
+for i = 1 to 4 do {
+&nbsp;  line from `i'th box.nw to `i+1'th box.se
+}
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="CONVERSION"></a><h2 class="nroffsh">CONVERSION</h2>
+<p class="level0">
+<p class="level0">To obtain a stand-alone picture from a <span Class="bold">pic</span> file, enclose your <span Class="bold">pic</span> code with <span Class="bold">.PS</span> and <span Class="bold">.PE</span> requests; <span Class="bold">roff</span> configuration commands may be added at the beginning of the file, but no <span Class="bold">roff</span> text. 
+<p class="level0">
+<p class="level0">It is necessary to feed this file into <span Class="bold">groff</span> without adding any page information, so you must check which <span Class="bold">.PS</span> and <span Class="bold">.PE</span> requests are actually called. For example, the mm macro package adds a page number, which is very annoying. At the moment, calling standard <span Class="bold">groff</span> without any macro package works. Alternatively, you can define your own requests, e.g. to do nothing: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+.de PS
+..
+.de PE
+..
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">groff</span> itself does not provide direct conversion into other graphics file formats. But there are lots of possibilities if you first transform your picture into PostScript*R format using the <span Class="bold">groff</span> option <span Class="manpage">-Tps .</span>Since this <span Class="emphasis">ps -file</span> lacks BoundingBox information it is not very useful by itself, but it may be fed into other conversion programs, usually named <span Class="bold">ps2 other</span> or <span Class="bold">psto other</span> or the like. Moreover, the PostScript interpreter <span Class="bold">ghostscript</span> 
+<p class="level0">has built-in graphics conversion devices that are called with the option 
+<p class="level0">
+<p class="level1"><span Class="bold">gs -sDEVICE= &lt;devname&gt;</span> 
+<p class="level0">
+<p class="level0">Call 
+<p class="level0">
+<p class="level1"><span Class="bold">gs --help</span> 
+<p class="level0">
+<p class="level0">for a list of the available devices. 
+<p class="level0">
+<p class="level0">An alternative may be to use the <span Class="bold">-Tpdf</span> option to convert your picture directly into <span Class="bold">PDF</span> format. The MediaBox of the file produced can be controlled by passing a <span Class="bold">-P-p</span> papersize to groff. 
+<p class="level0">
+<p class="level0">As the Encapsulated PostScript File Format <span Class="bold">EPS</span> is getting more and more important, and the conversion wasn't regarded trivial in the past you might be interested to know that there is a conversion tool named <span Class="bold">ps2eps</span> which does the right job. It is much better than the tool <span Class="bold">ps2epsi</span> packaged with <span Class="manpage">gs .</span>
+<p class="level0">For bitmapped graphic formats, you should use <span Class="manpage">pstopnm ;</span>the resulting (intermediate) <span Class="bold">PNM</span> file can be then converted to virtually any graphics format using the tools of the <span Class="bold">netpbm</span> package . 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#"></a> /usr/share/groff/1.22.2/tmac/pic.tmac Example definitions of the <span Class="bold">PS</span> and <span Class="bold">PE</span> macros. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">troff (1)</span>, <span Class="manpage">groff_out (5)</span>, <span Class="manpage">tex (1)</span>, <span Class="manpage">gs (1)</span>, <span Class="manpage">ps2eps (1)</span>, <span Class="manpage">pstopnm (1)</span>, <span Class="manpage">ps2epsi (1)</span>, <span Class="manpage">pnm (5)</span>
+<p class="level0">Eric S. Raymond, <span Class="emphasis">Making Pictures With GNU PIC.</span> <br>/usr/share/doc/groff-base/pic.ps (this file, together with its source file, pic.ms, is part of the groff documentation) 
+<p class="level0">Tpic: Pic for *(tx 
+<p class="level0">Brian W. Kernighan, <span Class="emphasis">PIC \(em A Graphics Language for Typesetting (User Manual).</span> AT&T Bell Laboratories, Computing Science Technical Report No.&nbsp;116 <br>&lt;http://cm.bell-labs.com/cm/cs/cstr/116.ps.gz&gt; (revised May, 1991). 
+<p class="level0"><span Class="bold">ps2eps</span> is available from CTAN mirrors, e.g. <br>&lt;ftp://ftp.dante.de/tex-archive/support/ps2eps/&gt; 
+<p class="level0">W. Richard Stevens, <span Class="emphasis">Turning PIC Into HTML</span> <br>&lt;http://www.kohala.com/start/troff/pic2html.html&gt; 
+<p class="level0">W. Richard Stevens, <span Class="emphasis">Examples of picMacros</span> <br>&lt;http://www.kohala.com/start/troff/pic.examples.ps&gt; 
+<p class="level0">
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Input characters that are invalid for <span Class="bold">groff</span> (i.e., those with 
+<p class="level0">code 0, or 013 octal, or between 015 and 037 octal, or between 0200 and 0237 octal) are rejected even in *(tx mode. 
+<p class="level0">The interpretation of <span Class="bold">fillval</span> is incompatible with the pic in 10th edition Unix, which interprets 0 as black and 1 as white. 
+<p class="level0">PostScript*R is a registered trademark of Adobe Systems Incorporation. 
+<p class="level0">

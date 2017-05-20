@@ -1,0 +1,114 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ttf2pk - convert a TrueType font into TeX's PK format <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">ttf2pk</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">\%font-name \%resolution</span> <br><span Class="bold">ttf2pk</span> <span Class="bold">-t</span> 
+<p class="level0"><span Class="emphasis">\%font-name</span> <br><span Class="bold">ttf2pk -\^-version</span> | <span Class="bold">-\^-help</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">fC\$1</span>\$2 
+<p class="level0">
+<p class="level0">\$1\$2 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This program converts a TrueType font into a 
+<p class="level0">file; the created font can then be used with *(TX or *(LX. 
+<p class="level0">CJKV (Chinese/Japanese/Korean/old Vietnamese) subfonts as created by  <span Class="bold">ttf2tfm</span> are also supported. 
+<p class="level0"><span Class="bold">ttf2pk</span> always assumes 10pt as the design size for the written *(TX font. 
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> This optional switch makes <span Class="bold">ttf2pk</span> quiet. It suppresses any informational output except warning and error messages. 
+<p class="level0"><span Class="bold">-n</span> Use only `c 
+<p class="level0">as the extension instead of `c 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> Test for the existence of <span Class="emphasis">\%font-name .</span> Returns 0 on success and prints out the corresponding line of a map file (default: 
+<p class="level0">provided the <span Class="bold">-q</span> switch isn't set. 
+<p class="level0"><span Class="emphasis">font-name</span> The *(TX name of the font. <span Class="bold">ttf2pk</span> looks this name up in a map file (see below) for further information how to process the font. 
+<p class="level0"><span Class="emphasis">resolution</span> The resolution, given in dots per inch. Currently the horizontal resolution is equal to the vertical resolution. The design size is always assumed to be 10pt. 
+<p class="level0"><span Class="bold">-\^-version</span> Shows the current version of <span Class="bold">ttf2pk</span> and the used file search library (e.g.&nbsp;c <span Class="manpage">kpathsea ).</span>
+<p class="level0"><span Class="bold">-\^-help</span> Shows usage information. 
+<p class="level0">Environment variables for file searching are described in the manual page of <span Class="manpage">ttf2tfm .</span>
+<p class="level0">
+<p class="level0"><a name="THE"></a><h2 class="nroffsh">THE CONFIGURATION FILE</h2>
+<p class="level0"><span Class="bold">ttf2pk</span> uses a small configuration file called 
+<p class="level0">in each line it contains a keyword with its value, separated by whitespace. Comment lines can start with any of the following characters: `*', `&#35;', `;', and `%'. Leading whitespace is ignored. 
+<p class="level0">Currently, only one keyword, `map', is recognized in this file; it takes a map file name as a parameter. If no extension is given to the map file name, 
+<p class="level0">is appended. No whitespace is allowed in the map file name. The `map' keyword can be given more than once to specify multiple map files; if the map file name is prepended by a plus sign, it is added to the list of map files to be used. Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">This makes <span Class="bold">ttf2pk</span> to first read 
+<p class="level0">then 
+<p class="level0">
+<p class="level0">If the configuration file is not found, <span Class="bold">ttf2pk</span> tries to use 
+<p class="level0">instead. 
+<p class="level0">
+<p class="level0"><a name="MAP"></a><h2 class="nroffsh">MAP FILES</h2>
+<p class="level0">Parameters specified to <span Class="bold">ttf2tfm</span> are preserved for <span Class="bold">ttf2pk</span> in map files(emc <span Class="bold">ttf2tfm</span> writes out to standard output, as the last line, a proper entry for a map file. 
+<p class="level0">As an example, a call to 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will produce the following line: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">See <span Class="manpage">ttf2tfm (1)</span>and <span Class="manpage">afm2tfm (1)</span>of the <span Class="bold">dvips</span> package for a detailed description of encoding files. 
+<p class="level0">Here a table listing the various <span Class="bold">ttf2tfm</span> parameters and the corresponding entries in a map file: 
+<p class="level0">
+<p class="level0">
+<p class="level0">-s	Slant <br>-e	Extend <br>-p	Encoding <br>-f	Fontindex <br>-P	Pid <br>-E	Eid <br>-n	PS=Yes <br>-N	PS=Only <br>-R	Replacement <br>-x	Rotate=Yes <br>-y	Y-Offset 
+<p class="level0">Single replacement glyph names given to <span Class="bold">ttf2tfm</span> with `c <span Class="bold">-r \ old-glyphname\ new-glyphname\c</span> ' are directly specified with `c <span Class="emphasis">old-glyphname = new-glyphname '.</span> They will be ignored if in subfont mode or if no encoding file is given. 
+<p class="level0">One additional parameter in a map file is unique to <span Class="manpage">ttf2pk :</span>`Hinting', which can take the values `On' or `Off'. Some fonts (e.g.&nbsp;the CJK part of 
+<p class="level0">are rendered incorrectly if hinting is activated. Default is `On' (you can also use `Yes', `No', `1', and `0'). 
+<p class="level0">For a description of subfonts (i.e., entries of the form `c <span Class="emphasis">&lt;namestem&gt;\c</span> 
+<p class="level0"><span Class="emphasis">&lt;sfd-filename&gt;\c</span> 
+<p class="level0">please refer to <span Class="manpage">ttf2tfm (1).</span>
+<p class="level0">The format of a map file is simple. Each line defines a font; first comes the *(TX font name, then its TrueType font file name, followed by the parameters in any order. Case is significant (even for parameter names); the parameters are separated from its values by an equal sign, with whitespace possibly surrounding it. <span Class="bold">ttf2pk</span> reads in all map files line by line in the order given in the configuration file, continuing until the *(TX font specified on the command line is found, otherwise the programs exits with error code&nbsp;2. Thus you can use any character invalid in a *(TX font name to start a comment line. 
+<p class="level0">You can use `&acute; as the final character of a line to indicate that the input is continued on the next line. The backslash and the following newline character will be removed. 
+<p class="level0"><span Class="bold">ttf2pk</span> will abort if it can't find or read the *(TX font metrics file of the given *(TX font name. 
+<p class="level0">
+<p class="level0"><a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">If the call was successful, 0&nbsp;will be returned. In case of error, the return value is&nbsp;1. Finally, if the font can't be found in the map files, 2&nbsp;is returned. This simplifies the inclusion of <span Class="bold">ttf2pk</span> into scripts like <span Class="bold">mktexpk</span> for automatic font generation. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ttf2tfm (1)</span>, <span Class="manpage">afm2tfm (1)</span>
+<p class="level0">
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0"><span Class="bold">ttf2pk</span> is part of the FreeType&nbsp;1 package, a high quality TrueType rendering library. 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Werner LEMBERG 
+<p class="level0"><br>Fr('ed('eric LOYER 
+<p class="level0">

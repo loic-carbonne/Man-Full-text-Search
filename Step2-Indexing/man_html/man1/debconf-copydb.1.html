@@ -1,0 +1,92 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">debconf-copydb - copy a debconf database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;debconf-copydb sourcedb destdb [--pattern=pattern] [--owner-pattern=pattern] [--config=Foo:bar] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debconf-copydb</span> copies items from an existing debconf database into another, possibly new database. The two databases may have different formats; if so a conversion will automatically be done. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fIsourcedbfR"></a><span class="nroffip">\fIsourcedb\fR 4</span> 
+<p class="level1">
+<p class="level1">The name of the source database. Typically it will be defined in your debconf.conf (or .debconfrc) file. 
+<p class="level0"><a name="fIdestdbfR"></a><span class="nroffip">\fIdestdb\fR 4</span> 
+<p class="level1">
+<p class="level1">The name of the destination database. It may be defined in debconf.conf or .debconfrc, or you might define it on the command line (see below). 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR \fIpattern\fR, \fB--pattern\fR \fIpattern\fR 4</span> 
+<p class="level1">
+<p class="level1">If this is specified, only items in <span Class="emphasis">sourcedb</span> whose names match the pattern will be copied. 
+<p class="level0"><a name="fB--owner-patternfR"></a><span class="nroffip">\fB--owner-pattern\fR \fIpattern\fR 4</span> 
+<p class="level1">
+<p class="level1">If this is specified, only items in <span Class="emphasis">sourcedb</span> whose owners match the pattern will be copied. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR \fIfoo:bar\fR, \fB--config\fR \fIFoo:bar\fR 4</span> 
+<p class="level1">
+<p class="level1">Set option Foo to bar. This is similar to writing: 
+<p class="level1">
+<p class="level1">&nbsp; Foo: bar 
+<p class="level1">
+<p class="level1">In debconf.conf, except you probably want to leave off the space on the command line (or quote it: *(L"Foo: bar*(R"). Generally must be used multiple times, to build up a full configuration stanza. While blank lines are used to separate stanzas in debconf.conf, this program will assume that *(L"Name:dbname*(R" denotes the beginning of a new stanza. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp; debconf-copydb configdb backup 
+<p class="level0">
+<p class="level0">Copy all of configdb to backup, assuming you already have the backup database defined in debconf.conf. 
+<p class="level0">
+<p class="level0">&nbsp; debconf-copydb configdb newdb --pattern=*(Aq^slrn/*(Aq e &nbsp;       --config=Name:newdb --config=Driver:File e &nbsp;       --config=Filename:newdb.dat 
+<p class="level0">
+<p class="level0">Copy slrn's data out of configdb, and into newdb. newdb is not defined in the rc file, so the --config switches set up the database on the fly. 
+<p class="level0">
+<p class="level0">&nbsp; debconf-copydb configdb stdout -c Name:stdout -c Driver:Pipe e &nbsp;       -c InFd:none --pattern=*(Aq^foo/*(Aq 
+<p class="level0">
+<p class="level0">Spit out all the items in the debconf database related to package foo. 
+<p class="level0">
+<p class="level0">&nbsp; debconf-copydb configdb pipe --config=Name:pipe e &nbsp;               --config=Driver:Pipe --config=InFd:none | e &nbsp;       ssh remotehost debconf-copydb pipe configdb e &nbsp;               --config=Name:pipe --config=Driver:Pipe 
+<p class="level0">
+<p class="level0">This uses the special purpose pipe driver to copy a database to a remote system. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debconf.conf</span>|(5) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Joey Hess &lt;joeyh@debian.org&gt; 

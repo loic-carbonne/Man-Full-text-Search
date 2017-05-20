@@ -1,0 +1,48 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">sort - sort lines of text files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">sort</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <br><span Class="bold">sort</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">--files0-from=F</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Write sorted concatenation of all FILE(s) to standard output. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. Ordering options: 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--ignore-leading-blanks</span> ignore leading blanks 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--dictionary-order</span> consider only blanks and alphanumeric characters 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--ignore-case</span> fold lower case to upper case characters 
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--general-numeric-sort</span> compare according to general numerical value 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ignore-nonprinting</span> consider only printable characters 
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--month-sort</span> compare (unknown) &lt; 'JAN' &lt; ... &lt; 'DEC' 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--human-numeric-sort</span> compare human readable numbers (e.g., 2K 1G) 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--numeric-sort</span> compare according to string numerical value 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--random-sort</span> sort by random hash of keys 
+<p class="level0"><span Class="bold">--random-source</span>=<span Class="emphasis">FILE</span> get random bytes from FILE 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--reverse</span> reverse the result of comparisons 
+<p class="level0"><span Class="bold">--sort</span>=<span Class="emphasis">WORD</span> sort according to WORD: general-numeric <span Class="bold">-g</span>, human-numeric <span Class="bold">-h</span>, month <span Class="bold">-M</span>, numeric <span Class="bold">-n</span>, random <span Class="bold">-R</span>, version <span Class="bold">-V</span> 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version-sort</span> natural sort of (version) numbers within text 
+<p class="level0">Other options: 
+<p class="level0"><span Class="bold">--batch-size</span>=<span Class="emphasis">NMERGE</span> merge at most NMERGE inputs at once; for more use temp files 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--check</span>, <span Class="bold">--check</span>=<span Class="emphasis">diagnose-first</span> check for sorted input; do not sort 
+<p class="level0"><span Class="bold">-C</span>, <span Class="bold">--check</span>=<span Class="emphasis">quiet</span>, <span Class="bold">--check</span>=<span Class="emphasis">silent</span> like <span Class="bold">-c</span>, but do not report first bad line 
+<p class="level0"><span Class="bold">--compress-program</span>=<span Class="emphasis">PROG</span> compress temporaries with PROG; decompress them with PROG <span Class="bold">-d</span> 
+<p class="level0"><span Class="bold">--debug</span> annotate the part of the line used to sort, and warn about questionable usage to stderr 
+<p class="level0"><span Class="bold">--files0-from</span>=<span Class="emphasis">F</span> read input from the files specified by NUL-terminated names in file F; If F is - then read names from standard input 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--key</span>=<span Class="emphasis">KEYDEF</span> sort via a key; KEYDEF gives location and type 
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--merge</span> merge already sorted files; do not sort 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output</span>=<span Class="emphasis">FILE</span> write result to FILE instead of standard output 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--stable</span> stabilize sort by disabling last-resort comparison 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--buffer-size</span>=<span Class="emphasis">SIZE</span> use SIZE for main memory buffer 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--field-separator</span>=<span Class="emphasis">SEP</span> use SEP instead of non-blank to blank transition 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--temporary-directory</span>=<span Class="emphasis">DIR</span> use DIR for temporaries, not $TMPDIR or <span Class="emphasis">/tmp</span>; multiple options specify multiple directories 
+<p class="level0"><span Class="bold">--parallel</span>=<span Class="emphasis">N</span> change the number of sorts run concurrently to N 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unique</span> with <span Class="bold">-c</span>, check for strict ordering; without <span Class="bold">-c</span>, output only the first of an equal run 
+<p class="level0"><span Class="bold">-z</span>, <span Class="bold">--zero-terminated</span> line delimiter is NUL, not newline 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">KEYDEF is F[.C][OPTS][,F[.C][OPTS]] for start and stop position, where F is a field number and C a character position in the field; both are origin 1, and the stop position defaults to the line's end.  If neither <span Class="bold">-t</span> nor <span Class="bold">-b</span> is in effect, characters in a field are counted from the beginning of the preceding whitespace.  OPTS is one or more single-letter ordering options [bdfgiMhnRrV], which override global ordering options for that key.  If no key is given, use the entire line as the key. 
+<p class="level0">SIZE may be followed by the following multiplicative suffixes: % 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y. 
+<p class="level0">With no FILE, or when FILE is -, read standard input. 
+<p class="level0">*** WARNING *** The locale specified by the environment affects sort order. Set LC_ALL=C to get the traditional sort order that uses native byte values. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Mike Haertel and Paul Eggert. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report sort translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">uniq(1) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/sort&gt; <br>or available locally via: info (aq(coreutils) sort invocation(aq 

@@ -1,0 +1,112 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-buildpackage - build binary or source packages from sources 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-buildpackage</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-buildpackage</span> is a program that automates the process of building a Debian package. It consists of the following steps: 
+<p class="level0"><a name="fB1fP"></a><span class="nroffip">\fB1.\fP 3</span> 
+<p class="level1">It prepares the build environment by setting various environment variables (see <a class="bold" href="#ENVIRONMENT">ENVIRONMENT</a>), runs the <span Class="bold">init</span> hook, and calls <span Class="bold">dpkg-source --before-build</span> (unless <span Class="bold">-T</span> or <span Class="bold">--target</span> has been used). 
+<p class="level0"><a name="fB2fP"></a><span class="nroffip">\fB2.\fP 3</span> 
+<p class="level1">It checks that the build-dependencies and build-conflicts are satisfied (unless <span Class="bold">-d</span> is specified). 
+<p class="level0"><a name="fB3fP"></a><span class="nroffip">\fB3.\fP 3</span> 
+<p class="level1">If a specific target has been selected with the <span Class="bold">-T</span> or <span Class="bold">--target</span> option, it calls that target and stops here. Otherwise it runs the <span Class="bold">preclean</span> hook and calls <span Class="bold">fakeroot debian/rules clean</span> to clean the build-tree (unless <span Class="bold">-nc</span> is specified). 
+<p class="level0"><a name="fB4fP"></a><span class="nroffip">\fB4.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">source</span> hook and calls <span Class="bold">dpkg-source -b</span> to generate the source package (unless a binary-only build has been requested with <span Class="bold">-b</span>, <span Class="bold">-B</span> or <span Class="bold">-A</span>). 
+<p class="level0"><a name="fB5fP"></a><span class="nroffip">\fB5.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">build</span> hook and calls <span Class="bold">debian/rules</span> <span Class="emphasis">build-target</span>, then runs the <span Class="bold">binary</span> hook followed by <span Class="bold">fakeroot debian/rules</span> <span Class="emphasis">binary-target</span> (unless a source-only build has been requested with <span Class="bold">-S</span>). Note that <span Class="emphasis">build-target</span> and <span Class="emphasis">binary-target</span> are either <span Class="bold">build</span> and <span Class="bold">binary</span> (default case, or if <span Class="bold">-b</span> is specified), or <span Class="bold">build-arch</span> and <span Class="bold">binary-arch</span> (if <span Class="bold">-B</span> or <span Class="bold">-G</span> are specified), or <span Class="bold">build-indep</span> and <span Class="bold">binary-indep</span> (if <span Class="bold">-A</span> or <span Class="bold">-g</span> are specified). 
+<p class="level0"><a name="fB6fP"></a><span class="nroffip">\fB6.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">changes</span> hook and calls <span Class="bold">dpkg-genchanges</span> to generate a <span Class="bold">.changes</span> file. Many <span Class="bold">dpkg-buildpackage</span> options are forwarded to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><a name="fB7fP"></a><span class="nroffip">\fB7.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">postclean</span> hook and if <span Class="bold">-tc</span> is specified, it will call <span Class="bold">fakeroot debian/rules clean</span> again. 
+<p class="level0"><a name="fB8fP"></a><span class="nroffip">\fB8.\fP 3</span> 
+<p class="level1">It calls <span Class="bold">dpkg-source --after-build</span>. 
+<p class="level0"><a name="fB9fP"></a><span class="nroffip">\fB9.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">check</span> hook and calls a package checker for the <span Class="bold">.changes</span> file (if a command is specified in <span Class="bold">DEB_CHECK_COMMAND</span> or with <span Class="bold">--check-command</span>). 
+<p class="level0"><a name="fB10fP"></a><span class="nroffip">\fB10.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">sign</span> hook and calls <span Class="bold">gpg2</span> or <span Class="bold">gpg</span> to sign the <span Class="bold">.dsc</span> file (if any, unless <span Class="bold">-us</span> is specified or on UNRELEASED builds), and the <span Class="bold">.changes</span> file (unless <span Class="bold">-uc</span> is specified or on UNRELEASED builds). 
+<p class="level0"><a name="fB11fP"></a><span class="nroffip">\fB11.\fP 3</span> 
+<p class="level1">It runs the <span Class="bold">done</span> hook. 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span> Specifies a build limited to source and architecture independent packages. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-G</span> Specifies a build limited to source and architecture specific packages. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-b</span> Specifies a binary-only build, no source files are to be built and/or distributed. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-B</span> Specifies a binary-only build, limited to architecture dependent packages. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-A</span> Specifies a binary-only build, limited to architecture independent packages. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-S</span> Specifies a source-only build, no binary packages need to be made. Passed to <span Class="bold">dpkg-genchanges</span>. 
+<p class="level0"><span Class="bold">-F</span> Specifies a normal full build, binary and source packages will be built. This is the same as the default case when no build option is specified. 
+<p class="level0"><span Class="bold">--target= target</span> 
+<p class="level0"><span Class="bold">--target  target</span> 
+<p class="level0"><span Class="bold">-T target</span> Calls <span Class="bold">debian/rules</span> <span Class="emphasis">target</span> after having setup the build environment and stops the package build process here. If <span Class="bold">--as-root</span> is also given, then the command is executed as root (see <span Class="bold">-r</span>). Note that official targets that are required to be run as root by the Debian policy do not need this option. 
+<p class="level0"><span Class="bold">--as-root</span> Only meaningful together with <span Class="bold">--target</span>. Requires that the target be run with root rights. 
+<p class="level0"><span Class="bold">-si</span> 
+<p class="level0"><span Class="bold">-sa</span> 
+<p class="level0"><span Class="bold">-sd</span> 
+<p class="level0"><span Class="bold">-v version</span> 
+<p class="level0"><span Class="bold">-C changes-description</span> 
+<p class="level0"><span Class="bold">-m maintainer-address</span> 
+<p class="level0"><span Class="bold">-e maintainer-address</span> Passed unchanged to <span Class="bold">dpkg-genchanges</span>. See its manual page. 
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--host-arch  \fIarchitecture\fP</span>Specify the Debian architecture we build for. The architecture of the machine we build on is determined automatically, and is also the default for the host machine. 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--host-type  \fIgnu-system-type\fP</span>Specify the GNU system type we build for. It can be used in place of --host-arch or as a complement to override the default GNU system type of the host Debian architecture. 
+<p class="level0"><span Class="manpage">--target-arch  \fIarchitecture\fP</span>Specify the Debian architecture the binaries built will build for. The default value is the host machine. 
+<p class="level0"><span Class="manpage">--target-type  \fIgnu-system-type\fP</span>Specify the GNU system type the binaries built will build for. It can be used in place of --target-arch or as a complement to override the default GNU system type of the target Debian architecture. 
+<p class="level0"><span Class="manpage">-P \fIprofile\fP[</span>, <span Class="manpage">...]</span>Specify the profile(s) we build, as a comma-separated list. The default behavior is to build for no specific profile. Also sets them (as a space separated list) as the <span Class="bold">DEB_BUILD_PROFILES</span> environment variable which allows, for example, <span Class="bold">debian/rules</span> files to use this information for conditional builds. 
+<p class="level0"><span Class="manpage">-j [\fIjobs\fP|\fBauto\fP]</span>Number of jobs allowed to be run simultaneously, number of jobs matching the number of online processors if <span Class="bold">auto</span> is specified, or unlimited number if <span Class="emphasis">jobs</span> is not specified, equivalent to the <span Class="manpage">make (1)</span>option of the same name. Will add itself to the <span Class="bold">MAKEFLAGS</span> environment variable, which should cause all subsequent make invocations to inherit the option. Also adds <span Class="bold">parallel=</span><span Class="emphasis">jobs</span> or <span Class="bold">parallel=</span> to the <span Class="bold">DEB_BUILD_OPTIONS</span> environment variable which allows debian/rules files to use this information for their own purposes. The <span Class="bold">parallel=</span><span Class="emphasis">jobs</span> or <span Class="bold">parallel=</span> option in <span Class="bold">DEB_BUILD_OPTIONS</span> environment variable will override the <span Class="bold">-j</span> value if this option is given. Note that the <span Class="bold">auto</span> value will get replaced by the actual number of currently active processors, and as such will not get propagated to any child process. If the number of online processors cannot be inferred then the code will fallback to using an unlimited number. 
+<p class="level0"><span Class="bold">-D</span> Check build dependencies and conflicts; abort if unsatisfied. This is the default behavior. 
+<p class="level0"><span Class="bold">-d</span> Do not check build dependencies and conflicts. 
+<p class="level0"><span Class="bold">-nc</span> Do not clean the source tree (implies <span Class="bold">-b</span> if nothing else has been selected among <span Class="bold">-F</span>, <span Class="bold">-g</span>, <span Class="bold">-G</span>, <span Class="bold">-B</span>, <span Class="bold">-A</span> or <span Class="bold">-S</span>). 
+<p class="level0"><span Class="bold">-tc</span> Clean the source tree (using <span Class="emphasis">gain-root-command</span> <span Class="manpage">debian/rules clean )</span>after the package has been built. 
+<p class="level0"><span Class="bold">-r gain-root-command</span> When <span Class="bold">dpkg-buildpackage</span> needs to execute part of the build process as root, it prefixes the command it executes with <span Class="emphasis">gain-root-command</span> if one has been specified. Otherwise, if none has been specified, <span Class="bold">fakeroot</span> will be used by default, if the command is present. <span Class="emphasis">gain-root-command</span> should start with the name of a program on the <span Class="bold">PATH</span> and will get as arguments the name of the real command to run and the arguments it should take. <span Class="emphasis">gain-root-command</span> can include parameters (they must be space-separated) but no shell metacharacters. <span Class="emphasis">gain-root-command</span> might typically be <span Class="manpage">fakeroot</span>, <span Class="manpage">sudo</span>, <span Class="manpage">super  or  really .</span><span Class="bold">su</span> is not suitable, since it can only invoke the user's shell with <span Class="bold">-c</span> instead of passing arguments individually to the command to be run. 
+<p class="level0"><span Class="bold">-R rules-file</span> Building a Debian package usually involves invoking <span Class="bold">debian/rules</span> as a command with several standard parameters. With this option it's possible to use another program invocation to build the package (it can include space separated parameters). Alternatively it can be used to execute the standard rules file with another make program (for example by using <span Class="bold">/usr/local/bin/make -f debian/rules</span> as <span Class="emphasis">rules-file</span>). 
+<p class="level0"><span Class="bold">--check-command= check-command</span> Command used to check the <span Class="bold">.changes</span> file itself and any artifact built referenced in the file. The command should take the <span Class="bold">.changes</span> pathname as an argument. This command will usually be <span Class="bold">lintian</span>. 
+<p class="level0"><span Class="bold">--check-option= opt</span> Pass option <span Class="emphasis">opt</span> to the <span Class="emphasis">check-command</span> specified with <span Class="bold">DEB_CHECK_COMMAND</span> or <span Class="bold">--check-command</span>. Can be used multiple times. 
+<p class="level0"><span Class="bold">--hook- hook-name = hook-command</span> Set the specified shell code <span Class="emphasis">hook-command</span> as the hook <span Class="emphasis">hook-name</span>, which will run at the times specified in the run steps. The hooks will always be executed even if the following action is not performed (except for the <span Class="bold">binary</span> hook). 
+<p class="level0">Note: Hooks can affect the build process, and cause build failures if their commands fail, so watch out for unintended consequences. 
+<p class="level0">The current <span Class="emphasis">hook-name</span> supported are: 
+<p class="level0"><span Class="bold">init preclean source build binary changes postclean check sign done</span> 
+<p class="level0">The <span Class="emphasis">hook-command</span> supports the following substitution format string, which will get applied to it before execution: 
+<p class="level0">
+<p class="level1">
+<p class="level1"><span Class="bold">%%</span> A single % character. 
+<p class="level1"><span Class="bold">%a</span> A boolean value (0 or 1), representing whether the following action is being performed. 
+<p class="level1"><span Class="bold">%p</span> The source package name. 
+<p class="level1"><span Class="bold">%v</span> The source package version. 
+<p class="level1"><span Class="bold">%s</span> The source package version (without the epoch). 
+<p class="level1"><span Class="bold">%u</span> The upstream version. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p sign-command</span> When <span Class="bold">dpkg-buildpackage</span> needs to execute GPG to sign a source control (<span Class="bold">.dsc</span>) file or a <span Class="bold">.changes</span> file it will run <span Class="emphasis">sign-command</span> (searching the <span Class="bold">PATH</span> if necessary) instead of <span Class="bold">gpg2</span> or <span Class="bold">gpg</span>. <span Class="emphasis">sign-command</span> will get all the arguments that <span Class="bold">gpg2</span> or <span Class="bold">gpg</span> would have gotten. <span Class="emphasis">sign-command</span> should not contain spaces or any other shell metacharacters. 
+<p class="level0"><span Class="bold">-k key-id</span> Specify a key-ID to use when signing packages. 
+<p class="level0"><span Class="manpage">-us</span>Do not sign the source package. 
+<p class="level0"><span Class="manpage">-uc</span>Do not sign the <span Class="bold">.changes</span> file. 
+<p class="level0"><span Class="manpage">--force-sign</span>Force the signing of the resulting files (since dpkg 1.17.0), regardless of <span Class="bold">-us</span> or <span Class="bold">-uc</span> or other internal heuristics. 
+<p class="level0"><span Class="manpage">-i [\fIregex\fP]</span>
+<p class="level0"><span Class="manpage">-I [\fIpattern\fP]</span>
+<p class="level0"><span Class="manpage">-s [ nsAkurKUR ]</span>
+<p class="level0"><span Class="manpage">-z</span>, <span Class="manpage">-Z</span>Passed unchanged to <span Class="bold">dpkg-source</span>. See its manual page. 
+<p class="level0"><span Class="bold">--source-option= opt</span> Pass option <span Class="emphasis">opt</span> to <span Class="bold">dpkg-source</span>. Can be used multiple times. 
+<p class="level0"><span Class="bold">--changes-option= opt</span> Pass option <span Class="emphasis">opt</span> to <span Class="bold">dpkg-genchanges</span>. Can be used multiple times. 
+<p class="level0"><span Class="bold">--admindir= dir</span> 
+<p class="level0"><span Class="bold">--admindir  dir</span> Change the location of the <span Class="bold">dpkg</span> database. The default location is <span Class="emphasis">/var/lib/dpkg</span>. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="manpage">--version</span>Show the version and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DEB_CHECK_COMMAND</span> If set, it will be used as the command to check the <span Class="bold">.changes</span> file. Overridden by the <span Class="bold">--check-command</span> option. 
+<p class="level0"><span Class="bold">DEB_SIGN_KEYID</span> If set, it will be used to sign the <span Class="bold">.changes</span> and <span Class="bold">.dsc</span> files. Overridden by the <span Class="bold">-k</span> option. 
+<p class="level0"><span Class="bold">DEB_BUILD_OPTIONS</span> If set, and containing <span Class="bold">nocheck</span> the <span Class="bold">DEB_CHECK_COMMAND</span> variable will be ignored. 
+<p class="level0"><span Class="bold">DEB_BUILD_PROFILES</span> If set, it will be used as the active build profile(s) for the package being built. It is a space separated list of profile names. Overridden by the <span Class="bold">-P</span> option. 
+<p class="level0"><a name="Reliance"></a><h2 class="nroffsh">Reliance on exported environment flags</h2>
+<p class="level0">Even if <span Class="bold">dpkg-buildpackage</span> exports some variables, <span Class="bold">debian/rules</span> should not rely on their presence and should instead use the respective interface to retrieve the needed values. <a name="Variables"></a><h2 class="nroffsh">Variables set by dpkg-architecture</h2>
+<p class="level0"><span Class="bold">dpkg-architecture</span> is called with the <span Class="bold">-a</span> and <span Class="bold">-t</span> parameters forwarded. Any variable that is output by its <span Class="bold">-s</span> option is integrated in the build environment. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0"><a name="Compiler"></a><h2 class="nroffsh">Compiler flags are no longer exported</h2>
+<p class="level0">Between dpkg 1.14.17 and 1.16.1, <span Class="bold">dpkg-buildpackage</span> exported compiler flags (<span Class="bold">CFLAGS</span>, <span Class="bold">CXXFLAGS</span>, <span Class="bold">FFLAGS</span>, <span Class="bold">CPPFLAGS</span> and <span Class="bold">LDFLAGS</span>) with values as returned by <span Class="bold">dpkg-buildflags</span>. This is no longer the case. <a name="Default"></a><h2 class="nroffsh">Default build targets</h2>
+<p class="level0"><span Class="bold">dpkg-buildpackage</span> is using the <span Class="bold">build-arch</span> and <span Class="bold">build-indep</span> targets since dpkg 1.16.2. Those targets are thus mandatory. But to avoid breakages of existing packages, and ease the transition, it will fallback to using the <span Class="bold">build</span> target if <span Class="bold">make -f debian/rules -qn</span> <span Class="emphasis">build-target</span> returns 2 as exit code. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">It should be possible to specify spaces and shell metacharacters and initial arguments for <span Class="emphasis">gain-root-command  and  sign-command .</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">dpkg-source (1)</span>, <span Class="manpage">dpkg-architecture (1)</span>, <span Class="manpage">dpkg-buildflags (1)</span>, <span Class="manpage">dpkg-genchanges (1)</span>, <span Class="manpage">fakeroot (1)</span>, <span Class="manpage">lintian (1)</span>, <span Class="manpage">gpg2 (1)</span>, <span Class="manpage">gpg (1).</span>

@@ -1,0 +1,103 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">reindexdb - reindex a PostgreSQL database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">reindexdb</span> [<span Class="emphasis">connection-option</span>...] [&nbsp;<span Class="bold">--table</span>&nbsp;|&nbsp;<span Class="bold">-t</span>&nbsp;<span Class="emphasis">table</span>&nbsp;]...  [&nbsp;<span Class="bold">--index</span>&nbsp;|&nbsp;<span Class="bold">-i</span>&nbsp;<span Class="emphasis">index</span>&nbsp;]...  [<span Class="emphasis">dbname</span>] 
+<p class="level0"><span Class="bold">reindexdb</span> [<span Class="emphasis">connection-option</span>...] <span Class="bold">--all</span> | <span Class="bold">-a</span>  
+<p class="level0"><span Class="bold">reindexdb</span> [<span Class="emphasis">connection-option</span>...] <span Class="bold">--system</span> | <span Class="bold">-s</span>  [<span Class="emphasis">dbname</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">reindexdb is a utility for rebuilding indexes in a PostgreSQL database. 
+<p class="level0">
+<p class="level0">reindexdb is a wrapper around the SQL command <span Class="bold">REINDEX</span>(7). There is no effective difference between reindexing databases via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">reindexdb accepts the following command-line arguments: 
+<p class="level0"><span Class="bold">-a</span> <br><span Class="bold">--all</span> 
+<p class="level1">Reindex all databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">[-d]</span><span Class="bold"> </span><span class="bold"><span Class="emphasis">dbname</span></span> <br><span Class="bold">[--dbname=]</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to be reindexed. If this is not specified and <span Class="bold">-a</span> (or <span Class="bold">--all</span>) is not used, the database name is read from the environment variable <span Class="bold">PGDATABASE</span>. If that is not set, the user name specified for the connection is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that reindexdb generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i </span><span class="bold"><span Class="emphasis">index</span></span> <br><span Class="bold">--index=</span><span class="bold"><span Class="emphasis">index</span></span> 
+<p class="level1">Recreate <span Class="emphasis">index</span> only. Multiple indexes can be recreated by writing multiple <span Class="bold">-i</span> switches. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> <br><span Class="bold">--quiet</span> 
+<p class="level1">Do not display progress messages. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span> <br><span Class="bold">--system</span> 
+<p class="level1">Reindex database*(Aqs system catalogs. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t </span><span class="bold"><span Class="emphasis">table</span></span> <br><span Class="bold">--table=</span><span class="bold"><span Class="emphasis">table</span></span> 
+<p class="level1">Reindex <span Class="emphasis">table</span> only. Multiple tables can be reindexed by writing multiple <span Class="bold">-t</span> switches. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the reindexdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about reindexdb command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">reindexdb also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force reindexdb to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since reindexdb will automatically prompt for a password if the server demands password authentication. However, reindexdb will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0"><span Class="bold">--maintenance-db=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to discover what other databases should be reindexed. If not specified, the postgres database will be used, and if that does not exist, template1 will be used. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATABASE</span> <br><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see <span Class="bold">REINDEX</span>(7) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">reindexdb might need to connect several times to the PostgreSQL server, asking for a password each time. It is convenient to have a ~/.pgpass file in such cases. See Section 31.15, (lqThe Password File(rq, in the documentation for more information. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To reindex the database test: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">reindexdb test</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To reindex the table foo and the index bar in a database named abcd: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">reindexdb --table foo --index bar abcd</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">REINDEX</span>(7) 

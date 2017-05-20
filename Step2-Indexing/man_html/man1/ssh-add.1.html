@@ -1,0 +1,87 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">adds private key identities to the authentication agent, 
+<p class="level0">When run without arguments, it adds the files 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">After loading a private key, 
+<p class="level0">will try to load corresponding certificate information from the filename obtained by appending 
+<p class="level0">to the name of the private key file. Alternative file names can be given on the command line. 
+<p class="level0">If any file requires a passphrase, 
+<p class="level0">asks for the passphrase from the user. The passphrase is read from the user's tty. 
+<p class="level0">retries the last passphrase if multiple identity files are given. 
+<p class="level0">The authentication agent must be running and the 
+<p class="level0">environment variable must contain the name of its socket for 
+<p class="level0">to work. 
+<p class="level0">The options are as follows: 
+<p class="level0">
+<p class="level0">Indicates that added identities should be subject to confirmation before being used for authentication. Confirmation is performed by the 
+<p class="level0">program mentioned below. Successful confirmation is signaled by a zero exit status from the 
+<p class="level0">program, rather than text entered into the requester. 
+<p class="level0">Deletes all identities from the agent. 
+<p class="level0">Instead of adding identities, removes identities from the agent. If 
+<p class="level0">has been run without arguments, the keys for the default identities and their corresponding certificates will be removed. Otherwise, the argument list will be interpreted as a list of paths to public key files to specify keys and certificates to be removed from the agent. If no public key is found at a given path, 
+<p class="level0">will append 
+<p class="level0">and retry. 
+<p class="level0">Remove keys provided by the PKCS&#35;11 shared library 
+<p class="level0">
+<p class="level0">When loading keys into or deleting keys from the agent, process plain private keys only and skip certificates. 
+<p class="level0">Lists public key parameters of all identities currently represented by the agent. 
+<p class="level0">Lists fingerprints of all identities currently represented by the agent. 
+<p class="level0">Add keys provided by the PKCS&#35;11 shared library 
+<p class="level0">
+<p class="level0">Set a maximum lifetime when adding identities to an agent. The lifetime may be specified in seconds or in a time format specified in 
+<p class="level0">
+<p class="level0">Unlock the agent. 
+<p class="level0">Lock the agent with a password. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">If 
+<p class="level0">needs a passphrase, it will read the passphrase from the current terminal if it was run from a terminal. If 
+<p class="level0">does not have a terminal associated with it but 
+<p class="level0">and 
+<p class="level0">are set, it will execute the program specified by 
+<p class="level0">and open an X11 window to read the passphrase. This is particularly useful when calling 
+<p class="level0">from a 
+<p class="level0">or related script. (Note that on some machines it may be necessary to redirect the input from 
+<p class="level0">to make this work.) 
+<p class="level0">Identifies the path of a 
+<p class="level0">socket used to communicate with the agent. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Contains the protocol version 1 RSA authentication identity of the user. 
+<p class="level0">Contains the protocol version 2 DSA authentication identity of the user. 
+<p class="level0">Contains the protocol version 2 ECDSA authentication identity of the user. 
+<p class="level0">Contains the protocol version 2 ED25519 authentication identity of the user. 
+<p class="level0">Contains the protocol version 2 RSA authentication identity of the user. 
+<p class="level0">
+<p class="level0">Identity files should not be readable by anyone but the user. Note that 
+<p class="level0">ignores identity files if they are accessible by others. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">Exit status is 0 on success, 1 if the specified command fails, and 2 if 
+<p class="level0">is unable to contact the authentication agent. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">OpenSSH is a derivative of the original and free ssh 1.2.12 release by Tatu Ylonen. Aaron Campbell, Bob Beck, Markus Friedl, Niels Provos, Theo de Raadt and Dug Song removed many bugs, re-added newer features and created OpenSSH. Markus Friedl contributed the support for SSH protocol versions 1.5 and 2.0. 

@@ -1,0 +1,120 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_installxmlcatalogs - install and register XML catalog files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dh_installxmlcatalogs</span> [<span Class="emphasis">debhelper&nbsp;options</span>] [<span Class="bold">-n</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dh_installxmlcatalogs</span> is a debhelper program that installs and registers s-1XMLs0 catalog files.  It complies with the Debian s-1XML/SGMLs0 policy. 
+<p class="level0">The file <span class="emphasis">debian/<span class="emphasis">package<span Class="emphasis">.xmlcatalogs</span> lists the local s-1XMLs0 catalog files to be installed per package as well as the s-1XMLs0 entities in those local s-1XMLs0 catalog files that are to be registered in the s-1XMLs0 catalog system. 
+<p class="level0">The local s-1XMLs0 catalog file entries in that file should be of the form f(CW*(C`local;source;dest*(C'</span>, where the verbatim f(CW*(C`local*(C'</span> indicates this is an entry for a local s-1XMLs0 catalog file, f(CW*(C`source*(C'</span> indicates where the local s-1XMLs0 catalog resides in the source tree, and f(CW*(C`dest*(C'</span> indicates the destination location for the local s-1XMLs0 catalog under the package build area.  f(CW*(C`dest*(C'</span> should start with <span Class="emphasis">/usr/share/xml/</span>. 
+<p class="level0">The entries for the s-1XMLs0 entities to be registered in the package s-1XMLs0 catalog file should be of the form f(CW*(C`package;type;id;catalog*(C'</span>, where the verbatim f(CW*(C`package*(C'</span> indicates this is an entry for an s-1XMLs0 entity to be registered in the package s-1XMLs0 catalog file, f(CW*(C`type*(C'</span> indicates the s-1XMLs0 entity type (public, system, uri), f(CW*(C`id*(C'</span> indicates the s-1XMLs0 entity id, and f(CW*(C`catalog*(C'</span> indicates the local s-1XMLs0 catalog file. 
+<p class="level0">The entries for the s-1XMLs0 entities to be registered in the root s-1XMLs0 catalog file should be of the form f(CW*(C`root;type;id*(C'</span>, where the verbatim f(CW*(C`root*(C'</span> indicates this is an entry for an s-1XMLs0 entity to be registered in the root s-1XMLs0 catalog file, f(CW*(C`type*(C'</span> indicates the s-1XMLs0 entity type (public, system, uri), and f(CW*(C`id*(C'</span> indicates the s-1XMLs0 entity id. 
+<p class="level0">If an entry for is to be registered identically in the root catalog and the package catalog file, you can use the form f(CW*(C`root-and-package;type;id;catalog*(C'</span>, where the verbatim f(CW*(C`root-and-package*(C'</span> indicates this is an entry for an s-1XMLs0 entity to be registered in both the root and package s-1XMLs0 catalog files, f(CW*(C`type*(C'</span> indicates the s-1XMLs0 entity type (public, system, uri), f(CW*(C`id*(C'</span> indicates the s-1XMLs0 entity id, and f(CW*(C`catalog*(C'</span> indicates the local s-1XMLs0 catalog file. 
+<p class="level0">s-1XMLs0 entity types are described in <span Class="emphasis">update-xmlcatalog</span>|(8).  Using the f(CW*(C`root*(C'</span> or f(CW*(C`package*(C'</span> commands, a type of f(CW*(C`public*(C'</span> will general f(CW*(C`delegatePublic*(C'</span> statements in the applicable catalog file. Generally you will want to use the types f(CW*(C`public*(C'</span> for any formal public identifiers, and f(CW*(C`system*(C'</span> for any files on the local filesystem or URLs.  f(CW*(C`uri*(C'</span> is only used for non-local files which are not part of the external document subset, e.g., they are not used for entities or DTDs. 
+<p class="level0"><span Class="bold">dh_installxmlcatalogs</span> automatically adds maintainer script snippets for the registration and unregistration of the listed s-1XMLs0 entities in the s-1XMLs0 catalog system (unless <span Class="bold">-n</span> is used).	A dependency on the <span Class="bold">xml-core</span> package will be added to f(CW*(C`${misc:Depends}*(C'</span>, so be sure to use that variable in the file <span Class="emphasis">debian/control</span>.  See <span Class="emphasis">dh_installdeb</span>|(1) for an explanation of Debhelper maintainer script snippets. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--noscripts\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not modify <span Class="emphasis">postinst</span>/<span Class="emphasis">postrm</span>/<span Class="emphasis">prerm</span> scripts. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">Note that this command is not idempotent. *(L"dh_clean -k*(R" should be called between invocations of this command. Otherwise, it may cause multiple instances of the same text to be added to maintainer scripts. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debhelper</span>|(7) 
+<p class="level0"><span Class="emphasis">/usr/share/doc/xml-core/</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Ardo van Rangelrooij</span> &lt;ardo@debian.org&gt; 
+<p class="level0"><span Class="bold">Adam Di Carlo</span> &lt;aph@debian.org&gt; 

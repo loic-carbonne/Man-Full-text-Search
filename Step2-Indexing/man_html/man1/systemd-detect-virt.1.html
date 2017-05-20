@@ -1,0 +1,34 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-detect-virt - Detect execution in a virtualized environment <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-detect-virt </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-detect-virt</span> detects execution in a virtualized environment. It identifies the virtualization technology and can distinguish full VM virtualization from container virtualization. 
+<p class="level0">When executed without <span Class="bold">--quiet</span> will print a short identifier for the detected virtualization technology. The following technologies are currently identified: <span Class="emphasis">qemu</span>, <span Class="emphasis">kvm</span>, <span Class="emphasis">vmware</span>, <span Class="emphasis">microsoft</span>, <span Class="emphasis">oracle</span>, <span Class="emphasis">xen</span>, <span Class="emphasis">bochs</span>, <span Class="emphasis">chroot</span>, <span Class="emphasis">uml</span>, <span Class="emphasis">openvz</span>, <span Class="emphasis">lxc</span>, <span Class="emphasis">lxc-libvirt</span>, <span Class="emphasis">systemd-nspawn</span>. 
+<p class="level0">If multiple virtualization solutions are used, only the "innermost" is detected and identified. That means if both VM virtualization and container virtualization are used in conjunction, only the latter will be identified (unless <span Class="bold">--vm</span> is passed). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--container</span> 
+<p class="level1">Only detects container virtualization (i.e. shared kernel virtualization). 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--vm</span> 
+<p class="level1">Only detects VM virtualization (i.e. full hardware virtualization). 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Suppress output of the virtualization technology identifier. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">If a virtualization technology is detected, 0 is returned, a non-zero code otherwise. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1) 

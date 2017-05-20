@@ -1,0 +1,18 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">modelicac - modelicac is a compiler for a subset of the Modelica language including parts of the 'equation' subset that can express relations between Real variable. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">modelicac [-c] [-o &lt;outputfile&gt;] &lt;inputfile&gt; [  -L directory  |  -hpath directory  |  -keep-all-variables  |  -jac  |  -no-parameter-removal  |  -no-simplifs  |  -trace filename  |  -xml ]</span> This manual page documents briefly the <span Class="bold">modelicac</span> commands. Note that modelicac is only available on the platform which are supported by ocamlopt (ie amd64 hurd-i386 i386 powerpc sparc) 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">A complete list of options is included below. 
+<p class="level0"><span Class="bold">-c</span> Compile only, do not instantiate. Modelicac produces a "*.moc" file when invoked with that option. 
+<p class="level0"><span Class="bold">-o outputfile</span> Set output file name to &lt;outputfile&gt; (this option also works with -c option but is somewhat useless because of the class name restrictions given above). 
+<p class="level0"><span Class="bold">-L directory</span> Add &lt;directory&gt; to the list of directories to be searched when producing a C file (no effect when used with -c). 
+<p class="level0"><span Class="bold">-hpath directory</span> Specify a path to be added to &#35;include directives in the generated C code. 
+<p class="level0"><span Class="bold">-keep-all-variables</span> &nbsp;Do not remove any variable from the initial system. 
+<p class="level0"><span Class="bold">-jac</span> Generate analytic jacobian matrix code. 
+<p class="level0"><span Class="bold">-no-parameter-removal</span> Do not remove any parameter 
+<p class="level0"><span Class="bold">-no-simplifs</span> Same as -keep-all-variables -no-parameter-removal 
+<p class="level0"><span Class="bold">-trace filename</span> Generate tracing information for external function calls into &lt;filename&gt; 
+<p class="level0"><span Class="bold">-xml</span> Generate an XML version of the model instead of target code <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Modelicac was written by TNI-Valiosys and Imagineby. 
+<p class="level0">This manual page was written by Sylvestre Ledru &lt;sylvestre@debian.org&gt;. 

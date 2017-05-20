@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pktogf - convert packed font files to generic font files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pktogf</span> 
+<p class="level0"><span Class="emphasis">pk_file_name</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">pktogf</span> program converts a packed font file 
+<p class="level0">to a generic font file 
+<p class="level0">Packed font files are much smaller than the corresponding <span Class="emphasis">gf</span> files, but some DVI readers only understand <span Class="emphasis">gf</span> files. 
+<p class="level0">The <span Class="emphasis">pk_file_name</span> on the command line must be complete. Because the resolution is part of the extension, it would not make sense to append a default extension as is done with *(TX or DVI-reading software. The <span Class="emphasis">gf_file_name</span> defaults to the same (stripped) name as <span Class="emphasis">pk_file_name ,</span> and it is placed in the current working directory with the <span Class="bold">gf</span> suffix replacing <span Class="manpage">pk .</span>For example, the input file <span Class="emphasis">io.300pk</span> would become <span Class="emphasis">io.300gf .</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Unless the <span Class="bold">-v</span> switch is given, <span Class="bold">pktogf</span> operates silently.  With <span Class="manpage">-v</span>the version number of the program and statistics about the unpacking are output to <span Class="emphasis">stdout .</span> 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0"><span Class="bold">pktogf</span> looks for <span Class="emphasis">pk_file_name</span> using the environment variable PKFONTS.  If that is not set, it uses the variable TEXPKS.  If that is not set, it uses TEXFONTS.  If that is not set, it uses the system default. 
+<p class="level0">See <span Class="manpage">tex (1)</span>for the details of the searching. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gftopk (1)</span>, <span Class="manpage">gftype (1)</span>, <span Class="manpage">pktype (1).</span><br>Donald E. Knuth et al., <span Class="emphasis">\*(MFware .</span> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Tomas Rokicki wrote the program. Pierre MacKay adapted it for compilation with <span Class="manpage">web2c .</span>

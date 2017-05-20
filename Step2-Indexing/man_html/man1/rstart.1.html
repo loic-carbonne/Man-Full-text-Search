@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">rstart - a sample implementation of a Remote Start client <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">rstart</span> [-c <span Class="emphasis">context</span>] [-g] [-l <span Class="emphasis">username</span>] [-v] <span Class="emphasis">hostname</span> <span Class="emphasis">command args ...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Rstart</span> is a simple implementation of a Remote Start client as defined in "A Flexible Remote Execution Protocol Based on <span Class="bold">rsh</span>". It uses <span Class="emphasis">rsh</span> as its underlying remote execution mechanism. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-c context</span> This option specifies the <span Class="emphasis">context</span> in which the command is to be run.  A <span Class="emphasis">context</span> specifies a general environment the program is to be run in.  The details of this environment are host-specific; the intent is that the client need not know how the environment must be configured.  If omitted, the context defaults to <span Class="bold">X</span>.  This should be suitable for running X programs from the host's "usual" X installation. 
+<p class="level0"><span Class="bold">-g</span> Interprets <span Class="emphasis">command</span> as a <span Class="emphasis">generic command</span>, as discussed in the protocol document.  This is intended to allow common applications to be invoked without knowing what they are called on the remote system. Currently, the only generic commands defined are <span Class="bold">Terminal</span>, <span Class="bold">LoadMonitor</span>, <span Class="bold">ListContexts</span>, and <span Class="bold">ListGenericCommands</span>. 
+<p class="level0"><span Class="bold">-l username</span> This option is passed to the underlying <span Class="emphasis">rsh</span>; it requests that the command be run as the specified user. 
+<p class="level0"><span Class="bold">-v</span> This option requests that <span Class="emphasis">rstart</span> be verbose in its operation. Without this option, <span Class="emphasis">rstart</span> discards output from the remote's <span Class="emphasis">rstart</span> helper, and directs the <span Class="emphasis">rstart</span> helper to detach the program from the <span Class="emphasis">rsh</span> connection used to start it.  With this option, responses from the helper are displayed and the resulting program is not detached from the connection. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This is a trivial implementation.  Far more sophisticated implementations are possible and should be developed. 
+<p class="level0">Error handling is nonexistent.  Without <span Class="bold">-v</span>, error reports from the remote are discarded silently.  With <span Class="bold">-v</span>, error reports are displayed. 
+<p class="level0">The $DISPLAY environment variable is passed.  If it starts with a colon, the local hostname is prepended.  The local domain name should be appended to unqualified host names, but isn't. 
+<p class="level0">The $SESSION_MANAGER environment variable should be passed, but isn't. 
+<p class="level0">X11 authority information is passed for the current display. 
+<p class="level0">ICE authority information should be passed, but isn't.  It isn't completely clear how <span Class="emphasis">rstart</span> should select what ICE authority information to pass. 
+<p class="level0">Even without <span Class="bold">-v</span>, the sample <span Class="emphasis">rstart</span> helper will leave a shell waiting for the program to complete.  This causes no real harm and consumes relatively few resources, but if it is undesirable it can be avoided by explicitly specifying the "exec" command to the shell, eg 
+<p class="level0">rstart somehost exec xterm 
+<p class="level0">This is obviously dependent on the command interpreter being used on the remote system; the example given will work for the Bourne and C shells. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">rstartd(1), rsh(1), A Flexible Remote Execution Protocol Based on <span Class="bold">rsh</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jordan Brown, Quarterdeck Office Systems 

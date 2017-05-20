@@ -1,0 +1,18 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xzgrep - search compressed files for a regular expression <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xzgrep</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">pattern</span> <span Class="emphasis">file ...</span> <br><span Class="bold">xzegrep</span> 
+<p class="level0"><br><span Class="bold">xzfgrep</span> 
+<p class="level0"><br><span Class="bold">lzgrep</span> 
+<p class="level0"><br><span Class="bold">lzegrep</span> 
+<p class="level0"><br><span Class="bold">lzfgrep</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">xzgrep</span> invokes <span Class="manpage">grep (1)</span>on <span Class="emphasis">files</span> which may be either uncompressed or compressed with <span Class="manpage">xz (1)</span>, <span Class="manpage">lzma (1)</span>, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>or <span Class="manpage">lzop (1).</span>All options specified are passed directly to <span Class="manpage">grep (1).</span>
+<p class="level0">If no <span Class="emphasis">file</span> is specified, then standard input is decompressed if necessary and fed to <span Class="manpage">grep (1).</span>When reading from standard input, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>and <span Class="manpage">lzop (1)</span>compressed files are not supported. 
+<p class="level0">If <span Class="bold">xzgrep</span> is invoked as <span Class="bold">xzegrep</span> or <span Class="bold">xzfgrep</span> then <span Class="manpage">egrep (1)</span>or <span Class="manpage">fgrep (1)</span>is used instead of <span Class="manpage">grep (1).</span>The same applies to names <span Class="manpage">lzgrep</span>, <span Class="manpage">lzegrep</span>and <span Class="manpage">lzfgrep</span>which are provided for backward compatibility with LZMA Utils. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">GREP</span> If the <span Class="bold">GREP</span> environment variable is set, <span Class="bold">xzgrep</span> uses it instead of <span Class="manpage">grep (1)</span>, <span Class="manpage">egrep (1)</span>or <span Class="manpage">fgrep (1).</span><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">grep (1)</span>, <span Class="manpage">xz (1)</span>, <span Class="manpage">gzip (1)</span>, <span Class="manpage">bzip2 (1)</span>, <span Class="manpage">lzop (1)</span>, <span Class="manpage">zgrep (1)</span>

@@ -1,0 +1,57 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-verify-pack - Validate packed Git archive files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git verify-pack</span> [-v|--verbose] [-s|--stat-only] [--] &lt;pack&gt;.idx ...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Reads given idx file for packed Git archive created with the <span Class="emphasis">git pack-objects</span> command and verifies idx file and the corresponding pack file. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;pack&gt;.idx ... 
+<p class="level1">The idx files to verify. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">After verifying the pack, show list of objects contained in the pack and a histogram of delta chain length. 
+<p class="level0">
+<p class="level0">-s, --stat-only 
+<p class="level1">Do not verify the pack contents; only show the histogram of delta chain length. With --verbose, list of objects is also shown. 
+<p class="level0">
+<p class="level0">-- 
+<p class="level1">Do not interpret any more arguments as options. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT FORMAT</h2>
+<p class="level0">
+<p class="level0">When specifying the -v option the format used is: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+SHA-1 type size size-in-pack-file offset-in-packfile
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">for objects that are not deltified in the pack, and 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+SHA-1 type size size-in-packfile offset-in-packfile depth base-SHA-1
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">for objects that are deltified. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

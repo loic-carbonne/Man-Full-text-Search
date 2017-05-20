@@ -1,0 +1,32 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gftopk - convert generic font files to packed font files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gftopk</span> 
+<p class="level0"><span Class="emphasis">gf_file_name</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">gftopk</span> program converts a generic font file output by, for example, <span Class="manpage">mf (1)</span>to a packed font file for use by DVI-reading programs. Packed font files 
+<p class="level0">are much smaller than the corresponding <span Class="emphasis">gf</span> files, so they are generally the font format of choice. 
+<p class="level0">The <span Class="emphasis">gf_file_name</span> on the command line must be complete. Because the resolution is part of the extension, it would not make sense to append a default extension as is done with *(TX or DVI-reading software. The <span Class="emphasis">pk_file_name</span> defaults to the same (stripped) name as <span Class="emphasis">gf_file_name ,</span> and it is placed in the current working directory with the <span Class="bold">pk</span> suffix replacing <span Class="manpage">gf .</span>For example, the input file <span Class="emphasis">cmr10.300gf</span> would become <span Class="emphasis">cmr10.300pk .</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Unless the <span Class="bold">-v</span> switch is given, <span Class="bold">gftopk</span> operates silently.  With <span Class="manpage">-v</span>the version number of the program and statistics about the packing are output to <span Class="emphasis">stdout .</span> 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0"><span Class="bold">gftopk</span> looks for <span Class="emphasis">gf_file_name</span> first in the current directory.  If it is not present there, it uses the environment variable GFFONTS.  If that is not set, it uses the variable TEXFONTS.  If that is not set, it uses the system default. 
+<p class="level0">See <span Class="manpage">tex (1)</span>for the details of the searching. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gftype (1)</span>, <span Class="manpage">pktogf (1)</span>, <span Class="manpage">pktype (1).</span><br>Donald E. Knuth et al., <span Class="emphasis">\*(MFware .</span> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Tomas Rokicki wrote the program. It was published as part of the <span Class="emphasis">\*(MFware</span> technical report, available from the *(TX Users Group. Paul Richards originally ported it to Unix. 

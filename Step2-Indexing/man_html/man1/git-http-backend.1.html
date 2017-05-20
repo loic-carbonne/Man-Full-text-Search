@@ -1,0 +1,324 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-http-backend - Server side implementation of Git over HTTP <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git http-backend</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">A simple CGI program to serve the contents of a Git repository to Git clients accessing the repository over http:// and https:// protocols. The program supports clients fetching using both the smart HTTP protocol and the backwards-compatible dumb HTTP protocol, as well as clients pushing using the smart HTTP protocol. 
+<p class="level0">It verifies that the directory has the magic file "git-daemon-export-ok", and it will refuse to export any Git directory that hasn(cqt explicitly been marked for export this way (unless the GIT_HTTP_EXPORT_ALL environmental variable is set). 
+<p class="level0">By default, only the upload-pack service is enabled, which serves <span Class="emphasis">git fetch-pack</span> and <span Class="emphasis">git ls-remote</span> clients, which are invoked from <span Class="emphasis">git fetch</span>, <span Class="emphasis">git pull</span>, and <span Class="emphasis">git clone</span>. If the client is authenticated, the receive-pack service is enabled, which serves <span Class="emphasis">git send-pack</span> clients, which is invoked from <span Class="emphasis">git push</span>. <a name="SERVICES"></a><h2 class="nroffsh">SERVICES</h2>
+<p class="level0">
+<p class="level0">These services can be enabled/disabled using the per-repository configuration file: 
+<p class="level0">http.getanyfile 
+<p class="level1">This serves Git clients older than version 1.6.6 that are unable to use the upload pack service. When enabled, clients are able to read any file within the repository, including objects that are no longer reachable from a branch but are still present. It is enabled by default, but a repository can disable it by setting this configuration item to false. 
+<p class="level0">
+<p class="level0">http.uploadpack 
+<p class="level1">This serves <span Class="emphasis">git fetch-pack</span> and <span Class="emphasis">git ls-remote</span> clients. It is enabled by default, but a repository can disable it by setting this configuration item to false. 
+<p class="level0">
+<p class="level0">http.receivepack 
+<p class="level1">This serves <span Class="emphasis">git send-pack</span> clients, allowing push. It is disabled by default for anonymous users, and enabled by default for users authenticated by the web server. It can be disabled by setting this item to false, or enabled for all users, including anonymous users, by setting it to true. 
+<p class="level0"><a name="URL"></a><h2 class="nroffsh">URL TRANSLATION</h2>
+<p class="level0">
+<p class="level0">To determine the location of the repository on disk, <span Class="emphasis">git http-backend</span> concatenates the environment variables PATH_INFO, which is set automatically by the web server, and GIT_PROJECT_ROOT, which must be set manually in the web server configuration. If GIT_PROJECT_ROOT is not set, <span Class="emphasis">git http-backend</span> reads PATH_TRANSLATED, which is also set automatically by the web server. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">All of the following examples map <span Class="emphasis">http://$hostname/git/foo/bar.git</span> to <span Class="emphasis">/var/www/git/foo/bar.git</span>. 
+<p class="level0">Apache 2.x 
+<p class="level1">Ensure mod_cgi, mod_alias, and mod_env are enabled, set GIT_PROJECT_ROOT (or DocumentRoot) appropriately, and create a ScriptAlias to the CGI: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+SetEnv GIT_PROJECT_ROOT /var/www/git
+SetEnv GIT_HTTP_EXPORT_ALL
+ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">To enable anonymous read access but authenticated write access, require authorization for both the initial ref advertisement (which we detect as a push via the service parameter in the query string), and the receive-pack invocation itself: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+RewriteCond %{QUERY_STRING} service=git-receive-pack [OR]
+RewriteCond %{REQUEST_URI} /git-receive-pack$
+RewriteRule ^/git/ - [E=AUTHREQUIRED:yes]
+&nbsp;
+&lt;LocationMatch "^/git/"&gt;
+&nbsp;       Order Deny,Allow
+&nbsp;       Deny from env=AUTHREQUIRED
+&nbsp;
+&nbsp;       AuthType Basic
+&nbsp;       AuthName "Git Access"
+&nbsp;       Require group committers
+&nbsp;       Satisfy Any
+&nbsp;       ...
+&lt;/LocationMatch&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">If you do not have mod_rewrite available to match against the query string, it is sufficient to just protect git-receive-pack itself, like: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;LocationMatch "^/git/.*/git-receive-pack$"&gt;
+&nbsp;       AuthType Basic
+&nbsp;       AuthName "Git Access"
+&nbsp;       Require group committers
+&nbsp;       ...
+&lt;/LocationMatch&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">In this mode, the server will not request authentication until the client actually starts the object negotiation phase of the push, rather than during the initial contact. For this reason, you must also enable the http.receivepack config option in any repositories that should accept a push. The default behavior, if http.receivepack is not set, is to reject any pushes by unauthenticated users; the initial request will therefore report 403 Forbidden to the client, without even giving an opportunity for authentication. 
+<p class="level1">To require authentication for both reads and writes, use a Location directive around the repository, or one of its parent directories: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;Location /git/private&gt;
+&nbsp;       AuthType Basic
+&nbsp;       AuthName "Private Git Access"
+&nbsp;       Require group committers
+&nbsp;       ...
+&lt;/Location&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">To serve gitweb at the same url, use a ScriptAliasMatch to only those URLs that <span Class="emphasis">git http-backend</span> can handle, and forward the rest to gitweb: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+ScriptAliasMatch e
+&nbsp;       "(?x)^/git/(.*/(HEAD | e
+&nbsp;                       info/refs | e
+&nbsp;                       objects/(info/[^/]+ | e
+&nbsp;                                [0-9a-f]{2}/[0-9a-f]{38} | e
+&nbsp;                                pack/pack-[0-9a-f]{40}e.(pack|idx)) | e
+&nbsp;                       git-(upload|receive)-pack))$" e
+&nbsp;       /usr/libexec/git-core/git-http-backend/$1
+&nbsp;
+ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">To serve multiple repositories from different <span Class="bold">gitnamespaces</span>(7) in a single repository: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+SetEnvIf Request_URI "^/git/([^/]*)" GIT_NAMESPACE=$1
+ScriptAliasMatch ^/git/[^/]*(.*) /usr/libexec/git-core/git-http-backend/storage.git$1
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">Accelerated static Apache 2.x 
+<p class="level1">Similar to the above, but Apache can be used to return static files that are stored on disk. On many systems this may be more efficient as Apache can ask the kernel to copy the file contents from the file system directly to the network: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+SetEnv GIT_PROJECT_ROOT /var/www/git
+&nbsp;
+AliasMatch ^/git/(.*/objects/[0-9a-f]{2}/[0-9a-f]{38})$          /var/www/git/$1
+AliasMatch ^/git/(.*/objects/pack/pack-[0-9a-f]{40}.(pack|idx))$ /var/www/git/$1
+ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">This can be combined with the gitweb configuration: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+SetEnv GIT_PROJECT_ROOT /var/www/git
+&nbsp;
+AliasMatch ^/git/(.*/objects/[0-9a-f]{2}/[0-9a-f]{38})$          /var/www/git/$1
+AliasMatch ^/git/(.*/objects/pack/pack-[0-9a-f]{40}.(pack|idx))$ /var/www/git/$1
+ScriptAliasMatch e
+&nbsp;       "(?x)^/git/(.*/(HEAD | e
+&nbsp;                       info/refs | e
+&nbsp;                       objects/info/[^/]+ | e
+&nbsp;                       git-(upload|receive)-pack))$" e
+&nbsp;       /usr/libexec/git-core/git-http-backend/$1
+ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">Lighttpd 
+<p class="level1">Ensure that mod_cgi, mod_alias, mod_auth, mod_setenv are loaded, then set GIT_PROJECT_ROOT appropriately and redirect all requests to the CGI: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+alias.url += ( "/git" =&gt; "/usr/lib/git-core/git-http-backend" )
+$HTTP["url"] =~ "^/git" {
+&nbsp;       cgi.assign = ("" =&gt; "")
+&nbsp;       setenv.add-environment = (
+&nbsp;               "GIT_PROJECT_ROOT" =&gt; "/var/www/git",
+&nbsp;               "GIT_HTTP_EXPORT_ALL" =&gt; ""
+&nbsp;       )
+}
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">To enable anonymous read access but authenticated write access: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$HTTP["querystring"] =~ "service=git-receive-pack" {
+&nbsp;       include "git-auth.conf"
+}
+$HTTP["url"] =~ "^/git/.*/git-receive-pack$" {
+&nbsp;       include "git-auth.conf"
+}
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">where git-auth.conf looks something like: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+auth.require = (
+&nbsp;       "/" =&gt; (
+&nbsp;               "method" =&gt; "basic",
+&nbsp;               "realm" =&gt; "Git Access",
+&nbsp;               "require" =&gt; "valid-user"
+&nbsp;              )
+)
+&#35; ...and set up auth.backend here
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">To require authentication for both reads and writes: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$HTTP["url"] =~ "^/git/private" {
+&nbsp;       include "git-auth.conf"
+}
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">git http-backend</span> relies upon the CGI environment variables set by the invoking web server, including: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">PATH_INFO (if GIT_PROJECT_ROOT is set, otherwise PATH_TRANSLATED) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">REMOTE_USER 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">REMOTE_ADDR 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">CONTENT_TYPE 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">QUERY_STRING 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">REQUEST_METHOD 
+<p class="level0">
+<p class="level0">The GIT_HTTP_EXPORT_ALL environmental variable may be passed to <span Class="emphasis">git-http-backend</span> to bypass the check for the "git-daemon-export-ok" file in each repository before allowing export of that repository. 
+<p class="level0">The backend process sets GIT_COMMITTER_NAME to <span Class="emphasis">$REMOTE_USER</span> and GIT_COMMITTER_EMAIL to <span Class="emphasis">${REMOTE_USER}@http.${REMOTE_ADDR}</span>, ensuring that any reflogs created by <span Class="emphasis">git-receive-pack</span> contain some identifying information of the remote user who performed the push. 
+<p class="level0">All CGI environment variables are available to each of the hooks invoked by the <span Class="emphasis">git-receive-pack</span>. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

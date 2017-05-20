@@ -1,0 +1,14 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">znew -   recompress .Z files to .gz files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">znew</span> [ -ftv9PK] [ name.Z ...  ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Znew</span> recompresses files from .Z (compress) format to .gz (gzip) format. If you want to recompress a file already in gzip format, rename the file to force a .Z extension then apply znew. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span> Force recompression from .Z to .gz format even if a .gz file already exists. 
+<p class="level0"><span Class="bold">-t</span> Tests the new files before deleting originals. 
+<p class="level0"><span Class="bold">-v</span> Verbose. Display the name and percentage reduction for each file compressed. 
+<p class="level0"><span Class="bold">-9</span> Use the slowest compression method (optimal compression). 
+<p class="level0"><span Class="bold">-P</span> Use pipes for the conversion to reduce disk space usage. 
+<p class="level0"><span Class="bold">-K</span> Keep a .Z file when it is smaller than the .gz file; implies <span Class="manpage">-t .</span><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">gzip(1), zmore(1), zdiff(1), zgrep(1), zforce(1), gzexe(1), compress(1) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="emphasis">Znew</span> does not maintain the time stamp with the -P option if <span Class="emphasis">cpmod(1)</span> is not available and <span Class="emphasis">touch(1)</span> does not support the -r option. 

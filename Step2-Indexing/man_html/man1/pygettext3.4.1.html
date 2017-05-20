@@ -1,0 +1,40 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pygettext - Python equivalent of xgettext(1) <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pygettext</span> [<a class="emphasis" href="#OPTIONS">OPTIONS</a>] <span Class="emphasis">INPUTFILE </span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">pygettext is deprecated. The current version of xgettext supports many languages, including Python. 
+<p class="level0">pygettext uses Python's standard tokenize module to scan Python source code, generating .pot files identical to what GNU xgettext generates for C and C++ code.  From there, the standard GNU tools can be used. 
+<p class="level0">pygettext searches only for _() by default, even though GNU xgettext recognizes the following keywords: gettext, dgettext, dcgettext, and gettext_noop. See the <span Class="bold">-k</span>/<span Class="bold">--keyword</span> flag below for how to augment this. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--extract-all</span> Extract all strings. 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--default-domain</span>=<a class="emphasis" href="#NAME">NAME</a> Rename the default output file from messages.pot to name.pot. 
+<p class="level0"><span Class="bold">-E</span>, <span Class="bold">--escape</span> Replace non-ASCII characters with octal escape sequences. 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--docstrings</span> Extract module, class, method, and function docstrings. These do not need to be wrapped in _() markers, and in fact cannot be for Python to consider them docstrings. (See also the <span Class="bold">-X</span> option). 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Print this help message and exit. 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--keyword</span>=<span Class="emphasis">WORD</span> Keywords to look for in addition to the default set, which are: _ 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">You can have multiple <span Class="bold">-k</span> flags on the command line. 
+<p class="level1"><span Class="bold">-K</span>, <span Class="bold">--no-default-keywords</span> Disable the default set of keywords (see above). Any keywords explicitly added with the <span Class="bold">-k</span>/<span Class="bold">--keyword</span> option are still recognized. 
+<p class="level1"><span Class="bold">--no-location</span> Do not write filename/lineno location comments. 
+<p class="level1"><span Class="bold">-n</span>, <span Class="bold">--add-location</span> Write filename/lineno location comments indicating where each extracted string is found in the source.  These lines appear before each msgid.  The style of comments is controlled by the <span Class="bold">-S</span>/<span Class="bold">--style</span> option.  This is the default. 
+<p class="level1"><span Class="bold">-o</span>, <span Class="bold">--output</span>=<span Class="emphasis">FILENAME</span> Rename the default output file from messages.pot to FILENAME. If FILENAME is `-' then the output is sent to standard out. 
+<p class="level1"><span Class="bold">-p</span>, <span Class="bold">--output-dir</span>=<span Class="emphasis">DIR</span> Output files will be placed in directory DIR. 
+<p class="level1"><span Class="bold">-S</span>, <span Class="bold">--style</span>=<span Class="emphasis">STYLENAME</span> Specify which style to use for location comments. Two styles are supported: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level2">Solaris	&#35; File: filename, line: line-number 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level2">GNU		&#35;: filename:line 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The style name is case insensitive. GNU style is the default. 
+<p class="level1"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> Print the names of the files being processed. 
+<p class="level1"><span Class="bold">-V</span>, <span Class="bold">--version</span> Print the version of pygettext and exit. 
+<p class="level1"><span Class="bold">-w</span>, <span Class="bold">--width</span>=<span Class="emphasis">COLUMNS</span> Set width of output to columns. 
+<p class="level1"><span Class="bold">-x</span>, <span Class="bold">--exclude-file</span>=<span Class="emphasis">FILENAME</span> Specify a file that contains a list of strings that are not be extracted from the input files.  Each string to be excluded must appear on a line by itself in the file. 
+<p class="level1"><span Class="bold">-X</span>, <span Class="bold">--no-docstrings</span>=<span Class="emphasis">FILENAME</span> Specify a file that contains a list of files (one per line) that should not have their docstrings extracted.  This is only useful in conjunction with the <span Class="bold">-D</span> option above. 
+<p class="level1">If `INPUTFILE' is -, standard input is read. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">pygettext attempts to be option and feature compatible with GNU xgettext where ever possible.  However some options are still missing or are not fully implemented.  Also, xgettext's use of command line switches with option arguments is broken, and in these cases, pygettext just defines additional switches. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">pygettext is written by Barry Warsaw &lt;barry@zope.com&gt;. 
+<p class="level0">Joonas Paalasmaa &lt;joonas.paalasmaa@iki.fi&gt; put this manual page together based on "pygettext --help". 

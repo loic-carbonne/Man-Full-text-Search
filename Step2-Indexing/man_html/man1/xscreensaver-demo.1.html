@@ -1,0 +1,102 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xscreensaver-demo - interactively control the background xscreensaver daemon <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xscreensaver-demo</span> [-display <span Class="emphasis">host:display.screen</span>] [-prefs] [--debug] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xscreensaver-demo</span> program is a graphical front-end for  setting the parameters used by the background <span Class="manpage">xscreensaver (1)</span>daemon. It is essentially two things: a tool for editing the <span Class="emphasis">~/.xscreensaver</span> file; and a tool for demoing the various graphics hacks that  the <span Class="emphasis">xscreensaver</span> daemon will launch. 
+<p class="level0">The main window consists of a menu bar and two tabbed pages.  The first page is for editing the list of demos, and the second is for editing various other parameters of the screensaver. <a name="MENU"></a><h2 class="nroffsh">MENU COMMANDS</h2>
+<p class="level0">All of these commands are on either the <span Class="bold">File</span> or <span Class="bold">Help</span> menus: 
+<p class="level0"><span Class="bold">Blank Screen Now</span> Activates the background <span Class="emphasis">xscreensaver</span> daemon, which will then run a demo at random.  This is the same as running , <span Class="manpage">xscreensaver-command (1)</span>with the <span Class="emphasis">-activate</span> option. 
+<p class="level0"><span Class="bold">Lock Screen Now</span> Just like <span Class="bold">Blank Screen Now</span>, except the screen will be locked as  well (even if it is not configured to lock all the time.)  This is the same as running <span Class="manpage">xscreensaver-command (1)</span>with the <span Class="emphasis">-lock</span> option. 
+<p class="level0"><span Class="bold">Kill Daemon</span> If the xscreensaver daemon is running on this screen, kill it. This is the same as running <span Class="manpage">xscreensaver-command (1)</span>with the <span Class="emphasis">-exit</span> option. 
+<p class="level0"><span Class="bold">Restart Daemon</span> If the xscreensaver daemon is running on this screen, kill it. Then launch it again.  This is the same as doing ``<span Class="emphasis">xscreensaver-command -exit</span>'' followed by ``<span Class="emphasis">xscreensaver</span>''. 
+<p class="level0">Note that it is <span Class="emphasis">not</span> the same as doing ``<span Class="emphasis">xscreensaver-command -restart</span>''. 
+<p class="level0"><span Class="bold">Exit</span> Exits the <span Class="emphasis">xscreensaver-demo</span> program (this program) without affecting the background <span Class="emphasis">xscreensaver</span> daemon, if any. 
+<p class="level0"><span Class="bold">About...</span> Displays the version number of this program, <span Class="emphasis">xscreensaver-demo</span>. 
+<p class="level0"><span Class="bold">Documentation...</span> Opens up a web browser looking at the XScreenSaver web page, where you can find online copies of the <span Class="manpage">xscreensaver (1)</span>, <span Class="manpage">xscreensaver-demo (1)</span>and <span Class="manpage">xscreensaver-command (1)</span>manuals. <a name="DISPLAY"></a><h2 class="nroffsh">DISPLAY MODES TAB</h2>
+<p class="level0">This page contains a list of the names of the various display modes, a preview area, and some fields that let you configure screen saver behavior. 
+<p class="level0"><span Class="bold">Mode</span> This option menu controls the activation behavior of the screen saver. The options are: 
+<p class="level1">
+<p class="level1"><span Class="bold">Disable Screen Saver</span> Don't ever blank the screen, and don't ever allow the monitor to power down. 
+<p class="level1"><span Class="bold">Blank Screen Only</span> When blanking the screen, just go black: don't run any graphics. 
+<p class="level1"><span Class="bold">Only One Screen Saver</span> When blanking the screen, only ever use one particular display mode (the one selected in the list.) 
+<p class="level1"><span Class="bold">Random Screen Saver</span> When blanking the screen, select a random display mode from among those that are enabled and applicable.  If there are multiple monitors connected, run a different display mode on each one.  This is the default. 
+<p class="level1"><span Class="bold">Random Same Saver</span> This is just like <span Class="bold">Random Screen Saver</span>, except that the <span Class="emphasis">same</span> randomly-chosen display mode will be run on all monitors, instead of different ones on each. 
+<p class="level0">
+<p class="level0"><span Class="bold">Demo List</span> Double-clicking in the list on the left will let you try out the indicated demo.  The screen will go black, and the program will run in full-screen mode, just as it would if the <span Class="emphasis">xscreensaver</span> daemon had launched it. Clicking the mouse again will stop the demo and un-blank the screen. 
+<p class="level0">Single-clicking in the list will run it in the small preview pane on the right.  (But beware: many of the display modes behave somewhat differently when running in full-screen mode, so the scaled-down view might not give an accurate impression.) 
+<p class="level0">When <span Class="bold">Mode</span> is set to <span Class="bold">Random Screen Saver</span>, each name in the list has a checkbox next to it: this controls whether this display mode is enabled.  If it is unchecked, then that mode will not be chosen.  (Though you can still run it explicitly by double-clicking on its name.) 
+<p class="level0"><span Class="bold">Arrow Buttons</span> Beneath the list are a pair of up and down arrows. Clicking on the down  arrow will select the next item in the list, and then run it in full-screen mode, just as if you had double-clicked on it.  The up arrow goes the other way.  This is just a shortcut for trying out all of the display modes in turn. 
+<p class="level0"><span Class="bold">Blank After</span> After the user has been idle this long, the <span Class="emphasis">xscreensaver</span> daemon will blank the screen. 
+<p class="level0"><span Class="bold">Cycle After</span> After the screensaver has been running for this long, the currently running graphics demo will be killed, and a new one started.   If this is 0, then the graphics demo will never be changed: only one demo will run until the screensaver is deactivated by user  activity. 
+<p class="level0"><span Class="bold">Lock Screen</span> When this is checked, the screen will be locked when it activates. 
+<p class="level0"><span Class="bold">Lock Screen After</span> This controls the length of the ``grace period'' between when the screensaver activates, and when the screen becomes locked.  For example, if this is 5 minutes, and <span Class="emphasis">Blank After</span> is 10 minutes, then after 10 minutes, the screen would blank.  If there was user activity at 12 minutes, no password would be required to un-blank the screen.  But, if there was user activity at 15 minutes or later (that is, <span Class="emphasis">Lock Screen After</span> minutes after activation) then a password would be required.  The default is 0, meaning that if locking is enabled, then a password will be required as soon as the screen blanks. 
+<p class="level0"><span Class="bold">Preview</span> This button, below the small preview window, runs the demo in full-screen mode so that you can try it out.  This is the same thing that happens when you double-click an element in the list.  Click the mouse to dismiss the full-screen preview. 
+<p class="level0"><span Class="bold">Settings</span> This button will pop up a dialog where you can configure settings specific to the display mode selected in the list. <a name="SETTINGS"></a><h2 class="nroffsh">SETTINGS DIALOG</h2>
+<p class="level0">When you click on the <span Class="emphasis">Settings</span> button on the <span Class="emphasis">Display Modes</span> tab, a configuration dialog will pop up that lets you customize settings of the selected display mode.  Each display mode has its own custom configuration controls on the left side. 
+<p class="level0">On the right side is a paragraph or two describing the display mode. Below that is a <span Class="bold">Documentation</span> button that will display the display mode's manual page, if it has one, in a new window (since each of the display modes is actually a separate program, they each have their own manual.) 
+<p class="level0">The <span Class="bold">Advanced</span> button reconfigures the dialog box so that you can edit the display mode's command line directly, instead of using the  graphical controls. <a name="ADVANCED"></a><h2 class="nroffsh">ADVANCED TAB</h2>
+<p class="level0">This tab lets you change various settings used by the xscreensaver daemon itself, as well as some global options shared by all of the display modes. 
+<p class="level0"><span Class="bold">Image Manipulation</span> 
+<p class="level0">Some of the graphics hacks manipulate images.  These settings control where those source images come from. (All of these options work by invoking the <span Class="manpage">xscreensaver-getimage (1)</span>program, which is what actually does the work.) 
+<p class="level1">
+<p class="level1"><span Class="bold">Grab Desktop Images</span> If this option is selected, then they are allowed to manipulate the desktop image, that is, a display mode might draw a picture of your desktop melting, or being distorted in some way.  The security-paranoid might want to disable this option, because if it is set, it means that the windows on your desktop will occasionally be visible while your screen is locked.  Others will not be able to <span Class="emphasis">do</span> anything, but they may be able to <span Class="emphasis">see</span> whatever you left on your screen. 
+<p class="level1"><span Class="bold">Grab Video Frames</span> If your system has a video capture card, selecting this option will allow the image-manipulating modes to capture a frame of video to operate on. 
+<p class="level1"><span Class="bold">Choose Random Image</span> If this option is set, then the image-manipulating modes will select a random image file to operate on, from the specified source.  That source may be a local directory, which will be recursively searched for images.  Or, it may be the URL of an RSS or Atom feed (e.g., a Flickr gallery), in which case a random image from that feed will be selected instead.  The contents of the feed will be cached locally and refreshed periodically as needed. 
+<p class="level1">If more than one of the above image-related options are selected, then one will be chosen at random.  If none of them are selected, then an image of video colorbars will be used instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">Text Manipulation</span> 
+<p class="level0">Some of the display modes display and manipulate text.  The following options control how that text is generated.  (These parameters control the behavior of the <span Class="manpage">xscreensaver-text (1)</span>program, which is what actually does the work.) 
+<p class="level1">
+<p class="level1"><span Class="bold">Host Name and Time</span> If this checkbox is selected, then the text used by the screen savers will be the local host name, OS version, date, time, and system load. 
+<p class="level1"><span Class="bold">Text</span> If this checkbox is selected, then the literal text typed in the  field to its right will be used.  If it contains % escape sequences, they will be expanded as per , <span Class="manpage">strftime (2).</span>
+<p class="level1"><span Class="bold">Text File</span> If this checkbox is selected, then the contents of the corresponding file will be displayed. 
+<p class="level1"><span Class="bold">Program</span> If this checkbox is selected, then the given program will be run, repeatedly, and its output will be displayed. 
+<p class="level1"><span Class="bold">URL</span> If this checkbox is selected, then the given HTTP URL will be downloaded and displayed repeatedly.  If the document contains HTML, RSS, or Atom, it will be converted to plain-text first. 
+<p class="level1">Note: this re-downloads the document every time the screen saver runs out of text, so it will probably be hitting that web server multiple times a minute.  Be careful that the owner of that server doesn't consider that to be abusive. 
+<p class="level0">
+<p class="level0"><span Class="bold">Power Management Settings</span> 
+<p class="level0">These settings control whether, and when, your monitor powers down. 
+<p class="level1">
+<p class="level1"><span Class="bold">Power Management Enabled</span> Whether the monitor should be powered down after a period of inactivity. 
+<p class="level1">If this option is grayed out, it means your X server does not support the XDPMS extension, and so control over the monitor's power state is not available. 
+<p class="level1">If you're using a laptop, don't be surprised if this has no effect: many laptops have monitor power-saving behavior built in at a very low level that is invisible to Unix and X.  On such systems, you can  typically only adjust the power-saving delays by changing settings  in the BIOS in some hardware-specific way. 
+<p class="level1"><span Class="bold">Standby After</span> If <span Class="emphasis">Power Management Enabled</span> is selected, the monitor will go black after this much idle time.  (Graphics demos will stop running, also.) 
+<p class="level1"><span Class="bold">Suspend After</span> If <span Class="emphasis">Power Management Enabled</span> is selected, the monitor will go into power-saving mode after this much idle time.  This duration should be greater than or equal to <span Class="emphasis">Standby</span>. 
+<p class="level1"><span Class="bold">Off After</span> If <span Class="emphasis">Power Management Enabled</span> is selected, the monitor will fully power down after this much idle time.  This duration should be greater than or equal to <span Class="emphasis">Suspend</span>. 
+<p class="level1"><span Class="bold">Quick Power-off in Blank Only Mode</span> If the display mode is set to <span Class="emphasis">Blank Screen Only</span> and this is checked, then the monitor will be powered off immediately upon blanking, regardless of the other power-management settings.  In this way, the power management idle-timers can be completely disabled, but the screen will be powered off when black.  (This might be preferable on laptops.) 
+<p class="level0">
+<p class="level0"><span Class="bold">Fading and Colormaps</span> 
+<p class="level0">These options control how the screen fades to or from black when a screen saver begins or ends. 
+<p class="level1">
+<p class="level1"><span Class="bold">Fade To Black When Blanking</span> If selected, then when the screensaver activates, the current contents of the screen will fade to black instead of simply winking out.  (Note: this doesn't work with all X servers.)  A fade will also be done when switching graphics hacks (when the <span Class="emphasis">Cycle After</span> expires.) 
+<p class="level1"><span Class="bold">Unfade From Black When Unblanking</span> The complement to <span Class="emphasis">Fade Colormap</span>: if selected, then when the screensaver deactivates, the original contents of the screen will fade in from black instead of appearing immediately.  This is only done if <span Class="emphasis">Fade Colormap</span> is also selected. 
+<p class="level1"><span Class="bold">Fade Duration</span> When fading or unfading are selected, this controls how long the fade will take. 
+<p class="level1"><span Class="bold">Install Colormap</span> On 8-bit screens, whether to install a private colormap while the screensaver is active, so that the graphics hacks can get as many colors as possible.  This does nothing if you are running in 16-bit or better. 
+<p class="level1">
+<p class="level0">There are more settings than these available, but these are the most  commonly used ones; see the manual for <span Class="manpage">xscreensaver (1)</span>for other parameters that can be set by editing the <span Class="emphasis">~/.xscreensaver</span> file, or the X resource database. <a name="COMMAND-LINE"></a><h2 class="nroffsh">COMMAND-LINE OPTIONS</h2>
+<p class="level0"><span Class="emphasis">xscreensaver-demo</span> accepts the following command line options. 
+<p class="level0"><span Class="bold">-display host:display.screen</span> The X display to use.  The <span Class="emphasis">xscreensaver-demo</span> program will open its window on that display, and also control the <span Class="emphasis">xscreensaver</span> daemon that is managing that same display. 
+<p class="level0"><span Class="bold">-prefs</span> Start up with the <span Class="bold">Advanced</span> tab selected by default instead of the <span Class="bold">Display Modes</span> tab. 
+<p class="level0"><span Class="bold">-debug</span> Causes lots of diagnostics to be printed on stderr. 
+<p class="level0">It is important that the <span Class="emphasis">xscreensaver</span> and <span Class="emphasis">xscreensaver-demo</span> processes be running on the same machine, or at least, on two machines that share a file system.  When <span Class="emphasis">xscreensaver-demo</span> writes a new version of the <span Class="emphasis">~/.xscreensaver</span> file, it's important that the <span Class="emphasis">xscreensaver</span> see that same file.  If the two processes are seeing  different <span Class="emphasis">~/.xscreensaver</span> files, things will malfunction. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#DISPLAY">DISPLAY</a> to get the default host and display number. 
+<p class="level0"><span Class="bold">PATH</span> to find the sub-programs to run.  However, note that the sub-programs  are actually launched by the <span Class="emphasis">xscreensaver</span> daemon, not  by <span Class="emphasis">xscreensaver-demo</span> itself.  So, what matters is what <span Class="bold">$PATH</span> that the <span Class="emphasis">xscreensaver</span> program sees. 
+<p class="level0"><span Class="bold">HOME</span> for the directory in which to read and write the <span Class="emphasis">.xscreensaver</span> file. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. 
+<p class="level0"><span Class="bold">HTTP_PROXY or http_proxy</span> to get the default HTTP proxy host and port. <a name="UPGRADES"></a><h2 class="nroffsh">UPGRADES</h2>
+<p class="level0">The latest version of xscreensaver, an online version of this manual, and a FAQ can always be found at <a href="http://www.jwz.org/xscreensaver/">http://www.jwz.org/xscreensaver/</a> <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">X (1)</span>, <span Class="manpage">xscreensaver (1)</span>, <span Class="manpage">xscreensaver-command (1)</span>, <span Class="manpage">xscreensaver-getimage (1)</span>, <span Class="manpage">xscreensaver-text (1)</span><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 1992-2013 by Jamie Zawinski. Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby granted without fee, provided that the above copyright notice appear in all copies and that both that copyright notice and this permission notice appear in supporting documentation.  No representations are made about the suitability of this software for any purpose.  It is provided "as is" without express or implied warranty. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jamie Zawinski &lt;jwz@jwz.org&gt;, 13-aug-92. 
+<p class="level0">Please let me know if you find any bugs or make any improvements. 

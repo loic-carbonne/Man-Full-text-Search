@@ -1,0 +1,140 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-query - a tool to query the dpkg database 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-query</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-query</span> is a tool to show information about packages listed in the <span Class="bold">dpkg</span> database. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-l</span>, <span Class="manpage">--list  [\fIpackage-name-pattern\fP...]</span>List packages matching given pattern. If no <span Class="emphasis">package-name-pattern</span> is given, list all packages in <span Class="emphasis">/var/lib/dpkg/status</span>, excluding the ones marked as not-installed (i.e. those which have been previously purged). Normal shell wildchars are allowed in <span Class="emphasis">package-name-pattern</span>. Please note you will probably have to quote <span Class="emphasis">package-name-pattern</span> to prevent the shell from performing filename expansion. For example this will list all package names starting with *(lqlibc6*(rq: 
+<p class="level0"><pre class="level0">
+&nbsp; <span class="bold">dpkg-query -l (aqlibc6*(aq</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The first three columns of the output show the desired action, the package status, and errors, in that order. 
+<p class="level0">Desired action: <pre class="level0">
+&nbsp; u = Unknown
+&nbsp; i = Install
+&nbsp; h = Hold
+&nbsp; r = Remove
+&nbsp; p = Purge
+</pre>
+
+<p class="level0">
+<p class="level0">Package status: <pre class="level0">
+&nbsp; n = Not-installed
+&nbsp; c = Config-files
+&nbsp; H = Half-installed
+&nbsp; U = Unpacked
+&nbsp; F = Half-configured
+&nbsp; W = Triggers-awaiting
+&nbsp; t = Triggers-pending
+&nbsp; i = Installed
+</pre>
+
+<p class="level0">
+<p class="level0">Error flags: <pre class="level0">
+&nbsp; &lt;empty&gt; = (none)
+&nbsp; R = Reinst-required
+</pre>
+
+<p class="level0">
+<p class="level0">An uppercase status or error letter indicates the package is likely to cause severe problems. Please refer to <span Class="bold">dpkg</span>(1) for information about the above states and flags. 
+<p class="level0">The output format of this option is not configurable, but varies automatically to fit the terminal width. It is intended for human readers, and is not easily machine-readable. See <span Class="bold">-W</span> (<span Class="bold">--show</span>) and <span Class="bold">--showformat</span> for a way to configure the output format. 
+<p class="level0"><span Class="manpage">-W</span>, <span Class="manpage">--show  [\fIpackage-name-pattern\fP...]</span>Just like the <span Class="bold">--list</span> option this will list all packages matching the given pattern. However the output can be customized using the <span Class="bold">--showformat</span> option. The default output format gives one line per matching package, each line having the name (extended with the architecture qualifier for <span Class="bold">Multi-Arch</span> <span Class="bold">same</span> packages) and installed version of the package, separated by a tab. 
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--status  \fIpackage-name\fP...</span>Report status of specified package. This just displays the entry in the installed package status database. When multiple <span Class="emphasis">package-name</span> are listed, the requested status entries are separated by an empty line, with the same order as specified on the argument list. 
+<p class="level0"><span Class="manpage">-L</span>, <span Class="manpage">--listfiles  \fIpackage-name\fP...</span>List files installed to your system from <span Class="emphasis">package-name</span>. When multiple <span Class="emphasis">package-name</span> are listed, the requested lists of files are separated by an empty line, with the same order as specified on the argument list. However, note that files created by package-specific installation-scripts are not listed. 
+<p class="level0"><span Class="manpage">--control-list  \fIpackage-name\fP</span>List control files installed to your system from <span Class="emphasis">package-name</span>. These can be used as input arguments to <span Class="bold">--control-show</span>. 
+<p class="level0"><span Class="manpage">--control-show  \fIpackage-name\fP \fIcontrol-file\fP</span>Print the <span Class="emphasis">control-file</span> installed to your system from <span Class="emphasis">package-name</span> to the standard output. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--control-path  \fIpackage-name\fP [\fIcontrol-file\fP]</span>List paths for control files installed to your system from <span Class="emphasis">package-name</span>. If <span Class="emphasis">control-file</span> is specified then only list the path for that control file if it is present. 
+<p class="level0"><span Class="bold">Warning</span>: this command is deprecated as it gives direct access to the internal dpkg database, please switch to use <span Class="bold">--control-list</span> and <span Class="bold">--control-show</span> instead for all cases where those commands might give the same end result. Although, as long as there is still at least one case where this command is needed (i.e. when having to remove a damaging postrm maintainer script), and while there is no good solution for that, this command will not get removed. 
+<p class="level0"><span Class="manpage">-S</span>, <span Class="manpage">--search  \fIfilename-search-pattern\fP...</span>Search for packages that own files corresponding to the given pattern. Standard shell wildchars can be used in the pattern. This command will not list extra files created by maintainer scripts, nor will it list alternatives. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--print-avail  \fIpackage-name\fP...</span>Display details about <span Class="emphasis">package-name</span>, as found in <span Class="emphasis">/var/lib/dpkg/available</span>. When multiple <span Class="emphasis">package-name</span> are listed, the requested <span Class="emphasis">available</span> entries are separated by an empty line, with the same order as specified on the argument list. 
+<p class="level0">Users of APT-based frontends should use <span Class="bold">apt-cache show</span> <span Class="emphasis">package-name</span> instead as the <span Class="emphasis">available</span> file is only kept up-to-date when using <span Class="bold">dselect</span>. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="bold">--version</span> Show the version and exit. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--admindir= dir</span> Change the location of the <span Class="bold">dpkg</span> database. The default location is <span Class="emphasis">/var/lib/dpkg</span>. 
+<p class="level0"><span Class="bold">--load-avail</span> Also load the available file when using the <span Class="bold">--show</span> and <span Class="bold">--list</span> commands, which now default to only querying the status file. 
+<p class="level0"><span Class="manpage">-f</span>, <span Class="manpage">--showformat=\fIformat\fR</span>This option is used to specify the format of the output <span Class="bold">--show</span> will produce. The format is a string that will be output for each package listed. 
+<p class="level0">In the format string, (lq<span Class="bold">e</span>(rq introduces escapes: 
+<p class="level0"><pre class="level0">
+&nbsp;   <span class="bold">en</span>  newline
+&nbsp;   <span class="bold">er</span>  carriage return
+&nbsp;   <span class="bold">et</span>  tab
+</pre>
+
+<p class="level0">
+<p class="level0">(lq<span Class="bold">e</span>(rq before any other character suppresses any special meaning of the following character, which is useful for (lq<span Class="bold">e</span>(rq and (lq<a class="bold" href="#">$</a>(rq. 
+<p class="level0">Package information can be included by inserting variable references to package fields using the syntax (lq<a class="bold" href="#">${</a><span Class="emphasis">field</span>[<a class="bold" href="#">;</a><span Class="emphasis">width</span>]<a class="bold" href="#">}</a>(rq. Fields are printed right-aligned unless the width is negative in which case left alignment will be used. The following <span Class="emphasis">field</span>s are recognized but they are not necessarily available in the status file (only internal fields or fields stored in the binary package end up in it): 
+<p class="level0"><pre class="level0">
+&nbsp;   <span class="bold">Architecture</span>
+&nbsp;   <span class="bold">Bugs</span>
+&nbsp;   <span class="bold">Conffiles</span> (internal)
+&nbsp;   <span class="bold">Config-Version</span> (internal)
+&nbsp;   <span class="bold">Conflicts</span>
+&nbsp;   <span class="bold">Breaks</span>
+&nbsp;   <span class="bold">Depends</span>
+&nbsp;   <span class="bold">Description</span>
+&nbsp;   <span class="bold">Enhances</span>
+&nbsp;   <span class="bold">Essential</span>
+&nbsp;   <span class="bold">Filename</span> (internal, front-end related)
+&nbsp;   <span class="bold">Homepage</span>
+&nbsp;   <span class="bold">Installed-Size</span>
+&nbsp;   <span class="bold">MD5sum</span> (internal, front-end related)
+&nbsp;   <span class="bold">MSDOS-Filename</span> (internal, front-end related)
+&nbsp;   <span class="bold">Maintainer</span>
+&nbsp;   <span class="bold">Origin</span>
+&nbsp;   <span class="bold">Package</span>
+&nbsp;   <span class="bold">Pre-Depends</span>
+&nbsp;   <span class="bold">Priority</span>
+&nbsp;   <span class="bold">Provides</span>
+&nbsp;   <span class="bold">Recommends</span>
+&nbsp;   <span class="bold">Replaces</span>
+&nbsp;   <span class="bold">Revision</span> (obsolete)
+&nbsp;   <span class="bold">Section</span>
+&nbsp;   <span class="bold">Size</span> (internal, front-end related)
+&nbsp;   <span class="bold">Source</span>
+&nbsp;   <span class="bold">Status</span> (internal)
+&nbsp;   <span class="bold">Suggests</span>
+&nbsp;   <span class="bold">Tag</span> (usually not in .deb but in repository Packages files)
+&nbsp;   <span class="bold">Triggers-Awaited</span> (internal)
+&nbsp;   <span class="bold">Triggers-Pending</span> (internal)
+&nbsp;   <span class="bold">Version</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The following are virtual fields, generated by <span Class="bold">dpkg-query</span> from values from other fields (note that these do not use valid names for fields in control files): 
+<p class="level1">
+<p class="level1"><span Class="bold">binary:Package</span> It contains the binary package name with a possible architecture qualifier like "libc6:amd64" (since dpkg 1.16.2). The architecture qualifier will only be present if the package has a <span Class="bold">Multi-Arch</span> field with a value of <span Class="bold">same</span>. This makes the package name unambiguous. 
+<p class="level1"><span Class="bold">binary:Summary</span> It contains the package short description (since dpkg 1.16.2). 
+<p class="level1"><span Class="bold">db:Status-Abbrev</span> It contains the abbreviated package status, such as (lqii(rq (since dpkg 1.16.2). 
+<p class="level1"><span Class="bold">db:Status-Want</span> It contains the package wanted status, part of the Status field (since dpkg 1.17.11). 
+<p class="level1"><span Class="bold">db:Status-Status</span> It contains the package status word, part of the Status field (since dpkg 1.17.11). 
+<p class="level1"><span Class="bold">db:Status-Eflag</span> It contains the package status error flag, part of the Status field (since dpkg 1.17.11). 
+<p class="level1"><span Class="bold">source:Package</span> It contains the source package name for this binary package (since dpkg 1.16.2). 
+<p class="level1"><span Class="bold">source:Version</span> It contains the source package version for this binary package (since dpkg 1.16.2) 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default format string is (lq<span Class="bold">${binary:Package}et${Version}en</span>(rq. Actually, all other fields found in the status file (i.e. user defined fields) can be requested, too. They will be printed as-is, though, no conversion nor error checking is done on them. To get the name of the <span Class="bold">dpkg</span> maintainer and the installed version, you could run: 
+<p class="level1"><pre class="level1">
+&nbsp; <span class="bold">dpkg-query -W -f=(aq${binary:Package} ${Version}\t${Maintainer}\n(aq dpkg</span>
+</pre>
+
+<p class="level1">
+<p class="level1"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">0</span> The requested query was successfully performed. 
+<p class="level0"><span Class="bold">1</span> Problems were encountered while parsing the command line or performing the query, including no file or package being found (except for <span Class="bold">--control-path</span>). 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DPKG_ADMINDIR</span> If set and the <span Class="bold">--admindir</span> option has not been specified, it will be used as the <span Class="bold">dpkg</span> data directory. 
+<p class="level0"><span Class="bold">COLUMNS</span> This setting influences the output of the <span Class="bold">--list</span> option by changing the width of its output. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dpkg (1).</span>
+<p class="level0">

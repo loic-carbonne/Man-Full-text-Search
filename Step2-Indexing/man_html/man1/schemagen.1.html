@@ -1,0 +1,72 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">schemagen - Java(TM) Architecture for XML Binding Schema Generator 
+<p class="level0">
+<p class="level0">f3Specification Version:</span> 2.1 <br>f3Implementation Version:</span> 2.1.3 
+<p class="level0"><a name="Launching"></a><h2 class="nroffsh">Launching schemagen</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The schema generator can be launched using the appropriate f2schemagen</span> shell script in the f2bin</span> directory for your platform. 
+<p class="level0">
+<p class="level0">The current schema generator can process either Java source files or class files. 
+<p class="level0">
+<p class="level0">We also provide an Ant task to run the schema generator - see the instructions for  
+<p class="level0">f2using schemagen with Ant</span> @ 
+<p class="level0"><a href="https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html.">https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html.</a> 
+<p class="level0"><pre class="level0">
+f3
+% schemagen.sh Foo.java Bar.java ...
+Note: Writing schema1.xsd
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If your java sources/classes reference other classes, they must be accessable on your system CLASSPATH environment variable, or they need to be given to the tool by using the f2-classpath</span>/f2-cp</span> options. Otherwise you will see errors when generating your schema. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Command Line Options 
+<p class="level0"><pre class="level0">
+f3
+Usage: schemagen [-options ...] &lt;java files&gt; 
+&nbsp;
+Options:
+&nbsp;   -d &lt;path&gt;             : specify where to place processor and javac generated class files
+&nbsp;   -cp &lt;path&gt;            : specify where to find user specified files
+&nbsp;   -classpath &lt;path&gt;     : specify where to find user specified files
+&nbsp;   -encoding &lt;encoding&gt;  : specify encoding to be used for apt/javac invocation
+&nbsp;
+&nbsp;   -episode &lt;file&gt;       : generate episode file for separate compilation
+&nbsp;   -version              : display version information
+&nbsp;   -help                 : display this usage message
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Generated"></a><h2 class="nroffsh">Generated Resource Files</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The current schema generator simply creates a schema file for each namespace referenced in your Java classes. There is no way to control the name of the generated schema files at this time. For that purpose, use  
+<p class="level0">f2the schema generator ant task</span> @ 
+<p class="level0"><a href="https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html.">https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html.</a> 
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">See Also 
+<p class="level0">
+<p class="level1">
+<p class="level1">o Running the schema generator (schemagen): [ 
+<p class="level1">f2command-line instructions</span> @ 
+<p class="level1"><a href="https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagen.html,">https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagen.html,</a>  
+<p class="level1">f2using the SchemaGen Ant task</span> @ 
+<p class="level1"><a href="https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html]">https://jaxb.dev.java.net/nonav/2.1.3/docs/schemagenTask.html]</a>  
+<p class="level1">o 
+<p class="level1">f2Java Architecture for XML Binding (JAXB)</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/xml/jaxb/index.html">http://docs.oracle.com/javase/7/docs/technotes/guides/xml/jaxb/index.html</a>  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

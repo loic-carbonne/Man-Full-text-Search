@@ -1,0 +1,61 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xvidtune - video mode tuner for Xorg <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xvidtune</span> [ <span Class="bold">-show</span> | <span Class="bold">-prev</span> | <span Class="bold">-next</span> | <span Class="bold">-unlock</span> ] [ <span Class="emphasis">-toolkitoption</span> .|.|. ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Xvidtune is a client interface to the X server video mode extension (XFree86-VidModeExtension). 
+<p class="level0">When given one of the non-toolkit options, xvidtune provides a command line interface to either print or switch the video mode. 
+<p class="level0">Without any options (or with only toolkit options) it presents the user with various buttons and sliders that can be used to interactively adjust existing video modes. It will also print the settings in a format suitable for inclusion in an xorg.conf file. 
+<p class="level0">Normally the Xorg X servers only allow changes to be made with the XFree86-VidModeExtension from clients connected via a local connection type. 
+<p class="level0">Note:  The original mode settings can be restored by pressing the `R' key, and this can be used to restore a stable screen in situations where the screen becomes unreadable. 
+<p class="level0">The available buttons are: 
+<p class="level0"><pre class="level0">
+<span class="bold">Left</span> 
+<span class="bold">Right</span> 
+<span class="bold">Up</span> 
+<span class="bold">Down</span> 
+</pre>
+
+<p class="level0">
+<p class="level1">Adjust the video mode so that the display will be moved in the appropriate direction. 
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">Wider</span> 
+<span class="bold">Narrower</span> 
+<span class="bold">Shorter</span> 
+<span class="bold">Taller</span> 
+</pre>
+
+<p class="level0">
+<p class="level1">Adjust the video mode so that the display size is altered appropriately. 
+<p class="level0">
+<p class="level0"><span Class="bold">Quit</span> Exit the program. 
+<p class="level0"><span Class="bold">Apply</span> Adjust the current video mode to match the selected settings. 
+<p class="level0"><span Class="bold">Auto</span> Cause the Up/Down/Right/Left, Wider/Narrower/Shorter/Taller, Restore, and the special S3 buttons to be applied immediately. This button can be toggled. 
+<p class="level0"><span Class="bold">Test</span> Temporarily switch to the selected settings. 
+<p class="level0"><span Class="bold">Restore</span> Return the settings to their original values. 
+<p class="level0"><span Class="bold">Fetch</span> Query the server for its current settings. 
+<p class="level0"><span Class="bold">Show</span> Print the currently selected settings to stdout in xorg.conf "Modeline" format.  The primary selection is similarly set. 
+<p class="level0"><span Class="bold">Next</span> Switch the Xserver to the next video mode. 
+<p class="level0"><span Class="bold">Prev</span> Switch the Xserver to the previous video mode. 
+<p class="level0">For some S3-based cards (964 and 968) the following are also available: 
+<p class="level0"><span Class="bold">InvertVCLK</span> Change the VCLK invert/non-invert state. 
+<p class="level0"><span Class="bold">EarlySC</span> Change the Early SC state.  This affects screen wrapping. 
+<p class="level0"><pre class="level0">
+<span class="bold">BlankDelay1</span> 
+<span class="bold">BlankDelay2</span> 
+</pre>
+
+<p class="level0">
+<p class="level1">Set the blank delay values.  This affects screen wrapping.  Acceptable values are in the range 0-7.  The values may be incremented or decremented with the `+' and `-' buttons, or by pressing the `+' or `-' keys in the text field. 
+<p class="level0">
+<p class="level0">For S3-864/868 based cards <span Class="emphasis">InvertVCLK</span> and <span Class="emphasis">BlankDelay1</span> may be useful.  For S3 Trio32/Trio64 cards only <span Class="emphasis">InvertVCLK</span> is available. At the moment there are no default settings available for these chips in the video mode extension and thus this feature is disabled in xvidtune. It can be enabled by setting any of the optional S3 commands in the screen section of xorg.conf, e.g. using 
+<p class="level1"><span Class="bold">blank_delay \(** 0</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">xvidtune</span> accepts the standard X Toolkit command line options as well as the following: 
+<p class="level0"><span Class="bold">-show</span> Print the current settings to stdout in xorg.conf "Modeline" format and exit. 
+<p class="level0"><span Class="bold">-prev</span> Switch the Xserver to the previous video mode. 
+<p class="level0"><span Class="bold">-next</span> Switch the Xserver to the next video mode. 
+<p class="level0"><span Class="bold">-unlock</span> Normally, <span Class="emphasis">xvidtune</span> will disable the switching of video modes via hot-keys while it is running.  If for some reason the program did not exit cleanly and they are still disabled, the program can be re-run with this option to re-enable the mode switching key combinations. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xrandr (1)</span>, <span Class="manpage">Xorg (1)</span>, <span Class="manpage">xorg.conf (5).</span><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Kaleb S. Keithley, X Consortium. <br>Additions and modifications by Jon Tombs, David Dawes, and Joe Moss. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">X Error handling, i.e. when the server does not allow xvidtune clients to write new modes, could be better. 

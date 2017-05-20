@@ -1,0 +1,105 @@
+BUSCTL(1)                           busctl                           BUSCTL(1)
+
+
+
+NAME
+       busctl - Introspect the bus
+
+SYNOPSIS
+       busctl [OPTIONS...] [COMMAND] [NAME...]
+
+DESCRIPTION
+       busctl may be used to introspect and monitor the D-Bus bus.
+
+OPTIONS
+       The following options are understood:
+
+       --address=ADDRESS
+           Connect to the bus specified by ADDRESS instead of using suitable
+           defaults for either the system or user bus (see --system and --user
+           options).
+
+       --show-machine
+           When showing the list of endpoints, show a column containing the
+           names of containers they belong to. See systemd-
+           machined.service(8).
+
+       --unique
+           When showing the list of endpoints, show only "unique" names (of
+           the form ":number.number").
+
+       --acquired
+           The opposite of --unique -- only "well-known" names will be shown.
+
+       --activatable
+           When showing the list of endpoints, show only endpoints which have
+           actually not been activated yet, but may be started automatically
+           if accessed.
+
+       --match=MATCH
+           When showing messages being exchanged, show only the subset
+           matching MATCH.
+
+       --no-legend
+           Do not print the legend, i.e. the column headers and the footer.
+
+       --user
+           Talk to the service manager of the calling user, rather than the
+           service manager of the system.
+
+       --system
+           Talk to the service manager of the system. This is the implied
+           default.
+
+       -H, --host=
+           Execute the operation remotely. Specify a hostname, or a username
+           and hostname separated by "@", to connect to. The hostname may
+           optionally be suffixed by a container name, separated by ":", which
+           connects directly to a specific container on the specified host.
+           This will use SSH to talk to the remote machine manager instance.
+           Container names may be enumerated with machinectl -H HOST.
+
+       -M, --machine=
+           Execute operation on a local container. Specify a container name to
+           connect to.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       --no-pager
+           Do not pipe output into a pager.
+
+COMMANDS
+       The following commands are understood:
+
+       list
+           Show endpoints attached to the bus. This is the default if no
+           command is specified.
+
+       monitor [NAME...]
+           Dump messages being exchanged. If NAME is specified, show messages
+           to or from this endpoint. Otherwise, show all messages on the bus.
+
+       status NAME
+           Show process information and credentials of a bus endpoint.
+
+       help
+           Show command syntax help.
+
+SEE ALSO
+       dbus-daemon(1), D-Bus[1], kdbus[2], sd-bus(3), systemd(1), systemd-bus-
+       proxyd(8), machinectl(1)
+
+NOTES
+        1. D-Bus
+           http://freedesktop.org/wiki/Software/dbus
+
+        2. kdbus
+           https://code.google.com/p/d-bus/
+
+
+
+systemd 215                                                          BUSCTL(1)

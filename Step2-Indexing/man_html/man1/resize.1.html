@@ -1,0 +1,68 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">resize - set environment and terminal settings to current xterm window size <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">\*n</span> [ <span Class="bold">-v</span> | <span Class="bold">-u</span> | <span Class="bold">-c</span> ] [ <span Class="bold">-s</span> [ <span Class="emphasis">row col</span> ] ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">\*N</span> prints a shell command for setting the appropriate environment variables to indicate the current size of <span Class="emphasis">xterm</span> window from which the command is run. 
+<p class="level0"><span Class="emphasis">\*N</span> determines the command through several steps: 
+<p class="level0">first, it finds the name of the user's shell program. It uses the <span Class="bold">SHELL</span> variable if set, otherwise it uses the user's data from /etc/passwd. 
+<p class="level0">then it decides whether to use Bourne shell syntax or C-Shell syntax. It uses a built-in table of known shells, which can be overridden by the <span Class="bold">-u</span> and <span Class="bold">-c</span> options. 
+<p class="level0">then <span Class="emphasis">*n</span> asks the operating system for the terminal settings. This is the same information which can be manipulated using <span Class="emphasis">stty</span>. 
+<p class="level0">then <span Class="emphasis">*n</span> asks the terminal for its size in characters. Depending on whether the "<span Class="bold">-s</span> option is given, <span Class="emphasis">*n</span> uses a different escape sequence to ask for this information. 
+<p class="level0">at this point, <span Class="emphasis">*n</span> attempts to update the terminal settings to reflect the terminal window's size in pixels: 
+<p class="level1">
+<p class="level1">if the <span Class="bold">-s</span> option is used, <span Class="emphasis">*n</span> then asks the terminal for its size in pixels. 
+<p class="level1">otherwise, <span Class="emphasis">*n</span> asks the operating system for the information and updates that after ensuring that the window's dimensions are a multiple of the character height and width. 
+<p class="level1">in either case, the updated terminal settings are done using a different system call than used for <span Class="emphasis">stty</span>. 
+<p class="level0">
+<p class="level0">then <span Class="emphasis">*n</span> updates the terminal settings to reflect any altered values such as its size in rows or columns. This affects the values shown by <span Class="emphasis">stty</span>. 
+<p class="level0">finally, <span Class="emphasis">*n</span> writes the shell command for setting the environment variables to the standard output. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">For *n's output to take effect, <span Class="emphasis">*n</span> must either be evaluated as part of the command line (usually done with a shell alias or function) or else redirected to a file which can then be read in. From the C shell (usually known as <span Class="emphasis">/bin/csh</span>), the following alias could be defined in the user's <span Class="emphasis">.cshrc</span>: 
+<p class="level0"><pre class="level0">
+&nbsp;       %  alias rs *(AQset noglob; eval fC`</span>*nfC`</span>*(AQ
+</pre>
+
+<p class="level0">
+<p class="level0">After resizing the window, the user would type: 
+<p class="level0"><pre class="level0">
+&nbsp;       %  rs
+</pre>
+
+<p class="level0">
+<p class="level0">Users of versions of the Bourne shell (usually known as <span Class="emphasis">/bin/sh</span>) that don't have command functions will need to send the output to a temporary file and then read it back in with the *(``.*('' command: 
+<p class="level0"><pre class="level0">
+&nbsp;       $  *n &gt; /tmp/out
+&nbsp;       $  .0/tmp/out
+</pre>
+
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The following options may be used with <span Class="emphasis">*n</span>: 
+<p class="level0"><span Class="bold">-c</span> This option indicates that C shell commands should be generated even if the user's current shell is not <span Class="emphasis">/bin/csh</span>. 
+<p class="level0"><span Class="bold">-s [rows columns]</span> This option indicates that Sun console escape sequences will be used instead of the VT100-style <span Class="emphasis">xterm</span> escape codes. If <span Class="emphasis">rows</span> and <span Class="emphasis">columns</span> are given, <span Class="emphasis">*n</span> will ask the <span Class="emphasis">xterm</span> to resize itself using those values. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Both of the escape sequences used for this option (first to obtain the window size and second to modify it) are subject to <span Class="emphasis">xterm</span>'s <span Class="bold">allowWindowOps</span> resource setting. The window manager may also choose to disallow the change. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The VT100-style escape sequence used to determine the screen size always works for VT100-compatible terminals. VT100s have no corresponding way to modify the screensize. 
+<p class="level1"><span Class="bold">-u</span> This option indicates that Bourne shell commands should be generated even if the user's current shell is not <span Class="emphasis">/bin/sh</span>. 
+<p class="level1"><span Class="bold">-v</span> This causes <span Class="emphasis">*n</span> to print a version number to the standard output, and then exit. 
+<p class="level1">Note that the Sun console escape sequences are recognized by XFree86 <span Class="emphasis">xterm</span> and by <span Class="emphasis">dtterm</span>. The <span Class="emphasis">*n</span> program may be installed as <span Class="emphasis">sunsize</span>, which causes makes it assume the <span Class="bold">-s</span> option. 
+<p class="level1">The <span Class="emphasis">rows</span> and <span Class="emphasis">columns</span> arguments must appear last; though they are normally associated with the <span Class="bold">-s</span> option, they are parsed separately. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/termcap for the base termcap entry to modify. 
+<p class="level0">~/.cshrc user's alias for the command. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">SHELL <span Class="emphasis">\*N</span> determines the user's current shell by first checking if <span Class="bold">$SHELL</span> is set, and using that. Otherwise it determines the user's shell by looking in the password file (/etc/passwd). Generally Bourne-shell variants (including <span Class="emphasis">ksh</span>) do not modify <span Class="bold">$SHELL</span>, so it is possible for <span Class="emphasis">*n</span> to be confused if one runs <span Class="emphasis">*n</span> from a Bourne shell spawned from a C shell. 
+<p class="level0">TERM <span Class="emphasis">\*N</span> sets this to "xterm" if not already set. 
+<p class="level0">TERMCAP <span Class="emphasis">\*N</span> sets this variable on systems using termcap, e.g., when *n is linked with the <span Class="emphasis">termcap</span> library rather than a <span Class="emphasis">terminfo</span> library. The latter does not provide the complete text for a termcap entry. 
+<p class="level0">COLUMNS, LINES <span Class="emphasis">\*N</span> sets these variables on systems using terminfo. Many applications (including the curses library)  use those variables when set to override their screensize. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">use_env(3) <br>csh(1), stty(1), tset(1) <br>xterm(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Mark Vandevoorde (MIT-Athena), Edward Moy (Berkeley) <br>Thomas Dickey (invisible-island.net). <br>Copyright (c) 1984, 1985 by X Consortium <br>See <span Class="emphasis">X (7)</span> for a complete copyright notice. 

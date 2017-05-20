@@ -1,0 +1,427 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_upgrade - upgrade a PostgreSQL server instance <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_upgrade</span> <span Class="bold">-b</span> <span Class="emphasis">oldbindir</span> <span Class="bold">-B</span> <span Class="emphasis">newbindir</span> <span Class="bold">-d</span> <span Class="emphasis">olddatadir</span> <span Class="bold">-D</span> <span Class="emphasis">newdatadir</span> [<span Class="emphasis">option</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_upgrade (formerly called pg_migrator) allows data stored in PostgreSQL data files to be upgraded to a later PostgreSQL major version without the data dump/reload typically required for major version upgrades, e.g. from 8.4.7 to the current major release of PostgreSQL. It is not required for minor version upgrades, e.g. from 9.0.1 to 9.0.4. 
+<p class="level0">Major PostgreSQL releases regularly add new features that often change the layout of the system tables, but the internal data storage format rarely changes. pg_upgrade uses this fact to perform rapid upgrades by creating new system tables and simply reusing the old user data files. If a future major release ever changes the data storage format in a way that makes the old data format unreadable, pg_upgrade will not be usable for such upgrades. (The community will attempt to avoid such situations.) 
+<p class="level0">
+<p class="level0">pg_upgrade does its best to make sure the old and new clusters are binary-compatible, e.g. by checking for compatible compile-time settings, including 32/64-bit binaries. It is important that any external modules are also binary compatible, though this cannot be checked by pg_upgrade. 
+<p class="level0">pg_upgrade supports upgrades from 8.3.X and later to the current major release of PostgreSQL, including snapshot and alpha releases. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_upgrade accepts the following command-line arguments: 
+<p class="level0"><span Class="bold">-b</span> <span Class="emphasis">bindir</span> <br><span Class="bold">--old-bindir=</span><span Class="emphasis">bindir</span> 
+<p class="level1">the old PostgreSQL executable directory; environment variable <span Class="bold">PGBINOLD</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-B</span> <span Class="emphasis">bindir</span> <br><span Class="bold">--new-bindir=</span><span Class="emphasis">bindir</span> 
+<p class="level1">the new PostgreSQL executable directory; environment variable <span Class="bold">PGBINNEW</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> <br><span Class="bold">--check</span> 
+<p class="level1">check clusters only, don*(Aqt change any data 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> <span Class="emphasis">datadir</span> <br><span Class="bold">--old-datadir=</span><span Class="emphasis">datadir</span> 
+<p class="level1">the old cluster data directory; environment variable <span Class="bold">PGDATAOLD</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-D</span> <span Class="emphasis">datadir</span> <br><span Class="bold">--new-datadir=</span><span Class="emphasis">datadir</span> 
+<p class="level1">the new cluster data directory; environment variable <span Class="bold">PGDATANEW</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-j</span> <br><span Class="bold">--jobs</span> 
+<p class="level1">number of simultaneous processes or threads to use 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span> <br><span Class="bold">--link</span> 
+<p class="level1">use hard links instead of copying files to the new cluster (use junction points on Windows) 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span> <span Class="emphasis">options</span> <br><span Class="bold">--old-options</span> <span Class="emphasis">options</span> 
+<p class="level1">options to be passed directly to the old <span Class="bold">postgres</span> command 
+<p class="level0">
+<p class="level0"><span Class="bold">-O</span> <span Class="emphasis">options</span> <br><span Class="bold">--new-options</span> <span Class="emphasis">options</span> 
+<p class="level1">options to be passed directly to the new <span Class="bold">postgres</span> command 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span> <span Class="emphasis">port</span> <br><span Class="bold">--old-port=</span><span Class="emphasis">port</span> 
+<p class="level1">the old cluster port number; environment variable <span Class="bold">PGPORTOLD</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-P</span> <span Class="emphasis">port</span> <br><span Class="bold">--new-port=</span><span Class="emphasis">port</span> 
+<p class="level1">the new cluster port number; environment variable <span Class="bold">PGPORTNEW</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> <br><span Class="bold">--retain</span> 
+<p class="level1">retain SQL and log files even after successful completion 
+<p class="level0">
+<p class="level0"><span Class="bold">-U</span> <span Class="emphasis">username</span> <br><span Class="bold">--username=</span><span Class="emphasis">username</span> 
+<p class="level1">cluster*(Aqs super user name; environment variable <span Class="bold">PGUSER</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">enable verbose internal logging 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">display version information, then exit 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">show help, then exit 
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">These are the steps to perform an upgrade with pg_upgrade: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">Optionally move the old cluster: If you are using a version-specific installation directory, e.g. /opt/PostgreSQL/9.1, you do not need to move the old cluster. The graphical installers all use version-specific installation directories. 
+<p class="level1">If your installation directory is not version-specific, e.g. /usr/local/pgsql, it is necessary to move the current PostgreSQL install directory so it does not interfere with the new PostgreSQL installation. Once the current PostgreSQL server is shut down, it is safe to rename the PostgreSQL installation directory; assuming the old directory is /usr/local/pgsql, you can do: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+mv /usr/local/pgsql /usr/local/pgsql.old
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">to rename the directory. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">For source installs, build the new version: Build the new PostgreSQL source with <span Class="bold">configure</span> flags that are compatible with the old cluster. pg_upgrade will check <span Class="bold">pg_controldata</span> to make sure all settings are compatible before starting the upgrade. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">Install the new PostgreSQL binaries: Install the new server*(Aqs binaries and support files. 
+<p class="level1">For source installs, if you wish to install the new server in a custom location, use the prefix variable: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+make prefix=/usr/local/pgsql.new install
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">Install pg_upgrade and pg_upgrade_support: Install the pg_upgrade binary and pg_upgrade_support library in the new PostgreSQL installation. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 5.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level1">
+<p class="level1">Initialize the new PostgreSQL cluster: Initialize the new cluster using <span Class="bold">initdb</span>. Again, use compatible <span Class="bold">initdb</span> flags that match the old cluster. Many prebuilt installers do this step automatically. There is no need to start the new cluster. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 6.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  6. 4.2</span> 
+<p class="level1">
+<p class="level1">Install custom shared object files: Install any custom shared object files (or DLLs) used by the old cluster into the new cluster, e.g. pgcrypto.so, whether they are from contrib or some other source. Do not install the schema definitions, e.g. pgcrypto.sql, because these will be upgraded from the old cluster. Also, any custom full text search files (dictionary, synonym, thesaurus, stop words) must also be copied to the new cluster. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 7.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  7. 4.2</span> 
+<p class="level1">
+<p class="level1">Adjust authentication:  <span Class="bold">pg_upgrade</span> will connect to the old and new servers several times, so you might want to set authentication to peer in pg_hba.conf or use a ~/.pgpass file (see Section 31.15, (lqThe Password File(rq, in the documentation). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 8.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  8. 4.2</span> 
+<p class="level1">
+<p class="level1">Stop both servers: Make sure both database servers are stopped using, on Unix, e.g.: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+pg_ctl -D /opt/PostgreSQL/8.4 stop
+pg_ctl -D /opt/PostgreSQL/9.0 stop
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">or on Windows, using the proper service names: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+NET STOP postgresql-8.4
+NET STOP postgresql-9.0
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">or 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+NET STOP pgsql-8.3  (PostgreSQL 8.3 and older used a different service name)
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 9.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  9. 4.2</span> 
+<p class="level1">
+<p class="level1">Run pg_upgrade: Always run the pg_upgrade binary of the new server, not the old one. pg_upgrade requires the specification of the old and new cluster*(Aqs data and executable (bin) directories. You can also specify user and port values, and whether you want the data linked instead of copied (the default). 
+<p class="level1">If you use link mode, the upgrade will be much faster (no file copying) and use less disk space, but you will not be able to access your old cluster once you start the new cluster after the upgrade. Link mode also requires that the old and new cluster data directories be in the same file system. (Tablespaces and pg_xlog can be on different file systems.) See pg_upgrade --help for a full list of options. 
+<p class="level1">The <span Class="bold">--jobs</span> option allows multiple CPU cores to be used for copying/linking of files and to dump and reload database schemas in parallel; a good place to start is the maximum of the number of CPU cores and tablespaces. This option can dramatically reduce the time to upgrade a multi-database server running on a multiprocessor machine. 
+<p class="level1">For Windows users, you must be logged into an administrative account, and then start a shell as the postgres user and set the proper path: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+RUNAS /USER:postgres "CMD.EXE"
+SET PATH=%PATH%;C:eProgram FilesePostgreSQLe9.0ebin;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">and then run pg_upgrade with quoted directories, e.g.: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+pg_upgrade.exe
+&nbsp;       --old-datadir "C:/Program Files/PostgreSQL/8.4/data"
+&nbsp;       --new-datadir "C:/Program Files/PostgreSQL/9.0/data"
+&nbsp;       --old-bindir "C:/Program Files/PostgreSQL/8.4/bin"
+&nbsp;       --new-bindir "C:/Program Files/PostgreSQL/9.0/bin"
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Once started, <span Class="bold">pg_upgrade</span> will verify the two clusters are compatible and then do the upgrade. You can use <span Class="bold">pg_upgrade --check</span> to perform only the checks, even if the old server is still running. <span Class="bold">pg_upgrade --check</span> will also outline any manual adjustments you will need to make after the upgrade. If you are going to be using link mode, you should use the <span Class="bold">--link</span> option with <span Class="bold">--check</span> to enable link-mode-specific checks. <span Class="bold">pg_upgrade</span> requires write permission in the current directory. 
+<p class="level1">Obviously, no one should be accessing the clusters during the upgrade. pg_upgrade defaults to running servers on port 50432 to avoid unintended client connections. You can use the same port number for both clusters when doing an upgrade because the old and new clusters will not be running at the same time. However, when checking an old running server, the old and new port numbers must be different. 
+<p class="level1">If an error occurs while restoring the database schema, <span Class="bold">pg_upgrade</span> will exit and you will have to revert to the old cluster as outlined in Step 14 below. To try <span Class="bold">pg_upgrade</span> again, you will need to modify the old cluster so the pg_upgrade schema restore succeeds. If the problem is a contrib module, you might need to uninstall the contrib module from the old cluster and install it in the new cluster after the upgrade, assuming the module is not being used to store user data. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 10.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  10. 4.2</span> 
+<p class="level1">
+<p class="level1">Restore pg_hba.conf: If you modified pg_hba.conf, restore its original settings. It might also be necessary to adjust other configuration files in the new cluster to match the old cluster, e.g. postgresql.conf. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 11.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  11. 4.2</span> 
+<p class="level1">
+<p class="level1">Post-Upgrade processing: If any post-upgrade processing is required, pg_upgrade will issue warnings as it completes. It will also generate script files that must be run by the administrator. The script files will connect to each database that needs post-upgrade processing. Each script should be run using: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+psql --username postgres --file script.sql postgres
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">The scripts can be run in any order and can be deleted once they have been run. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2"><br>
+<p class="level2"><span Class="bold">Caution</span> 
+<p class="level2"><br>In general it is unsafe to access tables referenced in rebuild scripts until the rebuild scripts have run to completion; doing so could yield incorrect results or poor performance. Tables not referenced in rebuild scripts can be accessed immediately. 
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 12.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  12. 4.2</span> 
+<p class="level1">
+<p class="level1">Statistics: Because optimizer statistics are not transferred by <span Class="bold">pg_upgrade</span>, you will be instructed to run a command to regenerate that information at the end of the upgrade. You might need to set connection parameters to match your new cluster. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 13.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  13. 4.2</span> 
+<p class="level1">
+<p class="level1">Delete old cluster: Once you are satisfied with the upgrade, you can delete the old cluster*(Aqs data directories by running the script mentioned when <span Class="bold">pg_upgrade</span> completes. (Automatic deletion is not possible if you have user-defined tablespaces inside the old data directory.) You can also delete the old installation directories (e.g. bin, share). 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 14.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  14. 4.2</span> 
+<p class="level1">
+<p class="level1">Reverting to old cluster: If, after running <span Class="bold">pg_upgrade</span>, you wish to revert to the old cluster, there are several options: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">If you ran <span Class="bold">pg_upgrade</span> with <span Class="bold">--check</span>, no modifications were made to the old cluster and you can re-use it anytime. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">If you ran <span Class="bold">pg_upgrade</span> with <span Class="bold">--link</span>, the data files are shared between the old and new cluster. If you started the new cluster, the new server has written to those shared files and it is unsafe to use the old cluster. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">If you ran <span Class="bold">pg_upgrade</span> <span Class="emphasis">without</span> <span Class="bold">--link</span> or did not start the new server, the old cluster was not modified except that, if linking started, a .old suffix was appended to $PGDATA/global/pg_control. To reuse the old cluster, possibly remove the .old suffix from $PGDATA/global/pg_control; you can then restart the old cluster. 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_upgrade does not support upgrading of databases containing these reg* OID-referencing system data types: regproc, regprocedure, regoper, regoperator, regconfig, and regdictionary. (regtype can be upgraded.) 
+<p class="level0">All failure, rebuild, and reindex cases will be reported by pg_upgrade if they affect your installation; post-upgrade scripts to rebuild tables and indexes will be generated automatically. If you are trying to automate the upgrade of many clusters, you should find that clusters with identical database schemas require the same post-upgrade steps for all cluster upgrades; this is because the post-upgrade steps are based on the database schemas, and not user data. 
+<p class="level0">For deployment testing, create a schema-only copy of the old cluster, insert dummy data, and upgrade that. 
+<p class="level0">If you are upgrading a pre-PostgreSQL 9.2 cluster that uses a configuration-file-only directory, you must pass the real data directory location to pg_upgrade, and pass the configuration directory location to the server, e.g. -d /real-data-directory -o *(Aq-D /configuration-directory*(Aq. 
+<p class="level0">If using a pre-9.1 old server that is using a non-default Unix-domain socket directory or a default that differs from the default of the new cluster, set <span Class="bold">PGHOST</span> to point to the old server*(Aqs socket location. (This is not relevant on Windows.) 
+<p class="level0">A Log-Shipping Standby Server (Section 25.2, (lqLog-Shipping Standby Servers(rq, in the documentation) cannot be upgraded because the server must allow writes. The simplest way is to upgrade the primary and use <span Class="bold">rsync</span> to rebuild the standbys. You can run <span Class="bold">rsync</span> while the primary is down, or as part of a base backup (Section 24.3.2, (lqMaking a Base Backup(rq, in the documentation) which overwrites the old standby cluster. 
+<p class="level0">If you want to use link mode and you do not want your old cluster to be modified when the new cluster is started, make a copy of the old cluster and upgrade that in link mode. To make a valid copy of the old cluster, use <span Class="bold">rsync</span> to create a dirty copy of the old cluster while the server is running, then shut down the old server and run <span Class="bold">rsync</span> again to update the copy with any changes to make it consistent. You might want to exclude some files, e.g. postmaster.pid, as documented in Section 24.3.3, (lqMaking a Base Backup Using the Low Level API(rq, in the documentation. If your file system supports file system snapshots or copy-on-write file copies, you can use that to make a backup of the old cluster and tablespaces, though the snapshot and copies must be created simultaneously or while the database server is down. <a name="Limitations"></a><h2 class="nroffsh">Limitations in Upgrading from PostgreSQL 8\&.3</h2>
+<p class="level0">
+<p class="level0">Upgrading <span Class="emphasis">from</span> PostgreSQL 8.3 has additional restrictions not present when upgrading from later PostgreSQL releases. For example, pg_upgrade will not work for upgrading from 8.3 if a user column is defined as: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">a tsquery data type 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">data type name and is not the first column 
+<p class="level0">
+<p class="level0">You must drop any such columns and upgrade them manually. 
+<p class="level0">pg_upgrade will not work if the ltree contrib module is installed in a database. 
+<p class="level0">pg_upgrade will require a table rebuild if: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">a user column is of data type tsvector 
+<p class="level0">
+<p class="level0">pg_upgrade will require a reindex if: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">an index is of type hash or GIN 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">an index uses <span Class="bold">bpchar_pattern_ops</span> 
+<p class="level0">
+<p class="level0">Also, the default datetime storage format changed to integer after PostgreSQL 8.3. pg_upgrade will check that the datetime storage format used by the old and new clusters match. Make sure your new cluster is built with the configure flag <span Class="bold">--disable-integer-datetimes</span>. 
+<p class="level0">For Windows users, note that due to different integer datetimes settings used by the graphical installer and the MSI installer, it is only possible to upgrade from version 8.3 of the installer distribution to version 8.4 or later of the installer distribution. It is not possible to upgrade from the MSI installer to the new graphical installer. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">initdb</span>(1), <span Class="bold">pg_ctl</span>(1), <span Class="bold">pg_dump</span>(1), <span Class="bold">postgres</span>(1) 

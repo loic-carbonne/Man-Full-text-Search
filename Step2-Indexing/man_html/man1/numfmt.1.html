@@ -1,0 +1,66 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">numfmt - Convert numbers from/to human-readable strings <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">numfmt</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">NUMBER</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Reformat NUMBER(s), or the numbers from standard input if none are specified. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">--debug</span> print warnings about invalid input 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--delimiter</span>=<span Class="emphasis">X</span> use X instead of whitespace for field delimiter 
+<p class="level0"><span Class="bold">--field</span>=<span Class="emphasis">N</span> replace the number in input field N (default is 1) 
+<p class="level0"><span Class="bold">--format</span>=<span Class="emphasis">FORMAT</span> use printf style floating-point FORMAT; see FORMAT below for details 
+<p class="level0"><span Class="bold">--from</span>=<a class="emphasis" href="#UNIT">UNIT</a> auto-scale input numbers to UNITs; default is 'none'; see UNIT below 
+<p class="level0"><span Class="bold">--from-unit</span>=<span Class="emphasis">N</span> specify the input unit size (instead of the default 1) 
+<p class="level0"><span Class="bold">--grouping</span> use locale-defined grouping of digits, e.g. 1,000,000 (which means it has no effect in the C/POSIX locale) 
+<p class="level0"><span Class="bold">--header</span>[=<span Class="emphasis">N</span>] print (without converting) the first N header lines; N defaults to 1 if not specified 
+<p class="level0"><span Class="bold">--invalid</span>=<span Class="emphasis">MODE</span> failure mode for invalid numbers: MODE can be: abort (default), fail, warn, ignore 
+<p class="level0"><span Class="bold">--padding</span>=<span Class="emphasis">N</span> pad the output to N characters; positive N will right-align; negative N will left-align; padding is ignored if the output is wider than N; the default is to automatically pad if a whitespace is found 
+<p class="level0"><span Class="bold">--round</span>=<span Class="emphasis">METHOD</span> use METHOD for rounding when scaling; METHOD can be: up, down, from-zero (default), towards-zero, nearest 
+<p class="level0"><span Class="bold">--suffix</span>=<span Class="emphasis">SUFFIX</span> add SUFFIX to output numbers, and accept optional SUFFIX in input numbers 
+<p class="level0"><span Class="bold">--to</span>=<a class="emphasis" href="#UNIT">UNIT</a> auto-scale output numbers to UNITs; see UNIT below 
+<p class="level0"><span Class="bold">--to-unit</span>=<span Class="emphasis">N</span> the output unit size (instead of the default 1) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit <a name="UNIT"></a><h2 class="nroffsh">UNIT options:</h2>
+<p class="level0">
+<p class="level0">none no auto-scaling is done; suffixes will trigger an error 
+<p class="level0">auto accept optional single/two letter suffix: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">1K = 1000, 1Ki = 1024, 1M = 1000000, 1Mi = 1048576, 
+<p class="level1">si accept optional single letter suffix: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">1K = 1000, 1M = 1000000, ... 
+<p class="level1">iec accept optional single letter suffix: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">1K = 1024, 1M = 1048576, ... 
+<p class="level1">iec-i accept optional two-letter suffix: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">1Ki = 1024, 1Mi = 1048576, ... 
+<p class="level1">FORMAT must be suitable for printing one floating-point argument '%f'. Optional quote (%'f) will enable <span Class="bold">--grouping</span> (if supported by current locale). Optional width value (%10f) will pad output. Optional zero (%010f) width will zero pad the number. Optional negative values (%-10f) will left align. 
+<p class="level1">Exit status is 0 if all input numbers were successfully converted. By default, numfmt will stop at the first conversion error with exit status 2. With <span Class="bold">--invalid=</span>'fail' a warning is printed for each conversion error and the exit status is 2.  With <span Class="bold">--invalid=</span>'warn' each conversion error is diagnosed, but the exit status is 0.  With <span Class="bold">--invalid=</span>'ignore' conversion errors are not diagnosed and the exit status is 0. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ numfmt --to=si 1000</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">-&gt; "1.0K" 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ numfmt --to=iec 2048</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">-&gt; "2.0K" 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ numfmt --to=iec-i 4096</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">-&gt; "4.0Ki" 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ echo 1K | numfmt --from=si</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">-&gt; "1000" 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ echo 1K | numfmt --from=iec</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">-&gt; "1024" 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">f(CW$ df | numfmt --header --field 2 --to=si</span> <br>f(CW$ ls -l | numfmt --header --field 5 --to=iec</span> <br>f(CW$ ls -lh | numfmt --header --field 5 --from=iec --padding=10</span> <br>f(CW$ ls -lh | numfmt --header --field 5 --from=iec --format %10f</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Assaf Gordon. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report numfmt translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/numfmt&gt; <br>or available locally via: info (aq(coreutils) numfmt invocation(aq 

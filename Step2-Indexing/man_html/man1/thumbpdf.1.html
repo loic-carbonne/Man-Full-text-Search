@@ -1,0 +1,64 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME </h2>
+<p class="level0">thumbpdf - generate thumbnail images for a PDF file created with <span Class="bold">pdftex</span> 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">thumbpdf</span> [ <span Class="emphasis">OPTION</span>... ]  <span Class="emphasis">PDF_FILE</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">thumbpdf</span> is used to create thumbnail images of individual pages within a PDF (Portable Document Format) document. 
+<p class="level0"><a name="USAGE"></a><h2 class="nroffsh">USAGE </h2>
+<p class="level0">
+<p class="level0">First run <span Class="bold">pdftex</span>(1) on your document to create a PDF file. Then run <span Class="bold">thumbpdf</span> to generate the thumbnails, a PDF file containing the thumbnails, and a pdfTeX file to include the thumbnails in the PDF file.  Finally, run <span Class="bold">pdftex</span>(1) on your file again to create the final PDF file. 
+<p class="level0"><span Class="bold">thumbpdf</span> calls <span Class="bold">gs</span>(1) to generate PNG images of the pages within <span Class="emphasis">PDF_FILE</span>, and <span Class="bold">pdftex</span>(1) to create a PDF file containing the thumbnail images. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS </h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB--helpfP"></a><span class="nroffip">\fB--help\fP </span> 
+<p class="level1">print usage 
+<p class="level0"><a name="fB--nomakepngfP"></a><span class="nroffip">\fB--(no)makepng\fP </span> 
+<p class="level1">make PNG thumbnail images (default: true) 
+<p class="level0"><a name="fB--nomakepdffP"></a><span class="nroffip">\fB--(no)makepdf\fP </span> 
+<p class="level1">generate new PDF file containing the thumbnails (default: true) 
+<p class="level0"><a name="fB--nomakedeffP"></a><span class="nroffip">\fB--(no)makedef\fP </span> 
+<p class="level1">create a TeX file for <span Class="bold">pdftex</span>(1) to read in (default: true) 
+<p class="level0"><a name="fB--noquietfP"></a><span class="nroffip">\fB--(no)quiet\fP </span> 
+<p class="level1">suppress messages (default: false) 
+<p class="level0"><a name="fB--noverbosefP"></a><span class="nroffip">\fB--(no)verbose\fP </span> 
+<p class="level1">verbose messages (default: false) 
+<p class="level0"><a name="fB--nodebugfP"></a><span class="nroffip">\fB--(no)debug\fP </span> 
+<p class="level1">print debugging information while parsing (default: false) 
+<p class="level0"><a name="fB--resolutionfP"></a><span class="nroffip">\fB--resolution\fP \fIres\fP </span> 
+<p class="level1">resolution for GhostScript step (default: 9) 
+<p class="level0"><a name="fB--compressfP"></a><span class="nroffip">\fB--compress\fP \fIn\fP </span> 
+<p class="level1">epdfcompresslevel for <span Class="bold">thumbpdf.pdf</span> (0-9; default: 9) 
+<p class="level0"><a name="fB--devicefP"></a><span class="nroffip">\fB--device\fP | \fBpng\fP\fIdev\fP </span> 
+<p class="level1">GhostScript PNG device; <span Class="emphasis">dev</span> = `mono&acute;, `gray&acute;, `16&acute;, `256&acute;, `16m&acute; (default: `png16m&acute;) 
+<p class="level1"><a name="FILES"></a><h2 class="nroffsh">FILES </h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fIthumbfPnnfIpngfP"></a><span class="nroffip">\fIthumb\fPnn\fI\&.png\fP </span> 
+<p class="level1">PNG thumbnail images 
+<p class="level0"><a name="fIthumbpdfpdffP"></a><span class="nroffip">\fIthumbpdf\&.pdf\fP </span> 
+<p class="level1">PDF file containing thumbnail images 
+<p class="level0"><a name="fIthumbpdftexfP"></a><span class="nroffip">\fIthumbpdf\&.tex\fP </span> 
+<p class="level1">A pdfTeX program to include the thumbnails file 
+<p class="level0"><a name="fIthumbpdflogfP"></a><span class="nroffip">\fIthumbpdf\&.log\fP </span> 
+<p class="level1">pdfTeX log file 
+<p class="level0"><a name="fIthumbpdfstyfP"></a><span class="nroffip">\fIthumbpdf\&.sty\fP </span> 
+<p class="level1">a LaTeX package to be included in files for which a user wants to generate thumbnails 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gs</span>(1), <span Class="bold">pdftex</span>(1). 
+<p class="level0">Web page: &lt;http://tug.org/teTeX/&gt; 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS </h2>
+<p class="level0">
+<p class="level0">None known, but report any bugs found to the author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT </h2>
+<p class="level0">
+<p class="level0">Copyright Â[co] 1999.  <span Class="bold">thumbpdf</span> is distributed under version 1, or (at your option) a later version of the LaTeX Project Public License. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">thumbpdf</span> was written by Heiko Oberdiek &lt;oberdiek@ruf.uni-freiburg.de&gt;. 
+<p class="level0">This manual page was written by C.M. Connelly &lt;c@eskimo.com&gt;, for the Debian GNU/Linux system.  It may be used by other distributions without contacting the author.  Any mistakes or omissions in the manual page are my fault; inquiries about or corrections to this manual page should be directed to me (and not to the primary author). 

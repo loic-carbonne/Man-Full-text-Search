@@ -1,0 +1,493 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemctl - Control the systemd system and service manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemctl</span> [OPTIONS...] COMMAND [NAME...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemctl</span> may be used to introspect and control the state of the <span Class="bold">systemd</span>(1) system and service manager. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--type=</span> 
+<p class="level1">The argument should be a comma-separated list of unit types such as <span Class="bold">service</span> and <span Class="bold">socket</span>. 
+<p class="level1">If one of the arguments is a unit type, when listing units, limit display to certain unit types. Otherwise, units of all types will be shown. 
+<p class="level1">As a special case, if one of the arguments is <span Class="bold">help</span>, a list of allowed values will be printed and the program will exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--state=</span> 
+<p class="level1">The argument should be a comma-separated list of unit LOAD, SUB, or ACTIVE states. When listing units, show only those in specified states. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--property=</span> 
+<p class="level1">When showing unit/job/manager properties with the <span Class="bold">show</span> command, limit display to certain properties as specified as argument. If not specified, all set properties are shown. The argument should be a comma-separated list of property names, such as "MainPID". If specified more than once, all properties with the specified names are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> 
+<p class="level1">When listing units, show all loaded units, regardless of their state, including inactive units. When showing unit/job/manager properties, show all properties regardless whether they are set or not. 
+<p class="level1">To list all units installed on the system, use the <span Class="bold">list-unit-files</span> command instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--recursive</span> 
+<p class="level1">When listing units, also show units of local containers. Units of local containers will be prefixed with the container name, separated by a single colon character (":"). 
+<p class="level0">
+<p class="level0"><span Class="bold">--reverse</span> 
+<p class="level1">Show reverse dependencies between units with <span Class="bold">list-dependencies</span>, i.e. units with dependencies of type <span Class="emphasis">Wants=</span> or <span Class="emphasis">Requires=</span> on the given unit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--after</span> 
+<p class="level1">With <span Class="bold">list-dependencies</span>, show the units that are ordered before the specified unit. In other words, list the units that are in the <span Class="emphasis">After=</span> directive of the specified unit, have the specified unit in their <span Class="emphasis">Before=</span> directive, or are otherwise implicit dependencies of the specified unit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--before</span> 
+<p class="level1">With <span Class="bold">list-dependencies</span>, show the units that are ordered after the specified unit. In other words, list the units that are in the <span Class="emphasis">Before=</span> directive of the specified unit, have the specified unit in their <span Class="emphasis">After=</span> directive, or otherwise depend on the specified unit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--full</span> 
+<p class="level1">Do not ellipsize unit names, process tree entries, journal output, or truncate unit descriptions in the output of <span Class="bold">status</span>, <span Class="bold">list-units</span>, <span Class="bold">list-jobs</span>, and <span Class="bold">list-timers</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--show-types</span> 
+<p class="level1">When showing sockets, show the type of the socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">--job-mode=</span> 
+<p class="level1">When queuing a new job, this option controls how to deal with already queued jobs. It takes one of "fail", "replace", "replace-irreversibly", "isolate", "ignore-dependencies", "ignore-requirements" or "flush". Defaults to "replace", except when the <span Class="bold">isolate</span> command is used which implies the "isolate" job mode. 
+<p class="level1">If "fail" is specified and a requested operation conflicts with a pending job (more specifically: causes an already pending start job to be reversed into a stop job or vice versa), cause the operation to fail. 
+<p class="level1">If "replace" (the default) is specified, any conflicting pending job will be replaced, as necessary. 
+<p class="level1">If "replace-irreversibly" is specified, operate like "replace", but also mark the new jobs as irreversible. This prevents future conflicting transactions from replacing these jobs (or even being enqueued while the irreversible jobs are still pending). Irreversible jobs can still be cancelled using the <span Class="bold">cancel</span> command. 
+<p class="level1">"isolate" is only valid for start operations and causes all other units to be stopped when the specified unit is started. This mode is always used when the <span Class="bold">isolate</span> command is used. 
+<p class="level1">"flush" will cause all queued jobs to be canceled when the new job is enqueued. 
+<p class="level1">If "ignore-dependencies" is specified, then all unit dependencies are ignored for this new job and the operation is executed immediately. If passed, no required units of the unit passed will be pulled in, and no ordering dependencies will be honored. This is mostly a debugging and rescue tool for the administrator and should not be used by applications. 
+<p class="level1">"ignore-requirements" is similar to "ignore-dependencies", but only causes the requirement dependencies to be ignored, the ordering dependencies will still be honoured. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ignore-inhibitors</span> 
+<p class="level1">When system shutdown or a sleep state is requested, ignore inhibitor locks. Applications can establish inhibitor locks to avoid that certain important operations (such as CD burning or suchlike) are interrupted by system shutdown or a sleep state. Any user may take these locks and privileged users may override these locks. If any locks are taken, shutdown and sleep state requests will normally fail (regardless of whether privileged or not) and a list of active locks is printed. However, if <span Class="bold">--ignore-inhibitors</span> is specified, the locks are ignored and not printed, and the operation attempted anyway, possibly requiring additional privileges. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Suppress output to standard output in <span Class="bold">snapshot</span>, <span Class="bold">is-active</span>, <span Class="bold">is-failed</span>, <span Class="bold">is-enabled</span>, <span Class="bold">is-system-running</span>, <span Class="bold">enable</span> and <span Class="bold">disable</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-block</span> 
+<p class="level1">Do not synchronously wait for the requested operation to finish. If this is not specified, the job will be verified, enqueued and <span Class="bold">systemctl</span> will wait until it is completed. By passing this argument, it is only verified and enqueued. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-legend</span> 
+<p class="level1">Do not print the legend, i.e. the column headers and the footer with hints. 
+<p class="level0">
+<p class="level0"><span Class="bold">--user</span> 
+<p class="level1">Talk to the service manager of the calling user, rather than the service manager of the system. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span> 
+<p class="level1">Talk to the service manager of the system. This is the implied default. 
+<p class="level0">
+<p class="level0"><span Class="bold">--failed</span> 
+<p class="level1">List units in failed state. This is equivalent to <span Class="bold">--state=failed</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-wall</span> 
+<p class="level1">Do not send wall message before halt, power-off, reboot. 
+<p class="level0">
+<p class="level0"><span Class="bold">--global</span> 
+<p class="level1">When used with <span Class="bold">enable</span> and <span Class="bold">disable</span>, operate on the global user configuration directory, thus enabling or disabling a unit file globally for all future logins of all users. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-reload</span> 
+<p class="level1">When used with <span Class="bold">enable</span> and <span Class="bold">disable</span>, do not implicitly reload daemon configuration after executing the changes. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-ask-password</span> 
+<p class="level1">When used with <span Class="bold">start</span> and related commands, disables asking for passwords. Background services may require input of a password or passphrase string, for example to unlock system hard disks or cryptographic certificates. Unless this option is specified and the command is invoked from a terminal, <span Class="bold">systemctl</span> will query the user on the terminal for the necessary secrets. Use this option to switch this behavior off. In this case, the password must be supplied by some other means (for example graphical password agents) or the service might fail. This also disables querying the user for authentication for privileged operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">--kill-who=</span> 
+<p class="level1">When used with <span Class="bold">kill</span>, choose which processes to send a signal to. Must be one of <span Class="bold">main</span>, <span Class="bold">control</span> or <span Class="bold">all</span> to select whether to kill only the main process, the control process or all processes of the unit. The main process of the unit is the one that defines the life-time of it. A control process of a unit is one that is invoked by the manager to induce state changes of it. For example, all processes started due to the <span Class="emphasis">ExecStartPre=</span>, <span Class="emphasis">ExecStop=</span> or <span Class="emphasis">ExecReload=</span> settings of service units are control processes. Note that there is only one control process per unit at a time, as only one state change is executed at a time. For services of type <span Class="emphasis">Type=forking</span>, the initial process started by the manager for <span Class="emphasis">ExecStart=</span> is a control process, while the process ultimately forked off by that one is then considered the main process of the unit (if it can be determined). This is different for service units of other types, where the process forked off by the manager for <span Class="emphasis">ExecStart=</span> is always the main process itself. A service unit consists of zero or one main process, zero or one control process plus any number of additional processes. Not all unit types manage processes of these types however. For example, for mount units, control processes are defined (which are the invocations of /bin/mount and /bin/umount), but no main process is defined. If omitted, defaults to <span Class="bold">all</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--signal=</span> 
+<p class="level1">When used with <span Class="bold">kill</span>, choose which signal to send to selected processes. Must be one of the well known signal specifiers such as <span Class="bold">SIGTERM</span>, <span Class="bold">SIGINT</span> or <span Class="bold">SIGSTOP</span>. If omitted, defaults to <span Class="bold">SIGTERM</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> 
+<p class="level1">When used with <span Class="bold">enable</span>, overwrite any existing conflicting symlinks. 
+<p class="level1">When used with <span Class="bold">halt</span>, <span Class="bold">poweroff</span>, <span Class="bold">reboot</span> or <span Class="bold">kexec</span>, execute the selected operation without shutting down all units. However, all processes will be killed forcibly and all file systems are unmounted or remounted read-only. This is hence a drastic but relatively safe option to request an immediate reboot. If <span Class="bold">--force</span> is specified twice for these operations, they will be executed immediately without terminating any processes or unmounting any file systems. Warning: specifying <span Class="bold">--force</span> twice with any of these operations might result in data loss. 
+<p class="level0">
+<p class="level0"><span Class="bold">--root=</span> 
+<p class="level1">When used with <span Class="bold">enable</span>/<span Class="bold">disable</span>/<span Class="bold">is-enabled</span> (and related commands), use alternative root path when looking for unit files. 
+<p class="level0">
+<p class="level0"><span Class="bold">--runtime</span> 
+<p class="level1">When used with <span Class="bold">enable</span>, <span Class="bold">disable</span>, (and related commands), make changes only temporarily, so that they are lost on the next reboot. This will have the effect that changes are not made in subdirectories of /etc but in /run, with identical immediate effects, however, since the latter is lost on reboot, the changes are lost too. 
+<p class="level1">Similarly, when used with <span Class="bold">set-property</span>, make changes only temporarily, so that they are lost on the next reboot. 
+<p class="level0">
+<p class="level0"><span Class="bold">--preset-mode=</span> 
+<p class="level1">Takes one of "full" (the default), "enable-only", "disable-only". When used with the <span Class="bold">preset</span> or <span Class="bold">preset-all</span> commands, controls whether units shall be disabled and enabled according to the preset rules, or only enabled, or only disabled. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--lines=</span> 
+<p class="level1">When used with <span Class="bold">status</span>, controls the number of journal lines to show, counting from the most recent ones. Takes a positive integer argument. Defaults to 10. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output=</span> 
+<p class="level1">When used with <span Class="bold">status</span>, controls the formatting of the journal entries that are shown. For the available choices, see <span Class="bold">journalctl</span>(1). Defaults to "short". 
+<p class="level0">
+<p class="level0"><span Class="bold">--plain</span> 
+<p class="level1">When used with <span Class="bold">list-dependencies</span>, the output is printed as a list instead of a tree. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">The following commands are understood: <a name="Unit"></a><h2 class="nroffsh">Unit Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">list-units </span><span class="bold">[<span Class="emphasis">PATTERN</span>...]</span> 
+<p class="level1">List known units (subject to limitations specified with <span Class="bold">-t</span>). If one or more <span Class="emphasis">PATTERN</span>s are specified, only units matching one of them are shown. 
+<p class="level1">This is the default command. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-sockets </span><span class="bold">[<span Class="emphasis">PATTERN</span>...]</span> 
+<p class="level1">List socket units ordered by listening address. If one or more <span Class="emphasis">PATTERN</span>s are specified, only socket units matching one of them are shown. Produces output similar to 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+LISTEN           UNIT                        ACTIVATES
+/dev/initctl     systemd-initctl.socket      systemd-initctl.service
+...
+[::]:22          sshd.socket                 sshd.service
+kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
+&nbsp;
+5 sockets listed.
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Note: because the addresses might contains spaces, this output is not suitable for programmatic consumption. 
+<p class="level1">See also the options <span Class="bold">--show-types</span>, <span Class="bold">--all</span>, and <span Class="bold">--failed</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-timers </span><span class="bold">[<span Class="emphasis">PATTERN</span>...]</span> 
+<p class="level1">List timer units ordered by the time they elapse next. If one or more <span Class="emphasis">PATTERN</span>s are specified, only units matching one of them are shown. 
+<p class="level1">See also the options <span Class="bold">--all</span> and <span Class="bold">--failed</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">start </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Start (activate) one or more units specified on the command line. 
+<p class="level1">Note that glob patterns operate on a list of currently loaded units. Units which are not active and are not in a failed state usually are not loaded, and would not be matched by any pattern. In addition, in case of instantiated units, systemd is often unaware of the instance name until the instance has been started. Therefore, using glob patterns with <span Class="bold">start</span> has limited usefulness. 
+<p class="level0">
+<p class="level0"><span Class="bold">stop </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Stop (deactivate) one or more units specified on the command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">reload </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Asks all units listed on the command line to reload their configuration. Note that this will reload the service-specific configuration, not the unit configuration file of systemd. If you want systemd to reload the configuration file of a unit, use the <span Class="bold">daemon-reload</span> command. In other words: for the example case of Apache, this will reload Apache*(Aqs httpd.conf in the web server, not the apache.service systemd unit file. 
+<p class="level1">This command should not be confused with the <span Class="bold">daemon-reload</span> or <span Class="bold">load</span> commands. 
+<p class="level0">
+<p class="level0"><span Class="bold">restart </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Restart one or more units specified on the command line. If the units are not running yet, they will be started. 
+<p class="level0">
+<p class="level0"><span Class="bold">try-restart </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Restart one or more units specified on the command line if the units are running. This does nothing if units are not running. Note that, for compatibility with Red Hat init scripts, <span Class="bold">condrestart</span> is equivalent to this command. 
+<p class="level0">
+<p class="level0"><span Class="bold">reload-or-restart </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Reload one or more units if they support it. If not, restart them instead. If the units are not running yet, they will be started. 
+<p class="level0">
+<p class="level0"><span Class="bold">reload-or-try-restart </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Reload one or more units if they support it. If not, restart them instead. This does nothing if the units are not running. Note that, for compatibility with SysV init scripts, <span Class="bold">force-reload</span> is equivalent to this command. 
+<p class="level0">
+<p class="level0"><span Class="bold">isolate </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> 
+<p class="level1">Start the unit specified on the command line and its dependencies and stop all others. 
+<p class="level1">This is similar to changing the runlevel in a traditional init system. The <span Class="bold">isolate</span> command will immediately stop processes that are not enabled in the new unit, possibly including the graphical environment or terminal you are currently using. 
+<p class="level1">Note that this is allowed only on units where <span Class="bold">AllowIsolate=</span> is enabled. See <span Class="bold">systemd.unit</span>(5) for details. 
+<p class="level0">
+<p class="level0"><span Class="bold">kill </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Send a signal to one or more processes of the unit. Use <span Class="bold">--kill-who=</span> to select which process to kill. Use <span Class="bold">--signal=</span> to select the signal to send. 
+<p class="level0">
+<p class="level0"><span Class="bold">is-active </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Check whether any of the specified units are active (i.e. running). Returns an exit code <span Class="bold">0</span> if at least one is active, or non-zero otherwise. Unless <span Class="bold">--quiet</span> is specified, this will also print the current unit state to standard output. 
+<p class="level0">
+<p class="level0"><span Class="bold">is-failed </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Check whether any of the specified units are in a "failed" state. Returns an exit code <span Class="bold">0</span> if at least one has failed, non-zero otherwise. Unless <span Class="bold">--quiet</span> is specified, this will also print the current unit state to standard output. 
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> [<span Class="emphasis">PATTERN</span>...|<span Class="emphasis">PID</span>...]] 
+<p class="level1">Show terse runtime status information about one or more units, followed by most recent log data from the journal. If no units are specified, show system status. If combined with <span Class="bold">--all</span>, also show the status of all units (subject to limitations specified with <span Class="bold">-t</span>). If a PID is passed, show information about the unit the process belongs to. 
+<p class="level1">This function is intended to generate human-readable output. If you are looking for computer-parsable output, use <span Class="bold">show</span> instead. By default this function only shows 10 lines of output and ellipsizes lines to fit in the terminal window. This can be changes with <span Class="bold">--lines</span> and <span Class="bold">--full</span>, see above. In addition, <span Class="bold">journalctl --unit=</span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> or <span Class="bold">journalctl --user-unit=</span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> use a similar filter for messages and might be more convenient. 
+<p class="level0">
+<p class="level0"><span Class="bold">show</span> [<span Class="emphasis">PATTERN</span>...|<span Class="emphasis">JOB</span>...] 
+<p class="level1">Show properties of one or more units, jobs, or the manager itself. If no argument is specified, properties of the manager will be shown. If a unit name is specified, properties of the unit is shown, and if a job id is specified, properties of the job is shown. By default, empty properties are suppressed. Use <span Class="bold">--all</span> to show those too. To select specific properties to show, use <span Class="bold">--property=</span>. This command is intended to be used whenever computer-parsable output is required. Use <span Class="bold">status</span> if you are looking for formatted human-readable output. 
+<p class="level0">
+<p class="level0"><span Class="bold">cat </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Show backing files of one or more units. Prints the "fragment" and "drop-ins" (source files) of units. Each file is preceded by a comment which includes the file name. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-property </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#"> </a><span class="bold"><span Class="emphasis">ASSIGNMENT</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Set the specified unit properties at runtime where this is supported. This allows changing configuration parameter properties such as resource control settings at runtime. Not all properties may be changed at runtime, but many resource control settings (primarily those in <span Class="bold">systemd.resource-control</span>(5)) may. The changes are applied instantly, and stored on disk for future boots, unless <span Class="bold">--runtime</span> is passed, in which case the settings only apply until the next reboot. The syntax of the property assignment follows closely the syntax of assignments in unit files. 
+<p class="level1">Example: <span Class="bold">systemctl set-property foobar.service CPUShares=777</span> 
+<p class="level1">Note that this command allows changing multiple properties at the same time, which is preferable over setting them individually. Like unit file configuration settings, assigning the empty list to list parameters will reset the list. 
+<p class="level0">
+<p class="level0"><span Class="bold">help </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...|</a><span class="bold"><span Class="emphasis">PID</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Show manual pages for one or more units, if available. If a PID is given, the manual pages for the unit the process belongs to are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">reset-failed [</span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...]</a> 
+<p class="level1">Reset the "failed" state of the specified units, or if no unit name is passed, reset the state of all units. When a unit fails in some way (i.e. process exiting with non-zero error code, terminating abnormally or timing out), it will automatically enter the "failed" state and its exit code and status is recorded for introspection by the administrator until the service is restarted or reset with this command. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-dependencies </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> 
+<p class="level1">Shows required and wanted units of the specified unit. If no unit is specified, default.target is implied. Target units are recursively expanded. When <span Class="bold">--all</span> is passed, all other units are recursively expanded as well. 
+<p class="level0"><a name="Unit"></a><h2 class="nroffsh">Unit File Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">list-unit-files </span><span class="bold">[<span Class="emphasis">PATTERN...</span>]</span> 
+<p class="level1">List installed unit files. If one or more <span Class="emphasis">PATTERN</span>s are specified, only units whose filename (just the last component of the path) matches one of them are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">enable </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Enable one or more unit files or unit file instances, as specified on the command line. This will create a number of symlinks as encoded in the "[Install]" sections of the unit files. After the symlinks have been created, the systemd configuration is reloaded (in a way that is equivalent to <span Class="bold">daemon-reload</span>) to ensure the changes are taken into account immediately. Note that this does <span Class="emphasis">not</span> have the effect of also starting any of the units being enabled. If this is desired, a separate <span Class="bold">start</span> command must be invoked for the unit. Also note that in case of instance enablement, symlinks named the same as instances are created in the install location, however they all point to the same template unit file. 
+<p class="level1">This command will print the actions executed. This output may be suppressed by passing <span Class="bold">--quiet</span>. 
+<p class="level1">Note that this operation creates only the suggested symlinks for the units. While this command is the recommended way to manipulate the unit configuration directory, the administrator is free to make additional changes manually by placing or removing symlinks in the directory. This is particularly useful to create configurations that deviate from the suggested default installation. In this case, the administrator must make sure to invoke <span Class="bold">daemon-reload</span> manually as necessary to ensure the changes are taken into account. 
+<p class="level1">Enabling units should not be confused with starting (activating) units, as done by the <span Class="bold">start</span> command. Enabling and starting units is orthogonal: units may be enabled without being started and started without being enabled. Enabling simply hooks the unit into various suggested places (for example, so that the unit is automatically started on boot or when a particular kind of hardware is plugged in). Starting actually spawns the daemon process (in case of service units), or binds the socket (in case of socket units), and so on. 
+<p class="level1">Depending on whether <span Class="bold">--system</span>, <span Class="bold">--user</span>, <span Class="bold">--runtime</span>, or <span Class="bold">--global</span> is specified, this enables the unit for the system, for the calling user only, for only this boot of the system, or for all future logins of all users, or only this boot. Note that in the last case, no systemd daemon configuration is reloaded. 
+<p class="level0">
+<p class="level0"><span Class="bold">disable </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Disables one or more units. This removes all symlinks to the specified unit files from the unit configuration directory, and hence undoes the changes made by <span Class="bold">enable</span>. Note however that this removes all symlinks to the unit files (i.e. including manual additions), not just those actually created by <span Class="bold">enable</span>. This call implicitly reloads the systemd daemon configuration after completing the disabling of the units. Note that this command does not implicitly stop the units that are being disabled. If this is desired, an additional <span Class="bold">stop</span> command should be executed afterwards. 
+<p class="level1">This command will print the actions executed. This output may be suppressed by passing <span Class="bold">--quiet</span>. 
+<p class="level1">This command honors <span Class="bold">--system</span>, <span Class="bold">--user</span>, <span Class="bold">--runtime</span> and <span Class="bold">--global</span> in a similar way as <span Class="bold">enable</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">is-enabled </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Checks whether any of the specified unit files are enabled (as with <span Class="bold">enable</span>). Returns an exit code of 0 if at least one is enabled, non-zero otherwise. Prints the current enable status (see table). To suppress this output, use <span Class="bold">--quiet</span>. 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br><span Class="bold">Table\ \&1.\ \& is-enabled output</span> 
+<p class="level1">allbox tab(:); lB lB lB. T{ Printed string T}:T{ Meaning T}:T{ Return value T} 
+<p class="level1">l l l l ^ ^ l l l l ^ ^ l l l l ^ ^ l l l l l l. T{ "enabled" T}:T{ Enabled through a symlink in .wants directory (permanently or just in /run) T}:T{ 0 T} T{ "enabled-runtime" T}:: T{ "linked" T}:T{ Made available through a symlink to the unit file (permanently or just in /run) T}:T{ 1 T} T{ "linked-runtime" T}:: T{ "masked" T}:T{ Disabled entirely (permanently or just in /run) T}:T{ 1 T} T{ "masked-runtime" T}:: T{ "static" T}:T{ Unit is not enabled, but has no provisions for enabling in [Install] section T}:T{ 0 T} T{ "disabled" T}:T{ Unit is not enabled T}:T{ 1 T} 
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">reenable </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Reenable one or more unit files, as specified on the command line. This is a combination of <span Class="bold">disable</span> and <span Class="bold">enable</span> and is useful to reset the symlinks a unit is enabled with to the defaults configured in the "[Install]" section of the unit file. 
+<p class="level0">
+<p class="level0"><span Class="bold">preset </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Reset one or more unit files, as specified on the command line, to the defaults configured in the preset policy files. This has the same effect as <span Class="bold">disable</span> or <span Class="bold">enable</span>, depending how the unit is listed in the preset files. 
+<p class="level1">Use <span Class="bold">--preset-mode=</span> to control whether units shall be enabled and disabled, or only enabled, or only disabled. 
+<p class="level1">For more information on the preset policy format, see <span Class="bold">systemd.preset</span>(5). For more information on the concept of presets, please consult the m[blue]<span Class="bold">Preset</span>m[]s-2u[1]ds+2 document. 
+<p class="level0">
+<p class="level0"><span Class="bold">preset-all</span> 
+<p class="level1">Resets all installed unit files to the defaults configured in the preset policy file (see above). 
+<p class="level1">Use <span Class="bold">--preset-mode=</span> to control whether units shall be enabled and disabled, or only enabled, or only disabled. 
+<p class="level0">
+<p class="level0"><span Class="bold">mask </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Mask one or more unit files, as specified on the command line. This will link these units to /dev/null, making it impossible to start them. This is a stronger version of <span Class="bold">disable</span>, since it prohibits all kinds of activation of the unit, including manual activation. Use this option with care. This honors the <span Class="bold">--runtime</span> option to only mask temporarily until the next reboot of the system. 
+<p class="level0">
+<p class="level0"><span Class="bold">unmask </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span><a class="bold" href="#">...</a> 
+<p class="level1">Unmask one or more unit files, as specified on the command line. This will undo the effect of <span Class="bold">mask</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">link </span><span class="bold"><span Class="emphasis">FILENAME</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Link a unit file that is not in the unit file search paths into the unit file search path. This requires an absolute path to a unit file. The effect of this can be undone with <span Class="bold">disable</span>. The effect of this command is that a unit file is available for <span Class="bold">start</span> and other commands although it is not installed directly in the unit search path. 
+<p class="level0">
+<p class="level0"><span Class="bold">get-default</span> 
+<p class="level1">Get the default target specified via default.target link. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-default </span><span class="bold"><a class="emphasis" href="#NAME">NAME</a></span> 
+<p class="level1">Set the default target to boot into. Command links default.target to the given unit. 
+<p class="level0"><a name="Machine"></a><h2 class="nroffsh">Machine Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">list-machines </span><span class="bold">[<span Class="emphasis">PATTERN</span>...]</span> 
+<p class="level1">List the host and all running local containers with their state. If one or more <span Class="emphasis">PATTERN</span>s are specified, only containers matching one of them are shown. 
+<p class="level0"><a name="Job"></a><h2 class="nroffsh">Job Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">list-jobs </span><span class="bold">[<span Class="emphasis">PATTERN...</span>]</span> 
+<p class="level1">List jobs that are in progress. If one or more <span Class="emphasis">PATTERN</span>s are specified, only jobs for units matching one of them are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">cancel </span><span class="bold"><span Class="emphasis">JOB</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Cancel one or more jobs specified on the command line by their numeric job IDs. If no job ID is specified, cancel all pending jobs. 
+<p class="level0"><a name="Snapshot"></a><h2 class="nroffsh">Snapshot Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">snapshot </span><span class="bold">[<a class="emphasis" href="#NAME">NAME</a>]</span> 
+<p class="level1">Create a snapshot. If a snapshot name is specified, the new snapshot will be named after it. If none is specified, an automatic snapshot name is generated. In either case, the snapshot name used is printed to standard output, unless <span Class="bold">--quiet</span> is specified. 
+<p class="level1">A snapshot refers to a saved state of the systemd manager. It is implemented itself as a unit that is generated dynamically with this command and has dependencies on all units active at the time. At a later time, the user may return to this state by using the <span Class="bold">isolate</span> command on the snapshot unit. 
+<p class="level1">Snapshots are only useful for saving and restoring which units are running or are stopped, they do not save/restore any other state. Snapshots are dynamic and lost on reboot. 
+<p class="level0">
+<p class="level0"><span Class="bold">delete </span><span class="bold"><span Class="emphasis">PATTERN</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Remove a snapshot previously created with <span Class="bold">snapshot</span>. 
+<p class="level0"><a name="Environment"></a><h2 class="nroffsh">Environment Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">show-environment</span> 
+<p class="level1">Dump the systemd manager environment block. The environment block will be dumped in straight-forward form suitable for sourcing into a shell script. This environment block will be passed to all processes the manager spawns. 
+<p class="level0">
+<p class="level0"><span Class="bold">set-environment </span><span class="bold"><span Class="emphasis">VARIABLE=VALUE</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Set one or more systemd manager environment variables, as specified on the command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">unset-environment </span><span class="bold"><span Class="emphasis">VARIABLE</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Unset one or more systemd manager environment variables. If only a variable name is specified, it will be removed regardless of its value. If a variable and a value are specified, the variable is only removed if it has the specified value. 
+<p class="level0">
+<p class="level0"><span Class="bold">import-environment </span><span class="bold"><span Class="emphasis">VARIABLE</span></span><a class="bold" href="#">...</a> 
+<p class="level1">Import all, one or more environment variables set on the client into the systemd manager environment block. If no arguments are passed, the entire environment block is imported. Otherwise, a list of one or more environment variable names should be passed, whose client-side values are then imported into the manager*(Aqs environment block. 
+<p class="level0"><a name="Manager"></a><h2 class="nroffsh">Manager Lifecycle Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">daemon-reload</span> 
+<p class="level1">Reload systemd manager configuration. This will reload all unit files and recreate the entire dependency tree. While the daemon is being reloaded, all sockets systemd listens on on behalf of user configuration will stay accessible. 
+<p class="level1">This command should not be confused with the <span Class="bold">load</span> or <span Class="bold">reload</span> commands. 
+<p class="level0">
+<p class="level0"><span Class="bold">daemon-reexec</span> 
+<p class="level1">Reexecute the systemd manager. This will serialize the manager state, reexecute the process and deserialize the state again. This command is of little use except for debugging and package upgrades. Sometimes, it might be helpful as a heavy-weight <span Class="bold">daemon-reload</span>. While the daemon is being reexecuted, all sockets systemd listening on behalf of user configuration will stay accessible. 
+<p class="level0"><a name="System"></a><h2 class="nroffsh">System Commands</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">is-system-running</span> 
+<p class="level1">Checks whether the system is running. This returns success when the system is fully up and running, meaning not in startup, shutdown or maintainance mode. Failure is returned otherwise. In addition, the current state is printed in a short string to standard output. Use <span Class="bold">--quiet</span> to suppress output of this state string. 
+<p class="level0">
+<p class="level0"><span Class="bold">default</span> 
+<p class="level1">Enter default mode. This is mostly equivalent to <span Class="bold">isolate default.target</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">rescue</span> 
+<p class="level1">Enter rescue mode. This is mostly equivalent to <span Class="bold">isolate rescue.target</span>, but also prints a wall message to all users. 
+<p class="level0">
+<p class="level0"><span Class="bold">emergency</span> 
+<p class="level1">Enter emergency mode. This is mostly equivalent to <span Class="bold">isolate emergency.target</span>, but also prints a wall message to all users. 
+<p class="level0">
+<p class="level0"><span Class="bold">halt</span> 
+<p class="level1">Shut down and halt the system. This is mostly equivalent to <span Class="bold">start halt.target --irreversible</span>, but also prints a wall message to all users. If combined with <span Class="bold">--force</span>, shutdown of all running services is skipped, however all processes are killed and all file systems are unmounted or mounted read-only, immediately followed by the system halt. If <span Class="bold">--force</span> is specified twice, the operation is immediately executed without terminating any processes or unmounting any file systems. This may result in data loss. 
+<p class="level0">
+<p class="level0"><span Class="bold">poweroff</span> 
+<p class="level1">Shut down and power-off the system. This is mostly equivalent to <span Class="bold">start poweroff.target --irreversible</span>, but also prints a wall message to all users. If combined with <span Class="bold">--force</span>, shutdown of all running services is skipped, however all processes are killed and all file systems are unmounted or mounted read-only, immediately followed by the powering off. If <span Class="bold">--force</span> is specified twice, the operation is immediately executed without terminating any processes or unmounting any file systems. This may result in data loss. 
+<p class="level0">
+<p class="level0"><span Class="bold">reboot </span><span class="bold">[<span Class="emphasis">arg</span>]</span> 
+<p class="level1">Shut down and reboot the system. This is mostly equivalent to <span Class="bold">start reboot.target --irreversible</span>, but also prints a wall message to all users. If combined with <span Class="bold">--force</span>, shutdown of all running services is skipped, however all processes are killed and all file systems are unmounted or mounted read-only, immediately followed by the reboot. If <span Class="bold">--force</span> is specified twice, the operation is immediately executed without terminating any processes or unmounting any file systems. This may result in data loss. 
+<p class="level1">If the optional argument <span Class="emphasis">arg</span> is given, it will be passed as the optional argument to the <span Class="bold">reboot</span>(2) system call. The value is architecture and firmware specific. As an example, "recovery" might be used to trigger system recovery, and "fota" might be used to trigger a (lqfirmware over the air(rq update. 
+<p class="level0">
+<p class="level0"><span Class="bold">kexec</span> 
+<p class="level1">Shut down and reboot the system via kexec. This is mostly equivalent to <span Class="bold">start kexec.target --irreversible</span>, but also prints a wall message to all users. If combined with <span Class="bold">--force</span>, shutdown of all running services is skipped, however all processes are killed and all file systems are unmounted or mounted read-only, immediately followed by the reboot. 
+<p class="level0">
+<p class="level0"><span Class="bold">exit</span> 
+<p class="level1">Ask the systemd manager to quit. This is only supported for user service managers (i.e. in conjunction with the <span Class="bold">--user</span> option) and will fail otherwise. 
+<p class="level0">
+<p class="level0"><span Class="bold">suspend</span> 
+<p class="level1">Suspend the system. This will trigger activation of the special suspend.target target. 
+<p class="level0">
+<p class="level0"><span Class="bold">hibernate</span> 
+<p class="level1">Hibernate the system. This will trigger activation of the special hibernate.target target. 
+<p class="level0">
+<p class="level0"><span Class="bold">hybrid-sleep</span> 
+<p class="level1">Hibernate and suspend the system. This will trigger activation of the special hybrid-sleep.target target. 
+<p class="level0">
+<p class="level0"><span Class="bold">switch-root </span><span class="bold"><span Class="emphasis">ROOT</span></span><a class="bold" href="#"> </a><span class="bold">[<span Class="emphasis">INIT</span>]</span> 
+<p class="level1">Switches to a different root directory and executes a new system manager process below it. This is intended for usage in initial RAM disks ("initrd"), and will transition from the initrd*(Aqs system manager process (a.k.a "init" process) to the main system manager process. This call takes two arguments: the directory that is to become the new root directory, and the path to the new system manager binary below it to execute as PID 1. If the latter is omitted or the empty string, a systemd binary will automatically be searched for and used as init. If the system manager path is omitted or equal to the empty string, the state of the initrd*(Aqs system manager process is passed to the main system manager, which allows later introspection of the state of the services involved in the initrd boot. 
+<p class="level0"><a name="Parameter"></a><h2 class="nroffsh">Parameter Syntax</h2>
+<p class="level0">
+<p class="level0">Unit commands listed above take either a single unit name (designated as <a class="emphasis" href="#NAME">NAME</a>), or multiple unit specifications (designated as <span Class="emphasis">PATTERN</span>...). In the first case, the unit name with or without a suffix must be given. If the suffix is not specified, systemctl will append a suitable suffix, ".service" by default, and a type-specific suffix in case of commands which operate only on specific unit types. For example, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl start sshd
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl start sshd.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">are equivalent, as are 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl isolate snapshot-11
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">and 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl isolate snapshot-11.snapshot
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Note that (absolute) paths to device nodes are automatically converted to device unit names, and other (absolute) paths to mount unit names. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl status /dev/sda
+&#35; systemctl status /home
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">are equivalent to: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl status dev-sda.device
+&#35; systemctl status home.mount
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">In the second case, shell-style globs will be matched against currently loaded units; literal unit names, with or without a suffix, will be treated as in the first case. This means that literal unit names always refer to exactly one unit, but globs may match zero units and this is not considered an error. 
+<p class="level0">Glob patterns use <span Class="bold">fnmatch</span>(3), so normal shell-style globbing rules are used, and "*", "?", "[]" may be used. See <span Class="bold">glob</span>(7) for more details. The patterns are matched against the names of currently loaded units, and patterns which do not match anything are silently skipped. For example: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl stop sshd@*.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">will stop all sshd@.service instances. 
+<p class="level0">For unit file commands, the specified <a class="emphasis" href="#NAME">NAME</a> should be the full name of the unit file, or the absolute path to the unit file: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl enable foo.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">or 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; systemctl link /path/to/foo.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemadm</span>(1), <span Class="bold">journalctl</span>(1), <span Class="bold">loginctl</span>(1), <span Class="bold">systemd.unit</span>(5), <span Class="bold">systemd.resource-management</span>(5), <span Class="bold">systemd.special</span>(7), <span Class="bold">wall</span>(1), <span Class="bold">systemd.preset</span>(5)<span Class="bold">glob</span>(7) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Preset 
+<p class="level2">%http://freedesktop.org/wiki/Software/systemd/Preset 
+<p class="level1">

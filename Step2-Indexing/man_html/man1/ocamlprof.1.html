@@ -1,0 +1,34 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlprof - The OCaml profiler 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlprof</span> [ <span Class="emphasis">options</span> ] <span Class="emphasis">filename ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">ocamlprof</span> command prints execution counts gathered during the execution of a OCaml program instrumented with <span Class="manpage">ocamlcp (1).</span>
+<p class="level0">It produces a source listing of the program modules given as arguments where execution counts have been inserted as comments. For instance, 
+<p class="level0"><span Class="bold">ocamlprof foo.ml</span> 
+<p class="level0">prints the source code for the foo module, with comments indicating how many times the functions in this module have been called. Naturally, this information is accurate only if the source file has not been modified since the profiling execution took place. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-f \ dumpfile</span> Specifies an alternate dump file of profiling information. 
+<p class="level0"><span Class="bold">-F \ string</span> Specifies an additional string to be output with profiling information. By default, <span Class="manpage">ocamlprof (1)</span>will annotate programs with comments of the form <span Class="bold">(* \ n \ *)</span> where <span Class="emphasis">n</span> is the counter value for a profiling point. With option <span Class="bold">-F \ s</span> the annotation will be <span Class="bold">(* \ sn \ *)</span> 
+<p class="level0"><span Class="bold">-impl \ filename</span> Compile the file <span Class="emphasis">filename</span> as an implementation file, even if its extension is not .ml. 
+<p class="level0"><span Class="bold">-intf \ filename</span> Compile the file <span Class="emphasis">filename</span> as an interface file, even if its extension is not .mli. 
+<p class="level0"><span Class="bold">-version</span> Print version string and exit. 
+<p class="level0"><span Class="bold">-vnum</span> Print short version number and exit. 
+<p class="level0"><span Class="manpage">-help \ or \ --help</span>Display a short usage summary and exit. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamlcp (1).</span><br><span Class="emphasis">The OCaml user's manual ,</span> chapter "Profiling". 

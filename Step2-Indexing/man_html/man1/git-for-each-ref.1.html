@@ -1,0 +1,169 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-for-each-ref - Output information on each ref <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git for-each-ref</span> [--count=&lt;count&gt;] [--shell|--perl|--python|--tcl]
+&nbsp;                  [(--sort=&lt;key&gt;)...] [--format=&lt;format&gt;] [&lt;pattern&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Iterate over all refs that match &lt;pattern&gt; and show them according to the given &lt;format&gt;, after sorting them according to the given set of &lt;key&gt;. If &lt;count&gt; is given, stop after showing that many refs. The interpolated values in &lt;format&gt; can optionally be quoted as string literals in the specified host language allowing their direct evaluation in that language. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;count&gt; 
+<p class="level1">By default the command shows all refs that match &lt;pattern&gt;. This option makes it stop after showing that many refs. 
+<p class="level0">
+<p class="level0">&lt;key&gt; 
+<p class="level1">A field name to sort on. Prefix - to sort in descending order of the value. When unspecified, refname is used. You may use the --sort=&lt;key&gt; option multiple times, in which case the last key becomes the primary key. 
+<p class="level0">
+<p class="level0">&lt;format&gt; 
+<p class="level1">A string that interpolates %(fieldname) from the object pointed at by a ref being shown. If fieldname is prefixed with an asterisk (*) and the ref points at a tag object, the value for the field in the object tag refers is used. When unspecified, defaults to %(objectname) SPC %(objecttype) TAB %(refname). It also interpolates %% to %, and %xx where xx are hex digits interpolates to character with hex code xx; for example %00 interpolates to e0 (NUL), %09 to et (TAB) and %0a to en (LF). 
+<p class="level0">
+<p class="level0">&lt;pattern&gt;... 
+<p class="level1">If one or more patterns are given, only refs are shown that match against at least one pattern, either using fnmatch(3) or literally, in the latter case matching completely or from the beginning up to a slash. 
+<p class="level0">
+<p class="level0">--shell, --perl, --python, --tcl 
+<p class="level1">If given, strings that substitute %(fieldname) placeholders are quoted as string literals suitable for the specified host language. This is meant to produce a scriptlet that can directly be `eval`ed. 
+<p class="level0"><a name="FIELD"></a><h2 class="nroffsh">FIELD NAMES</h2>
+<p class="level0">
+<p class="level0">Various values from structured fields in referenced objects can be used to interpolate into the resulting output, or as sort keys. 
+<p class="level0">For all objects, the following names can be used: 
+<p class="level0">refname 
+<p class="level1">The name of the ref (the part after $GIT_DIR/). For a non-ambiguous short name of the ref append :short. The option core.warnAmbiguousRefs is used to select the strict abbreviation mode. 
+<p class="level0">
+<p class="level0">objecttype 
+<p class="level1">The type of the object (blob, tree, commit, tag). 
+<p class="level0">
+<p class="level0">objectsize 
+<p class="level1">The size of the object (the same as <span Class="emphasis">git cat-file -s</span> reports). 
+<p class="level0">
+<p class="level0">objectname 
+<p class="level1">The object name (aka SHA-1). For a non-ambiguous abbreviation of the object name append :short. 
+<p class="level0">
+<p class="level0">upstream 
+<p class="level1">The name of a local ref which can be considered (lqupstream(rq from the displayed ref. Respects :short in the same way as refname above. Additionally respects :track to show "[ahead N, behind M]" and :trackshort to show the terse version: "&gt;" (ahead), "&lt;" (behind), "&lt;&gt;" (ahead and behind), or "=" (in sync). Has no effect if the ref does not have tracking information associated with it. 
+<p class="level0">
+<p class="level0">HEAD 
+<p class="level1"><span Class="emphasis">*</span> if HEAD matches current ref (the checked out branch), *(Aq *(Aq otherwise. 
+<p class="level0">
+<p class="level0">color 
+<p class="level1">Change output color. Followed by :&lt;colorname&gt;, where names are described in color.branch.*. 
+<p class="level0">
+<p class="level0">In addition to the above, for commit and tag objects, the header field names (tree, parent, object, type, and tag) can be used to specify the value in the header field. 
+<p class="level0">Fields that have name-email-date tuple as its value (author, committer, and tagger) can be suffixed with name, email, and date to extract the named component. 
+<p class="level0">The complete message in a commit and tag object is contents. Its first line is contents:subject, where subject is the concatenation of all lines of the commit message up to the first blank line. The next line is <span Class="emphasis">contents:body</span>, where body is all of the lines after the first blank line. Finally, the optional GPG signature is contents:signature. 
+<p class="level0">For sorting purposes, fields with numeric values sort in numeric order (objectsize, authordate, committerdate, taggerdate). All other fields are used to sort in their byte-value order. 
+<p class="level0">In any case, a field name that refers to a field inapplicable to the object referred by the ref does not cause an error. It returns an empty string instead. 
+<p class="level0">As a special case for the date-type fields, you may specify a format for the date by adding one of :default, :relative, :short, :local, :iso8601, :rfc2822 or :raw to the end of the fieldname; e.g. %(taggerdate:relative). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">An example directly producing formatted text. Show the most recent 3 tagged commits: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;!/bin/sh
+&nbsp;
+git for-each-ref --count=3 --sort=*(Aq-*authordate*(Aq e
+--format=*(AqFrom: %(*authorname) %(*authoremail)
+Subject: %(*subject)
+Date: %(*authordate)
+Ref: %(*refname)
+&nbsp;
+%(*body)
+*(Aq *(Aqrefs/tags*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">A simple example showing the use of shell eval on the output, demonstrating the use of --shell. List the prefixes of all heads: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;!/bin/sh
+&nbsp;
+git for-each-ref --shell --format="ref=%(refname)" refs/heads | e
+while read entry
+do
+&nbsp;       eval "$entry"
+&nbsp;       echo `dirname $ref`
+done
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">A bit more elaborate report on tags, demonstrating that the format may be an entire script: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;!/bin/sh
+&nbsp;
+fmt=*(Aq
+&nbsp;       r=%(refname)
+&nbsp;       t=%(*objecttype)
+&nbsp;       T=${r&#35;refs/tags/}
+&nbsp;
+&nbsp;       o=%(*objectname)
+&nbsp;       n=%(*authorname)
+&nbsp;       e=%(*authoremail)
+&nbsp;       s=%(*subject)
+&nbsp;       d=%(*authordate)
+&nbsp;       b=%(*body)
+&nbsp;
+&nbsp;       kind=Tag
+&nbsp;       if test "z$t" = z
+&nbsp;       then
+&nbsp;               &#35; could be a lightweight tag
+&nbsp;               t=%(objecttype)
+&nbsp;               kind="Lightweight tag"
+&nbsp;               o=%(objectname)
+&nbsp;               n=%(authorname)
+&nbsp;               e=%(authoremail)
+&nbsp;               s=%(subject)
+&nbsp;               d=%(authordate)
+&nbsp;               b=%(body)
+&nbsp;       fi
+&nbsp;       echo "$kind $T points at a $t object $o"
+&nbsp;       if test "z$t" = zcommit
+&nbsp;       then
+&nbsp;               echo "The commit was authored by $n $e
+at $d, and titled
+&nbsp;
+&nbsp;   $s
+&nbsp;
+Its message reads as:
+"
+&nbsp;               echo "$b" | sed -e "s/^/    /"
+&nbsp;               echo
+&nbsp;       fi
+*(Aq
+&nbsp;
+eval=`git for-each-ref --shell --format="$fmt" e
+&nbsp;       --sort=*(Aq*objecttype*(Aq e
+&nbsp;       --sort=-taggerdate e
+&nbsp;       refs/tags`
+eval "$eval"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-show-ref</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

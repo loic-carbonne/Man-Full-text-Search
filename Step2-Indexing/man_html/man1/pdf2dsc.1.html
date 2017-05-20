@@ -1,0 +1,12 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pdf2dsc - generate a PostScript page list of a PDF document <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pdf2dsc</span> <span Class="emphasis">input.pdf</span> [ <span Class="emphasis">output.dsc</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">pdf2dsc</span> uses <span Class="bold">gs</span>(1) to read an Adobe <span class="bold">Portable Document Format</span> (PDF) document "input.pdf" and create a <span Class="bold">PostScript</span>(tm) document "output.dsc" that conforms to Adobe's <span class="bold">Document Structuring Conventions</span> (DSC) requirements. 
+<p class="level0">This new document simply tells Ghostscript to read the PDF file and to display pages one at a time.  The generated document can then be viewed with any PostScript viewer based on Ghostscript, like <span Class="bold">ghostview</span>(1) on Unix or <span Class="bold">GSview</span> on Windows, with which the user can browse through the pages of the PDF document in any order. 
+<p class="level0">If no output file is named on the command line, the name of the output file is that of the input file with any extension removed, followed by the extension ".dsc". <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">The DSC document uses Ghostscript-specific procedures.  In addition, the original PDF document must be accessible when the DSC document is processed. 
+<p class="level0">You need the file "pdf2dsc.ps" (originally by Russell Lang) supplied with Ghostscript since release 3.53. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">gs(1), ghostview(1) <a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">This document was last revised for Ghostscript version 9.06. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Yves Arrouye &lt;yves.arrouye@usa.net&gt; and Russell Lang gsview at ghostgum.com.au 

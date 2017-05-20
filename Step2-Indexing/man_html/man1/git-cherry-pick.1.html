@@ -1,0 +1,169 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-cherry-pick - Apply the changes introduced by some existing commits <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git cherry-pick</span> [--edit] [-n] [-m parent-number] [-s] [-x] [--ff]
+&nbsp;                 [-S[&lt;key-id&gt;]] &lt;commit&gt;...
+<span class="emphasis">git cherry-pick</span> --continue
+<span class="emphasis">git cherry-pick</span> --quit
+<span class="emphasis">git cherry-pick</span> --abort
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Given one or more existing commits, apply the change each one introduces, recording a new commit for each. This requires your working tree to be clean (no modifications from the HEAD commit). 
+<p class="level0">When it is not obvious how to apply a change, the following happens: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">The current branch and HEAD pointer stay at the last commit successfully made. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">The CHERRY_PICK_HEAD ref is set to point at the commit that introduced the change that is difficult to apply. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">Paths in which the change applied cleanly are updated both in the index file and in your working tree. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">For conflicting paths, the index file records up to three versions, as described in the "TRUE MERGE" section of <span Class="bold">git-merge</span>(1). The working tree files will include a description of the conflict bracketed by the usual conflict markers &lt;&lt;&lt;&lt;&lt;&lt;&lt; and &gt;&gt;&gt;&gt;&gt;&gt;&gt;. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 5.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level1">
+<p class="level1">No other modifications are made. 
+<p class="level0">
+<p class="level0">See <span Class="bold">git-merge</span>(1) for some hints on resolving such conflicts. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;commit&gt;... 
+<p class="level1">Commits to cherry-pick. For a more complete list of ways to spell commits, see <span Class="bold">gitrevisions</span>(7). Sets of commits can be passed but no traversal is done by default, as if the <span Class="emphasis">--no-walk</span> option was specified, see <span Class="bold">git-rev-list</span>(1). Note that specifying a range will feed all &lt;commit&gt;... arguments to a single revision walk (see a later example that uses <span Class="emphasis">maint master..next</span>). 
+<p class="level0">
+<p class="level0">-e, --edit 
+<p class="level1">With this option, <span Class="emphasis">git cherry-pick</span> will let you edit the commit message prior to committing. 
+<p class="level0">
+<p class="level0">-x 
+<p class="level1">When recording the commit, append a line that says "(cherry picked from commit ...)" to the original commit message in order to indicate which commit this change was cherry-picked from. This is done only for cherry picks without conflicts. Do not use this option if you are cherry-picking from your private branch because the information is useless to the recipient. If on the other hand you are cherry-picking between two publicly visible branches (e.g. backporting a fix to a maintenance branch for an older release from a development branch), adding this information can be useful. 
+<p class="level0">
+<p class="level0">-r 
+<p class="level1">It used to be that the command defaulted to do -x described above, and -r was to disable it. Now the default is not to do -x so this option is a no-op. 
+<p class="level0">
+<p class="level0">-m parent-number, --mainline parent-number 
+<p class="level1">Usually you cannot cherry-pick a merge because you do not know which side of the merge should be considered the mainline. This option specifies the parent number (starting from 1) of the mainline and allows cherry-pick to replay the change relative to the specified parent. 
+<p class="level0">
+<p class="level0">-n, --no-commit 
+<p class="level1">Usually the command automatically creates a sequence of commits. This flag applies the changes necessary to cherry-pick each named commit to your working tree and the index, without making any commit. In addition, when this option is used, your index does not have to match the HEAD commit. The cherry-pick is done against the beginning state of your index. 
+<p class="level1">This is useful when cherry-picking more than one commits*(Aq effect to your index in a row. 
+<p class="level0">
+<p class="level0">-s, --signoff 
+<p class="level1">Add Signed-off-by line at the end of the commit message. 
+<p class="level0">
+<p class="level0">-S[&lt;key-id&gt;], --gpg-sign[=&lt;key-id&gt;] 
+<p class="level1">GPG-sign commits. 
+<p class="level0">
+<p class="level0">--ff 
+<p class="level1">If the current HEAD is the same as the parent of the cherry-pick(cqed commit, then a fast forward to this commit will be performed. 
+<p class="level0">
+<p class="level0">--allow-empty 
+<p class="level1">By default, cherry-picking an empty commit will fail, indicating that an explicit invocation of git commit --allow-empty is required. This option overrides that behavior, allowing empty commits to be preserved automatically in a cherry-pick. Note that when "--ff" is in effect, empty commits that meet the "fast-forward" requirement will be kept even without this option. Note also, that use of this option only keeps commits that were initially empty (i.e. the commit recorded the same tree as its parent). Commits which are made empty due to a previous commit are dropped. To force the inclusion of those commits use --keep-redundant-commits. 
+<p class="level0">
+<p class="level0">--allow-empty-message 
+<p class="level1">By default, cherry-picking a commit with an empty message will fail. This option overrides that behaviour, allowing commits with empty messages to be cherry picked. 
+<p class="level0">
+<p class="level0">--keep-redundant-commits 
+<p class="level1">If a commit being cherry picked duplicates a commit already in the current history, it will become empty. By default these redundant commits are ignored. This option overrides that behavior and creates an empty commit object. Implies --allow-empty. 
+<p class="level0">
+<p class="level0">--strategy=&lt;strategy&gt; 
+<p class="level1">Use the given merge strategy. Should only be used once. See the MERGE STRATEGIES section in <span Class="bold">git-merge</span>(1) for details. 
+<p class="level0">
+<p class="level0">-X&lt;option&gt;, --strategy-option=&lt;option&gt; 
+<p class="level1">Pass the merge strategy-specific option through to the merge strategy. See <span Class="bold">git-merge</span>(1) for details. 
+<p class="level0"><a name="SEQUENCER"></a><h2 class="nroffsh">SEQUENCER SUBCOMMANDS</h2>
+<p class="level0">
+<p class="level0">--continue 
+<p class="level1">Continue the operation in progress using the information in <span Class="emphasis">.git/sequencer</span>. Can be used to continue after resolving conflicts in a failed cherry-pick or revert. 
+<p class="level0">
+<p class="level0">--quit 
+<p class="level1">Forget about the current operation in progress. Can be used to clear the sequencer state after a failed cherry-pick or revert. 
+<p class="level0">
+<p class="level0">--abort 
+<p class="level1">Cancel the operation and return to the pre-sequence state. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git cherry-pick master 
+<p class="level1">Apply the change introduced by the commit at the tip of the master branch and create a new commit with this change. 
+<p class="level0">
+<p class="level0">git cherry-pick ..master, git cherry-pick ^HEAD master 
+<p class="level1">Apply the changes introduced by all commits that are ancestors of master but not of HEAD to produce new commits. 
+<p class="level0">
+<p class="level0">git cherry-pick maint next ^master, git cherry-pick maint master..next 
+<p class="level1">Apply the changes introduced by all commits that are ancestors of maint or next, but not master or any of its ancestors. Note that the latter does not mean maint and everything between master and next; specifically, maint will not be used if it is included in master. 
+<p class="level0">
+<p class="level0">git cherry-pick master~4 master~2 
+<p class="level1">Apply the changes introduced by the fifth and third last commits pointed to by master and create 2 new commits with these changes. 
+<p class="level0">
+<p class="level0">git cherry-pick -n master~1 next 
+<p class="level1">Apply to the working tree and the index the changes introduced by the second last commit pointed to by master and by the last commit pointed to by next, but do not create any commit with these changes. 
+<p class="level0">
+<p class="level0">git cherry-pick --ff ..next 
+<p class="level1">If history is linear and HEAD is an ancestor of next, update the working tree and advance the HEAD pointer to match next. Otherwise, apply the changes introduced by those commits that are in next but not HEAD to the current branch, creating a new commit for each new change. 
+<p class="level0">
+<p class="level0">git rev-list --reverse master -- README | git cherry-pick -n --stdin 
+<p class="level1">Apply the changes introduced by all commits on the master branch that touched README to the working tree and index, so the result can be inspected and made into a single new commit if suitable. 
+<p class="level0">
+<p class="level0">The following sequence attempts to backport a patch, bails out because the code the patch applies to has changed too much, and then tries again, this time exercising more care about matching up context lines. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git cherry-pick topic^             <span class="bold">(1)</span>
+$ git diff                           <span class="bold">(2)</span>
+$ git reset --merge ORIG_HEAD        <span class="bold">(3)</span>
+$ git cherry-pick -Xpatience topic^  <span class="bold">(4)</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">1. </span>apply the change that would be shown by git show topic^. In this example, the patch does not apply cleanly, so information about the conflict is written to the index and working tree and no new commit results. <br><span Class="bold">2. </span>summarize changes to be reconciled <br><span Class="bold">3. </span>cancel the cherry-pick. In other words, return to the pre-cherry-pick state, preserving any local modifications you had in the working tree. <br><span Class="bold">4. </span>try to apply the change introduced by topic^ again, spending extra time to avoid mistakes based on incorrectly matching context lines. <br><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-revert</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

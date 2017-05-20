@@ -1,0 +1,51 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">syndaemon - a program that monitors keyboard activity and disables the touchpad when the keyboard is being used. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">syndaemon [<span Class="emphasis">-i idle-time</span>] [<span Class="emphasis">-m poll-inverval</span>] [<span Class="emphasis">-d</span>] [<span Class="emphasis">-p pid-file</span>] [<span Class="emphasis">-t</span>] [<span Class="emphasis">-k</span>] [<span Class="emphasis">-K</span>] [<span Class="emphasis">-R</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Disabling the touchpad while typing avoids unwanted movements of the pointer that could lead to giving focus to the wrong window. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> &lt;<span Class="emphasis">idle-time</span>&gt; How many seconds to wait after the last key press before enabling the touchpad. 
+<p class="level0">(default is 2.0s).  
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span> &lt;<span Class="emphasis">poll-interval</span>&gt; How many milliseconds to wait between two polling intervals. If this value is too low, it will cause unnecessary wake-ups. If this value is too high, some key presses (press and release happen between two intervals) may not be noticed. This switch has no effect when running with <span Class="bold">-R</span>. 
+<p class="level0">Default is 200ms. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> Start as a daemon, ie in the background. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span> &lt;<span Class="emphasis">pid-file</span>&gt; Create a pid file with the specified filename. 
+<p class="level0">A pid file will only be created if the program is started in daemon mode. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> Only disable tapping and scrolling, not mouse movements, in response to keyboard activity. 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span> Ignore modifier keys when monitoring keyboard activity. 
+<p class="level0">
+<p class="level0"><span Class="bold">-K</span> Like -k but also ignore Modifier+Key combos. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span> Use the XRecord extension for detecting keyboard activity instead of polling the keyboard state. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> Show the help message. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> Specifies the X server to contact. <a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">If syndaemon exists with a return code other than 0, the error encountered is as below. 
+<p class="level0">
+<p class="level0"><span class="bold">Exit code 1 Invalid commandline argument. 
+<p class="level0">
+<p class="level0"><span class="bold">Exit code 2 The connection to the X sever could not be established or no touchpad device could be found. 
+<p class="level0">
+<p class="level0"><span class="bold">Exit code 3 The fork into daemon mode failed or the pid file could not be created. 
+<p class="level0">
+<p class="level0"><span class="bold">Exit code 4 XRECORD requested but not available or usable on the server. <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">
+<p class="level0">It doesn't make much sense to connect to a remote X server, because the daemon will then monitor the remote server for keyboard activity, but will disable the touchpad on the local machine. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Peter Osterlund &lt;petero2@telia.com&gt;. 
+<p class="level0">This man page was written by Mattia Dongili &lt;malattia@debian.org&gt; <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Xorg(1), synclient(1), synaptics(4) 

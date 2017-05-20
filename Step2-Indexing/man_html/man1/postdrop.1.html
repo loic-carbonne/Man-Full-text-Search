@@ -1,0 +1,86 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postdrop - Postfix mail posting utility <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">postdrop</span> [<span class="bold">-rv</span>] [<span class="bold">-c <span class="emphasis">config_dir</span>]
+</pre>
+<a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postdrop</span>(1) command creates a file in the <span Class="bold">maildrop</span> directory and copies its standard input to the file. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">The <span Class="bold">main.cf</span> configuration file is in the named directory instead of the default configuration directory. See also the MAIL_CONFIG environment setting below. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR</span> 
+<p class="level1">Use a Postfix-internal protocol for reading the message from standard input, and for reporting status information on standard output. This is currently the only supported method. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. As of Postfix 2.3, this option is available for the super-user only. <a name="SECURITY"></a><h2 class="nroffsh">SECURITY</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The command is designed to run with set-group ID privileges, so that it can write to the <span Class="bold">maildrop</span> queue directory and so that it can connect to Postfix daemon processes. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Fatal errors: malformed input, I/O error, out of memory. Problems are logged to <span Class="bold">syslogd</span>(8) and to the standard error stream. When the input is incomplete, or when the process receives a HUP, INT, QUIT or TERM signal, the queue file is deleted. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="MAILCONFIG"></a><span class="nroffip">MAIL_CONFIG</span> 
+<p class="level1">Directory with the <span Class="bold">main.cf</span> file. In order to avoid exploitation of set-group ID privileges, a non-standard directory is allowed only if: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The name is listed in the standard <span Class="bold">main.cf</span> file with the <span Class="bold">alternate_config_directories</span> configuration parameter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The command is invoked by the super-user. 
+<p class="level1"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBalternateconfigdirectories"></a><span class="nroffip">\fBalternate_config_directories (empty)\fR</span> 
+<p class="level1">A list of non-default Postfix configuration directories that may be specified with "-c config_directory" on the command line, or via the MAIL_CONFIG environment parameter. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBimportenvironment"></a><span class="nroffip">\fBimport_environment (see 'postconf -d' output)\fR</span> 
+<p class="level1">The list of environment parameters that a Postfix process will import from a non-Postfix parent process. 
+<p class="level0"><a name="fBqueuedirectory"></a><span class="nroffip">\fBqueue_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of the Postfix top-level queue directory. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". 
+<p class="level0"><a name="fBtriggertimeout"></a><span class="nroffip">\fBtrigger_timeout (10s)\fR</span> 
+<p class="level1">The time limit for sending a trigger to a Postfix daemon (for example, the <span Class="bold">pickup</span>(8) or <span Class="bold">qmgr</span>(8) daemon). 
+<p class="level1">Available in Postfix version 2.2 and later: 
+<p class="level0"><a name="fBauthorizedsubmitusers"></a><span class="nroffip">\fBauthorized_submit_users (static:anyone)\fR</span> 
+<p class="level1">List of users who are authorized to submit mail with the <span Class="bold">sendmail</span>(1) command (and with the privileged <span Class="bold">postdrop</span>(1) helper command). <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+/var/spool/postfix/maildrop, maildrop queue
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+sendmail(1), compatibility interface
+postconf(5), configuration parameters
+syslogd(8), system logging
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

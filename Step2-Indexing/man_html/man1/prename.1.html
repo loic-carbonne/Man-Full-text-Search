@@ -1,0 +1,135 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">rename - renames multiple files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">rename</span> [&nbsp;<span Class="bold">-v</span>&nbsp;] [&nbsp;<span Class="bold">-n</span>&nbsp;] [&nbsp;<span Class="bold">-f</span>&nbsp;] <span Class="emphasis">perlexpr</span> [&nbsp;<span Class="emphasis">files</span>&nbsp;] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">f(CW*(C`rename*(C'</span> renames the filenames supplied according to the rule specified as the first argument. The <span Class="emphasis">perlexpr</span>  argument is a Perl expression which is expected to modify the f(CW$_</span> string in Perl for at least some of the filenames specified. If a given filename is not modified by the expression, it will not be renamed. If no filenames are given on the command line, filenames will be read via standard input. 
+<p class="level0">For example, to rename all files matching f(CW*(C`*.bak*(C'</span> to strip the extension, you might say 
+<p class="level0">
+<p class="level0">&nbsp;       rename *(Aqs/e.bak$//*(Aq *.bak 
+<p class="level0">
+<p class="level0">To translate uppercase names to lower, you'd use 
+<p class="level0">
+<p class="level0">&nbsp;       rename *(Aqy/A-Z/a-z/*(Aq * 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR, \fB--verbose\fR 8</span> 
+<p class="level1">
+<p class="level1">Verbose: print names of files successfully renamed. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--no-act\fR 8</span> 
+<p class="level1">
+<p class="level1">No Action: show what files would have been renamed. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR, \fB--force\fR 8</span> 
+<p class="level1">
+<p class="level1">Force: overwrite existing files. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">No environment variables are used. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Larry Wall <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">mv</span>|(1), <span Class="emphasis">perl</span>|(1) <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">If you give an invalid Perl expression you'll get a syntax error. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">The original f(CW*(C`rename*(C'</span> did not check for the existence of target filenames, so had to be used with care.  I hope I've fixed that (Robin Barker). 

@@ -1,0 +1,156 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-remote - Manage set of tracked repositories <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git remote</span> [-v | --verbose]
+<span class="emphasis">git remote add</span> [-t &lt;branch&gt;] [-m &lt;master&gt;] [-f] [--[no-]tags] [--mirror=&lt;fetch|push&gt;] &lt;name&gt; &lt;url&gt;
+<span class="emphasis">git remote rename</span> &lt;old&gt; &lt;new&gt;
+<span class="emphasis">git remote remove</span> &lt;name&gt;
+<span class="emphasis">git remote set-head</span> &lt;name&gt; (-a | --auto | -d | --delete | &lt;branch&gt;)
+<span class="emphasis">git remote set-branches</span> [--add] &lt;name&gt; &lt;branch&gt;...
+<span class="emphasis">git remote set-url</span> [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]
+<span class="emphasis">git remote set-url --add</span> [--push] &lt;name&gt; &lt;newurl&gt;
+<span class="emphasis">git remote set-url --delete</span> [--push] &lt;name&gt; &lt;url&gt;
+<span class="emphasis">git remote</span> [-v | --verbose] <span class="emphasis">show</span> [-n] &lt;name&gt;...
+<span class="emphasis">git remote prune</span> [-n | --dry-run] &lt;name&gt;...
+<span class="emphasis">git remote</span> [-v | --verbose] <span class="emphasis">update</span> [-p | --prune] [(&lt;group&gt; | &lt;remote&gt;)...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Manage the set of repositories ("remotes") whose branches you track. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Be a little more verbose and show remote url after name. NOTE: This must be placed between remote and subcommand. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">With no arguments, shows a list of existing remotes. Several subcommands are available to perform operations on the remotes. 
+<p class="level0"><span Class="emphasis">add</span> 
+<p class="level1">Adds a remote named &lt;name&gt; for the repository at &lt;url&gt;. The command git fetch &lt;name&gt; can then be used to create and update remote-tracking branches &lt;name&gt;/&lt;branch&gt;. 
+<p class="level1">With -f option, git fetch &lt;name&gt; is run immediately after the remote information is set up. 
+<p class="level1">With --tags option, git fetch &lt;name&gt; imports every tag from the remote repository. 
+<p class="level1">With --no-tags option, git fetch &lt;name&gt; does not import tags from the remote repository. 
+<p class="level1">With -t &lt;branch&gt; option, instead of the default glob refspec for the remote to track all branches under the refs/remotes/&lt;name&gt;/ namespace, a refspec to track only &lt;branch&gt; is created. You can give more than one -t &lt;branch&gt; to track multiple branches without grabbing all branches. 
+<p class="level1">With -m &lt;master&gt; option, a symbolic-ref refs/remotes/&lt;name&gt;/HEAD is set up to point at remote(cqs &lt;master&gt; branch. See also the set-head command. 
+<p class="level1">When a fetch mirror is created with --mirror=fetch, the refs will not be stored in the <span Class="emphasis">refs/remotes/</span> namespace, but rather everything in <span Class="emphasis">refs/</span> on the remote will be directly mirrored into <span Class="emphasis">refs/</span> in the local repository. This option only makes sense in bare repositories, because a fetch would overwrite any local commits. 
+<p class="level1">When a push mirror is created with --mirror=push, then git push will always behave as if --mirror was passed. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">rename</span> 
+<p class="level1">Rename the remote named &lt;old&gt; to &lt;new&gt;. All remote-tracking branches and configuration settings for the remote are updated. 
+<p class="level1">In case &lt;old&gt; and &lt;new&gt; are the same, and &lt;old&gt; is a file under $GIT_DIR/remotes or $GIT_DIR/branches, the remote is converted to the configuration file format. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">remove</span>, <span Class="emphasis">rm</span> 
+<p class="level1">Remove the remote named &lt;name&gt;. All remote-tracking branches and configuration settings for the remote are removed. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">set-head</span> 
+<p class="level1">Sets or deletes the default branch (i.e. the target of the symbolic-ref refs/remotes/&lt;name&gt;/HEAD) for the named remote. Having a default branch for a remote is not required, but allows the name of the remote to be specified in lieu of a specific branch. For example, if the default branch for origin is set to master, then origin may be specified wherever you would normally specify origin/master. 
+<p class="level1">With -d or --delete, the symbolic ref refs/remotes/&lt;name&gt;/HEAD is deleted. 
+<p class="level1">With -a or --auto, the remote is queried to determine its HEAD, then the symbolic-ref refs/remotes/&lt;name&gt;/HEAD is set to the same branch. e.g., if the remote HEAD is pointed at next, "git remote set-head origin -a" will set the symbolic-ref refs/remotes/origin/HEAD to refs/remotes/origin/next. This will only work if refs/remotes/origin/next already exists; if not it must be fetched first. 
+<p class="level1">Use &lt;branch&gt; to set the symbolic-ref refs/remotes/&lt;name&gt;/HEAD explicitly. e.g., "git remote set-head origin master" will set the symbolic-ref refs/remotes/origin/HEAD to refs/remotes/origin/master. This will only work if refs/remotes/origin/master already exists; if not it must be fetched first. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">set-branches</span> 
+<p class="level1">Changes the list of branches tracked by the named remote. This can be used to track a subset of the available remote branches after the initial setup for a remote. 
+<p class="level1">The named branches will be interpreted as if specified with the -t option on the <span Class="emphasis">git remote add</span> command line. 
+<p class="level1">With --add, instead of replacing the list of currently tracked branches, adds to that list. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">set-url</span> 
+<p class="level1">Changes URL remote points to. Sets first URL remote points to matching regex &lt;oldurl&gt; (first URL if no &lt;oldurl&gt; is given) to &lt;newurl&gt;. If &lt;oldurl&gt; doesn(cqt match any URL, error occurs and nothing is changed. 
+<p class="level1">With <span Class="emphasis">--push</span>, push URLs are manipulated instead of fetch URLs. 
+<p class="level1">With <span Class="emphasis">--add</span>, instead of changing some URL, new URL is added. 
+<p class="level1">With <span Class="emphasis">--delete</span>, instead of changing some URL, all URLs matching regex &lt;url&gt; are deleted. Trying to delete all non-push URLs is an error. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">show</span> 
+<p class="level1">Gives some information about the remote &lt;name&gt;. 
+<p class="level1">With -n option, the remote heads are not queried first with git ls-remote &lt;name&gt;; cached information is used instead. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">prune</span> 
+<p class="level1">Deletes all stale remote-tracking branches under &lt;name&gt;. These stale branches have already been removed from the remote repository referenced by &lt;name&gt;, but are still locally available in "remotes/&lt;name&gt;". 
+<p class="level1">With --dry-run option, report what branches will be pruned, but do not actually prune them. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">update</span> 
+<p class="level1">Fetch updates for a named set of remotes in the repository as defined by remotes.&lt;group&gt;. If a named group is not specified on the command line, the configuration parameter remotes.default will be used; if remotes.default is not defined, all remotes which do not have the configuration parameter remote.&lt;name&gt;.skipDefaultUpdate set to true will be updated. (See <span Class="bold">git-config</span>(1)). 
+<p class="level1">With --prune option, prune all the remotes that are updated. 
+<p class="level0"><a name="DISCUSSION"></a><h2 class="nroffsh">DISCUSSION</h2>
+<p class="level0">
+<p class="level0">The remote configuration is achieved using the remote.origin.url and remote.origin.fetch configuration variables. (See <span Class="bold">git-config</span>(1)). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Add a new remote, fetch, and check out a branch from it 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git remote
+origin
+$ git branch -r
+&nbsp; origin/HEAD -&gt; origin/master
+&nbsp; origin/master
+$ git remote add staging git://git.kernel.org/.../gregkh/staging.git
+$ git remote
+origin
+staging
+$ git fetch staging
+...
+From git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging
+&nbsp;* [new branch]      master     -&gt; staging/master
+&nbsp;* [new branch]      staging-linus -&gt; staging/staging-linus
+&nbsp;* [new branch]      staging-next -&gt; staging/staging-next
+$ git branch -r
+&nbsp; origin/HEAD -&gt; origin/master
+&nbsp; origin/master
+&nbsp; staging/master
+&nbsp; staging/staging-linus
+&nbsp; staging/staging-next
+$ git checkout -b staging staging/master
+...
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Imitate <span Class="emphasis">git clone</span> but track only selected branches 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ mkdir project.git
+$ cd project.git
+$ git init
+$ git remote add -f -t master -m master origin git://example.com/git.git/
+$ git merge origin
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-fetch</span>(1) <span Class="bold">git-branch</span>(1) <span Class="bold">git-config</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

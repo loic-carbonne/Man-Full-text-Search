@@ -1,0 +1,74 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pdftosrc - extract source file or stream from PDF file <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pdftosrc</span> <span Class="emphasis">PDF-file</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">If only <span Class="emphasis">PDF-file</span> is given as argument, <span Class="bold">pdftosrc</span> extracts the embedded source file from the first found stream object with /Type /SourceFile within the <span Class="emphasis">PDF-file</span> and writes it to a file with the name /SourceName as defined in that PDF stream object (see application example below). 
+<p class="level0">If both <span Class="emphasis">PDF-file</span> and <span Class="emphasis">stream-object-number</span> are given as arguments, and <span Class="emphasis">stream-object-number</span> is positive, <span Class="bold">pdftosrc</span> extracts and uncompresses the PDF stream of the object given by its <span Class="emphasis">stream-object-number</span> from the <span Class="emphasis">PDF-file</span> and writes it to a file named <span Class="emphasis">PDF-file . stream-object-number</span> with the ending <span Class="bold">.pdf</span> or <span Class="bold">.PDF</span> stripped from the original <span Class="emphasis">PDF-file</span> name. 
+<p class="level0">A special case is related to XRef object streams that are part of the PDF standard from PDF-1.5 onward: If <span Class="emphasis">stream-object-number</span> equals -1, then <span Class="bold">pdftosrc</span> decompresses the XRef stream from the PDF file and writes it in human-readable PDF cross-reference table format to a file named 
+<p class="level0">(these XRef streams can not be extracted just by giving their object number). 
+<p class="level0">In any case an existing file with the output file name will be overwritten. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">None. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">Just the executable <span Class="manpage">pdftosrc .</span><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">None. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">At success the exit code of <span Class="bold">pdftosrc</span> is 0, else 1. 
+<p class="level0">All messages go to stderr. At program invocation, <span Class="bold">pdftosrc</span> issues the current version number of the program <span Class="manpage">xpdf</span>on which <span Class="bold">pdftosrc</span> is based: 
+<p class="level0">
+<p class="level1">pdftosrc version 3.01 
+<p class="level1">
+<p class="level0">When <span Class="bold">pdftosrc</span> was successful with the output file writing, one of the following messages will be issued: 
+<p class="level0">
+<p class="level1">Source file extracted to <span Class="emphasis">source-file-name</span> 
+<p class="level1">
+<p class="level0">or 
+<p class="level0">
+<p class="level1">Stream object extracted to <span Class="emphasis">PDF-file . stream-object-number</span> 
+<p class="level1">
+<p class="level0">or 
+<p class="level0">
+<p class="level1">Cross-reference table extracted to <span Class="emphasis">PDF-file .xref</span> 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level-1">When the object given by the <span Class="emphasis">stream-object-number</span> does not contain a stream, <span Class="bold">pdftosrc</span> issues the following error message: 
+<p class="level-1">
+<p class="level0">Not a Stream object 
+<p class="level0">
+<p class="level-1">When the <span Class="emphasis">PDF-file</span> can't be opened, the error message is: 
+<p class="level-1">
+<p class="level0">Error: Couldn't open file 
+<p class="level0">
+<p class="level0">
+<p class="level-1">When <span Class="bold">pdftosrc</span> encounters an invalid PDF file, the error message (several lines) is: 
+<p class="level-1">
+<p class="level0">Error: May not be a PDF file (continuing anyway) 
+<p class="level-1">
+<p class="level0">(more lines) 
+<p class="level-1">
+<p class="level0">Invalid PDF file 
+<p class="level0">
+<p class="level-1">There are also more error messages from <span Class="bold">pdftosrc</span> for various kinds of broken PDF files. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">An embedded source file will be written out unchanged, i. e. it will not be uncompressed in this process. 
+<p class="level0">Only the stream of the object will be written, i. e. not the dictionary of that object. 
+<p class="level0">Knowing which <span Class="emphasis">stream-object-number</span> to query requires information about the PDF file that has to be gained elsewhere, e. g. by looking into the PDF file with an editor. 
+<p class="level0">The stream extraction capabilities of <span Class="bold">pdftosrc</span> (e. g. regarding understood PDF versions and filter types) follow the capabilities of the underlying <span Class="bold">xpdf</span> program version. 
+<p class="level0">Currently the generation number of the stream object is not supported. The default value 0 (zero) is taken. 
+<p class="level0">The wording <span Class="emphasis">stream-object-number</span> has nothing to do with the `object streams' introduced by the Adobe PDF Reference, 5th edition, version 1.6. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">When using pdftex, a source file can be embedded into some <span Class="emphasis">PDF-file</span> by using pdftex primitives, as illustrated by the following example: 
+<p class="level0">\immediate\pdfobj 
+<p class="level-1">&nbsp;   stream attr {/Type /SourceFile /SourceName (myfile.zip)} 
+<p class="level0">
+<p class="level-1">&nbsp;   file{myfile.zip} 
+<p class="level0">
+<p class="level-1">\pdfcatalog{/SourceObject \the\pdflastobj\space 0 R} 
+<p class="level-1">Then this zip file can be extracted from the <span Class="emphasis">PDF-file</span> by calling <span Class="bold">pdftosrc</span> <span Class="emphasis">PDF-file .</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Not all embedded source files will be extracted, only the first found one. 
+<p class="level0">Email bug reports to <span Class="bold">pdftex@tug.org.</span> <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">xpdf (1)</span>, <span Class="manpage">pdfimages (1)</span>, <span Class="manpage">pdftotext (1)</span>, <span Class="manpage">pdftex (1)</span><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0"><span Class="bold">pdftosrc</span> written by Han The Thanh, using <span Class="bold">xpdf</span> functionality from Derek Noonburg. 
+<p class="level0">Man page written by Hartmut Henkel. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright (c) 1996-2006 Han The Thanh, &lt;thanh@pdftex.org&gt; 
+<p class="level0">This file is part of pdfTeX. 
+<p class="level0">pdfTeX is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. 
+<p class="level0">pdfTeX is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. 
+<p class="level0">You should have received a copy of the GNU General Public License along with pdfTeX; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 

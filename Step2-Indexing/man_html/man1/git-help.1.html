@@ -1,0 +1,169 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-help - Display help information about Git <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git help</span> [-a|--all] [-g|--guide]
+&nbsp;          [-i|--info|-m|--man|-w|--web] [COMMAND|GUIDE]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">With no options and no COMMAND or GUIDE given, the synopsis of the <span Class="emphasis">git</span> command and a list of the most commonly used Git commands are printed on the standard output. 
+<p class="level0">If the option <span Class="emphasis">--all</span> or <span Class="emphasis">-a</span> is given, all available commands are printed on the standard output. 
+<p class="level0">If the option <span Class="emphasis">--guide</span> or <span Class="emphasis">-g</span> is given, a list of the useful Git guides is also printed on the standard output. 
+<p class="level0">If a command, or a guide, is given, a manual page for that command or guide is brought up. The <span Class="emphasis">man</span> program is used by default for this purpose, but this can be overridden by other options or configuration variables. 
+<p class="level0">Note that git --help ... is identical to git help ... because the former is internally converted into the latter. 
+<p class="level0">To display the <span Class="bold">git</span>(1) man page, use git help git. 
+<p class="level0">This page can be displayed with <span Class="emphasis">git help help</span> or git help --help <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-a, --all 
+<p class="level1">Prints all the available commands on the standard output. This option overrides any given command or guide name. 
+<p class="level0">
+<p class="level0">-g, --guides 
+<p class="level1">Prints a list of useful guides on the standard output. This option overrides any given command or guide name. 
+<p class="level0">
+<p class="level0">-i, --info 
+<p class="level1">Display manual page for the command in the <span Class="emphasis">info</span> format. The <span Class="emphasis">info</span> program will be used for that purpose. 
+<p class="level0">
+<p class="level0">-m, --man 
+<p class="level1">Display manual page for the command in the <span Class="emphasis">man</span> format. This option may be used to override a value set in the <a class="emphasis" href="#helpformat">help.format</a> configuration variable. 
+<p class="level1">By default the <span Class="emphasis">man</span> program will be used to display the manual page, but the <a class="emphasis" href="#manviewer">man.viewer</a> configuration variable may be used to choose other display programs (see below). 
+<p class="level0">
+<p class="level0">-w, --web 
+<p class="level1">Display manual page for the command in the <span Class="emphasis">web</span> (HTML) format. A web browser will be used for that purpose. 
+<p class="level1">The web browser can be specified using the configuration variable <a class="emphasis" href="#helpbrowser">help.browser</a>, or <span Class="emphasis">web.browser</span> if the former is not set. If none of these config variables is set, the <span Class="emphasis">git web--browse</span> helper script (called by <span Class="emphasis">git help</span>) will pick a suitable default. See <span Class="bold">git-web--browse</span>(1) for more information about this. 
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION VARIABLES</h2>
+<p class="level0"><a name="helpformat"></a><h2 class="nroffsh">help\&.format</h2>
+<p class="level0">
+<p class="level0">If no command-line option is passed, the <a class="emphasis" href="#helpformat">help.format</a> configuration variable will be checked. The following values are supported for this variable; they make <span Class="emphasis">git help</span> behave as their corresponding command- line option: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"man" corresponds to <span Class="emphasis">-m|--man</span>, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"info" corresponds to <span Class="emphasis">-i|--info</span>, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"web" or "html" correspond to <span Class="emphasis">-w|--web</span>. 
+<p class="level0"><a name="helpbrowser"></a><h2 class="nroffsh">help\&.browser, web\&.browser and browser\&.&lt;tool&gt;\&.path</h2>
+<p class="level0">
+<p class="level0">The <a class="emphasis" href="#helpbrowser">help.browser</a>, <span Class="emphasis">web.browser</span> and <span Class="emphasis">browser.&lt;tool&gt;.path</span> will also be checked if the <span Class="emphasis">web</span> format is chosen (either by command-line option or configuration variable). See <span Class="emphasis">-w|--web</span> in the OPTIONS section above and <span Class="bold">git-web--browse</span>(1). <a name="manviewer"></a><h2 class="nroffsh">man\&.viewer</h2>
+<p class="level0">
+<p class="level0">The <a class="emphasis" href="#manviewer">man.viewer</a> configuration variable will be checked if the <span Class="emphasis">man</span> format is chosen. The following values are currently supported: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"man": use the <span Class="emphasis">man</span> program as usual, 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"woman": use <span Class="emphasis">emacsclient</span> to launch the "woman" mode in emacs (this only works starting with emacsclient versions 22), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">"konqueror": use <span Class="emphasis">kfmclient</span> to open the man page in a new konqueror tab (see <a class="emphasis" href="#Note">Note about konqueror</a> below). 
+<p class="level0">
+<p class="level0">Values for other tools can be used if there is a corresponding <span Class="emphasis">man.&lt;tool&gt;.cmd</span> configuration entry (see below). 
+<p class="level0">Multiple values may be given to the <a class="emphasis" href="#manviewer">man.viewer</a> configuration variable. Their corresponding programs will be tried in the order listed in the configuration file. 
+<p class="level0">For example, this configuration: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [man]
+&nbsp;               viewer = konqueror
+&nbsp;               viewer = woman
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will try to use konqueror first. But this may fail (for example, if DISPLAY is not set) and in that case emacs*(Aq woman mode will be tried. 
+<p class="level0">If everything fails, or if no viewer is configured, the viewer specified in the GIT_MAN_VIEWER environment variable will be tried. If that fails too, the <span Class="emphasis">man</span> program will be tried anyway. <a name="mantoolpath"></a><h2 class="nroffsh">man\&.&lt;tool&gt;\&.path</h2>
+<p class="level0">
+<p class="level0">You can explicitly provide a full path to your preferred man viewer by setting the configuration variable <span Class="emphasis">man.&lt;tool&gt;.path</span>. For example, you can configure the absolute path to konqueror by setting <span Class="emphasis">man.konqueror.path</span>. Otherwise, <span Class="emphasis">git help</span> assumes the tool is available in PATH. <a name="mantoolcmd"></a><h2 class="nroffsh">man\&.&lt;tool&gt;\&.cmd</h2>
+<p class="level0">
+<p class="level0">When the man viewer, specified by the <a class="emphasis" href="#manviewer">man.viewer</a> configuration variables, is not among the supported ones, then the corresponding <span Class="emphasis">man.&lt;tool&gt;.cmd</span> configuration variable will be looked up. If this variable exists then the specified tool will be treated as a custom command and a shell eval will be used to run the command with the man page passed as arguments. <a name="Note"></a><h2 class="nroffsh">Note about konqueror</h2>
+<p class="level0">
+<p class="level0">When <span Class="emphasis">konqueror</span> is specified in the <a class="emphasis" href="#manviewer">man.viewer</a> configuration variable, we launch <span Class="emphasis">kfmclient</span> to try to open the man page on an already opened konqueror in a new tab if possible. 
+<p class="level0">For consistency, we also try such a trick if <span Class="emphasis">man.konqueror.path</span> is set to something like <span Class="emphasis">A_PATH_TO/konqueror</span>. That means we will try to launch <span Class="emphasis">A_PATH_TO/kfmclient</span> instead. 
+<p class="level0">If you really want to use <span Class="emphasis">konqueror</span>, then you can use something like the following: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [man]
+&nbsp;               viewer = konq
+&nbsp;
+&nbsp;       [man "konq"]
+&nbsp;               cmd = A_PATH_TO/konqueror
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Note"></a><h2 class="nroffsh">Note about git config --global</h2>
+<p class="level0">
+<p class="level0">Note that all these configuration variables should probably be set using the <span Class="emphasis">--global</span> flag, for example like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git config --global help.format web
+$ git config --global web.browser firefox
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">as they are probably more user specific than repository specific. See <span Class="bold">git-config</span>(1) for more information about this. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

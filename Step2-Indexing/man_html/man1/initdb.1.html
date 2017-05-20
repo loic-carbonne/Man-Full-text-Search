@@ -1,0 +1,100 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">initdb - create a new PostgreSQL database cluster <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">initdb</span> [<span Class="emphasis">option</span>...] [<span Class="bold">--pgdata</span> | <span Class="bold">-D</span>]<span Class="emphasis"> directory</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">initdb</span> creates a new PostgreSQL database cluster. A database cluster is a collection of databases that are managed by a single server instance. 
+<p class="level0">Creating a database cluster consists of creating the directories in which the database data will live, generating the shared catalog tables (tables that belong to the whole cluster rather than to any particular database), and creating the template1 and postgres databases. When you later create a new database, everything in the template1 database is copied. (Therefore, anything installed in template1 is automatically copied into each database created later.) The postgres database is a default database meant for use by users, utilities and third party applications. 
+<p class="level0">Although <span Class="bold">initdb</span> will attempt to create the specified data directory, it might not have permission if the parent directory of the desired data directory is root-owned. To initialize in such a setup, create an empty data directory as root, then use <span Class="bold">chown</span> to assign ownership of that directory to the database user account, then <span Class="bold">su</span> to become the database user to run <span Class="bold">initdb</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">initdb</span> must be run as the user that will own the server process, because the server needs to have access to the files and directories that <span Class="bold">initdb</span> creates. Since the server cannot be run as root, you must not run <span Class="bold">initdb</span> as root either. (It will in fact refuse to do so.) 
+<p class="level0">
+<p class="level0"><span Class="bold">initdb</span> initializes the database cluster*(Aqs default locale and character set encoding. The character set encoding, collation order (LC_COLLATE) and character set classes (LC_CTYPE, e.g. upper, lower, digit) can be set separately for a database when it is created. <span Class="bold">initdb</span> determines those settings for the template1 database, which will serve as the default for all other databases. 
+<p class="level0">To alter the default collation order or character set classes, use the <span Class="bold">--lc-collate</span> and <span Class="bold">--lc-ctype</span> options. Collation orders other than C or POSIX also have a performance penalty. For these reasons it is important to choose the right locale when running <span Class="bold">initdb</span>. 
+<p class="level0">The remaining locale categories can be changed later when the server is started. You can also use <span Class="bold">--locale</span> to set the default for all locale categories, including collation order and character set classes. All server locale values (lc_*) can be displayed via <span Class="bold">SHOW ALL</span>. More details can be found in Section 22.1, (lqLocale Support(rq, in the documentation. 
+<p class="level0">To alter the default encoding, use the <span Class="bold">--encoding</span>. More details can be found in Section 22.3, (lqCharacter Set Support(rq, in the documentation. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-A </span><span class="bold"><span Class="emphasis">authmethod</span></span> <br><span Class="bold">--auth=</span><span class="bold"><span Class="emphasis">authmethod</span></span> 
+<p class="level1">This option specifies the authentication method for local users used in pg_hba.conf (host and local lines). Do not use trust unless you trust all local users on your system. trust is the default for ease of installation. 
+<p class="level0">
+<p class="level0"><span Class="bold">--auth-host=</span><span class="bold"><span Class="emphasis">authmethod</span></span> 
+<p class="level1">This option specifies the authentication method for local users via TCP/IP connections used in pg_hba.conf (host lines). 
+<p class="level0">
+<p class="level0"><span Class="bold">--auth-local=</span><span class="bold"><span Class="emphasis">authmethod</span></span> 
+<p class="level1">This option specifies the authentication method for local users via Unix-domain socket connections used in pg_hba.conf (local lines). 
+<p class="level0">
+<p class="level0"><span Class="bold">-D </span><span class="bold"><span Class="emphasis">directory</span></span> <br><span Class="bold">--pgdata=</span><span class="bold"><span Class="emphasis">directory</span></span> 
+<p class="level1">This option specifies the directory where the database cluster should be stored. This is the only information required by <span Class="bold">initdb</span>, but you can avoid writing it by setting the <span Class="bold">PGDATA</span> environment variable, which can be convenient since the database server (<span Class="bold">postgres</span>) can find the database directory later by the same variable. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E </span><span class="bold"><span Class="emphasis">encoding</span></span> <br><span Class="bold">--encoding=</span><span class="bold"><span Class="emphasis">encoding</span></span> 
+<p class="level1">Selects the encoding of the template database. This will also be the default encoding of any database you create later, unless you override it there. The default is derived from the locale, or SQL_ASCII if that does not work. The character sets supported by the PostgreSQL server are described in Section 22.3.1, (lqSupported Character Sets(rq, in the documentation. 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span> <br><span Class="bold">--data-checksums</span> 
+<p class="level1">Use checksums on data pages to help detect corruption by the I/O system that would otherwise be silent. Enabling checksums may incur a noticeable performance penalty. This option can only be set during initialization, and cannot be changed later. If set, checksums are calculated for all objects, in all databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">--locale=</span><span class="bold"><span Class="emphasis">locale</span></span> 
+<p class="level1">Sets the default locale for the database cluster. If this option is not specified, the locale is inherited from the environment that <span Class="bold">initdb</span> runs in. Locale support is described in Section 22.1, (lqLocale Support(rq, in the documentation. 
+<p class="level0">
+<p class="level0"><span Class="bold">--lc-collate=</span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--lc-ctype=</span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--lc-messages=</span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--lc-monetary=</span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--lc-numeric=</span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--lc-time=</span><span class="bold"><span Class="emphasis">locale</span></span> 
+<p class="level1">Like <span Class="bold">--locale</span>, but only sets the locale in the specified category. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-locale</span> 
+<p class="level1">Equivalent to <span Class="bold">--locale=C</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-N</span> <br><span Class="bold">--nosync</span> 
+<p class="level1">By default, <span Class="bold">initdb</span> will wait for all files to be written safely to disk. This option causes <span Class="bold">initdb</span> to return without waiting, which is faster, but means that a subsequent operating system crash can leave the data directory corrupt. Generally, this option is useful for testing, but should not be used when creating a production installation. 
+<p class="level0">
+<p class="level0"><span Class="bold">--pwfile=</span><span class="bold"><span Class="emphasis">filename</span></span> 
+<p class="level1">Makes <span Class="bold">initdb</span> read the database superuser*(Aqs password from a file. The first line of the file is taken as the password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S</span> <br><span Class="bold">--sync-only</span> 
+<p class="level1">Safely write all database files to disk and exit. This does not perform any of the normal initdb operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">-T </span><span class="bold"><span Class="emphasis">CFG</span></span> <br><span Class="bold">--text-search-config=</span><span class="bold"><span Class="emphasis">CFG</span></span> 
+<p class="level1">Sets the default text search configuration. See default_text_search_config for further information. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">Selects the user name of the database superuser. This defaults to the name of the effective user running <span Class="bold">initdb</span>. It is really not important what the superuser*(Aqs name is, but one might choose to keep the customary name postgres, even if the operating system user*(Aqs name is different. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--pwprompt</span> 
+<p class="level1">Makes <span Class="bold">initdb</span> prompt for a password to give the database superuser. If you don*(Aqt plan on using password authentication, this is not important. Otherwise you won*(Aqt be able to use password authentication until you have a password set up. 
+<p class="level0">
+<p class="level0"><span Class="bold">-X </span><span class="bold"><span Class="emphasis">directory</span></span> <br><span Class="bold">--xlogdir=</span><span class="bold"><span Class="emphasis">directory</span></span> 
+<p class="level1">This option specifies the directory where the transaction log should be stored. 
+<p class="level0">
+<p class="level0">Other, less commonly used, options are also available: 
+<p class="level0"><span Class="bold">-d</span> <br><span Class="bold">--debug</span> 
+<p class="level1">Print debugging output from the bootstrap backend and a few other messages of lesser interest for the general public. The bootstrap backend is the program <span Class="bold">initdb</span> uses to create the catalog tables. This option generates a tremendous amount of extremely boring output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-L </span><span class="bold"><span Class="emphasis">directory</span></span> 
+<p class="level1">Specifies where <span Class="bold">initdb</span> should find its input files to initialize the database cluster. This is normally not necessary. You will be told if you need to specify their location explicitly. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span> <br><span Class="bold">--noclean</span> 
+<p class="level1">By default, when <span Class="bold">initdb</span> determines that an error prevented it from completely creating the database cluster, it removes any files it might have created before discovering that it cannot finish the job. This option inhibits tidying-up and is thus useful for debugging. 
+<p class="level0">
+<p class="level0">Other options: 
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the initdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about initdb command line arguments, and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATA</span> 
+<p class="level1">Specifies the directory where the database cluster is to be stored; can be overridden using the <span Class="bold">-D</span> option. 
+<p class="level0">
+<p class="level0"><span Class="bold">TZ</span> 
+<p class="level1">Specifies the default time zone of the created database cluster. The value should be a full time zone name (see Section 8.5.3, (lqTime Zones(rq, in the documentation). 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">initdb</span> can also be invoked via <span Class="bold">pg_ctl initdb</span>. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">pg_ctl</span>(1), <span Class="bold">postgres</span>(1) 

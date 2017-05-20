@@ -1,0 +1,2390 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-config - Get and set repository or global options <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] [-z|--null] name [value [value_regex]]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] --add name value
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] --replace-all name value [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] [-z|--null] --get name [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] [-z|--null] --get-all name [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] [-z|--null] --get-regexp name_regex [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [type] [-z|--null] --get-urlmatch name URL
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --unset name [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --unset-all name [value_regex]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --rename-section old_name new_name
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --remove-section name
+<span class="emphasis">git config</span> [&lt;file-option&gt;] [-z|--null] -l | --list
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --get-color name [default]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] --get-colorbool name [stdout-is-tty]
+<span class="emphasis">git config</span> [&lt;file-option&gt;] -e | --edit
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">You can query/set/replace/unset options with this command. The name is actually the section and the key separated by a dot, and the value will be escaped. 
+<p class="level0">Multiple lines can be added to an option by using the <span Class="emphasis">--add</span> option. If you want to update or unset an option which can occur on multiple lines, a POSIX regexp value_regex needs to be given. Only the existing values that match the regexp are updated or unset. If you want to handle the lines that do <span Class="bold">not</span> match the regex, just prepend a single exclamation mark in front (see also the section called (lqEXAMPLES(rq). 
+<p class="level0">The type specifier can be either <span Class="emphasis">--int</span> or <span Class="emphasis">--bool</span>, to make <span Class="emphasis">git config</span> ensure that the variable(s) are of the given type and convert the value to the canonical form (simple decimal number for int, a "true" or "false" string for bool), or <span Class="emphasis">--path</span>, which does some path expansion (see <span Class="emphasis">--path</span> below). If no type specifier is passed, no checks or transformations are performed on the value. 
+<p class="level0">When reading, the values are read from the system, global and repository local configuration files by default, and options <span Class="emphasis">--system</span>, <span Class="emphasis">--global</span>, <span Class="emphasis">--local</span> and <span Class="emphasis">--file &lt;filename&gt;</span> can be used to tell the command to read from only that location (see the section called (lqFILES(rq). 
+<p class="level0">When writing, the new value is written to the repository local configuration file by default, and options <span Class="emphasis">--system</span>, <span Class="emphasis">--global</span>, <span Class="emphasis">--file &lt;filename&gt;</span> can be used to tell the command to write to that location (you can say <span Class="emphasis">--local</span> but that is the default). 
+<p class="level0">This command will fail with non-zero status upon error. Some exit codes are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">The config file is invalid (ret=3), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">can not write to the config file (ret=4), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">no section or name was provided (ret=2), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">the section or key is invalid (ret=1), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 5.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level1">
+<p class="level1">you try to unset an option which does not exist (ret=5), 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 6.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  6. 4.2</span> 
+<p class="level1">
+<p class="level1">you try to unset/set an option for which multiple lines match (ret=5), or 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 7.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  7. 4.2</span> 
+<p class="level1">
+<p class="level1">you try to use an invalid regexp (ret=6). 
+<p class="level0">
+<p class="level0">On success, the command returns the exit code 0. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--replace-all 
+<p class="level1">Default behavior is to replace at most one line. This replaces all lines matching the key (and optionally the value_regex). 
+<p class="level0">
+<p class="level0">--add 
+<p class="level1">Adds a new line to the option without altering any existing values. This is the same as providing <a class="emphasis" href="#">^$</a> as the value_regex in --replace-all. 
+<p class="level0">
+<p class="level0">--get 
+<p class="level1">Get the value for a given key (optionally filtered by a regex matching the value). Returns error code 1 if the key was not found and the last value if multiple key values were found. 
+<p class="level0">
+<p class="level0">--get-all 
+<p class="level1">Like get, but does not fail if the number of values for the key is not exactly one. 
+<p class="level0">
+<p class="level0">--get-regexp 
+<p class="level1">Like --get-all, but interprets the name as a regular expression and writes out the key names. Regular expression matching is currently case-sensitive and done against a canonicalized version of the key in which section and variable names are lowercased, but subsection names are not. 
+<p class="level0">
+<p class="level0">--get-urlmatch name URL 
+<p class="level1">When given a two-part name section.key, the value for section.&lt;url&gt;.key whose &lt;url&gt; part matches the best to the given URL is returned (if no such key exists, the value for section.key is used as a fallback). When given just the section as name, do so for all the keys in the section and list them. 
+<p class="level0">
+<p class="level0">--global 
+<p class="level1">For writing options: write to global ~/.gitconfig file rather than the repository .git/config, write to $XDG_CONFIG_HOME/git/config file if this file exists and the ~/.gitconfig file doesn(cqt. 
+<p class="level1">For reading options: read only from global ~/.gitconfig and from $XDG_CONFIG_HOME/git/config rather than from all available files. 
+<p class="level1">See also the section called (lqFILES(rq. 
+<p class="level0">
+<p class="level0">--system 
+<p class="level1">For writing options: write to system-wide $(prefix)/etc/gitconfig rather than the repository .git/config. 
+<p class="level1">For reading options: read only from system-wide $(prefix)/etc/gitconfig rather than from all available files. 
+<p class="level1">See also the section called (lqFILES(rq. 
+<p class="level0">
+<p class="level0">--local 
+<p class="level1">For writing options: write to the repository .git/config file. This is the default behavior. 
+<p class="level1">For reading options: read only from the repository .git/config rather than from all available files. 
+<p class="level1">See also the section called (lqFILES(rq. 
+<p class="level0">
+<p class="level0">-f config-file, --file config-file 
+<p class="level1">Use the given config file instead of the one specified by GIT_CONFIG. 
+<p class="level0">
+<p class="level0">--blob blob 
+<p class="level1">Similar to <span Class="emphasis">--file</span> but use the given blob instead of a file. E.g. you can use <span Class="emphasis">master:.gitmodules</span> to read values from the file <span Class="emphasis">.gitmodules</span> in the master branch. See "SPECIFYING REVISIONS" section in <span Class="bold">gitrevisions</span>(7) for a more complete list of ways to spell blob names. 
+<p class="level0">
+<p class="level0">--remove-section 
+<p class="level1">Remove the given section from the configuration file. 
+<p class="level0">
+<p class="level0">--rename-section 
+<p class="level1">Rename the given section to a new name. 
+<p class="level0">
+<p class="level0">--unset 
+<p class="level1">Remove the line matching the key from config file. 
+<p class="level0">
+<p class="level0">--unset-all 
+<p class="level1">Remove all lines matching the key from config file. 
+<p class="level0">
+<p class="level0">-l, --list 
+<p class="level1">List all variables set in config file. 
+<p class="level0">
+<p class="level0">--bool 
+<p class="level1"><span Class="emphasis">git config</span> will ensure that the output is "true" or "false" 
+<p class="level0">
+<p class="level0">--int 
+<p class="level1"><span Class="emphasis">git config</span> will ensure that the output is a simple decimal number. An optional value suffix of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> in the config file will cause the value to be multiplied by 1024, 1048576, or 1073741824 prior to output. 
+<p class="level0">
+<p class="level0">--bool-or-int 
+<p class="level1"><span Class="emphasis">git config</span> will ensure that the output matches the format of either --bool or --int, as described above. 
+<p class="level0">
+<p class="level0">--path 
+<p class="level1"><span Class="emphasis">git-config</span> will expand leading <a class="emphasis" href="#">~</a> to the value of <span Class="emphasis">$HOME</span>, and <span Class="emphasis">~user</span> to the home directory for the specified user. This option has no effect when setting the value (but you can use <span Class="emphasis">git config bla ~/</span> from the command line to let your shell do the expansion). 
+<p class="level0">
+<p class="level0">-z, --null 
+<p class="level1">For all options that output values and/or keys, always end values with the null character (instead of a newline). Use newline instead as a delimiter between key and value. This allows for secure parsing of the output without getting confused e.g. by values that contain line breaks. 
+<p class="level0">
+<p class="level0">--get-colorbool name [stdout-is-tty] 
+<p class="level1">Find the color setting for name (e.g. color.diff) and output "true" or "false". stdout-is-tty should be either "true" or "false", and is taken into account when configuration says "auto". If stdout-is-tty is missing, then checks the standard output of the command itself, and exits with status 0 if color is to be used, or exits with status 1 otherwise. When the color setting for name is undefined, the command uses color.ui as fallback. 
+<p class="level0">
+<p class="level0">--get-color name [default] 
+<p class="level1">Find the color configured for name (e.g. color.diff.new) and output it as the ANSI color escape sequence to the standard output. The optional default parameter is used instead, if there is no color configured for name. 
+<p class="level0">
+<p class="level0">-e, --edit 
+<p class="level1">Opens an editor to modify the specified config file; either <span Class="emphasis">--system</span>, <span Class="emphasis">--global</span>, or repository (default). 
+<p class="level0">
+<p class="level0">--[no-]includes 
+<p class="level1">Respect include.* directives in config files when looking up values. Defaults to on. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">If not set explicitly with <span Class="emphasis">--file</span>, there are four files where <span Class="emphasis">git config</span> will search for configuration options: 
+<p class="level0">$(prefix)/etc/gitconfig 
+<p class="level1">System-wide configuration file. 
+<p class="level0">
+<p class="level0">$XDG_CONFIG_HOME/git/config 
+<p class="level1">Second user-specific configuration file. If $XDG_CONFIG_HOME is not set or empty, $HOME/.config/git/config will be used. Any single-valued variable set in this file will be overwritten by whatever is in ~/.gitconfig. It is a good idea not to create this file if you sometimes use older versions of Git, as support for this file was added fairly recently. 
+<p class="level0">
+<p class="level0">~/.gitconfig 
+<p class="level1">User-specific configuration file. Also called "global" configuration file. 
+<p class="level0">
+<p class="level0">$GIT_DIR/config 
+<p class="level1">Repository specific configuration file. 
+<p class="level0">
+<p class="level0">If no further options are given, all reading options will read all of these files that are available. If the global or the system-wide configuration file are not available they will be ignored. If the repository configuration file is not available or readable, <span Class="emphasis">git config</span> will exit with a non-zero error code. However, in neither case will an error message be issued. 
+<p class="level0">The files are read in the order given above, with last value found taking precedence over values read earlier. When multiple values are taken then all values of a key from all files will be used. 
+<p class="level0">All writing options will per default write to the repository specific configuration file. Note that this also affects options like <span Class="emphasis">--replace-all</span> and <span Class="emphasis">--unset</span>. <span class="bold"><span Class="emphasis">git config</span></span><span Class="bold"> will only ever change one file at a time</span>. 
+<p class="level0">You can override these rules either by command-line options or by environment variables. The <span Class="emphasis">--global</span> and the <span Class="emphasis">--system</span> options will limit the file used to the global or system-wide file respectively. The GIT_CONFIG environment variable has a similar effect, but you can specify any filename you want. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">GIT_CONFIG 
+<p class="level1">Take the configuration from the given file instead of .git/config. Using the "--global" option forces this to ~/.gitconfig. Using the "--system" option forces this to $(prefix)/etc/gitconfig. 
+<p class="level0">
+<p class="level0">GIT_CONFIG_NOSYSTEM 
+<p class="level1">Whether to skip reading settings from the system-wide $(prefix)/etc/gitconfig file. See <span Class="bold">git</span>(1) for details. 
+<p class="level0">
+<p class="level0">See also the section called (lqFILES(rq. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Given a .git/config like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;
+&#35; This is the config file, and
+&#35; a *(Aq&#35;*(Aq or *(Aq;*(Aq character indicates
+&#35; a comment
+&#35;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+; core variables
+[core]
+&nbsp;       ; Don*(Aqt trust file modes
+&nbsp;       filemode = false
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+; Our diff algorithm
+[diff]
+&nbsp;       external = /usr/local/bin/diff-wrapper
+&nbsp;       renames = true
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+; Proxy settings
+[core]
+&nbsp;       gitproxy=proxy-command for kernel.org
+&nbsp;       gitproxy=default-proxy ; for all the rest
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+; HTTP
+[http]
+&nbsp;       sslVerify
+[http "https://weak.example.com"]
+&nbsp;       sslVerify = false
+&nbsp;       cookieFile = /tmp/cookie.txt
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">you can set the filemode to true with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config core.filemode true
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The hypothetical proxy command entries actually have a postfix to discern what URL they apply to. Here is how to change the entry for kernel.org to "ssh". 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config core.gitproxy *(Aq"ssh" for kernel.org*(Aq *(Aqfor kernel.org$*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This makes sure that only the key/value pair for kernel.org is replaced. 
+<p class="level0">To delete the entry for renames, do 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --unset diff.renames
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you want to delete an entry for a multivar (like core.gitproxy above), you have to provide a regex matching the value of exactly one line. 
+<p class="level0">To query the value for a given key, do 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --get core.filemode
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">or 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config core.filemode
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">or, to query a multivar: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --get core.gitproxy "for kernel.org$"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you want to know all the values for a multivar, do: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --get-all core.gitproxy
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you like to live dangerously, you can replace <span Class="bold">all</span> core.gitproxy by a new one with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --replace-all core.gitproxy ssh
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">However, if you really only want to replace the line for the default proxy, i.e. the one without a "for ..." postfix, do something like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config core.gitproxy ssh *(Aq! for *(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">To actually match only values with an exclamation mark, you have to 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config section.key value *(Aq[!]*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">To add a new proxy, without altering any of the existing ones, use 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --add core.gitproxy *(Aq"proxy-command" for example.com*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">An example to use customized color from the configuration in your script: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;!/bin/sh
+WS=$(git config --get-color color.diff.whitespace "blue reverse")
+RESET=$(git config --get-color "" "reset")
+echo "${WS}your whitespace color or blue reverse${RESET}"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For URLs in <a href="https://weak.example.com,">https://weak.example.com,</a> http.sslVerify is set to false, while it is set to true for all others: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+% git config --bool --get-urlmatch http.sslverify https://good.example.com
+true
+% git config --bool --get-urlmatch http.sslverify https://weak.example.com
+false
+% git config --get-urlmatch http https://weak.example.com
+http.cookiefile /tmp/cookie.txt
+http.sslverify false
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION FILE</h2>
+<p class="level0">
+<p class="level0">The Git configuration file contains a number of variables that affect the Git commands*(Aq behavior. The .git/config file in each repository is used to store the configuration for that repository, and $HOME/.gitconfig is used to store a per-user configuration as fallback values for the .git/config file. The file /etc/gitconfig can be used to store a system-wide default configuration. 
+<p class="level0">The configuration variables are used by both the Git plumbing and the porcelains. The variables are divided into sections, wherein the fully qualified variable name of the variable itself is the last dot-separated segment and the section name is everything before the last dot. The variable names are case-insensitive, allow only alphanumeric characters and -, and must start with an alphabetic character. Some variables may appear multiple times. <a name="Syntax"></a><h2 class="nroffsh">Syntax</h2>
+<p class="level0">
+<p class="level0">The syntax is fairly flexible and permissive; whitespaces are mostly ignored. The <span Class="emphasis">&#35;</span> and <a class="emphasis" href="#">;</a> characters begin comments to the end of line, blank lines are ignored. 
+<p class="level0">The file consists of sections and variables. A section begins with the name of the section in square brackets and continues until the next section begins. Section names are not case sensitive. Only alphanumeric characters, - and . are allowed in section names. Each variable must belong to some section, which means that there must be a section header before the first setting of a variable. 
+<p class="level0">Sections can be further divided into subsections. To begin a subsection put its name in double quotes, separated by space from the section name, in the section header, like in the example below: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       [section "subsection"]
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Subsection names are case sensitive and can contain any characters except newline (doublequote " and backslash have to be escaped as e" and ee, respectively). Section headers cannot span multiple lines. Variables may belong directly to a section or to a given subsection. You can have [section] if you have [section "subsection"], but you don(cqt need to. 
+<p class="level0">There is also a deprecated [section.subsection] syntax. With this syntax, the subsection name is converted to lower-case and is also compared case sensitively. These subsection names follow the same restrictions as section names. 
+<p class="level0">All the other lines (and the remainder of the line after the section header) are recognized as setting variables, in the form <span Class="emphasis">name = value</span>. If there is no equal sign on the line, the entire line is taken as <span Class="emphasis">name</span> and the variable is recognized as boolean "true". The variable names are case-insensitive, allow only alphanumeric characters and -, and must start with an alphabetic character. There can be more than one value for a given variable; we say then that the variable is multivalued. 
+<p class="level0">Leading and trailing whitespace in a variable value is discarded. Internal whitespace within a variable value is retained verbatim. 
+<p class="level0">The values following the equals sign in variable assign are all either a string, an integer, or a boolean. Boolean values may be given as yes/no, 1/0, true/false or on/off. Case is not significant in boolean values, when converting value to the canonical form using <span Class="emphasis">--bool</span> type specifier; <span Class="emphasis">git config</span> will ensure that the output is "true" or "false". 
+<p class="level0">String values may be entirely or partially enclosed in double quotes. You need to enclose variable values in double quotes if you want to preserve leading or trailing whitespace, or if the variable value contains comment characters (i.e. it contains <span Class="emphasis">&#35;</span> or <a class="emphasis" href="#">;</a>). Double quote " and backslash e characters in variable values must be escaped: use e" for " and ee for e. 
+<p class="level0">The following escape sequences (beside e" and ee) are recognized: en for newline character (NL), et for horizontal tabulation (HT, TAB) and eb for backspace (BS). Other char escape sequences (including octal escape sequences) are invalid. 
+<p class="level0">Variable values ending in a e are continued on the next line in the customary UNIX fashion. 
+<p class="level0">Some variables may require a special value format. <a name="Includes"></a><h2 class="nroffsh">Includes</h2>
+<p class="level0">
+<p class="level0">You can include one config file from another by setting the special include.path variable to the name of the file to be included. The included file is expanded immediately, as if its contents had been found at the location of the include directive. If the value of the include.path variable is a relative path, the path is considered to be relative to the configuration file in which the include directive was found. The value of include.path is subject to tilde expansion: ~/ is expanded to the value of $HOME, and ~user/ to the specified user(cqs home directory. See below for examples. <a name="Example"></a><h2 class="nroffsh">Example</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; Core variables
+[core]
+&nbsp;       ; Don*(Aqt trust file modes
+&nbsp;       filemode = false
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; Our diff algorithm
+[diff]
+&nbsp;       external = /usr/local/bin/diff-wrapper
+&nbsp;       renames = true
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[branch "devel"]
+&nbsp;       remote = origin
+&nbsp;       merge = refs/heads/devel
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; Proxy settings
+[core]
+&nbsp;       gitProxy="ssh" for "kernel.org"
+&nbsp;       gitProxy=default-proxy ; for the rest
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[include]
+&nbsp;       path = /path/to/foo.inc ; include by absolute path
+&nbsp;       path = foo ; expand "foo" relative to the current file
+&nbsp;       path = ~/foo ; expand "foo" in your $HOME directory
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Variables"></a><h2 class="nroffsh">Variables</h2>
+<p class="level0">
+<p class="level0">Note that this list is non-comprehensive and not necessarily complete. For command-specific variables, you will find a more detailed description in the appropriate manual page. 
+<p class="level0">Other git-related tools may and do use their own variables. When inventing new variables for use in your own tool, make sure their names do not conflict with those that are used by Git itself and other popular tools, and describe them in your documentation. 
+<p class="level0">advice.* 
+<p class="level1">These variables control various optional help messages designed to aid new users. All <span Class="emphasis">advice.*</span> variables default to <span Class="emphasis">true</span>, and you can tell Git that you do not need help by setting these to <span Class="emphasis">false</span>: 
+<p class="level1">pushUpdateRejected 
+<p class="level2">Set this variable to <span Class="emphasis">false</span> if you want to disable <span Class="emphasis">pushNonFFCurrent</span>, <span Class="emphasis">pushNonFFMatching</span>, <span Class="emphasis">pushAlreadyExists</span>, <span Class="emphasis">pushFetchFirst</span>, and <span Class="emphasis">pushNeedsForce</span> simultaneously. 
+<p class="level1">
+<p class="level1">pushNonFFCurrent 
+<p class="level2">Advice shown when <span Class="bold">git-push</span>(1) fails due to a non-fast-forward update to the current branch. 
+<p class="level1">
+<p class="level1">pushNonFFMatching 
+<p class="level2">Advice shown when you ran <span Class="bold">git-push</span>(1) and pushed <span Class="emphasis">matching refs</span> explicitly (i.e. you used <a class="emphasis" href="#">:</a>, or specified a refspec that isn(cqt your current branch) and it resulted in a non-fast-forward error. 
+<p class="level1">
+<p class="level1">pushAlreadyExists 
+<p class="level2">Shown when <span Class="bold">git-push</span>(1) rejects an update that does not qualify for fast-forwarding (e.g., a tag.) 
+<p class="level1">
+<p class="level1">pushFetchFirst 
+<p class="level2">Shown when <span Class="bold">git-push</span>(1) rejects an update that tries to overwrite a remote ref that points at an object we do not have. 
+<p class="level1">
+<p class="level1">pushNeedsForce 
+<p class="level2">Shown when <span Class="bold">git-push</span>(1) rejects an update that tries to overwrite a remote ref that points at an object that is not a commit-ish, or make the remote ref point at an object that is not a commit-ish. 
+<p class="level1">
+<p class="level1">statusHints 
+<p class="level2">Show directions on how to proceed from the current state in the output of <span Class="bold">git-status</span>(1), in the template shown when writing commit messages in <span Class="bold">git-commit</span>(1), and in the help message shown by <span Class="bold">git-checkout</span>(1) when switching branch. 
+<p class="level1">
+<p class="level1">statusUoption 
+<p class="level2">Advise to consider using the -u option to <span Class="bold">git-status</span>(1) when the command takes more than 2 seconds to enumerate untracked files. 
+<p class="level1">
+<p class="level1">commitBeforeMerge 
+<p class="level2">Advice shown when <span Class="bold">git-merge</span>(1) refuses to merge to avoid overwriting local changes. 
+<p class="level1">
+<p class="level1">resolveConflict 
+<p class="level2">Advice shown by various commands when conflicts prevent the operation from being performed. 
+<p class="level1">
+<p class="level1">implicitIdentity 
+<p class="level2">Advice on how to set your identity configuration when your information is guessed from the system username and domain name. 
+<p class="level1">
+<p class="level1">detachedHead 
+<p class="level2">Advice shown when you used <span Class="bold">git-checkout</span>(1) to move to the detach HEAD state, to instruct how to create a local branch after the fact. 
+<p class="level1">
+<p class="level1">amWorkDir 
+<p class="level2">Advice that shows the location of the patch file when <span Class="bold">git-am</span>(1) fails to apply it. 
+<p class="level1">
+<p class="level1">rmHints 
+<p class="level2">In case of failure in the output of <span Class="bold">git-rm</span>(1), show directions on how to proceed from the current state. 
+<p class="level1">
+<p class="level0">
+<p class="level0">core.fileMode 
+<p class="level1">If false, the executable bit differences between the index and the working tree are ignored; useful on broken filesystems like FAT. See <span Class="bold">git-update-index</span>(1). 
+<p class="level1">The default is true, except <span Class="bold">git-clone</span>(1) or <span Class="bold">git-init</span>(1) will probe and set core.fileMode false if appropriate when the repository is created. 
+<p class="level0">
+<p class="level0">core.ignorecase 
+<p class="level1">If true, this option enables various workarounds to enable Git to work better on filesystems that are not case sensitive, like FAT. For example, if a directory listing finds "makefile" when Git expects "Makefile", Git will assume it is really the same file, and continue to remember it as "Makefile". 
+<p class="level1">The default is false, except <span Class="bold">git-clone</span>(1) or <span Class="bold">git-init</span>(1) will probe and set core.ignorecase true if appropriate when the repository is created. 
+<p class="level0">
+<p class="level0">core.precomposeunicode 
+<p class="level1">This option is only used by Mac OS implementation of Git. When core.precomposeunicode=true, Git reverts the unicode decomposition of filenames done by Mac OS. This is useful when sharing a repository between Mac OS and Linux or Windows. (Git for Windows 1.7.10 or higher is needed, or Git under cygwin 1.7). When false, file names are handled fully transparent by Git, which is backward compatible with older versions of Git. 
+<p class="level0">
+<p class="level0">core.protectHFS 
+<p class="level1">If set to true, do not allow checkout of paths that would be considered equivalent to .git on an HFS+ filesystem. Defaults to true on Mac OS, and false elsewhere. 
+<p class="level0">
+<p class="level0">core.protectNTFS 
+<p class="level1">If set to true, do not allow checkout of paths that would cause problems with the NTFS filesystem, e.g. conflict with 8.3 "short" names. Defaults to true on Windows, and false elsewhere. 
+<p class="level0">
+<p class="level0">core.trustctime 
+<p class="level1">If false, the ctime differences between the index and the working tree are ignored; useful when the inode change time is regularly modified by something outside Git (file system crawlers and some backup systems). See <span Class="bold">git-update-index</span>(1). True by default. 
+<p class="level0">
+<p class="level0">core.checkstat 
+<p class="level1">Determines which stat fields to match between the index and work tree. The user can set this to <span Class="emphasis">default</span> or <span Class="emphasis">minimal</span>. Default (or explicitly <span Class="emphasis">default</span>), is to check all fields, including the sub-second part of mtime and ctime. 
+<p class="level0">
+<p class="level0">core.quotepath 
+<p class="level1">The commands that output paths (e.g. <span Class="emphasis">ls-files</span>, <span Class="emphasis">diff</span>), when not given the -z option, will quote "unusual" characters in the pathname by enclosing the pathname in a double-quote pair and with backslashes the same way strings in C source code are quoted. If this variable is set to false, the bytes higher than 0x80 are not quoted but output as verbatim. Note that double quote, backslash and control characters are always quoted without -z regardless of the setting of this variable. 
+<p class="level0">
+<p class="level0">core.eol 
+<p class="level1">Sets the line ending type to use in the working directory for files that have the text property set. Alternatives are <span Class="emphasis">lf</span>, <span Class="emphasis">crlf</span> and <span Class="emphasis">native</span>, which uses the platform(cqs native line ending. The default value is native. See <span Class="bold">gitattributes</span>(5) for more information on end-of-line conversion. 
+<p class="level0">
+<p class="level0">core.safecrlf 
+<p class="level1">If true, makes Git check if converting CRLF is reversible when end-of-line conversion is active. Git will verify if a command modifies a file in the work tree either directly or indirectly. For example, committing a file followed by checking out the same file should yield the original file in the work tree. If this is not the case for the current setting of core.autocrlf, Git will reject the file. The variable can be set to "warn", in which case Git will only warn about an irreversible conversion but continue the operation. 
+<p class="level1">CRLF conversion bears a slight chance of corrupting data. When it is enabled, Git will convert CRLF to LF during commit and LF to CRLF during checkout. A file that contains a mixture of LF and CRLF before the commit cannot be recreated by Git. For text files this is the right thing to do: it corrects line endings such that we have only LF line endings in the repository. But for binary files that are accidentally classified as text the conversion can corrupt data. 
+<p class="level1">If you recognize such corruption early you can easily fix it by setting the conversion type explicitly in .gitattributes. Right after committing you still have the original file in your work tree and this file is not yet corrupted. You can explicitly tell Git that this file is binary and Git will handle the file appropriately. 
+<p class="level1">Unfortunately, the desired effect of cleaning up text files with mixed line endings and the undesired effect of corrupting binary files cannot be distinguished. In both cases CRLFs are removed in an irreversible way. For text files this is the right thing to do because CRLFs are line endings, while for binary files converting CRLFs corrupts data. 
+<p class="level1">Note, this safety check does not mean that a checkout will generate a file identical to the original file for a different setting of core.eol and core.autocrlf, but only for the current one. For example, a text file with LF would be accepted with core.eol=lf and could later be checked out with core.eol=crlf, in which case the resulting file would contain CRLF, although the original file contained LF. However, in both work trees the line endings would be consistent, that is either all LF or all CRLF, but never mixed. A file with mixed line endings would be reported by the core.safecrlf mechanism. 
+<p class="level0">
+<p class="level0">core.autocrlf 
+<p class="level1">Setting this variable to "true" is almost the same as setting the text attribute to "auto" on all files except that text files are not guaranteed to be normalized: files that contain CRLF in the repository will not be touched. Use this setting if you want to have CRLF line endings in your working directory even though the repository does not have normalized line endings. This variable can be set to <span Class="emphasis">input</span>, in which case no output conversion is performed. 
+<p class="level0">
+<p class="level0">core.symlinks 
+<p class="level1">If false, symbolic links are checked out as small plain files that contain the link text. <span Class="bold">git-update-index</span>(1) and <span Class="bold">git-add</span>(1) will not change the recorded type to regular file. Useful on filesystems like FAT that do not support symbolic links. 
+<p class="level1">The default is true, except <span Class="bold">git-clone</span>(1) or <span Class="bold">git-init</span>(1) will probe and set core.symlinks false if appropriate when the repository is created. 
+<p class="level0">
+<p class="level0">core.gitProxy 
+<p class="level1">A "proxy command" to execute (as <span Class="emphasis">command host port</span>) instead of establishing direct connection to the remote server when using the Git protocol for fetching. If the variable value is in the "COMMAND for DOMAIN" format, the command is applied only on hostnames ending with the specified domain string. This variable may be set multiple times and is matched in the given order; the first match wins. 
+<p class="level1">Can be overridden by the <span Class="emphasis">GIT_PROXY_COMMAND</span> environment variable (which always applies universally, without the special "for" handling). 
+<p class="level1">The special string none can be used as the proxy command to specify that no proxy be used for a given domain pattern. This is useful for excluding servers inside a firewall from proxy use, while defaulting to a common proxy for external domains. 
+<p class="level0">
+<p class="level0">core.ignoreStat 
+<p class="level1">If true, commands which modify both the working tree and the index will mark the updated paths with the "assume unchanged" bit in the index. These marked files are then assumed to stay unchanged in the working tree, until you mark them otherwise manually - Git will not detect the file changes by lstat() calls. This is useful on systems where those are very slow, such as Microsoft Windows. See <span Class="bold">git-update-index</span>(1). False by default. 
+<p class="level0">
+<p class="level0">core.preferSymlinkRefs 
+<p class="level1">Instead of the default "symref" format for HEAD and other symbolic reference files, use symbolic links. This is sometimes needed to work with old scripts that expect HEAD to be a symbolic link. 
+<p class="level0">
+<p class="level0">core.bare 
+<p class="level1">If true this repository is assumed to be <span Class="emphasis">bare</span> and has no working directory associated with it. If this is the case a number of commands that require a working directory will be disabled, such as <span Class="bold">git-add</span>(1) or <span Class="bold">git-merge</span>(1). 
+<p class="level1">This setting is automatically guessed by <span Class="bold">git-clone</span>(1) or <span Class="bold">git-init</span>(1) when the repository was created. By default a repository that ends in "/.git" is assumed to be not bare (bare = false), while all other repositories are assumed to be bare (bare = true). 
+<p class="level0">
+<p class="level0">core.worktree 
+<p class="level1">Set the path to the root of the working tree. This can be overridden by the GIT_WORK_TREE environment variable and the <span Class="emphasis">--work-tree</span> command-line option. The value can be an absolute path or relative to the path to the .git directory, which is either specified by --git-dir or GIT_DIR, or automatically discovered. If --git-dir or GIT_DIR is specified but none of --work-tree, GIT_WORK_TREE and core.worktree is specified, the current working directory is regarded as the top level of your working tree. 
+<p class="level1">Note that this variable is honored even when set in a configuration file in a ".git" subdirectory of a directory and its value differs from the latter directory (e.g. "/path/to/.git/config" has core.worktree set to "/different/path"), which is most likely a misconfiguration. Running Git commands in the "/path/to" directory will still use "/different/path" as the root of the work tree and can cause confusion unless you know what you are doing (e.g. you are creating a read-only snapshot of the same index to a location different from the repository(cqs usual working tree). 
+<p class="level0">
+<p class="level0">core.logAllRefUpdates 
+<p class="level1">Enable the reflog. Updates to a ref &lt;ref&gt; is logged to the file "$GIT_DIR/logs/&lt;ref&gt;", by appending the new and old SHA-1, the date/time and the reason of the update, but only when the file exists. If this configuration variable is set to true, missing "$GIT_DIR/logs/&lt;ref&gt;" file is automatically created for branch heads (i.e. under refs/heads/), remote refs (i.e. under refs/remotes/), note refs (i.e. under refs/notes/), and the symbolic ref HEAD. 
+<p class="level1">This information can be used to determine what commit was the tip of a branch "2 days ago". 
+<p class="level1">This value is true by default in a repository that has a working directory associated with it, and false by default in a bare repository. 
+<p class="level0">
+<p class="level0">core.repositoryFormatVersion 
+<p class="level1">Internal variable identifying the repository format and layout version. 
+<p class="level0">
+<p class="level0">core.sharedRepository 
+<p class="level1">When <span Class="emphasis">group</span> (or <span Class="emphasis">true</span>), the repository is made shareable between several users in a group (making sure all the files and objects are group-writable). When <span Class="emphasis">all</span> (or <span Class="emphasis">world</span> or <span Class="emphasis">everybody</span>), the repository will be readable by all users, additionally to being group-shareable. When <span Class="emphasis">umask</span> (or <span Class="emphasis">false</span>), Git will use permissions reported by umask(2). When <span Class="emphasis">0xxx</span>, where <span Class="emphasis">0xxx</span> is an octal number, files in the repository will have this mode value. <span Class="emphasis">0xxx</span> will override user(cqs umask value (whereas the other options will only override requested parts of the user(cqs umask value). Examples: <span Class="emphasis">0660</span> will make the repo read/write-able for the owner and group, but inaccessible to others (equivalent to <span Class="emphasis">group</span> unless umask is e.g. <span Class="emphasis">0022</span>). <span Class="emphasis">0640</span> is a repository that is group-readable but not group-writable. See <span Class="bold">git-init</span>(1). False by default. 
+<p class="level0">
+<p class="level0">core.warnAmbiguousRefs 
+<p class="level1">If true, Git will warn you if the ref name you passed it is ambiguous and might match multiple refs in the repository. True by default. 
+<p class="level0">
+<p class="level0">core.compression 
+<p class="level1">An integer -1..9, indicating a default compression level. -1 is the zlib default. 0 means no compression, and 1..9 are various speed/size tradeoffs, 9 being slowest. If set, this provides a default to other compression variables, such as <span Class="emphasis">core.loosecompression</span> and <span Class="emphasis">pack.compression</span>. 
+<p class="level0">
+<p class="level0">core.loosecompression 
+<p class="level1">An integer -1..9, indicating the compression level for objects that are not in a pack file. -1 is the zlib default. 0 means no compression, and 1..9 are various speed/size tradeoffs, 9 being slowest. If not set, defaults to core.compression. If that is not set, defaults to 1 (best speed). 
+<p class="level0">
+<p class="level0">core.packedGitWindowSize 
+<p class="level1">Number of bytes of a pack file to map into memory in a single mapping operation. Larger window sizes may allow your system to process a smaller number of large pack files more quickly. Smaller window sizes will negatively affect performance due to increased calls to the operating system(cqs memory manager, but may improve performance when accessing a large number of large pack files. 
+<p class="level1">Default is 1 MiB if NO_MMAP was set at compile time, otherwise 32 MiB on 32 bit platforms and 1 GiB on 64 bit platforms. This should be reasonable for all users/operating systems. You probably do not need to adjust this value. 
+<p class="level1">Common unit suffixes of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> are supported. 
+<p class="level0">
+<p class="level0">core.packedGitLimit 
+<p class="level1">Maximum number of bytes to map simultaneously into memory from pack files. If Git needs to access more than this many bytes at once to complete an operation it will unmap existing regions to reclaim virtual address space within the process. 
+<p class="level1">Default is 256 MiB on 32 bit platforms and 8 GiB on 64 bit platforms. This should be reasonable for all users/operating systems, except on the largest projects. You probably do not need to adjust this value. 
+<p class="level1">Common unit suffixes of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> are supported. 
+<p class="level0">
+<p class="level0">core.deltaBaseCacheLimit 
+<p class="level1">Maximum number of bytes to reserve for caching base objects that may be referenced by multiple deltified objects. By storing the entire decompressed base objects in a cache Git is able to avoid unpacking and decompressing frequently used base objects multiple times. 
+<p class="level1">Default is 96 MiB on all platforms. This should be reasonable for all users/operating systems, except on the largest projects. You probably do not need to adjust this value. 
+<p class="level1">Common unit suffixes of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> are supported. 
+<p class="level0">
+<p class="level0">core.bigFileThreshold 
+<p class="level1">Files larger than this size are stored deflated, without attempting delta compression. Storing large files without delta compression avoids excessive memory usage, at the slight expense of increased disk usage. 
+<p class="level1">Default is 512 MiB on all platforms. This should be reasonable for most projects as source code and other text files can still be delta compressed, but larger binary media files won(cqt be. 
+<p class="level1">Common unit suffixes of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> are supported. 
+<p class="level0">
+<p class="level0">core.excludesfile 
+<p class="level1">In addition to <span Class="emphasis">.gitignore</span> (per-directory) and <span Class="emphasis">.git/info/exclude</span>, Git looks into this file for patterns of files which are not meant to be tracked. "~/" is expanded to the value of $HOME and "~user/" to the specified user(cqs home directory. Its default value is $XDG_CONFIG_HOME/git/ignore. If $XDG_CONFIG_HOME is either not set or empty, $HOME/.config/git/ignore is used instead. See <span Class="bold">gitignore</span>(5). 
+<p class="level0">
+<p class="level0">core.askpass 
+<p class="level1">Some commands (e.g. svn and http interfaces) that interactively ask for a password can be told to use an external program given via the value of this variable. Can be overridden by the <span Class="emphasis">GIT_ASKPASS</span> environment variable. If not set, fall back to the value of the <span Class="emphasis">SSH_ASKPASS</span> environment variable or, failing that, a simple password prompt. The external program shall be given a suitable prompt as command-line argument and write the password on its STDOUT. 
+<p class="level0">
+<p class="level0">core.attributesfile 
+<p class="level1">In addition to <span Class="emphasis">.gitattributes</span> (per-directory) and <span Class="emphasis">.git/info/attributes</span>, Git looks into this file for attributes (see <span Class="bold">gitattributes</span>(5)). Path expansions are made the same way as for core.excludesfile. Its default value is $XDG_CONFIG_HOME/git/attributes. If $XDG_CONFIG_HOME is either not set or empty, $HOME/.config/git/attributes is used instead. 
+<p class="level0">
+<p class="level0">core.editor 
+<p class="level1">Commands such as commit and tag that lets you edit messages by launching an editor uses the value of this variable when it is set, and the environment variable GIT_EDITOR is not set. See <span Class="bold">git-var</span>(1). 
+<p class="level0">
+<p class="level0">core.commentchar 
+<p class="level1">Commands such as commit and tag that lets you edit messages consider a line that begins with this character commented, and removes them after the editor returns (default <span Class="emphasis">&#35;</span>). 
+<p class="level1">If set to "auto", git-commit would select a character that is not the beginning character of any line in existing commit messages. 
+<p class="level0">
+<p class="level0">sequence.editor 
+<p class="level1">Text editor used by git rebase -i for editing the rebase instruction file. The value is meant to be interpreted by the shell when it is used. It can be overridden by the GIT_SEQUENCE_EDITOR environment variable. When not configured the default commit message editor is used instead. 
+<p class="level0">
+<p class="level0">core.pager 
+<p class="level1">Text viewer for use by Git commands (e.g., <span Class="emphasis">less</span>). The value is meant to be interpreted by the shell. The order of preference is the $GIT_PAGER environment variable, then core.pager configuration, then $PAGER, and then the default chosen at compile time (usually <span Class="emphasis">less</span>). 
+<p class="level1">When the LESS environment variable is unset, Git sets it to FRX (if LESS environment variable is set, Git does not change it at all). If you want to selectively override Git(cqs default setting for LESS, you can set core.pager to e.g. less -S. This will be passed to the shell by Git, which will translate the final command to LESS=FRX less -S. The environment does not set the S option but the command line does, instructing less to truncate long lines. Similarly, setting core.pager to less -+F will deactivate the F option specified by the environment from the command-line, deactivating the "quit if one screen" behavior of less. One can specifically activate some flags for particular commands: for example, setting pager.blame to less -S enables line truncation only for git blame. 
+<p class="level1">Likewise, when the LV environment variable is unset, Git sets it to -c. You can override this setting by exporting LV with another value or setting core.pager to lv +c. 
+<p class="level0">
+<p class="level0">core.whitespace 
+<p class="level1">A comma separated list of common whitespace problems to notice. <span Class="emphasis">git diff</span> will use color.diff.whitespace to highlight them, and <span Class="emphasis">git apply --whitespace=error</span> will consider them as errors. You can prefix - to disable any of them (e.g. -trailing-space): 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">blank-at-eol treats trailing whitespaces at the end of the line as an error (enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">space-before-tab treats a space character that appears immediately before a tab character in the initial indent part of the line as an error (enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">indent-with-non-tab treats a line that is indented with space characters instead of the equivalent tabs as an error (not enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">tab-in-indent treats a tab character in the initial indent part of the line as an error (not enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">blank-at-eof treats blank lines added at the end of file as an error (enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">trailing-space is a short-hand to cover both blank-at-eol and blank-at-eof. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">cr-at-eol treats a carriage-return at the end of line as part of the line terminator, i.e. with it, trailing-space does not trigger if the character before such a carriage-return is not a whitespace (not enabled by default). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">tabwidth=&lt;n&gt; tells how many character positions a tab occupies; this is relevant for indent-with-non-tab and when Git fixes tab-in-indent errors. The default tab width is 8. Allowed values are 1 to 63. 
+<p class="level1">
+<p class="level0">
+<p class="level0">core.fsyncobjectfiles 
+<p class="level1">This boolean will enable <span Class="emphasis">fsync()</span> when writing object files. 
+<p class="level1">This is a total waste of time and effort on a filesystem that orders data writes properly, but can be useful for filesystems that do not use journalling (traditional UNIX filesystems) or that only journal metadata and not file contents (OS X(cqs HFS+, or Linux ext3 with "data=writeback"). 
+<p class="level0">
+<p class="level0">core.preloadindex 
+<p class="level1">Enable parallel index preload for operations like <span Class="emphasis">git diff</span> 
+<p class="level1">This can speed up operations like <span Class="emphasis">git diff</span> and <span Class="emphasis">git status</span> especially on filesystems like NFS that have weak caching semantics and thus relatively high IO latencies. When enabled, Git will do the index comparison to the filesystem data in parallel, allowing overlapping IO(cqs. Defaults to true. 
+<p class="level0">
+<p class="level0">core.createObject 
+<p class="level1">You can set this to <span Class="emphasis">link</span>, in which case a hardlink followed by a delete of the source are used to make sure that object creation will not overwrite existing objects. 
+<p class="level1">On some file system/operating system combinations, this is unreliable. Set this config setting to <span Class="emphasis">rename</span> there; However, This will remove the check that makes sure that existing object files will not get overwritten. 
+<p class="level0">
+<p class="level0">core.notesRef 
+<p class="level1">When showing commit messages, also show notes which are stored in the given ref. The ref must be fully qualified. If the given ref does not exist, it is not an error but means that no notes should be printed. 
+<p class="level1">This setting defaults to "refs/notes/commits", and it can be overridden by the <span Class="emphasis">GIT_NOTES_REF</span> environment variable. See <span Class="bold">git-notes</span>(1). 
+<p class="level0">
+<p class="level0">core.sparseCheckout 
+<p class="level1">Enable "sparse checkout" feature. See section "Sparse checkout" in <span Class="bold">git-read-tree</span>(1) for more information. 
+<p class="level0">
+<p class="level0">core.abbrev 
+<p class="level1">Set the length object names are abbreviated to. If unspecified, many commands abbreviate to 7 hexdigits, which may not be enough for abbreviated object names to stay unique for sufficiently long time. 
+<p class="level0">
+<p class="level0">add.ignore-errors, add.ignoreErrors 
+<p class="level1">Tells <span Class="emphasis">git add</span> to continue adding files when some files cannot be added due to indexing errors. Equivalent to the <span Class="emphasis">--ignore-errors</span> option of <span Class="bold">git-add</span>(1). Older versions of Git accept only add.ignore-errors, which does not follow the usual naming convention for configuration variables. Newer versions of Git honor add.ignoreErrors as well. 
+<p class="level0">
+<p class="level0">alias.* 
+<p class="level1">Command aliases for the <span Class="bold">git</span>(1) command wrapper - e.g. after defining "alias.last = cat-file commit HEAD", the invocation "git last" is equivalent to "git cat-file commit HEAD". To avoid confusion and troubles with script usage, aliases that hide existing Git commands are ignored. Arguments are split by spaces, the usual shell quoting and escaping is supported. A quote pair or a backslash can be used to quote them. 
+<p class="level1">If the alias expansion is prefixed with an exclamation point, it will be treated as a shell command. For example, defining "alias.new = !gitk --all --not ORIG_HEAD", the invocation "git new" is equivalent to running the shell command "gitk --all --not ORIG_HEAD". Note that shell commands will be executed from the top-level directory of a repository, which may not necessarily be the current directory. <span Class="emphasis">GIT_PREFIX</span> is set as returned by running <span Class="emphasis">git rev-parse --show-prefix</span> from the original current directory. See <span Class="bold">git-rev-parse</span>(1). 
+<p class="level0">
+<p class="level0">am.keepcr 
+<p class="level1">If true, git-am will call git-mailsplit for patches in mbox format with parameter <span Class="emphasis">--keep-cr</span>. In this case git-mailsplit will not remove er from lines ending with eren. Can be overridden by giving <span Class="emphasis">--no-keep-cr</span> from the command line. See <span Class="bold">git-am</span>(1), <span Class="bold">git-mailsplit</span>(1). 
+<p class="level0">
+<p class="level0">apply.ignorewhitespace 
+<p class="level1">When set to <span Class="emphasis">change</span>, tells <span Class="emphasis">git apply</span> to ignore changes in whitespace, in the same way as the <span Class="emphasis">--ignore-space-change</span> option. When set to one of: no, none, never, false tells <span Class="emphasis">git apply</span> to respect all whitespace differences. See <span Class="bold">git-apply</span>(1). 
+<p class="level0">
+<p class="level0">apply.whitespace 
+<p class="level1">Tells <span Class="emphasis">git apply</span> how to handle whitespaces, in the same way as the <span Class="emphasis">--whitespace</span> option. See <span Class="bold">git-apply</span>(1). 
+<p class="level0">
+<p class="level0">branch.autosetupmerge 
+<p class="level1">Tells <span Class="emphasis">git branch</span> and <span Class="emphasis">git checkout</span> to set up new branches so that <span Class="bold">git-pull</span>(1) will appropriately merge from the starting point branch. Note that even if this option is not set, this behavior can be chosen per-branch using the --track and --no-track options. The valid settings are: false (em no automatic setup is done; true (em automatic setup is done when the starting point is a remote-tracking branch; always (em  automatic setup is done when the starting point is either a local branch or remote-tracking branch. This option defaults to true. 
+<p class="level0">
+<p class="level0">branch.autosetuprebase 
+<p class="level1">When a new branch is created with <span Class="emphasis">git branch</span> or <span Class="emphasis">git checkout</span> that tracks another branch, this variable tells Git to set up pull to rebase instead of merge (see "branch.&lt;name&gt;.rebase"). When never, rebase is never automatically set to true. When local, rebase is set to true for tracked branches of other local branches. When remote, rebase is set to true for tracked branches of remote-tracking branches. When always, rebase will be set to true for all tracking branches. See "branch.autosetupmerge" for details on how to set up a branch to track another branch. This option defaults to never. 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.remote 
+<p class="level1">When on branch &lt;name&gt;, it tells <span Class="emphasis">git fetch</span> and <span Class="emphasis">git push</span> which remote to fetch from/push to. The remote to push to may be overridden with remote.pushdefault (for all branches). The remote to push to, for the current branch, may be further overridden by branch.&lt;name&gt;.pushremote. If no remote is configured, or if you are not on any branch, it defaults to origin for fetching and remote.pushdefault for pushing. Additionally, . (a period) is the current local repository (a dot-repository), see branch.&lt;name&gt;.merge*(Aqs final note below. 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.pushremote 
+<p class="level1">When on branch &lt;name&gt;, it overrides branch.&lt;name&gt;.remote for pushing. It also overrides remote.pushdefault for pushing from branch &lt;name&gt;. When you pull from one place (e.g. your upstream) and push to another place (e.g. your own publishing repository), you would want to set remote.pushdefault to specify the remote to push to for all branches, and use this option to override it for a specific branch. 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.merge 
+<p class="level1">Defines, together with branch.&lt;name&gt;.remote, the upstream branch for the given branch. It tells <span Class="emphasis">git fetch</span>/<span Class="emphasis">git pull</span>/<span Class="emphasis">git rebase</span> which branch to merge and can also affect <span Class="emphasis">git push</span> (see push.default). When in branch &lt;name&gt;, it tells <span Class="emphasis">git fetch</span> the default refspec to be marked for merging in FETCH_HEAD. The value is handled like the remote part of a refspec, and must match a ref which is fetched from the remote given by "branch.&lt;name&gt;.remote". The merge information is used by <span Class="emphasis">git pull</span> (which at first calls <span Class="emphasis">git fetch</span>) to lookup the default branch for merging. Without this option, <span Class="emphasis">git pull</span> defaults to merge the first refspec fetched. Specify multiple values to get an octopus merge. If you wish to setup <span Class="emphasis">git pull</span> so that it merges into &lt;name&gt; from another branch in the local repository, you can point branch.&lt;name&gt;.merge to the desired branch, and use the relative path setting . (a period) for branch.&lt;name&gt;.remote. 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.mergeoptions 
+<p class="level1">Sets default options for merging into branch &lt;name&gt;. The syntax and supported options are the same as those of <span Class="bold">git-merge</span>(1), but option values containing whitespace characters are currently not supported. 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.rebase 
+<p class="level1">When true, rebase the branch &lt;name&gt; on top of the fetched branch, instead of merging the default branch from the default remote when "git pull" is run. See "pull.rebase" for doing this in a non branch-specific manner. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+When preserve, also pass `--preserve-merges` along to *(Aqgit rebase*(Aq
+so that locally committed merge commits will not be flattened
+by running *(Aqgit pull*(Aq.
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">NOTE</span>: this is a possibly dangerous operation; do <span Class="bold">not</span> use it unless you understand the implications (see <span Class="bold">git-rebase</span>(1) for details). 
+<p class="level0">
+<p class="level0">branch.&lt;name&gt;.description 
+<p class="level1">Branch description, can be edited with git branch --edit-description. Branch description is automatically added in the format-patch cover letter or request-pull summary. 
+<p class="level0">
+<p class="level0">browser.&lt;tool&gt;.cmd 
+<p class="level1">Specify the command to invoke the specified browser. The specified command is evaluated in shell with the URLs passed as arguments. (See <span Class="bold">git-web--browse</span>(1).) 
+<p class="level0">
+<p class="level0">browser.&lt;tool&gt;.path 
+<p class="level1">Override the path for the given tool that may be used to browse HTML help (see <span Class="emphasis">-w</span> option in <span Class="bold">git-help</span>(1)) or a working repository in gitweb (see <span Class="bold">git-instaweb</span>(1)). 
+<p class="level0">
+<p class="level0">clean.requireForce 
+<p class="level1">A boolean to make git-clean do nothing unless given -f, -i or -n. Defaults to true. 
+<p class="level0">
+<p class="level0">color.branch 
+<p class="level1">A boolean to enable/disable color in the output of <span Class="bold">git-branch</span>(1). May be set to always, false (or never) or auto (or true), in which case colors are used only when the output is to a terminal. Defaults to false. 
+<p class="level0">
+<p class="level0">color.branch.&lt;slot&gt; 
+<p class="level1">Use customized color for branch coloration. &lt;slot&gt; is one of current (the current branch), local (a local branch), remote (a remote-tracking branch in refs/remotes/), upstream (upstream tracking branch), plain (other refs). 
+<p class="level1">The value for these configuration variables is a list of colors (at most two) and attributes (at most one), separated by spaces. The colors accepted are normal, black, red, green, yellow, blue, magenta, cyan and white; the attributes are bold, dim, ul, blink and reverse. The first color given is the foreground; the second is the background. The position of the attribute, if any, doesn(cqt matter. 
+<p class="level0">
+<p class="level0">color.diff 
+<p class="level1">Whether to use ANSI escape sequences to add color to patches. If this is set to always, <span Class="bold">git-diff</span>(1), <span Class="bold">git-log</span>(1), and <span Class="bold">git-show</span>(1) will use color for all patches. If it is set to true or auto, those commands will only use color when output is to the terminal. Defaults to false. 
+<p class="level1">This does not affect <span Class="bold">git-format-patch</span>(1) or the <span Class="emphasis">git-diff-*</span> plumbing commands. Can be overridden on the command line with the --color[=&lt;when&gt;] option. 
+<p class="level0">
+<p class="level0">color.diff.&lt;slot&gt; 
+<p class="level1">Use customized color for diff colorization. &lt;slot&gt; specifies which part of the patch to use the specified color, and is one of plain (context text), meta (metainformation), frag (hunk header), <span Class="emphasis">func</span> (function in hunk header), old (removed lines), new (added lines), commit (commit headers), or whitespace (highlighting whitespace errors). The values of these variables may be specified as in color.branch.&lt;slot&gt;. 
+<p class="level0">
+<p class="level0">color.decorate.&lt;slot&gt; 
+<p class="level1">Use customized color for <span Class="emphasis">git log --decorate</span> output. &lt;slot&gt; is one of branch, remoteBranch, tag, stash or HEAD for local branches, remote-tracking branches, tags, stash and HEAD, respectively. 
+<p class="level0">
+<p class="level0">color.grep 
+<p class="level1">When set to always, always highlight matches. When false (or never), never. When set to true or auto, use color only when the output is written to the terminal. Defaults to false. 
+<p class="level0">
+<p class="level0">color.grep.&lt;slot&gt; 
+<p class="level1">Use customized color for grep colorization. &lt;slot&gt; specifies which part of the line to use the specified color, and is one of 
+<p class="level1">context 
+<p class="level2">non-matching text in context lines (when using -A, -B, or -C) 
+<p class="level1">
+<p class="level1">filename 
+<p class="level2">filename prefix (when not using -h) 
+<p class="level1">
+<p class="level1">function 
+<p class="level2">function name lines (when using -p) 
+<p class="level1">
+<p class="level1">linenumber 
+<p class="level2">line number prefix (when using -n) 
+<p class="level1">
+<p class="level1">match 
+<p class="level2">matching text 
+<p class="level1">
+<p class="level1">selected 
+<p class="level2">non-matching text in selected lines 
+<p class="level1">
+<p class="level1">separator 
+<p class="level2">separators between fields on a line (:, -, and =) and between hunks (--) 
+<p class="level1">
+<p class="level1">The values of these variables may be specified as in color.branch.&lt;slot&gt;. 
+<p class="level0">
+<p class="level0">color.interactive 
+<p class="level1">When set to always, always use colors for interactive prompts and displays (such as those used by "git-add --interactive" and "git-clean --interactive"). When false (or never), never. When set to true or auto, use colors only when the output is to the terminal. Defaults to false. 
+<p class="level0">
+<p class="level0">color.interactive.&lt;slot&gt; 
+<p class="level1">Use customized color for <span Class="emphasis">git add --interactive</span> and <span Class="emphasis">git clean --interactive</span> output. &lt;slot&gt; may be prompt, header, help or error, for four distinct types of normal output from interactive commands. The values of these variables may be specified as in color.branch.&lt;slot&gt;. 
+<p class="level0">
+<p class="level0">color.pager 
+<p class="level1">A boolean to enable/disable colored output when the pager is in use (default is true). 
+<p class="level0">
+<p class="level0">color.showbranch 
+<p class="level1">A boolean to enable/disable color in the output of <span Class="bold">git-show-branch</span>(1). May be set to always, false (or never) or auto (or true), in which case colors are used only when the output is to a terminal. Defaults to false. 
+<p class="level0">
+<p class="level0">color.status 
+<p class="level1">A boolean to enable/disable color in the output of <span Class="bold">git-status</span>(1). May be set to always, false (or never) or auto (or true), in which case colors are used only when the output is to a terminal. Defaults to false. 
+<p class="level0">
+<p class="level0">color.status.&lt;slot&gt; 
+<p class="level1">Use customized color for status colorization. &lt;slot&gt; is one of header (the header text of the status message), added or updated (files which are added but not committed), changed (files which are changed but not added in the index), untracked (files which are not tracked by Git), branch (the current branch), or nobranch (the color the <span Class="emphasis">no branch</span> warning is shown in, defaulting to red). The values of these variables may be specified as in color.branch.&lt;slot&gt;. 
+<p class="level0">
+<p class="level0">color.ui 
+<p class="level1">This variable determines the default value for variables such as color.diff and color.grep that control the use of color per command family. Its scope will expand as more commands learn configuration to set a default for the --color option. Set it to false or never if you prefer Git commands not to use color unless enabled explicitly with some other configuration or the --color option. Set it to always if you want all output not intended for machine consumption to use color, to true or auto (this is the default since Git 1.8.4) if you want such output to use color when written to the terminal. 
+<p class="level0">
+<p class="level0">column.ui 
+<p class="level1">Specify whether supported commands should output in columns. This variable consists of a list of tokens separated by spaces or commas: 
+<p class="level1">These options control when the feature should be enabled (defaults to <span Class="emphasis">never</span>): 
+<p class="level1">always 
+<p class="level2">always show in columns 
+<p class="level1">
+<p class="level1">never 
+<p class="level2">never show in columns 
+<p class="level1">
+<p class="level1">auto 
+<p class="level2">show in columns if the output is to the terminal 
+<p class="level1">
+<p class="level1">These options control layout (defaults to <span Class="emphasis">column</span>). Setting any of these implies <span Class="emphasis">always</span> if none of <span Class="emphasis">always</span>, <span Class="emphasis">never</span>, or <span Class="emphasis">auto</span> are specified. 
+<p class="level1">column 
+<p class="level2">fill columns before rows 
+<p class="level1">
+<p class="level1">row 
+<p class="level2">fill rows before columns 
+<p class="level1">
+<p class="level1">plain 
+<p class="level2">show in one column 
+<p class="level1">
+<p class="level1">Finally, these options can be combined with a layout option (defaults to <span Class="emphasis">nodense</span>): 
+<p class="level1">dense 
+<p class="level2">make unequal size columns to utilize more space 
+<p class="level1">
+<p class="level1">nodense 
+<p class="level2">make equal size columns 
+<p class="level1">
+<p class="level0">
+<p class="level0">column.branch 
+<p class="level1">Specify whether to output branch listing in git branch in columns. See column.ui for details. 
+<p class="level0">
+<p class="level0">column.clean 
+<p class="level1">Specify the layout when list items in git clean -i, which always shows files and directories in columns. See column.ui for details. 
+<p class="level0">
+<p class="level0">column.status 
+<p class="level1">Specify whether to output untracked files in git status in columns. See column.ui for details. 
+<p class="level0">
+<p class="level0">column.tag 
+<p class="level1">Specify whether to output tag listing in git tag in columns. See column.ui for details. 
+<p class="level0">
+<p class="level0">commit.cleanup 
+<p class="level1">This setting overrides the default of the --cleanup option in git commit. See <span Class="bold">git-commit</span>(1) for details. Changing the default can be useful when you always want to keep lines that begin with comment character &#35; in your log message, in which case you would do git config commit.cleanup whitespace (note that you will have to remove the help lines that begin with &#35; in the commit log template yourself, if you do this). 
+<p class="level0">
+<p class="level0">commit.gpgsign 
+<p class="level1">A boolean to specify whether all commits should be GPG signed. Use of this option when doing operations such as rebase can result in a large number of commits being signed. It may be convenient to use an agent to avoid typing your GPG passphrase several times. 
+<p class="level0">
+<p class="level0">commit.status 
+<p class="level1">A boolean to enable/disable inclusion of status information in the commit message template when using an editor to prepare the commit message. Defaults to true. 
+<p class="level0">
+<p class="level0">commit.template 
+<p class="level1">Specify a file to use as the template for new commit messages. "~/" is expanded to the value of $HOME and "~user/" to the specified user(cqs home directory. 
+<p class="level0">
+<p class="level0">credential.helper 
+<p class="level1">Specify an external helper to be called when a username or password credential is needed; the helper may consult external storage to avoid prompting the user for the credentials. See <span Class="bold">gitcredentials</span>(7) for details. 
+<p class="level0">
+<p class="level0">credential.useHttpPath 
+<p class="level1">When acquiring credentials, consider the "path" component of an http or https URL to be important. Defaults to false. See <span Class="bold">gitcredentials</span>(7) for more information. 
+<p class="level0">
+<p class="level0">credential.username 
+<p class="level1">If no username is set for a network authentication, use this username by default. See credential.&lt;context&gt;.* below, and <span Class="bold">gitcredentials</span>(7). 
+<p class="level0">
+<p class="level0">credential.&lt;url&gt;.* 
+<p class="level1">Any of the credential.* options above can be applied selectively to some credentials. For example "credential.https://example.com.username" would set the default username only for https connections to example.com. See <span Class="bold">gitcredentials</span>(7) for details on how URLs are matched. 
+<p class="level0">
+<p class="level0">diff.autorefreshindex 
+<p class="level1">When using <span Class="emphasis">git diff</span> to compare with work tree files, do not consider stat-only change as changed. Instead, silently run git update-index --refresh to update the cached stat information for paths whose contents in the work tree match the contents in the index. This option defaults to true. Note that this affects only <span Class="emphasis">git diff</span> Porcelain, and not lower level <span Class="emphasis">diff</span> commands such as <span Class="emphasis">git diff-files</span>. 
+<p class="level0">
+<p class="level0">diff.dirstat 
+<p class="level1">A comma separated list of --dirstat parameters specifying the default behavior of the --dirstat option to <span Class="bold">git-diff</span>(1)` and friends. The defaults can be overridden on the command line (using --dirstat=&lt;param1,param2,...&gt;). The fallback defaults (when not changed by diff.dirstat) are changes,noncumulative,3. The following parameters are available: 
+<p class="level1">changes 
+<p class="level2">Compute the dirstat numbers by counting the lines that have been removed from the source, or added to the destination. This ignores the amount of pure code movements within a file. In other words, rearranging lines in a file is not counted as much as other changes. This is the default behavior when no parameter is given. 
+<p class="level1">
+<p class="level1">lines 
+<p class="level2">Compute the dirstat numbers by doing the regular line-based diff analysis, and summing the removed/added line counts. (For binary files, count 64-byte chunks instead, since binary files have no natural concept of lines). This is a more expensive --dirstat behavior than the changes behavior, but it does count rearranged lines within a file as much as other changes. The resulting output is consistent with what you get from the other --*stat options. 
+<p class="level1">
+<p class="level1">files 
+<p class="level2">Compute the dirstat numbers by counting the number of files changed. Each changed file counts equally in the dirstat analysis. This is the computationally cheapest --dirstat behavior, since it does not have to look at the file contents at all. 
+<p class="level1">
+<p class="level1">cumulative 
+<p class="level2">Count changes in a child directory for the parent directory as well. Note that when using cumulative, the sum of the percentages reported may exceed 100%. The default (non-cumulative) behavior can be specified with the noncumulative parameter. 
+<p class="level1">
+<p class="level1">&lt;limit&gt; 
+<p class="level2">An integer parameter specifies a cut-off percent (3% by default). Directories contributing less than this percentage of the changes are not shown in the output. 
+<p class="level1">
+<p class="level1">Example: The following will count changed files, while ignoring directories with less than 10% of the total amount of changed files, and accumulating child directory counts in the parent directories: files,10,cumulative. 
+<p class="level0">
+<p class="level0">diff.statGraphWidth 
+<p class="level1">Limit the width of the graph part in --stat output. If set, applies to all commands generating --stat output except format-patch. 
+<p class="level0">
+<p class="level0">diff.context 
+<p class="level1">Generate diffs with &lt;n&gt; lines of context instead of the default of 3. This value is overridden by the -U option. 
+<p class="level0">
+<p class="level0">diff.external 
+<p class="level1">If this config variable is set, diff generation is not performed using the internal diff machinery, but using the given command. Can be overridden with the (oqGIT_EXTERNAL_DIFF(cq environment variable. The command is called with parameters as described under "git Diffs" in <span Class="bold">git</span>(1). Note: if you want to use an external diff program only on a subset of your files, you might want to use <span Class="bold">gitattributes</span>(5) instead. 
+<p class="level0">
+<p class="level0">diff.ignoreSubmodules 
+<p class="level1">Sets the default value of --ignore-submodules. Note that this affects only <span Class="emphasis">git diff</span> Porcelain, and not lower level <span Class="emphasis">diff</span> commands such as <span Class="emphasis">git diff-files</span>. <span Class="emphasis">git checkout</span> also honors this setting when reporting uncommitted changes. Setting it to <span Class="emphasis">all</span> disables the submodule summary normally shown by <span Class="emphasis">git commit</span> and <span Class="emphasis">git status</span> when <span Class="emphasis">status.submodulesummary</span> is set unless it is overridden by using the --ignore-submodules command-line option. The <span Class="emphasis">git submodule</span> commands are not affected by this setting. 
+<p class="level0">
+<p class="level0">diff.mnemonicprefix 
+<p class="level1">If set, <span Class="emphasis">git diff</span> uses a prefix pair that is different from the standard "a/" and "b/" depending on what is being compared. When this configuration is in effect, reverse diff output also swaps the order of the prefixes: 
+<p class="level1">git diff 
+<p class="level2">compares the (i)ndex and the (w)ork tree; 
+<p class="level1">
+<p class="level1">git diff HEAD 
+<p class="level2">compares a (c)ommit and the (w)ork tree; 
+<p class="level1">
+<p class="level1">git diff --cached 
+<p class="level2">compares a (c)ommit and the (i)ndex; 
+<p class="level1">
+<p class="level1">git diff HEAD:file1 file2 
+<p class="level2">compares an (o)bject and a (w)ork tree entity; 
+<p class="level1">
+<p class="level1">git diff --no-index a b 
+<p class="level2">compares two non-git things (1) and (2). 
+<p class="level1">
+<p class="level0">
+<p class="level0">diff.noprefix 
+<p class="level1">If set, <span Class="emphasis">git diff</span> does not show any source or destination prefix. 
+<p class="level0">
+<p class="level0">diff.orderfile 
+<p class="level1">File indicating how to order files within a diff, using one shell glob pattern per line. Can be overridden by the <span Class="emphasis">-O</span> option to <span Class="bold">git-diff</span>(1). 
+<p class="level0">
+<p class="level0">diff.renameLimit 
+<p class="level1">The number of files to consider when performing the copy/rename detection; equivalent to the <span Class="emphasis">git diff</span> option <span Class="emphasis">-l</span>. 
+<p class="level0">
+<p class="level0">diff.renames 
+<p class="level1">Tells Git to detect renames. If set to any boolean value, it will enable basic rename detection. If set to "copies" or "copy", it will detect copies, as well. 
+<p class="level0">
+<p class="level0">diff.suppressBlankEmpty 
+<p class="level1">A boolean to inhibit the standard behavior of printing a space before each empty output line. Defaults to false. 
+<p class="level0">
+<p class="level0">diff.submodule 
+<p class="level1">Specify the format in which differences in submodules are shown. The "log" format lists the commits in the range like <span Class="bold">git-submodule</span>(1)summary does. The "short" format format just shows the names of the commits at the beginning and end of the range. Defaults to short. 
+<p class="level0">
+<p class="level0">diff.wordRegex 
+<p class="level1">A POSIX Extended Regular Expression used to determine what is a "word" when performing word-by-word difference calculations. Character sequences that match the regular expression are "words", all other characters are <span Class="bold">ignorable</span> whitespace. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.command 
+<p class="level1">The custom diff driver command. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.xfuncname 
+<p class="level1">The regular expression that the diff driver should use to recognize the hunk header. A built-in pattern may also be used. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.binary 
+<p class="level1">Set this option to true to make the diff driver treat files as binary. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.textconv 
+<p class="level1">The command that the diff driver should call to generate the text-converted version of a file. The result of the conversion is used to generate a human-readable diff. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.wordregex 
+<p class="level1">The regular expression that the diff driver should use to split words in a line. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.&lt;driver&gt;.cachetextconv 
+<p class="level1">Set this option to true to make the diff driver cache the text conversion outputs. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">diff.tool 
+<p class="level1">Controls which diff tool is used by <span Class="bold">git-difftool</span>(1). This variable overrides the value configured in merge.tool. The list below shows the valid built-in values. Any other value is treated as a custom diff tool and requires that a corresponding difftool.&lt;tool&gt;.cmd variable is defined. 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">araxis 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">bc3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">codecompare 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">deltawalker 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">diffmerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">diffuse 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">ecmerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">emerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">kdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">kompare 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">meld 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">opendiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">p4merge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">tkdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">xxdiff 
+<p class="level1">
+<p class="level0">
+<p class="level0">diff.algorithm 
+<p class="level1">Choose a diff algorithm. The variants are as follows: 
+<p class="level1">default, myers 
+<p class="level2">The basic greedy diff algorithm. Currently, this is the default. 
+<p class="level1">
+<p class="level1">minimal 
+<p class="level2">Spend extra time to make sure the smallest possible diff is produced. 
+<p class="level1">
+<p class="level1">patience 
+<p class="level2">Use "patience diff" algorithm when generating patches. 
+<p class="level1">
+<p class="level1">histogram 
+<p class="level2">This algorithm extends the patience algorithm to "support low-occurrence common elements". 
+<p class="level1">
+<p class="level0">
+<p class="level0">difftool.&lt;tool&gt;.path 
+<p class="level1">Override the path for the given tool. This is useful in case your tool is not in the PATH. 
+<p class="level0">
+<p class="level0">difftool.&lt;tool&gt;.cmd 
+<p class="level1">Specify the command to invoke the specified diff tool. The specified command is evaluated in shell with the following variables available: <span Class="emphasis">LOCAL</span> is set to the name of the temporary file containing the contents of the diff pre-image and <span Class="emphasis">REMOTE</span> is set to the name of the temporary file containing the contents of the diff post-image. 
+<p class="level0">
+<p class="level0">difftool.prompt 
+<p class="level1">Prompt before each invocation of the diff tool. 
+<p class="level0">
+<p class="level0">fetch.recurseSubmodules 
+<p class="level1">This option can be either set to a boolean value or to <span Class="emphasis">on-demand</span>. Setting it to a boolean changes the behavior of fetch and pull to unconditionally recurse into submodules when set to true or to not recurse at all when set to false. When set to <span Class="emphasis">on-demand</span> (the default value), fetch and pull will only recurse into a populated submodule when its superproject retrieves a commit that updates the submodule(cqs reference. 
+<p class="level0">
+<p class="level0">fetch.fsckObjects 
+<p class="level1">If it is set to true, git-fetch-pack will check all fetched objects. It will abort in the case of a malformed object or a broken link. The result of an abort are only dangling objects. Defaults to false. If not set, the value of transfer.fsckObjects is used instead. 
+<p class="level0">
+<p class="level0">fetch.unpackLimit 
+<p class="level1">If the number of objects fetched over the Git native transfer is below this limit, then the objects will be unpacked into loose object files. However if the number of received objects equals or exceeds this limit then the received pack will be stored as a pack, after adding any missing delta bases. Storing the pack from a push can make the push operation complete faster, especially on slow filesystems. If not set, the value of transfer.unpackLimit is used instead. 
+<p class="level0">
+<p class="level0">fetch.prune 
+<p class="level1">If true, fetch will automatically behave as if the --prune option was given on the command line. See also remote.&lt;name&gt;.prune. 
+<p class="level0">
+<p class="level0">format.attach 
+<p class="level1">Enable multipart/mixed attachments as the default for <span Class="emphasis">format-patch</span>. The value can also be a double quoted string which will enable attachments as the default and set the value as the boundary. See the --attach option in <span Class="bold">git-format-patch</span>(1). 
+<p class="level0">
+<p class="level0">format.numbered 
+<p class="level1">A boolean which can enable or disable sequence numbers in patch subjects. It defaults to "auto" which enables it only if there is more than one patch. It can be enabled or disabled for all messages by setting it to "true" or "false". See --numbered option in <span Class="bold">git-format-patch</span>(1). 
+<p class="level0">
+<p class="level0">format.headers 
+<p class="level1">Additional email headers to include in a patch to be submitted by mail. See <span Class="bold">git-format-patch</span>(1). 
+<p class="level0">
+<p class="level0">format.to, format.cc 
+<p class="level1">Additional recipients to include in a patch to be submitted by mail. See the --to and --cc options in <span Class="bold">git-format-patch</span>(1). 
+<p class="level0">
+<p class="level0">format.subjectprefix 
+<p class="level1">The default for format-patch is to output files with the <span Class="emphasis">[PATCH]</span> subject prefix. Use this variable to change that prefix. 
+<p class="level0">
+<p class="level0">format.signature 
+<p class="level1">The default for format-patch is to output a signature containing the Git version number. Use this variable to change that default. Set this variable to the empty string ("") to suppress signature generation. 
+<p class="level0">
+<p class="level0">format.signaturefile 
+<p class="level1">Works just like format.signature except the contents of the file specified by this variable will be used as the signature. 
+<p class="level0">
+<p class="level0">format.suffix 
+<p class="level1">The default for format-patch is to output files with the suffix .patch. Use this variable to change that suffix (make sure to include the dot if you want it). 
+<p class="level0">
+<p class="level0">format.pretty 
+<p class="level1">The default pretty format for log/show/whatchanged command, See <span Class="bold">git-log</span>(1), <span Class="bold">git-show</span>(1), <span Class="bold">git-whatchanged</span>(1). 
+<p class="level0">
+<p class="level0">format.thread 
+<p class="level1">The default threading style for <span Class="emphasis">git format-patch</span>. Can be a boolean value, or shallow or deep. shallow threading makes every mail a reply to the head of the series, where the head is chosen from the cover letter, the --in-reply-to, and the first patch mail, in this order. deep threading makes every mail a reply to the previous one. A true boolean value is the same as shallow, and a false value disables threading. 
+<p class="level0">
+<p class="level0">format.signoff 
+<p class="level1">A boolean value which lets you enable the -s/--signoff option of format-patch by default. <span Class="bold">Note:</span> Adding the Signed-off-by: line to a patch should be a conscious act and means that you certify you have the rights to submit this work under the same open source license. Please see the <span Class="emphasis">SubmittingPatches</span> document for further discussion. 
+<p class="level0">
+<p class="level0">format.coverLetter 
+<p class="level1">A boolean that controls whether to generate a cover-letter when format-patch is invoked, but in addition can be set to "auto", to generate a cover-letter only when there(cqs more than one patch. 
+<p class="level0">
+<p class="level0">filter.&lt;driver&gt;.clean 
+<p class="level1">The command which is used to convert the content of a worktree file to a blob upon checkin. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">filter.&lt;driver&gt;.smudge 
+<p class="level1">The command which is used to convert the content of a blob object to a worktree file upon checkout. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">gc.aggressiveDepth 
+<p class="level1">The depth parameter used in the delta compression algorithm used by <span Class="emphasis">git gc --aggressive</span>. This defaults to 250. 
+<p class="level0">
+<p class="level0">gc.aggressiveWindow 
+<p class="level1">The window size parameter used in the delta compression algorithm used by <span Class="emphasis">git gc --aggressive</span>. This defaults to 250. 
+<p class="level0">
+<p class="level0">gc.auto 
+<p class="level1">When there are approximately more than this many loose objects in the repository, git gc --auto will pack them. Some Porcelain commands use this command to perform a light-weight garbage collection from time to time. The default value is 6700. Setting this to 0 disables it. 
+<p class="level0">
+<p class="level0">gc.autopacklimit 
+<p class="level1">When there are more than this many packs that are not marked with *.keep file in the repository, git gc --auto consolidates them into one larger pack. The default value is 50. Setting this to 0 disables it. 
+<p class="level0">
+<p class="level0">gc.autodetach 
+<p class="level1">Make git gc --auto return immediately andrun in background if the system supports it. Default is true. 
+<p class="level0">
+<p class="level0">gc.packrefs 
+<p class="level1">Running git pack-refs in a repository renders it unclonable by Git versions prior to 1.5.1.2 over dumb transports such as HTTP. This variable determines whether <span Class="emphasis">git gc</span> runs git pack-refs. This can be set to notbare to enable it within all non-bare repos or it can be set to a boolean value. The default is true. 
+<p class="level0">
+<p class="level0">gc.pruneexpire 
+<p class="level1">When <span Class="emphasis">git gc</span> is run, it will call <span Class="emphasis">prune --expire 2.weeks.ago</span>. Override the grace period with this config variable. The value "now" may be used to disable this grace period and always prune unreachable objects immediately. 
+<p class="level0">
+<p class="level0">gc.reflogexpire, gc.&lt;pattern&gt;.reflogexpire 
+<p class="level1"><span Class="emphasis">git reflog expire</span> removes reflog entries older than this time; defaults to 90 days. With "&lt;pattern&gt;" (e.g. "refs/stash") in the middle the setting applies only to the refs that match the &lt;pattern&gt;. 
+<p class="level0">
+<p class="level0">gc.reflogexpireunreachable, gc.&lt;ref&gt;.reflogexpireunreachable 
+<p class="level1"><span Class="emphasis">git reflog expire</span> removes reflog entries older than this time and are not reachable from the current tip; defaults to 30 days. With "&lt;pattern&gt;" (e.g. "refs/stash") in the middle, the setting applies only to the refs that match the &lt;pattern&gt;. 
+<p class="level0">
+<p class="level0">gc.rerereresolved 
+<p class="level1">Records of conflicted merge you resolved earlier are kept for this many days when <span Class="emphasis">git rerere gc</span> is run. The default is 60 days. See <span Class="bold">git-rerere</span>(1). 
+<p class="level0">
+<p class="level0">gc.rerereunresolved 
+<p class="level1">Records of conflicted merge you have not resolved are kept for this many days when <span Class="emphasis">git rerere gc</span> is run. The default is 15 days. See <span Class="bold">git-rerere</span>(1). 
+<p class="level0">
+<p class="level0">gitcvs.commitmsgannotation 
+<p class="level1">Append this string to each commit message. Set to empty string to disable this feature. Defaults to "via git-CVS emulator". 
+<p class="level0">
+<p class="level0">gitcvs.enabled 
+<p class="level1">Whether the CVS server interface is enabled for this repository. See <span Class="bold">git-cvsserver</span>(1). 
+<p class="level0">
+<p class="level0">gitcvs.logfile 
+<p class="level1">Path to a log file where the CVS server interface well... logs various stuff. See <span Class="bold">git-cvsserver</span>(1). 
+<p class="level0">
+<p class="level0">gitcvs.usecrlfattr 
+<p class="level1">If true, the server will look up the end-of-line conversion attributes for files to determine the <span Class="emphasis">-k</span> modes to use. If the attributes force Git to treat a file as text, the <span Class="emphasis">-k</span> mode will be left blank so CVS clients will treat it as text. If they suppress text conversion, the file will be set with <span Class="emphasis">-kb</span> mode, which suppresses any newline munging the client might otherwise do. If the attributes do not allow the file type to be determined, then <span Class="emphasis">gitcvs.allbinary</span> is used. See <span Class="bold">gitattributes</span>(5). 
+<p class="level0">
+<p class="level0">gitcvs.allbinary 
+<p class="level1">This is used if <span Class="emphasis">gitcvs.usecrlfattr</span> does not resolve the correct <span Class="emphasis">-kb</span> mode to use. If true, all unresolved files are sent to the client in mode <span Class="emphasis">-kb</span>. This causes the client to treat them as binary files, which suppresses any newline munging it otherwise might do. Alternatively, if it is set to "guess", then the contents of the file are examined to decide if it is binary, similar to <span Class="emphasis">core.autocrlf</span>. 
+<p class="level0">
+<p class="level0">gitcvs.dbname 
+<p class="level1">Database used by git-cvsserver to cache revision information derived from the Git repository. The exact meaning depends on the used database driver, for SQLite (which is the default driver) this is a filename. Supports variable substitution (see <span Class="bold">git-cvsserver</span>(1) for details). May not contain semicolons (;). Default: <span Class="emphasis">%Ggitcvs.%m.sqlite</span> 
+<p class="level0">
+<p class="level0">gitcvs.dbdriver 
+<p class="level1">Used Perl DBI driver. You can specify any available driver for this here, but it might not work. git-cvsserver is tested with <span Class="emphasis">DBD::SQLite</span>, reported to work with <span Class="emphasis">DBD::Pg</span>, and reported <span Class="bold">not</span> to work with <span Class="emphasis">DBD::mysql</span>. Experimental feature. May not contain double colons (:). Default: <span Class="emphasis">SQLite</span>. See <span Class="bold">git-cvsserver</span>(1). 
+<p class="level0">
+<p class="level0">gitcvs.dbuser, gitcvs.dbpass 
+<p class="level1">Database user and password. Only useful if setting <span Class="emphasis">gitcvs.dbdriver</span>, since SQLite has no concept of database users and/or passwords. <span Class="emphasis">gitcvs.dbuser</span> supports variable substitution (see <span Class="bold">git-cvsserver</span>(1) for details). 
+<p class="level0">
+<p class="level0">gitcvs.dbTableNamePrefix 
+<p class="level1">Database table name prefix. Prepended to the names of any database tables used, allowing a single database to be used for several repositories. Supports variable substitution (see <span Class="bold">git-cvsserver</span>(1) for details). Any non-alphabetic characters will be replaced with underscores. 
+<p class="level0">
+<p class="level0">All gitcvs variables except for <span Class="emphasis">gitcvs.usecrlfattr</span> and <span Class="emphasis">gitcvs.allbinary</span> can also be specified as <span Class="emphasis">gitcvs.&lt;access_method&gt;.&lt;varname&gt;</span> (where <span Class="emphasis">access_method</span> is one of "ext" and "pserver") to make them apply only for the given access method. 
+<p class="level0">gitweb.category, gitweb.description, gitweb.owner, gitweb.url 
+<p class="level1">See <span Class="bold">gitweb</span>(1) for description. 
+<p class="level0">
+<p class="level0">gitweb.avatar, gitweb.blame, gitweb.grep, gitweb.highlight, gitweb.patches, gitweb.pickaxe, gitweb.remote_heads, gitweb.showsizes, gitweb.snapshot 
+<p class="level1">See <span Class="bold">gitweb.conf</span>(5) for description. 
+<p class="level0">
+<p class="level0">grep.lineNumber 
+<p class="level1">If set to true, enable <span Class="emphasis">-n</span> option by default. 
+<p class="level0">
+<p class="level0">grep.patternType 
+<p class="level1">Set the default matching behavior. Using a value of <span Class="emphasis">basic</span>, <span Class="emphasis">extended</span>, <span Class="emphasis">fixed</span>, or <span Class="emphasis">perl</span> will enable the <span Class="emphasis">--basic-regexp</span>, <span Class="emphasis">--extended-regexp</span>, <span Class="emphasis">--fixed-strings</span>, or <span Class="emphasis">--perl-regexp</span> option accordingly, while the value <span Class="emphasis">default</span> will return to the default matching behavior. 
+<p class="level0">
+<p class="level0">grep.extendedRegexp 
+<p class="level1">If set to true, enable <span Class="emphasis">--extended-regexp</span> option by default. This option is ignored when the <span Class="emphasis">grep.patternType</span> option is set to a value other than <span Class="emphasis">default</span>. 
+<p class="level0">
+<p class="level0">gpg.program 
+<p class="level1">Use this custom program instead of "gpg" found on $PATH when making or verifying a PGP signature. The program must support the same command-line interface as GPG, namely, to verify a detached signature, "gpg --verify $file - &lt;$signature" is run, and the program is expected to signal a good signature by exiting with code 0, and to generate an ascii-armored detached signature, the standard input of "gpg -bsau $key" is fed with the contents to be signed, and the program is expected to send the result to its standard output. 
+<p class="level0">
+<p class="level0">gui.commitmsgwidth 
+<p class="level1">Defines how wide the commit message window is in the <span Class="bold">git-gui</span>(1). "75" is the default. 
+<p class="level0">
+<p class="level0">gui.diffcontext 
+<p class="level1">Specifies how many context lines should be used in calls to diff made by the <span Class="bold">git-gui</span>(1). The default is "5". 
+<p class="level0">
+<p class="level0">gui.displayuntracked 
+<p class="level1">Determines if <span Class="bold">:git-gui</span>(1) shows untracked files in the file list. The default is "true". 
+<p class="level0">
+<p class="level0">gui.encoding 
+<p class="level1">Specifies the default encoding to use for displaying of file contents in <span Class="bold">git-gui</span>(1) and <span Class="bold">gitk</span>(1). It can be overridden by setting the <span Class="emphasis">encoding</span> attribute for relevant files (see <span Class="bold">gitattributes</span>(5)). If this option is not set, the tools default to the locale encoding. 
+<p class="level0">
+<p class="level0">gui.matchtrackingbranch 
+<p class="level1">Determines if new branches created with <span Class="bold">git-gui</span>(1) should default to tracking remote branches with matching names or not. Default: "false". 
+<p class="level0">
+<p class="level0">gui.newbranchtemplate 
+<p class="level1">Is used as suggested name when creating new branches using the <span Class="bold">git-gui</span>(1). 
+<p class="level0">
+<p class="level0">gui.pruneduringfetch 
+<p class="level1">"true" if <span Class="bold">git-gui</span>(1) should prune remote-tracking branches when performing a fetch. The default value is "false". 
+<p class="level0">
+<p class="level0">gui.trustmtime 
+<p class="level1">Determines if <span Class="bold">git-gui</span>(1) should trust the file modification timestamp or not. By default the timestamps are not trusted. 
+<p class="level0">
+<p class="level0">gui.spellingdictionary 
+<p class="level1">Specifies the dictionary used for spell checking commit messages in the <span Class="bold">git-gui</span>(1). When set to "none" spell checking is turned off. 
+<p class="level0">
+<p class="level0">gui.fastcopyblame 
+<p class="level1">If true, <span Class="emphasis">git gui blame</span> uses -C instead of -C -C for original location detection. It makes blame significantly faster on huge repositories at the expense of less thorough copy detection. 
+<p class="level0">
+<p class="level0">gui.copyblamethreshold 
+<p class="level1">Specifies the threshold to use in <span Class="emphasis">git gui blame</span> original location detection, measured in alphanumeric characters. See the <span Class="bold">git-blame</span>(1) manual for more information on copy detection. 
+<p class="level0">
+<p class="level0">gui.blamehistoryctx 
+<p class="level1">Specifies the radius of history context in days to show in <span Class="bold">gitk</span>(1) for the selected commit, when the Show History Context menu item is invoked from <span Class="emphasis">git gui blame</span>. If this variable is set to zero, the whole history is shown. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.cmd 
+<p class="level1">Specifies the shell command line to execute when the corresponding item of the <span Class="bold">git-gui</span>(1)Tools menu is invoked. This option is mandatory for every tool. The command is executed from the root of the working directory, and in the environment it receives the name of the tool as <span Class="emphasis">GIT_GUITOOL</span>, the name of the currently selected file as <span Class="emphasis">FILENAME</span>, and the name of the current branch as <span Class="emphasis">CUR_BRANCH</span> (if the head is detached, <span Class="emphasis">CUR_BRANCH</span> is empty). 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.needsfile 
+<p class="level1">Run the tool only if a diff is selected in the GUI. It guarantees that <span Class="emphasis">FILENAME</span> is not empty. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.noconsole 
+<p class="level1">Run the command silently, without creating a window to display its output. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.norescan 
+<p class="level1">Don(cqt rescan the working directory for changes after the tool finishes execution. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.confirm 
+<p class="level1">Show a confirmation dialog before actually running the tool. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.argprompt 
+<p class="level1">Request a string argument from the user, and pass it to the tool through the <span Class="emphasis">ARGS</span> environment variable. Since requesting an argument implies confirmation, the <span Class="emphasis">confirm</span> option has no effect if this is enabled. If the option is set to <span Class="emphasis">true</span>, <span Class="emphasis">yes</span>, or <span Class="emphasis">1</span>, the dialog uses a built-in generic prompt; otherwise the exact value of the variable is used. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.revprompt 
+<p class="level1">Request a single valid revision from the user, and set the <span Class="emphasis">REVISION</span> environment variable. In other aspects this option is similar to <span Class="emphasis">argprompt</span>, and can be used together with it. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.revunmerged 
+<p class="level1">Show only unmerged branches in the <span Class="emphasis">revprompt</span> subdialog. This is useful for tools similar to merge or rebase, but not for things like checkout or reset. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.title 
+<p class="level1">Specifies the title to use for the prompt dialog. The default is the tool name. 
+<p class="level0">
+<p class="level0">guitool.&lt;name&gt;.prompt 
+<p class="level1">Specifies the general prompt string to display at the top of the dialog, before subsections for <span Class="emphasis">argprompt</span> and <span Class="emphasis">revprompt</span>. The default value includes the actual command. 
+<p class="level0">
+<p class="level0">help.browser 
+<p class="level1">Specify the browser that will be used to display help in the <span Class="emphasis">web</span> format. See <span Class="bold">git-help</span>(1). 
+<p class="level0">
+<p class="level0">help.format 
+<p class="level1">Override the default help format used by <span Class="bold">git-help</span>(1). Values <span Class="emphasis">man</span>, <span Class="emphasis">info</span>, <span Class="emphasis">web</span> and <span Class="emphasis">html</span> are supported. <span Class="emphasis">man</span> is the default. <span Class="emphasis">web</span> and <span Class="emphasis">html</span> are the same. 
+<p class="level0">
+<p class="level0">help.autocorrect 
+<p class="level1">Automatically correct and execute mistyped commands after waiting for the given number of deciseconds (0.1 sec). If more than one command can be deduced from the entered text, nothing will be executed. If the value of this option is negative, the corrected command will be executed immediately. If the value is 0 - the command will be just shown but not executed. This is the default. 
+<p class="level0">
+<p class="level0">help.htmlpath 
+<p class="level1">Specify the path where the HTML documentation resides. File system paths and URLs are supported. HTML pages will be prefixed with this path when help is displayed in the <span Class="emphasis">web</span> format. This defaults to the documentation path of your Git installation. 
+<p class="level0">
+<p class="level0">http.proxy 
+<p class="level1">Override the HTTP proxy, normally configured using the <span Class="emphasis">http_proxy</span>, <span Class="emphasis">https_proxy</span>, and <span Class="emphasis">all_proxy</span> environment variables (see curl(1)). This can be overridden on a per-remote basis; see remote.&lt;name&gt;.proxy 
+<p class="level0">
+<p class="level0">http.cookiefile 
+<p class="level1">File containing previously stored cookie lines which should be used in the Git http session, if they match the server. The file format of the file to read cookies from should be plain HTTP headers or the Netscape/Mozilla cookie file format (see <span Class="bold">curl</span>(1)). NOTE that the file specified with http.cookiefile is only used as input unless http.saveCookies is set. 
+<p class="level0">
+<p class="level0">http.savecookies 
+<p class="level1">If set, store cookies received during requests to the file specified by http.cookiefile. Has no effect if http.cookiefile is unset. 
+<p class="level0">
+<p class="level0">http.sslVerify 
+<p class="level1">Whether to verify the SSL certificate when fetching or pushing over HTTPS. Can be overridden by the <span Class="emphasis">GIT_SSL_NO_VERIFY</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslCert 
+<p class="level1">File containing the SSL certificate when fetching or pushing over HTTPS. Can be overridden by the <span Class="emphasis">GIT_SSL_CERT</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslKey 
+<p class="level1">File containing the SSL private key when fetching or pushing over HTTPS. Can be overridden by the <span Class="emphasis">GIT_SSL_KEY</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslCertPasswordProtected 
+<p class="level1">Enable Git(cqs password prompt for the SSL certificate. Otherwise OpenSSL will prompt the user, possibly many times, if the certificate or private key is encrypted. Can be overridden by the <span Class="emphasis">GIT_SSL_CERT_PASSWORD_PROTECTED</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslCAInfo 
+<p class="level1">File containing the certificates to verify the peer with when fetching or pushing over HTTPS. Can be overridden by the <span Class="emphasis">GIT_SSL_CAINFO</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslCAPath 
+<p class="level1">Path containing files with the CA certificates to verify the peer with when fetching or pushing over HTTPS. Can be overridden by the <span Class="emphasis">GIT_SSL_CAPATH</span> environment variable. 
+<p class="level0">
+<p class="level0">http.sslTry 
+<p class="level1">Attempt to use AUTH SSL/TLS and encrypted data transfers when connecting via regular FTP protocol. This might be needed if the FTP server requires it for security reasons or you wish to connect securely whenever remote FTP server supports it. Default is false since it might trigger certificate verification errors on misconfigured servers. 
+<p class="level0">
+<p class="level0">http.maxRequests 
+<p class="level1">How many HTTP requests to launch in parallel. Can be overridden by the <span Class="emphasis">GIT_HTTP_MAX_REQUESTS</span> environment variable. Default is 5. 
+<p class="level0">
+<p class="level0">http.minSessions 
+<p class="level1">The number of curl sessions (counted across slots) to be kept across requests. They will not be ended with curl_easy_cleanup() until http_cleanup() is invoked. If USE_CURL_MULTI is not defined, this value will be capped at 1. Defaults to 1. 
+<p class="level0">
+<p class="level0">http.postBuffer 
+<p class="level1">Maximum size in bytes of the buffer used by smart HTTP transports when POSTing data to the remote system. For requests larger than this buffer size, HTTP/1.1 and Transfer-Encoding: chunked is used to avoid creating a massive pack file locally. Default is 1 MiB, which is sufficient for most requests. 
+<p class="level0">
+<p class="level0">http.lowSpeedLimit, http.lowSpeedTime 
+<p class="level1">If the HTTP transfer speed is less than <span Class="emphasis">http.lowSpeedLimit</span> for longer than <span Class="emphasis">http.lowSpeedTime</span> seconds, the transfer is aborted. Can be overridden by the <span Class="emphasis">GIT_HTTP_LOW_SPEED_LIMIT</span> and <span Class="emphasis">GIT_HTTP_LOW_SPEED_TIME</span> environment variables. 
+<p class="level0">
+<p class="level0">http.noEPSV 
+<p class="level1">A boolean which disables using of EPSV ftp command by curl. This can helpful with some "poor" ftp servers which don(cqt support EPSV mode. Can be overridden by the <span Class="emphasis">GIT_CURL_FTP_NO_EPSV</span> environment variable. Default is false (curl will use EPSV). 
+<p class="level0">
+<p class="level0">http.useragent 
+<p class="level1">The HTTP USER_AGENT string presented to an HTTP server. The default value represents the version of the client Git such as git/1.7.1. This option allows you to override this value to a more common value such as Mozilla/4.0. This may be necessary, for instance, if connecting through a firewall that restricts HTTP connections to a set of common USER_AGENT strings (but not including those like git/1.7.1). Can be overridden by the <span Class="emphasis">GIT_HTTP_USER_AGENT</span> environment variable. 
+<p class="level0">
+<p class="level0">http.&lt;url&gt;.* 
+<p class="level1">Any of the http.* options above can be applied selectively to some urls. For a config key to match a URL, each element of the config key is compared to that of the URL, in the following order: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04' 1.h'+01'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level2">
+<p class="level2">Scheme (e.g., https in <a href="https://example.com/).">https://example.com/).</a> This field must match exactly between the config key and the URL. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04' 2.h'+01'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level2">
+<p class="level2">Host/domain name (e.g., example.com in <a href="https://example.com/).">https://example.com/).</a> This field must match exactly between the config key and the URL. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04' 3.h'+01'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level2">
+<p class="level2">Port number (e.g., 8080 in <a href="http://example.com:8080/).">http://example.com:8080/).</a> This field must match exactly between the config key and the URL. Omitted port numbers are automatically converted to the correct default for the scheme before matching. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04' 4.h'+01'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level2">
+<p class="level2">Path (e.g., repo.git in <a href="https://example.com/repo.git).">https://example.com/repo.git).</a> The path field of the config key must match the path field of the URL either exactly or as a prefix of slash-delimited path elements. This means a config key with path foo/ matches URL path foo/bar. A prefix can only match on a slash (/) boundary. Longer matches take precedence (so a config key with path foo/bar is a better match to URL path foo/bar than a config key with just path foo/). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04' 5.h'+01'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">  5. 4.2</span> 
+<p class="level2">
+<p class="level2">User name (e.g., user in <a href="https://user@example.com/repo.git).">https://user@example.com/repo.git).</a> If the config key has a user name it must match the user name in the URL exactly. If the config key does not have a user name, that config key will match a URL with any user name (including none), but at a lower precedence than a config key with a user name. 
+<p class="level1">
+<p class="level1">The list above is ordered by decreasing precedence; a URL that matches a config key(cqs path is preferred to one that matches its user name. For example, if the URL is <a href="https://user@example.com/foo/bar">https://user@example.com/foo/bar</a> a config key match of <a href="https://example.com/foo">https://example.com/foo</a> will be preferred over a config key match of <a href="https://user@example.com.">https://user@example.com.</a> 
+<p class="level1">All URLs are normalized before attempting any matching (the password part, if embedded in the URL, is always ignored for matching purposes) so that equivalent urls that are simply spelled differently will match properly. Environment variable settings always override any matches. The urls that are matched against are those given directly to Git commands. This means any URLs visited as a result of a redirection do not participate in matching. 
+<p class="level0">
+<p class="level0">i18n.commitEncoding 
+<p class="level1">Character encoding the commit messages are stored in; Git itself does not care per se, but this information is necessary e.g. when importing commits from emails or in the gitk graphical history browser (and possibly at other places in the future or in other porcelains). See e.g. <span Class="bold">git-mailinfo</span>(1). Defaults to <span Class="emphasis">utf-8</span>. 
+<p class="level0">
+<p class="level0">i18n.logOutputEncoding 
+<p class="level1">Character encoding the commit messages are converted to when running <span Class="emphasis">git log</span> and friends. 
+<p class="level0">
+<p class="level0">imap 
+<p class="level1">The configuration variables in the <span Class="emphasis">imap</span> section are described in <span Class="bold">git-imap-send</span>(1). 
+<p class="level0">
+<p class="level0">index.version 
+<p class="level1">Specify the version with which new index files should be initialized. This does not affect existing repositories. 
+<p class="level0">
+<p class="level0">init.templatedir 
+<p class="level1">Specify the directory from which templates will be copied. (See the "TEMPLATE DIRECTORY" section of <span Class="bold">git-init</span>(1).) 
+<p class="level0">
+<p class="level0">instaweb.browser 
+<p class="level1">Specify the program that will be used to browse your working repository in gitweb. See <span Class="bold">git-instaweb</span>(1). 
+<p class="level0">
+<p class="level0">instaweb.httpd 
+<p class="level1">The HTTP daemon command-line to start gitweb on your working repository. See <span Class="bold">git-instaweb</span>(1). 
+<p class="level0">
+<p class="level0">instaweb.local 
+<p class="level1">If true the web server started by <span Class="bold">git-instaweb</span>(1) will be bound to the local IP (127.0.0.1). 
+<p class="level0">
+<p class="level0">instaweb.modulepath 
+<p class="level1">The default module path for <span Class="bold">git-instaweb</span>(1) to use instead of /usr/lib/apache2/modules. Only used if httpd is Apache. 
+<p class="level0">
+<p class="level0">instaweb.port 
+<p class="level1">The port number to bind the gitweb httpd to. See <span Class="bold">git-instaweb</span>(1). 
+<p class="level0">
+<p class="level0">interactive.singlekey 
+<p class="level1">In interactive commands, allow the user to provide one-letter input with a single key (i.e., without hitting enter). Currently this is used by the --patch mode of <span Class="bold">git-add</span>(1), <span Class="bold">git-checkout</span>(1), <span Class="bold">git-commit</span>(1), <span Class="bold">git-reset</span>(1), and <span Class="bold">git-stash</span>(1). Note that this setting is silently ignored if portable keystroke input is not available; requires the Perl module Term::ReadKey. 
+<p class="level0">
+<p class="level0">log.abbrevCommit 
+<p class="level1">If true, makes <span Class="bold">git-log</span>(1), <span Class="bold">git-show</span>(1), and <span Class="bold">git-whatchanged</span>(1) assume --abbrev-commit. You may override this option with --no-abbrev-commit. 
+<p class="level0">
+<p class="level0">log.date 
+<p class="level1">Set the default date-time mode for the <span Class="emphasis">log</span> command. Setting a value for log.date is similar to using <span Class="emphasis">git log</span>*(Aqs --date option. Possible values are relative, local, default, iso, rfc, and short; see <span Class="bold">git-log</span>(1) for details. 
+<p class="level0">
+<p class="level0">log.decorate 
+<p class="level1">Print out the ref names of any commits that are shown by the log command. If <span Class="emphasis">short</span> is specified, the ref name prefixes <span Class="emphasis">refs/heads/</span>, <span Class="emphasis">refs/tags/</span> and <span Class="emphasis">refs/remotes/</span> will not be printed. If <span Class="emphasis">full</span> is specified, the full ref name (including prefix) will be printed. This is the same as the log commands <span Class="emphasis">--decorate</span> option. 
+<p class="level0">
+<p class="level0">log.showroot 
+<p class="level1">If true, the initial commit will be shown as a big creation event. This is equivalent to a diff against an empty tree. Tools like <span Class="bold">git-log</span>(1) or <span Class="bold">git-whatchanged</span>(1), which normally hide the root commit will now show it. True by default. 
+<p class="level0">
+<p class="level0">log.mailmap 
+<p class="level1">If true, makes <span Class="bold">git-log</span>(1), <span Class="bold">git-show</span>(1), and <span Class="bold">git-whatchanged</span>(1) assume --use-mailmap. 
+<p class="level0">
+<p class="level0">mailmap.file 
+<p class="level1">The location of an augmenting mailmap file. The default mailmap, located in the root of the repository, is loaded first, then the mailmap file pointed to by this variable. The location of the mailmap file may be in a repository subdirectory, or somewhere outside of the repository itself. See <span Class="bold">git-shortlog</span>(1) and <span Class="bold">git-blame</span>(1). 
+<p class="level0">
+<p class="level0">mailmap.blob 
+<p class="level1">Like mailmap.file, but consider the value as a reference to a blob in the repository. If both mailmap.file and mailmap.blob are given, both are parsed, with entries from mailmap.file taking precedence. In a bare repository, this defaults to HEAD:.mailmap. In a non-bare repository, it defaults to empty. 
+<p class="level0">
+<p class="level0">man.viewer 
+<p class="level1">Specify the programs that may be used to display help in the <span Class="emphasis">man</span> format. See <span Class="bold">git-help</span>(1). 
+<p class="level0">
+<p class="level0">man.&lt;tool&gt;.cmd 
+<p class="level1">Specify the command to invoke the specified man viewer. The specified command is evaluated in shell with the man page passed as argument. (See <span Class="bold">git-help</span>(1).) 
+<p class="level0">
+<p class="level0">man.&lt;tool&gt;.path 
+<p class="level1">Override the path for the given tool that may be used to display help in the <span Class="emphasis">man</span> format. See <span Class="bold">git-help</span>(1). 
+<p class="level0">
+<p class="level0">merge.conflictstyle 
+<p class="level1">Specify the style in which conflicted hunks are written out to working tree files upon merge. The default is "merge", which shows a &lt;&lt;&lt;&lt;&lt;&lt;&lt; conflict marker, changes made by one side, a ======= marker, changes made by the other side, and then a &gt;&gt;&gt;&gt;&gt;&gt;&gt; marker. An alternate style, "diff3", adds a ||||||| marker and the original text before the ======= marker. 
+<p class="level0">
+<p class="level0">merge.defaultToUpstream 
+<p class="level1">If merge is called without any commit argument, merge the upstream branches configured for the current branch by using their last observed values stored in their remote-tracking branches. The values of the branch.&lt;current branch&gt;.merge that name the branches at the remote named by branch.&lt;current branch&gt;.remote are consulted, and then they are mapped via remote.&lt;remote&gt;.fetch to their corresponding remote-tracking branches, and the tips of these tracking branches are merged. 
+<p class="level0">
+<p class="level0">merge.ff 
+<p class="level1">By default, Git does not create an extra merge commit when merging a commit that is a descendant of the current commit. Instead, the tip of the current branch is fast-forwarded. When set to false, this variable tells Git to create an extra merge commit in such a case (equivalent to giving the --no-ff option from the command line). When set to only, only such fast-forward merges are allowed (equivalent to giving the --ff-only option from the command line). 
+<p class="level0">
+<p class="level0">merge.log 
+<p class="level1">In addition to branch names, populate the log message with at most the specified number of one-line descriptions from the actual commits that are being merged. Defaults to false, and true is a synonym for 20. 
+<p class="level0">
+<p class="level0">merge.renameLimit 
+<p class="level1">The number of files to consider when performing rename detection during a merge; if not specified, defaults to the value of diff.renameLimit. 
+<p class="level0">
+<p class="level0">merge.renormalize 
+<p class="level1">Tell Git that canonical representation of files in the repository has changed over time (e.g. earlier commits record text files with CRLF line endings, but recent ones use LF line endings). In such a repository, Git can convert the data recorded in commits to a canonical form before performing a merge to reduce unnecessary conflicts. For more information, see section "Merging branches with differing checkin/checkout attributes" in <span Class="bold">gitattributes</span>(5). 
+<p class="level0">
+<p class="level0">merge.stat 
+<p class="level1">Whether to print the diffstat between ORIG_HEAD and the merge result at the end of the merge. True by default. 
+<p class="level0">
+<p class="level0">merge.tool 
+<p class="level1">Controls which merge tool is used by <span Class="bold">git-mergetool</span>(1). The list below shows the valid built-in values. Any other value is treated as a custom merge tool and requires that a corresponding mergetool.&lt;tool&gt;.cmd variable is defined. 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">araxis 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">bc3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">codecompare 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">deltawalker 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">diffmerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">diffuse 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">ecmerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">emerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">gvimdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">kdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">meld 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">opendiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">p4merge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">tkdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">tortoisemerge 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">vimdiff3 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">xxdiff 
+<p class="level1">
+<p class="level0">
+<p class="level0">merge.verbosity 
+<p class="level1">Controls the amount of output shown by the recursive merge strategy. Level 0 outputs nothing except a final error message if conflicts were detected. Level 1 outputs only conflicts, 2 outputs conflicts and file changes. Level 5 and above outputs debugging information. The default is level 2. Can be overridden by the <span Class="emphasis">GIT_MERGE_VERBOSITY</span> environment variable. 
+<p class="level0">
+<p class="level0">merge.&lt;driver&gt;.name 
+<p class="level1">Defines a human-readable name for a custom low-level merge driver. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">merge.&lt;driver&gt;.driver 
+<p class="level1">Defines the command that implements a custom low-level merge driver. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">merge.&lt;driver&gt;.recursive 
+<p class="level1">Names a low-level merge driver to be used when performing an internal merge between common ancestors. See <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level0">
+<p class="level0">mergetool.&lt;tool&gt;.path 
+<p class="level1">Override the path for the given tool. This is useful in case your tool is not in the PATH. 
+<p class="level0">
+<p class="level0">mergetool.&lt;tool&gt;.cmd 
+<p class="level1">Specify the command to invoke the specified merge tool. The specified command is evaluated in shell with the following variables available: <span Class="emphasis">BASE</span> is the name of a temporary file containing the common base of the files to be merged, if available; <span Class="emphasis">LOCAL</span> is the name of a temporary file containing the contents of the file on the current branch; <span Class="emphasis">REMOTE</span> is the name of a temporary file containing the contents of the file from the branch being merged; <span Class="emphasis">MERGED</span> contains the name of the file to which the merge tool should write the results of a successful merge. 
+<p class="level0">
+<p class="level0">mergetool.&lt;tool&gt;.trustExitCode 
+<p class="level1">For a custom merge command, specify whether the exit code of the merge command can be used to determine whether the merge was successful. If this is not set to true then the merge target file timestamp is checked and the merge assumed to have been successful if the file has been updated, otherwise the user is prompted to indicate the success of the merge. 
+<p class="level0">
+<p class="level0">mergetool.meld.hasOutput 
+<p class="level1">Older versions of meld do not support the --output option. Git will attempt to detect whether meld supports --output by inspecting the output of meld --help. Configuring mergetool.meld.hasOutput will make Git skip these checks and use the configured value instead. Setting mergetool.meld.hasOutput to true tells Git to unconditionally use the --output option, and false avoids using --output. 
+<p class="level0">
+<p class="level0">mergetool.keepBackup 
+<p class="level1">After performing a merge, the original file with conflict markers can be saved as a file with a .orig extension. If this variable is set to false then this file is not preserved. Defaults to true (i.e. keep the backup files). 
+<p class="level0">
+<p class="level0">mergetool.keepTemporaries 
+<p class="level1">When invoking a custom merge tool, Git uses a set of temporary files to pass to the tool. If the tool returns an error and this variable is set to true, then these temporary files will be preserved, otherwise they will be removed after the tool has exited. Defaults to false. 
+<p class="level0">
+<p class="level0">mergetool.prompt 
+<p class="level1">Prompt before each invocation of the merge resolution program. 
+<p class="level0">
+<p class="level0">notes.displayRef 
+<p class="level1">The (fully qualified) refname from which to show notes when showing commit messages. The value of this variable can be set to a glob, in which case notes from all matching refs will be shown. You may also specify this configuration variable several times. A warning will be issued for refs that do not exist, but a glob that does not match any refs is silently ignored. 
+<p class="level1">This setting can be overridden with the GIT_NOTES_DISPLAY_REF environment variable, which must be a colon separated list of refs or globs. 
+<p class="level1">The effective value of "core.notesRef" (possibly overridden by GIT_NOTES_REF) is also implicitly added to the list of refs to be displayed. 
+<p class="level0">
+<p class="level0">notes.rewrite.&lt;command&gt; 
+<p class="level1">When rewriting commits with &lt;command&gt; (currently amend or rebase) and this variable is set to true, Git automatically copies your notes from the original to the rewritten commit. Defaults to true, but see "notes.rewriteRef" below. 
+<p class="level0">
+<p class="level0">notes.rewriteMode 
+<p class="level1">When copying notes during a rewrite (see the "notes.rewrite.&lt;command&gt;" option), determines what to do if the target commit already has a note. Must be one of overwrite, concatenate, or ignore. Defaults to concatenate. 
+<p class="level1">This setting can be overridden with the GIT_NOTES_REWRITE_MODE environment variable. 
+<p class="level0">
+<p class="level0">notes.rewriteRef 
+<p class="level1">When copying notes during a rewrite, specifies the (fully qualified) ref whose notes should be copied. The ref may be a glob, in which case notes in all matching refs will be copied. You may also specify this configuration several times. 
+<p class="level1">Does not have a default value; you must configure this variable to enable note rewriting. Set it to refs/notes/commits to enable rewriting for the default commit notes. 
+<p class="level1">This setting can be overridden with the GIT_NOTES_REWRITE_REF environment variable, which must be a colon separated list of refs or globs. 
+<p class="level0">
+<p class="level0">pack.window 
+<p class="level1">The size of the window used by <span Class="bold">git-pack-objects</span>(1) when no window size is given on the command line. Defaults to 10. 
+<p class="level0">
+<p class="level0">pack.depth 
+<p class="level1">The maximum delta depth used by <span Class="bold">git-pack-objects</span>(1) when no maximum depth is given on the command line. Defaults to 50. 
+<p class="level0">
+<p class="level0">pack.windowMemory 
+<p class="level1">The window memory size limit used by <span Class="bold">git-pack-objects</span>(1) when no limit is given on the command line. The value can be suffixed with "k", "m", or "g". Defaults to 0, meaning no limit. 
+<p class="level0">
+<p class="level0">pack.compression 
+<p class="level1">An integer -1..9, indicating the compression level for objects in a pack file. -1 is the zlib default. 0 means no compression, and 1..9 are various speed/size tradeoffs, 9 being slowest. If not set, defaults to core.compression. If that is not set, defaults to -1, the zlib default, which is "a default compromise between speed and compression (currently equivalent to level 6)." 
+<p class="level1">Note that changing the compression level will not automatically recompress all existing objects. You can force recompression by passing the -F option to <span Class="bold">git-repack</span>(1). 
+<p class="level0">
+<p class="level0">pack.deltaCacheSize 
+<p class="level1">The maximum memory in bytes used for caching deltas in <span Class="bold">git-pack-objects</span>(1) before writing them out to a pack. This cache is used to speed up the writing object phase by not having to recompute the final delta result once the best match for all objects is found. Repacking large repositories on machines which are tight with memory might be badly impacted by this though, especially if this cache pushes the system into swapping. A value of 0 means no limit. The smallest size of 1 byte may be used to virtually disable this cache. Defaults to 256 MiB. 
+<p class="level0">
+<p class="level0">pack.deltaCacheLimit 
+<p class="level1">The maximum size of a delta, that is cached in <span Class="bold">git-pack-objects</span>(1). This cache is used to speed up the writing object phase by not having to recompute the final delta result once the best match for all objects is found. Defaults to 1000. 
+<p class="level0">
+<p class="level0">pack.threads 
+<p class="level1">Specifies the number of threads to spawn when searching for best delta matches. This requires that <span Class="bold">git-pack-objects</span>(1) be compiled with pthreads otherwise this option is ignored with a warning. This is meant to reduce packing time on multiprocessor machines. The required amount of memory for the delta search window is however multiplied by the number of threads. Specifying 0 will cause Git to auto-detect the number of CPU(cqs and set the number of threads accordingly. 
+<p class="level0">
+<p class="level0">pack.indexVersion 
+<p class="level1">Specify the default pack index version. Valid values are 1 for legacy pack index used by Git versions prior to 1.5.2, and 2 for the new pack index with capabilities for packs larger than 4 GB as well as proper protection against the repacking of corrupted packs. Version 2 is the default. Note that version 2 is enforced and this config option ignored whenever the corresponding pack is larger than 2 GB. 
+<p class="level1">If you have an old Git that does not understand the version 2 *.idx file, cloning or fetching over a non native protocol (e.g. "http" and "rsync") that will copy both *.pack file and corresponding *.idx file from the other side may give you a repository that cannot be accessed with your older version of Git. If the *.pack file is smaller than 2 GB, however, you can use <span Class="bold">git-index-pack</span>(1) on the *.pack file to regenerate the *.idx file. 
+<p class="level0">
+<p class="level0">pack.packSizeLimit 
+<p class="level1">The maximum size of a pack. This setting only affects packing to a file when repacking, i.e. the git:// protocol is unaffected. It can be overridden by the --max-pack-size option of <span Class="bold">git-repack</span>(1). The minimum size allowed is limited to 1 MiB. The default is unlimited. Common unit suffixes of <span Class="emphasis">k</span>, <span Class="emphasis">m</span>, or <span Class="emphasis">g</span> are supported. 
+<p class="level0">
+<p class="level0">pack.useBitmaps 
+<p class="level1">When true, git will use pack bitmaps (if available) when packing to stdout (e.g., during the server side of a fetch). Defaults to true. You should not generally need to turn this off unless you are debugging pack bitmaps. 
+<p class="level0">
+<p class="level0">pack.writebitmaps 
+<p class="level1">This is a deprecated synonym for repack.writeBitmaps. 
+<p class="level0">
+<p class="level0">pack.writeBitmapHashCache 
+<p class="level1">When true, git will include a "hash cache" section in the bitmap index (if one is written). This cache can be used to feed git(cqs delta heuristics, potentially leading to better deltas between bitmapped and non-bitmapped objects (e.g., when serving a fetch between an older, bitmapped pack and objects that have been pushed since the last gc). The downside is that it consumes 4 bytes per object of disk space, and that JGit(cqs bitmap implementation does not understand it, causing it to complain if Git and JGit are used on the same repository. Defaults to false. 
+<p class="level0">
+<p class="level0">pager.&lt;cmd&gt; 
+<p class="level1">If the value is boolean, turns on or off pagination of the output of a particular Git subcommand when writing to a tty. Otherwise, turns on pagination for the subcommand using the pager specified by the value of pager.&lt;cmd&gt;. If --paginate or --no-pager is specified on the command line, it takes precedence over this option. To disable pagination for all commands, set core.pager or GIT_PAGER to cat. 
+<p class="level0">
+<p class="level0">pretty.&lt;name&gt; 
+<p class="level1">Alias for a --pretty= format string, as specified in <span Class="bold">git-log</span>(1). Any aliases defined here can be used just as the built-in pretty formats could. For example, running git config pretty.changelog "format:* %H %s" would cause the invocation git log --pretty=changelog to be equivalent to running git log "--pretty=format:* %H %s". Note that an alias with the same name as a built-in format will be silently ignored. 
+<p class="level0">
+<p class="level0">pull.ff 
+<p class="level1">By default, Git does not create an extra merge commit when merging a commit that is a descendant of the current commit. Instead, the tip of the current branch is fast-forwarded. When set to false, this variable tells Git to create an extra merge commit in such a case (equivalent to giving the --no-ff option from the command line). When set to only, only such fast-forward merges are allowed (equivalent to giving the --ff-only option from the command line). 
+<p class="level0">
+<p class="level0">pull.rebase 
+<p class="level1">When true, rebase branches on top of the fetched branch, instead of merging the default branch from the default remote when "git pull" is run. See "branch.&lt;name&gt;.rebase" for setting this on a per-branch basis. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+When preserve, also pass `--preserve-merges` along to *(Aqgit rebase*(Aq
+so that locally committed merge commits will not be flattened
+by running *(Aqgit pull*(Aq.
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">NOTE</span>: this is a possibly dangerous operation; do <span Class="bold">not</span> use it unless you understand the implications (see <span Class="bold">git-rebase</span>(1) for details). 
+<p class="level0">
+<p class="level0">pull.octopus 
+<p class="level1">The default merge strategy to use when pulling multiple branches at once. 
+<p class="level0">
+<p class="level0">pull.twohead 
+<p class="level1">The default merge strategy to use when pulling a single branch. 
+<p class="level0">
+<p class="level0">push.default 
+<p class="level1">Defines the action git push should take if no refspec is explicitly given. Different values are well-suited for specific workflows; for instance, in a purely central workflow (i.e. the fetch source is equal to the push destination), upstream is probably what you want. Possible values are: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">nothing - do not push anything (error out) unless a refspec is explicitly given. This is primarily meant for people who want to avoid mistakes by always being explicit. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">current - push the current branch to update a branch with the same name on the receiving end. Works in both central and non-central workflows. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">upstream - push the current branch back to the branch whose changes are usually integrated into the current branch (which is called @{upstream}). This mode only makes sense if you are pushing to the same repository you would normally pull from (i.e. central workflow). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">simple - in centralized workflow, work like upstream with an added safety to refuse to push if the upstream branch(cqs name is different from the local one. 
+<p class="level2">When pushing to a remote that is different from the remote you normally pull from, work as current. This is the safest option and is suited for beginners. 
+<p class="level2">This mode has become the default in Git 2.0. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">matching - push all branches having the same name on both ends. This makes the repository you are pushing to remember the set of branches that will be pushed out (e.g. if you always push <span Class="emphasis">maint</span> and <span Class="emphasis">master</span> there and no other branches, the repository you push to will have these two branches, and your local <span Class="emphasis">maint</span> and <span Class="emphasis">master</span> will be pushed there). 
+<p class="level2">To use this mode effectively, you have to make sure <span Class="emphasis">all</span> the branches you would push out are ready to be pushed out before running <span Class="emphasis">git push</span>, as the whole point of this mode is to allow you to push all of the branches in one go. If you usually finish work on only one branch and push out the result, while other branches are unfinished, this mode is not for you. Also this mode is not suitable for pushing into a shared central repository, as other people may add new branches there, or update the tip of existing branches outside your control. 
+<p class="level2">This used to be the default, but not since Git 2.0 (simple is the new default). 
+<p class="level1">
+<p class="level0">
+<p class="level0">rebase.stat 
+<p class="level1">Whether to show a diffstat of what changed upstream since the last rebase. False by default. 
+<p class="level0">
+<p class="level0">rebase.autosquash 
+<p class="level1">If set to true enable <span Class="emphasis">--autosquash</span> option by default. 
+<p class="level0">
+<p class="level0">rebase.autostash 
+<p class="level1">When set to true, automatically create a temporary stash before the operation begins, and apply it after the operation ends. This means that you can run rebase on a dirty worktree. However, use with care: the final stash application after a successful rebase might result in non-trivial conflicts. Defaults to false. 
+<p class="level0">
+<p class="level0">receive.autogc 
+<p class="level1">By default, git-receive-pack will run "git-gc --auto" after receiving data from git-push and updating refs. You can stop it by setting this variable to false. 
+<p class="level0">
+<p class="level0">receive.fsckObjects 
+<p class="level1">If it is set to true, git-receive-pack will check all received objects. It will abort in the case of a malformed object or a broken link. The result of an abort are only dangling objects. Defaults to false. If not set, the value of transfer.fsckObjects is used instead. 
+<p class="level0">
+<p class="level0">receive.unpackLimit 
+<p class="level1">If the number of objects received in a push is below this limit then the objects will be unpacked into loose object files. However if the number of received objects equals or exceeds this limit then the received pack will be stored as a pack, after adding any missing delta bases. Storing the pack from a push can make the push operation complete faster, especially on slow filesystems. If not set, the value of transfer.unpackLimit is used instead. 
+<p class="level0">
+<p class="level0">receive.denyDeletes 
+<p class="level1">If set to true, git-receive-pack will deny a ref update that deletes the ref. Use this to prevent such a ref deletion via a push. 
+<p class="level0">
+<p class="level0">receive.denyDeleteCurrent 
+<p class="level1">If set to true, git-receive-pack will deny a ref update that deletes the currently checked out branch of a non-bare repository. 
+<p class="level0">
+<p class="level0">receive.denyCurrentBranch 
+<p class="level1">If set to true or "refuse", git-receive-pack will deny a ref update to the currently checked out branch of a non-bare repository. Such a push is potentially dangerous because it brings the HEAD out of sync with the index and working tree. If set to "warn", print a warning of such a push to stderr, but allow the push to proceed. If set to false or "ignore", allow such pushes with no message. Defaults to "refuse". 
+<p class="level0">
+<p class="level0">receive.denyNonFastForwards 
+<p class="level1">If set to true, git-receive-pack will deny a ref update which is not a fast-forward. Use this to prevent such an update via a push, even if that push is forced. This configuration variable is set when initializing a shared repository. 
+<p class="level0">
+<p class="level0">receive.hiderefs 
+<p class="level1">String(s) receive-pack uses to decide which refs to omit from its initial advertisement. Use more than one definitions to specify multiple prefix strings. A ref that are under the hierarchies listed on the value of this variable is excluded, and is hidden when responding to git push, and an attempt to update or delete a hidden ref by git push is rejected. 
+<p class="level0">
+<p class="level0">receive.updateserverinfo 
+<p class="level1">If set to true, git-receive-pack will run git-update-server-info after receiving data from git-push and updating refs. 
+<p class="level0">
+<p class="level0">receive.shallowupdate 
+<p class="level1">If set to true, .git/shallow can be updated when new refs require new shallow roots. Otherwise those refs are rejected. 
+<p class="level0">
+<p class="level0">remote.pushdefault 
+<p class="level1">The remote to push to by default. Overrides branch.&lt;name&gt;.remote for all branches, and is overridden by branch.&lt;name&gt;.pushremote for specific branches. 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.url 
+<p class="level1">The URL of a remote repository. See <span Class="bold">git-fetch</span>(1) or <span Class="bold">git-push</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.pushurl 
+<p class="level1">The push URL of a remote repository. See <span Class="bold">git-push</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.proxy 
+<p class="level1">For remotes that require curl (http, https and ftp), the URL to the proxy to use for that remote. Set to the empty string to disable proxying for that remote. 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.fetch 
+<p class="level1">The default set of "refspec" for <span Class="bold">git-fetch</span>(1). See <span Class="bold">git-fetch</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.push 
+<p class="level1">The default set of "refspec" for <span Class="bold">git-push</span>(1). See <span Class="bold">git-push</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.mirror 
+<p class="level1">If true, pushing to this remote will automatically behave as if the --mirror option was given on the command line. 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.skipDefaultUpdate 
+<p class="level1">If true, this remote will be skipped by default when updating using <span Class="bold">git-fetch</span>(1) or the update subcommand of <span Class="bold">git-remote</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.skipFetchAll 
+<p class="level1">If true, this remote will be skipped by default when updating using <span Class="bold">git-fetch</span>(1) or the update subcommand of <span Class="bold">git-remote</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.receivepack 
+<p class="level1">The default program to execute on the remote side when pushing. See option --receive-pack of <span Class="bold">git-push</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.uploadpack 
+<p class="level1">The default program to execute on the remote side when fetching. See option --upload-pack of <span Class="bold">git-fetch-pack</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.tagopt 
+<p class="level1">Setting this value to --no-tags disables automatic tag following when fetching from remote &lt;name&gt;. Setting it to --tags will fetch every tag from remote &lt;name&gt;, even if they are not reachable from remote branch heads. Passing these flags directly to <span Class="bold">git-fetch</span>(1) can override this setting. See options --tags and --no-tags of <span Class="bold">git-fetch</span>(1). 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.vcs 
+<p class="level1">Setting this to a value &lt;vcs&gt; will cause Git to interact with the remote with the git-remote-&lt;vcs&gt; helper. 
+<p class="level0">
+<p class="level0">remote.&lt;name&gt;.prune 
+<p class="level1">When set to true, fetching from this remote by default will also remove any remote-tracking references that no longer exist on the remote (as if the --prune option was given on the command line). Overrides fetch.prune settings, if any. 
+<p class="level0">
+<p class="level0">remotes.&lt;group&gt; 
+<p class="level1">The list of remotes which are fetched by "git remote update &lt;group&gt;". See <span Class="bold">git-remote</span>(1). 
+<p class="level0">
+<p class="level0">repack.usedeltabaseoffset 
+<p class="level1">By default, <span Class="bold">git-repack</span>(1) creates packs that use delta-base offset. If you need to share your repository with Git older than version 1.4.4, either directly or via a dumb protocol such as http, then you need to set this option to "false" and repack. Access from old Git versions over the native protocol are unaffected by this option. 
+<p class="level0">
+<p class="level0">repack.packKeptObjects 
+<p class="level1">If set to true, makes git repack act as if --pack-kept-objects was passed. See <span Class="bold">git-repack</span>(1) for details. Defaults to false normally, but true if a bitmap index is being written (either via --write-bitmap-index or repack.writeBitmaps). 
+<p class="level0">
+<p class="level0">repack.writeBitmaps 
+<p class="level1">When true, git will write a bitmap index when packing all objects to disk (e.g., when git repack -a is run). This index can speed up the "counting objects" phase of subsequent packs created for clones and fetches, at the cost of some disk space and extra time spent on the initial repack. Defaults to false. 
+<p class="level0">
+<p class="level0">rerere.autoupdate 
+<p class="level1">When set to true, git-rerere updates the index with the resulting contents after it cleanly resolves conflicts using previously recorded resolution. Defaults to false. 
+<p class="level0">
+<p class="level0">rerere.enabled 
+<p class="level1">Activate recording of resolved conflicts, so that identical conflict hunks can be resolved automatically, should they be encountered again. By default, <span Class="bold">git-rerere</span>(1) is enabled if there is an rr-cache directory under the $GIT_DIR, e.g. if "rerere" was previously used in the repository. 
+<p class="level0">
+<p class="level0">sendemail.identity 
+<p class="level1">A configuration identity. When given, causes values in the <span Class="emphasis">sendemail.&lt;identity&gt;</span> subsection to take precedence over values in the <span Class="emphasis">sendemail</span> section. The default identity is the value of <span Class="emphasis">sendemail.identity</span>. 
+<p class="level0">
+<p class="level0">sendemail.smtpencryption 
+<p class="level1">See <span Class="bold">git-send-email</span>(1) for description. Note that this setting is not subject to the <span Class="emphasis">identity</span> mechanism. 
+<p class="level0">
+<p class="level0">sendemail.smtpssl 
+<p class="level1">Deprecated alias for <span Class="emphasis">sendemail.smtpencryption = ssl</span>. 
+<p class="level0">
+<p class="level0">sendemail.smtpsslcertpath 
+<p class="level1">Path to ca-certificates (either a directory or a single file). Set it to an empty string to disable certificate verification. 
+<p class="level0">
+<p class="level0">sendemail.&lt;identity&gt;.* 
+<p class="level1">Identity-specific versions of the <span Class="emphasis">sendemail.*</span> parameters found below, taking precedence over those when the this identity is selected, through command-line or <span Class="emphasis">sendemail.identity</span>. 
+<p class="level0">
+<p class="level0">sendemail.aliasesfile, sendemail.aliasfiletype, sendemail.annotate, sendemail.bcc, sendemail.cc, sendemail.cccmd, sendemail.chainreplyto, sendemail.confirm, sendemail.envelopesender, sendemail.from, sendemail.multiedit, sendemail.signedoffbycc, sendemail.smtppass, sendemail.suppresscc, sendemail.suppressfrom, sendemail.to, sendemail.smtpdomain, sendemail.smtpserver, sendemail.smtpserverport, sendemail.smtpserveroption, sendemail.smtpuser, sendemail.thread, sendemail.validate 
+<p class="level1">See <span Class="bold">git-send-email</span>(1) for description. 
+<p class="level0">
+<p class="level0">sendemail.signedoffcc 
+<p class="level1">Deprecated alias for <span Class="emphasis">sendemail.signedoffbycc</span>. 
+<p class="level0">
+<p class="level0">showbranch.default 
+<p class="level1">The default set of branches for <span Class="bold">git-show-branch</span>(1). See <span Class="bold">git-show-branch</span>(1). 
+<p class="level0">
+<p class="level0">status.relativePaths 
+<p class="level1">By default, <span Class="bold">git-status</span>(1) shows paths relative to the current directory. Setting this variable to false shows paths relative to the repository root (this was the default for Git prior to v1.5.4). 
+<p class="level0">
+<p class="level0">status.short 
+<p class="level1">Set to true to enable --short by default in <span Class="bold">git-status</span>(1). The option --no-short takes precedence over this variable. 
+<p class="level0">
+<p class="level0">status.branch 
+<p class="level1">Set to true to enable --branch by default in <span Class="bold">git-status</span>(1). The option --no-branch takes precedence over this variable. 
+<p class="level0">
+<p class="level0">status.displayCommentPrefix 
+<p class="level1">If set to true, <span Class="bold">git-status</span>(1) will insert a comment prefix before each output line (starting with core.commentChar, i.e. &#35; by default). This was the behavior of <span Class="bold">git-status</span>(1) in Git 1.8.4 and previous. Defaults to false. 
+<p class="level0">
+<p class="level0">status.showUntrackedFiles 
+<p class="level1">By default, <span Class="bold">git-status</span>(1) and <span Class="bold">git-commit</span>(1) show files which are not currently tracked by Git. Directories which contain only untracked files, are shown with the directory name only. Showing untracked files means that Git needs to lstat() all the files in the whole repository, which might be slow on some systems. So, this variable controls how the commands displays the untracked files. Possible values are: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">no - Show no untracked files. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">normal - Show untracked files and directories. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">all - Show also individual files in untracked directories. 
+<p class="level1">
+<p class="level1">If this variable is not specified, it defaults to <span Class="emphasis">normal</span>. This variable can be overridden with the -u|--untracked-files option of <span Class="bold">git-status</span>(1) and <span Class="bold">git-commit</span>(1). 
+<p class="level0">
+<p class="level0">status.submodulesummary 
+<p class="level1">Defaults to false. If this is set to a non zero number or true (identical to -1 or an unlimited number), the submodule summary will be enabled and a summary of commits for modified submodules will be shown (see --summary-limit option of <span Class="bold">git-submodule</span>(1)). Please note that the summary output command will be suppressed for all submodules when diff.ignoreSubmodules is set to <span Class="emphasis">all</span> or only for those submodules where submodule.&lt;name&gt;.ignore=all. The only exception to that rule is that status and commit will show staged submodule changes. To also view the summary for ignored submodules you can either use the --ignore-submodules=dirty command-line option or the <span Class="emphasis">git submodule summary</span> command, which shows a similar output but does not honor these settings. 
+<p class="level0">
+<p class="level0">submodule.&lt;name&gt;.path, submodule.&lt;name&gt;.url, submodule.&lt;name&gt;.update 
+<p class="level1">The path within this project, URL, and the updating strategy for a submodule. These variables are initially populated by <span Class="emphasis">git submodule init</span>; edit them to override the URL and other values found in the .gitmodules file. See <span Class="bold">git-submodule</span>(1) and <span Class="bold">gitmodules</span>(5) for details. 
+<p class="level0">
+<p class="level0">submodule.&lt;name&gt;.branch 
+<p class="level1">The remote branch name for a submodule, used by git submodule update --remote. Set this option to override the value found in the .gitmodules file. See <span Class="bold">git-submodule</span>(1) and <span Class="bold">gitmodules</span>(5) for details. 
+<p class="level0">
+<p class="level0">submodule.&lt;name&gt;.fetchRecurseSubmodules 
+<p class="level1">This option can be used to control recursive fetching of this submodule. It can be overridden by using the --[no-]recurse-submodules command-line option to "git fetch" and "git pull". This setting will override that from in the <span Class="bold">gitmodules</span>(5) file. 
+<p class="level0">
+<p class="level0">submodule.&lt;name&gt;.ignore 
+<p class="level1">Defines under what circumstances "git status" and the diff family show a submodule as modified. When set to "all", it will never be considered modified (but it will nonetheless show up in the output of status and commit when it has been staged), "dirty" will ignore all changes to the submodules work tree and takes only differences between the HEAD of the submodule and the commit recorded in the superproject into account. "untracked" will additionally let submodules with modified tracked files in their work tree show up. Using "none" (the default when this option is not set) also shows submodules that have untracked files in their work tree as changed. This setting overrides any setting made in .gitmodules for this submodule, both settings can be overridden on the command line by using the "--ignore-submodules" option. The <span Class="emphasis">git submodule</span> commands are not affected by this setting. 
+<p class="level0">
+<p class="level0">tag.sort 
+<p class="level1">This variable controls the sort ordering of tags when displayed by <span Class="bold">git-tag</span>(1). Without the "--sort=&lt;value&gt;" option provided, the value of this variable will be used as the default. 
+<p class="level0">
+<p class="level0">tar.umask 
+<p class="level1">This variable can be used to restrict the permission bits of tar archive entries. The default is 0002, which turns off the world write bit. The special value "user" indicates that the archiving user(cqs umask will be used instead. See umask(2) and <span Class="bold">git-archive</span>(1). 
+<p class="level0">
+<p class="level0">transfer.fsckObjects 
+<p class="level1">When fetch.fsckObjects or receive.fsckObjects are not set, the value of this variable is used instead. Defaults to false. 
+<p class="level0">
+<p class="level0">transfer.hiderefs 
+<p class="level1">This variable can be used to set both receive.hiderefs and uploadpack.hiderefs at the same time to the same values. See entries for these other variables. 
+<p class="level0">
+<p class="level0">transfer.unpackLimit 
+<p class="level1">When fetch.unpackLimit or receive.unpackLimit are not set, the value of this variable is used instead. The default value is 100. 
+<p class="level0">
+<p class="level0">uploadarchive.allowUnreachable 
+<p class="level1">If true, allow clients to use git archive --remote to request any tree, whether reachable from the ref tips or not. See the discussion in the SECURITY section of <span Class="bold">git-upload-archive</span>(1) for more details. Defaults to false. 
+<p class="level0">
+<p class="level0">uploadpack.hiderefs 
+<p class="level1">String(s) upload-pack uses to decide which refs to omit from its initial advertisement. Use more than one definitions to specify multiple prefix strings. A ref that are under the hierarchies listed on the value of this variable is excluded, and is hidden from git ls-remote, git fetch, etc. An attempt to fetch a hidden ref by git fetch will fail. See also uploadpack.allowtipsha1inwant. 
+<p class="level0">
+<p class="level0">uploadpack.allowtipsha1inwant 
+<p class="level1">When uploadpack.hiderefs is in effect, allow upload-pack to accept a fetch request that asks for an object at the tip of a hidden ref (by default, such a request is rejected). see also uploadpack.hiderefs. 
+<p class="level0">
+<p class="level0">uploadpack.keepalive 
+<p class="level1">When upload-pack has started pack-objects, there may be a quiet period while pack-objects prepares the pack. Normally it would output progress information, but if --quiet was used for the fetch, pack-objects will output nothing at all until the pack data begins. Some clients and networks may consider the server to be hung and give up. Setting this option instructs upload-pack to send an empty keepalive packet every uploadpack.keepalive seconds. Setting this option to 0 disables keepalive packets entirely. The default is 5 seconds. 
+<p class="level0">
+<p class="level0">url.&lt;base&gt;.insteadOf 
+<p class="level1">Any URL that starts with this value will be rewritten to start, instead, with &lt;base&gt;. In cases where some site serves a large number of repositories, and serves them with multiple access methods, and some users need to use different access methods, this feature allows people to specify any of the equivalent URLs and have Git automatically rewrite the URL to the best alternative for the particular user, even for a never-before-seen repository on the site. When more than one insteadOf strings match a given URL, the longest match is used. 
+<p class="level0">
+<p class="level0">url.&lt;base&gt;.pushInsteadOf 
+<p class="level1">Any URL that starts with this value will not be pushed to; instead, it will be rewritten to start with &lt;base&gt;, and the resulting URL will be pushed to. In cases where some site serves a large number of repositories, and serves them with multiple access methods, some of which do not allow push, this feature allows people to specify a pull-only URL and have Git automatically use an appropriate URL to push, even for a never-before-seen repository on the site. When more than one pushInsteadOf strings match a given URL, the longest match is used. If a remote has an explicit pushurl, Git will ignore this setting for that remote. 
+<p class="level0">
+<p class="level0">user.email 
+<p class="level1">Your email address to be recorded in any newly created commits. Can be overridden by the <span Class="emphasis">GIT_AUTHOR_EMAIL</span>, <span Class="emphasis">GIT_COMMITTER_EMAIL</span>, and <span Class="emphasis">EMAIL</span> environment variables. See <span Class="bold">git-commit-tree</span>(1). 
+<p class="level0">
+<p class="level0">user.name 
+<p class="level1">Your full name to be recorded in any newly created commits. Can be overridden by the <span Class="emphasis">GIT_AUTHOR_NAME</span> and <span Class="emphasis">GIT_COMMITTER_NAME</span> environment variables. See <span Class="bold">git-commit-tree</span>(1). 
+<p class="level0">
+<p class="level0">user.signingkey 
+<p class="level1">If <span Class="bold">git-tag</span>(1) or <span Class="bold">git-commit</span>(1) is not selecting the key you want it to automatically when creating a signed tag or commit, you can override the default selection with this variable. This option is passed unchanged to gpg(cqs --local-user parameter, so you may specify a key using any method that gpg supports. 
+<p class="level0">
+<p class="level0">web.browser 
+<p class="level1">Specify a web browser that may be used by some commands. Currently only <span Class="bold">git-instaweb</span>(1) and <span Class="bold">git-help</span>(1) may use it. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

@@ -1,0 +1,39 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dotlockfile - Utility to manage lockfiles <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">/usr/bin/dotlockfile</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">retries ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dotlockfile</span> is a command line utility to reliably create, test and remove lockfiles. It creates lockfiles <span Class="emphasis">reliably</span> on local and NFS filesystems, because the crucial steps of testing for a preexisting lockfile and creating it are performed <span Class="emphasis">atomically</span> by a <span Class="emphasis">single</span> call to <span Class="emphasis">link (2).</span> Manpage <span Class="emphasis">lockfile_create (3)</span> describes the used algorithm. 
+<p class="level0"><span Class="bold">dotlockfile</span> is installed with attribute <span Class="bold">SETGID \ mail</span> and thus can also be used to lock and unlock mailboxes <span Class="emphasis">even</span> if the mailspool directory is only writable by group mail. 
+<p class="level0">The name <span Class="bold">dotlockfile</span> comes from the way mailboxes are locked for updates on a lot of UNIX systems. A lockfile is created with the same filename as the mailbox but with the string "<span Class="emphasis">.lock</span>" appended. 
+<p class="level0">The names <span Class="bold">dotlock</span> and <a class="bold" href="#lockfile">lockfile</a> were already taken - hence the name <span Class="bold">dotlockfile</span> <span Class="emphasis">:)</span>. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR</span> 
+<p class="level1">Create a lockfile if no preexisting valid lockfile is found, else wait and retry according to option <span Class="bold">-r</span>. This option is the default. 
+<p class="level1">A lockfile is treated as valid, <br>[bu]&nbsp;&nbsp;if it holds the <span Class="emphasis">process-id</span> of a running process, <br>[bu]&nbsp;&nbsp;or if it does not hold any <span Class="emphasis">process-id</span> and has been touched less than 5&nbsp;minutes ago (timestamp is younger than 5&nbsp;minutes). 
+<p class="level0"><a name="fB-r"></a><span class="nroffip">\fB-r retries\fR</span> 
+<p class="level1">The number of times <span Class="bold">dotlockfile</span> retries to acquire the lock if it failed the first time before giving up. The initial sleep after failing to acquire the lock is 5&nbsp;seconds. After each retry the sleep intervall is increased incrementally by 5&nbsp;seconds up to a maximum sleep of 60&nbsp;seconds between tries. The default number of retries is 5. To try only once, use "<span Class="bold">-r 0</span>". To try indefinitely, use "<span Class="bold">-r -1</span>". 
+<p class="level0"><a name="fB-ufR"></a><span class="nroffip">\fB-u\fR</span> 
+<p class="level1">Remove a lockfile. 
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR</span> 
+<p class="level1">Touch an existing lockfile (update the timestamp). Useful for lockfiles on NFS filesystems. For lockfiles on local filesystems the <span Class="bold">-p</span> option is preferable. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR</span> 
+<p class="level1">For debugging only:  Check for the existence of a <span Class="emphasis">valid</span> lockfile. 
+<p class="level1">Note:  Testing for a preexisting lockfile and writing of the lockfile <span Class="emphasis">must</span> be done by the <span Class="emphasis">same</span> "<span Class="bold">dotlockfile -l</span>" or "<span Class="bold">dotlockfile -m</span>" command, else the lockfile creation cannot be reliable. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Write the <span Class="emphasis">process-id</span> of the calling process into the lockfile. Also when testing for an existing lockfile, check the contents for the <span Class="emphasis">process-id</span> of a running process to verify if the lockfile is still valid. Obviously useful only for lockfiles on local filesystems. 
+<p class="level0"><a name="fB-mfR"></a><span class="nroffip">\fB-m\fR</span> 
+<p class="level1">Lock or unlock the current users mailbox. The path to the mailbox is the default system mailspool directory (usually <span Class="emphasis">/var/mail )</span> with the username as gotten from <span Class="emphasis">getpwuid ()</span> appended. If the environment variable <span Class="emphasis">$MAIL</span> is set, that is used instead. Then the string "<span Class="emphasis">.lock</span>" is appended to get the name of the actual lockfile. 
+<p class="level0"><a name="lockfile"></a><span class="nroffip">lockfile</span> 
+<p class="level1">The lockfile to be created or removed. Must not be specified, if the <span Class="bold">-m</span> option is in effect. <a name="RETURN"></a><h2 class="nroffsh">RETURN\ VALUE</h2>
+<p class="level0">Zero on success, and non-zero on failure. For the <span Class="bold">-c</span> option, sucess means that a valid lockfile is already present. When locking (the default, or with the <span Class="bold">-l</span> option) <span Class="bold">dotlockfile</span> returns the same values as the library function <span Class="emphasis">lockfile_create (3).</span> Unlocking a non-existant lockfile is not an error. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">The lockfile is created exactly as named on the command line. The extension "<span Class="emphasis">.lock</span>" is <span Class="emphasis">not</span> automatically appended. 
+<p class="level0">This utility is a lot like the <a class="emphasis" href="#lockfile">lockfile (1)</a> utility included with <span Class="emphasis">procmail ,</span> and the <span Class="emphasis">mutt_dotlock (1)</span> utility included with <span Class="emphasis">mutt .</span> However the command-line arguments differ, and so does the return status. It is believed, that <span Class="emphasis">dotlockfile</span> is the most flexible implementation, since it automatically detects when it needs to use priviliges to lock a mailbox, and does it safely. 
+<p class="level0">The above mentioned <span Class="emphasis">lockfile_create (3)</span> manpage is present in the <span Class="emphasis">liblockfile-dev</span> package. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">None known. <a name="SEE"></a><h2 class="nroffsh">SEE\ ALSO</h2>
+<p class="level0"><span Class="emphasis">lockfile_create (3),</span> <span Class="emphasis">maillock (3)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Miquel van Smoorenburg, miquels@cistron.nl 

@@ -1,0 +1,97 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">prlimit - get and set process resource limits <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="manpage">prlimit  [options]</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">prlimit  [options]</span>
+<p class="level0"><span Class="emphasis">command  [ argument ...]</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Given a process id and one or more resources, <span Class="bold">prlimit</span> tries to retrieve and/or modify the limits. 
+<p class="level0">When <span Class="emphasis">command</span> is given, <span Class="bold">prlimit</span> will run this command with the given arguments. 
+<p class="level0">The <span Class="emphasis">limits</span> parameter is composed of a soft and a hard value, separated by a colon (:), in order to modify the existing values.  If no <span Class="emphasis">limits</span> are given, <span Class="bold">prlimit</span> will display the current values.  If one of the values is not given, then the existing one will be used.  To specify the unlimited or infinity limit (RLIM_INFINITY), the -1 or 'unlimited' string can be passed. 
+<p class="level0">Because of the nature of limits, the soft limit must be lower or equal to the high limit (also called the ceiling).  To see all available resource limits, refer to the RESOURCE OPTIONS section. 
+<p class="level0">
+<p class="level0"><a name="fIsoftfPfIhardfP"></a><span class="nroffip">\fIsoft\fP:\fIhard\fP    Specify both limits.</span> 
+<p class="level1">
+<p class="level0"><a name="fIsoftfP"></a><span class="nroffip">\fIsoft\fP:        Specify only the soft limit.</span> 
+<p class="level1">
+<p class="level0"><a name="fIhardfP"></a><span class="nroffip">:\fIhard\fP        Specify only the hard limit.</span> 
+<p class="level1">
+<p class="level0"><a name="fIvaluefP"></a><span class="nroffip">\fIvalue\fP        Specify both limits to the same value.</span> 
+<p class="level1">
+<p class="level1"><a name="GENERAL"></a><h2 class="nroffsh">GENERAL OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-h"></a><span class="nroffip">\fB-h, --help\fP</span> 
+<p class="level1">Display help text and exit. 
+<p class="level0"><a name="fB--noheadingsfP"></a><span class="nroffip">\fB--noheadings\fP</span> 
+<p class="level1">Do not print a header line. 
+<p class="level0"><a name="fB-o"></a><span class="nroffip">\fB-o, --output \fIlist\fP</span> 
+<p class="level1">Define the output columns to use.  If no output arrangement is specified, then a default set is used. Use <span Class="bold">--help</span> to get a list of all supported columns. 
+<p class="level0"><a name="fB-p"></a><span class="nroffip">\fB-p, --pid\fP</span> 
+<p class="level1">Specify the process id; if none is given, the running process will be used. 
+<p class="level0"><a name="fB--rawfP"></a><span class="nroffip">\fB--raw\fP</span> 
+<p class="level1">Use the raw output format. 
+<p class="level0"><a name="fB--verbosefP"></a><span class="nroffip">\fB--verbose\fP</span> 
+<p class="level1">Verbose mode. 
+<p class="level0"><a name="fB-V"></a><span class="nroffip">\fB-V, --version\fP</span> 
+<p class="level1">Display version information and exit. 
+<p class="level1"><a name="RESOURCE"></a><h2 class="nroffsh">RESOURCE OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c, --core\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum size of a core file. 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d, --data\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum data size. 
+<p class="level0"><a name="fB-e"></a><span class="nroffip">\fB-e, --nice\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum nice priority allowed to raise. 
+<p class="level0"><a name="fB-f"></a><span class="nroffip">\fB-f, --fsize\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum file size. 
+<p class="level0"><a name="fB-i"></a><span class="nroffip">\fB-i, --sigpending\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum number of pending signals. 
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l, --memlock\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum locked-in-memory address space. 
+<p class="level0"><a name="fB-m"></a><span class="nroffip">\fB-m, --rss\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum Resident Set Size (RSS). 
+<p class="level0"><a name="fB-n"></a><span class="nroffip">\fB-n, --nofile\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum number of open files. 
+<p class="level0"><a name="fB-q"></a><span class="nroffip">\fB-q, --msgqueue\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum number of bytes in POSIX message queues. 
+<p class="level0"><a name="fB-r"></a><span class="nroffip">\fB-r, --rtprio\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum real-time priority. 
+<p class="level0"><a name="fB-s"></a><span class="nroffip">\fB-s, --stack\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum size of the stack. 
+<p class="level0"><a name="fB-t"></a><span class="nroffip">\fB-t, --cpu\fP[=\fIlimits\fR]</span> 
+<p class="level1">CPU time, in seconds. 
+<p class="level0"><a name="fB-u"></a><span class="nroffip">\fB-u, --nproc\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum number of processes. 
+<p class="level0"><a name="fB-v"></a><span class="nroffip">\fB-v, --as\fP[=\fIlimits\fR]</span> 
+<p class="level1">Address space limit. 
+<p class="level0"><a name="fB-x"></a><span class="nroffip">\fB-x, --locks\fP[=\fIlimits\fR]</span> 
+<p class="level1">Maximum number of file locks held. 
+<p class="level0"><a name="fB-y"></a><span class="nroffip">\fB-y, --rttime\fP[=\fIlimits\fR]</span> 
+<p class="level1">Timeout for real-time tasks. 
+<p class="level1">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><a name="fBprlimit"></a><span class="nroffip">\fBprlimit --pid 13134\fP</span> 
+<p class="level1">Display limit values for all current resources. 
+<p class="level0"><a name="fBprlimit"></a><span class="nroffip">\fBprlimit --pid 13134 --rss --nofile=1024:4095\fP</span> 
+<p class="level1">Display the limits of the RSS, and set the soft and hard limits for the number of open files to 1024 and 4095, respectively. 
+<p class="level0"><a name="fBprlimit"></a><span class="nroffip">\fBprlimit --pid 13134 --nproc=512:\fP</span> 
+<p class="level1">Modify only the soft limit for the number of processes. 
+<p class="level0"><a name="fBprlimit"></a><span class="nroffip">\fBprlimit --pid $$ --nproc=unlimited\fP</span> 
+<p class="level1">Set for the current process both the soft and ceiling values for the number of processes to umlimited. 
+<p class="level0"><a name="fBprlimit"></a><span class="nroffip">\fBprlimit --cpu=10 sort -u hugefile\fP</span> 
+<p class="level1">Set both the soft and hard CPU time limit to ten seconds and run 'sort'. 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">prlimit (2)</span>, <span Class="manpage">ulimit (1)</span>
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">The prlimit system call is supported since Linux 2.6.36, older kernels will break this program. 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0"><pre class="level0">
+Davidlohr Bueso &lt;dave@gnu.org&gt; - In memory of Dennis M. Ritchie.
+</pre>
+
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The prlimit command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

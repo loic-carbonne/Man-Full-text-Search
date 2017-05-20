@@ -1,0 +1,71 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-remote-ext - Bridge smart transport to external command. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+git remote add &lt;nick&gt; "ext::&lt;command&gt;[ &lt;arguments&gt;...]"
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This remote helper uses the specified <span Class="emphasis">&lt;command&gt;</span> to connect to a remote Git server. 
+<p class="level0">Data written to stdin of the specified <span Class="emphasis">&lt;command&gt;</span> is assumed to be sent to a git:// server, git-upload-pack, git-receive-pack or git-upload-archive (depending on situation), and data read from stdout of &lt;command&gt; is assumed to be received from the same service. 
+<p class="level0">Command and arguments are separated by an unescaped space. 
+<p class="level0">The following sequences have a special meaning: 
+<p class="level0">*(Aq% *(Aq 
+<p class="level1">Literal space in command or argument. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">%%</span> 
+<p class="level1">Literal percent sign. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">%s</span> 
+<p class="level1">Replaced with name (receive-pack, upload-pack, or upload-archive) of the service Git wants to invoke. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">%S</span> 
+<p class="level1">Replaced with long name (git-receive-pack, git-upload-pack, or git-upload-archive) of the service Git wants to invoke. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">%G</span> (must be the first characters in an argument) 
+<p class="level1">This argument will not be passed to <span Class="emphasis">&lt;command&gt;</span>. Instead, it will cause the helper to start by sending git:// service requests to the remote side with the service field set to an appropriate value and the repository field set to rest of the argument. Default is not to send such a request. 
+<p class="level1">This is useful if remote side is git:// server accessed over some tunnel. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">%V</span> (must be first characters in argument) 
+<p class="level1">This argument will not be passed to <span Class="emphasis">&lt;command&gt;</span>. Instead it sets the vhost field in the git:// service request (to rest of the argument). Default is not to send vhost in such request (if sent). 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES:</h2>
+<p class="level0">
+<p class="level0">GIT_TRANSLOOP_DEBUG 
+<p class="level1">If set, prints debugging information about various reads/writes. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES PASSED TO COMMAND:</h2>
+<p class="level0">
+<p class="level0">GIT_EXT_SERVICE 
+<p class="level1">Set to long name (git-upload-pack, etc...) of service helper needs to invoke. 
+<p class="level0">
+<p class="level0">GIT_EXT_SERVICE_NOPREFIX 
+<p class="level1">Set to long name (upload-pack, etc...) of service helper needs to invoke. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES:</h2>
+<p class="level0">
+<p class="level0">This remote helper is transparently used by Git when you use commands such as "git fetch &lt;URL&gt;", "git clone &lt;URL&gt;", , "git push &lt;URL&gt;" or "git remote add &lt;nick&gt; &lt;URL&gt;", where &lt;URL&gt; begins with ext::. Examples: 
+<p class="level0">"ext::ssh -i /home/foo/.ssh/somekey user@host.example %S <span Class="emphasis">foo/repo</span>" 
+<p class="level1">Like host.example:foo/repo, but use /home/foo/.ssh/somekey as keypair and user as user on remote side. This avoids needing to edit .ssh/config. 
+<p class="level0">
+<p class="level0">"ext::socat -t3600 - ABSTRACT-CONNECT:/git-server %G/somerepo" 
+<p class="level1">Represents repository with path /somerepo accessible over git protocol at abstract namespace address /git-server. 
+<p class="level0">
+<p class="level0">"ext::git-server-alias foo %G/repo" 
+<p class="level1">Represents a repository with path /repo accessed using the helper program "git-server-alias foo". The path to the repository and type of request are not passed on the command line but as part of the protocol stream, as usual with git:// protocol. 
+<p class="level0">
+<p class="level0">"ext::git-server-alias foo %G/repo %Vfoo" 
+<p class="level1">Represents a repository with path /repo accessed using the helper program "git-server-alias foo". The hostname for the remote server passed in the protocol stream will be "foo" (this allows multiple virtual Git servers to share a link-level address). 
+<p class="level0">
+<p class="level0">"ext::git-server-alias foo %G/repo% with% spaces %Vfoo" 
+<p class="level1">Represents a repository with path <span Class="emphasis">/repo with spaces</span> accessed using the helper program "git-server-alias foo". The hostname for the remote server passed in the protocol stream will be "foo" (this allows multiple virtual Git servers to share a link-level address). 
+<p class="level0">
+<p class="level0">"ext::git-ssl foo.example /bar" 
+<p class="level1">Represents a repository accessed using the helper program "git-ssl foo.example /bar". The type of request can be determined by the helper using environment variables (see above). 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

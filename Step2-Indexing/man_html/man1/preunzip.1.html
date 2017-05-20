@@ -1,0 +1,20 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">prezip, preunzip, precat -  prefix delta compressor for Aspell <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">precat [-dzhLV] [-cfksSq] [file ...] <br><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">prezip</span> is a a prefix delta compressor.  It is  <span Class="emphasis">not</span> a general purpose compressor and should only be used on sorted word lists or other similar text files.  It will likely <span Class="emphasis">increase</span> the size of binary data. 
+<p class="level0">If invoked as <span Class="bold">prezip,</span> the default action is to compress.  If invoked as <span Class="bold">preunzip,</span> the default action is to decompress.  If invoked as <span Class="bold">precat,</span> the default action is to decompress to stdout. 
+<p class="level0">If no file names are given then  <span Class="bold">prezip</span> will compress or decompress from the standard input to the standard output.  Short flags can be combined so that "-c <span Class="bold">-s</span>" is the same as "-cs". <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> <span Class="bold">--help</span> display help 
+<p class="level0"><span Class="bold">-d</span> <span Class="bold">--decompress</span> force decompression 
+<p class="level0"><span Class="bold">-z</span> <span Class="bold">--compress</span> dorce compression 
+<p class="level0"><span Class="bold">-L</span> <span Class="bold">--license</span> display software license 
+<p class="level0"><span Class="bold">-V</span> <span Class="bold">--version</span> display version 
+<p class="level0"><span Class="bold">-c</span> <span Class="bold">--stdout</span> decompress to standard output 
+<p class="level0"><span Class="bold">-f</span> <span Class="bold">--force</span> force 
+<p class="level0"><span Class="bold">-k</span> <span Class="bold">--keep</span> keep input files 
+<p class="level0"><span Class="bold">-s</span> <span Class="bold">--sort</span> sort and remove duplicates before compressing 
+<p class="level0"><span Class="bold">-S</span> <span Class="bold">--nocwl</span> do not rename .wl suffix to .cwl (use .wl.pz instead) 
+<p class="level0"><span Class="bold">-q</span> <span Class="bold">--quiet</span> suppress all warnings <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was written by Brian Nelson &lt;pyro@debian.org&gt; based on the output of help2man.  Aspell is Copyright &copy; 2002 Kevin Atkinson. 

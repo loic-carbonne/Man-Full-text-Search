@@ -1,0 +1,211 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">pack200 - JAR Packing tool 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f4pack200</span>f2 [ </span>f2options</span> ] f2output-file</span> f2JAR-file</span> 
+<p class="level0">
+<p class="level0">Options may be in any order. The last option on the command line or in a properties file supersedes all previously specified options. 
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Command-line options.  
+<p class="level1">output-file  Name of the output file.  
+<p class="level1">JAR-file  Name of the input file.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f2pack200</span> tool is a Java application that transforms a JAR file into a compressed f2pack200</span> file using the Java f2gzip</span> compressor. The f2pack200</span> files are highly compressed files that can be directly deployed, saving bandwidth and reducing download time. 
+<p class="level0">
+<p class="level0">The f2pack200</span> tool uses several options to fine-tune and set the compression engine. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Typical usage: 
+<p class="level0">
+<p class="level0">f2% pack200 myarchive.pack.gz myarchive.jar</span> 
+<p class="level0">
+<p class="level0">In this example, f2myarchive.pack.gz</span> is produced using the default f2pack200</span> settings. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f4-r --repack</span> 
+<p class="level0">
+<p class="level0">Produces a JAR file by packing the file f2myarchive.jar</span> and unpacking it. The resulting file can be used as an input to the f2jarsigner(1)</span> tool. 
+<p class="level0">
+<p class="level0">f2% pack200 --repack myarchive-packer.jar myarchive.jar</span> 
+<p class="level0">
+<p class="level0">f2% pack200 --repack myarchive.jar</span> 
+<p class="level0">
+<p class="level0">f4-g --no-gzip</span> 
+<p class="level0">
+<p class="level0">Produces a f2pack200</span> file. With this option a suitable compressor must be used, and the target system must use a corresponding decompresser. 
+<p class="level0">
+<p class="level0">f2% pack200 --no-gzip myarchive.pack myarchive.jar</span> 
+<p class="level0">
+<p class="level0">f4-G --strip-debug</span> 
+<p class="level0">
+<p class="level0">Strips attributes used for debugging from the output. These include f2SourceFile</span>, f2LineNumberTable</span>, f2LocalVariableTable</span> and f2LocalVariableTypeTable</span>. Removing these attributes reduces the size of both downloads and installations but reduces the usefulness of debuggers. 
+<p class="level0">
+<p class="level0">f4--keep-file-order</span> 
+<p class="level0">
+<p class="level0">Preserve the order of files in the input file; this is the default behavior. 
+<p class="level0">
+<p class="level0">f4-O --no-keep-file-order</span> 
+<p class="level0">
+<p class="level0">The packer will reorder and transmit all elements. Additionally, the packer may remove JAR directory names. This will reduce the download size; however, certain JAR file optimizations, such as indexing, may not work correctly. 
+<p class="level0">
+<p class="level0">f4-Svalue --segment-limit=</span>f2value</span> 
+<p class="level0">
+<p class="level0">The value is the estimated target size N (in bytes) of each archive segment. If a single input file requires <br>more than N bytes, it will be given its own archive segment. As a special case, a value of f2-1</span> will produce a single large segment with all input files, while a value of f20</span> will produce one segment for each class. Larger archive segments result in less fragmentation and better compression, but processing them requires more memory. 
+<p class="level0">
+<p class="level0">The size of each segment is estimated by counting the size of each input file to be transmitted in the segment, along with the size of its name and other transmitted properties. 
+<p class="level0">
+<p class="level0">The default is -1, which means the packer will always create a single segment output file. In cases where extremely large output files are generated, users are strongly encouraged to use segmenting or break up the input file into smaller JARs. 
+<p class="level0">
+<p class="level0">A 10MB JAR packed without this limit will typically pack about 10% smaller, but the packer may require a larger Java heap (about ten times the segment limit). 
+<p class="level0">
+<p class="level0">f4-Evalue --effort=</span>f2value</span> 
+<p class="level0">
+<p class="level0">If the value is set to a single decimal digit, the packer will use the indicated amount of effort in compressing the archive. Level f21</span> may produce somewhat larger size and faster compression speed, while level f29</span> will take much longer but may produce better compression. The special value f20</span> instructs the packer to copy through the original JAR file directly with no compression. The JSR 200 standard requires any unpacker to understand this special case as a pass-through of the entire archive. 
+<p class="level0">
+<p class="level0">The default is f25</span>, investing a modest amount of time to produce reasonable compression. 
+<p class="level0">
+<p class="level0">f4-Hvalue --deflate-hint=</span>f2value</span> 
+<p class="level0">
+<p class="level0">Overrides the default, which preserves the input information, but may cause the transmitted archive to be larger. The possible values are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">true  
+<p class="level1">false  In either case, the packer will set the deflation hint accordingly in the output archive, and will not transmit the individual deflation hints of archive elements.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">keep  Preserve deflation hints observed in the input JAR. (This is the default.)  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4-mvalue --modification-time=</span>f2value</span> 
+<p class="level0">
+<p class="level0">The possible values are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">latest  The packer will attempt to determine the latest modification time, among all the available entries in the original archive, or the latest modification time of all the available entries in that segment. This single value will be transmitted as part of the segment and applied to all the entries in each segment. This can marginally decrease the transmitted size of the archive at the expense of setting all installed files to a single date.  
+<p class="level1">keep  Preserves modification times observed in the input JAR. (This is the default.)  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4-Pfile --pass-file=</span>f2file</span> 
+<p class="level0">
+<p class="level0">Indicates that a file should be passed through bytewise with no compression. By repeating the option, multiple files may be specified. There is no pathname transformation, except that the system file separator is replaced by the JAR file separator "f2/</span>". The resulting file names must match exactly as strings with their occurrences in the JAR file. If file is a directory name, all files under that directory will be passed. 
+<p class="level0">
+<p class="level0">f4-Uaction --unknown-attribute=</span>f2action</span> 
+<p class="level0">
+<p class="level0">Overrides the default behavior; i.e., the classfile containing the unknown attribute will be passed through with the specified action. The possible values for actions are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">error  The f2pack200</span> operation as a whole will fail with a suitable explanation.  
+<p class="level1">strip  The attribute will be dropped. Note: Removing the required VM attributes may cause Class Loader failures.  
+<p class="level1">pass  Upon encountering this attribute, the entire class will be transmitted as though it is a resource.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f4-Cattribute-name=</span>f2layout</span> f3--class-attribute=</span>f2attribute-name=action</span> <br>f4-Fattribute-name=</span>f2layout</span> f3--field-attribute=</span>f2attribute-name=action</span> <br>f4-Mattribute-name=</span>f2layout</span> f3--method-attribute=</span>f2attribute-name=action</span> <br>f4-Dattribute-name=</span>f2layout</span> f3--code-attribute=</span>f2attribute-name=action</span> 
+<p class="level0">
+<p class="level0">With the above four options, the attribute layout can be specified for a class entity, such as Class attribute, Field attribute, Method attribute, and Code attribute. The attribute-name is the name of the attribute for which the layout or action is being defined. The possible values for action are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">some-layout-string  The layout language is defined in the JSR 200 specification.  
+<p class="level1">Example: f2--class-attribute=SourceFile=RUH</span>   
+<p class="level1">error  Upon encountering this attribute, the pack200 operation will fail with a suitable explanation.  
+<p class="level1">strip  Upon encountering this attribute, the attribute will be removed from the output. Note: removing VM-required attributes may cause Class Loader failures.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Example: f2--class-attribute=CompilationID=pass</span> will cause the class file containing this attribute to be passed through without further action by the packer. 
+<p class="level0">
+<p class="level0">f4-f</span>f2 </span>f2pack.properties</span> f3--config-file=</span>f2pack.properties</span> 
+<p class="level0">
+<p class="level0">A configuration file, containing Java properties to initialize the packer, may be specified on the command line. 
+<p class="level0">
+<p class="level0">f2% pack200 -f pack.properties myarchive.pack.gz myarchive.jar</span> <br>f2% more pack.properties</span> <br>f2&#35; Generic properties for the packer.</span> <br>f2modification.time=latest</span> <br>f2deflate.hint=false</span> <br>f2keep.file.order=false</span> <br>f2&#35; This option will cause the files bearing new attributes to</span> <br>f2&#35; be reported as an error rather than passed uncompressed.</span> <br>f2unknown.attribute=error</span> <br>f2&#35; Change the segment limit to be unlimited.</span> <br>f2segment.limit=-1</span> 
+<p class="level0">
+<p class="level0">f4-v --verbose</span> 
+<p class="level0">
+<p class="level0">Outputs minimal messages. Multiple specification of this option will output more verbose messages. 
+<p class="level0">
+<p class="level0">f4-q --quiet</span> 
+<p class="level0">
+<p class="level0">Specifies quiet operation with no messages. 
+<p class="level0">
+<p class="level0">f4-lfilename --log-file=</span>f2filename</span> 
+<p class="level0">
+<p class="level0">Specifies a log file to output messages. 
+<p class="level0">
+<p class="level0">f4-? -h --help</span> 
+<p class="level0">
+<p class="level0">Prints help information about this command. 
+<p class="level0">
+<p class="level0">f4-V --version</span> 
+<p class="level0">
+<p class="level0">Prints version information about this command. 
+<p class="level0">
+<p class="level0">f4-J</span>f2option</span> 
+<p class="level0">
+<p class="level0">Passes f2option</span> to the Java launcher called by f2pack200</span>. For example, f2-J-Xms48m</span> sets the startup memory to 48 megabytes. Although it does not begin with f2-X</span>, it is not a standard option of f2pack200</span>. It is a common convention for f2-J</span> to pass options to the underlying VM executing applications written in Java. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The following exit values are returned: 
+<p class="level0">
+<p class="level0">f2&nbsp;0</span> for successful completion; 
+<p class="level0">
+<p class="level0">f2&gt;0</span> if an error occurs. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o unpack200(1)  
+<p class="level1">o 
+<p class="level1">f2Java SE Documentation</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/index.html">http://docs.oracle.com/javase/7/docs/index.html</a>  
+<p class="level1">o 
+<p class="level1">f2Java Deployment Guide - Pack200</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/deployment/deployment-guide/pack200.html">http://docs.oracle.com/javase/7/docs/technotes/guides/deployment/deployment-guide/pack200.html</a>  
+<p class="level1">o jar(1) - Java Archive Tool  
+<p class="level1">o jarsigner(1) - JAR Signer tool  
+<p class="level1">o f2attributes(5)</span> man page  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">This command should not be confused with f2pack(1)</span>. They are distinctly separate products. 
+<p class="level0">
+<p class="level0">The Java SE API Specification provided with the JDK is the superseding authority, in case of discrepancies. 
+<p class="level0">
+<p class="level0">

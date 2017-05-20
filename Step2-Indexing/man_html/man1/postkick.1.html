@@ -1,0 +1,72 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postkick - kick a Postfix service <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">postkick</span> [<span class="bold">-c <span Class="emphasis">config_dir</span>] [<span Class="bold">-v</span>] <span Class="emphasis">class service request</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postkick</span>(1) command sends <span Class="emphasis">request</span> to the specified <span Class="emphasis">service</span> over a local transport channel. This command makes Postfix private IPC accessible for use in, for example, shell scripts. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR \fIconfig_dir\fR</span> 
+<p class="level1">Read the <span Class="bold">main.cf</span> configuration file in the named directory instead of the default configuration directory. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. 
+<p class="level1">Arguments: 
+<p class="level0"><a name="fIclassfR"></a><span class="nroffip">\fIclass\fR</span> 
+<p class="level1">Name of a class of local transport channel endpoints, either <span Class="bold">public</span> (accessible by any local user) or <span Class="bold">private</span> (administrative access only). 
+<p class="level0"><a name="fIservicefR"></a><span class="nroffip">\fIservice\fR</span> 
+<p class="level1">The name of a local transport endpoint within the named class. 
+<p class="level0"><a name="fIrequestfR"></a><span class="nroffip">\fIrequest\fR</span> 
+<p class="level1">A string. The list of valid requests is service-specific. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Problems and transactions are logged to the standard error stream. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">Directory with Postfix configuration files. 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBapplicationeventdraintime"></a><span class="nroffip">\fBapplication_event_drain_time (100s)\fR</span> 
+<p class="level1">How long the <span Class="bold">postkick</span>(1) command waits for a request to enter the Postfix daemon process input buffer before giving up. 
+<p class="level0"><a name="fBqueuedirectory"></a><span class="nroffip">\fBqueue_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of the Postfix top-level queue directory. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+/var/spool/postfix/private, private class endpoints
+/var/spool/postfix/public, public class endpoints
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+qmgr(8), queue manager trigger protocol
+pickup(8), local pickup daemon
+postconf(5), configuration parameters
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

@@ -1,0 +1,26 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-sh-i18n - Git*(Aqs i18n setup code for shell scripts <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">. "$(git --exec-path)/git-sh-i18n"</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This is not a command the end user would want to run. Ever. This documentation is meant for people who are studying the Porcelain-ish scripts and/or are writing new ones. 
+<p class="level0">The *(Aqgit sh-i18n scriptlet is designed to be sourced (using .) by Git(cqs porcelain programs implemented in shell script. It provides wrappers for the GNU gettext and eval_gettext functions accessible through the gettext.sh script, and provides pass-through fallbacks on systems without GNU gettext. <a name="FUNCTIONS"></a><h2 class="nroffsh">FUNCTIONS</h2>
+<p class="level0">
+<p class="level0">gettext 
+<p class="level1">Currently a dummy fall-through function implemented as a wrapper around printf(1). Will be replaced by a real gettext implementation in a later version. 
+<p class="level0">
+<p class="level0">eval_gettext 
+<p class="level1">Currently a dummy fall-through function implemented as a wrapper around printf(1) with variables expanded by the <span Class="bold">git-sh-i18n--envsubst</span>(1) helper. Will be replaced by a real gettext implementation in a later version. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">join - join lines of two files on a common field <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">join</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">FILE1 FILE2</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">For each pair of input lines with identical join fields, write a line to standard output.  The default join field is the first, delimited by whitespace.  When FILE1 or FILE2 (not both) is -, read standard input. 
+<p class="level0"><span Class="bold">-a</span> FILENUM also print unpairable lines from file FILENUM, where FILENUM is 1 or 2, corresponding to FILE1 or FILE2 
+<p class="level0"><span Class="bold">-e</span> EMPTY replace missing input fields with EMPTY 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--ignore-case</span> ignore differences in case when comparing fields 
+<p class="level0"><span Class="bold">-j</span> FIELD equivalent to '-1 FIELD <span Class="bold">-2</span> FIELD' 
+<p class="level0"><span Class="bold">-o</span> FORMAT obey FORMAT while constructing output line 
+<p class="level0"><span Class="bold">-t</span> CHAR use CHAR as input and output field separator 
+<p class="level0"><span Class="bold">-v</span> FILENUM like <span Class="bold">-a</span> FILENUM, but suppress joined output lines 
+<p class="level0"><span Class="bold">-1</span> FIELD join on this FIELD of file 1 
+<p class="level0"><span Class="bold">-2</span> FIELD join on this FIELD of file 2 
+<p class="level0"><span Class="bold">--check-order</span> check that the input is correctly sorted, even if all input lines are pairable 
+<p class="level0"><span Class="bold">--nocheck-order</span> do not check that the input is correctly sorted 
+<p class="level0"><span Class="bold">--header</span> treat the first line in each file as field headers, print them without trying to pair them 
+<p class="level0"><span Class="bold">-z</span>, <span Class="bold">--zero-terminated</span> line delimiter is NUL, not newline 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Unless <span Class="bold">-t</span> CHAR is given, leading blanks separate fields and are ignored, else fields are separated by CHAR.  Any FIELD is a field number counted from 1.  FORMAT is one or more comma or blank separated specifications, each being 'FILENUM.FIELD' or '0'.  Default FORMAT outputs the join field, the remaining fields from FILE1, the remaining fields from FILE2, all separated by CHAR.  If FORMAT is the keyword 'auto', then the first line of each file determines the number of fields output for each line. 
+<p class="level0">Important: FILE1 and FILE2 must be sorted on the join fields. E.g., use "sort <span Class="bold">-k</span> 1b,1" if 'join' has no options, or use "join <span Class="bold">-t</span> ''" if 'sort' has no options. Note, comparisons honor the rules specified by 'LC_COLLATE'. If the input is not sorted and some lines cannot be joined, a warning message will be given. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Mike Haertel. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report join translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">comm(1), uniq(1) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/join&gt; <br>or available locally via: info (aq(coreutils) join invocation(aq 

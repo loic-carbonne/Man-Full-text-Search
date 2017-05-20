@@ -1,0 +1,76 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jconsole - Java Monitoring and Management Console 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jconsole</span> [ f2options</span> ] [ connection ... ]
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Options, if used, should follow immediately after the command name.  
+<p class="level1">connection = pid | host:port | jmxUrl  
+<p class="level2">
+<p class="level2">o f2pid</span> Process ID of a local Java VM. The Java VM must be running with the same user ID as the user ID running jconsole. See  
+<p class="level2">f2JMX Monitoring and Management</span> @ 
+<p class="level2"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html">http://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html</a> for details.  
+<p class="level2">o f2host</span>:f2port</span> Name of the host system on which the Java VM is running and the port number specified by the system property f2com.sun.management.jmxremote.port</span> when the Java VM was started. See  
+<p class="level2">f2JMX Monitoring and Management</span> @ 
+<p class="level2"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html">http://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html</a> for details.  
+<p class="level2">o f2jmxUrl</span> Address of the JMX agent to be connected to as described in  
+<p class="level2">f2JMXServiceURL</span> @ 
+<p class="level2"><a href="http://docs.oracle.com/javase/7/docs/api/javax/management/remote/JMXServiceURL.html.">http://docs.oracle.com/javase/7/docs/api/javax/management/remote/JMXServiceURL.html.</a>  
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jconsole</span> command launches a graphical console tool that enables you to monitor and manage Java applications and virtual machines on a local or remote machine. 
+<p class="level0">
+<p class="level0">On Windows, f3jconsole</span> does not associate with a console window. It will, however, display a dialog box with error information if the f3jconsole</span> command fails for some reason. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-interval=n  Set the update interval to f2n</span> seconds (default is 4 seconds).  
+<p class="level1">-notile  Do not tile windows initially (for two or more connections).  
+<p class="level1">-pluginpath plugins  Specify a list of directories or JAR files which are searched for JConsole plugins. The f2plugins</span> path should contain a provider-configuration file named: <br><pre class="level1">
+f3
+&nbsp;  META-INF/services/com.sun.tools.jconsole.JConsolePlugin
+</span>
+</pre>
+
+<p class="level1">containing one line for each plugin specifying the fully qualified class name of the class implementing the  
+<p class="level1">f2com.sun.tools.jconsole.JConsolePlugin</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/jdk/api/jconsole/spec/com/sun/tools/jconsole/JConsolePlugin.html">http://docs.oracle.com/javase/7/docs/jdk/api/jconsole/spec/com/sun/tools/jconsole/JConsolePlugin.html</a> class.  
+<p class="level1">-version  Output version information and exit.  
+<p class="level1">-help  Output help message and exit.  
+<p class="level1">-J&lt;flag&gt;  Pass &lt;flag&gt; to the Java virtual machine on which jconsole is run.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o 
+<p class="level1">f2Using JConsole</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html">http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html</a>  
+<p class="level1">o 
+<p class="level1">f2Monitoring and Management for Java Platform</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/management/index.html">http://docs.oracle.com/javase/7/docs/technotes/guides/management/index.html</a>  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

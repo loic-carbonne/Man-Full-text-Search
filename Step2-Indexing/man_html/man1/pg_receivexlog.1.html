@@ -1,0 +1,79 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_receivexlog - stream transaction logs from a PostgreSQL server <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_receivexlog</span> [<span Class="emphasis">option</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_receivexlog is used to stream transaction log from a running PostgreSQL cluster. The transaction log is streamed using the streaming replication protocol, and is written to a local directory of files. This directory can be used as the archive location for doing a restore using point-in-time recovery (see Section 24.3, (lqContinuous Archiving and Point-in-Time Recovery (PITR)(rq, in the documentation). 
+<p class="level0">
+<p class="level0">pg_receivexlog streams the transaction log in real time as it*(Aqs being generated on the server, and does not wait for segments to complete like archive_command does. For this reason, it is not necessary to set archive_timeout when using pg_receivexlog. 
+<p class="level0">The transaction log is streamed over a regular PostgreSQL connection, and uses the replication protocol. The connection must be made with a superuser or a user having REPLICATION permissions (see Section 20.2, (lqRole Attributes(rq, in the documentation), and pg_hba.conf must explicitly permit the replication connection. The server must also be configured with max_wal_senders set high enough to leave at least one session available for the stream. 
+<p class="level0">If the connection is lost, or if it cannot be initially established, with a non-fatal error, pg_receivexlog will retry the connection indefinitely, and reestablish streaming as soon as possible. To avoid this behavior, use the -n parameter. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-D </span><span class="bold"><span Class="emphasis">directory</span></span> <br><span Class="bold">--directory=</span><span class="bold"><span Class="emphasis">directory</span></span> 
+<p class="level1">Directory to write the output to. 
+<p class="level1">This parameter is required. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span> <br><span Class="bold">--no-loop</span> 
+<p class="level1">Don*(Aqt loop on connection errors. Instead, exit right away with an error. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s </span><span class="bold"><span Class="emphasis">interval</span></span> <br><span Class="bold">--status-interval=</span><span class="bold"><span Class="emphasis">interval</span></span> 
+<p class="level1">Specifies the number of seconds between status packets sent back to the server. This allows for easier monitoring of the progress from server. A value of zero disables the periodic status updates completely, although an update will still be sent when requested by the server, to avoid timeout disconnect. The default value is 10 seconds. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S </span><span class="bold"><span Class="emphasis">slotname</span></span> <br><span Class="bold">--slot=</span><span class="bold"><span Class="emphasis">slotname</span></span> 
+<p class="level1">Require pg_receivexlog to use an existing replication slot (see Section 25.2.6, (lqReplication Slots(rq, in the documentation). When this option is used, pg_receivexlog will report a flush position to the server, indicating when each segment has been synchronized to disk so that the server can remove that segment if it is not otherwise needed. When using this parameter, it is important to make sure that pg_receivexlog cannot become the synchronous standby through an incautious setting of synchronous_standby_names; it does not flush data frequently enough for this to work correctly. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">Enables verbose mode. 
+<p class="level0">
+<p class="level0">The following command-line options control the database connection parameters. 
+<p class="level0"><span Class="bold">-d </span><span class="bold"><span Class="emphasis">connstr</span></span> <br><span Class="bold">--dbname=</span><span class="bold"><span Class="emphasis">connstr</span></span> 
+<p class="level1">Specifies parameters used to connect to the server, as a connection string. See Section 31.1.1, (lqConnection Strings(rq, in the documentation for more information. 
+<p class="level1">The option is called --dbname for consistency with other client applications, but because pg_receivexlog doesn*(Aqt connect to any particular database in the cluster, database name in the connection string will be ignored. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. The default is taken from the <span Class="bold">PGHOST</span> environment variable, if set, else a Unix domain socket connection is attempted. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. Defaults to the <span Class="bold">PGPORT</span> environment variable, if set, or a compiled-in default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force pg_receivexlog to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since pg_receivexlog will automatically prompt for a password if the server demands password authentication. However, pg_receivexlog will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0">Other options are also available: 
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the pg_receivexlog version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about pg_receivexlog command line arguments, and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">When using pg_receivexlog instead of archive_command as the main WAL backup method, it is strongly recommended to use replication slots. Otherwise, the server is free to recycle or remove transaction log files before they are backed up, because it does not have any information, either from archive_command or the replication slots, about how far the WAL stream has been archived. Note, however, that a replication slot will fill up the server*(Aqs disk space if the receiver does not keep up with fetching the WAL data. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To stream the transaction log from the server at mydbserver and store it in the local directory /usr/local/pgsql/archive: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_receivexlog -h mydbserver -D /usr/local/pgsql/archive</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">pg_basebackup</span>(1) 

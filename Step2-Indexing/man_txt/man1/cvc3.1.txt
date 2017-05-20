@@ -1,0 +1,90 @@
+
+CVC3(1)                     General Commands Manual                    CVC3(1)
+
+
+
+NAME
+       cvc3 - automatic SMT theorem prover
+
+SYNOPSIS
+       cvc3 [option]... [filename]
+
+
+DESCRIPTION
+       CVC3  is an automated validity checker for a many-sorted (typed) first-
+       order logic with built-in theories, including some support for  quanti-
+       fiers,  partial functions, and predicate subtypes. The current built-in
+       theories are the theories of
+
+       o   equality over free (aka uninterpreted) function and predicate  sym-
+           bols,
+
+       o   real  and integer linear arithmetic (with some support for non-lin-
+           ear arithmetic),
+
+       o   bit vectors,
+
+       o   arrays,
+
+       o   tuples,
+
+       o   records,
+
+       o   user-defined inductive datatypes.
+
+       CVC3 operates on files in the CVC Presentation Input  Language  or  the
+       SMTLIB  input  language. If no input file is given on the command line,
+       CVC3 reads standard input.
+
+
+OPTIONS
+       Only a few of the most frequently used options  are  given  below.  For
+       more  details,  see  CVC3's built-in help (cvc3 -help) or the CVC3 web-
+       site.
+
+       -h[elp]
+              List all of the options for controlling  CVC3.  Boolean  options
+              are  marked  (b).  They are enabled by prefixing with + and dis-
+              abled by prefixing with -.  In the help output, the current set-
+              ting is given.  For example, the output lists
+
+              (b) -interactive      Interactive mode
+
+              Indicating that interactive mode is disabled. to enable interac-
+              tive mode, the option +interactive  is  therefore  used.   Other
+              options  are marked (s) for string arguments, or (i) for integer
+              arguments.
+
+       -version
+              Print the version of CVC3 and exit.
+
+       -lang  (presentation|smtlib|internal) Select the input  language  used.
+              The default is presentation.
+
+       +int[eractive]
+              Enable  interactive  mode. Commands are read from standard input
+              and processed immediately.
+
+       +stats Print run-time statistics.
+
+       -timeout t
+              Automatically terminate CVC3 after t seconds.
+
+SEE ALSO
+       CVC3 website: http://www.cs.nyu.edu/acsys/cvc3/
+
+       SMTLIB website: http://combination.cs.uiowa.edu/smtlib/
+
+AUTHOR
+       CVC3 was written by Clark Barrett,  Cesare  Tinelli,  Alexander  Fuchs,
+       Yeting  Ge,  George  Hagen,  Dejan  Jovanovic, Sergey Berezin, Cristian
+       Cadar, Jake Donham, Vijay Ganesh, Deepak Goyal, Ying Hu, Sean  McLaugh-
+       lin,  Mehul  Trivedi, Michael Veksler, Daniel Wichs, Mark Zavislak, and
+       Jim Zhuang.
+
+       This manual page was written by  Dan  Sheridan  <djs@adelard.com>,  for
+       Ubuntu (but may be used by others).
+
+
+
+                               January 16, 2008                        CVC3(1)

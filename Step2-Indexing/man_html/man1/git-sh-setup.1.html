@@ -1,0 +1,67 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-sh-setup - Common Git shell script setup code <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">. "$(git --exec-path)/git-sh-setup"</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This is not a command the end user would want to run. Ever. This documentation is meant for people who are studying the Porcelain-ish scripts and/or are writing new ones. 
+<p class="level0">The <span Class="emphasis">git sh-setup</span> scriptlet is designed to be sourced (using .) by other shell scripts to set up some variables pointing at the normal Git directories and a few helper shell functions. 
+<p class="level0">Before sourcing it, your script should set up a few variables; USAGE (and LONG_USAGE, if any) is used to define message given by usage() shell function. SUBDIRECTORY_OK can be set if the script can run from a subdirectory of the working tree (some commands do not). 
+<p class="level0">The scriptlet sets GIT_DIR and GIT_OBJECT_DIRECTORY shell variables, but does <span Class="bold">not</span> export them to the environment. <a name="FUNCTIONS"></a><h2 class="nroffsh">FUNCTIONS</h2>
+<p class="level0">
+<p class="level0">die 
+<p class="level1">exit after emitting the supplied error message to the standard error stream. 
+<p class="level0">
+<p class="level0">usage 
+<p class="level1">die with the usage message. 
+<p class="level0">
+<p class="level0">set_reflog_action 
+<p class="level1">Set GIT_REFLOG_ACTION environment to a given string (typically the name of the program) unless it is already set. Whenever the script runs a git command that updates refs, a reflog entry is created using the value of this string to leave the record of what command updated the ref. 
+<p class="level0">
+<p class="level0">git_editor 
+<p class="level1">runs an editor of user(cqs choice (GIT_EDITOR, core.editor, VISUAL or EDITOR) on a given file, but error out if no editor is specified and the terminal is dumb. 
+<p class="level0">
+<p class="level0">is_bare_repository 
+<p class="level1">outputs true or false to the standard output stream to indicate if the repository is a bare repository (i.e. without an associated working tree). 
+<p class="level0">
+<p class="level0">cd_to_toplevel 
+<p class="level1">runs chdir to the toplevel of the working tree. 
+<p class="level0">
+<p class="level0">require_work_tree 
+<p class="level1">checks if the current directory is within the working tree of the repository, and otherwise dies. 
+<p class="level0">
+<p class="level0">require_work_tree_exists 
+<p class="level1">checks if the working tree associated with the repository exists, and otherwise dies. Often done before calling cd_to_toplevel, which is impossible to do if there is no working tree. 
+<p class="level0">
+<p class="level0">require_clean_work_tree &lt;action&gt; [&lt;hint&gt;] 
+<p class="level1">checks that the working tree and index associated with the repository have no uncommitted changes to tracked files. Otherwise it emits an error message of the form Cannot &lt;action&gt;: &lt;reason&gt;. &lt;hint&gt;, and dies. Example: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+require_clean_work_tree rebase "Please commit or stash them."
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">get_author_ident_from_commit 
+<p class="level1">outputs code for use with eval to set the GIT_AUTHOR_NAME, GIT_AUTHOR_EMAIL and GIT_AUTHOR_DATE variables for a given commit. 
+<p class="level0">
+<p class="level0">create_virtual_base 
+<p class="level1">modifies the first file so only lines in common with the second file remain. If there is insufficient common material, then the first file is left empty. The result is suitable as a virtual base input for a 3-way merge. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

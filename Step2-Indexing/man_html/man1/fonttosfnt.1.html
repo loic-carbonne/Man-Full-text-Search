@@ -1,0 +1,16 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">fonttosfnt - Wrap a bitmap font in a sfnt (TrueType) wrapper <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">fonttosfnt</span> [ <span Class="emphasis">options</span> ] <span Class="bold">-o</span> <span Class="emphasis">file.ttf</span> [ <span Class="bold">--</span> ] <span Class="emphasis">font ...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Wrap a bitmap font or a set of bitmap fonts in a sfnt (TrueType or OpenType) wrapper. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> Be verbose. 
+<p class="level0"><span Class="bold">-c</span> Do not crop glyphs.  This usually increases file size, but may sometimes yield a modest decrease in file size for small character cell fonts (terminal fonts). 
+<p class="level0"><span Class="bold">-b</span> Write byte-aligned glyph data.  By default, unaligned data is written, which yields a smaller file size. 
+<p class="level0"><span Class="bold">-r</span> Do not reencode fonts.  By default, fonts are reencoded to Unicode whenever possible. 
+<p class="level0"><span Class="bold">-g  n</span> Set the type of scalable glyphs that we write.  If <span Class="emphasis">n</span> is 0, no scalable glyphs are written; this is legal but confuses most current software.  If <span Class="emphasis">n</span> is 1, a single scalable glyph (the undefined glyph) is written; this is recommended, but triggers a bug in current versions of <span Class="manpage">FreeType .</span>If <span Class="emphasis">n</span> is 2 (the default), a sufficiently high number of blank glyphs are written, which works with <span Class="bold">FreeType</span> but increases file size. 
+<p class="level0"><span Class="bold">-m  n</span> Set the type of scalable metrics that we write.  If <span Class="emphasis">n</span> is 0, no scalable metrics are written, which may or may not be legal. If <span Class="emphasis">n</span> is 1, full metrics for a single glyph are written, and only left sidebearing values are written for the other glyphs.  If <span Class="emphasis">n</span> is 2, scalable metrics for all glyphs are written, which increases file size and is not recommended.  The default is 1. 
+<p class="level0"><span Class="bold">--</span> End of options. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Some of the font-level values, notably sub- and superscript positions, are dummy values. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), Xserver(1), Xft(3x). <span Class="emphasis">Fonts in X11.</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">The version of <span Class="bold">Fonttosfnt</span> included in this X.Org Foundation release was originally written by Juliusz Chroboczek &lt;jch@freedesktop.org&gt; for the XFree86 project. 

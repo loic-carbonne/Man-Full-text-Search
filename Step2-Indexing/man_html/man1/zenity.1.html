@@ -1,0 +1,184 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zenity - display GTK+ dialogs <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">zenity</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">zenity</span> is a program that will display GTK+ dialogs, and return (either in the return code, or on standard output) the users input. This allows you to present information, and ask for information from the user, from all manner of shell scripts. 
+<p class="level0">For example, <span Class="bold">zenity --question</span> will return either 0, 1 or 5, depending on whether the user pressed <span Class="emphasis">OK</span>, <span Class="emphasis">Cancel</span> or timeout has been reached. <span Class="bold">zenity --entry</span> will output on standard output what the user typed into the text entry field. 
+<p class="level0">Comprehensive documentation is available in the GNOME Help Browser. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">This program follows the usual GNU command line syntax, with long options starting with two dashes (`-'). 
+<p class="level0">
+<p class="level0">Dialog options 
+<p class="level0">
+<p class="level0"><span Class="bold">--calendar</span> Display calendar dialog 
+<p class="level0"><span Class="bold">--entry</span> Display text entry dialog 
+<p class="level0"><span Class="bold">--error</span> Display error dialog 
+<p class="level0"><span Class="bold">--file-selection</span> Display file selection dialog 
+<p class="level0"><span Class="bold">--info</span> Display info dialog 
+<p class="level0"><span Class="bold">--list</span> Display list dialog 
+<p class="level0"><span Class="bold">--notification</span> Display notification 
+<p class="level0"><span Class="bold">--progress</span> Display progress indication dialog 
+<p class="level0"><span Class="bold">--question</span> Display question dialog 
+<p class="level0"><span Class="bold">--text-info</span> Display text information dialog 
+<p class="level0"><span Class="bold">--warning</span> Display warning dialog 
+<p class="level0"><span Class="bold">--scale</span> Display scale dialog 
+<p class="level0"><span Class="bold">--color-selection</span> Display color selection dialog 
+<p class="level0"><span Class="bold">--password</span> Display password dialog 
+<p class="level0"><span Class="bold">--forms</span> Display forms dialog 
+<p class="level0">
+<p class="level0">General options 
+<p class="level0">
+<p class="level0"><span Class="bold">--title=TITLE</span> Set the dialog title 
+<p class="level0"><span Class="bold">--window-icon=ICONPATH</span> Set the window icon with the path to an image. Alternatively, one of the four stock icons can be used: 'error', 'info', 'question' or 'warning' 
+<p class="level0"><span Class="bold">--width=WIDTH</span> Set the dialog width 
+<p class="level0"><span Class="bold">--height=HEIGHT</span> Set the dialog height 
+<p class="level0"><span Class="bold">--timeout=TIMEOUT</span> Set the dialog timeout in seconds 
+<p class="level0">Calendar options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--day=INT</span> Set the calendar day 
+<p class="level0"><span Class="bold">--month=INT</span> Set the calendar month 
+<p class="level0"><span Class="bold">--year=INT</span> Set the calendar year 
+<p class="level0"><span Class="bold">--date-format=PATTERN</span> Set the format for the returned date. The default depends on the user locale or be set with the strftime style. For example %A %d/%m/%y 
+<p class="level0">
+<p class="level0">Text entry options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--entry-text=STRING</span> Set the entry text 
+<p class="level0"><span Class="bold">--hide-text</span> Hide the entry text 
+<p class="level0">
+<p class="level0">Error options 
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--no-wrap</span> Do not enable text wrapping 
+<p class="level0"><span Class="bold">--no-markup</span> Do not enable pango markup 
+<p class="level0">
+<p class="level0">File selection options 
+<p class="level0"><span Class="bold">--filename=FILENAME</span> Set the file or directory to be selected by default 
+<p class="level0"><span Class="bold">--multiple</span> Allow selection of multiple filenames in file selection dialog 
+<p class="level0"><span Class="bold">--directory</span> Activate directory-only selection 
+<p class="level0"><span Class="bold">--save</span> Activate save mode 
+<p class="level0"><span Class="bold">--separator=SEPARATOR</span> Specify separator character when returning multiple filenames 
+<p class="level0"><span Class="bold">--confirm-overwrite</span> Confirm file selection if filename already exists 
+<p class="level0"><span Class="bold">--file-filter=NAME | PATTERN1 PATTERN2</span> Sets a filename filter 
+<p class="level0">
+<p class="level0">
+<p class="level0">Info options 
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--no-wrap</span> Do not enable text wrapping 
+<p class="level0"><span Class="bold">--no-markup</span> Do not enable pango markup 
+<p class="level0">
+<p class="level0">List options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--column=STRING</span> Set the column header 
+<p class="level0"><span Class="bold">--checklist</span> Use check boxes for first column 
+<p class="level0"><span Class="bold">--radiolist</span> Use radio buttons for first column 
+<p class="level0"><span Class="bold">--separator=STRING</span> Set output separator character 
+<p class="level0"><span Class="bold">--multiple</span> Allow multiple rows to be selected 
+<p class="level0"><span Class="bold">--editable</span> Allow changes to text 
+<p class="level0"><span Class="bold">--print-column=NUMBER</span> Specify what column to print to standard output. The default is to return the first column. 'ALL' may be used to print all columns. 
+<p class="level0"><span Class="bold">--hide-column=NUMBER</span> Hide a specific column 
+<p class="level0"><span Class="bold">--hide-header</span> Hides the column headers 
+<p class="level0">
+<p class="level0">Notification options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the notification text 
+<p class="level0"><span Class="bold">--listen</span> Listen for commands on stdin. Commands include 'message', 'tooltip', 'icon', and 'visible' separated by a colon. For example, 'message: Hello world', 'visible: false', or 'icon: /path/to/icon'. The icon command also accepts the four stock icon: 'error', 'info', 'question', and 'warning' 
+<p class="level0">
+<p class="level0">Progress options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--percentage=INT</span> Set initial percentage 
+<p class="level0"><span Class="bold">--auto-close</span> Close dialog when 100% has been reached 
+<p class="level0"><span Class="bold">--auto-kill</span> Kill parent process if cancel button is pressed 
+<p class="level0"><span Class="bold">--pulsate</span> Pulsate progress bar 
+<p class="level0"><span Class="bold">--no-cancel</span> Hides the cancel button 
+<p class="level0">
+<p class="level0">Question options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--no-wrap</span> Do not enable text wrapping 
+<p class="level0"><span Class="bold">--no-markup</span> Do not enable pango markup 
+<p class="level0"><span Class="bold">--ok-label</span> Set the text of the OK button 
+<p class="level0"><span Class="bold">--cancel-label</span> Set the text of the cancel button 
+<p class="level0">
+<p class="level0">Text options 
+<p class="level0">
+<p class="level0"><span Class="bold">--filename=FILENAME</span> Open file 
+<p class="level0"><span Class="bold">--editable</span> Allow changes to text 
+<p class="level0"><span Class="bold">--checkbox=TEXT</span> Enable a checkbox for use like a 'I read and accept the terms.' 
+<p class="level0"><span Class="bold">--ok-label</span> Set the text of the OK button 
+<p class="level0"><span Class="bold">--cancel-label</span> Set the text of the cancel button 
+<p class="level0">
+<p class="level0">Warning options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--no-wrap</span> Do not enable text wrapping 
+<p class="level0"><span Class="bold">--no-markup</span> Do not enable pango markup 
+<p class="level0">
+<p class="level0">Scale options 
+<p class="level0">
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--value=VALUE</span> Set initial value 
+<p class="level0"><span Class="bold">--min-value=VALUE</span> Set minimum value 
+<p class="level0"><span Class="bold">--max-value=VALUE</span> Set maximum value 
+<p class="level0"><span Class="bold">--step=VALUE</span> Set step size 
+<p class="level0"><span Class="bold">--print-partial</span> Print partial values 
+<p class="level0"><span Class="bold">--hide-value</span> Hide value 
+<p class="level0">
+<p class="level0">Color selection options 
+<p class="level0">
+<p class="level0"><span Class="bold">--color=VALUE</span> Set the initial color 
+<p class="level0"><span Class="bold">--show-palette</span> Show the palette 
+<p class="level0">
+<p class="level0">Password dialog options 
+<p class="level0">
+<p class="level0"><span Class="bold">--username</span> Display the username field 
+<p class="level0">
+<p class="level0">Forms dialog options 
+<p class="level0">
+<p class="level0"><span Class="bold">--add-entry=FIELDNAME</span> Add a new Entry in forms dialog 
+<p class="level0"><span Class="bold">--add-password=FIELDNAME</span> Add a new Password Entry in forms dialog 
+<p class="level0"><span Class="bold">--add-calendar=FIELDNAME</span> Add a new Calendar in forms dialog 
+<p class="level0"><span Class="bold">--text=STRING</span> Set the dialog text 
+<p class="level0"><span Class="bold">--separator=STRING</span> Set output separator character 
+<p class="level0"><span Class="bold">--forms-date-format=PATTERN</span> Set the format for the returned date. The default depends on the user locale or be set with the strftime style. For example %A %d/%m/%y 
+<p class="level0">
+<p class="level0">Miscellaneous options 
+<p class="level0">
+<p class="level0"><span Class="bold">-?, --help</span> Show summary of options. 
+<p class="level0"><span Class="bold">--about</span> Display an about dialog. 
+<p class="level0"><span Class="bold">--version</span> Show version of program. 
+<p class="level0">
+<p class="level0">Also the standard GTK+ options are accepted. For more information about the GTK+ options, execute following command. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity --help-gtk 
+<p class="level1"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">Normally, zenity detects the terminal window from which it was launched and keeps itself above that window.  This behavior can be disabled by unsetting the WINDOWID environment variable. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Display a file selector with the title <span class="emphasis">Select a file to remove</span>. The file selected is returned on standard output. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity  --title="Select a file to remove" --file-selection 
+<p class="level1">Display a text entry dialog with the title <span Class="emphasis">Select Host</span> and the text <span Class="emphasis">Select the host you would like to flood-ping</span>. The entered text is returned on standard output. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity  --title "Select Host" --entry --text "Select the host you would like to flood-ping" 
+<p class="level1">Display a dialog, asking <span class="emphasis">Microsoft Windows has been found! Would you like to remove it?</span>. The return code will be 0 (true in shell) if <span Class="emphasis">OK</span> is selected, and 1 (false) if <span Class="emphasis">Cancel</span> is selected. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity  --question --title "Alert"  --text "Microsoft Windows has been found! Would you like to remove it?" 
+<p class="level1">Show the search results in a list dialog with the title <span Class="emphasis">Search Results</span> and the text <span Class="emphasis">Finding all header files...</span>. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">find . -name '*.h' | zenity --list --title "Search Results" --text "Finding all header files.." --column "Files" 
+<p class="level1">Show a notification in the message tray 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity --notification --window-icon=update.png --text "System update necessary!" 
+<p class="level1">Display a weekly shopping list in a check list dialog with <span Class="emphasis">Apples</span> and <span Class="emphasis">Oranges</span> pre selected 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">zenity --list --checklist --column "Buy" --column "Item" TRUE Apples TRUE Oranges FALSE Pears FALSE Toothpaste 
+<p class="level1">Display a progress dialog while searching for all the postscript files in your home directory 
+<p class="level1">find $HOME -name '*.ps' | zenity --progress --pulsate <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">Zenity</span> was written by Glynn Foster &lt;glynn.foster@sun.com&gt;. 
+<p class="level0">This manual page was written by Ross Burton &lt;ross@burtonini.com&gt;. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">gdialog</span>(1), <span Class="bold">dialog</span>(1) 

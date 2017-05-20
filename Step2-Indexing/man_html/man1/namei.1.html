@@ -1,0 +1,44 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">namei - follow a pathname until a terminal point is found <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">namei</span> 
+<p class="level0"><span Class="emphasis">pathname ...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">namei</span> uses its arguments as pathnames to any type of Unix file (symlinks, files, directories, and so forth). <span Class="bold">namei</span> then follows each pathname until an endpoint is found (a file, a directory, a device node, etc). If it finds a symbolic link, it shows the link, and starts following it, indenting the output to show the context. 
+<p class="level0">This program is useful for finding "too many levels of symbolic links" problems. 
+<p class="level0">For each line of output, <span Class="bold">namei</span> uses the following characters to identify the file type found: 
+<p class="level0"><pre class="level0">
+&nbsp;  f: = the pathname currently being resolved
+&nbsp;   d = directory
+&nbsp;   l = symbolic link (both the link and its contents are output)
+&nbsp;   s = socket
+&nbsp;   b = block device
+&nbsp;   c = character device
+&nbsp;   p = FIFO (named pipe)
+&nbsp;   - = regular file
+&nbsp;   ? = an error of some kind
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="bold">namei</span> prints an informative message when the maximum number of symbolic links this system can have has been exceeded. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l, --long\fP</span> 
+<p class="level1">Use the long listing format (same as -m -o -v). 
+<p class="level0"><a name="fB-m"></a><span class="nroffip">\fB-m, --modes\fP</span> 
+<p class="level1">Show the mode bits of each file type in the style of ls(1), for example 'rwxr-xr-x'. 
+<p class="level0"><a name="fB-o"></a><span class="nroffip">\fB-o, --owners\fP</span> 
+<p class="level1">Show owner and group name of each file. 
+<p class="level0"><a name="fB-n"></a><span class="nroffip">\fB-n, --nosymlinks\fP</span> 
+<p class="level1">Don't follow symlinks. 
+<p class="level0"><a name="fB-v"></a><span class="nroffip">\fB-v, --vertical\fP</span> 
+<p class="level1">Vertically align the modes and owners. 
+<p class="level0"><a name="fB-x"></a><span class="nroffip">\fB-x, --mountpoints\fP</span> 
+<p class="level1">Show mountpoint directories with a 'D' rather than a 'd'. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB--help\fR</span> 
+<p class="level1">Display help text and exit. 
+<p class="level0"><a name="fB-VfR"></a><span class="nroffip">\fB-V\fR, \fB--version\fR</span> 
+<p class="level1">Display version information and exit. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">The original <span Class="bold">namei</span> program was written by Roger Southwick &lt;rogers@amadeus.wr.tek.com&gt;. 
+<p class="level0">The program was re-written by Karel Zak &lt;kzak@redhat.com&gt;. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">To be discovered. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ls (1)</span>, <span Class="manpage">stat (1)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The namei command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

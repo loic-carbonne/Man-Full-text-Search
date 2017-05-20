@@ -1,0 +1,50 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">unbuffer - unbuffer output <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">unbuffer</span> <span Class="emphasis">program</span> [ <span Class="emphasis">args</span> ] <a name="INTRODUCTION"></a><h2 class="nroffsh">INTRODUCTION</h2>
+<p class="level0"><span Class="bold">unbuffer</span> disables the output buffering that occurs when program output is redirected from non-interactive programs. For example, suppose you are watching the output from a fifo by running it through od and then more.   <pre class="level0">
+&nbsp;
+	od -c /tmp/fifo | more
+&nbsp;
+</pre>
+
+<p class="level0">You will not see anything until a full page of output has been produced. 
+<p class="level0">You can disable this automatic buffering as follows: 
+<p class="level0"><pre class="level0">
+&nbsp;
+	unbuffer od -c /tmp/fifo | more
+&nbsp;
+</pre>
+
+<p class="level0">Normally, unbuffer does not read from stdin.  This simplifies use of unbuffer in some situations.  To use unbuffer in a pipeline, use the -p flag. Example: <pre class="level0">
+&nbsp;
+&nbsp;       process1 | unbuffer -p process2 | process3
+</pre>
+
+<p class="level0"><a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">
+<p class="level0">unbuffer -p may appear to work incorrectly if a process feeding input to unbuffer exits.  Consider: <pre class="level0">
+&nbsp;       process1 | unbuffer -p process2 | process3
+&nbsp;
+</pre>
+
+<p class="level0">If process1 exits, process2 may not yet have finished.  It is impossible for unbuffer to know long to wait for process2 and process2 may not ever finish, for example, if it is a filter.  For expediency, unbuffer simply exits when it encounters an EOF from either its input or process2. 
+<p class="level0">In order to have a version of unbuffer that worked in all situations, an oracle would be necessary.  If you want an application-specific solution, workarounds or hand-coded Expect may be more suitable.  For example, the following example shows how to allow grep to finish processing when the cat before it finishes first.  Using cat to feed grep would never require unbuffer in real life.  It is merely a placeholder for some imaginary process that may or may not finish. Similarly, the final cat at the end of the pipeline is also a placeholder for another process. 
+<p class="level0"><pre class="level0">
+&nbsp;
+$ cat /tmp/abcdef.log | grep abc | cat
+abcdef
+xxxabc defxxx
+$ cat /tmp/abcdef.log | unbuffer grep abc | cat
+$ (cat /tmp/abcdef.log ; sleep 1) | unbuffer grep abc | cat
+abcdef
+xxxabc defxxx
+$ 
+</pre>
+
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">The man page is longer than the program. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis"></span> "Exploring Expect: A Tcl-Based Toolkit for Automating Interactive Programs" </span>by Don Libes, O'Reilly and Associates, January 1995. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Don Libes, National Institute of Standards and Technology 

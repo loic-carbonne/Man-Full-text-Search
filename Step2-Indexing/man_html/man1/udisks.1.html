@@ -1,0 +1,82 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">udisks - udisks command line tool <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisks</span> [<a class="bold" href="#OPTIONS">OPTIONS</a>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">udisks</span> is a simple command line client for the <span Class="bold">udisks</span>(7) system bus service. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--dump</span> 
+<p class="level1">Dump all information about all devices. Please include this when filing bugs. 
+<p class="level0">
+<p class="level0"><span Class="bold">--enumerate</span> 
+<p class="level1">Lists all object paths of devices know to the daemon. 
+<p class="level0">
+<p class="level0"><span Class="bold">--enumerate-device-files</span> 
+<p class="level1">Lists all device files of devices know to the daemon. 
+<p class="level0">
+<p class="level0"><span Class="bold">--monitor</span> 
+<p class="level1">Connect to the daemon and print a line every time an event happens. 
+<p class="level0">
+<p class="level0"><span Class="bold">--monitor-detail</span> 
+<p class="level1">Like <span Class="bold">--monitor</span> but prints the full details of the device whenever an event happens. 
+<p class="level0">
+<p class="level0"><span Class="bold">--show-info</span> <span Class="emphasis">device_file</span> 
+<p class="level1">Shows information about <span Class="emphasis">device_file</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--inhibit-polling</span> <span Class="emphasis">device_file</span> [<span Class="bold">--&nbsp;program&nbsp;arg&nbsp;...</span>] 
+<p class="level1">Inhibits polling on <span Class="emphasis">device_file</span>. If no program is given, polling is inhibited until Ctrl+C is pressed. Otherwise the program is spawned and the polling is only inhibited until the program terminates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--poll-for-media</span> <span Class="emphasis">device_file</span> 
+<p class="level1">Polls <span Class="emphasis">device_file</span> to perform media detection. 
+<p class="level0">
+<p class="level0"><span Class="bold">--inhibit-all-polling</span> [<span Class="bold">--&nbsp;program&nbsp;arg&nbsp;...</span>] 
+<p class="level1">Inhibits polling on all devices. If no program is given, polling is inhibited until Ctrl+C is pressed. Otherwise the program is spawned and the polling is only inhibited until the program terminates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--mount</span> <span Class="emphasis">device_file</span> [<span Class="bold">--mount-fstype</span>&nbsp;<span Class="emphasis">fstype</span>] [<span Class="bold">--mount-options</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level1">Mounts the device represented by <span Class="emphasis">device_file</span> using the file system <span Class="emphasis">fstype</span> and a comma-separated list of <span Class="emphasis">options</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--unmount</span> <span Class="emphasis">device_file</span> [<span Class="bold">--unmount-options</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level1">Unmounts the device represented by <span Class="emphasis">device_file</span> using a comma-separated list of <span Class="emphasis">options</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--detach</span> <span Class="emphasis">device_file</span> [<span Class="bold">--detach-options</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level1">Detaches (e.g. powering down the physical port the device is connected to) the device represented by <span Class="emphasis">device_file</span> using a comma-separated list of <span Class="emphasis">options</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--eject</span> <span Class="emphasis">device_file</span> [<span Class="bold">--eject-options</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level1">Ejects media from the device represented by <span Class="emphasis">device_file</span> using a comma-separated list of <span Class="emphasis">options</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--ata-smart-refresh</span> <span Class="emphasis">device_file</span> [<span Class="bold">--ata-smart-wakeup</span>] 
+<p class="level1">Refreshes ATA SMART data for <span Class="emphasis">device_file</span>. If the disk is sleeping it will not be woken up unless <span Class="bold">--ata-smart-wakeup</span> is passed. will be used. 
+<p class="level0">
+<p class="level0"><span Class="bold">--ata-smart-refresh</span> <span Class="emphasis">device_file</span> <span Class="bold">--ata-smart-simulate</span> <span Class="emphasis">blob</span> 
+<p class="level1">Read ATA SMART data from <span Class="emphasis">blob</span> for <span Class="emphasis">device_file</span>. This can only be done by the super user and is typically used for testing that clients relying on the ATA SMART data provided by udisks behave correctly. The libatasmart git repository at m[blue]<span Class="bold">%http://git.0pointer.de/?p=libatasmart.git;a=summary</span>m[] contains a collection of blobs from failing disks. 
+<p class="level0">
+<p class="level0"><span Class="bold">--inhibit</span> [<span Class="bold">--&nbsp;program&nbsp;arg&nbsp;...</span>] 
+<p class="level1">Inhibits clients from invoking methods on the daemon that require authorization (all methods will return the org.freedesktop.UDisks.Error.Inhibited error) if the caller is not the super user. This is typically used by OS installers and other programs that expects full control of the system, specifically to avoid automounting devices. Only the super user can do this. 
+<p class="level1">If no program is given, the daemon is inhibited until Ctrl+C is pressed. Otherwise the program is spawned and the daemon is only inhibited until the program terminates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--set-spindown</span> <span Class="emphasis">device_file</span> <span Class="bold">--spindown-timeout</span> <span Class="emphasis">seconds</span> [<span Class="bold">--&nbsp;program&nbsp;arg&nbsp;...</span>] 
+<p class="level1">Configures disk spindown timeout on <span Class="emphasis">device_file</span> to <span Class="emphasis">seconds</span>. See the section called (lqSPINNING DOWN DISKS(rq for important information before using this option. 
+<p class="level1">If no program is given, the spindown time will be used until Ctrl+C is pressed. Otherwise the program is spawned and the the spindown timeout will only be used until the program terminates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--set-spindown-all</span> <span Class="bold">--spindown-timeout</span> <span Class="emphasis">seconds</span> [<span Class="bold">--&nbsp;program&nbsp;arg&nbsp;...</span>] 
+<p class="level1">Configures disk spindown timeout on all disks that can be spun down to <span Class="emphasis">seconds</span>. See the section called (lqSPINNING DOWN DISKS(rq for important information before using this option. 
+<p class="level1">If no program is given, the spindown time will be used until Ctrl+C is pressed. Otherwise the program is spawned and the the spindown timeout will only be used until the program terminates. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show help options. 
+<p class="level0"><a name="SPINNING"></a><h2 class="nroffsh">SPINNING DOWN DISKS</h2>
+<p class="level0">
+<p class="level0">Caution should be exercised when configuring disk spin down timeouts. 
+<p class="level0">Note that every time a disk is spun down, the (lqstart-stop-count(rq ATA SMART attribute will increase by 1 and most disks are only good for a limited number (typically 50,000 but it varies by manufacturer and model). In addition, the drive may take as long as 30 seconds to respond to subsequent disk access (en most drives are typically faster, see the (lqspin-up-time(rq ATA SMART attribute. 
+<p class="level0">On the other hand, cautious use (e.g. using conservative timeouts) of the ability to spin down disks, can be a good way to trade power consumption (typically 8 vs 1 Watts for 3.5" drives) and heat emission for a slightly higher latency. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written by David Zeuthen &lt;david@fubar.dk&gt; with a lot of help from many others. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to either the distribution bug tracker or the upstream bug tracker at m[blue]<span Class="bold">%http://bugs.freedesktop.org/enter_bug.cgi?product=udisks</span>m[]. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisks-daemon</span>(8), <span Class="bold">udisks</span>(7), 

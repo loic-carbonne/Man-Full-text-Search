@@ -1,0 +1,110 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-rm - Remove files from the working tree and from the index <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git rm</span> [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch] [--quiet] [--] &lt;file&gt;...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Remove files from the index, or from the working tree and the index. git rm will not remove a file from just your working directory. (There is no option to remove a file only from the working tree and yet keep it in the index; use /bin/rm if you want to do that.) The files being removed have to be identical to the tip of the branch, and no updates to their contents can be staged in the index, though that default behavior can be overridden with the -f option. When --cached is given, the staged content has to match either the tip of the branch or the file on disk, allowing the file to be removed from just the index. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;file&gt;... 
+<p class="level1">Files to remove. Fileglobs (e.g. *.c) can be given to remove all matching files. If you want Git to expand file glob characters, you may need to shell-escape them. A leading directory name (e.g. dir to remove dir/file1 and dir/file2) can be given to remove all files in the directory, and recursively all sub-directories, but this requires the -r option to be explicitly given. 
+<p class="level0">
+<p class="level0">-f, --force 
+<p class="level1">Override the up-to-date check. 
+<p class="level0">
+<p class="level0">-n, --dry-run 
+<p class="level1">Don(cqt actually remove any file(s). Instead, just show if they exist in the index and would otherwise be removed by the command. 
+<p class="level0">
+<p class="level0">-r 
+<p class="level1">Allow recursive removal when a leading directory name is given. 
+<p class="level0">
+<p class="level0">-- 
+<p class="level1">This option can be used to separate command-line options from the list of files, (useful when filenames might be mistaken for command-line options). 
+<p class="level0">
+<p class="level0">--cached 
+<p class="level1">Use this option to unstage and remove paths only from the index. Working tree files, whether modified or not, will be left alone. 
+<p class="level0">
+<p class="level0">--ignore-unmatch 
+<p class="level1">Exit with a zero status even if no files matched. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">git rm normally outputs one line (in the form of an rm command) for each file removed. This option suppresses that output. 
+<p class="level0"><a name="DISCUSSION"></a><h2 class="nroffsh">DISCUSSION</h2>
+<p class="level0">
+<p class="level0">The &lt;file&gt; list given to the command can be exact pathnames, file glob patterns, or leading directory names. The command removes only the paths that are known to Git. Giving the name of a file that you have not told Git about does not remove that file. 
+<p class="level0">File globbing matches across directory boundaries. Thus, given two directories d and d2, there is a difference between using git rm *(Aqd**(Aq and git rm *(Aqd/**(Aq, as the former will also remove all of directory d2. <a name="REMOVING"></a><h2 class="nroffsh">REMOVING FILES THAT HAVE DISAPPEARED FROM THE FILESYSTEM</h2>
+<p class="level0">
+<p class="level0">There is no option for git rm to remove from the index only the paths that have disappeared from the filesystem. However, depending on the use case, there are several ways that can be done. <a name="Using"></a><h2 class="nroffsh">Using \(lqgit commit -a\(rq</h2>
+<p class="level0">
+<p class="level0">If you intend that your next commit should record all modifications of tracked files in the working tree and record all removals of files that have been removed from the working tree with rm (as opposed to git rm), use git commit -a, as it will automatically notice and record all removals. You can also have a similar effect without committing by using git add -u. <a name="Using"></a><h2 class="nroffsh">Using \(lqgit add -A\(rq</h2>
+<p class="level0">
+<p class="level0">When accepting a new code drop for a vendor branch, you probably want to record both the removal of paths and additions of new paths as well as modifications of existing paths. 
+<p class="level0">Typically you would first remove all tracked files from the working tree using this command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git ls-files -z | xargs -0 rm -f
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">and then untar the new code in the working tree. Alternately you could <span Class="emphasis">rsync</span> the changes into the working tree. 
+<p class="level0">After that, the easiest way to record all removals, additions, and modifications in the working tree is: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git add -A
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">See <span Class="bold">git-add</span>(1). <a name="Other"></a><h2 class="nroffsh">Other ways</h2>
+<p class="level0">
+<p class="level0">If all you really want to do is to remove from the index the files that are no longer present in the working tree (perhaps because your working tree is dirty so that you cannot use git commit -a), use the following command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git diff --name-only --diff-filter=D -z | xargs -0 git rm --cached
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SUBMODULES"></a><h2 class="nroffsh">SUBMODULES</h2>
+<p class="level0">
+<p class="level0">Only submodules using a gitfile (which means they were cloned with a Git version 1.7.8 or newer) will be removed from the work tree, as their repository lives inside the .git directory of the superproject. If a submodule (or one of those nested inside it) still uses a .git directory, git rm will fail - no matter if forced or not - to protect the submodule(cqs history. If it exists the submodule.&lt;name&gt; section in the <span Class="bold">gitmodules</span>(5) file will also be removed and that file will be staged (unless --cached or -n are used). 
+<p class="level0">A submodule is considered up-to-date when the HEAD is the same as recorded in the index, no tracked files are modified and no untracked files that aren(cqt ignored are present in the submodules work tree. Ignored files are deemed expendable and won(cqt stop a submodule(cqs work tree from being removed. 
+<p class="level0">If you only want to remove the local checkout of a submodule from your work tree without committing the removal, use <span Class="bold">git-submodule</span>(1) deinit instead. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git rm Documentation/e*.txt 
+<p class="level1">Removes all *.txt files from the index that are under the Documentation directory and any of its subdirectories. 
+<p class="level1">Note that the asterisk * is quoted from the shell in this example; this lets Git, and not the shell, expand the pathnames of files and subdirectories under the Documentation/ directory. 
+<p class="level0">
+<p class="level0">git rm -f git-*.sh 
+<p class="level1">Because this example lets the shell expand the asterisk (i.e. you are listing the files explicitly), it does not remove subdir/git-foo.sh. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Each time a superproject update removes a populated submodule (e.g. when switching between commits before and after the removal) a stale submodule checkout will remain in the old location. Removing the old directory is only safe when it uses a gitfile, as otherwise the history of the submodule will be deleted too. This step will be obsolete when recursive submodule update has been implemented. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-add</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

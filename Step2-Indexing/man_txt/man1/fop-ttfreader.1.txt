@@ -1,0 +1,50 @@
+FOP-TTFREADER(1)      User Contributed Perl Documentation     FOP-TTFREADER(1)
+
+
+
+NAME
+       fop-ttfreader --  A tool which reads TTF files and generates XML font
+       metrics file for use in FOP.
+
+SYNOPSIS
+       fop-ttfreader [options] fontfile.ttf xmlfile.xml
+
+OPTIONS
+       -enc ansi
+           with this option you can create a WinAnsi encoded font. The default
+           is to create a CID keyed font.  If you're not going to use
+           characters outside the pdfencoding range (almost the same as
+           iso-8889-1) you can add this option.
+
+       -ttcname fontname
+           if you're reading data from TrueType Collection (.ttc file) you
+           must specify which font from the collection you will read metrics
+           from. If you read from a .ttc file without this option, the
+           fontnames will be listed for you.
+
+       -fn fontname
+           default is to use the fontname in the .ttf file, but you can
+           override that name to make sure that the embedded font is used (if
+           you're embedding fonts) instead of installed fonts when viewing
+           documents with Acrobat Reader.
+
+EXAMPLES
+       "fop-ttfreader /usr/share/fonts/truetype/freefont/FreeSerif.ttf
+       freeserif.xml"
+           generates freeserif.xml file containing XML font metrics from
+           FreeSerif.ttf
+
+JAVA-WRAPPERS NOTE
+       This program is a shell script wrapper based on java-wrappers(7).  You
+       therefore benefit from several features; please see the java-
+       wrappers(7) manual page for more information about them.
+
+AUTHOR
+       Wrapper author: Arnaud Vandyck <avdyk@debian.org>
+
+SEE ALSO
+       fop(1), java-wrappers(7)
+
+
+
+Fop-TTFReader            Sun Nov  2 16:31:01 UTC 2014         FOP-TTFREADER(1)

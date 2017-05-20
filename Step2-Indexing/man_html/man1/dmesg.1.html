@@ -1,0 +1,95 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dmesg - print or control the kernel ring buffer <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dmesg</span> [options] 
+<p class="level0"><span Class="bold">dmesg --clear</span> <br><span Class="manpage">dmesg --read-clear  [options]</span><br><span Class="bold">dmesg --console-level  level</span> <br><span Class="bold">dmesg --console-on</span> <br><span Class="bold">dmesg --console-off</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dmesg</span> is used to examine or control the kernel ring buffer. 
+<p class="level0">The default action is to read all messages from the kernel ring buffer. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The <span Class="manpage">--clear</span>, <span Class="manpage">--read-clear</span>, <span Class="manpage">--console-on</span>, <span Class="manpage">--console-off</span>and <span Class="bold">--console-level</span> options are mutually exclusive. 
+<p class="level0">
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR, \fB--clear\fR</span> 
+<p class="level1">Clear the ring buffer. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR, \fB--read-clear\fR</span> 
+<p class="level1">Clear the ring buffer after first printing its contents. 
+<p class="level0"><a name="fB-DfR"></a><span class="nroffip">\fB-D\fR, \fB--console-off\fR</span> 
+<p class="level1">Disable the printing of messages to the console. 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR, \fB--show-delta\fR</span> 
+<p class="level1">Display the timestamp and the time delta spent between messages.  If used together with <span Class="bold">--notime</span> then only the time delta without the timestamp is printed. 
+<p class="level0"><a name="fB-EfR"></a><span class="nroffip">\fB-E\fR, \fB--console-on\fR</span> 
+<p class="level1">Enable printing messages to the console. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR, \fB--reltime\fR</span> 
+<p class="level1">Display the local time and the delta in human-readable format. 
+<p class="level0"><a name="fB-FfR"></a><span class="nroffip">\fB-F\fR, \fB--file \fIfile\fR</span> 
+<p class="level1">Read the messages from the given <span Class="emphasis">file .</span> 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR, \fB--facility \fIlist\fR</span> 
+<p class="level1">Restrict output to the given (comma-separated) <span Class="emphasis">list</span> of facilities.  For example: 
+<p class="level1">
+<p class="level2"><span Class="bold">dmesg --facility=daemon</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will print messages from system daemons only.  For all supported facilities see the <span Class="bold">--help</span> output. 
+<p class="level0"><a name="fB-HfR"></a><span class="nroffip">\fB-H\fR, \fB--human\fR</span> 
+<p class="level1">Enable human-readable output.  See also <span Class="bold">--color</span>, <span Class="bold">--reltime</span> and <span Class="bold">--nopager</span>. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB--help\fR</span> 
+<p class="level1">Display help text and exit. 
+<p class="level0"><a name="fB-kfR"></a><span class="nroffip">\fB-k\fR, \fB--kernel\fR</span> 
+<p class="level1">Print kernel messages. 
+<p class="level0"><a name="fB-LfR"></a><span class="nroffip">\fB-L\fR, \fB--color\fR[=\fIwhen\fR]</span> 
+<p class="level1">Colorize important messages (enabled by default).  The optional argument <span Class="emphasis">when</span> can be <span Class="bold">auto</span>, <span Class="bold">never</span> or <span Class="bold">always</span>.  If the <span Class="emphasis">when</span> argument is omitted, it defaults to <span Class="bold">auto</span>. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR, \fB--level \fIlist\fR</span> 
+<p class="level1">Restrict output to the given (comma-separated) <span Class="emphasis">list</span> of levels.  For example: 
+<p class="level1">
+<p class="level2"><span Class="bold">dmesg --level=err,warn</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">will print error and warning messages only.  For all supported levels see the <span Class="bold">--help</span> output. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--console-level \fIlevel\fR</span> 
+<p class="level1">Set the <span Class="emphasis">level</span> at which printing of messages is done to the console.  The <span Class="emphasis">level</span> is a level number or abbreviation of the level name.  For all supported levels see the <span Class="bold">--help</span> output. 
+<p class="level1">For example, <span Class="bold">-n 1</span> or <span Class="bold">-n alert</span> prevents all messages, except emergency (panic) messages, from appearing on the console.  All levels of messages are still written to <span Class="emphasis">/proc/kmsg ,</span> so <span Class="manpage">syslogd (8)</span>can still be used to control exactly where kernel messages appear.  When the <span Class="bold">-n</span> option is used, <span Class="bold">dmesg</span> will <span Class="emphasis">not</span> print or clear the kernel ring buffer. 
+<p class="level0"><a name="fB-PfR"></a><span class="nroffip">\fB-P\fR, \fB--nopager\fR</span> 
+<p class="level1">Do not pipe output into a pager.  A pager is enabled by default for <span Class="bold">--human</span> output. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR, \fB--raw\fR</span> 
+<p class="level1">Print the raw message buffer, i.e. do not strip the log-level prefixes. 
+<p class="level1">Note that the real raw format depends on the method how <span Class="manpage">dmesg (1)</span>reads kernel messages.  The /dev/kmsg device uses a different format than <span Class="manpage">syslog (2) .</span>For backward compatibility, <span Class="manpage">dmesg (1)</span>returns data always in the <span Class="manpage">syslog (2)</span>format.  It is possible to read the real raw data from /dev/kmsg by, for example, the command 'dd if=/dev/kmsg iflag=nonblock'. 
+<p class="level0"><a name="fB-SfR"></a><span class="nroffip">\fB-S\fR, \fB--syslog\fR</span> 
+<p class="level1">Force <span Class="bold">dmesg</span> to use the <span Class="manpage">syslog (2)</span>kernel interface to read kernel messages.  The default is to use /dev/kmsg rather than <span Class="manpage">syslog (2)</span>since kernel 3.5.0. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR, \fB--buffer-size \fIsize\fR</span> 
+<p class="level1">Use a buffer of <span Class="emphasis">size</span> to query the kernel ring buffer.  This is 16392 by default.  (The default kernel syslog buffer size was 4096 at first, 8192 since 1.3.54, 16384 since 2.1.113.)  If you have set the kernel buffer to be larger than the default, then this option can be used to view the entire buffer. 
+<p class="level0"><a name="fB-TfR"></a><span class="nroffip">\fB-T\fR, \fB--ctime\fR</span> 
+<p class="level1">Print human-readable timestamps. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Be aware that the timestamp could be inaccurate! The <span Class="bold">time</span> source used for the logs is <span Class="bold">not updated after</span> system <span Class="manpage">SUSPEND / RESUME .</span>
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR, \fB--notime\fR</span> 
+<p class="level1">Do not print kernel's timestamps. 
+<p class="level0"><a name="fB-ufR"></a><span class="nroffip">\fB-u\fR, \fB--userspace\fR</span> 
+<p class="level1">Print userspace messages. 
+<p class="level0"><a name="fB-VfR"></a><span class="nroffip">\fB-V\fR, \fB--version\fR</span> 
+<p class="level1">Display version information and exit. 
+<p class="level0"><a name="fB-wfR"></a><span class="nroffip">\fB-w\fR, \fB--follow\fR</span> 
+<p class="level1">Wait for new messages.  This feature is supported only on systems with a readable /dev/kmsg (since kernel 3.5.0). 
+<p class="level0"><a name="fB-xfR"></a><span class="nroffip">\fB-x\fR, \fB--decode\fR</span> 
+<p class="level1">Decode facility and level (priority) numbers to human-readable prefixes. 
+<p class="level0"><a name="fB--time-formatfR"></a><span class="nroffip">\fB--time-format\fR \fIformat\fR</span> 
+<p class="level1">Print timestamps using the given <span Class="emphasis">format</span>, which can be <span Class="manpage">ctime</span>, <span Class="manpage">reltime</span>, <span Class="manpage">delta</span>or <span Class="manpage">iso .</span>The first three formats are aliases of the time-format-specific options. The <span Class="bold">iso</span> format is a <span Class="bold">dmesg</span> implementation of the ISO-8601 timestamp format.  The purpose of this format is to make the comparing of timestamps between two systems, and any other parsing, easy.  The definition of the <span Class="bold">iso</span> timestamp is: YYYY-MM-DD&lt;T&gt;HH:MM:SS,&lt;microseconds&gt;&lt;-+&gt;&lt;timezone offset from UTC&gt;. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The <span Class="bold">iso</span> format has the same issue as <span Class="manpage">ctime :</span>the time may be inaccurate when a system is suspended and resumed. <a name="COLORS"></a><h2 class="nroffsh">COLORS</h2>
+<p class="level0">Implicit coloring can be disabled by an empty file <span Class="emphasis">/etc/terminal-colors.d/dmesg.disable</span>. See <span Class="manpage">terminal-colors.d (5)</span>for more details about colorization configuration. 
+<p class="level0">The logical color names supported by <span Class="bold">dmesg</span> are: 
+<p class="level0"><span Class="bold">subsys</span> The message sub-system prefix (e.g. "ACPI:"). 
+<p class="level0"><span Class="bold">time</span> The message timestamp. 
+<p class="level0"><span Class="bold">alert</span> The text of the message with the alert log priority. 
+<p class="level0"><span Class="bold">crit</span> The text of the message with the critical log priority. 
+<p class="level0"><span Class="bold">err</span> The text of the message with the error log priority. 
+<p class="level0"><span Class="bold">warn</span> The text of the message with the warning log priority. 
+<p class="level0"><span Class="bold">segfault</span> The text of the message that inform about segmentation fault. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">syslogd (8)</span>, <span Class="manpage">terminal-colors.d (5)</span><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Karel Zak 
+<p class="level0">
+<p class="level0"><br><span Class="bold">dmesg</span> was originally written by 
+<p class="level0">Theodore Ts'o 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The dmesg command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

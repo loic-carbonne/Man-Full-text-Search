@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">coqtop - The Coq Proof Assistant toplevel system 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">coqtop</span> [ <span Class="bold">options</span> ] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">coqtop</span> is the toplevel system of Coq, for interactive use. It reads phrases on the standard input, and prints results on the standard output. 
+<p class="level0">For batch-oriented use of Coq, see  <span Class="manpage">coqc(1).</span>
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h, --help</span> Help. Will give you the complete list of options accepted by coqtop. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I \ dir, \ --include \ dir</span> add directory  <span Class="emphasis">dir</span> in the include path 
+<p class="level0">
+<p class="level0"><span Class="bold">-R \ dir\ coqdir          </span> recursively map physical <span Class="emphasis">dir</span> to logical <span Class="emphasis">coqdir</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-top \ coqdir</span> set the toplevel name to be <span Class="emphasis">coqdir</span> instead of Top 
+<p class="level0">
+<p class="level0"><span Class="bold">-inputstate \ filename, \ -is \ filename </span> read state from file <span Class="emphasis">filename.coq</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-nois</span> start with an empty initial state 
+<p class="level0">
+<p class="level0"><span Class="bold">-outputstate filename</span> write state in file <span Class="emphasis">filename.coq</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-load-ml-object \ filename</span> load ML object file <span Class="emphasis">filenname</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-load-ml-source \ filename</span> load ML file <span Class="emphasis">filename</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-load-vernac-source \ filename, \ -l \ filename</span> load Coq file <span Class="emphasis">filename.v</span> (Load filename.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-load-vernac-source-verbose \ filename, \ -lv \ filename </span> load verbosely Coq file <span Class="emphasis">filename.v</span> (Load Verbose filename.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-load-vernac-object \ filename</span> load Coq object file <span Class="emphasis">filename.vo</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-require \ filename</span> load Coq object file <span Class="emphasis">filename.vo</span> and import it (Require Import filename.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-compile \ filename</span> compile Coq file <span Class="emphasis">filename.v </span> (implies  <span Class="bold">-batch</span> ) 
+<p class="level0">
+<p class="level0"><span Class="bold">-compile-verbose \ filename</span> verbosely compile Coq file <span Class="emphasis">filename.v</span> (implies  <span Class="bold">-batch</span> ) 
+<p class="level0">
+<p class="level0"><span Class="bold">-opt</span> run the native-code version of Coq 
+<p class="level0">
+<p class="level0"><span Class="bold">-byte</span> run the bytecode version of Coq 
+<p class="level0">
+<p class="level0"><span Class="bold">-where</span> print Coq's standard library location and exit 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> print Coq version and exit 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> skip loading of rcfile 
+<p class="level0">
+<p class="level0"><span Class="bold">-init-file \ filename</span> set the rcfile to <span Class="emphasis">filename</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-batch</span> batch mode (exits just after arguments parsing) 
+<p class="level0">
+<p class="level0"><span Class="bold">-boot</span> boot mode (implies <span Class="bold">-q</span> and <span Class="bold">-batch</span> ) 
+<p class="level0">
+<p class="level0"><span Class="bold">-emacs</span> tells Coq it is executed under Emacs 
+<p class="level0">
+<p class="level0"><span Class="bold">-dump-glob \ filename</span> dump globalizations in file f (to be used by <span Class="bold">coqdoc(1)</span> ) 
+<p class="level0">
+<p class="level0"><span Class="bold">-with-geoproof \ (yes|no)</span> to (de)activate special functions for Geoproof within Coqide (default is <span Class="emphasis">yes</span> ) 
+<p class="level0">
+<p class="level0"><span Class="bold">-impredicative-set</span> set sort Set impredicative 
+<p class="level0">
+<p class="level0"><span Class="bold">-dont-load-proofs</span> don't load opaque proofs in memory 
+<p class="level0">
+<p class="level0"><span Class="bold">-xml</span> export XML files either to the hierarchy rooted in the directory $COQ_XML_LIBRARY_ROOT (if set) or to stdout (if unset) 
+<p class="level0">
+<p class="level0"><span Class="bold">-quality</span> improve the legibility of the proof terms produced by some tactics 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">coqc (1)</span>, <span Class="manpage">coq-tex (1)</span>, <span Class="manpage">coqdep (1).</span><br><span Class="emphasis"></span> The Coq Reference Manual. <span Class="emphasis"></span> The Coq web site: <a href="http://coq.inria.fr">http://coq.inria.fr</a> 

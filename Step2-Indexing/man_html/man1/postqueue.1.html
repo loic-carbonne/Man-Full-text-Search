@@ -1,0 +1,129 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postqueue - Postfix queue control <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">postqueue</span> [<span class="bold">-v</span>] [<span class="bold">-c <span class="emphasis">config_dir</span>] <span class="bold">-f</span>
+<br><span class="bold">postqueue</span> [<span class="bold">-v</span>] [<span class="bold">-c <span class="emphasis">config_dir</span>] <span class="bold">-i <span class="emphasis">queue_id</span>
+<br><span class="bold">postqueue</span> [<span class="bold">-v</span>] [<span class="bold">-c <span class="emphasis">config_dir</span>] <span class="bold">-p</span>
+<br><span class="bold">postqueue</span> [<span class="bold">-v</span>] [<span class="bold">-c <span class="emphasis">config_dir</span>] <span class="bold">-s <span class="emphasis">site</span>
+</pre>
+<a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postqueue</span>(1) command implements the Postfix user interface for queue management. It implements operations that are traditionally available via the <span Class="bold">sendmail</span>(1) command. See the <span Class="bold">postsuper</span>(1) command for queue operations that require super-user privileges such as deleting a message from the queue or changing the status of a message. 
+<p class="level0">The following options are recognized: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">The <span Class="bold">main.cf</span> configuration file is in the named directory instead of the default configuration directory. See also the MAIL_CONFIG environment setting below. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR</span> 
+<p class="level1">Flush the queue: attempt to deliver all queued mail. 
+<p class="level1">This option implements the traditional "<span Class="bold">sendmail -q</span>" command, by contacting the Postfix <span Class="bold">qmgr</span>(8) daemon. 
+<p class="level1">Warning: flushing undeliverable mail frequently will result in poor delivery performance of all other mail. 
+<p class="level0"><a name="fB-i"></a><span class="nroffip">\fB-i \fIqueue_id\fR</span> 
+<p class="level1">Schedule immediate delivery of deferred mail with the specified queue ID. 
+<p class="level1">This option implements the traditional <span Class="bold">sendmail -qI</span> command, by contacting the <span Class="bold">flush</span>(8) server. 
+<p class="level1">This feature is available with Postfix version 2.4 and later. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Produce a traditional sendmail-style queue listing. This option implements the traditional <span Class="bold">mailq</span> command, by contacting the Postfix <span Class="bold">showq</span>(8) daemon. 
+<p class="level1">Each queue entry shows the queue file ID, message size, arrival time, sender, and the recipients that still need to be delivered.  If mail could not be delivered upon the last attempt, the reason for failure is shown. The queue ID string is followed by an optional status character: 
+<p class="level2">
+<p class="level1"><a name="fBfR"></a><span class="nroffip">\fB*\fR</span> 
+<p class="level2">The message is in the <span Class="bold">active</span> queue, i.e. the message is selected for delivery. 
+<p class="level1"><a name="fBfR"></a><span class="nroffip">\fB!\fR</span> 
+<p class="level2">The message is in the <span Class="bold">hold</span> queue, i.e. no further delivery attempt will be made until the mail is taken off hold. 
+<p class="level1">
+<p class="level0"><a name="fB-s"></a><span class="nroffip">\fB-s \fIsite\fR</span> 
+<p class="level1">Schedule immediate delivery of all mail that is queued for the named <span Class="emphasis">site</span>. A numerical site must be specified as a valid <a href="http://www.ietf.org/rfc/rfc5321.txt">RFC 5321</a> address literal enclosed in [], just like in email addresses. The site must be eligible for the "fast flush" service. See <span Class="bold">flush</span>(8) for more information about the "fast flush" service. 
+<p class="level1">This option implements the traditional "<span class="bold">sendmail -qR<span Class="emphasis">site</span>" command, by contacting the Postfix <span Class="bold">flush</span>(8) daemon. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. As of Postfix 2.3, this option is available for the super-user only. <a name="SECURITY"></a><h2 class="nroffsh">SECURITY</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">This program is designed to run with set-group ID privileges, so that it can connect to Postfix daemon processes. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Problems are logged to <span Class="bold">syslogd</span>(8) and to the standard error stream. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="MAILCONFIG"></a><span class="nroffip">MAIL_CONFIG</span> 
+<p class="level1">Directory with the <span Class="bold">main.cf</span> file. In order to avoid exploitation of set-group ID privileges, a non-standard directory is allowed only if: 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The name is listed in the standard <span Class="bold">main.cf</span> file with the <span Class="bold">alternate_config_directories</span> configuration parameter. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The command is invoked by the super-user. 
+<p class="level1"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBalternateconfigdirectories"></a><span class="nroffip">\fBalternate_config_directories (empty)\fR</span> 
+<p class="level1">A list of non-default Postfix configuration directories that may be specified with "-c config_directory" on the command line, or via the MAIL_CONFIG environment parameter. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBcommanddirectory"></a><span class="nroffip">\fBcommand_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of all postfix administrative commands. 
+<p class="level0"><a name="fBfastflushdomains"></a><span class="nroffip">\fBfast_flush_domains ($relay_domains)\fR</span> 
+<p class="level1">Optional list of destinations that are eligible for per-destination logfiles with mail that is queued to those destinations. 
+<p class="level0"><a name="fBimportenvironment"></a><span class="nroffip">\fBimport_environment (see 'postconf -d' output)\fR</span> 
+<p class="level1">The list of environment parameters that a Postfix process will import from a non-Postfix parent process. 
+<p class="level0"><a name="fBqueuedirectory"></a><span class="nroffip">\fBqueue_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of the Postfix top-level queue directory. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". 
+<p class="level0"><a name="fBtriggertimeout"></a><span class="nroffip">\fBtrigger_timeout (10s)\fR</span> 
+<p class="level1">The time limit for sending a trigger to a Postfix daemon (for example, the <span Class="bold">pickup</span>(8) or <span Class="bold">qmgr</span>(8) daemon). 
+<p class="level1">Available in Postfix version 2.2 and later: 
+<p class="level0"><a name="fBauthorizedflushusers"></a><span class="nroffip">\fBauthorized_flush_users (static:anyone)\fR</span> 
+<p class="level1">List of users who are authorized to flush the queue. 
+<p class="level0"><a name="fBauthorizedmailqusers"></a><span class="nroffip">\fBauthorized_mailq_users (static:anyone)\fR</span> 
+<p class="level1">List of users who are authorized to view the queue. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+/var/spool/postfix, mail queue
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+qmgr(8), queue manager
+showq(8), list mail queue
+flush(8), fast flush service
+sendmail(1), Sendmail-compatible user interface
+postsuper(1), privileged queue operations
+</pre>
+<a name="README"></a><h2 class="nroffsh">README FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Use "<span Class="bold">postconf readme_directory</span>" or "<span Class="bold">postconf html_directory</span>" to locate this information. 
+<p class="level0"><pre class="level0">
+ETRN_README, Postfix ETRN howto
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The postqueue command was introduced with Postfix version 1.1. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

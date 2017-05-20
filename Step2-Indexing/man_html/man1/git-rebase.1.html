@@ -1,0 +1,977 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-rebase - Forward-port local commits to the updated upstream head <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git rebase</span> [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;]
+&nbsp;       [&lt;upstream&gt; [&lt;branch&gt;]]
+<span class="emphasis">git rebase</span> [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;]
+&nbsp;       --root [&lt;branch&gt;]
+<span class="emphasis">git rebase</span> --continue | --skip | --abort | --edit-todo
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">If &lt;branch&gt; is specified, <span Class="emphasis">git rebase</span> will perform an automatic git checkout &lt;branch&gt; before doing anything else. Otherwise it remains on the current branch. 
+<p class="level0">If &lt;upstream&gt; is not specified, the upstream configured in branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge options will be used; see <span Class="bold">git-config</span>(1) for details. If you are currently not on any branch or if the current branch does not have a configured upstream, the rebase will abort. 
+<p class="level0">All changes made by commits in the current branch but that are not in &lt;upstream&gt; are saved to a temporary area. This is the same set of commits that would be shown by git log &lt;upstream&gt;..HEAD (or git log HEAD, if --root is specified). 
+<p class="level0">The current branch is reset to &lt;upstream&gt;, or &lt;newbase&gt; if the --onto option was supplied. This has the exact same effect as git reset --hard &lt;upstream&gt; (or &lt;newbase&gt;). ORIG_HEAD is set to point at the tip of the branch before the reset. 
+<p class="level0">The commits that were previously saved into the temporary area are then reapplied to the current branch, one by one, in order. Note that any commits in HEAD which introduce the same textual changes as a commit in HEAD..&lt;upstream&gt; are omitted (i.e., a patch already accepted upstream with a different commit message or timestamp will be skipped). 
+<p class="level0">It is possible that a merge failure will prevent this process from being completely automatic. You will have to resolve any such merge failure and run git rebase --continue. Another option is to bypass the commit that caused the merge failure with git rebase --skip. To check out the original &lt;branch&gt; and remove the .git/rebase-apply working files, use the command git rebase --abort instead. 
+<p class="level0">Assume the following history exists and the current branch is "topic": 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;         A---B---C topic
+&nbsp;        /
+&nbsp;   D---E---F---G master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">From this point, the result of either of the following commands: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase master
+git rebase master topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">would be: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;                 A*(Aq--B*(Aq--C*(Aq topic
+&nbsp;                /
+&nbsp;   D---E---F---G master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">NOTE:</span> The latter form is just a short-hand of git checkout topic followed by git rebase master. When rebase exits topic will remain the checked-out branch. 
+<p class="level0">If the upstream branch already contains a change you have made (e.g., because you mailed a patch which was applied upstream), then that commit will be skipped. For example, running (oqgit rebase master` on the following history (in which A(cq and A introduce the same set of changes, but have different committer information): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;         A---B---C topic
+&nbsp;        /
+&nbsp;   D---E---A*(Aq---F master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">will result in: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;                  B*(Aq---C*(Aq topic
+&nbsp;                 /
+&nbsp;   D---E---A*(Aq---F master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Here is how you would transplant a topic branch based on one branch to another, to pretend that you forked the topic branch from the latter branch, using rebase --onto. 
+<p class="level0">First let(cqs assume your <span Class="emphasis">topic</span> is based on branch <span Class="emphasis">next</span>. For example, a feature developed in <span Class="emphasis">topic</span> depends on some functionality which is found in <span Class="emphasis">next</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o  master
+&nbsp;        e
+&nbsp;         o---o---o---o---o  next
+&nbsp;                          e
+&nbsp;                           o---o---o  topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">We want to make <span Class="emphasis">topic</span> forked from branch <span Class="emphasis">master</span>; for example, because the functionality on which <span Class="emphasis">topic</span> depends was merged into the more stable <span Class="emphasis">master</span> branch. We want our tree to look like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o  master
+&nbsp;       |            e
+&nbsp;       |             o*(Aq--o*(Aq--o*(Aq  topic
+&nbsp;        e
+&nbsp;         o---o---o---o---o  next
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">We can get this using the following command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase --onto master next topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Another example of --onto option is to rebase part of a branch. If we have the following situation: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;                           H---I---J topicB
+&nbsp;                          /
+&nbsp;                 E---F---G  topicA
+&nbsp;                /
+&nbsp;   A---B---C---D  master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">then the command 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase --onto master topicA topicB
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">would result in: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;                H*(Aq--I*(Aq--J*(Aq  topicB
+&nbsp;               /
+&nbsp;               | E---F---G  topicA
+&nbsp;               |/
+&nbsp;   A---B---C---D  master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This is useful when topicB does not depend on topicA. 
+<p class="level0">A range of commits could also be removed with rebase. If we have the following situation: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   E---F---G---H---I---J  topicA
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">then the command 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase --onto topicA~5 topicA~3 topicA
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">would result in the removal of commits F and G: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   E---H*(Aq---I*(Aq---J*(Aq  topicA
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This is useful if F and G were flawed in some way, or should not be part of topicA. Note that the argument to --onto and the &lt;upstream&gt; parameter can be any valid commit-ish. 
+<p class="level0">In case of conflict, <span Class="emphasis">git rebase</span> will stop at the first problematic commit and leave conflict markers in the tree. You can use <span Class="emphasis">git diff</span> to locate the markers (&lt;&lt;&lt;&lt;&lt;&lt;) and make edits to resolve the conflict. For each file you edit, you need to tell Git that the conflict has been resolved, typically this would be done with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git add &lt;filename&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">After resolving the conflict manually and updating the index with the desired resolution, you can continue the rebasing process with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase --continue
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Alternatively, you can undo the <span Class="emphasis">git rebase</span> with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase --abort
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">rebase.stat 
+<p class="level1">Whether to show a diffstat of what changed upstream since the last rebase. False by default. 
+<p class="level0">
+<p class="level0">rebase.autosquash 
+<p class="level1">If set to true enable <span Class="emphasis">--autosquash</span> option by default. 
+<p class="level0">
+<p class="level0">rebase.autostash 
+<p class="level1">If set to true enable <span Class="emphasis">--autostash</span> option by default. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--onto &lt;newbase&gt; 
+<p class="level1">Starting point at which to create the new commits. If the --onto option is not specified, the starting point is &lt;upstream&gt;. May be any valid commit, and not just an existing branch name. 
+<p class="level1">As a special case, you may use "A...B" as a shortcut for the merge base of A and B if there is exactly one merge base. You can leave out at most one of A and B, in which case it defaults to HEAD. 
+<p class="level0">
+<p class="level0">&lt;upstream&gt; 
+<p class="level1">Upstream branch to compare against. May be any valid commit, not just an existing branch name. Defaults to the configured upstream for the current branch. 
+<p class="level0">
+<p class="level0">&lt;branch&gt; 
+<p class="level1">Working branch; defaults to HEAD. 
+<p class="level0">
+<p class="level0">--continue 
+<p class="level1">Restart the rebasing process after having resolved a merge conflict. 
+<p class="level0">
+<p class="level0">--abort 
+<p class="level1">Abort the rebase operation and reset HEAD to the original branch. If &lt;branch&gt; was provided when the rebase operation was started, then HEAD will be reset to &lt;branch&gt;. Otherwise HEAD will be reset to where it was when the rebase operation was started. 
+<p class="level0">
+<p class="level0">--keep-empty 
+<p class="level1">Keep the commits that do not change anything from its parents in the result. 
+<p class="level0">
+<p class="level0">--skip 
+<p class="level1">Restart the rebasing process by skipping the current patch. 
+<p class="level0">
+<p class="level0">--edit-todo 
+<p class="level1">Edit the todo list during an interactive rebase. 
+<p class="level0">
+<p class="level0">-m, --merge 
+<p class="level1">Use merging strategies to rebase. When the recursive (default) merge strategy is used, this allows rebase to be aware of renames on the upstream side. 
+<p class="level1">Note that a rebase merge works by replaying each commit from the working branch on top of the &lt;upstream&gt; branch. Because of this, when a merge conflict happens, the side reported as <span Class="emphasis">ours</span> is the so-far rebased series, starting with &lt;upstream&gt;, and <span Class="emphasis">theirs</span> is the working branch. In other words, the sides are swapped. 
+<p class="level0">
+<p class="level0">-s &lt;strategy&gt;, --strategy=&lt;strategy&gt; 
+<p class="level1">Use the given merge strategy. If there is no -s option <span Class="emphasis">git merge-recursive</span> is used instead. This implies --merge. 
+<p class="level1">Because <span Class="emphasis">git rebase</span> replays each commit from the working branch on top of the &lt;upstream&gt; branch using the given strategy, using the <span Class="emphasis">ours</span> strategy simply discards all patches from the &lt;branch&gt;, which makes little sense. 
+<p class="level0">
+<p class="level0">-X &lt;strategy-option&gt;, --strategy-option=&lt;strategy-option&gt; 
+<p class="level1">Pass the &lt;strategy-option&gt; through to the merge strategy. This implies --merge and, if no strategy has been specified, -s recursive. Note the reversal of <span Class="emphasis">ours</span> and <span Class="emphasis">theirs</span> as noted above for the -m option. 
+<p class="level0">
+<p class="level0">-S[&lt;keyid&gt;], --gpg-sign[=&lt;keyid&gt;] 
+<p class="level1">GPG-sign commits. 
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Be quiet. Implies --no-stat. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Be verbose. Implies --stat. 
+<p class="level0">
+<p class="level0">--stat 
+<p class="level1">Show a diffstat of what changed upstream since the last rebase. The diffstat is also controlled by the configuration option rebase.stat. 
+<p class="level0">
+<p class="level0">-n, --no-stat 
+<p class="level1">Do not show a diffstat as part of the rebase process. 
+<p class="level0">
+<p class="level0">--no-verify 
+<p class="level1">This option bypasses the pre-rebase hook. See also <span Class="bold">githooks</span>(5). 
+<p class="level0">
+<p class="level0">--verify 
+<p class="level1">Allows the pre-rebase hook to run, which is the default. This option can be used to override --no-verify. See also <span Class="bold">githooks</span>(5). 
+<p class="level0">
+<p class="level0">-C&lt;n&gt; 
+<p class="level1">Ensure at least &lt;n&gt; lines of surrounding context match before and after each change. When fewer lines of surrounding context exist they all must match. By default no context is ever ignored. 
+<p class="level0">
+<p class="level0">-f, --force-rebase 
+<p class="level1">Force a rebase even if the current branch is up-to-date and the command without --force would return without doing anything. 
+<p class="level1">You may find this (or --no-ff with an interactive rebase) helpful after reverting a topic branch merge, as this option recreates the topic branch with fresh commits so it can be remerged successfully without needing to "revert the reversion" (see the m[blue]<span Class="bold">revert-a-faulty-merge How-To</span>m[]s-2u[1]ds+2 for details). 
+<p class="level0">
+<p class="level0">--fork-point, --no-fork-point 
+<p class="level1">Use <span Class="emphasis">git merge-base --fork-point</span> to find a better common ancestor between upstream and branch when calculating which commits have have been introduced by branch (see <span Class="bold">git-merge-base</span>(1)). 
+<p class="level1">If no non-option arguments are given on the command line, then the default is --fork-point @{u} otherwise the upstream argument is interpreted literally unless the --fork-point option is specified. 
+<p class="level0">
+<p class="level0">--ignore-whitespace, --whitespace=&lt;option&gt; 
+<p class="level1">These flag are passed to the <span Class="emphasis">git apply</span> program (see <span Class="bold">git-apply</span>(1)) that applies the patch. Incompatible with the --interactive option. 
+<p class="level0">
+<p class="level0">--committer-date-is-author-date, --ignore-date 
+<p class="level1">These flags are passed to <span Class="emphasis">git am</span> to easily change the dates of the rebased commits (see <span Class="bold">git-am</span>(1)). Incompatible with the --interactive option. 
+<p class="level0">
+<p class="level0">-i, --interactive 
+<p class="level1">Make a list of the commits which are about to be rebased. Let the user edit that list before rebasing. This mode can also be used to split commits (see SPLITTING COMMITS below). 
+<p class="level0">
+<p class="level0">-p, --preserve-merges 
+<p class="level1">Instead of ignoring merges, try to recreate them. 
+<p class="level1">This uses the --interactive machinery internally, but combining it with the --interactive option explicitly is generally not a good idea unless you know what you are doing (see BUGS below). 
+<p class="level0">
+<p class="level0">-x &lt;cmd&gt;, --exec &lt;cmd&gt; 
+<p class="level1">Append "exec &lt;cmd&gt;" after each line creating a commit in the final history. &lt;cmd&gt; will be interpreted as one or more shell commands. 
+<p class="level1">This option can only be used with the --interactive option (see INTERACTIVE MODE below). 
+<p class="level1">You may execute several commands by either using one instance of --exec with several commands: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+git rebase -i --exec "cmd1 && cmd2 && ..."
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">or by giving more than one --exec: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+git rebase -i --exec "cmd1" --exec "cmd2" --exec ...
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">If --autosquash is used, "exec" lines will not be appended for the intermediate commits, and will only appear at the end of each squash/fixup series. 
+<p class="level0">
+<p class="level0">--root 
+<p class="level1">Rebase all commits reachable from &lt;branch&gt;, instead of limiting them with an &lt;upstream&gt;. This allows you to rebase the root commit(s) on a branch. When used with --onto, it will skip changes already contained in &lt;newbase&gt; (instead of &lt;upstream&gt;) whereas without --onto it will operate on every change. When used together with both --onto and --preserve-merges, <span Class="emphasis">all</span> root commits will be rewritten to have &lt;newbase&gt; as parent instead. 
+<p class="level0">
+<p class="level0">--autosquash, --no-autosquash 
+<p class="level1">When the commit log message begins with "squash! ..." (or "fixup! ..."), and there is a commit whose title begins with the same ..., automatically modify the todo list of rebase -i so that the commit marked for squashing comes right after the commit to be modified, and change the action of the moved commit from pick to squash (or fixup). Ignores subsequent "fixup! " or "squash! " after the first, in case you referred to an earlier fixup/squash with git commit --fixup/--squash. 
+<p class="level1">This option is only valid when the <span Class="emphasis">--interactive</span> option is used. 
+<p class="level1">If the <span Class="emphasis">--autosquash</span> option is enabled by default using the configuration variable rebase.autosquash, this option can be used to override and disable this setting. 
+<p class="level0">
+<p class="level0">--[no-]autostash 
+<p class="level1">Automatically create a temporary stash before the operation begins, and apply it after the operation ends. This means that you can run rebase on a dirty worktree. However, use with care: the final stash application after a successful rebase might result in non-trivial conflicts. 
+<p class="level0">
+<p class="level0">--no-ff 
+<p class="level1">With --interactive, cherry-pick all rebased commits instead of fast-forwarding over the unchanged ones. This ensures that the entire history of the rebased branch is composed of new commits. 
+<p class="level1">Without --interactive, this is a synonym for --force-rebase. 
+<p class="level1">You may find this helpful after reverting a topic branch merge, as this option recreates the topic branch with fresh commits so it can be remerged successfully without needing to "revert the reversion" (see the m[blue]<span Class="bold">revert-a-faulty-merge How-To</span>m[]s-2u[1]ds+2 for details). 
+<p class="level0"><a name="MERGE"></a><h2 class="nroffsh">MERGE STRATEGIES</h2>
+<p class="level0">
+<p class="level0">The merge mechanism (git merge and git pull commands) allows the backend <span Class="emphasis">merge strategies</span> to be chosen with -s option. Some strategies can also take their own options, which can be passed by giving -X&lt;option&gt; arguments to git merge and/or git pull. 
+<p class="level0">resolve 
+<p class="level1">This can only resolve two heads (i.e. the current branch and another branch you pulled from) using a 3-way merge algorithm. It tries to carefully detect criss-cross merge ambiguities and is considered generally safe and fast. 
+<p class="level0">
+<p class="level0">recursive 
+<p class="level1">This can only resolve two heads using a 3-way merge algorithm. When there is more than one common ancestor that can be used for 3-way merge, it creates a merged tree of the common ancestors and uses that as the reference tree for the 3-way merge. This has been reported to result in fewer merge conflicts without causing mismerges by tests done on actual merge commits taken from Linux 2.6 kernel development history. Additionally this can detect and handle merges involving renames. This is the default merge strategy when pulling or merging one branch. 
+<p class="level1">The <span Class="emphasis">recursive</span> strategy can take the following options: 
+<p class="level1">ours 
+<p class="level2">This option forces conflicting hunks to be auto-resolved cleanly by favoring <span Class="emphasis">our</span> version. Changes from the other tree that do not conflict with our side are reflected to the merge result. For a binary file, the entire contents are taken from our side. 
+<p class="level2">This should not be confused with the <span Class="emphasis">ours</span> merge strategy, which does not even look at what the other tree contains at all. It discards everything the other tree did, declaring <span Class="emphasis">our</span> history contains all that happened in it. 
+<p class="level1">
+<p class="level1">theirs 
+<p class="level2">This is the opposite of <span Class="emphasis">ours</span>. 
+<p class="level1">
+<p class="level1">patience 
+<p class="level2">With this option, <span Class="emphasis">merge-recursive</span> spends a little extra time to avoid mismerges that sometimes occur due to unimportant matching lines (e.g., braces from distinct functions). Use this when the branches to be merged have diverged wildly. See also <span Class="bold">git-diff</span>(1)--patience. 
+<p class="level1">
+<p class="level1">diff-algorithm=[patience|minimal|histogram|myers] 
+<p class="level2">Tells <span Class="emphasis">merge-recursive</span> to use a different diff algorithm, which can help avoid mismerges that occur due to unimportant matching lines (such as braces from distinct functions). See also <span Class="bold">git-diff</span>(1)--diff-algorithm. 
+<p class="level1">
+<p class="level1">ignore-space-change, ignore-all-space, ignore-space-at-eol 
+<p class="level2">Treats lines with the indicated type of whitespace change as unchanged for the sake of a three-way merge. Whitespace changes mixed with other changes to a line are not ignored. See also <span Class="bold">git-diff</span>(1)-b, -w, and --ignore-space-at-eol. 
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">If <span Class="emphasis">their</span> version only introduces whitespace changes to a line, <span Class="emphasis">our</span> version is used; 
+<p class="level2">
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">If <span Class="emphasis">our</span> version introduces whitespace changes but <span Class="emphasis">their</span> version includes a substantial change, <span Class="emphasis">their</span> version is used; 
+<p class="level2">
+<p class="level2">
+<p class="level3">
+<p class="level3">h'-04'(buh'+03'c 
+<p class="level3">
+<p class="level3">
+<p class="level3">
+<p class="level2"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level3">
+<p class="level3">Otherwise, the merge proceeds in the usual way. 
+<p class="level2">
+<p class="level1">
+<p class="level1">renormalize 
+<p class="level2">This runs a virtual check-out and check-in of all three stages of a file when resolving a three-way merge. This option is meant to be used when merging branches with different clean filters or end-of-line normalization rules. See "Merging branches with differing checkin/checkout attributes" in <span Class="bold">gitattributes</span>(5) for details. 
+<p class="level1">
+<p class="level1">no-renormalize 
+<p class="level2">Disables the renormalize option. This overrides the merge.renormalize configuration variable. 
+<p class="level1">
+<p class="level1">rename-threshold=&lt;n&gt; 
+<p class="level2">Controls the similarity threshold used for rename detection. See also <span Class="bold">git-diff</span>(1)-M. 
+<p class="level1">
+<p class="level1">subtree[=&lt;path&gt;] 
+<p class="level2">This option is a more advanced form of <span Class="emphasis">subtree</span> strategy, where the strategy makes a guess on how two trees must be shifted to match with each other when merging. Instead, the specified path is prefixed (or stripped from the beginning) to make the shape of two trees to match. 
+<p class="level1">
+<p class="level0">
+<p class="level0">octopus 
+<p class="level1">This resolves cases with more than two heads, but refuses to do a complex merge that needs manual resolution. It is primarily meant to be used for bundling topic branch heads together. This is the default merge strategy when pulling or merging more than one branch. 
+<p class="level0">
+<p class="level0">ours 
+<p class="level1">This resolves any number of heads, but the resulting tree of the merge is always that of the current branch head, effectively ignoring all changes from all other branches. It is meant to be used to supersede old development history of side branches. Note that this is different from the -Xours option to the <span Class="emphasis">recursive</span> merge strategy. 
+<p class="level0">
+<p class="level0">subtree 
+<p class="level1">This is a modified recursive strategy. When merging trees A and B, if B corresponds to a subtree of A, B is first adjusted to match the tree structure of A, instead of reading the trees at the same level. This adjustment is also done to the common ancestor tree. 
+<p class="level0">
+<p class="level0">With the strategies that use 3-way merge (including the default, <span Class="emphasis">recursive</span>), if a change is made on both branches, but later reverted on one of the branches, that change will be present in the merged result; some people find this behavior confusing. It occurs because only the heads and the merge base are considered when performing a merge, not the individual commits. The merge algorithm therefore considers the reverted change as no change at all, and substitutes the changed version instead. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">You should understand the implications of using <span Class="emphasis">git rebase</span> on a repository that you share. See also RECOVERING FROM UPSTREAM REBASE below. 
+<p class="level0">When the git-rebase command is run, it will first execute a "pre-rebase" hook if one exists. You can use this hook to do sanity checks and reject the rebase if it isn(cqt appropriate. Please see the template pre-rebase hook script for an example. 
+<p class="level0">Upon completion, &lt;branch&gt; will be the current branch. <a name="INTERACTIVE"></a><h2 class="nroffsh">INTERACTIVE MODE</h2>
+<p class="level0">
+<p class="level0">Rebasing interactively means that you have a chance to edit the commits which are rebased. You can reorder the commits, and you can remove them (weeding out bad or otherwise unwanted patches). 
+<p class="level0">The interactive mode is meant for this type of workflow: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">have a wonderful idea 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">hack on the code 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">prepare a series for submission 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">submit 
+<p class="level0">
+<p class="level0">where point 2. consists of several instances of 
+<p class="level0">a) regular use 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">finish something worthy of a commit 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">commit 
+<p class="level0">
+<p class="level0">b) independent fixup 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">realize that something does not work 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">fix that 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">commit it 
+<p class="level0">
+<p class="level0">Sometimes the thing fixed in b.2. cannot be amended to the not-quite perfect commit it fixes, because that commit is buried deeply in a patch series. That is exactly what interactive rebase is for: use it after plenty of "a"s and "b"s, by rearranging and editing commits, and squashing multiple commits into one. 
+<p class="level0">Start it with the last commit you want to retain as-is: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git rebase -i &lt;after-this-commit&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">An editor will be fired up with all the commits in your current branch (ignoring merge commits), which come after the given commit. You can reorder the commits in this list to your heart(cqs content, and you can remove them. The list looks more or less like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+pick deadbee The oneline of this commit
+pick fa1afe1 The oneline of the next commit
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The oneline descriptions are purely for your pleasure; <span Class="emphasis">git rebase</span> will not look at them but at the commit names ("deadbee" and "fa1afe1" in this example), so do not delete or edit the names. 
+<p class="level0">By replacing the command "pick" with the command "edit", you can tell <span Class="emphasis">git rebase</span> to stop after applying that commit, so that you can edit the files and/or the commit message, amend the commit, and continue rebasing. 
+<p class="level0">If you just want to edit the commit message for a commit, replace the command "pick" with the command "reword". 
+<p class="level0">If you want to fold two or more commits into one, replace the command "pick" for the second and subsequent commits with "squash" or "fixup". If the commits had different authors, the folded commit will be attributed to the author of the first commit. The suggested commit message for the folded commit is the concatenation of the commit messages of the first commit and of those with the "squash" command, but omits the commit messages of commits with the "fixup" command. 
+<p class="level0"><span Class="emphasis">git rebase</span> will stop when "pick" has been replaced with "edit" or when a command fails due to merge errors. When you are done editing and/or resolving conflicts you can continue with git rebase --continue. 
+<p class="level0">For example, if you want to reorder the last 5 commits, such that what was HEAD~4 becomes the new HEAD. To achieve that, you would call <span Class="emphasis">git rebase</span> like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git rebase -i HEAD~5
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">And move the first patch to the end of the list. 
+<p class="level0">You might want to preserve merges, if you have a history like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;          X
+&nbsp;           e
+&nbsp;        A---M---B
+&nbsp;       /
+---o---O---P---Q
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Suppose you want to rebase the side branch starting at "A" to "Q". Make sure that the current HEAD is "B", and call 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git rebase -i -p --onto Q O
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Reordering and editing commits usually creates untested intermediate steps. You may want to check that your history editing did not break anything by running a test, or at least recompiling at intermediate points in history by using the "exec" command (shortcut "x"). You may do so by creating a todo list like this one: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+pick deadbee Implement feature XXX
+fixup f1a5c00 Fix to feature XXX
+exec make
+pick c0ffeee The oneline of the next commit
+edit deadbab The oneline of the commit after
+exec cd subdir; make test
+...
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The interactive rebase will stop when a command fails (i.e. exits with non-0 status) to give you an opportunity to fix the problem. You can continue with git rebase --continue. 
+<p class="level0">The "exec" command launches the command in a shell (the one specified in $SHELL, or the default shell if $SHELL is not set), so you can use shell features (like "cd", "&gt;", ";" ...). The command is run from the root of the working tree. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git rebase -i --exec "make test"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This command lets you check that intermediate commits are compilable. The todo list becomes like that: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+pick 5928aea one
+exec make test
+pick 04d0fda two
+exec make test
+pick ba46169 three
+exec make test
+pick f4593f9 four
+exec make test
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SPLITTING"></a><h2 class="nroffsh">SPLITTING COMMITS</h2>
+<p class="level0">
+<p class="level0">In interactive mode, you can mark commits with the action "edit". However, this does not necessarily mean that <span Class="emphasis">git rebase</span> expects the result of this edit to be exactly one commit. Indeed, you can undo the commit, or you can add other commits. This can be used to split a commit into two: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Start an interactive rebase with git rebase -i &lt;commit&gt;^, where &lt;commit&gt; is the commit you want to split. In fact, any commit range will do, as long as it contains that commit. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Mark the commit you want to split with the action "edit". 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">When it comes to editing that commit, execute git reset HEAD^. The effect is that the HEAD is rewound by one, and the index follows suit. However, the working tree stays the same. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Now add the changes to the index that you want to have in the first commit. You can use git add (possibly interactively) or <span Class="emphasis">git gui</span> (or both) to do that. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Commit the now-current index with whatever commit message is appropriate now. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Repeat the last two steps until your working tree is clean. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Continue the rebase with git rebase --continue. 
+<p class="level0">
+<p class="level0">If you are not absolutely sure that the intermediate revisions are consistent (they compile, pass the testsuite, etc.) you should use <span Class="emphasis">git stash</span> to stash away the not-yet-committed changes after each commit, test, and amend the commit if fixes are necessary. <a name="RECOVERING"></a><h2 class="nroffsh">RECOVERING FROM UPSTREAM REBASE</h2>
+<p class="level0">
+<p class="level0">Rebasing (or any other form of rewriting) a branch that others have based work on is a bad idea: anyone downstream of it is forced to manually fix their history. This section explains how to do the fix from the downstream(cqs point of view. The real fix, however, would be to avoid rebasing the upstream in the first place. 
+<p class="level0">To illustrate, suppose you are in a situation where someone develops a <span Class="emphasis">subsystem</span> branch, and you are working on a <span Class="emphasis">topic</span> that is dependent on this <span Class="emphasis">subsystem</span>. You might end up with a history like the following: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o---o---o---o---o  master
+&nbsp;        e
+&nbsp;         o---o---o---o---o  subsystem
+&nbsp;                          e
+&nbsp;                           *---*---*  topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If <span Class="emphasis">subsystem</span> is rebased against <span Class="emphasis">master</span>, the following happens: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o---o---o---o  master
+&nbsp;        e                       e
+&nbsp;         o---o---o---o---o       o*(Aq--o*(Aq--o*(Aq--o*(Aq--o*(Aq  subsystem
+&nbsp;                          e
+&nbsp;                           *---*---*  topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you now continue development as usual, and eventually merge <span Class="emphasis">topic</span> to <span Class="emphasis">subsystem</span>, the commits from <span Class="emphasis">subsystem</span> will remain duplicated forever: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o---o---o---o  master
+&nbsp;        e                       e
+&nbsp;         o---o---o---o---o       o*(Aq--o*(Aq--o*(Aq--o*(Aq--o*(Aq--M  subsystem
+&nbsp;                          e                         /
+&nbsp;                           *---*---*-..........-*--*  topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Such duplicates are generally frowned upon because they clutter up history, making it harder to follow. To clean things up, you need to transplant the commits on <span Class="emphasis">topic</span> to the new <span Class="emphasis">subsystem</span> tip, i.e., rebase <span Class="emphasis">topic</span>. This becomes a ripple effect: anyone downstream from <span Class="emphasis">topic</span> is forced to rebase too, and so on! 
+<p class="level0">There are two kinds of fixes, discussed in the following subsections: 
+<p class="level0">Easy case: The changes are literally the same. 
+<p class="level1">This happens if the <span Class="emphasis">subsystem</span> rebase was a simple rebase and had no conflicts. 
+<p class="level0">
+<p class="level0">Hard case: The changes are not the same. 
+<p class="level1">This happens if the <span Class="emphasis">subsystem</span> rebase had conflicts, or used --interactive to omit, edit, squash, or fixup commits; or if the upstream used one of commit --amend, reset, or filter-branch. 
+<p class="level0"><a name="The"></a><h2 class="nroffsh">The easy case</h2>
+<p class="level0">
+<p class="level0">Only works if the changes (patch IDs based on the diff contents) on <span Class="emphasis">subsystem</span> are literally the same before and after the rebase <span Class="emphasis">subsystem</span> did. 
+<p class="level0">In that case, the fix is easy because <span Class="emphasis">git rebase</span> knows to skip changes that are already present in the new upstream. So if you say (assuming you(cqre on <span Class="emphasis">topic</span>) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   $ git rebase subsystem
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">you will end up with the fixed history 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   o---o---o---o---o---o---o---o  master
+&nbsp;                                e
+&nbsp;                                 o*(Aq--o*(Aq--o*(Aq--o*(Aq--o*(Aq  subsystem
+&nbsp;                                                  e
+&nbsp;                                                   *---*---*  topic
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="The"></a><h2 class="nroffsh">The hard case</h2>
+<p class="level0">
+<p class="level0">Things get more complicated if the <span Class="emphasis">subsystem</span> changes do not exactly correspond to the ones before the rebase. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level1"><span Class="bold">Note</span> 
+<p class="level1"><br>
+<p class="level1">While an "easy case recovery" sometimes appears to be successful even in the hard case, it may have unintended consequences. For example, a commit that was removed via git rebase --interactive will be <span Class="bold">resurrected</span>! 
+<p class="level1">
+<p class="level0">
+<p class="level0">The idea is to manually tell <span Class="emphasis">git rebase</span> "where the old <span Class="emphasis">subsystem</span> ended and your <span Class="emphasis">topic</span> began", that is, what the old merge-base between them was. You will have to find a way to name the last commit of the old <span Class="emphasis">subsystem</span>, for example: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">With the <span Class="emphasis">subsystem</span> reflog: after <span Class="emphasis">git fetch</span>, the old tip of <span Class="emphasis">subsystem</span> is at subsystem@{1}. Subsequent fetches will increase the number. (See <span Class="bold">git-reflog</span>(1).) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">Relative to the tip of <span Class="emphasis">topic</span>: knowing that your <span Class="emphasis">topic</span> has three commits, the old tip of <span Class="emphasis">subsystem</span> must be topic~3. 
+<p class="level0">
+<p class="level0">You can then transplant the old subsystem..topic to the new tip by saying (for the reflog case, and assuming you are on <span Class="emphasis">topic</span> already): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   $ git rebase --onto subsystem subsystem@{1}
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The ripple effect of a "hard case" recovery is especially bad: <span Class="emphasis">everyone</span> downstream from <span Class="emphasis">topic</span> will now have to perform a "hard case" recovery too! <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">The todo list presented by --preserve-merges --interactive does not represent the topology of the revision graph. Editing commits and rewording their commit messages should work fine, but attempts to reorder commits tend to produce counterintuitive results. 
+<p class="level0">For example, an attempt to rearrange 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+1 --- 2 --- 3 --- 4 --- 5
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">to 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+1 --- 2 --- 4 --- 3 --- 5
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">by moving the "pick 4" line will result in the following history: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       3
+&nbsp;      /
+1 --- 2 --- 4 --- 5
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">revert-a-faulty-merge How-To 
+<p class="level2">%file:///usr/share/doc/git/html/howto/revert-a-faulty-merge.html 
+<p class="level1">

@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">coq-tex - Process Coq phrases embedded in LaTeX files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">coq-tex</span> [ <span Class="bold">-o \ output-file</span> ] [ <span Class="bold">-n \ line-width</span> ] [ <span Class="bold">-image \ coq-image</span> ] [ <span Class="bold">-w</span> ] [ <span Class="bold">-v</span> ] [ <span Class="bold">-sl</span> ] [ <span Class="bold">-hrule</span> ] [ <span Class="bold">-small</span> ] <span Class="emphasis">input-file ...</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">coq-tex</span> filter extracts Coq phrases embedded in LaTeX files, evaluates them, and insert the outcome of the evaluation after each phrase. 
+<p class="level0">Three LaTeX environments are provided to include Coq code in the input files: 
+<p class="level0"><span Class="bold">coq_example</span> The phrases between \begin{coq_example} and \end{coq_example} are evaluated and copied into the output file. Each phrase is followed by the response of the toplevel loop. 
+<p class="level0"><span Class="bold">coq_example*</span> The phrases between \begin{coq_example*} and \end{coq_example*} are evaluated and copied into the output file. The responses of the toplevel loop are discarded. 
+<p class="level0"><span Class="bold">coq_eval</span> The phrases between \begin{coq_eval} and \end{coq_eval} are silently evaluated. They are not copied into the output file, and the responses of the toplevel loop are discarded. 
+<p class="level0">The resulting LaTeX code is stored in the file <span Class="emphasis">file \&.v.tex</span> if the input file has a name of the form <span Class="emphasis">file \&.tex,</span> otherwise the name of the output file is the name of the input file with `.v.tex' appended. 
+<p class="level0">The files produced by <span Class="bold">coq-tex</span> can be directly processed by LaTeX.  Both the Coq phrases and the toplevel output are typeset in typewriter font. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-o \ output-file</span> Specify the name of a file where the LaTeX output is to be stored. A dash `-' causes the LaTeX output to be printed on standard output. 
+<p class="level0"><span Class="bold">-n \ line-width</span> Set the line width. The default is 72 characters. The responses of the toplevel loop are folded if they are longer than the line width. No folding is performed on the Coq input text. 
+<p class="level0"><span Class="bold">-image \ coq-image</span> Cause the file <span Class="emphasis">coq-image</span> to be executed to evaluate the Coq phrases. By default, this is the command  <span Class="emphasis">coqtop</span> without specifying any path which is used to evaluate the Coq phrases. 
+<p class="level0"><span Class="bold">-w</span> Cause lines to be folded on a space character whenever possible, avoiding word cuts in the output. By default, folding occurs at the line width, regardless of word cuts. 
+<p class="level0"><span Class="bold">-v</span> Verbose mode. Prints the Coq answers on the standard output. Useful to detect errors in Coq phrases. 
+<p class="level0"><span Class="bold">-sl</span> Slanted mode. The Coq answers are written in a slanted font. 
+<p class="level0"><span Class="bold">-hrule</span> Horizontal lines mode. The Coq parts are written between two horizontal lines. 
+<p class="level0"><span Class="bold">-small</span> Small font mode. The Coq parts are written in a smaller font. 
+<p class="level0">
+<p class="level0"><a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">The \begin... and \end... phrases must sit on a line by themselves, with no characters before the backslash or after the closing brace. Each Coq phrase must be terminated by `.' at the end of a line. Blank space is accepted between `.' and the newline, but any other character will cause coq-tex to ignore the end of the phrase, resulting in an incorrect shuffling of the responses into the phrases. (The responses ``lag behind''.) 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">coqtop</span> (1). 

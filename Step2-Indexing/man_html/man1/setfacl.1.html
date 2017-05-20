@@ -1,0 +1,105 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setfacl - set file access control lists <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">setfacl</span> [-bkndRLPvh] [{-m|-x} acl_spec] [{-M|-X} acl_file] file ... 
+<p class="level0"><span Class="bold">setfacl</span> --restore=file 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This utility sets Access Control Lists (ACLs) of files and directories. On the command line, a sequence of commands is followed by a sequence of files (which in turn can be followed by another sequence of commands, ...). 
+<p class="level0">The options <span Class="emphasis">-m,</span> and <span Class="emphasis">-x</span> expect an ACL on the command line. Multiple ACL entries are separated by comma characters (`,'). The options <span Class="emphasis">-M,</span> and <span Class="emphasis">-X</span> read an ACL from a file or from standard input. The ACL entry format is described in Section ACL ENTRIES. 
+<p class="level0">The <span Class="emphasis">--set  and  --set-file</span> options set the ACL of a file or a directory. The previous ACL is replaced. ACL entries for this operation must include permissions. 
+<p class="level0">The <span Class="emphasis">-m (--modify)  and  -M (--modify-file)</span> options modify the ACL of a file or directory. ACL entries for this operation must include permissions. 
+<p class="level0">The <span Class="emphasis">-x (--remove)  and  -X (--remove-file)</span> options remove ACL entries. It is not an error to remove an entry which does not exist.  Only ACL entries without the <span Class="emphasis">perms</span> field are accepted as parameters, unless POSIXLY_CORRECT is defined. 
+<p class="level0">When reading from files using the  <span Class="emphasis">-M,</span> and <span Class="emphasis">-X</span> options, setfacl accepts the output getfacl produces. There is at most one ACL entry per line. After a Pound sign (`&#35;'), everything up to the end of the line is treated as a comment. 
+<p class="level0">If setfacl is used on a file system which does not support ACLs, setfacl operates on the file mode permission bits. If the ACL does not fit completely in the permission bits, setfacl modifies the file mode permission bits to reflect the ACL as closely as possible, writes an error message to standard error, and returns with an exit status greater than 0. 
+<p class="level0"><a name="PERMISSIONS"></a><h2 class="nroffsh">PERMISSIONS</h2>
+<p class="level0">The file owner and processes capable of CAP_FOWNER are granted the right to modify ACLs of a file. This is analogous to the permissions required for accessing the file mode. (On current Linux systems, root is the only user with the CAP_FOWNER capability.) 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">-b, --remove-all</span> Remove all extended ACL entries. The base ACL entries of the owner, group and others are retained. 
+<p class="level0"><span Class="emphasis">-k, --remove-default</span> Remove the Default ACL. If no Default ACL exists, no warnings are issued. 
+<p class="level0"><span Class="emphasis">-n, --no-mask</span> Do not recalculate the effective rights mask. The default behavior of setfacl is to recalculate the ACL mask entry, unless a mask entry was explicitly given. The mask entry is set to the union of all permissions of the owning group, and all named user and group entries. (These are exactly the entries affected by the mask entry). 
+<p class="level0"><span Class="emphasis">--mask</span> Do recalculate the effective rights mask, even if an ACL mask entry was explicitly given. (See the <span Class="emphasis">-n  option.)</span> 
+<p class="level0"><span Class="emphasis">-d, --default</span> All operations apply to the Default ACL. Regular ACL entries in the input set are promoted to Default ACL entries. Default ACL entries in the input set are discarded. (A warning is issued if that happens). 
+<p class="level0"><span Class="emphasis">--restore=file</span> Restore a permission backup created by `getfacl -R' or similar. All permissions of a complete directory subtree are restored using this mechanism. If the input contains owner comments or group comments, setfacl attempts to restore the owner and owning group. If the input contains flags comments (which define the setuid, setgid, and sticky bits), setfacl sets those three bits accordingly; otherwise, it clears them. This option cannot be mixed with other options except `--test'. 
+<p class="level0"><span Class="emphasis">--test</span> Test mode. Instead of changing the ACLs of any files, the resulting ACLs are listed. 
+<p class="level0"><span Class="emphasis">-R, --recursive</span> Apply operations to all files and directories recursively. This option cannot be mixed with `--restore'. 
+<p class="level0"><span Class="emphasis">-L, --logical</span> Logical walk, follow symbolic links to directories. The default behavior is to follow symbolic link arguments, and skip symbolic links encountered in subdirectories. Only effective in combination with -R. This option cannot be mixed with `--restore'. 
+<p class="level0"><span Class="emphasis">-P, --physical</span> Physical walk, do not follow symbolic links to directories. This also skips symbolic link arguments. Only effective in combination with -R. This option cannot be mixed with `--restore'. 
+<p class="level0"><span Class="emphasis">-v, --version</span> Print the version of setfacl and exit. 
+<p class="level0"><span Class="emphasis">-h, --help</span> Print help explaining the command line options. 
+<p class="level0"><span Class="emphasis">--</span> End of command line options. All remaining parameters are interpreted as file names, even if they start with a dash. 
+<p class="level0"><span Class="emphasis">-</span> If the file name parameter is a single dash, setfacl reads a list of files from standard input. 
+<p class="level0"><a name="ACL"></a><h2 class="nroffsh">ACL ENTRIES</h2>
+<p class="level0">The setfacl utility recognizes the following ACL entry formats (blanks inserted for clarity): 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Permissions of a named user. Permissions of the file owner if <span Class="emphasis">uid</span> is empty. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Permissions of a named group. Permissions of the owning group if <span Class="emphasis">gid</span> is empty. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Effective rights mask 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Permissions of others. 
+<p class="level0">Whitespace between delimiter characters and non-delimiter characters is ignored. 
+<p class="level0">
+<p class="level0">Proper ACL entries including permissions are used in modify and set operations. (options <span Class="emphasis">-m ,  -M ,  --set  and  --set-file ).</span> Entries without the <span Class="emphasis">perms</span> field are used for <span Class="emphasis">deletion</span> of entries (options <span Class="emphasis">-x  and  -X ).</span> 
+<p class="level0">For <span Class="emphasis">uid</span> and <span Class="emphasis">gid</span> you can specify either a name or a number. 
+<p class="level0">The <span Class="emphasis">perms</span> field is a combination of characters that indicate the permissions: read <span Class="emphasis">(r) ,</span> write <span Class="emphasis">(w) ,</span> execute <span Class="emphasis">(x) ,</span> execute only if the file is a directory or already has execute permission for some user <span Class="emphasis">(X) .</span> Alternatively, the <span Class="emphasis">perms</span> field can be an octal digit (0-7). 
+<p class="level0"><a name="AUTOMATICALLY"></a><h2 class="nroffsh">AUTOMATICALLY CREATED ENTRIES</h2>
+<p class="level0">Initially, files and directories contain only the three base ACL entries for the owner, the group, and others. There are some rules that need to be satisfied in order for an ACL to be valid: 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">The three base entries cannot be removed. There must be exactly one entry of each of these base entry types. 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">Whenever an ACL contains named user entries or named group objects, it must also contain an effective rights mask. 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">Whenever an ACL contains any Default ACL entries, the three Default ACL base entries (default owner, default group, and default others) must also exist. 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">Whenever a Default ACL contains named user entries or named group objects, it must also contain a default effective rights mask. 
+<p class="level1">To help the user ensure these rules, setfacl creates entries from existing entries under the following conditions: 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">If an ACL contains named user or named group entries, and no mask entry exists, a mask entry containing the same permissions as the group entry is created. Unless the <span Class="emphasis">-n</span> option is given, the permissions of the mask entry are further adjusted to include the union of all permissions affected by the mask entry. (See the <span Class="emphasis">-n</span> option description). 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">If a Default ACL entry is created, and the Default ACL contains no owner, owning group, or others entry, a copy of the ACL owner, owning group, or others entry is added to the Default ACL. 
+<p class="level0"><a name=""></a><span class="nroffip">* 4</span> 
+<p class="level1">If a Default ACL contains named user entries or named group entries, and no mask entry exists, a mask entry containing the same permissions as the default Default ACL's group entry is added. Unless the <span Class="emphasis">-n</span> option is given, the permissions of the mask entry are further adjusted to inclu de the union of all permissions affected by the mask entry. (See the <span Class="emphasis">-n</span> option description). 
+<p class="level1"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Granting an additional user read access 
+<p class="level1">
+<p class="level1">setfacl -m u:lisa:r file 
+<p class="level1">
+<p class="level0">
+<p class="level0">Revoking write access from all groups and all named users (using the effective rights mask) 
+<p class="level1">
+<p class="level1">setfacl -m m::rx file 
+<p class="level1">
+<p class="level0">
+<p class="level0">Removing a named group entry from a file's ACL 
+<p class="level1">
+<p class="level1">setfacl -x g:staff file 
+<p class="level1">
+<p class="level0">
+<p class="level0">Copying the ACL of one file to another 
+<p class="level1">
+<p class="level1">getfacl file1 | setfacl --set-file=- file2 
+<p class="level1">
+<p class="level0">
+<p class="level0">Copying the access ACL into the Default ACL 
+<p class="level1">
+<p class="level1">getfacl --access dir | setfacl -d -M- dir 
+<p class="level1">
+<p class="level0"><a name="CONFORMANCE"></a><h2 class="nroffsh">CONFORMANCE TO POSIX 1003.1e DRAFT STANDARD 17</h2>
+<p class="level0">If the environment variable POSIXLY_CORRECT is defined, the default behavior of setfacl changes as follows: All non-standard options are disabled. The ``default:'' prefix is disabled. The <span Class="emphasis">-x  and  -X</span> options also accept permission fields (and ignore them).  <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Andreas Gruenbacher, 
+<p class="level0">
+<p class="level0">Please send your bug reports, suggested features and comments to the above address. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">getfacl (1)</span>, <span Class="manpage">chmod (1)</span>, <span Class="manpage">umask (1)</span>, <span Class="manpage">acl (5)</span>

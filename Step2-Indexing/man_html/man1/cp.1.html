@@ -1,0 +1,52 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">cp - copy files and directories <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">cp</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">-T</span>] <span Class="emphasis">SOURCE DEST</span> <br><span Class="bold">cp</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">SOURCE</span>... <span Class="emphasis">DIRECTORY</span> <br><span Class="bold">cp</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">-t DIRECTORY SOURCE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Copy SOURCE to DEST, or multiple SOURCE(s) to DIRECTORY. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--archive</span> same as <span Class="bold">-dR</span> <span Class="bold">--preserve</span>=<span Class="emphasis">all</span> 
+<p class="level0"><span Class="bold">--attributes-only</span> don't copy the file data, just the attributes 
+<p class="level0"><span Class="bold">--backup</span>[=<span Class="emphasis">CONTROL</span>] make a backup of each existing destination file 
+<p class="level0"><span Class="bold">-b</span> like <span Class="bold">--backup</span> but does not accept an argument 
+<p class="level0"><span Class="bold">--copy-contents</span> copy contents of special files when recursive 
+<p class="level0"><span Class="bold">-d</span> same as <span Class="bold">--no-dereference</span> <span Class="bold">--preserve</span>=<span Class="emphasis">links</span> 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--force</span> if an existing destination file cannot be opened, remove it and try again (this option is ignored when the <span Class="bold">-n</span> option is also used) 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--interactive</span> prompt before overwrite (overrides a previous <span Class="bold">-n</span> option) 
+<p class="level0"><span Class="bold">-H</span> follow command-line symbolic links in SOURCE 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--link</span> hard link files instead of copying 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--dereference</span> always follow symbolic links in SOURCE 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--no-clobber</span> do not overwrite an existing file (overrides a previous <span Class="bold">-i</span> option) 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--no-dereference</span> never follow symbolic links in SOURCE 
+<p class="level0"><span Class="bold">-p</span> same as <span Class="bold">--preserve</span>=<span Class="emphasis">mode</span>,ownership,timestamps 
+<p class="level0"><span Class="bold">--preserve</span>[=<span Class="emphasis">ATTR_LIST</span>] preserve the specified attributes (default: mode,ownership,timestamps), if possible additional attributes: context, links, xattr, all 
+<p class="level0"><span Class="bold">--no-preserve</span>=<span Class="emphasis">ATTR_LIST</span> don't preserve the specified attributes 
+<p class="level0"><span Class="bold">--parents</span> use full source file name under DIRECTORY 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">-r</span>, <span Class="bold">--recursive</span> copy directories recursively 
+<p class="level0"><span Class="bold">--reflink</span>[=<span Class="emphasis">WHEN</span>] control clone/CoW copies. See below 
+<p class="level0"><span Class="bold">--remove-destination</span> remove each existing destination file before attempting to open it (contrast with <span Class="bold">--force</span>) 
+<p class="level0"><span Class="bold">--sparse</span>=<span Class="emphasis">WHEN</span> control creation of sparse files. See below 
+<p class="level0"><span Class="bold">--strip-trailing-slashes</span> remove any trailing slashes from each SOURCE argument 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--symbolic-link</span> make symbolic links instead of copying 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--suffix</span>=<span Class="emphasis">SUFFIX</span> override the usual backup suffix 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--target-directory</span>=<span Class="emphasis">DIRECTORY</span> copy all SOURCE arguments into DIRECTORY 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--no-target-directory</span> treat DEST as a normal file 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--update</span> copy only when the SOURCE file is newer than the destination file or when the destination file is missing 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> explain what is being done 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--one-file-system</span> stay on this file system 
+<p class="level0"><span Class="bold">-Z</span> set SELinux security context of destination file to default type 
+<p class="level0"><span Class="bold">--context</span>[=<span Class="emphasis">CTX</span>] like <span Class="bold">-Z</span>, or if CTX is specified then set the SELinux or SMACK security context to CTX 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">By default, sparse SOURCE files are detected by a crude heuristic and the corresponding DEST file is made sparse as well.  That is the behavior selected by <span Class="bold">--sparse</span>=<span Class="emphasis">auto</span>.  Specify <span Class="bold">--sparse</span>=<span Class="emphasis">always</span> to create a sparse DEST file whenever the SOURCE file contains a long enough sequence of zero bytes. Use <span Class="bold">--sparse</span>=<span Class="emphasis">never</span> to inhibit creation of sparse files. 
+<p class="level0">When <span Class="bold">--reflink</span>[=<span Class="emphasis">always</span>] is specified, perform a lightweight copy, where the data blocks are copied only when modified.  If this is not possible the copy fails, or if <span Class="bold">--reflink</span>=<span Class="emphasis">auto</span> is specified, fall back to a standard copy. 
+<p class="level0">The backup suffix is '~', unless set with <span Class="bold">--suffix</span> or SIMPLE_BACKUP_SUFFIX. The version control method may be selected via the <span Class="bold">--backup</span> option or through the VERSION_CONTROL environment variable.  Here are the values: 
+<p class="level0">none, off never make backups (even if <span Class="bold">--backup</span> is given) 
+<p class="level0">numbered, t make numbered backups 
+<p class="level0">existing, nil numbered if numbered backups exist, simple otherwise 
+<p class="level0">simple, never always make simple backups 
+<p class="level0">As a special case, cp makes a backup of SOURCE when the force and backup options are given and SOURCE and DEST are the same name for an existing, regular file. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Torbjorn Granlund, David MacKenzie, and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report cp translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/cp&gt; <br>or available locally via: info (aq(coreutils) cp invocation(aq 

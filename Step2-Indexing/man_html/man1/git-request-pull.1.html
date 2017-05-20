@@ -1,0 +1,83 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-request-pull - Generates a summary of pending changes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git request-pull</span> [-p] &lt;start&gt; &lt;url&gt; [&lt;end&gt;]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Generate a request asking your upstream project to pull changes into their tree. The request, printed to the standard output, summarizes the changes and indicates from where they can be pulled. 
+<p class="level0">The upstream project is expected to have the commit named by &lt;start&gt; and the output asks it to integrate the changes you made since that commit, up to the commit named by &lt;end&gt;, by visiting the repository named by &lt;url&gt;. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-p 
+<p class="level1">Include patch text in the output. 
+<p class="level0">
+<p class="level0">&lt;start&gt; 
+<p class="level1">Commit to start at. This names a commit that is already in the upstream history. 
+<p class="level0">
+<p class="level0">&lt;url&gt; 
+<p class="level1">The repository URL to be pulled from. 
+<p class="level0">
+<p class="level0">&lt;end&gt; 
+<p class="level1">Commit to end at (defaults to HEAD). This names the commit at the tip of the history you are asking to be pulled. 
+<p class="level1">When the repository named by &lt;url&gt; has the commit at a tip of a ref that is different from the ref you have locally, you can use the &lt;local&gt;:&lt;remote&gt; syntax, to have its local name, a colon :, and its remote name. 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">Imagine that you built your work on your master branch on top of the v1.0 release, and want it to be integrated to the project. First you push that change to your public repository for others to see: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git push https://git.ko.xz/project master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Then, you run this command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git request-pull v1.0 https://git.ko.xz/project master
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which will produce a request to the upstream, summarizing the changes between the v1.0 release and your master, to pull it from your public repository. 
+<p class="level0">If you pushed your change to a branch whose name is different from the one you have locally, e.g. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git push https://git.ko.xz/project master:for-linus
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">then you can ask that to be pulled with 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+git request-pull v1.0 https://git.ko.xz/project master:for-linus
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

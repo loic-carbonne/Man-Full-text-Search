@@ -1,0 +1,110 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">putty</span> - GUI SSH, Telnet and Rlogin client for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">putty</span>&nbsp;[&nbsp;<span class="emphasis">options</span>&nbsp;]&nbsp;[&nbsp;<span class="emphasis">host</span>&nbsp;]
+</pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">putty</span> is a graphical SSH, Telnet and Rlogin client for X. It is a direct port of the Windows SSH client of the same name. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The command-line options supported by <span Class="bold">putty</span> are: 
+<p class="level0"><a name="fB--displayfP"></a><span class="nroffip">\fB--display\fP \fIdisplay-name\fP</span> 
+<p class="level1">Specify the X display on which to open <span Class="bold">putty</span>. (Note this option has a double minus sign, even though none of the others do. This is because this option is supplied automatically by GTK. Sorry.) 
+<p class="level0"><a name="fB-fnfP"></a><span class="nroffip">\fB-fn\fP \fIfont-name\fP</span> 
+<p class="level1">Specify the font to use for normal text displayed in the terminal. 
+<p class="level0"><a name="fB-fbfP"></a><span class="nroffip">\fB-fb\fP \fIfont-name\fP</span> 
+<p class="level1">Specify the font to use for bold text displayed in the terminal. If the <span Class="bold">BoldAsColour</span> resource is set to 1 (the default), bold text will be displayed in different colours instead of a different font, so this option will be ignored. If <span Class="bold">BoldAsColour</span> is set to 0 or 2 and you do not specify a bold font, <span Class="bold">putty</span> will overprint the normal font to make it look bolder. 
+<p class="level0"><a name="fB-fwfP"></a><span class="nroffip">\fB-fw\fP \fIfont-name\fP</span> 
+<p class="level1">Specify the font to use for double-width characters (typically Chinese, Japanese and Korean text) displayed in the terminal. 
+<p class="level0"><a name="fB-fwbfP"></a><span class="nroffip">\fB-fwb\fP \fIfont-name\fP</span> 
+<p class="level1">Specify the font to use for bold double-width characters (typically Chinese, Japanese and Korean text). Like <span Class="bold">-fb</span>, this will be ignored unless the <span Class="bold">BoldAsColour</span> resource is set to 0 or 2. 
+<p class="level0"><a name="fB-geometryfP"></a><span class="nroffip">\fB-geometry\fP \fIgeometry\fP</span> 
+<p class="level1">Specify the size of the terminal, in rows and columns of text. See <span Class="emphasis">X(7)</span> for more information on the syntax of geometry specifications. 
+<p class="level0"><a name="fB-slfP"></a><span class="nroffip">\fB-sl\fP \fIlines\fP</span> 
+<p class="level1">Specify the number of lines of scrollback to save off the top of the terminal. 
+<p class="level0"><a name="fB-fgfP"></a><span class="nroffip">\fB-fg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the foreground colour to use for normal text. 
+<p class="level0"><a name="fB-bgfP"></a><span class="nroffip">\fB-bg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the background colour to use for normal text. 
+<p class="level0"><a name="fB-bfgfP"></a><span class="nroffip">\fB-bfg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the foreground colour to use for bold text, if the <span Class="bold">BoldAsColour</span> resource is set to 1 (the default) or 2. 
+<p class="level0"><a name="fB-bbgfP"></a><span class="nroffip">\fB-bbg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the foreground colour to use for bold reverse-video text, if the <span Class="bold">BoldAsColour</span> resource is set to 1 (the default) or 2. (This colour is best thought of as the bold version of the background colour; so it only appears when text is displayed <span Class="emphasis">in</span> the background colour.) 
+<p class="level0"><a name="fB-cfgfP"></a><span class="nroffip">\fB-cfg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the foreground colour to use for text covered by the cursor. 
+<p class="level0"><a name="fB-cbgfP"></a><span class="nroffip">\fB-cbg\fP \fIcolour\fP</span> 
+<p class="level1">Specify the background colour to use for text covered by the cursor. In other words, this is the main colour of the cursor. 
+<p class="level0"><a name="fB-titlefP"></a><span class="nroffip">\fB-title\fP \fItitle\fP</span> 
+<p class="level1">Specify the initial title of the terminal window. (This can be changed under control of the server.) 
+<p class="level0"><a name="fB-sb-fP"></a><span class="nroffip">\fB-sb-\fP or \fB+sb\fP</span> 
+<p class="level1">Tells <span Class="bold">putty</span> not to display a scroll bar. 
+<p class="level0"><a name="fB-sbfP"></a><span class="nroffip">\fB-sb\fP</span> 
+<p class="level1">Tells <span Class="bold">putty</span> to display a scroll bar: this is the opposite of <span Class="bold">-sb-</span>. This is the default option: you will probably only need to specify it explicitly if you have changed the default using the <span Class="bold">ScrollBar</span> resource. 
+<p class="level0"><a name="fB-logfP"></a><span class="nroffip">\fB-log\fP \fIfilename\fP</span> 
+<p class="level1">This option makes <span Class="bold">putty</span> log all the terminal output to a file as well as displaying it in the terminal. 
+<p class="level0"><a name="fB-csfP"></a><span class="nroffip">\fB-cs\fP \fIcharset\fP</span> 
+<p class="level1">This option specifies the character set in which <span Class="bold">putty</span> should assume the session is operating. This character set will be used to interpret all the data received from the session, and all input you type or paste into <span Class="bold">putty</span> will be converted into this character set before being sent to the session. 
+<p class="level2">
+<p class="level2">Any character set name which is valid in a MIME header (and supported by <span Class="bold">putty</span>) should be valid here (examples are `<span Class="bold">ISO-8859-1</span>', `<span Class="bold">windows-1252</span>' or `<span Class="bold">UTF-8</span>'). Also, any character encoding which is valid in an X logical font description should be valid (`<span Class="bold">ibm-cp437</span>', for example). 
+<p class="level2"><span Class="bold">putty</span>*(Aqs default behaviour is to use the same character encoding as its primary font. If you supply a Unicode (<span Class="bold">iso10646-1</span>) font, it will default to the UTF-8 character set. 
+<p class="level2">Character set names are case-insensitive.  
+<p class="level1">
+<p class="level0"><a name="fB-nethackfP"></a><span class="nroffip">\fB-nethack\fP</span> 
+<p class="level1">Tells <span Class="bold">putty</span> to enable NetHack keypad mode, in which the numeric keypad generates the NetHack <span Class="bold">hjklyubn</span> direction keys. This enables you to play NetHack with the numeric keypad without having to use the NetHack <span Class="bold">number_pad</span> option (which requires you to press `<span Class="bold">n</span>' before any repeat count). So you can move with the numeric keypad, and enter repeat counts with the normal number keys. 
+<p class="level0"><a name="fB-helpfP"></a><span class="nroffip">\fB-help\fP, \fB--help\fP</span> 
+<p class="level1">Display a message summarizing the available options. 
+<p class="level0"><a name="fB-pgpfpfP"></a><span class="nroffip">\fB-pgpfp\fP</span> 
+<p class="level1">Display the fingerprints of the PuTTY PGP Master Keys, to aid in verifying new files released by the PuTTY team. 
+<p class="level0"><a name="fB-loadfP"></a><span class="nroffip">\fB-load\fP \fIsession\fP</span> 
+<p class="level1">Load a saved session by name. This allows you to run a saved session straight from the command line without having to go through the configuration box first. 
+<p class="level0"><a name="fB-sshfP"></a><span class="nroffip">\fB-ssh\fP, \fB-telnet\fP, \fB-rlogin\fP, \fB-raw\fP, \fB-serial\fP</span> 
+<p class="level1">Select the protocol <span Class="bold">putty</span> will use to make the connection. 
+<p class="level0"><a name="fB-lfP"></a><span class="nroffip">\fB-l\fP \fIusername\fP</span> 
+<p class="level1">Specify the username to use when logging in to the server. 
+<p class="level0"><a name="fB-LfP"></a><span class="nroffip">\fB-L\fP \fB[\fP\fIsrcaddr\fP\fB:]\fP\fIsrcport\fP\fB:\fP\fIdesthost\fP\fB:\fP\fIdestport\fP</span> 
+<p class="level1">Set up a local port forwarding: listen on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and forward any connections over the SSH connection to the destination address <span Class="emphasis">desthost</span>:<span Class="emphasis">destport</span>. Only works in SSH. 
+<p class="level0"><a name="fB-RfP"></a><span class="nroffip">\fB-R\fP \fB[\fP\fIsrcaddr\fP\fB:]\fP\fIsrcport\fP\fB:\fP\fIdesthost\fP\fB:\fP\fIdestport\fP</span> 
+<p class="level1">Set up a remote port forwarding: ask the SSH server to listen on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and to forward any connections back over the SSH connection where the client will pass them on to the destination address <span Class="emphasis">desthost</span>:<span Class="emphasis">destport</span>. Only works in SSH. 
+<p class="level0"><a name="fB-DfP"></a><span class="nroffip">\fB-D\fP [\fIsrcaddr\fP:]\fIsrcport\fP</span> 
+<p class="level1">Set up dynamic port forwarding. The client listens on <span Class="emphasis">srcport</span> (or <span Class="emphasis">srcaddr</span>:<span Class="emphasis">srcport</span> if specified), and implements a SOCKS server. So you can point SOCKS-aware applications at this port and they will automatically use the SSH connection to tunnel all their connections. Only works in SSH. 
+<p class="level0"><a name="fB-PfP"></a><span class="nroffip">\fB-P\fP \fIport\fP</span> 
+<p class="level1">Specify the port to connect to the server on. 
+<p class="level0"><a name="fB-AfP"></a><span class="nroffip">\fB-A\fP, \fB-a\fP</span> 
+<p class="level1">Enable (<span Class="bold">-A</span>) or disable (<span Class="bold">-a</span>) SSH agent forwarding. Currently this only works with OpenSSH and SSH-1. 
+<p class="level0"><a name="fB-XfP"></a><span class="nroffip">\fB-X\fP, \fB-x\fP</span> 
+<p class="level1">Enable (<span Class="bold">-X</span>) or disable (<span Class="bold">-x</span>) X11 forwarding. 
+<p class="level0"><a name="fB-TfP"></a><span class="nroffip">\fB-T\fP, \fB-t\fP</span> 
+<p class="level1">Enable (<span Class="bold">-t</span>) or disable (<span Class="bold">-T</span>) the allocation of a pseudo-terminal at the server end. 
+<p class="level0"><a name="fB-CfP"></a><span class="nroffip">\fB-C\fP</span> 
+<p class="level1">Enable zlib-style compression on the connection. 
+<p class="level0"><a name="fB-1fP"></a><span class="nroffip">\fB-1\fP, \fB-2\fP</span> 
+<p class="level1">Select SSH protocol version 1 or 2. 
+<p class="level0"><a name="fB-ifP"></a><span class="nroffip">\fB-i\fP \fIkeyfile\fP</span> 
+<p class="level1">Specify a private key file to use for authentication. For SSH-2 keys, this key file must be in PuTTY's format, not OpenSSH's or anyone else's. 
+<p class="level0"><a name="fB-sercfgfP"></a><span class="nroffip">\fB-sercfg\fP \fIconfiguration-string\fP</span> 
+<p class="level1">Specify the configuration parameters for the serial port, in <span Class="bold">-serial</span> mode. <span Class="emphasis">configuration-string</span> should be a comma-separated list of configuration parameters as follows: 
+<p class="level2">
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">Any single digit from 5 to 9 sets the number of data bits. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">`<span Class="bold">1</span>', `<span Class="bold">1.5</span>' or `<span Class="bold">2</span>' sets the number of stop bits. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">Any other numeric string is interpreted as a baud rate. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">A single lower-case letter specifies the parity: `<span Class="bold">n</span>' for none, `<span Class="bold">o</span>' for odd, `<span Class="bold">e</span>' for even, `<span Class="bold">m</span>' for mark and `<span Class="bold">s</span>' for space. 
+<p class="level1"><a name="fBbufP"></a><span class="nroffip">\fB\(bu\fP</span> 
+<p class="level2">A single upper-case letter specifies the flow control: `<span Class="bold">N</span>' for none, `<span Class="bold">X</span>' for XON/XOFF, `<span Class="bold">R</span>' for RTS/CTS and `<span Class="bold">D</span>' for DSR/DTR. 
+<p class="level1"><a name="SAVED"></a><h2 class="nroffsh">SAVED SESSIONS</h2>
+<p class="level0">
+<p class="level0">Saved sessions are stored in a <span Class="bold">.putty/sessions</span> subdirectory in your home directory. <a name="MORE"></a><h2 class="nroffsh">MORE INFORMATION</h2>
+<p class="level0">
+<p class="level0">For more information on PuTTY, it's probably best to go and look at the manual on the web page: 
+<p class="level0"><span Class="bold">http://www.chiark.greenend.org.uk/~sgtatham/putty/</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">This man page isn't terribly complete. 

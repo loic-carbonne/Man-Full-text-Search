@@ -1,0 +1,223 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_ctl - initialize, start, stop, or control a PostgreSQL server <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">init[db]</span> [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] [<span Class="bold">-o</span>&nbsp;<span Class="emphasis">initdb-options</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">start</span> [<span Class="bold">-w</span>] [<span Class="bold">-t</span>&nbsp;<span Class="emphasis">seconds</span>] [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] [<span Class="bold">-l</span>&nbsp;<span Class="emphasis">filename</span>] [<span Class="bold">-o</span>&nbsp;<span Class="emphasis">options</span>] [<span Class="bold">-p</span>&nbsp;<span Class="emphasis">path</span>] [<span Class="bold">-c</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">stop</span> [<span Class="bold">-W</span>] [<span Class="bold">-t</span>&nbsp;<span Class="emphasis">seconds</span>] [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] [<span Class="bold">-m</span>&nbsp;<span Class="bold">s[mart]</span>&nbsp;|&nbsp;<span Class="bold">f[ast]</span>&nbsp;|&nbsp;<span Class="bold">i[mmediate]</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">restart</span> [<span Class="bold">-w</span>] [<span Class="bold">-t</span>&nbsp;<span Class="emphasis">seconds</span>] [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] [<span Class="bold">-c</span>] [<span Class="bold">-m</span>&nbsp;<span Class="bold">s[mart]</span>&nbsp;|&nbsp;<span Class="bold">f[ast]</span>&nbsp;|&nbsp;<span Class="bold">i[mmediate]</span>] [<span Class="bold">-o</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">reload</span> [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">status</span> [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">promote</span> [<span Class="bold">-s</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">kill</span> <span Class="emphasis">signal_name</span> <span Class="emphasis">process_id</span> 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">register</span> [<span Class="bold">-N</span>&nbsp;<span Class="emphasis">servicename</span>] [<span Class="bold">-U</span>&nbsp;<span Class="emphasis">username</span>] [<span Class="bold">-P</span>&nbsp;<span Class="emphasis">password</span>] [<span Class="bold">-D</span>&nbsp;<span Class="emphasis">datadir</span>] [<span Class="bold">-S</span>&nbsp;<span Class="bold">a[uto]</span>&nbsp;|&nbsp;<span Class="bold">d[emand]</span>] [<span Class="bold">-w</span>] [<span Class="bold">-t</span>&nbsp;<span Class="emphasis">seconds</span>] [<span Class="bold">-s</span>] [<span Class="bold">-o</span>&nbsp;<span Class="emphasis">options</span>] 
+<p class="level0"><span Class="bold">pg_ctl</span> <span Class="bold">unregister</span> [<span Class="bold">-N</span>&nbsp;<span Class="emphasis">servicename</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">pg_ctl is a utility for initializing a PostgreSQL database cluster, starting, stopping, or restarting the PostgreSQL database server (<span Class="bold">postgres</span>(1)), or displaying the status of a running server. Although the server can be started manually, pg_ctl encapsulates tasks such as redirecting log output and properly detaching from the terminal and process group. It also provides convenient options for controlled shutdown. 
+<p class="level0">The <span Class="bold">init</span> or <span Class="bold">initdb</span> mode creates a new PostgreSQL database cluster. A database cluster is a collection of databases that are managed by a single server instance. This mode invokes the <span Class="bold">initdb</span> command. See <span Class="bold">initdb</span>(1) for details. 
+<p class="level0">In <span Class="bold">start</span> mode, a new server is launched. The server is started in the background, and its standard input is attached to /dev/null (or nul on Windows). On Unix-like systems, by default, the server*(Aqs standard output and standard error are sent to pg_ctl*(Aqs standard output (not standard error). The standard output of pg_ctl should then be redirected to a file or piped to another process such as a log rotating program like rotatelogs; otherwise <span Class="bold">postgres</span> will write its output to the controlling terminal (from the background) and will not leave the shell*(Aqs process group. On Windows, by default the server*(Aqs standard output and standard error are sent to the terminal. These default behaviors can be changed by using <span Class="bold">-l</span> to append the server*(Aqs output to a log file. Use of either <span Class="bold">-l</span> or output redirection is recommended. 
+<p class="level0">In <span Class="bold">stop</span> mode, the server that is running in the specified data directory is shut down. Three different shutdown methods can be selected with the <span Class="bold">-m</span> option. (lqSmart(rq mode (the default) waits for all active clients to disconnect and any online backup to finish. If the server is in hot standby, recovery and streaming replication will be terminated once all clients have disconnected. (lqFast(rq mode does not wait for clients to disconnect and will terminate an online backup in progress. All active transactions are rolled back and clients are forcibly disconnected, then the server is shut down. (lqImmediate(rq mode will abort all server processes immediately, without a clean shutdown. This will lead to a crash-recovery run on the next restart. 
+<p class="level0">
+<p class="level0"><span Class="bold">restart</span> mode effectively executes a stop followed by a start. This allows changing the <span Class="bold">postgres</span> command-line options. <span Class="bold">restart</span> might fail if relative paths specified were specified on the command-line during server start. 
+<p class="level0">
+<p class="level0"><span Class="bold">reload</span> mode simply sends the <span Class="bold">postgres</span> process a SIGHUP signal, causing it to reread its configuration files (postgresql.conf, pg_hba.conf, etc.). This allows changing of configuration-file options that do not require a complete restart to take effect. 
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> mode checks whether a server is running in the specified data directory. If it is, the PID and the command line options that were used to invoke it are displayed. If the server is not running, the process returns an exit status of 3. If an accessible data directory is not specified, the process returns an exit status of 4. 
+<p class="level0">In <span Class="bold">promote</span> mode, the standby server that is running in the specified data directory is commanded to exit recovery and begin read-write operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">kill</span> mode allows you to send a signal to a specified process. This is particularly valuable for Microsoft Windows which does not have a kill command. Use --help to see a list of supported signal names. 
+<p class="level0">
+<p class="level0"><span Class="bold">register</span> mode allows you to register a system service on Microsoft Windows. The <span Class="bold">-S</span> option allows selection of service start type, either (lqauto(rq (start service automatically on system startup) or (lqdemand(rq (start service on demand). 
+<p class="level0">
+<p class="level0"><span Class="bold">unregister</span> mode allows you to unregister a system service on Microsoft Windows. This undoes the effects of the <span Class="bold">register</span> command. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> <br><span Class="bold">--core-file</span> 
+<p class="level1">Attempt to allow server crashes to produce core files, on platforms where this is possible, by lifting any soft resource limit placed on core files. This is useful in debugging or diagnosing problems by allowing a stack trace to be obtained from a failed server process. 
+<p class="level0">
+<p class="level0"><span Class="bold">-D </span><span class="bold"><span Class="emphasis">datadir</span></span> <br><span Class="bold">--pgdata </span><span class="bold"><span Class="emphasis">datadir</span></span> 
+<p class="level1">Specifies the file system location of the database configuration files. If this is omitted, the environment variable <span Class="bold">PGDATA</span> is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l </span><span class="bold"><span Class="emphasis">filename</span></span> <br><span Class="bold">--log </span><span class="bold"><span Class="emphasis">filename</span></span> 
+<p class="level1">Append the server log output to <span Class="emphasis">filename</span>. If the file does not exist, it is created. The umask is set to 077, so access to the log file is disallowed to other users by default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-m </span><span class="bold"><span Class="emphasis">mode</span></span> <br><span Class="bold">--mode </span><span class="bold"><span Class="emphasis">mode</span></span> 
+<p class="level1">Specifies the shutdown mode. <span Class="emphasis">mode</span> can be smart, fast, or immediate, or the first letter of one of these three. If this is omitted, smart is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o </span><span class="bold"><span Class="emphasis">options</span></span> 
+<p class="level1">Specifies options to be passed directly to the <span Class="bold">postgres</span> command. 
+<p class="level1">The options should usually be surrounded by single or double quotes to ensure that they are passed through as a group. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o </span><span class="bold"><span Class="emphasis">initdb-options</span></span> 
+<p class="level1">Specifies options to be passed directly to the <span Class="bold">initdb</span> command. 
+<p class="level1">The options should usually be surrounded by single or double quotes to ensure that they are passed through as a group. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">path</span></span> 
+<p class="level1">Specifies the location of the postgres executable. By default the postgres executable is taken from the same directory as <span Class="bold">pg_ctl</span>, or failing that, the hard-wired installation directory. It is not necessary to use this option unless you are doing something unusual and get errors that the postgres executable was not found. 
+<p class="level1">In init mode, this option analogously specifies the location of the initdb executable. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span> <br><span Class="bold">--silent</span> 
+<p class="level1">Print only errors, no informational messages. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> <br><span Class="bold">--timeout</span> 
+<p class="level1">The maximum number of seconds to wait when waiting for startup or shutdown to complete. The default is 60 seconds. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the pg_ctl version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> 
+<p class="level1">Wait for the startup or shutdown to complete. Waiting is the default option for shutdowns, but not startups. When waiting for startup, <span Class="bold">pg_ctl</span> repeatedly attempts to connect to the server. When waiting for shutdown, <span Class="bold">pg_ctl</span> waits for the server to remove its PID file. This option allows the entry of an SSL passphrase on startup. <span Class="bold">pg_ctl</span> returns an exit code based on the success of the startup or shutdown. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> 
+<p class="level1">Do not wait for startup or shutdown to complete. This is the default for start and restart modes. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about pg_ctl command line arguments, and exit. 
+<p class="level0"><a name="Options"></a><h2 class="nroffsh">Options for Windows</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-N </span><span class="bold"><span Class="emphasis">servicename</span></span> 
+<p class="level1">Name of the system service to register. The name will be used as both the service name and the display name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-P </span><span class="bold"><span Class="emphasis">password</span></span> 
+<p class="level1">Password for the user to start the service. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S </span><span class="bold"><span Class="emphasis">start-type</span></span> 
+<p class="level1">Start type of the system service to register. start-type can be auto, or demand, or the first letter of one of these two. If this is omitted, auto is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name for the user to start the service. For domain users, use the format DOMAINeusername. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATA</span> 
+<p class="level1">Default data directory location. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">pg_ctl</span>, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). For additional server variables, see <span Class="bold">postgres</span>(1). <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">postmaster.pid 
+<p class="level1">The existence of this file in the data directory is used to help pg_ctl determine if the server is currently running. 
+<p class="level0">
+<p class="level0">postmaster.opts 
+<p class="level1">If this file exists in the data directory, pg_ctl (in <span Class="bold">restart</span> mode) will pass the contents of the file as options to postgres, unless overridden by the <span Class="bold">-o</span> option. The contents of this file are also displayed in <span Class="bold">status</span> mode. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><a name="Starting"></a><h2 class="nroffsh">Starting the Server</h2>
+<p class="level0">
+<p class="level0">To start the server: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl start</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To start the server, waiting until the server is accepting connections: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl -w start</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To start the server using port 5433, and running without <span Class="bold">fsync</span>, use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl -o "-F -p 5433" start</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Stopping"></a><h2 class="nroffsh">Stopping the Server</h2>
+<p class="level0">
+<p class="level0">To stop the server, use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl stop</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-m</span> option allows control over <span Class="emphasis">how</span> the server shuts down: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl stop -m fast</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Restarting"></a><h2 class="nroffsh">Restarting the Server</h2>
+<p class="level0">
+<p class="level0">Restarting the server is almost equivalent to stopping the server and starting it again, except that <span Class="bold">pg_ctl</span> saves and reuses the command line options that were passed to the previously running instance. To restart the server in the simplest form, use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl restart</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To restart the server, waiting for it to shut down and restart: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl -w restart</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To restart using port 5433, disabling <span Class="bold">fsync</span> upon restart: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl -o "-F -p 5433" restart</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="Showing"></a><h2 class="nroffsh">Showing the Server Status</h2>
+<p class="level0">
+<p class="level0">Here is sample status output from pg_ctl: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">pg_ctl status</span>
+pg_ctl: server is running (PID: 13718)
+/usr/local/pgsql/bin/postgres "-D" "/usr/local/pgsql/data" "-p" "5433" "-B" "128"
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This is the command line that would be invoked in restart mode. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">initdb</span>(1), <span Class="bold">postgres</span>(1) 

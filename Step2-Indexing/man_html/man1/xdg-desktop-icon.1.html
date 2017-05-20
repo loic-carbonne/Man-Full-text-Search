@@ -1,0 +1,141 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-desktop-icon - command line tool for (un)installing icons to the desktop <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-desktop-icon</span> install [<span Class="bold">--novendor</span>] <span Class="emphasis">FILE</span> 
+<p class="level0"><span Class="bold">xdg-desktop-icon</span> uninstall <span Class="emphasis">FILE</span> 
+<p class="level0"><span Class="bold">xdg-desktop-icon</span> {<span Class="bold">--help</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The xdg-desktop-icon program can be used to install an application launcher or other file on the desktop of the current user. 
+<p class="level0">An application launcher is represented by a *.desktop file. Desktop files are defined by the freedesktop.org Desktop Entry Specification. The most important aspects of *.desktop files are summarized below. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">install 
+<p class="level1">Installs <span Class="emphasis">FILE</span> to the desktop of the current user. <span Class="emphasis">FILE</span> can be a *.desktop file or any other type of file. 
+<p class="level0">
+<p class="level0">uninstall 
+<p class="level1">Removes <span Class="emphasis">FILE</span> from the desktop of the current user. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--novendor</span> 
+<p class="level1">Normally, xdg-desktop-icon checks to ensure that a *.desktop file to be installed has a vendor prefix. This option can be used to disable that check. 
+<p class="level1">A vendor prefix consists of alpha characters ([a-zA-Z]) and is terminated with a dash ("-"). Companies and organizations are encouraged to use a word or phrase, preferably the organizations name, for which they hold a trademark as their vendor prefix. The purpose of the vendor prefix is to prevent name conflicts. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="DESKTOP"></a><h2 class="nroffsh">DESKTOP FILES</h2>
+<p class="level0">
+<p class="level0">An application launcher can be added to the desktop by installing a *.desktop file. A *.desktop file consists of a <span Class="emphasis">[Desktop Entry]</span> header followed by several <span Class="emphasis">Key</span>=<span Class="emphasis">Value</span> lines. 
+<p class="level0">A *.desktop file can provide a name and description for an application in several different languages. This is done by adding a language code as used by LC_MESSAGES in square brackets behind the <span Class="emphasis">Key</span>. This way one can specify different values for the same <span Class="emphasis">Key</span> depending on the currently selected language. 
+<p class="level0">The following keys are often used: 
+<p class="level0">Value=1.0 
+<p class="level1">This is a mandatory field to indicate that the *.desktop file follows the 1.0 version of the specification. 
+<p class="level0">
+<p class="level0">Type=Application 
+<p class="level1">This is a mandatory field that indicates that the *.desktop file describes an application launcher. 
+<p class="level0">
+<p class="level0">Name=<span Class="emphasis">Application Name</span> 
+<p class="level1">The name of the application. For example <span Class="emphasis">Mozilla</span> 
+<p class="level0">
+<p class="level0">GenericName=<span Class="emphasis">Generic Name</span> 
+<p class="level1">A generic description of the application. For example <span Class="emphasis">Web Browser</span> 
+<p class="level0">
+<p class="level0">Comment=<span Class="emphasis">Comment</span> 
+<p class="level1">Optional field to specify a tooltip for the application. For example <span Class="emphasis">Visit websites on the Internet</span> 
+<p class="level0">
+<p class="level0">Icon=<span Class="emphasis">Icon File</span> 
+<p class="level1">The icon to use for the application. This can either be an absolute path to an image file or an icon-name. If an icon-name is provided an image lookup by name is done in the user*(Aqs current icon theme. The <span Class="bold">xdg-icon-resource</span> command can be used to install image files into icon themes. The advantage of using an icon-name instead of an absolute path is that with an icon-name the application icon can be provided in several different sizes as well as in several differently themed styles. 
+<p class="level0">
+<p class="level0">Exec=<span Class="emphasis">Command Line</span> 
+<p class="level1">The command line to start the application. If the application can open files the %f placeholder should be specified. When a file is dropped on the application launcher the %f is replaced with the file path of the dropped file. If multiple files can be specified on the command line the %F placeholder should be used instead of %f. If the application is able to open URLs in addition to local files then %u or %U can be used instead of %f or %F. 
+<p class="level0">
+<p class="level0">For a complete overview of the *.desktop file format please visit m[blue]<span Class="bold">%http://www.freedesktop.org/wiki/Specifications/desktop-entry-spec</span>m[] <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">xdg-desktop-icon honours the following environment variables: 
+<p class="level0">XDG_UTILS_DEBUG_LEVEL 
+<p class="level1">Setting this environment variable to a non-zero numerical value makes xdg-desktop-icon do more verbose reporting on stderr. Setting a higher value increases the verbosity. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">One of the files passed on the command line did not exist. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0">
+<p class="level0"><span Class="bold">5</span> 
+<p class="level1">No permission to read one of the files passed on the command line. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-icon-resource</span>(1) <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">The company ShinyThings Inc. has developed an application named "WebMirror" and would like to add a launcher for for on the desktop. The company will use "shinythings" as its vendor id. In order to add the application to the desktop there needs to be a .desktop file for the application: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+shinythings-webmirror.desktop:
+&nbsp;
+&nbsp; [Desktop Entry]
+&nbsp; Encoding=UTF-8
+&nbsp; Type=Application
+&nbsp;
+&nbsp; Exec=webmirror
+&nbsp; Icon=shinythings-webmirror
+&nbsp;
+&nbsp; Name=WebMirror
+&nbsp; Name[nl]=WebSpiegel
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Now the xdg-desktop-icon tool can be used to add the webmirror.desktop file to the desktop: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-desktop-icon install ./shinythings-webmirror.desktop
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To add a README file to the desktop as well, the following command can be used: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-desktop-icon install ./shinythings-README
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Kevin Krammer</span> 
+<p class="level1">Author. 
+<p class="level0">
+<p class="level0"><span Class="bold">Jeremy White</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2006 <br>

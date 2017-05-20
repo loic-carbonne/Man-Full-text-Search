@@ -1,0 +1,66 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">debconf-mergetemplate - merge together multiple debconf template files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;debconf-mergetemplate [options] [templates.ll ...] templates 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Note: This utility is deprecated. You should switch to using po-debconf's po2debconf program. 
+<p class="level0">This program is useful if you have multiple debconf templates files which you want to merge together into one big file. All the specified files will be read in, merged, and output to standard output. 
+<p class="level0">This can be especially useful if you are dealing with translated template files. In this case, you might have your main template file, plus several other files provided by the translators. These files will have translated fields in them, and maybe the translators left in the english versions of the fields they translated, for their reference. 
+<p class="level0">So, you want to merge together all the translated templates files with your main templates file. Any fields that are unique to the translated files need to be added in to the correct templates, but any fields they have in common should be superseded by the fields in the main file (which might be more up-to-date). 
+<p class="level0">This program handles that case properly, just list each of the translated templates files, and then your main templates file last. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="--outdated"></a><span class="nroffip">--outdated 4</span> 
+<p class="level1">
+<p class="level1">Merge in even outdated translations. The default is to drop them with a warning message. 
+<p class="level0"><a name="--drop-old-templates"></a><span class="nroffip">--drop-old-templates 4</span> 
+<p class="level1">
+<p class="level1">If a translation has an entire template that is not in the master file (and thus is probably an old template), drop that entire template. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debconf-getlang</span>|(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Joey Hess &lt;joeyh@debian.org&gt; 

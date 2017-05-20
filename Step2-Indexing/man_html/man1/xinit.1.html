@@ -1,0 +1,67 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xinit - X Window System initializer <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xinit</span> [ [ <span Class="emphasis">client</span> ] <span Class="emphasis">options</span> .|.|. ] [ <span Class="bold">-\^-</span> [ <span Class="emphasis">server</span> ] [ <span Class="emphasis">display</span> ] <span Class="emphasis">options</span> .|.|. ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">xinit</span> program is used to start the X Window System server and a first client program on systems that are not using a display manager such as <span Class="manpage">xdm (1)</span>or in environments that use multiple window systems.  When this first client exits, <span Class="bold">xinit</span> will kill the X server and then terminate. 
+<p class="level0">If no specific client program is given on the command line, <span Class="bold">xinit</span> will look for a file in the user's home directory called <span Class="emphasis">.xinitrc</span> to run as a shell script to start up client programs. If no such file exists, <span Class="bold">xinit</span> will use the following as a default: 
+<p class="level0">	xterm  -geometry  +1+1  -n  login  -display  :0 
+<p class="level0">
+<p class="level0">If no specific server program is given on the command line, <span Class="bold">xinit</span> will look for a file in the user's home directory called <span Class="emphasis">.xserverrc</span> to run as a shell script to start up the server. If no such file exists, <span Class="emphasis">xinit</span> will use the following as a default: 
+<p class="level0">	X  :0 
+<p class="level0">Note that this assumes that there is a program named <span Class="emphasis">X</span> in the current search path.  The site administrator should, therefore, make a link to the appropriate type of server on the machine, or create a shell script that runs <span Class="bold">xinit</span> with the appropriate server. 
+<p class="level0">Note, when using a <span Class="emphasis">.xserverrc</span> script be sure to ``exec'' the real X server. Failing to do this can make the X server slow to start and exit.  For example: 
+<p class="level0">	exec Xdisplaytype 
+<p class="level0">An important point is that programs which are run by <span Class="emphasis">.xinitrc</span> should be run in the background if they do not exit right away, so that they don't prevent other programs from starting up. However, the last long-lived program started (usually a window manager or terminal emulator) should be left in the foreground so that the script won't exit (which indicates that the user is done and that <span Class="bold">xinit</span> should exit). 
+<p class="level0">An alternate client and/or server may be specified on the command line.  The desired client program and its arguments should be given as the first command line arguments to <span Class="bold">xinit</span>.  To specify a particular server command line, append a double dash (-^-) to the <span Class="bold">xinit</span> command line (after any client and arguments) followed by the desired server command. 
+<p class="level0">Both the client program name and the server program name must begin with a slash (/) or a period (.).  Otherwise, they are treated as an arguments to be appended to their respective startup lines.  This makes it possible to add arguments (for example, foreground and background colors) without having to retype the whole command line. 
+<p class="level0">If an explicit server name is not given and the first argument following the double dash (-^-) is a colon followed by a digit, <span Class="bold">xinit</span> will use that number as the display number instead of zero.  All remaining arguments are appended to the server command line. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Below are several examples of how command line arguments in <span Class="bold">xinit</span> are used. 
+<p class="level0"><span Class="bold">xinit</span> This will start up a server named <span Class="emphasis">X</span> and run the user's <span Class="emphasis">.xinitrc</span>, if it exists, or else start an <span Class="emphasis">xterm</span>. 
+<p class="level0"><span Class="bold">xinit -\^- /usr/bin/Xvnc  :1</span> This is how one could start a specific type of server on an alternate display. 
+<p class="level0"><span Class="bold">xinit -geometry =80x65+10+10 -fn 8x13 -j -fg white -bg navy</span> This will start up a server named <span Class="emphasis">X</span>, and will append the given arguments to the default <span Class="emphasis">xterm</span> command.  It will ignore <span Class="emphasis">.xinitrc</span>. 
+<p class="level0"><span Class="bold">xinit -e widgets -\^- ./Xorg -l -c</span> This will use the command <span Class="emphasis">./Xorg -l -c</span> to start the server and will append the arguments <span Class="emphasis">-e widgets</span> to the default <span Class="emphasis">xterm</span> command. 
+<p class="level0"><span Class="bold">xinit /usr/ucb/rsh fasthost cpupig -display ws:1 -\^-  :1 -a 2 -t 5</span> This will start a server named <span Class="emphasis">X</span> on display 1 with the arguments <span Class="emphasis">-a 2 -t 5</span>.  It will then start a remote shell on the machine <span Class="bold">fasthost</span> in which it will run the command <span Class="emphasis">cpupig</span>, telling it to display back on the local workstation. 
+<p class="level0">Below is a sample <span Class="emphasis">.xinitrc</span> that starts a clock, several terminals, and leaves the window manager running as the ``last'' application.  Assuming that the window manager has been configured properly, the user then chooses the ``Exit'' menu item to shut down X. 
+<p class="level0">
+<p class="level0"><pre class="level0">
+xrdb -load $HOME/.Xresources
+xsetroot -solid gray &
+xclock -g 50x50-0+0 -bw 0 &
+xload -g 50x50-50+0 -bw 0 &
+xterm -g 80x24+0+0 &
+xterm -g 80x24+0-0 &
+twm
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Sites that want to create a common startup environment could simply create a default <span Class="emphasis">.xinitrc</span> that references a site-wide startup file: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+&#35;!/bin/sh
+. /etc/X11/xinit/site.xinitrc
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Another approach is to write a script that starts <span Class="bold">xinit</span> with a specific shell script.  Such scripts are usually named <span Class="emphasis">x11</span>, <span Class="emphasis">xstart</span>, or <span Class="emphasis">startx</span> and are a convenient way to provide a simple interface for novice users: 
+<p class="level0">
+<p class="level0"><pre class="level0">
+&#35;!/bin/sh
+xinit /etc/X11/xinit/site.xinitrc -^- /usr/bin/X -br
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> This variable gets set to the name of the display to which clients should connect. 
+<p class="level0"><span Class="bold">XINITRC</span> This variable specifies an init file containing shell commands to start up the initial windows.  By default, <span Class="emphasis">.xinitrc</span> in the home directory will be used. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">.xinitrc</span> default client script 
+<p class="level0"><span Class="emphasis">xterm</span> client to run if <span Class="emphasis">.xinitrc</span> does not exist 
+<p class="level0"><span Class="emphasis">.xserverrc</span> default server script 
+<p class="level0"><span Class="emphasis">X</span> server to run if <span Class="emphasis">.xserverrc</span> does not exist <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">X (7)</span>, <span Class="manpage">startx (1)</span>, <span Class="manpage">Xserver (1)</span>, <span Class="manpage">Xorg (1)</span>, <span Class="manpage">xorg.conf (5)</span>, <span Class="manpage">xterm (1)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Bob Scheifler, MIT Laboratory for Computer Science 

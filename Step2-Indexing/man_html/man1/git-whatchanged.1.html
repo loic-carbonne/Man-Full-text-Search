@@ -1,0 +1,27 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-whatchanged - Show logs with difference each commit introduces <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git whatchanged</span> &lt;option&gt;...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Shows commit logs and diff output each commit introduces. 
+<p class="level0">New users are encouraged to use <span Class="bold">git-log</span>(1) instead. The whatchanged command is essentially the same as <span Class="bold">git-log</span>(1) but defaults to show the raw format diff output and to skip merges. 
+<p class="level0">The command is kept primarily for historical reasons; fingers of many people who learned Git long before git log was invented by reading Linux kernel mailing list are trained to type it. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git whatchanged -p v2.6.12.. include/scsi drivers/scsi 
+<p class="level1">Show as patches the commits since version <span Class="emphasis">v2.6.12</span> that changed any file in the include/scsi or drivers/scsi subdirectories 
+<p class="level0">
+<p class="level0">git whatchanged --since="2 weeks ago" -- gitk 
+<p class="level1">Show the changes during the last two weeks to the file <span Class="emphasis">gitk</span>. The "--" is necessary to avoid confusion with the <span Class="bold">branch</span> named <span Class="emphasis">gitk</span> 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

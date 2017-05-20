@@ -1,0 +1,139 @@
+LOGGER(1)                        User Commands                       LOGGER(1)
+
+
+
+NAME
+       logger - a shell command interface to the syslog(3) system log module
+
+SYNOPSIS
+       logger [options] [message]
+
+DESCRIPTION
+       logger  makes  entries  in the system log.  It provides a shell command
+       interface to the syslog(3) system log module.
+
+OPTIONS
+       -d, --udp
+              Use datagram (UDP) only.  By default the connection is tried  to
+              the syslog port defined in /etc/services, which is often 514.
+
+       -h, --help
+              Display help text and exit.
+
+       -i, --id
+              Log the process ID of the logger process with each line.
+
+
+       -n, --server server
+              Write to the specified remote syslog server instead of to
+              the builtin syslog routines.  Unless --udp  or  --tcp  is
+              specified, logger will first try to use UDP, but if thist
+              fails a TCP connection is attempted.
+
+       -P, --port port
+              Use the specified port.
+
+       -f, --file file
+              Log the contents of the specified file.  This option can-
+              not be combined with a command-line message.
+
+       -p, --priority priority
+              Enter  the message into the log with the specified prior-
+              ity.  The priority may be specified numerically or  as  a
+              facility.level  pair.   For  example, -p local3.info logs
+              the message as informational in the local3 facility.  The
+              default is user.notice.
+
+       --prio-prefix
+              Look for a syslog prefix on every line read from standard
+              input.  This prefix is a  number  within  angle  brackets
+              that contains both the facility and the level.  This dec-
+              imal prefix is constructed by multiplying the facility by
+              8   and  then  adding  the  level.   Thus,  for  example,
+              local0.info, facility=16 and level=6, becomes <134>.
+
+              If the prefix contains no facility, the facility defaults
+              to  what is specified by the -p option.  Similarly, if no
+              prefix is provided, the line is logged using the -p  pri-
+              ority.
+
+              This option doesn't affect a command-line message.
+
+       -s, --stderr
+              Output  the  message  to standard error as well as to the
+              system log.
+
+       -T, --tcp
+              Use stream (TCP) only.   By  default  the  connection  is
+              tried  to  the syslog-conn port defined in /etc/services,
+              which is often 601.
+
+       -t, --tag tag
+              Mark every line to be logged with the specified tag.
+
+       -u, --socket socket
+              Write to the specified socket instead of to  the  builtin
+              syslog routines.
+
+       --journald [file]
+              Write  systemd  journal  entry.   The  entry is read from
+              stdin or input file.  Each new line  must  begin  with  a
+              field  that is accepted by journald, see systemd.journal-
+              fields(7) for details.  Use of MESSAGE_ID field is gener-
+              ally good idea, as they make finding entries easy.
+
+              $ printf "%s\n%s\n%s\n" MESSAGE_ID=86184c3b1aa444f58ebe7b30fec1438b DOGS=bark "CARAVAN=goes on" | logger --journald
+              $ logger --journald=entry.txt
+
+              Notice  that  --journald  will  ignore  values  of  other
+              options, such as priority.  If priority is needed it must
+              be within input, and use PRIORITY field.  The simple exe-
+              cution of journalctl will  display  MESSAGE  field.   Use
+              journalctl  --output  json-pretty  to  see  rest  of  the
+              fields.
+
+       -V, --version
+              Display version information and exit.
+
+       --     End the argument list.  This is to allow the  message  to
+              start with a hyphen (-).
+
+       message
+              Write  this message to the log; if not specified, and the
+              -f flag is not provided, standard input is logged.
+
+       The logger utility exits 0  on  success,  and  >0  if  an  error
+       occurs.
+
+       Valid  facility names are: auth, authpriv (for security informa-
+       tion of a sensitive nature), cron, daemon, ftp, kern  (can't  be
+       generated  from user process), lpr, mail, news, security (depre-
+       cated     synonym     for     auth), syslog, user, uucp,     and
+       local0 to local7, inclusive.
+
+       Valid  level  names  are:  alert, crit, debug, emerg, err, error
+       (deprecated synonym  for  err), info, notice, panic  (deprecated
+       synonym  for emerg), warning, warn (deprecated synonym for warn-
+       ing).  For the priority order and  intended  purposes  of  these
+       levels, see syslog(3).
+
+EXAMPLES
+       logger System rebooted
+       logger -p local0.notice -t HOSTIDM -f /dev/idmc
+       logger -n loghost.example.com System rebooted
+
+SEE ALSO
+       syslog(3), syslogd(8), journalctl(1), systemd.journal-fields(7)
+
+STANDARDS
+       The logger command is expected to be IEEE Std 1003.2 ("POSIX.2")
+       compatible.
+
+AVAILABILITY
+       The logger command is part of  the  util-linux  package  and  is
+       available  from  Linux  Kernel Archive <ftp://ftp.kernel.org/pub
+       /linux/utils/util-linux/>.
+
+
+
+util-linux                        April 2013                         LOGGER(1)

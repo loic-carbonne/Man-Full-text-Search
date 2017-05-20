@@ -1,0 +1,32 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-pack-redundant - Find redundant pack files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git pack-redundant</span> [ --verbose ] [ --alt-odb ] &lt; --all | .pack filename ... &gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program computes which packs in your repository are redundant. The output is suitable for piping to xargs rm if you are in the root of the repository. 
+<p class="level0"><span Class="emphasis">git pack-redundant</span> accepts a list of objects on standard input. Any objects given will be ignored when checking which packs are required. This makes the following command useful when wanting to remove packs which contain unreachable objects. 
+<p class="level0">git fsck --full --unreachable | cut -d *(Aq *(Aq -f3 | e git pack-redundant --all | xargs rm <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--all 
+<p class="level1">Processes all packs. Any filenames on the command line are ignored. 
+<p class="level0">
+<p class="level0">--alt-odb 
+<p class="level1">Don(cqt require objects present in packs from alternate object directories to be present in local packs. 
+<p class="level0">
+<p class="level0">--verbose 
+<p class="level1">Outputs some statistics to stderr. Has a small performance penalty. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-pack-objects</span>(1) <span Class="bold">git-repack</span>(1) <span Class="bold">git-prune-packed</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

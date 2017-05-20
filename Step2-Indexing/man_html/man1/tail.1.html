@@ -1,0 +1,29 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tail - output the last part of files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tail</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Print the last 10 lines of each FILE to standard output. With more than one FILE, precede each with a header giving the file name. With no FILE, or when FILE is -, read standard input. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--bytes</span>=<span Class="emphasis">K</span> output the last K bytes; or use <span Class="bold">-c</span> +K to output bytes starting with the Kth of each file 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--follow[=</span>{name|descriptor}] output appended data as the file grows; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">an absent option argument means 'descriptor' 
+<p class="level1"><span Class="bold">-F</span> same as <span Class="bold">--follow</span>=<span Class="emphasis">name</span> <span Class="bold">--retry</span> 
+<p class="level1"><span Class="bold">-n</span>, <span Class="bold">--lines</span>=<span Class="emphasis">K</span> output the last K lines, instead of the last 10; or use <span Class="bold">-n</span> +K to output starting with the Kth 
+<p class="level1"><span Class="bold">--max-unchanged-stats</span>=<span Class="emphasis">N</span> with <span Class="bold">--follow</span>=<span Class="emphasis">name</span>, reopen a FILE which has not 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">changed size after N (default 5) iterations to see if it has been unlinked or renamed (this is the usual case of rotated log files); with inotify, this option is rarely useful 
+<p class="level1"><span Class="bold">--pid</span>=<span Class="emphasis">PID</span> with <span Class="bold">-f</span>, terminate after process ID, PID dies 
+<p class="level1"><span Class="bold">-q</span>, <span Class="bold">--quiet</span>, <span Class="bold">--silent</span> never output headers giving file names 
+<p class="level1"><span Class="bold">--retry</span> keep trying to open a file if it is inaccessible 
+<p class="level1"><span Class="bold">-s</span>, <span Class="bold">--sleep-interval</span>=<span Class="emphasis">N</span> with <span Class="bold">-f</span>, sleep for approximately N seconds (default 1.0) between iterations; with inotify and <span Class="bold">--pid</span>=<span Class="emphasis">P</span>, check process P at least once every N seconds 
+<p class="level1"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> always output headers giving file names 
+<p class="level1"><span Class="bold">--help</span> display this help and exit 
+<p class="level1"><span Class="bold">--version</span> output version information and exit 
+<p class="level1">If the first character of K (the number of bytes or lines) is a '+', print beginning with the Kth item from the start of each file, otherwise, print the last K items in the file.  K may have a multiplier suffix: b 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024, GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y. 
+<p class="level1">With <span Class="bold">--follow</span> (<span Class="bold">-f</span>), tail defaults to following the file descriptor, which means that even if a tail'ed file is renamed, tail will continue to track its end.  This default behavior is not desirable when you really want to track the actual name of the file, not the file descriptor (e.g., log rotation).  Use <span Class="bold">--follow</span>=<span Class="emphasis">name</span> in that case.  That causes tail to track the named file in a way that accommodates renaming, removal and creation. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Paul Rubin, David MacKenzie, Ian Lance Taylor, and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report tail translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/tail&gt; <br>or available locally via: info (aq(coreutils) tail invocation(aq 

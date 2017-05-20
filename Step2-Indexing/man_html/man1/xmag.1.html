@@ -1,0 +1,30 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xmag - magnify parts of the screen <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xmag</span> [ <span Class="bold">-mag</span> <span Class="emphasis">magfactor</span> ] [ <span Class="bold">-source</span> <span Class="emphasis">geom</span> ] [ <span Class="emphasis">-toolkitoption</span> .|.|. ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xmag</span> program allows you to magnify portions of an X screen.  If no explicit region is specified, a square with the pointer in the upper left corner is displayed indicating the area to be enlarged.  The area can be dragged out to the desired size by pressing Button 2.  Once a region has been selected, a window is popped up showing a blown up version of the region in which each pixel in the source image is represented by a small square of the same color.  Pressing Button1 in the enlargement window shows the position and RGB value of the pixel under the pointer until the button is released.  Typing ``Q'' or ``^C'' in the enlargement window exits the program.  The application has 5 buttons across its top. <span Class="emphasis">Close</span> deletes this particular magnification instance. <span Class="emphasis">Replace</span> brings up the rubber band selector again to select another region for this magnification instance. <span Class="emphasis">New</span> brings up the rubber band selector to create a new magnification instance. <span Class="emphasis">Select</span> puts the magnification image into the primary selection. <span Class="emphasis">Paste</span> copies the primary selection buffer into <span Class="emphasis">xmag</span>. Note that you can cut and paste between <span Class="emphasis">xmag</span> and the <span Class="emphasis">bitmap</span> program.  Resizing <span Class="emphasis">xmag</span> resizes the magnification area. <span Class="emphasis">xmag</span> preserves the colormap, visual, and window depth of the source. <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0"><span Class="emphasis">xmag</span> uses the X Toolkit and the Athena Widget Set. The magnified image is displayed in the Scale widget. For more information, see the Athena Widget Set documentation. Below is the widget structure of the <span Class="emphasis">xmag</span> application. Indentation indicates hierarchical  structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+	Xmag xmag
+		RootWindow root
+		TopLevelShell xmag
+			Paned pane1
+				Paned pane2
+					Command close
+					Command replace
+					Command new
+					Command select
+					Command paste
+					Label xmag label
+				Paned pane2
+					Scale scale
+		OverrideShell pixShell
+			Label pixLabel
+&nbsp;
+</pre>
+
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-source geom</span> This option specifies the size and/or location of the source region on the screen.  By default, a 64x64 square is provided for the user to select an area of the screen. 
+<p class="level0"><span Class="bold">-mag integer</span> This option indicates the magnification to be used.  5 is the default. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Dave Sternlicht and Davor Matic, MIT X Consortium. 

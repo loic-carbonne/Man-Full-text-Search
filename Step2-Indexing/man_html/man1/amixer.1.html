@@ -1,0 +1,70 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">amixer - command-line mixer for ALSA soundcard driver <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">amixer</span> [<span Class="emphasis">-option</span>] [<span Class="emphasis">cmd</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">amixer</span> allows command-line control of the mixer for the ALSA soundcard driver. <span Class="bold">amixer</span> supports multiple soundcards. 
+<p class="level0"><span Class="bold">amixer</span> with no arguments will display the current mixer settings for the default soundcard and device. This is a good way to see a list of the simple mixer controls you can use. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">help</span> Shows syntax. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">info</span> Shows the information about a mixer device. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">scontrols</span> Shows a complete list of simple mixer controls. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">scontents</span> Shows a complete list of simple mixer controls with their contents. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">set</span> or <span Class="emphasis">sset</span> &lt;<span Class="emphasis">SCONTROL</span>&gt; &lt;<span Class="emphasis">PARAMETER</span>&gt; ... Sets the simple mixer control contents. The parameter can be the volume either as a percentage from 0% to 100% with <span Class="emphasis">%</span> suffix, a dB gain with <span Class="emphasis">dB</span> suffix (like -12.5dB), or an exact hardware value. The dB gain can be used only for the mixer elements with available dB information. When plus(+) or minus(-) letter is appended after volume value, the volume is incremented or decremented from the current value, respectively. 
+<p class="level0">The parameters <span Class="emphasis">cap, nocap, mute, unmute, toggle</span> are used to change capture (recording) and muting for the group specified. 
+<p class="level0">The optional modifiers can be put as extra parameters to specify the stream direction or channels to apply. The modifiers <span Class="emphasis">playback</span> and <span Class="emphasis">capture</span> specify the stream, and the modifiers <span Class="emphasis">front, rear, center, woofer</span> are used to specify channels to be changed.  
+<p class="level0">A simple mixer control must be specified. Only one device can be controlled at a time. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">get</span> or <span Class="emphasis">sget</span> &lt;<span Class="emphasis">SCONTROL</span>&gt; Shows the simple mixer control contents. 
+<p class="level0">A simple mixer control must be specified. Only one device can be controlled at a time. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">controls</span> Shows a complete list of card controls. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">contents</span> Shows a complete list of card controls with their contents. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">cset</span> &lt;<span Class="emphasis">CONTROL</span>&gt; &lt;<span Class="emphasis">PARAMETER</span>&gt; ... Sets the card control contents. The identifier has these components: iface, name, index, device, subdevice, numid. The next argument specifies the value of control. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">cget</span> &lt;<span Class="emphasis">CONTROL</span>&gt; Shows the card control contents. The identifier has same syntax as for the <span Class="emphasis">cset</span> command. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c</span> card 
+<p class="level0">Select the card number to control. The device name created from this parameter has syntax 'hw:N' where N is specified card number. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-D</span> device 
+<p class="level0">Select the device name to control. The default control name is 'default'. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-s</span> | <span Class="emphasis">--stdin</span> 
+<p class="level0">Read from stdin and execute the command on each line sequentially. When this option is given, the command in command-line arguments is ignored. 
+<p class="level0">Only sset and cset are accepted.  Other commands are ignored. The commands to unmatched ids are ignored without errors too. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h</span>  Help: show syntax. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-q</span> Quiet mode. Do not show results of changes. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-R</span>  Use the raw value for evaluating the percentage representation. This is the default mode. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-M</span>  Use the mapped volume for evaluating the percentage representation like <span Class="bold">alsamixer</span>, to be more natural for human ear. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">amixer -c 1 sset Line,0 80%,40% unmute cap</span> will set the second soundcard's left line input volume to 80% and right line input to 40%, unmute it, and select it as a source for capture (recording).</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">amixer -c 1 -- sset Master playback -20dB</span> will set the master volume of the second card to -20dB.  If the master has multiple channels, all channels are set to the same value. 
+<p class="level0">
+<p class="level0"><span Class="bold">amixer -c 1 set PCM 2dB+</span> will increase the PCM volume of the second card with 2dB.  When both playback and capture volumes exist, this is applied to both volumes. 
+<p class="level0">
+<p class="level0"><span Class="bold">amixer -c 2 cset iface=MIXER,name='Line Playback Volume",index=1 40%</span> will set the third soundcard's second line playback volume(s) to 40% 
+<p class="level0">
+<p class="level0"><span Class="bold">amixer -c 2 cset numid=34 40%</span> will set the 34th soundcard element to 40% 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span class="bold"> alsamixer(1) </span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS </h2>
+<p class="level0">None known. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">amixer</span> is by Jaroslav Kysela &lt;perex@perex.cz&gt;. This document is by Paul Winkler &lt;zarmzarm@erols.com&gt; and Jaroslav Kysela &lt;perex@perex.cz&gt;. 

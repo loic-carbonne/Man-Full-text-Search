@@ -1,0 +1,66 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-prune - Prune all unreachable objects from the object database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git prune</span> [-n] [-v] [--expire &lt;expire&gt;] [--] [&lt;head&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level1"><span Class="bold">Note</span> 
+<p class="level1"><br>
+<p class="level1">In most cases, users should run <span Class="emphasis">git gc</span>, which calls <span Class="emphasis">git prune</span>. See the section "NOTES", below. 
+<p class="level1">
+<p class="level0">
+<p class="level0">This runs <span Class="emphasis">git fsck --unreachable</span> using all the refs available in refs/, optionally with additional set of objects specified on the command line, and prunes all unpacked objects unreachable from any of these head objects from the object database. In addition, it prunes the unpacked objects that are also found in packs by running <span Class="emphasis">git prune-packed</span>. It also removes entries from .git/shallow that are not reachable by any ref. 
+<p class="level0">Note that unreachable, packed objects will remain. If this is not desired, see <span Class="bold">git-repack</span>(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-n, --dry-run 
+<p class="level1">Do not remove anything; just report what it would remove. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Report all removed objects. 
+<p class="level0">
+<p class="level0">-- 
+<p class="level1">Do not interpret any more arguments as options. 
+<p class="level0">
+<p class="level0">--expire &lt;time&gt; 
+<p class="level1">Only expire loose objects older than &lt;time&gt;. 
+<p class="level0">
+<p class="level0">&lt;head&gt;... 
+<p class="level1">In addition to objects reachable from any of our references, keep objects reachable from listed &lt;head&gt;s. 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">To prune objects not used by your repository or another that borrows from your repository via its .git/objects/info/alternates: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git prune $(cd ../another && git rev-parse --all)
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">In most cases, users will not need to call <span Class="emphasis">git prune</span> directly, but should instead call <span Class="emphasis">git gc</span>, which handles pruning along with many other housekeeping tasks. 
+<p class="level0">For a description of which objects are considered for pruning, see <span Class="emphasis">git fsck</span>*(Aqs --unreachable option. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-fsck</span>(1), <span Class="bold">git-gc</span>(1), <span Class="bold">git-reflog</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

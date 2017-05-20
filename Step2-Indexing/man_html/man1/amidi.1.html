@@ -1,0 +1,53 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">amidi - read from and write to ALSA RawMIDI ports 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">amidi</span> [<span Class="emphasis">-p port</span>] [<span Class="emphasis">-s file</span> | <span Class="emphasis">-S data</span>] [<span Class="emphasis">-r file</span>] [<span Class="emphasis">-d</span>] [<span Class="emphasis">-t seconds</span>] [<span Class="emphasis">-a</span>] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">amidi</span> is a command-line utility which allows one to receive and send SysEx (system exclusive) data from/to external MIDI devices. It can also send any other MIDI commands. 
+<p class="level0"><span Class="bold">amidi</span> handles only files containing raw MIDI commands, without timing information. <span Class="bold">amidi</span> does not support Standard MIDI (.mid) files, but <span Class="bold">aplaymidi(1)</span> and <span Class="bold">arecordmidi(1)</span> do. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">Use the <span Class="emphasis">-h,</span> <span Class="emphasis">-V,</span> <span Class="emphasis">-l,</span> or <span Class="emphasis">-L</span> options to display information; or use at least one of the <span Class="emphasis">-s,</span> <span Class="emphasis">-r,</span> <span Class="emphasis">-S,</span> or <span Class="emphasis">-d</span> options to specify what data to send or receive. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h, --help</span> Help: prints a list of options. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-V, --version</span> Prints the current version. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-l, --list-devices</span> Prints a list of all hardware MIDI ports. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-L, --list-rawmidis</span> Prints all RawMIDI definitions. (used when debugging configuration files) 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-p, --port=name</span> Sets the name of the ALSA RawMIDI port to use. If this is not specified, <span Class="bold">amidi</span> uses the default port defined in the configuration file (the default for this is port 0 on card 0, which may not exist). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-s, --send=filename</span> Sends the contents of the specified file to the MIDI port. The file must contain raw MIDI commands (e.g. a .syx file); for Standard MIDI (.mid) files, use <span Class="bold">aplaymidi(1).</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-r, --receive=filename</span> Writes data received from the MIDI port into the specified file. The file will contain raw MIDI commands (such as in a .syx file); to record a Standard MIDI (.mid) file, use <span Class="bold">arecordmidi(1).</span> 
+<p class="level0"><span Class="bold">amidi</span> will filter out any Active Sensing bytes (FEh), unless the <span Class="emphasis">-a</span> option has been given. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-S, --send-hex=...</span> Sends the bytes specified as hexadecimal numbers to the MIDI port. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-d, --dump</span> Prints data received from the MIDI port as hexadecimal bytes. Active Sensing bytes (FEh) will not be shown, unless the <span Class="emphasis">-a</span> option has been given. 
+<p class="level0">This option is useful for debugging. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-t, --timeout=seconds</span> Stops receiving data when no data has been received for the specified amount of time. 
+<p class="level0">If this option has not been given, you must press Ctrl+C (or kill <span Class="bold">amidi)</span> to stop receiving data. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-a, --active-sensing</span> Does not ignore Active Sensing bytes (FEh) when saving or printing received MIDI commands. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">amidi -p hw:0 -s my_settings.syx</span> will send the MIDI commands in <span Class="emphasis">my_settings.syx</span> to port <span Class="emphasis">hw:0.</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">amidi -S 'F0 43 10 4C 00 00 7E 00 F7'</span> sends an XG Reset to the default port. 
+<p class="level0">
+<p class="level0"><span Class="bold">amidi -p hw:1,2 -S F0411042110C000000000074F7 -r dump.syx -t 1</span> sends a (lqParameter Dump Request(rq to a GS device, saves the received parameter data to the file <span Class="emphasis">dump.syx,</span> and stops after the device has finished sending data (when no data has been received for one second). 
+<p class="level0">
+<p class="level0"><span Class="bold">amidi -p virtual -d</span> creates a virtual RawMIDI port and prints all data sent to this port. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">/usr/share/alsa/alsa.conf</span> default rawmidi definitions <br><span Class="emphasis">/etc/asound.conf</span> system-wide rawmidi definitions <br><span Class="emphasis">~/.asoundrc</span> user specific rawmidi definitions 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">aplaymidi(1) <br>arecordmidi(1) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Clemens Ladisch &lt;clemens@ladisch.de&gt; 

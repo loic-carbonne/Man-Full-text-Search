@@ -1,0 +1,43 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">manpath - determine search path for manual pages <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">manpath  </span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">system \|[\|,.\|.\|.\|]\|]</span> 
+<p class="level0"><span Class="emphasis">file \|]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">If  
+<p class="level0">is set,  <span Class="bold">manpath</span> will simply display its contents and issue a warning. If not,  <span Class="bold">manpath </span> will determine a suitable manual page hierarchy search path and display the results. 
+<p class="level0">The colon-delimited path is determined using information gained from the man-db configuration file - 
+<p class="level0">and the user's environment. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-q</span>, <span Class="manpage">--quiet</span>Do not issue warnings. 
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--debug</span>Print debugging information. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--catpath</span>Produce a catpath as opposed to a manpath.  Once the manpath is determined, each path element is converted to its relative catpath. 
+<p class="level0"><span Class="manpage">-g</span>, <span Class="manpage">--global</span>Produce a manpath consisting of all paths named as `global' within the man-db configuration file.  
+<p class="level0"><span Class="bold">-m </span> <span Class="emphasis">system\c </span> |[|,.|.|.|]|, <span Class="bold">--systems= system\c </span> |[|,.|.|.|] 
+<p class="level1">If this system has access to other operating system's manual hierarchies,  this option can be used to include them in the output of <span Class="manpage">manpath .</span>To include NewOS's manual page hierarchies use the option <span Class="bold">-m</span> <span Class="manpage">NewOS .</span>
+<p class="level1">The <span Class="emphasis">system</span> specified can be a combination of comma delimited operating system names. To include the native operating system's manual page hierarchies,  the system name <span Class="bold">man</span> must be included in the argument string. This option will override the 
+<p class="level1">environment variable. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C\  file ,\ \fB--config-file= file</span> Use this user configuration file rather than the default of <span Class="emphasis">~/.manpath .</span> 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Print a help message and exit. 
+<p class="level0"><span Class="manpage">--usage</span>Print a short usage message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">MANPATH</span> If 
+<p class="level0">is set, <span Class="bold">manpath</span> displays its value rather than determining it on the fly. If  
+<p class="level0">is prefixed by a colon, then the value of the variable is appended to the list determined from the content of the configuration files. If the colon comes at the end of the value in the variable, then the determined list is appended to the content of the variable. If the value of the variable contains a double colon 
+<p class="level0">then the determined list is inserted in the middle of the value, between the two colons. 
+<p class="level0"><span Class="bold">SYSTEM</span> If 
+<p class="level0">is set, it will have the same effect as if it had been specified as the argument to the <span Class="bold">-m</span> option. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/manpath.config</span> man-db configuration file. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">apropos (1)</span>, <span Class="manpage">man (1)</span>, <span Class="manpage">whatis (1)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Wilf. (G.Wilford@ee.surrey.ac.uk).
+Fabrizio Polacco (fpolacco@debian.org).
+Colin Watson (cjwatson@debian.org).
+</pre>
+
+<p class="level0">

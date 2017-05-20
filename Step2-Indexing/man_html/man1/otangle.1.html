@@ -1,0 +1,50 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tangle - translate WEB to Pascal <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tangle</span> 
+<p class="level0"><span Class="emphasis">webfile [ \fB.web\fP ]</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">tangle</span> program converts a *(WB source document into a Pascal program that may be compiled in the usual way with the on-line Pascal compiler (e.g., <span Class="manpage">pc (1)).</span>The output file is packed into lines of 72 characters or less, with the only concession to readability being the termination of lines at semicolons when this can be done conveniently. 
+<p class="level0">The *(WB language allows you to prepare a single document containing all the information that is needed both to produce a compilable Pascal program and to produce a well-formatted document describing the program in as much detail as the writer may desire.  The user of *(WB must be familiar with both *(TX and Pascal.  *(WB also provides a relatively simple, although adequate, macro facility that permits a Pascal program to be written in small easily-understood modules. 
+<p class="level0">The command line should have either one or two names on it. The first is taken as the *(WB file (and <span Class="bold">.web</span> is added if there is no extension). If there is another name, it is a change file (and <span Class="bold">.ch</span> is added if there is no extension).  The change file overrides parts of the *(WB file, as described in the *(WB system documentation. 
+<p class="level0">The output files are a Pascal file and a string pool file, whose names are formed by adding <span Class="bold">.p</span> and <span Class="bold">.pool</span> respectively to the root of the *(WB file name. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">This version of <span Class="bold">tangle</span> understands the following options.  Note that some of these options may render the output unsuitable for processing by a Pascal compiler. 
+<p class="level0"><span Class="bold">--help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">--length \ number</span> Compare only the first <span Class="emphasis">number</span> characters of identifiers when checking for collisions.  The default is 32, the original <span Class="bold">tangle</span> used 7. 
+<p class="level0"><span Class="bold">--loose</span> When checking for collisions between identifiers, honor the settings of the <span Class="manpage">--lowercase</span>, <span Class="manpage">--mixedcase</span>, <span Class="manpage">--uppercase</span>and <span Class="bold">--underline</span> options. This is the default. 
+<p class="level0"><span Class="bold">--lowercase</span> Convert all identifiers to lowercase. 
+<p class="level0"><span Class="bold">--mixedcase</span> Retain the case of identifiers.  This is the default. 
+<p class="level0"><span Class="bold">--strict</span> When checking for collisions between identifiers, strip underlines and convert all identifiers to uppercase first. 
+<p class="level0"><span Class="bold">--underline</span> Retain underlines (also known as underscores) in identifiers. 
+<p class="level0"><span Class="bold">--uppercase</span> Convert all identifiers to uppercase.  This is the behaviour of the original <span Class="manpage">tangle .</span>
+<p class="level0"><span Class="bold">--version</span> Print version information and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The environment variable WEBINPUTS is used to search for the input files, or the system default if WEBINPUTS is not set.  See <span Class="manpage">tex (1)</span>for the details of the searching. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">pc (1)</span>, <span Class="manpage">pxp (1)</span>(for formatting <span Class="bold">tangle</span> output when debugging), <span Class="manpage">tex (1).</span>
+<p class="level0">Donald E. Knuth, <span Class="emphasis">The \*(WB System of Structured Documentation .</span> 
+<p class="level0">Donald E. Knuth, <span Class="emphasis">Literate Programming ,</span> Computer Journal <span Class="manpage">27</span>97-111, 1984. 
+<p class="level0">Wayne Sewell, <span Class="emphasis">Weaving a Program ,</span> Van Nostrand Reinhold, 1989, ISBN 0-442-31946-0. 
+<p class="level0">Donald E. Knuth, <span Class="emphasis">\*(OX: The Program</span> (Volume B of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13437-3. 
+<p class="level0">Donald E. Knuth, <span Class="emphasis">\*(MF: The Program</span> (Volume D of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13438-1. 
+<p class="level0">These last two are by far the largest extant examples of *(WB programs. 
+<p class="level0">There is an active Internet electronic mail discussion list on the subject of literate programming; send a subscription request to <span Class="emphasis">litprog-request@shsu.edu</span> to join. 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">*(WB was designed by Donald E. Knuth, based on an earlier system called DOC (implemented by Ignacio Zabala). The <span Class="bold">tangle</span> and <span Class="bold">weave</span> programs are themselves written in *(WB. The system was originally ported to Unix at Stanford by Howard Trickey, and at Cornell by Pavel Curtis. 

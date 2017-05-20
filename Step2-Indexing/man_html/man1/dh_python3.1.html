@@ -1,0 +1,126 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_python3 - calculates Python dependencies, adds maintainer scripts to byte compile files, etc. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">dh_python3 -p PACKAGE [-V [X.Y][-][A.B]] DIR [-X REGEXPR] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><a name="QUICK"></a><h2 class="nroffsh">QUICK GUIDE FOR MAINTAINERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">if necessary, describe supported Python 3 versions via X-Python3-Version field in debian/control, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build-depend on python3 or python3-all or python3-all-dev, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build module/application using its standard build system, remember to build extensions for all supported Python 3 versions (loop over <span Class="bold">py3versions -vr</span>), 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">install files to the <span Class="emphasis">standard</span> locations, add <span Class="emphasis">--install-layout=deb</span> to setup.py(aqs install command if your package is using distutils, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">add <span Class="emphasis">python3</span> to dh(aqs --with option, or: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">include /usr/share/cdbs/1/class/python-distutils.mk</span> in debian/rules and depend on <span Class="emphasis">cdbs (&gt;= 0.4.90)</span>, or: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">call <span Class="bold">dh_python3</span> in the <span Class="emphasis">binary-*</span> target, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">add <span Class="emphasis">${python3:Depends}</span> to Depends 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0"><a name="dependencies"></a><h2 class="nroffsh">dependencies</h2>
+<p class="level0">
+<p class="level0">dh_python3 tries to translate Python dependencies from requires.txt file to Debian dependencies. Use debian/py3dist-overrides or --no-guessing-deps option to override it if the guess is incorrect. If you want dh_python3 to generate more strict dependencies (f.e. to avoid ABI problems) create debian/python3-foo.pydist file. See /usr/share/doc/dh-python/README.PyDist for more information. If the pydist file contains PEP386 flag or set of (uscan like) rules, dh_python3 will make the depedency versioned (version requirements are ignored by default). <a name="private"></a><h2 class="nroffsh">private dirs</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/share/foo</span>, <span Class="emphasis">/usr/share/games/foo</span>, <span Class="emphasis">/usr/lib/foo</span> and <span Class="emphasis">/usr/lib/games/foo</span> private directories are scanned for Python files by default (where <span Class="emphasis">foo</span> is binary package name). If your package is shipping Python files in some other directory, add another dh_python3 call in debian/rules with directory name as an argument - you can use different set of options in this call. If you need to change options (f.e. a list of supported Python 3 versions) for a private directory that is checked by default, invoke dh_python3 with --skip-private option and add another call with a path to this directory and new options. <a name="debug"></a><h2 class="nroffsh">debug packages</h2>
+<p class="level0">
+<p class="level0">In binary packages which name ends with <span Class="emphasis">-dbg</span>, all files in <span Class="emphasis">/usr/lib/python3/dist-packages/</span> directory that have extensions different than <span Class="emphasis">so</span> or <span Class="emphasis">h</span> are removed by default. Use --no-dbg-cleaning option to disable this feature. <a name="pyinstall"></a><h2 class="nroffsh">pyinstall files</h2>
+<p class="level0">
+<p class="level0">Files listed in debian/pkg.pyinstall file will be installed as public modules (i.e. into .../dist-packages/ directory) for all requested Python versions. 
+<p class="level0">Syntax: <span Class="bold">path/to/file [VERSION_RANGE] [NAMESPACE]</span> 
+<p class="level0">debian directory is automatically removed from the path, so you can place your files in debian/ directory and install them from this location (if you want to install them in "debian" namespace, set NAMESPACE to debian). If NAMESPACE is set, all listed files will be installed in .../dist-packages/NAMESPACE/ directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">Examples:</span> 
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">foo.py</span> installs .../dist-packages/foo.py for all supported Python versions 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">foo/bar.py 3.3-</span> installs .../dist-packages/foo/bar.py for versions &gt;= 3.3 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">foo/bar.py spam</span> installs .../dist-packages/spam/bar.py 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">debian/*.py spam.egg 3.2</span> installs .../python3.2/dist-packages/spam/egg/*.py files 
+<p class="level1">
+<p class="level1"><a name="pyremove"></a><h2 class="nroffsh">pyremove files</h2>
+<p class="level0">
+<p class="level0">If you want to remove some public modules (i.e. files in .../dist-packages/ directory) installed by build system (from all supported Python versions or only from a subset of these versions), add them to debian/pkg.pyremove file. 
+<p class="level0">
+<p class="level0"><span Class="bold">Examples:</span> 
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">*.pth</span> removes .pth files from .../dist-packages/ 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="bold">bar/baz.py 3.2</span> removes .../python3.2/dist-packages/bar/baz.py 
+<p class="level1">
+<p class="level1"><a name="overriding"></a><h2 class="nroffsh">overriding supported / default Python versions</h2>
+<p class="level0">
+<p class="level0">If you want to override system(aqs list of supported Python versions or the default one (f.e. to build a package that includes symlinks for older version of Python or compile .py files only for given interpreter version), you can do that via <span Class="emphasis">DEBPYTHON3_SUPPORTED</span> and/or <span Class="emphasis">DEBPYTHON3_DEFAULT</span> env. variables. 
+<p class="level0">Example: <span Class="bold">3.2,3.3</span> limits the list of supported Python versions to Python 3.2 and Python 3.3. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> show program(aqs version number and exit 
+<p class="level0"><span Class="bold">-h,\fB  --help</span> show help message and exit 
+<p class="level0"><span Class="bold">--no-guessing-deps</span> disable guessing dependencies 
+<p class="level0"><span Class="bold">--no-dbg-cleaning</span> do not remove any files from debug packages 
+<p class="level0">
+<p class="level0">--no-ext-rename do not add magic tags nor multiarch tuples to extension file names 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-shebang-rewrite</span> do not rewrite shebangs 
+<p class="level0"><span Class="bold">--skip-private</span> don(aqt check private directories 
+<p class="level0"><span Class="bold">-v,\fB  --verbose</span> turn verbose mode on 
+<p class="level0"><span Class="bold">-i,\fB  --indep</span> act on architecture independent packages 
+<p class="level0"><span Class="bold">-a,\fB  --arch</span> act on architecture dependent packages 
+<p class="level0"><span Class="bold">-q,\fB  --quiet</span> be quiet 
+<p class="level0"><span Class="bold">-p \ PACKAGE,\fB \ --package\fB= PACKAGE</span> act on the package named PACKAGE 
+<p class="level0"><span Class="bold">-N \ NO_PACKAGE,\fB \ --no-package\fB= NO_PACKAGE</span> do not act on the specified package 
+<p class="level0"><span Class="bold">-V \ VRANGE</span> specify list of supported Python 3 versions. See py3compile(1) for examples 
+<p class="level0"><span Class="bold">-X \ REGEXPR,\fB \ --exclude\fB= REGEXPR</span> exclude items that match given REGEXPR. You may use this option multiple times to build up a list of things to exclude. 
+<p class="level0"><span Class="bold">--compile-all</span> compile all files from given private directory in postinst/rtupdate not just the ones provided by the package (i.e. do not pass the --package parameter to py3compile/py3clean) 
+<p class="level0"><span Class="bold">--depends\fB= DEPENDS</span> translate given requirements into Debian dependencies and add them to ${python3:Depends}. Use it for missing items in requires.txt 
+<p class="level0"><span Class="bold">--recommends\fB= RECOMMENDS</span> translate given requirements into Debian dependencies and add them to ${python3:Recommends} 
+<p class="level0"><span Class="bold">--suggests\fB= SUGGESTS</span> translate given requirements into Debian dependencies and add them to ${python3:Suggests} 
+<p class="level0"><span Class="bold">--requires\fB= FILENAME</span> translate requirements from given file(s) into Debian dependencies and add them to ${python3:Depends} 
+<p class="level0"><span Class="bold">--shebang\fB= COMMAND</span> use given command as shebang in scripts 
+<p class="level0"><span Class="bold">--ignore-shebangs</span> do not translate shebangs into Debian dependencies 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">/usr/share/doc/python/python-policy.txt.gz 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">/usr/share/doc/dh-python/README.PyDist 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">pybuild(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">py3compile(1), py3clean(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">dh_python2(1), pycompile(1), pyclean(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">%http://deb.li/dhp3</span> - most recent version of this document 
+<p class="level1"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Piotr Ożarowski, 2012-2013 
+<p class="level0">

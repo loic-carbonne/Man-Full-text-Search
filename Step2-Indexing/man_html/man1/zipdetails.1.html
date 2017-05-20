@@ -1,0 +1,147 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zipdetails - display the internal structure of zip files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   zipdetaile [-v] zipfile.zip &nbsp;       zipdetails -h 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Zipdetails displays information about the internal record structure of the zip file. It is not concerned with displaying any details of the compressed data stored in the zip file. 
+<p class="level0">The program assumes prior understanding of the internal structure of a Zip file. You should have a copy of the Zip s-1APPNOTEs0 file at hand to help understand the output from this program (*(L"s-1SEE ALSO*(R"s0 for details). <a name="s-1OPTIONSs0"></a><h2 class="nroffsh">\s-1OPTIONS\s0</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="-v"></a><span class="nroffip">-v 5</span> 
+<p class="level1">
+<p class="level1">Enable Verbose mode 
+<p class="level0"><a name="-h"></a><span class="nroffip">-h 5</span> 
+<p class="level1">
+<p class="level1">Display help 
+<p class="level1">By default zipdetails will output the details of the zip file in three columns. 
+<p class="level0"><a name="Column"></a><span class="nroffip">Column 1 5</span> 
+<p class="level1">
+<p class="level1">This contains the offset from the start of the file in hex. 
+<p class="level0"><a name="Column"></a><span class="nroffip">Column 2 5</span> 
+<p class="level1">
+<p class="level1">This contains a textual description of the field. 
+<p class="level0"><a name="Column"></a><span class="nroffip">Column 3 5</span> 
+<p class="level1">
+<p class="level1">If the field contains a numeric value it will be displayed in hex. Zip stored most numbers in little-endian format - the value displayed will have the little-endian encoding removed. 
+<p class="level1">Next, is an optional description of what the value means. 
+<p class="level1">If the f(CW*(C`-v*(C'</span> option is present, column 1 is expanded to include 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 5</span> 
+<p class="level1">The offset from the start of the file in hex. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 5</span> 
+<p class="level1">The length of the filed in hex. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 5</span> 
+<p class="level1">A hex dump of the bytes in field in the order they are stored in the zip file. <a name="TODO"></a><h2 class="nroffsh">TODO</h2>
+<p class="level0">
+<p class="level0">Error handling is still a work in progress.  If the program encounters a problem reading a zip file it is likely to terminate with an unhelpful error message. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">The primary reference for Zip files is the *(L"appnote*(R" document available at &lt;http://www.pkware.com/documents/casestudies/APPNOTE.TXT&gt;. 
+<p class="level0">An alternative reference is the Info-Zip appnote. This is available from &lt;ftp://ftp.info-zip.org/pub/infozip/doc/&gt; 
+<p class="level0">The f(CW*(C`zipinfo*(C'</span> program that comes with the info-zip distribution (&lt;http://www.info-zip.org/&gt;) can also display details of the structure of a zip file. 
+<p class="level0">See also Archive::Zip::SimpleZip, IO::Compress::Zip, IO::Uncompress::Unzip. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Paul Marquess <span Class="emphasis">pmqs@cpan.org</span>. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 2011-2013 Paul Marquess. All rights reserved. 
+<p class="level0">This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself. 

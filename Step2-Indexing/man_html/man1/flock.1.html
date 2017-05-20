@@ -1,0 +1,42 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">flock - manage locks from shell scripts <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">flock</span> [options] <span Class="emphasis">file | directory command  [ arguments ]</span> <br><span Class="bold">flock</span> [options] <span Class="emphasis">file | directory</span> <span Class="bold">-c  command</span> <br><span Class="bold">flock</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This utility manages <span Class="manpage">flock (2)</span>locks from within shell scripts or from the command line. 
+<p class="level0">The first and second of the above forms wrap the lock around the execution of a <span Class="emphasis">command ,</span> in a manner similar to <span Class="manpage">su (1)</span>or <span Class="manpage">newgrp (1).</span>They lock a specified <span Class="emphasis">file</span> or <span Class="emphasis">directory</span>, which is created (assuming appropriate permissions) if it does not already exist.  By default, if the lock cannot be immediately acquired, <span Class="bold">flock</span> waits until the lock is available. 
+<p class="level0">The third form uses an open file by its file descriptor <span Class="emphasis">number</span>. See the examples below for how that can be used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--shared</span> Obtain a shared lock, sometimes called a read lock. 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">-e</span>, <span Class="bold">--exclusive</span> Obtain an exclusive lock, sometimes called a write lock.  This is the default. 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unlock</span> Drop a lock.  This is usually not required, since a lock is automatically dropped when the file is closed.  However, it may be required in special cases, for example if the enclosed command group may have forked a background process which should not be holding the lock. 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--nb</span>, <span Class="bold">--nonblock</span> Fail rather than wait if the lock cannot be immediately acquired. See the <span Class="bold">-E</span> option for the exit code used. 
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--wait</span>, <span Class="bold">--timeout</span> <span Class="emphasis">seconds</span> Fail if the lock cannot be acquired within <span Class="emphasis">seconds .</span> Decimal fractional values are allowed. See the <span Class="bold">-E</span> option for the exit code used. The zero number of <span Class="emphasis">seconds</span> is interpreted as <span Class="bold">--nonblock</span>. 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--close</span> Close the file descriptor on which the lock is held before executing <span Class="emphasis">command .</span> This is useful if <span Class="emphasis">command</span> spawns a child process which should not be holding the lock. 
+<p class="level0"><span Class="bold">-E</span>, <span Class="bold">--conflict-exit-code</span> <span Class="emphasis">number</span> The exit code used when the <span Class="bold">-n</span> option is in use, and the conflicting lock exists, or the <span Class="bold">-w</span> option is in use, and the timeout is reached.  The default value is 1. 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--command</span> <span Class="emphasis">command</span> Pass a single <span Class="emphasis">command ,</span> without arguments, to the shell with <span Class="manpage">-c .</span>
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><a name="fB-V"></a><span class="nroffip">\fB-V, --version\fP</span> 
+<p class="level1">Display version information and exit. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">shell1&gt; flock /tmp -c cat 
+<p class="level0">shell2&gt; flock -w .007 /tmp -c echo; /bin/echo $? Set exclusive lock to directory /tmp and the second command will fail. 
+<p class="level0">shell1&gt; flock -s /tmp -c cat 
+<p class="level0">shell2&gt; flock -s -w .007 /tmp -c echo; /bin/echo $? Set shared lock to directory /tmp and the second command will not fail. Notice that attempting to get exclusive lock with second command would fail. 
+<p class="level0">shell&gt; flock -x local-lock-file echo 'a b c' Grab the exclusive lock "local-lock-file" before running echo with 'a b c'. 
+<p class="level0">( 
+<p class="level0">&nbsp; flock -n 9 || exit 1 
+<p class="level0">&nbsp; &#35; ... commands executed under lock ... 
+<p class="level0">) 9&gt;/var/lock/mylockfile The form is convenient inside shell scripts.  The mode used to open the file doesn't matter to <span Class="manpage">flock ;</span>using <span Class="emphasis">&gt;</span> or <span Class="emphasis">&gt;&gt;</span> allows the lockfile to be created if it does not already exist, however, write permission is required.  Using <span Class="emphasis">&lt;</span> requires that the file already exists but only read permission is required. 
+<p class="level0">[ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@" || : This is useful boilerplate code for shell scripts.  Put it at the top of the shell script you want to lock and it'll automatically lock itself on the first run.  If the env var $FLOCKER is not set to the shell script that is being run, then execute flock and grab an exclusive non-blocking lock (using the script itself as the lock file) before re-execing itself with the right arguments.  It also sets the FLOCKER env var to the right value so it doesn't run again. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">The command uses <span Class="bold">sysexits.h</span> return values for everything, except when using either of the options <span Class="bold">-n</span> or <span Class="bold">-w</span> which report a failure to acquire the lock with a return value given by the <span Class="bold">-E</span> option, or 1 by default. 
+<p class="level0">When using the <span Class="emphasis">command</span> variant, and executing the child worked, then the exit status is that of the child command. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">H. Peter Anvin 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2003-2006 H. Peter Anvin. <br>This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">flock (2)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The flock command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

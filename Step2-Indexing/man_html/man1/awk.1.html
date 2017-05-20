@@ -1,0 +1,765 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gawk - pattern scanning and processing language <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gawk</span> [ *(PX or *(GN style options ] <span Class="bold">-f</span> <span Class="emphasis">program-file</span> [ <span Class="bold">-\^-</span> ] file .|.|. <br><span Class="bold">gawk</span> [ *(PX or *(GN style options ] [ <span Class="bold">-\^-</span> ] <span Class="emphasis">program-text</span> file .|.|. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Gawk</span> is the *(GN Project's implementation of the *(AK programming language. It conforms to the definition of the language in the *(PX 1003.1 Standard. This version in turn is based on the description in <a class="emphasis" href="#The">The AWK Programming Language ,</a> by Aho, Kernighan, and Weinberger. <span Class="emphasis">Gawk</span> provides the additional features found in the current version of Brian Kernighan's <span Class="emphasis">awk</span> and a number of *(GN-specific extensions. 
+<p class="level0">The command line consists of options to <span Class="emphasis">gawk</span> itself, the *(AK program text (if not supplied via the <span Class="bold">-f</span> or <span Class="bold">-\^-file</span> options), and values to be made available in the <span Class="bold">ARGC</span> and <span Class="bold">ARGV</span> pre-defined *(AK variables. 
+<p class="level0">When <span Class="emphasis">gawk</span> is invoked with the <span Class="bold">-\^-profile</span> option, it starts gathering profiling statistics from the execution of the program. <span Class="emphasis">Gawk</span> runs more slowly in this mode, and automatically produces an execution profile in the file <span Class="bold">awkprof.out</span> when done. See the <span Class="bold">-\^-profile</span> option, below. 
+<p class="level0"><span Class="emphasis">Gawk</span> also has an integrated debugger. An interactive debugging session can be started by supplying the <span Class="bold">-\^-debug</span> option to the command line. In this mode of execution, <span Class="emphasis">gawk</span> loads the AWK source code and then prompts for debugging commands. <span Class="emphasis">Gawk</span> can only debug AWK program source provided with the <span Class="bold">-f</span> option. The debugger is documented in *(EP. <a name="OPTION"></a><h2 class="nroffsh">OPTION FORMAT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Gawk</span> options may be either traditional *(PX-style one letter options, or *(GN-style long options.  *(PX options start with a single *(lq-*(rq, while long options start with *(lq-^-*(rq. Long options are provided for both *(GN-specific features and for *(PX-mandated features. 
+<p class="level0"><span Class="emphasis">Gawk -specific</span> options are typically used in long-option form. Arguments to long options are either joined with the option by an <span Class="bold">=</span> sign, with no intervening spaces, or they may be provided in the next command line argument. Long options may be abbreviated, as long as the abbreviation remains unique. 
+<p class="level0">Additionally, every long option has a corresponding short option, so that the option's functionality may be used from within <span Class="bold">#!</span> executable scripts. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Gawk</span> accepts the following options. Standard options are listed first, followed by options for <span Class="emphasis">gawk</span> extensions, listed alphabetically by short option. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f  program-file</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-file  program-file</span> Read the *(AK program source from the file <span Class="emphasis">program-file ,</span> instead of from the first command line argument. Multiple <span Class="bold">-f</span> (or <span Class="manpage">-\^-file )</span>options may be used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F  fs</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-field-separator  fs</span> Use <span Class="emphasis">fs</span> for the input field separator (the value of the <span Class="bold">FS</span> predefined variable). 
+<p class="level0">
+<p class="level0"><span class="bold">-v<span class="emphasis"> var<span class="bold">^=^<span Class="emphasis">val</span> 
+<p class="level0">
+<p class="level0"><span class="bold">-^-assign <span class="emphasis">var<span class="bold">^=^<span Class="emphasis">val</span> Assign the value <span Class="emphasis">val</span> to the variable <span Class="emphasis">var ,</span> before execution of the program begins. Such variable values are available to the <span Class="bold">BEGIN</span> rule of an *(AK program. 
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-characters-as-bytes</span> Treat all input data as single-byte characters. In other words, don't pay any attention to the locale information when attempting to process strings as multibyte characters. The <span Class="bold">-\^-posix</span> option overrides this one. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-traditional</span> Run in <span Class="emphasis">compatibility</span> mode.  In compatibility mode, <span Class="emphasis">gawk</span> behaves identically to Brian Kernighan's <span Class="emphasis">awk ;</span> none of the *(GN-specific extensions are recognized. See <a class="manpage" href="#GNU">GNU EXTENSIONS</a>below, for more information. 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-copyright</span> Print the short version of the *(GN copyright information message on the standard output and exit successfully. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>[<span Class="emphasis">file</span>] 
+<p class="level0">
+<p class="level0"><span Class="bold">-^-dump-variables</span>[<span class="bold">=<span Class="emphasis">file</span>] Print a sorted list of global variables, their types and final values to <span Class="emphasis">file .</span> If no <span Class="emphasis">file</span> is provided, <span Class="emphasis">gawk</span> uses a file named <span Class="bold">awkvars.out</span> in the current directory. 
+<p class="level0">Having a list of all the global variables is a good way to look for typographical errors in your programs. You would also use this option if you have a large program with a lot of functions, and you want to be sure that your functions don't inadvertently use global variables that you meant to be local. (This is a particularly easy mistake to make with simple variable names like <span Class="manpage">i</span>, <span Class="manpage">j</span>and so on.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-D</span>[<span Class="emphasis">file</span>] 
+<p class="level0">
+<p class="level0"><span Class="bold">-^-debug</span>[<span class="bold">=<span Class="emphasis">file</span>] Enable debugging of *(AK programs. By default, the debugger reads commands interactively from the terminal. The optional <span Class="emphasis">file</span> argument specifies a file with a list of commands for the debugger to execute non-interactively. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e  program-text</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-source  program-text</span> Use <span Class="emphasis">program-text</span> as *(AK program source code. This option allows the easy intermixing of library functions (used via the <span Class="bold">-f</span> and <span Class="bold">-\^-file</span> options) with source code entered on the command line. It is intended primarily for medium to large *(AK programs used in shell scripts. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E  file</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-exec  file</span> Similar to <span Class="manpage">-f</span>however, this is option is the last one processed. This should be used with <span Class="bold">#!</span> scripts, particularly for CGI applications, to avoid passing in options or source code (!) on the command line from a URL. This option disables command-line variable assignments. 
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-gen-pot</span> Scan and parse the *(AK program, and generate a *(GN <span Class="bold">\&.pot</span> (Portable Object Template) format file on standard output with entries for all localizable strings in the program.  The program itself is not executed. See the *(GN <span Class="emphasis">gettext</span> distribution for more information on <span Class="bold">\&.pot</span> files. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-help</span> Print a relatively short summary of the available options on the standard output. (Per the <a class="emphasis" href="#GNU">GNU Coding Standards ,</a> these options cause an immediate, successful exit.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-i  include-file</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-include  include-file</span> Load an awk source library. This searches for the library using the <span Class="bold">AWKPATH</span> environment variable.  If the initial search fails, another attempt will be made after appending the <span Class="bold">\&.awk</span> suffix.  The file will be loaded only once (i.e., duplicates are eliminated), and the code does not constitute the main program source. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l  lib</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-load  lib</span> Load a shared library <span Class="emphasis">lib .</span> This searches for the library using the <span Class="bold">AWKLIBPATH</span> environment variable.  If the initial search fails, another attempt will be made after appending the default shared library suffix for the platform. The library initialization routine is expected to be named <span Class="manpage">dl_load() .</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-L  [ \fIvalue\fR ]</span>
+<p class="level0">
+<p class="level0"><span Class="manpage">-\^-lint [ =\fIvalue\fR ]</span>Provide warnings about constructs that are dubious or non-portable to other *(AK implementations. With an optional argument of <span Class="manpage">fatal</span>lint warnings become fatal errors. This may be drastic, but its use will certainly encourage the development of cleaner *(AK programs. With an optional argument of <span Class="manpage">invalid</span>only warnings about things that are actually invalid are issued. (This is not fully implemented yet.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-bignum</span> Force arbitrary precision arithmetic on numbers. This option has no effect if <span Class="emphasis">gawk</span> is not compiled to use the GNU MPFR and MP libraries. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-non-decimal-data</span> Recognize octal and hexadecimal values in input data. <span Class="emphasis">Use this option with great caution!</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-N</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-use-lc-numeric</span> This forces <span Class="emphasis">gawk</span> to use the locale's decimal point character when parsing input data. Although the POSIX standard requires this behavior, and <span Class="emphasis">gawk</span> does so when <span Class="bold">-\^-posix</span> is in effect, the default is to follow traditional behavior and use a period as the decimal point, even in locales where the period is not the decimal point character.  This option overrides the default behavior, without the full draconian strictness of the <span Class="bold">-\^-posix</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-W nostalgia</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-nostalgia</span> Provide a moment of nostalgia for long time <span Class="emphasis">awk</span> users. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>[<span Class="emphasis">file</span>] 
+<p class="level0">
+<p class="level0"><span Class="bold">-^-pretty-print</span>[<span class="bold">=<span Class="emphasis">file</span>] Output a pretty printed version of the program to <span Class="emphasis">file .</span> If no <span Class="emphasis">file</span> is provided, <span Class="emphasis">gawk</span> uses a file named <span Class="bold">awkprof.out</span> in the current directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">-O</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-optimize</span> Enable optimizations upon the internal representation of the program. Currently, this includes simple constant-folding, and tail call elimination for recursive functions. The <span Class="emphasis">gawk</span> maintainer hopes to add additional optimizations over time. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>[<span Class="emphasis">prof-file</span>] 
+<p class="level0">
+<p class="level0"><span Class="bold">-^-profile</span>[<span class="bold">=<span Class="emphasis">prof-file</span>] Start a profiling session, and send the profiling data to <span Class="emphasis">prof-file .</span> The default is <span Class="manpage">awkprof.out .</span>The profile contains execution counts of each statement in the program in the left margin and function call counts for each user-defined function. 
+<p class="level0">
+<p class="level0"><span Class="bold">-P</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-posix</span> This turns on <span Class="emphasis">compatibility</span> mode, with the following additional restrictions: 
+<p class="level1">
+<p class="level1">(bu <span Class="bold">\ex</span> escape sequences are not recognized. 
+<p class="level1">(bu Only space and tab act as field separators when <span Class="bold">FS</span> is set to a single space, newline does not. 
+<p class="level1">(bu You cannot continue lines after <span Class="bold">?</span> and <span Class="manpage">: .</span>
+<p class="level1">(bu The synonym <span Class="bold">func</span> for the keyword <span Class="bold">function</span> is not recognized. 
+<p class="level1">(bu The operators <span Class="bold">**</span> and <span Class="bold">**=</span> cannot be used in place of <span Class="bold">^</span> and <span Class="manpage">^= .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-re-interval</span> Enable the use of <span Class="emphasis">interval expressions</span> in regular expression matching (see <a class="manpage" href="#Regular">Regular Expressions</a>below). Interval expressions were not traditionally available in the *(AK language.  The *(PX standard added them, to make <span Class="emphasis">awk</span> and <span Class="emphasis">egrep</span> consistent with each other. They are enabled by default, but this option remains for use with <span Class="manpage">-\^-traditional .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">-S</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-sandbox</span> Runs <span Class="emphasis">gawk</span> in sandbox mode, disabling the <span Class="bold">system()</span> function, input redirection with <span Class="manpage">getline</span>output redirection with <span Class="manpage">print  and  printf</span>and loading dynamic extensions. Command execution (through pipelines) is also disabled. This effectively blocks a script from accessing local resources (except for the files specified on the command line). 
+<p class="level0">
+<p class="level0"><span Class="bold">-t</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-lint-old</span> Provide warnings about constructs that are not portable to the original version of *(UX <span Class="emphasis">awk .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-version</span> Print version information for this particular copy of <span Class="emphasis">gawk</span> on the standard output. This is useful mainly for knowing if the current copy of <span Class="emphasis">gawk</span> on your system is up to date with respect to whatever the Free Software Foundation is distributing. This is also useful when reporting bugs. (Per the <a class="emphasis" href="#GNU">GNU Coding Standards ,</a> these options cause an immediate, successful exit.) 
+<p class="level0"><span Class="bold">-\^-</span> Signal the end of options. This is useful to allow further arguments to the *(AK program itself to start with a *(lq-*(rq. This provides consistency with the argument parsing convention used by most other *(PX programs. 
+<p class="level0">In compatibility mode, any other options are flagged as invalid, but are otherwise ignored. In normal operation, as long as program text has been supplied, unknown options are passed on to the *(AK program in the <span Class="bold">ARGV</span> array for processing.  This is particularly useful for running *(AK programs via the *(lq&#35;!*(rq executable interpreter mechanism. 
+<p class="level0">For *(PX compatibility, the <span Class="bold">-W</span> option may be used, followed by the name of a long option. <a name="AWK"></a><h2 class="nroffsh">AWK PROGRAM EXECUTION</h2>
+<p class="level0">
+<p class="level0">An *(AK program consists of a sequence of pattern-action statements and optional function definitions. 
+<p class="level1">
+<p class="level1"><span class="bold">@include "<span class="emphasis">filename<span class="bold">" <br><span class="bold">@load "<span class="emphasis">filename<span class="bold">" <br><span class="emphasis">pattern<span class="bold">	{ <span class="emphasis">action statements<span Class="bold"> }</span> <br><span class="bold">function <span class="emphasis">name<span class="bold">(<span class="emphasis">parameter list<span class="bold">) { <span class="emphasis">statements<span Class="bold"> }</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">Gawk</span> first reads the program source from the <span Class="emphasis">program-file (s)</span> if specified, from arguments to <span Class="manpage">-\^-source</span>or from the first non-option argument on the command line. The <span Class="bold">-f</span> and <span Class="bold">-\^-source</span> options may be used multiple times on the command line. <span Class="emphasis">Gawk</span> reads the program text as if all the <span Class="emphasis">program-file s</span> and command line source texts had been concatenated together.  This is useful for building libraries of *(AK functions, without having to include them in each new *(AK program that uses them.  It also provides the ability to mix library functions with command line programs. 
+<p class="level0">In addition, lines beginning with <span Class="bold">@include</span> may be used to include other source files into your program, making library use even easier.  This is equivalent to using the <span Class="bold">-i</span> option. 
+<p class="level0">Lines beginning with <span Class="bold">@load</span> may be used to load shared libraries into your program.  This is equivalent to using the <span Class="bold">-l</span> option. 
+<p class="level0">The environment variable <span Class="bold">AWKPATH</span> specifies a search path to use when finding source files named with the <span Class="bold">-f</span> and <span Class="bold">-i</span> options.  If this variable does not exist, the default path is <span Class="bold">".:/usr/local/share/awk"</span>. (The actual directory may vary, depending upon how <span Class="emphasis">gawk</span> was built and installed.) If a file name given to the <span Class="bold">-f</span> option contains a *(lq/*(rq character, no path search is performed. 
+<p class="level0">The environment variable <span Class="bold">AWKLIBPATH</span> specifies a search path to use when finding source files named with the <span Class="bold">-l</span> option.  If this variable does not exist, the default path is <span Class="bold">".:/usr/local/lib/gawk"</span>. (The actual directory may vary, depending upon how <span Class="emphasis">gawk</span> was built and installed.) 
+<p class="level0"><span Class="emphasis">Gawk</span> executes *(AK programs in the following order. First, all variable assignments specified via the <span Class="bold">-v</span> option are performed. Next, <span Class="emphasis">gawk</span> compiles the program into an internal form. Then, <span Class="emphasis">gawk</span> executes the code in the <span Class="bold">BEGIN</span> rule(s) (if any), and then proceeds to read each file named in the <span Class="bold">ARGV</span> array (up to <span Class="manpage">ARGV[ARGC] ).</span>If there are no files named on the command line, <span Class="emphasis">gawk</span> reads the standard input. 
+<p class="level0">If a filename on the command line has the form 
+<p class="level0">it is treated as a variable assignment.  The variable <span Class="emphasis">var</span> will be assigned the value <span Class="emphasis">val .</span> (This happens after any <span Class="bold">BEGIN</span> rule(s) have been run.) Command line variable assignment is most useful for dynamically assigning values to the variables *(AK uses to control how input is broken into fields and records. It is also useful for controlling state if multiple passes are needed over a single data file. 
+<p class="level0">If the value of a particular element of <span Class="bold">ARGV</span> is empty (<span Class="bold">""</span>), <span Class="emphasis">gawk</span> skips over it. 
+<p class="level0">For each input file, if a <span Class="bold">BEGINFILE</span> rule exists, <span Class="emphasis">gawk</span> executes the associated code before processing the contents of the file. Similarly, <span Class="emphasis">gawk</span> executes the code associated with <span Class="bold">ENDFILE</span> after processing the file. 
+<p class="level0">For each record in the input, <span Class="emphasis">gawk</span> tests to see if it matches any <span Class="emphasis">pattern</span> in the *(AK program. For each pattern that the record matches, <span Class="emphasis">gawk</span> executes the associated <span Class="emphasis">action .</span> The patterns are tested in the order they occur in the program. 
+<p class="level0">Finally, after all the input is exhausted, <span Class="emphasis">gawk</span> executes the code in the <span Class="bold">END</span> rule(s) (if any). <a name="Command"></a><h2 class="nroffsh">Command Line Directories</h2>
+<p class="level0">
+<p class="level0">According to POSIX, files named on the <span Class="emphasis">awk</span> command line must be text files.  The behavior is ``undefined'' if they are not.  Most versions of <span Class="emphasis">awk</span> treat a directory on the command line as a fatal error. 
+<p class="level0">Starting with version 4.0 of <span Class="emphasis">gawk ,</span> a directory on the command line produces a warning, but is otherwise skipped.  If either of the <span Class="bold">-\^-posix</span> or <span Class="bold">-\^-traditional</span> options is given, then <span Class="emphasis">gawk</span> reverts to treating directories on the command line as a fatal error. <a name="VARIABLES"></a><h2 class="nroffsh">VARIABLES, RECORDS AND FIELDS</h2>
+<p class="level0">*(AK variables are dynamic; they come into existence when they are first used.  Their values are either floating-point numbers or strings, or both, depending upon how they are used.  *(AK also has one dimensional arrays; arrays with multiple dimensions may be simulated. <span Class="emphasis">Gawk</span> provides true arrays of arrays; see <a class="manpage" href="#Arrays">Arrays</a>below. Several pre-defined variables are set as a program runs; these are described as needed and summarized below. <a name="Records"></a><h2 class="nroffsh">Records</h2>
+<p class="level0">Normally, records are separated by newline characters.  You can control how records are separated by assigning values to the built-in variable <span Class="manpage">RS .</span>If <span Class="bold">RS</span> is any single character, that character separates records. Otherwise, <span Class="bold">RS</span> is a regular expression.  Text in the input that matches this regular expression separates the record. However, in compatibility mode, only the first character of its string value is used for separating records. If <span Class="bold">RS</span> is set to the null string, then records are separated by blank lines. When <span Class="bold">RS</span> is set to the null string, the newline character always acts as a field separator, in addition to whatever value <span Class="bold">FS</span> may have. <a name="Fields"></a><h2 class="nroffsh">Fields</h2>
+<p class="level0">
+<p class="level0">As each input record is read, <span Class="emphasis">gawk</span> splits the record into <span Class="emphasis">fields ,</span> using the value of the <span Class="bold">FS</span> variable as the field separator. If <span Class="bold">FS</span> is a single character, fields are separated by that character. If <span Class="bold">FS</span> is the null string, then each individual character becomes a separate field. Otherwise, <span Class="bold">FS</span> is expected to be a full regular expression. In the special case that <span Class="bold">FS</span> is a single space, fields are separated by runs of spaces and/or tabs and/or newlines. (But see the section <a class="manpage" href="#POSIX">POSIX COMPATIBILITY</a>below). <span Class="manpage">NOTE :</span>The value of <span Class="bold">IGNORECASE</span> (see below) also affects how fields are split when <span Class="bold">FS</span> is a regular expression, and how records are separated when <span Class="bold">RS</span> is a regular expression. 
+<p class="level0">If the <span Class="bold">FIELDWIDTHS</span> variable is set to a space separated list of numbers, each field is expected to have fixed width, and <span Class="emphasis">gawk</span> splits up the record using the specified widths.  The value of <span Class="bold">FS</span> is ignored. Assigning a new value to <span Class="bold">FS</span> or <span Class="bold">FPAT</span> overrides the use of <span Class="manpage">FIELDWIDTHS .</span>
+<p class="level0">Similarly, if the <span Class="bold">FPAT</span> variable is set to a string representing a regular expression, each field is made up of text that matches that regular expression. In this case, the regular expression describes the fields themselves, instead of the text that separates the fields. Assigning a new value to <span Class="bold">FS</span> or <span Class="bold">FIELDWIDTHS</span> overrides the use of <span Class="manpage">FPAT .</span>
+<p class="level0">Each field in the input record may be referenced by its position: <span Class="manpage">$1</span>, <span Class="manpage">$2</span>and so on. <span Class="bold">$0</span> is the whole record. Fields need not be referenced by constants: 
+<p class="level1">
+<p class="level1">n = 5 <br>print $n 
+<p class="level0">
+<p class="level0">prints the fifth field in the input record. 
+<p class="level0">The variable <span Class="bold">NF</span> is set to the total number of fields in the input record. 
+<p class="level0">References to non-existent fields (i.e., fields after <span Class="manpage">$NF )</span>produce the null-string.  However, assigning to a non-existent field (e.g., <span Class="manpage">$(NF+2) = 5 )</span>increases the value of <span Class="manpage">NF</span>creates any intervening fields with the null string as their values, and causes the value of <span Class="bold">$0</span> to be recomputed, with the fields being separated by the value of <span Class="manpage">OFS .</span>References to negative numbered fields cause a fatal error. Decrementing <span Class="bold">NF</span> causes the values of fields past the new value to be lost, and the value of <span Class="bold">$0</span> to be recomputed, with the fields being separated by the value of <span Class="manpage">OFS .</span>
+<p class="level0">Assigning a value to an existing field causes the whole record to be rebuilt when <span Class="bold">$0</span> is referenced. Similarly, assigning a value to <span Class="bold">$0</span> causes the record to be resplit, creating new values for the fields. <a name="Built-in"></a><h2 class="nroffsh">Built-in Variables</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Gawk\^ 's</span> built-in variables are: 
+<p class="level0">
+<p class="level0"><span Class="bold">ARGC</span> The number of command line arguments (does not include options to <span Class="emphasis">gawk ,</span> or the program source). 
+<p class="level0"><span Class="bold">ARGIND</span> The index in <span Class="bold">ARGV</span> of the current file being processed. 
+<p class="level0"><span Class="bold">ARGV</span> Array of command line arguments.  The array is indexed from 0 to <span Class="bold">ARGC</span> - 1. Dynamically changing the contents of <span Class="bold">ARGV</span> can control the files used for data. 
+<p class="level0"><span Class="bold">BINMODE</span> On non-POSIX systems, specifies use of *(lqbinary*(rq mode for all file I/O. Numeric values of 1, 2, or 3, specify that input files, output files, or all files, respectively, should use binary I/O. String values of <span Class="bold">"r"</span>, or <span Class="bold">"w"</span> specify that input files, or output files, respectively, should use binary I/O. String values of <span Class="bold">"rw"</span> or <span Class="bold">"wr"</span> specify that all files should use binary I/O. Any other string value is treated as <span Class="bold">"rw"</span>, but generates a warning message. 
+<p class="level0"><span Class="bold">CONVFMT</span> The conversion format for numbers, <span Class="bold">"%.6g"</span>, by default. 
+<p class="level0"><span Class="bold">ENVIRON</span> An array containing the values of the current environment. The array is indexed by the environment variables, each element being the value of that variable (e.g., <span Class="bold">ENVIRON["HOME"]</span> might be <span Class="bold">"/home/arnold"</span>). Changing this array does not affect the environment seen by programs which <span Class="emphasis">gawk</span> spawns via redirection or the <span Class="bold">system()</span> function. 
+<p class="level0"><span Class="bold">ERRNO</span> If a system error occurs either doing a redirection for <span Class="manpage">getline</span>during a read for <span Class="manpage">getline</span>or during a <span Class="manpage">close()</span>then <span Class="bold">ERRNO</span> will contain a string describing the error. The value is subject to translation in non-English locales. 
+<p class="level0"><span Class="bold">FIELDWIDTHS</span> A whitespace separated list of field widths.  When set, <span Class="emphasis">gawk</span> parses the input into fields of fixed width, instead of using the value of the <span Class="bold">FS</span> variable as the field separator. See <a class="manpage" href="#Fields">Fields</a>above. 
+<p class="level0"><span Class="bold">FILENAME</span> The name of the current input file. If no files are specified on the command line, the value of <span Class="bold">FILENAME</span> is *(lq-*(rq. However, <span Class="bold">FILENAME</span> is undefined inside the <span Class="bold">BEGIN</span> rule (unless set by <span Class="manpage">getline ).</span>
+<p class="level0"><span Class="bold">FNR</span> The input record number in the current input file. 
+<p class="level0"><span Class="bold">FPAT</span> A regular expression describing the contents of the fields in a record. When set, <span Class="emphasis">gawk</span> parses the input into fields, where the fields match the regular expression, instead of using the value of the <span Class="bold">FS</span> variable as the field separator. See , <a class="manpage" href="#Fields">Fields</a>above. 
+<p class="level0"><span Class="bold">FS</span> The input field separator, a space by default.  See <a class="manpage" href="#Fields">Fields</a>above. 
+<p class="level0"><span Class="bold">FUNCTAB</span> An array whose indices and corresponding values are the names of all the user-defined or extension functions in the program. <span Class="manpage">NOTE :</span>You may not use the <span Class="bold">delete</span> statement with the <span Class="bold">FUNCTAB</span> array. 
+<p class="level0"><span Class="bold">IGNORECASE</span> Controls the case-sensitivity of all regular expression and string operations.  If <span Class="bold">IGNORECASE</span> has a non-zero value, then string comparisons and pattern matching in rules, field splitting with <span Class="bold">FS</span> and <span Class="manpage">FPAT</span>record separating with <span Class="manpage">RS</span>regular expression matching with <span Class="bold">~</span> and <span Class="manpage">!~</span>and the <span Class="manpage">gensub()</span>, <span Class="manpage">gsub()</span>, <span Class="manpage">index()</span>, <span Class="manpage">match()</span>, <span Class="manpage">patsplit()</span>, <span Class="manpage">split()</span>and <span Class="bold">sub()</span> built-in functions all ignore case when doing regular expression operations. <span Class="manpage">NOTE :</span>Array subscripting is <span Class="emphasis">not</span> affected. However, the <span Class="bold">asort()</span> and <span Class="bold">asorti()</span> functions are affected. 
+<p class="level0">Thus, if <span Class="bold">IGNORECASE</span> is not equal to zero, <span Class="bold">/aB/</span> matches all of the strings <span Class="bold">"ab"</span>, <span Class="bold">"aB"</span>, <span Class="bold">"Ab"</span>, and <span Class="bold">"AB"</span>. As with all *(AK variables, the initial value of <span Class="bold">IGNORECASE</span> is zero, so all regular expression and string operations are normally case-sensitive. 
+<p class="level0"><span Class="bold">LINT</span> Provides dynamic control of the <span Class="bold">-\^-lint</span> option from within an *(AK program. When true, <span Class="emphasis">gawk</span> prints lint warnings. When false, it does not. When assigned the string value <span Class="bold">"fatal"</span>, lint warnings become fatal errors, exactly like <span Class="manpage">-\^-lint=fatal .</span>Any other true value just prints warnings. 
+<p class="level0"><span Class="bold">NF</span> The number of fields in the current input record. 
+<p class="level0"><span Class="bold">NR</span> The total number of input records seen so far. 
+<p class="level0"><span Class="bold">OFMT</span> The output format for numbers, <span Class="bold">"%.6g"</span>, by default. 
+<p class="level0"><span Class="bold">OFS</span> The output field separator, a space by default. 
+<p class="level0"><span Class="bold">ORS</span> The output record separator, by default a newline. 
+<p class="level0"><span Class="bold">PREC</span> The working precision of arbitrary precision floating-point numbers, 53 by default. 
+<p class="level0"><span Class="bold">PROCINFO</span> The elements of this array provide access to information about the running *(AK program. On some systems, there may be elements in the array, <span Class="bold">"group1"</span> through <span class="bold">"group<span class="emphasis">n<span Class="bold">"</span> for some <span Class="emphasis">n ,</span> which is the number of supplementary groups that the process has. Use the <span Class="bold">in</span> operator to test for these elements. The following elements are guaranteed to be available: 
+<p class="level1">
+<p class="level1"><span Class="bold">PROCINFO["egid"]</span> The value of the <span Class="emphasis">getegid (2)</span> system call. 
+<p class="level1"><span Class="bold">PROCINFO["strftime"]</span> The default time format string for <span Class="manpage">strftime() .</span>
+<p class="level1"><span Class="bold">PROCINFO["euid"]</span> The value of the <span Class="emphasis">geteuid (2)</span> system call. 
+<p class="level1"><span Class="bold">PROCINFO["FS"]</span> <span Class="bold">"FS"</span> if field splitting with <span Class="bold">FS</span> is in effect, <span Class="bold">"FPAT"</span> if field splitting with <span Class="bold">FPAT</span> is in effect, or <span Class="bold">"FIELDWIDTHS"</span> if field splitting with <span Class="bold">FIELDWIDTHS</span> is in effect. 
+<p class="level1"><span Class="bold">PROCINFO["identifiers"]</span> A subarray, indexed by the names of all identifiers used in the text of the AWK program. The values indicate what <span Class="emphasis">gawk</span> knows about the identifiers after it has finished parsing the program; they are <span Class="emphasis">not</span> updated while the program runs. For each identifier, the value of the element is one of the following: 
+<p class="level2">
+<p class="level2"><span Class="bold">"array"</span> The identifier is an array. 
+<p class="level2"><span Class="bold">"extension"</span> The identifier is an extension function loaded via <span Class="manpage">@load .</span>
+<p class="level2"><span Class="bold">"scalar"</span> The identifier is a scalar. 
+<p class="level2"><span Class="bold">"untyped"</span> The identifier is untyped (could be used as a scalar or array, <span Class="emphasis">gawk</span> doesn't know yet). 
+<p class="level2"><span Class="bold">"user"</span> The identifier is a user-defined function. 
+<p class="level1">
+<p class="level1"><span Class="bold">PROCINFO["gid"]</span> The value of the <span Class="emphasis">getgid (2)</span> system call. 
+<p class="level1"><span Class="bold">PROCINFO["pgrpid"]</span> The process group ID of the current process. 
+<p class="level1"><span Class="bold">PROCINFO["pid"]</span> The process ID of the current process. 
+<p class="level1"><span Class="bold">PROCINFO["ppid"]</span> The parent process ID of the current process. 
+<p class="level1"><span Class="bold">PROCINFO["uid"]</span> The value of the <span Class="emphasis">getuid (2)</span> system call. 
+<p class="level1"><span Class="bold">PROCINFO["sorted_in"]</span> If this element exists in <span Class="manpage">PROCINFO</span>then its value controls the order in which array elements are traversed in <span Class="bold">for</span> loops. Supported values are <span Class="bold">"@ind_str_asc"</span>, <span Class="bold">"@ind_num_asc"</span>, <span Class="bold">"@val_type_asc"</span>, <span Class="bold">"@val_str_asc"</span>, <span Class="bold">"@val_num_asc"</span>, <span Class="bold">"@ind_str_desc"</span>, <span Class="bold">"@ind_num_desc"</span>, <span Class="bold">"@val_type_desc"</span>, <span Class="bold">"@val_str_desc"</span>, <span Class="bold">"@val_num_desc"</span>, and <span Class="bold">"@unsorted"</span>. The value can also be the name of any comparison function defined as follows: 
+<p class="level1">
+<p class="level1"><span Class="bold">function cmp_func(i1, v1, i2, v2)</span> 
+<p class="level1">
+<p class="level1">where <span Class="emphasis">i1</span> and <span Class="emphasis">i2</span> are the indices, and <span Class="emphasis">v1</span> and <span Class="emphasis">v2</span> are the corresponding values of the two elements being compared. It should return a number less than, equal to, or greater than 0, depending on how the elements of the array are to be ordered. 
+<p class="level1"><span Class="bold">PROCINFO["input", "READ_TIMEOUT"]</span> The timeout in milliseconds for reading data from <span Class="emphasis">input ,</span> where <span Class="emphasis">input</span> is a redirection string or a filename. A value of zero or less than zero means no timeout. 
+<p class="level1"><span Class="bold">PROCINFO["mpfr_version"]</span> The version of the GNU MPFR library used for arbitrary precision number support in <span Class="emphasis">gawk .</span> This entry is not present if MPFR support is not compiled into <span Class="emphasis">gawk .</span> 
+<p class="level1"><span Class="bold">PROCINFO["gmp_version"]</span> The version of the GNU MP library used for arbitrary precision number support in <span Class="emphasis">gawk .</span> This entry is not present if MPFR support is not compiled into <span Class="emphasis">gawk .</span> 
+<p class="level1"><span Class="bold">PROCINFO["prec_max"]</span> The maximum precision supported by the GNU MPFR library for arbitrary precision floating-point numbers. This entry is not present if MPFR support is not compiled into <span Class="emphasis">gawk .</span> 
+<p class="level1"><span Class="bold">PROCINFO["prec_min"]</span> The minimum precision allowed by the GNU MPFR library for arbitrary precision floating-point numbers. This entry is not present if MPFR support is not compiled into <span Class="emphasis">gawk .</span> 
+<p class="level1"><span Class="bold">PROCINFO["api_major"]</span> The major version of the extension API. This entry is not present if loading dynamic extensions is not available. 
+<p class="level1"><span Class="bold">PROCINFO["api_minor"]</span> The minor version of the extension API. This entry is not present if loading dynamic extensions is not available. 
+<p class="level1"><span Class="bold">PROCINFO["version"]</span> the version of <span Class="emphasis">gawk .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">ROUNDMODE</span> The rounding mode to use for arbitrary precision arithmetic on numbers, by default <span Class="bold">"N"</span> (IEEE-754 roundTiesToEven mode). The accepted values are <span Class="bold">"N"</span> or <span Class="bold">"n"</span> for roundTiesToEven, <span Class="bold">"U"</span> or <span Class="bold">"u"</span> for roundTowardPositive, <span Class="bold">"D"</span> or <span Class="bold">"d"</span> for roundTowardNegative, <span Class="bold">"Z"</span> or <span Class="bold">"z"</span> for roundTowardZero, and if your version of GNU MPFR library supports it, <span Class="bold">"A"</span> or <span Class="bold">"a"</span> for roundTiesToAway. 
+<p class="level0"><span Class="bold">RS</span> The input record separator, by default a newline. 
+<p class="level0"><span Class="bold">RT</span> The record terminator. <span Class="emphasis">Gawk</span> sets <span Class="bold">RT</span> to the input text that matched the character or regular expression specified by <span Class="manpage">RS .</span>
+<p class="level0"><span Class="bold">RSTART</span> The index of the first character matched by <span Class="manpage">match() ;</span>0 if no match. (This implies that character indices start at one.) 
+<p class="level0"><span Class="bold">RLENGTH</span> The length of the string matched by <span Class="manpage">match() ;</span>-1 if no match. 
+<p class="level0"><span Class="bold">SUBSEP</span> The character used to separate multiple subscripts in array elements, by default <span Class="bold">"e034"</span>. 
+<p class="level0"><span Class="bold">SYMTAB</span> An array whose indices are the names of all currently defined global variables and arrays in the program.  The array may be used for indirect access to read or write the value of a variable: 
+<p class="level0"><pre class="level0">
+foo = 5
+SYMTAB["foo"] = 4
+print foo    &#35; prints 4
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">isarray()</span> function may be used to test if an element in <span Class="bold">SYMTAB</span> is an array. You may not use the <span Class="bold">delete</span> statement with the <span Class="bold">SYMTAB</span> array. 
+<p class="level0"><span Class="bold">TEXTDOMAIN</span> The text domain of the *(AK program; used to find the localized translations for the program's strings. <a name="Arrays"></a><h2 class="nroffsh">Arrays</h2>
+<p class="level0">
+<p class="level0">Arrays are subscripted with an expression between square brackets 
+<p class="level0">If the expression is an expression list 
+<p class="level0">then the array subscript is a string consisting of the concatenation of the (string) value of each expression, separated by the value of the <span Class="bold">SUBSEP</span> variable. This facility is used to simulate multiply dimensioned arrays.  For example: 
+<p class="level0">
+<p class="level1">i = "A";^ j = "B";^ k = "C" <br>x[i, j, k] = "hello, worlden" 
+<p class="level0">
+<p class="level0">assigns the string <span Class="bold">"hello, worlden"</span> to the element of the array <span Class="bold">x</span> which is indexed by the string <span Class="bold">"Ae034Be034C"</span>.  All arrays in *(AK are associative, i.e., indexed by string values. 
+<p class="level0">The special operator <span Class="bold">in</span> may be used to test if an array has an index consisting of a particular value: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+if (val in array)
+	print array[val]
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">If the array has multiple subscripts, use <span Class="manpage">(i</span>, <span Class="manpage">j) in array .</span>
+<p class="level0">The <span Class="bold">in</span> construct may also be used in a <span Class="bold">for</span> loop to iterate over all the elements of an array. However, the <span Class="bold">(i, j) in array</span> construct only works in tests, not in <span Class="bold">for</span> loops. 
+<p class="level0">An element may be deleted from an array using the <span Class="bold">delete</span> statement. The <span Class="bold">delete</span> statement may also be used to delete the entire contents of an array, just by specifying the array name without a subscript. 
+<p class="level0"><span Class="emphasis">gawk</span> supports true multidimensional arrays. It does not require that such arrays be ``rectangular'' as in C or C++. For example: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+a[1] = 5
+a[2][1] = 6
+a[2][2] = 7
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="manpage">NOTE :</span>You may need to tell <span Class="emphasis">gawk</span> that an array element is really a subarray in order to use it where <span Class="emphasis">gawk</span> expects an array (such as in the second argument to <span Class="manpage">split() ).</span>You can do this by creating an element in the subarray and then deleting it with the <span Class="bold">delete</span> statement. <a name="Variable"></a><h2 class="nroffsh">Variable Typing And Conversion</h2>
+<p class="level0">
+<p class="level0">Variables and fields may be (floating point) numbers, or strings, or both.  How the value of a variable is interpreted depends upon its context.  If used in a numeric expression, it will be treated as a number; if used as a string it will be treated as a string. 
+<p class="level0">To force a variable to be treated as a number, add 0 to it; to force it to be treated as a string, concatenate it with the null string. 
+<p class="level0">Uninitialized variables have the numeric value 0 and the string value "" (the null, or empty, string). 
+<p class="level0">When a string must be converted to a number, the conversion is accomplished using <span Class="emphasis">strtod (3).</span> A number is converted to a string by using the value of <span Class="bold">CONVFMT</span> as a format string for <span Class="emphasis">sprintf (3),</span> with the numeric value of the variable as the argument. However, even though all numbers in *(AK are floating-point, integral values are <span Class="emphasis">always</span> converted as integers.  Thus, given 
+<p class="level0">
+<p class="level1"><pre class="level1">
+CONVFMT = "%2.2f"
+a = 12
+b = a ""
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">the variable <span Class="bold">b</span> has a string value of <span Class="bold">"12"</span> and not <span Class="bold">"12.00"</span>. 
+<p class="level0"><span Class="manpage">NOTE :</span>When operating in POSIX mode (such as with the <span Class="bold">-\^-posix</span> option), beware that locale settings may interfere with the way decimal numbers are treated: the decimal separator of the numbers you are feeding to <span Class="emphasis">gawk</span> must conform to what your locale would expect, be it a comma (,) or a period (.). 
+<p class="level0"><span Class="emphasis">Gawk</span> performs comparisons as follows: If two variables are numeric, they are compared numerically. If one value is numeric and the other has a string value that is a *(lqnumeric string,*(rq then comparisons are also done numerically. Otherwise, the numeric value is converted to a string and a string comparison is performed. Two strings are compared, of course, as strings. 
+<p class="level0">Note that string constants, such as <span Class="bold">"57"</span>, are <span Class="emphasis">not</span> numeric strings, they are string constants. The idea of *(lqnumeric string*(rq only applies to fields, <span Class="bold">getline</span> input, <span Class="manpage">FILENAME</span><span Class="bold">ARGV</span> elements, <span Class="bold">ENVIRON</span> elements and the elements of an array created by <span Class="bold">split()</span> or <span Class="bold">patsplit()</span> that are numeric strings. The basic idea is that <span Class="emphasis">user input ,</span> and only user input, that looks numeric, should be treated that way. <a name="Octal"></a><h2 class="nroffsh">Octal and Hexadecimal Constants</h2>
+<p class="level0">You may use C-style octal and hexadecimal constants in your AWK program source code. For example, the octal value <span Class="bold">011</span> is equal to decimal <span Class="manpage">9</span>and the hexadecimal value <span Class="bold">0x11</span> is equal to decimal 17. <a name="String"></a><h2 class="nroffsh">String Constants</h2>
+<p class="level0">
+<p class="level0">String constants in *(AK are sequences of characters enclosed between double quotes (like <span Class="bold">"value"</span>).  Within strings, certain <span Class="emphasis">escape sequences</span> are recognized, as in C.  These are: 
+<p class="level0">
+<p class="level0"><span Class="bold">\e\e</span> A literal backslash. 
+<p class="level0"><span Class="bold">\ea</span> The *(lqalert*(rq character; usually the s-1ASCIIs+1 s-1BELs+1 character. 
+<p class="level0"><span Class="bold">\eb</span> Backspace. 
+<p class="level0"><span Class="bold">\ef</span> Form-feed. 
+<p class="level0"><span Class="bold">\en</span> Newline. 
+<p class="level0"><span Class="bold">\er</span> Carriage return. 
+<p class="level0"><span Class="bold">\et</span> Horizontal tab. 
+<p class="level0"><span Class="bold">\ev</span> Vertical tab. 
+<p class="level0"><span Class="bold">\ex \^hex digits</span> The character represented by the string of hexadecimal digits following the <span Class="manpage">\ex .</span>As in ISO C, all following hexadecimal digits are considered part of the escape sequence. (This feature should tell us something about language design by committee.) E.g., <span Class="bold">"ex1B"</span> is the s-1ASCIIs+1 s-1ESCs+1 (escape) character. 
+<p class="level0"><span Class="bold">\e ddd</span> The character represented by the 1-, 2-, or 3-digit sequence of octal digits. E.g., <span Class="bold">"e033"</span> is the s-1ASCIIs+1 s-1ESCs+1 (escape) character. 
+<p class="level0"><span Class="bold">\e c</span> The literal character <span Class="emphasis">c\^ .</span> 
+<p class="level0">The escape sequences may also be used inside constant regular expressions (e.g., <span Class="bold">/[\ \et\ef\en\er\ev]/</span> matches whitespace characters). 
+<p class="level0">In compatibility mode, the characters represented by octal and hexadecimal escape sequences are treated literally when used in regular expression constants.  Thus, <span Class="bold">/a\e52b/</span> is equivalent to <span Class="manpage">/a\e*b/ .</span><a name="PATTERNS"></a><h2 class="nroffsh">PATTERNS AND ACTIONS</h2>
+<p class="level0">*(AK is a line-oriented language.  The pattern comes first, and then the action.  Action statements are enclosed in <span Class="bold">{</span> and <span Class="manpage">} .</span>Either the pattern may be missing, or the action may be missing, but, of course, not both.  If the pattern is missing, the action is executed for every single record of input. A missing action is equivalent to 
+<p class="level1">
+<p class="level1"><span Class="bold">{ print }</span> 
+<p class="level0">
+<p class="level0">which prints the entire record. 
+<p class="level0">Comments begin with the <span Class="bold">#</span> character, and continue until the end of the line. Blank lines may be used to separate statements. Normally, a statement ends with a newline, however, this is not the case for lines ending in a comma, <span Class="manpage">{</span>, <span Class="manpage">?</span>, <span Class="manpage">:</span>, <span Class="manpage">&&</span>or <span Class="manpage">|| .</span>Lines ending in <span Class="bold">do</span> or <span Class="bold">else</span> also have their statements automatically continued on the following line. In other cases, a line can be continued by ending it with a *(lqe*(rq, in which case the newline is ignored. 
+<p class="level0">Multiple statements may be put on one line by separating them with a *(lq;*(rq. This applies to both the statements within the action part of a pattern-action pair (the usual case), and to the pattern-action statements themselves. <a name="Patterns"></a><h2 class="nroffsh">Patterns</h2>
+<p class="level0">*(AK patterns may be one of the following: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+<span class="bold">BEGIN</span> 
+<span class="bold">END</span> 
+<span class="bold">BEGINFILE</span> 
+<span class="bold">ENDFILE</span> 
+<span class="bold">/ regular expression /</span> 
+<span class="emphasis">relational expression</span> <span class="bold">( pattern )</span> 
+<span class="bold">!  pattern</span> 
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">BEGIN</span> and <span Class="bold">END</span> are two special kinds of patterns which are not tested against the input. The action parts of all <span Class="bold">BEGIN</span> patterns are merged as if all the statements had been written in a single <span Class="bold">BEGIN</span> rule.  They are executed before any of the input is read.  Similarly, all the <span Class="bold">END</span> rules are merged, and executed when all the input is exhausted (or when an <span Class="bold">exit</span> statement is executed). <span Class="bold">BEGIN</span> and <span Class="bold">END</span> patterns cannot be combined with other patterns in pattern expressions. <span Class="bold">BEGIN</span> and <span Class="bold">END</span> patterns cannot have missing action parts. 
+<p class="level0"><span Class="bold">BEGINFILE</span> and <span Class="bold">ENDFILE</span> are additional special patterns whose bodies are executed before reading the first record of each command line input file and after reading the last record of each file. Inside the <span Class="bold">BEGINFILE</span> rule, the value of <span Class="bold">ERRNO</span> will be the empty string if the file was opened successfully. Otherwise, there is some problem with the file and the code should use <span Class="bold">nextfile</span> to skip it. If that is not done, <span Class="emphasis">gawk</span> produces its usual fatal error for files that cannot be opened. 
+<p class="level0">For <span Class="bold">/ regular expression /</span> patterns, the associated statement is executed for each input record that matches the regular expression. Regular expressions are the same as those in <span Class="emphasis">egrep (1),</span> and are summarized below. 
+<p class="level0">A <span Class="emphasis">relational expression</span> may use any of the operators defined below in the section on actions. These generally test whether certain fields match certain regular expressions. 
+<p class="level0">The <span Class="manpage">&&</span>, <span Class="manpage">||</span>and <span Class="bold">!</span> operators are logical AND, logical OR, and logical NOT, respectively, as in C. They do short-circuit evaluation, also as in C, and are used for combining more primitive pattern expressions.  As in most languages, parentheses may be used to change the order of evaluation. 
+<p class="level0">The <span Class="bold">?\^:</span> operator is like the same operator in C.  If the first pattern is true then the pattern used for testing is the second pattern, otherwise it is the third.  Only one of the second and third patterns is evaluated. 
+<p class="level0">The 
+<p class="level0">form of an expression is called a <span Class="emphasis">range pattern .</span> It matches all input records starting with a record that matches <span Class="emphasis">pattern1 ,</span> and continuing until a record that matches <span Class="emphasis">pattern2 ,</span> inclusive.  It does not combine with any other sort of pattern expression. <a name="Regular"></a><h2 class="nroffsh">Regular Expressions</h2>
+<p class="level0">Regular expressions are the extended kind found in <span Class="emphasis">egrep .</span> They are composed of characters as follows: 
+<p class="level0"><span Class="emphasis">c</span> Matches the non-metacharacter <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="emphasis">\ec</span> Matches the literal character <span Class="emphasis">c .</span> 
+<p class="level0"><span Class="bold">.</span> Matches any character <span Class="emphasis">including</span> newline. 
+<p class="level0"><span Class="bold">^</span> Matches the beginning of a string. 
+<p class="level0"><span Class="bold">$</span> Matches the end of a string. 
+<p class="level0"><span Class="bold">[ abc.\|.\|. ]</span> A character list: matches any of the characters <span Class="emphasis">abc.\|.\|. .</span> You may include a range of characters by separating them with a dash. 
+<p class="level0"><span class="bold">[^<span class="emphasis">abc.|.|.<span Class="bold">]</span> A negated character list: matches any character except <span Class="emphasis">abc.\|.\|. .</span> 
+<p class="level0">
+<p class="level0">Alternation: matches either <span Class="emphasis">r1</span> or <span Class="emphasis">r2 .</span> 
+<p class="level0"><span Class="emphasis">r1r2</span> Concatenation: matches <span Class="emphasis">r1 ,</span> and then <span Class="emphasis">r2 .</span> 
+<p class="level0">
+<p class="level0">Matches one or more <span Class="emphasis">r\^ 's.</span> 
+<p class="level0">
+<p class="level0">Matches zero or more <span Class="emphasis">r\^ 's.</span> 
+<p class="level0">
+<p class="level0">Matches zero or one <span Class="emphasis">r\^ 's.</span> 
+<p class="level0"><span Class="bold">( r )</span> Grouping: matches <span Class="emphasis">r .</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">One or two numbers inside braces denote an <span Class="emphasis">interval expression .</span> If there is one number in the braces, the preceding regular expression <span Class="emphasis">r</span> is repeated <span Class="emphasis">n</span> times.  If there are two numbers separated by a comma, <span Class="emphasis">r</span> is repeated <span Class="emphasis">n</span> to <span Class="emphasis">m</span> times. If there is one number followed by a comma, then <span Class="emphasis">r</span> is repeated at least <span Class="emphasis">n</span> times. 
+<p class="level0"><span Class="bold">\ey</span> Matches the empty string at either the beginning or the end of a word. 
+<p class="level0"><span Class="bold">\eB</span> Matches the empty string within a word. 
+<p class="level0"><span Class="bold">\e&lt;</span> Matches the empty string at the beginning of a word. 
+<p class="level0"><span Class="bold">\e&gt;</span> Matches the empty string at the end of a word. 
+<p class="level0"><span Class="bold">\es</span> Matches any whitespace character. 
+<p class="level0"><span Class="bold">\eS</span> Matches any nonwhitespace character. 
+<p class="level0"><span Class="bold">\ew</span> Matches any word-constituent character (letter, digit, or underscore). 
+<p class="level0"><span Class="bold">\eW</span> Matches any character that is not word-constituent. 
+<p class="level0"><span Class="bold">\e`</span> Matches the empty string at the beginning of a buffer (string). 
+<p class="level0"><span Class="bold">\e'</span> Matches the empty string at the end of a buffer. 
+<p class="level0">The escape sequences that are valid in string constants (see <a class="manpage" href="#String">String Constants )</a>are also valid in regular expressions. 
+<p class="level0"><span Class="emphasis">Character classes</span> are a feature introduced in the *(PX standard. A character class is a special notation for describing lists of characters that have a specific attribute, but where the actual characters themselves can vary from country to country and/or from character set to character set.  For example, the notion of what is an alphabetic character differs in the USA and in France. 
+<p class="level0">A character class is only valid in a regular expression <span Class="emphasis">inside</span> the brackets of a character list.  Character classes consist of <span Class="manpage">[:</span>a keyword denoting the class, and <span Class="manpage">:] .</span>The character classes defined by the *(PX standard are: 
+<p class="level0"><span Class="bold">[:alnum:]</span> Alphanumeric characters. 
+<p class="level0"><span Class="bold">[:alpha:]</span> Alphabetic characters. 
+<p class="level0"><span Class="bold">[:blank:]</span> Space or tab characters. 
+<p class="level0"><span Class="bold">[:cntrl:]</span> Control characters. 
+<p class="level0"><span Class="bold">[:digit:]</span> Numeric characters. 
+<p class="level0"><span Class="bold">[:graph:]</span> Characters that are both printable and visible. (A space is printable, but not visible, while an <span Class="bold">a</span> is both.) 
+<p class="level0"><span Class="bold">[:lower:]</span> Lowercase alphabetic characters. 
+<p class="level0"><span Class="bold">[:print:]</span> Printable characters (characters that are not control characters.) 
+<p class="level0"><span Class="bold">[:punct:]</span> Punctuation characters (characters that are not letter, digits, control characters, or space characters). 
+<p class="level0"><span Class="bold">[:space:]</span> Space characters (such as space, tab, and formfeed, to name a few). 
+<p class="level0"><span Class="bold">[:upper:]</span> Uppercase alphabetic characters. 
+<p class="level0"><span Class="bold">[:xdigit:]</span> Characters that are hexadecimal digits. 
+<p class="level0">For example, before the *(PX standard, to match alphanumeric characters, you would have had to write <span Class="manpage">/[A-Za-z0-9]/ .</span>If your character set had other alphabetic characters in it, this would not match them, and if your character set collated differently from s-1ASCIIs+1, this might not even match the s-1ASCIIs+1 alphanumeric characters. With the *(PX character classes, you can write <span Class="manpage">/[[:alnum:]]/</span>and this matches the alphabetic and numeric characters in your character set, no matter what it is. 
+<p class="level0">Two additional special sequences can appear in character lists. These apply to non-s-1ASCIIs+1 character sets, which can have single symbols (called <span Class="emphasis">collating elements )</span> that are represented with more than one character, as well as several characters that are equivalent for <span Class="emphasis">collating ,</span> or sorting, purposes.  (E.g., in French, a plain *(lqe*(rq and a grave-accented *(lqeh'-w:e:u'`*(rq are equivalent.) 
+<p class="level0">Collating Symbols A collating symbol is a multi-character collating element enclosed in <span Class="bold">[.</span> and <span Class="manpage">.] .</span>For example, if <span Class="bold">ch</span> is a collating element, then <span Class="bold">[[.ch.]]</span> is a regular expression that matches this collating element, while <span Class="bold">[ch]</span> is a regular expression that matches either <span Class="bold">c</span> or <span Class="manpage">h .</span>
+<p class="level0">Equivalence Classes An equivalence class is a locale-specific name for a list of characters that are equivalent.  The name is enclosed in <span Class="bold">[=</span> and <span Class="manpage">=] .</span>For example, the name <span Class="bold">e</span> might be used to represent all of *(lqe,*(rq *(lqeh'-w:e:u'&acute;,*(rq and *(lqeh'-w:e:u'`.*(rq In this case, <span Class="bold">[[=e=]]</span> is a regular expression that matches any of <span Class="manpage">e</span>, <span Class="manpage">e\h'-\w:e:u'\'</span>or <span Class="manpage">e\h'-\w:e:u'\` .</span>
+<p class="level0">These features are very valuable in non-English speaking locales. The library functions that <span Class="emphasis">gawk</span> uses for regular expression matching currently only recognize *(PX character classes; they do not recognize collating symbols or equivalence classes. 
+<p class="level0">The <span Class="manpage">\ey</span>, <span Class="manpage">\eB</span>, <span Class="manpage">\e&lt;</span>, <span Class="manpage">\e&gt;</span>, <span Class="manpage">\es</span>, <span Class="manpage">\eS</span>, <span Class="manpage">\ew</span>, <span Class="manpage">\eW</span>, <span Class="manpage">\e`</span>and <span Class="bold">\e'</span> operators are specific to <span Class="emphasis">gawk ;</span> they are extensions based on facilities in the *(GN regular expression libraries. 
+<p class="level0">The various command line options control how <span Class="emphasis">gawk</span> interprets characters in regular expressions. 
+<p class="level0">No options In the default case, <span Class="emphasis">gawk</span> provides all the facilities of *(PX regular expressions and the *(GN regular expression operators described above. 
+<p class="level0"><span Class="bold">-\^-posix</span> Only *(PX regular expressions are supported, the *(GN operators are not special. (E.g., <span Class="bold">\ew</span> matches a literal <span Class="manpage">w ).</span>
+<p class="level0"><span Class="bold">-\^-traditional</span> Traditional *(UX <span Class="emphasis">awk</span> regular expressions are matched.  The *(GN operators are not special, and interval expressions are not available. Characters described by octal and hexadecimal escape sequences are treated literally, even if they represent regular expression metacharacters. 
+<p class="level0"><span Class="bold">-\^-re-interval</span> Allow interval expressions in regular expressions, even if <span Class="bold">-\^-traditional</span> has been provided. <a name="Actions"></a><h2 class="nroffsh">Actions</h2>
+<p class="level0">Action statements are enclosed in braces, <span Class="bold">{</span> and <span Class="manpage">} .</span>Action statements consist of the usual assignment, conditional, and looping statements found in most languages.  The operators, control statements, and input/output statements available are patterned after those in C. <a name="Operators"></a><h2 class="nroffsh">Operators</h2>
+<p class="level0">
+<p class="level0">The operators in *(AK, in order of decreasing precedence, are: 
+<p class="level0">
+<p class="level0"><span Class="manpage">( \&.\|.\|. )</span>Grouping 
+<p class="level0"><span Class="bold">$</span> Field reference. 
+<p class="level0"><span Class="bold">++ -\^-</span> Increment and decrement, both prefix and postfix. 
+<p class="level0"><span Class="bold">^</span> Exponentiation (<span Class="bold">**</span> may also be used, and <span Class="bold">**=</span> for the assignment operator). 
+<p class="level0"><span Class="bold">+ - !</span> Unary plus, unary minus, and logical negation. 
+<p class="level0"><span Class="bold">* / %</span> Multiplication, division, and modulus. 
+<p class="level0"><span Class="bold">+ -</span> Addition and subtraction. 
+<p class="level0"><span Class="emphasis">space</span> String concatenation. 
+<p class="level0"><span Class="bold">|   |&</span> Piped I/O for <span Class="manpage">getline</span>, <span Class="manpage">print</span>and <span Class="manpage">printf .</span>
+<p class="level0"><span Class="bold">&lt; &gt; &lt;= &gt;= != ==</span> The regular relational operators. 
+<p class="level0"><span Class="bold">~ !~</span> Regular expression match, negated match. <span Class="manpage">NOTE :</span>Do not use a constant regular expression 
+<p class="level0">on the left-hand side of a <span Class="bold">~</span> or <span Class="manpage">!~ .</span>Only use one on the right-hand side.  The expression <span Class="bold">/foo/ ~  exp</span> has the same meaning as <span class="bold">(($0 ~ /foo/) ~ <span class="emphasis">exp<span Class="bold">)</span>. This is usually <span Class="emphasis">not</span> what you want. 
+<p class="level0"><span Class="bold">in</span> Array membership. 
+<p class="level0"><span Class="bold">&&</span> Logical AND. 
+<p class="level0"><span Class="bold">||</span> Logical OR. 
+<p class="level0"><span Class="bold">?:</span> The C conditional expression.  This has the form 
+<p class="level0">. If <span Class="emphasis">expr1</span> is true, the value of the expression is <span Class="emphasis">expr2 ,</span> otherwise it is <span Class="emphasis">expr3 .</span> Only one of <span Class="emphasis">expr2</span> and <span Class="emphasis">expr3</span> is evaluated. 
+<p class="level0"><span Class="bold">= += -= *= /= %= ^=</span> Assignment.  Both absolute assignment <span Class="bold">( var  =  value )</span> and operator-assignment (the other forms) are supported. <a name="Control"></a><h2 class="nroffsh">Control Statements</h2>
+<p class="level0">
+<p class="level0">The control statements are as follows: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+<span class="bold">if (<span class="emphasis">condition<span class="bold">) <span class="emphasis">statement</span> [ <span class="bold">else<span class="emphasis"> statement </span>]
+<span class="bold">while (<span class="emphasis">condition<span class="bold">) <span class="emphasis">statement </span>
+<span class="bold">do <span class="emphasis">statement <span class="bold">while (<span class="emphasis">condition<span class="bold">)</span>
+<span class="bold">for (<span class="emphasis">expr1<span class="bold">; <span class="emphasis">expr2<span class="bold">; <span class="emphasis">expr3<span class="bold">) <span class="emphasis">statement</span>
+<span class="bold">for (<span class="emphasis">var <span class="bold">in<span class="emphasis"> array<span class="bold">) <span class="emphasis">statement</span>
+<span class="bold">break</span>
+<span class="bold">continue</span>
+<span class="bold">delete <span class="emphasis">array^<span class="bold">[^<span class="emphasis">index^<span class="bold">]</span>
+<span class="bold">delete <span class="emphasis">array^</span>
+<span class="bold">exit</span> [ <span class="emphasis">expression</span> ]
+<span class="bold">{ <span class="emphasis">statements <span class="bold">}</span>
+<span class="bold">switch (<span class="emphasis">expression<span class="bold">) {
+<span class="bold">case <span class="emphasis">value<span class="bold">|<span class="emphasis">regex<span class="bold"> : <span class="emphasis">statement
+.^.^.
+</span>[ <span class="bold">default: <span class="emphasis">statement </span>]
+<span class="bold">}</span>
+</pre>
+
+<p class="level1">
+<p class="level0"><a name="IO"></a><h2 class="nroffsh">I/O Statements</h2>
+<p class="level0">
+<p class="level0">The input/output statements are as follows: 
+<p class="level0">
+<p class="level0"><span class="bold">close(<span Class="emphasis">file </span>[<span class="bold">, <span Class="emphasis">how</span>]<span Class="bold">)</span> Close file, pipe or co-process. The optional <span Class="emphasis">how</span> should only be used when closing one end of a two-way pipe to a co-process. It must be a string value, either <span Class="bold">"to"</span> or <span Class="bold">"from"</span>. 
+<p class="level0"><span Class="bold">getline</span> Set <span Class="bold">$0</span> from next input record; set , <span Class="manpage">NF</span>, <span Class="manpage">NR</span>, <span Class="manpage">FNR</span>, <span Class="manpage">RT .</span>
+<p class="level0"><span Class="bold">getline &lt; file</span> Set <span Class="bold">$0</span> from next record of <span Class="emphasis">file ;</span> set <span Class="manpage">NF</span>, <span Class="manpage">RT .</span>
+<p class="level0"><span Class="bold">getline  var</span> Set <span Class="emphasis">var</span> from next input record; set <span Class="manpage">NR</span>, <span Class="manpage">FNR</span>, <span Class="manpage">RT .</span>
+<p class="level0"><span Class="bold">getline  var  &lt; file</span> Set <span Class="emphasis">var</span> from next record of <span Class="emphasis">file ,</span> <span Class="manpage">RT .</span>
+<p class="level0"><span class="emphasis">command<span Class="bold"> | getline </span>[<span Class="emphasis">var</span>] Run <span Class="emphasis">command</span> piping the output either into <span Class="bold">$0</span> or <span Class="emphasis">var ,</span> as above, and <span Class="manpage">RT .</span>
+<p class="level0"><span class="emphasis">command<span Class="bold"> |& getline </span>[<span Class="emphasis">var</span>] Run <span Class="emphasis">command</span> as a co-process piping the output either into <span Class="bold">$0</span> or <span Class="emphasis">var ,</span> as above, and <span Class="manpage">RT .</span>Co-processes are a <span Class="emphasis">gawk</span> extension. 
+<p class="level0">can also be a socket.  See the subsection <a class="manpage" href="#Special">Special File Names</a>below.) 
+<p class="level0"><span Class="bold">next</span> Stop processing the current input record.  The next input record is read and processing starts over with the first pattern in the *(AK program. Upon reaching the end of the input data, <span Class="emphasis">gawk</span> executes any <span Class="bold">END</span> rule(s). 
+<p class="level0"><span Class="bold">nextfile</span> Stop processing the current input file.  The next input record read comes from the next input file. <span Class="bold">FILENAME</span> and <span Class="bold">ARGIND</span> are updated, <span Class="bold">FNR</span> is reset to 1, and processing starts over with the first pattern in the *(AK program. Upon reaching the end of the input data, <span Class="emphasis">gawk</span> executes any <span Class="bold">END</span> rule(s). 
+<p class="level0"><span Class="bold">print</span> Print the current record. The output record is terminated with the value of <span Class="manpage">ORS .</span>
+<p class="level0"><span Class="bold">print  expr-list</span> Print expressions. Each expression is separated by the value of <span Class="manpage">OFS .</span>The output record is terminated with the value of <span Class="manpage">ORS .</span>
+<p class="level0"><span Class="bold">print  expr-list  &gt; file</span> Print expressions on <span Class="emphasis">file .</span> Each expression is separated by the value of <span Class="manpage">OFS .</span>The output record is terminated with the value of <span Class="manpage">ORS .</span>
+<p class="level0"><span Class="bold">printf  fmt, expr-list</span> Format and print. See <span class="bold">The <span class="emphasis">printf <span Class="bold">Statement</span>, below. 
+<p class="level0"><span Class="bold">printf  fmt, expr-list  &gt; file</span> Format and print on <span Class="emphasis">file .</span> 
+<p class="level0"><span Class="bold">system( cmd-line )</span> Execute the command <span Class="emphasis">cmd-line ,</span> and return the exit status. (This may not be available on non-*(PX systems.) 
+<p class="level0"><span Class="bold">fflush(</span>[<span Class="emphasis">file^</span>]<span Class="bold">)</span> Flush any buffers associated with the open output file or pipe <span Class="emphasis">file .</span> If <span Class="emphasis">file</span> is missing or if it is the null string, then flush all open output files and pipes. 
+<p class="level0">Additional output redirections are allowed for <span Class="bold">print</span> and <span Class="manpage">printf .</span>
+<p class="level0"><span Class="bold">print .\|.\|. &gt;&gt;  file</span> Appends output to the <span Class="emphasis">file .</span> 
+<p class="level0"><span Class="bold">print .\|.\|. |  command</span> Writes on a pipe. 
+<p class="level0"><span Class="bold">print .\|.\|. |&  command</span> Sends data to a co-process or socket. (See also the subsection <a class="manpage" href="#Special">Special File Names</a>below.) 
+<p class="level0">The <span Class="bold">getline</span> command returns 1 on success, 0 on end of file, and -1 on an error. Upon an error, <span Class="bold">ERRNO</span> is set to a string describing the problem. 
+<p class="level0"><span Class="manpage">NOTE :</span>Failure in opening a two-way socket results in a non-fatal error being returned to the calling function. If using a pipe, co-process, or socket to <span Class="manpage">getline</span>or from <span Class="bold">print</span> or <span Class="bold">printf</span> within a loop, you <span Class="emphasis">must</span> use <span Class="bold">close()</span> to create new instances of the command or socket. *(AK does not automatically close pipes, sockets, or co-processes when they return EOF. <a name="The"></a><h2 class="nroffsh">The \fIprintf\fP\^ Statement</h2>
+<p class="level0">
+<p class="level0">The *(AK versions of the <span Class="bold">printf</span> statement and <span Class="bold">sprintf()</span> function (see below) accept the following conversion specification formats: 
+<p class="level0"><span Class="bold">%c</span> A single character. If the argument used for <span Class="bold">%c</span> is numeric, it is treated as a character and printed. Otherwise, the argument is assumed to be a string, and the only first character of that string is printed. 
+<p class="level0"><span Class="manpage">%d</span>, <span Class="manpage">%i</span>A decimal number (the integer part). 
+<p class="level0"><span Class="manpage">%e</span>, <span Class="manpage">%E</span>A floating point number of the form [<span Class="bold">-</span>]<span class="emphasis">d<span class="bold">.<span class="emphasis">dddddd^<span Class="bold">e</span>[<span Class="bold">+-</span>]<span Class="emphasis">dd</span>. The <span Class="bold">%E</span> format uses <span Class="bold">E</span> instead of <span Class="manpage">e .</span>
+<p class="level0"><span Class="manpage">%f</span>, <span Class="manpage">%F</span>A floating point number of the form [<span Class="bold">-</span>]<span class="emphasis">ddd<span class="bold">.<span Class="emphasis">dddddd</span>. If the system library supports it, <span Class="bold">%F</span> is available as well. This is like <span Class="manpage">%f</span>but uses capital letters for special *(lqnot a number*(rq and *(lqinfinity*(rq values. If <span Class="bold">%F</span> is not available, <span Class="emphasis">gawk</span> uses <span Class="manpage">%f .</span>
+<p class="level0"><span Class="manpage">%g</span>, <span Class="manpage">%G</span>Use <span Class="bold">%e</span> or <span Class="bold">%f</span> conversion, whichever is shorter, with nonsignificant zeros suppressed. The <span Class="bold">%G</span> format uses <span Class="bold">%E</span> instead of <span Class="manpage">%e .</span>
+<p class="level0"><span Class="bold">%o</span> An unsigned octal number (also an integer). 
+<p class="level0">
+<p class="level0"><span Class="bold">%u</span> An unsigned decimal number (again, an integer). 
+<p class="level0"><span Class="bold">%s</span> A character string. 
+<p class="level0"><span Class="manpage">%x</span>, <span Class="manpage">%X</span>An unsigned hexadecimal number (an integer). The <span Class="bold">%X</span> format uses <span Class="bold">ABCDEF</span> instead of <span Class="manpage">abcdef .</span>
+<p class="level0"><span Class="bold">%%</span> A single <span Class="bold">%</span> character; no argument is converted. 
+<p class="level0">Optional, additional parameters may lie between the <span Class="bold">%</span> and the control letter: 
+<p class="level0">
+<p class="level0">Use the <span Class="emphasis">count 'th</span> argument at this point in the formatting. This is called a <span Class="emphasis">positional specifier</span> and is intended primarily for use in translated versions of format strings, not in the original text of an AWK program. It is a <span Class="emphasis">gawk</span> extension. 
+<p class="level0"><span Class="bold">-</span> The expression should be left-justified within its field. 
+<p class="level0"><span Class="emphasis">space</span> For numeric conversions, prefix positive values with a space, and negative values with a minus sign. 
+<p class="level0"><span Class="bold">+</span> The plus sign, used before the width modifier (see below), says to always supply a sign for numeric conversions, even if the data to be formatted is positive.  The <span Class="bold">+</span> overrides the space modifier. 
+<p class="level0"><span Class="bold">#</span> Use an *(lqalternate form*(rq for certain control letters. For <span Class="manpage">%o</span>supply a leading zero. For <span Class="manpage">%x</span>and <span Class="manpage">%X</span>supply a leading <span Class="bold">0x</span> or <span Class="bold">0X</span> for a nonzero result. For <span Class="manpage">%e</span>, <span Class="manpage">%E</span><span Class="bold">%f</span> and <span Class="manpage">%F</span>the result always contains a decimal point. For <span Class="manpage">%g</span>and <span Class="manpage">%G</span>trailing zeros are not removed from the result. 
+<p class="level0"><span Class="bold">0</span> A leading <span Class="bold">0</span> (zero) acts as a flag, that indicates output should be padded with zeroes instead of spaces. This applies only to the numeric output formats. This flag only has an effect when the field width is wider than the value to be printed. 
+<p class="level0"><span Class="bold">'</span> A single quote character instructs <span Class="emphasis">gawk</span> to insert the locale's thousands-separator character into decimal numbers, and to also use the locale's decimal point character with floating point formats. This requires correct locale support in the C library and in the definition of the current locale. 
+<p class="level0"><span Class="emphasis">width</span> The field should be padded to this width.  The field is normally padded with spaces.  With the <span Class="bold">0</span> flag, it is padded with zeroes. 
+<p class="level0"><span Class="bold">\&. prec</span> A number that specifies the precision to use when printing. For the <span Class="manpage">%e</span>, <span Class="manpage">%E</span><span Class="bold">%f</span> and <span Class="manpage">%F</span>formats, this specifies the number of digits you want printed to the right of the decimal point. For the <span Class="manpage">%g</span>and <span Class="bold">%G</span> formats, it specifies the maximum number of significant digits.  For the <span Class="manpage">%d</span>, <span Class="manpage">%i</span>, <span Class="manpage">%o</span>, <span Class="manpage">%u</span>, <span Class="manpage">%x</span>and <span Class="bold">%X</span> formats, it specifies the minimum number of digits to print.  For <span Class="manpage">%s</span>it specifies the maximum number of characters from the string that should be printed. 
+<p class="level0">The dynamic <span Class="emphasis">width</span> and <span Class="emphasis">prec</span> capabilities of the ISO C <span Class="bold">printf()</span> routines are supported. A <span Class="bold">*</span> in place of either the <span Class="emphasis">width</span> or <span Class="emphasis">prec</span> specifications causes their values to be taken from the argument list to <span Class="bold">printf</span> or <span Class="manpage">sprintf() .</span>To use a positional specifier with a dynamic width or precision, supply the 
+<p class="level0">after the <span Class="bold">*</span> in the format string. For example, <span Class="bold">"%3$*2$.*1$s"</span>. <a name="Special"></a><h2 class="nroffsh">Special File Names</h2>
+<p class="level0">
+<p class="level0">When doing I/O redirection from either <span Class="bold">print</span> or <span Class="bold">printf</span> into a file, or via <span Class="bold">getline</span> from a file, <span Class="emphasis">gawk</span> recognizes certain special filenames internally.  These filenames allow access to open file descriptors inherited from <span Class="emphasis">gawk\^ 's</span> parent process (usually the shell). These file names may also be used on the command line to name data files. The filenames are: 
+<p class="level0"><span Class="bold">-</span> The standard input. 
+<p class="level0"><span Class="bold">/dev/stdin</span> The standard input. 
+<p class="level0"><span Class="bold">/dev/stdout</span> The standard output. 
+<p class="level0"><span Class="bold">/dev/stderr</span> The standard error output. 
+<p class="level0"><span Class="bold">/dev/fd/\^ n</span> The file associated with the open file descriptor <span Class="emphasis">n .</span> 
+<p class="level0">These are particularly useful for error messages.  For example: 
+<p class="level0">
+<p class="level1">print "You blew it!" &gt; "/dev/stderr" 
+<p class="level0">
+<p class="level0">whereas you would otherwise have to use 
+<p class="level0">
+<p class="level1">print "You blew it!" | "cat 1&gt;&2" 
+<p class="level0">
+<p class="level0">The following special filenames may be used with the <span Class="bold">|&</span> co-process operator for creating TCP/IP network connections: 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet/tcp/ lport / rhost / rport</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet4/tcp/ lport / rhost / rport</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet6/tcp/ lport / rhost / rport</span> Files for a TCP/IP connection on local port <span Class="emphasis">lport</span> to remote host <span Class="emphasis">rhost</span> on remote port <span Class="emphasis">rport .</span> Use a port of <span Class="bold">0</span> to have the system pick a port. Use <span Class="bold">/inet4</span> to force an IPv4 connection, and <span Class="bold">/inet6</span> to force an IPv6 connection. Plain <span Class="bold">/inet</span> uses the system default (most likely IPv4). 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet/udp/ lport / rhost / rport</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet4/udp/ lport / rhost / rport</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/inet6/udp/ lport / rhost / rport</span> Similar, but use UDP/IP instead of TCP/IP. <a name="Numeric"></a><h2 class="nroffsh">Numeric Functions</h2>
+<p class="level0">
+<p class="level0">*(AK has the following built-in arithmetic functions: 
+<p class="level0">
+<p class="level0"><span Class="bold">atan2( y ,  x )</span> Return the arctangent of <span Class="emphasis">y/x</span> in radians. 
+<p class="level0"><span Class="bold">cos( expr )</span> Return the cosine of <span Class="emphasis">expr ,</span> which is in radians. 
+<p class="level0"><span Class="bold">exp( expr )</span> The exponential function. 
+<p class="level0"><span Class="bold">int( expr )</span> Truncate to integer. 
+<p class="level0"><span Class="bold">log( expr )</span> The natural logarithm function. 
+<p class="level0"><span Class="bold">rand()</span> Return a random number <span Class="emphasis">N ,</span> between 0 and 1, such that 0 (&lt;= <span Class="emphasis">N</span> &lt; 1. 
+<p class="level0"><span Class="bold">sin( expr )</span> Return the sine of <span Class="emphasis">expr ,</span> which is in radians. 
+<p class="level0"><span Class="bold">sqrt( expr )</span> Return the square root of <span Class="emphasis">expr .</span> 
+<p class="level0"><span Class="bold">srand(</span>[<span Class="emphasis">expr^</span>]<span Class="bold">)</span> Use <span Class="emphasis">expr</span> as the new seed for the random number generator.  If no <span Class="emphasis">expr</span> is provided, use the time of day. Return the previous seed for the random number generator. <a name="String"></a><h2 class="nroffsh">String Functions</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">Gawk</span> has the following built-in string functions: 
+<p class="level0">
+<p class="level0"><span class="bold">asort(<span Class="emphasis">s </span>[<span class="bold">, <span Class="emphasis">d</span> [<span class="bold">, <span Class="emphasis">how</span>] ]<span Class="bold">)</span> Return the number of elements in the source array <span Class="emphasis">s .</span> Sort the contents of <span Class="emphasis">s</span> using <span Class="emphasis">gawk\^ 's</span> normal rules for comparing values, and replace the indices of the sorted values <span Class="emphasis">s</span> with sequential integers starting with 1. If the optional destination array <span Class="emphasis">d</span> is specified, first duplicate <span Class="emphasis">s</span> into <span Class="emphasis">d ,</span> and then sort <span Class="emphasis">d ,</span> leaving the indices of the source array <span Class="emphasis">s</span> unchanged. The optional string <span Class="emphasis">how</span> controls the direction and the comparison mode. Valid values for <span Class="emphasis">how</span> are any of the strings valid for <span Class="bold">PROCINFO["sorted_in"]</span>. It can also be the name of a user-defined comparison function as described in <span Class="bold">PROCINFO["sorted_in"]</span>. 
+<p class="level0"><span class="bold">asorti(<span Class="emphasis">s </span>[<span class="bold">, <span Class="emphasis">d</span> [<span class="bold">, <span Class="emphasis">how</span>] ]<span Class="bold">)</span> Return the number of elements in the source array <span Class="emphasis">s .</span> The behavior is the same as that of <span Class="manpage">asort()</span>except that the array <span Class="emphasis">indices</span> are used for sorting, not the array values. When done, the array is indexed numerically, and the values are those of the original indices. The original values are lost; thus provide a second array if you wish to preserve the original. The purpose of the optional string <span Class="emphasis">how</span> is the same as described in <span Class="bold">asort()</span> above. 
+<p class="level0"><span class="bold">gensub(<span class="emphasis">r<span class="bold">, <span class="emphasis">s<span class="bold">, <span Class="emphasis">h </span>[<span class="bold">, <span Class="emphasis">t</span>]<span Class="bold">)</span> Search the target string <span Class="emphasis">t</span> for matches of the regular expression <span Class="emphasis">r .</span> If <span Class="emphasis">h</span> is a string beginning with <span Class="bold">g</span> or <span Class="manpage">G</span>then replace all matches of <span Class="emphasis">r</span> with <span Class="emphasis">s .</span> Otherwise, <span Class="emphasis">h</span> is a number indicating which match of <span Class="emphasis">r</span> to replace. If <span Class="emphasis">t</span> is not supplied, use <span Class="bold">$0</span> instead. Within the replacement text <span Class="emphasis">s ,</span> the sequence <span Class="bold">\e n,</span> where <span Class="emphasis">n</span> is a digit from 1 to 9, may be used to indicate just the text that matched the <span Class="emphasis">n 'th</span> parenthesized subexpression.  The sequence <span Class="bold">\e0</span> represents the entire matched text, as does the character <span Class="manpage">& .</span>Unlike <span Class="bold">sub()</span> and <span Class="manpage">gsub()</span>the modified string is returned as the result of the function, and the original target string is <span Class="emphasis">not</span> changed. 
+<p class="level0"><span class="bold">gsub(<span class="emphasis">r<span class="bold">, <span Class="emphasis">s </span>[<span class="bold">, <span Class="emphasis">t</span>]<span Class="bold">)</span> For each substring matching the regular expression <span Class="emphasis">r</span> in the string <span Class="emphasis">t ,</span> substitute the string <span Class="emphasis">s ,</span> and return the number of substitutions. If <span Class="emphasis">t</span> is not supplied, use <span Class="manpage">$0 .</span>An <span Class="bold">&</span> in the replacement text is replaced with the text that was actually matched. Use <span Class="bold">\e&</span> to get a literal <span Class="manpage">& .</span>(This must be typed as <span Class="bold">"ee&"</span>; see *(EP for a fuller discussion of the rules for <span Class="manpage">& 's</span>and backslashes in the replacement text of <span Class="manpage">sub()</span>, <span Class="manpage">gsub()</span>and <span Class="manpage">gensub() .)</span>
+<p class="level0"><span Class="bold">index( s ,  t )</span> Return the index of the string <span Class="emphasis">t</span> in the string <span Class="emphasis">s ,</span> or 0 if <span Class="emphasis">t</span> is not present. (This implies that character indices start at one.) It is a fatal error to use a regexp constant for <span Class="emphasis">t .</span> 
+<p class="level0"><span Class="bold">length(</span>[<span Class="emphasis">s</span>]<span class="bold">) Return the length of the string <span Class="emphasis">s ,</span> or the length of <span Class="bold">$0</span> if <span Class="emphasis">s</span> is not supplied. As a non-standard extension, with an array argument, <span Class="bold">length()</span> returns the number of elements in the array. 
+<p class="level0"><span class="bold">match(<span class="emphasis">s<span class="bold">, <span Class="emphasis">r </span>[<span class="bold">, <span Class="emphasis">a</span>]<span Class="bold">)</span> Return the position in <span Class="emphasis">s</span> where the regular expression <span Class="emphasis">r</span> occurs, or 0 if <span Class="emphasis">r</span> is not present, and set the values of <span Class="bold">RSTART</span> and <span Class="manpage">RLENGTH .</span>Note that the argument order is the same as for the <span Class="bold">~</span> operator: 
+<p class="level0"><span Class="emphasis">re .</span> If array <span Class="emphasis">a</span> is provided, <span Class="emphasis">a</span> is cleared and then elements 1 through <span Class="emphasis">n</span> are filled with the portions of <span Class="emphasis">s</span> that match the corresponding parenthesized subexpression in <span Class="emphasis">r .</span> The 0'th element of <span Class="emphasis">a</span> contains the portion of <span Class="emphasis">s</span> matched by the entire regular expression <span Class="emphasis">r .</span> Subscripts <span class="bold">a[<span class="emphasis">n^<span Class="bold">, "start"]</span>, and <span class="bold">a[<span class="emphasis">n^<span Class="bold">, "length"]</span> provide the starting index in the string and length respectively, of each matching substring. 
+<p class="level0"><span class="bold">patsplit(<span class="emphasis">s<span class="bold">, <span Class="emphasis">a </span>[<span class="bold">, <span Class="emphasis">r</span> [<span class="bold">, <span Class="emphasis">seps</span>] ]<span Class="bold">)</span> Split the string <span Class="emphasis">s</span> into the array <span Class="emphasis">a</span> and the separators array <span Class="emphasis">seps</span> on the regular expression <span Class="emphasis">r ,</span> and return the number of fields. Element values are the portions of <span Class="emphasis">s</span> that matched <span Class="emphasis">r .</span> The value of <span Class="bold">seps[ i ]</span> is the separator that appeared in front of <span Class="bold">a[ i +1].</span> </span>If <span Class="emphasis">r</span> is omitted, <span Class="bold">FPAT</span> is used instead. The arrays <span Class="emphasis">a</span> and <span Class="emphasis">seps</span> are cleared first. Splitting behaves identically to field splitting with <span Class="manpage">FPAT</span>described above. 
+<p class="level0"><span class="bold">split(<span class="emphasis">s<span class="bold">, <span Class="emphasis">a </span>[<span class="bold">, <span Class="emphasis">r</span> [<span class="bold">, <span Class="emphasis">seps</span>] ]<span Class="bold">)</span> Split the string <span Class="emphasis">s</span> into the array <span Class="emphasis">a</span> and the separators array <span Class="emphasis">seps</span> on the regular expression <span Class="emphasis">r ,</span> and return the number of fields.  If <span Class="emphasis">r</span> is omitted, <span Class="bold">FS</span> is used instead. The arrays <span Class="emphasis">a</span> and <span Class="emphasis">seps</span> are cleared first. <span Class="bold">seps[ i ]</span> is the field separator matched by <span Class="emphasis">r</span> between <span Class="bold">a[ i ]</span> and <span Class="bold">a[ i +1].</span> </span>If <span Class="emphasis">r</span> is a single space, then leading whitespace in <span Class="emphasis">s</span> goes into the extra array element <span Class="bold">seps[0]</span> and trailing whitespace goes into the extra array element <span Class="bold">seps[ n ],</span> where <span Class="emphasis">n</span> is the return value of <span Class="bold">split( s ,  a ,  r ,  seps ).</span> Splitting behaves identically to field splitting, described above. 
+<p class="level0"><span Class="bold">sprintf( fmt ,  expr-list )</span> Print <span Class="emphasis">expr-list</span> according to <span Class="emphasis">fmt ,</span> and return the resulting string. 
+<p class="level0"><span Class="bold">strtonum( str )</span> Examine <span Class="emphasis">str ,</span> and return its numeric value. If <span Class="emphasis">str</span> begins with a leading <span Class="manpage">0</span>treat it as an octal number. If <span Class="emphasis">str</span> begins with a leading <span Class="bold">0x</span> or <span Class="manpage">0X</span>treat it as a hexadecimal number. Otherwise, assume it is a decimal number. 
+<p class="level0"><span class="bold">sub(<span class="emphasis">r<span class="bold">, <span Class="emphasis">s </span>[<span class="bold">, <span Class="emphasis">t</span>]<span Class="bold">)</span> Just like <span Class="manpage">gsub()</span>but replace only the first matching substring. 
+<p class="level0"><span class="bold">substr(<span class="emphasis">s<span class="bold">, <span Class="emphasis">i </span>[<span class="bold">, <span Class="emphasis">n</span>]<span Class="bold">)</span> Return the at most <span Class="emphasis">n -character</span> substring of <span Class="emphasis">s</span> starting at <span Class="emphasis">i .</span> If <span Class="emphasis">n</span> is omitted, use the rest of <span Class="emphasis">s .</span> 
+<p class="level0"><span Class="bold">tolower( str )</span> Return a copy of the string <span Class="emphasis">str ,</span> with all the uppercase characters in <span Class="emphasis">str</span> translated to their corresponding lowercase counterparts. Non-alphabetic characters are left unchanged. 
+<p class="level0"><span Class="bold">toupper( str )</span> Return a copy of the string <span Class="emphasis">str ,</span> with all the lowercase characters in <span Class="emphasis">str</span> translated to their corresponding uppercase counterparts. Non-alphabetic characters are left unchanged. 
+<p class="level0"><span Class="emphasis">Gawk</span> is multibyte aware.  This means that <span Class="manpage">index()</span>, <span Class="manpage">length()</span><span Class="bold">substr()</span> and <span Class="bold">match()</span> all work in terms of characters, not bytes. <a name="Time"></a><h2 class="nroffsh">Time Functions</h2>
+<p class="level0">Since one of the primary uses of *(AK programs is processing log files that contain time stamp information, <span Class="emphasis">gawk</span> provides the following functions for obtaining time stamps and formatting them. 
+<p class="level0">
+<p class="level0"><span class="bold">mktime(<span class="emphasis">datespec<span Class="bold">)</span> Turn <span Class="emphasis">datespec</span> into a time stamp of the same form as returned by <span Class="manpage">systime()</span>and return the result. The <span Class="emphasis">datespec</span> is a string of the form <span Class="emphasis">YYYY MM DD HH MM SS[ DST] .</span> The contents of the string are six or seven numbers representing respectively the full year including century, the month from 1 to 12, the day of the month from 1 to 31, the hour of the day from 0 to 23, the minute from 0 to 59, the second from 0 to 60, and an optional daylight saving flag. The values of these numbers need not be within the ranges specified; for example, an hour of -1 means 1 hour before midnight. The origin-zero Gregorian calendar is assumed, with year 0 preceding year 1 and year -1 preceding year 0. The time is assumed to be in the local timezone. If the daylight saving flag is positive, the time is assumed to be daylight saving time; if zero, the time is assumed to be standard time; and if negative (the default), <span Class="bold">mktime()</span> attempts to determine whether daylight saving time is in effect for the specified time. If <span Class="emphasis">datespec</span> does not contain enough elements or if the resulting time is out of range, <span Class="bold">mktime()</span> returns -1. 
+<p class="level0"><span Class="bold">strftime(</span>[<span Class="emphasis">format </span>[<span class="bold">, <span Class="emphasis">timestamp</span>[<span class="bold">, <span Class="emphasis">utc-flag</span>]]]<span Class="bold">)</span> Format <span Class="emphasis">timestamp</span> according to the specification in <span Class="emphasis">format .</span> If <span Class="emphasis">utc-flag</span> is present and is non-zero or non-null, the result is in UTC, otherwise the result is in local time. The <span Class="emphasis">timestamp</span> should be of the same form as returned by <span Class="manpage">systime() .</span>If <span Class="emphasis">timestamp</span> is missing, the current time of day is used. If <span Class="emphasis">format</span> is missing, a default format equivalent to the output of <span Class="emphasis">date (1)</span> is used. The default format is available in <span Class="manpage">PROCINFO[strftime] .</span>See the specification for the <span Class="bold">strftime()</span> function in ISO C for the format conversions that are guaranteed to be available. 
+<p class="level0"><span Class="bold">systime()</span> Return the current time of day as the number of seconds since the Epoch (1970-01-01 00:00:00 UTC on *(PX systems). <a name="Bit"></a><h2 class="nroffsh">Bit Manipulations Functions</h2>
+<p class="level0"><span Class="emphasis">Gawk</span> supplies the following bit manipulation functions. They work by converting double-precision floating point values to <span Class="bold">uintmax_t</span> integers, doing the operation, and then converting the result back to floating point. The functions are: 
+<p class="level0"><span class="bold">and(<span class="emphasis">v1<span class="bold">, <span Class="emphasis">v2 </span>[, ...]<span Class="bold">)</span> Return the bitwise AND of the values provided in the argument list. There must be at least two. 
+<p class="level0"><span class="bold">compl(<span class="emphasis">val<span Class="bold">)</span> Return the bitwise complement of <span Class="emphasis">val .</span> 
+<p class="level0"><span class="bold">lshift(<span class="emphasis">val<span class="bold">, <span class="emphasis">count<span Class="bold">)</span> Return the value of <span Class="emphasis">val ,</span> shifted left by <span Class="emphasis">count</span> bits. 
+<p class="level0"><span class="bold">or(<span class="emphasis">v1<span class="bold">, <span Class="emphasis">v2 </span>[, ...]<span Class="bold">)</span> Return the bitwise OR of the values provided in the argument list. There must be at least two. 
+<p class="level0"><span class="bold">rshift(<span class="emphasis">val<span class="bold">, <span class="emphasis">count<span Class="bold">)</span> Return the value of <span Class="emphasis">val ,</span> shifted right by <span Class="emphasis">count</span> bits. 
+<p class="level0"><span class="bold">xor(<span class="emphasis">v1<span class="bold">, <span Class="emphasis">v2 </span>[, ...]<span Class="bold">)</span> Return the bitwise XOR of the values provided in the argument list. There must be at least two. 
+<p class="level0"><a name="Type"></a><h2 class="nroffsh">Type Function</h2>
+<p class="level0">The following function is for use with multidimensional arrays. 
+<p class="level0"><span class="bold">isarray(<span class="emphasis">x<span Class="bold">)</span> Return true if <span Class="emphasis">x</span> is an array, false otherwise. <a name="Internationalization"></a><h2 class="nroffsh">Internationalization Functions</h2>
+<p class="level0">The following functions may be used from within your AWK program for translating strings at run-time. For full details, see *(EP. 
+<p class="level0"><span class="bold">bindtextdomain(<span Class="emphasis">directory </span>[<span class="bold">, <span Class="emphasis">domain</span>]<span Class="bold">)</span> Specify the directory where <span Class="emphasis">gawk</span> looks for the <span Class="bold">\&.gmo</span> files, in case they will not or cannot be placed in the ``standard'' locations (e.g., during testing). It returns the directory where <span Class="emphasis">domain</span> is ``bound.'' 
+<p class="level0">The default <span Class="emphasis">domain</span> is the value of <span Class="manpage">TEXTDOMAIN .</span>If <span Class="emphasis">directory</span> is the null string (<span Class="bold">""</span>), then <span Class="bold">bindtextdomain()</span> returns the current binding for the given <span Class="emphasis">domain .</span> 
+<p class="level0"><span class="bold">dcgettext(<span Class="emphasis">string </span>[<span class="bold">, <span Class="emphasis">domain </span>[<span class="bold">, <span Class="emphasis">category</span>]]<span Class="bold">)</span> Return the translation of <span Class="emphasis">string</span> in text domain <span Class="emphasis">domain</span> for locale category <span Class="emphasis">category .</span> The default value for <span Class="emphasis">domain</span> is the current value of <span Class="manpage">TEXTDOMAIN .</span>The default value for <span Class="emphasis">category</span> is <span Class="bold">"LC_MESSAGES"</span>. 
+<p class="level0">If you supply a value for <span Class="emphasis">category ,</span> it must be a string equal to one of the known locale categories described in *(EP. You must also supply a text domain.  Use <span Class="bold">TEXTDOMAIN</span> if you want to use the current domain. 
+<p class="level0"><span class="bold">dcngettext(<span class="emphasis">string1<span class="bold">, <span class="emphasis">string2<span class="bold">, <span Class="emphasis">number </span>[<span class="bold">, <span Class="emphasis">domain </span>[<span class="bold">, <span Class="emphasis">category</span>]]<span Class="bold">)</span> Return the plural form used for <span Class="emphasis">number</span> of the translation of <span Class="emphasis">string1</span> and <span Class="emphasis">string2</span> in text domain <span Class="emphasis">domain</span> for locale category <span Class="emphasis">category .</span> The default value for <span Class="emphasis">domain</span> is the current value of <span Class="manpage">TEXTDOMAIN .</span>The default value for <span Class="emphasis">category</span> is <span Class="bold">"LC_MESSAGES"</span>. 
+<p class="level0">If you supply a value for <span Class="emphasis">category ,</span> it must be a string equal to one of the known locale categories described in *(EP. You must also supply a text domain.  Use <span Class="bold">TEXTDOMAIN</span> if you want to use the current domain. <a name="USER-DEFINED"></a><h2 class="nroffsh">USER-DEFINED FUNCTIONS</h2>
+<p class="level0">Functions in *(AK are defined as follows: 
+<p class="level0">
+<p class="level1"><span class="bold">function <span class="emphasis">name<span class="bold">(<span class="emphasis">parameter list<span class="bold">) { <span class="emphasis">statements <span Class="bold">}</span> 
+<p class="level0">
+<p class="level0">Functions are executed when they are called from within expressions in either patterns or actions.  Actual parameters supplied in the function call are used to instantiate the formal parameters declared in the function. Arrays are passed by reference, other variables are passed by value. 
+<p class="level0">Since functions were not originally part of the *(AK language, the provision for local variables is rather clumsy: They are declared as extra parameters in the parameter list.  The convention is to separate local variables from real parameters by extra spaces in the parameter list.  For example: 
+<p class="level0">
+<p class="level1"><pre class="level1">
+function  f(p, q,     a, b)	&#35; a and b are local
+{
+	.|.|.
+}
+&nbsp;
+/abc/	{ .|.|. ; f(1, 2) ; .|.|. }
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">The left parenthesis in a function call is required to immediately follow the function name, without any intervening whitespace. This avoids a syntactic ambiguity with the concatenation operator. This restriction does not apply to the built-in functions listed above. 
+<p class="level0">Functions may call each other and may be recursive. Function parameters used as local variables are initialized to the null string and the number zero upon function invocation. 
+<p class="level0">Use <span Class="bold">return  expr</span> to return a value from a function.  The return value is undefined if no value is provided, or if the function returns by *(lqfalling off*(rq the end. 
+<p class="level0">As a <span Class="emphasis">gawk</span> extension, functions may be called indirectly. To do this, assign the name of the function to be called, as a string, to a variable. Then use the variable as if it were the name of a function, prefixed with an <span Class="bold">@</span> sign, like so: 
+<p class="level1"><pre class="level1">
+function  myfunc()
+{
+	print "myfunc called"
+	.|.|.
+}
+&nbsp;
+{	.|.|.
+	the_func = "myfunc"
+	@the_func()	&#35; call through the_func to myfunc
+	.|.|.
+}
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">If <span Class="bold">-\^-lint</span> has been provided, <span Class="emphasis">gawk</span> warns about calls to undefined functions at parse time, instead of at run time. Calling an undefined function at run time is a fatal error. 
+<p class="level0">The word <span Class="bold">func</span> may be used in place of <span Class="manpage">function</span>although this is deprecated. <a name="DYNAMICALLY"></a><h2 class="nroffsh">DYNAMICALLY LOADING NEW FUNCTIONS</h2>
+<p class="level0">You can dynamically add new built-in functions to the running <span Class="emphasis">gawk</span> interpreter with the <span Class="bold">@load</span> statement. The full details are beyond the scope of this manual page; see *(EP. <a name="SIGNALS"></a><h2 class="nroffsh">SIGNALS</h2>
+<p class="level0">The <span Class="emphasis">gawk</span> profiler accepts two signals. <span Class="bold">SIGUSR1</span> causes it to dump a profile and function call stack to the profile file, which is either <span Class="manpage">awkprof.out</span>or whatever file was named with the <span Class="bold">-\^-profile</span> option.  It then continues to run. <span Class="bold">SIGHUP</span> causes <span Class="emphasis">gawk</span> to dump the profile and function call stack and then exit. <a name="INTERNATIONALIZATION"></a><h2 class="nroffsh">INTERNATIONALIZATION</h2>
+<p class="level0">
+<p class="level0">String constants are sequences of characters enclosed in double quotes.  In non-English speaking environments, it is possible to mark strings in the *(AK program as requiring translation to the local natural language. Such strings are marked in the *(AK program with a leading underscore (*(lq_*(rq).  For example, 
+<p class="level0">
+<p class="level1">gawk 'BEGIN { print "hello, world" }' 
+<p class="level0">
+<p class="level0">always prints <span Class="manpage">hello</span>, <span Class="manpage">world .</span>But, 
+<p class="level0">
+<p class="level1">gawk 'BEGIN { print _"hello, world" }' 
+<p class="level0">
+<p class="level0">might print <span Class="bold">bonjour, monde</span> in France. 
+<p class="level0">There are several steps involved in producing and running a localizable *(AK program. 
+<p class="level0">1. Add a <span Class="bold">BEGIN</span> action to assign a value to the <span Class="bold">TEXTDOMAIN</span> variable to set the text domain to a name associated with your program: 
+<p class="level0">
+<p class="level0">BEGIN { TEXTDOMAIN = "myprog" } 
+<p class="level0">
+<p class="level0">This allows <span Class="emphasis">gawk</span> to find the <span Class="bold">\&.gmo</span> file associated with your program. Without this step, <span Class="emphasis">gawk</span> uses the <span Class="bold">messages</span> text domain, which likely does not contain translations for your program. 
+<p class="level0">2. Mark all strings that should be translated with leading underscores. 
+<p class="level0">3. If necessary, use the <span Class="bold">dcgettext()</span> and/or <span Class="bold">bindtextdomain()</span> functions in your program, as appropriate. 
+<p class="level0">4. Run <span Class="bold">gawk -\^-gen-pot -f myprog.awk &gt; myprog.pot</span> to generate a <span Class="bold">\&.pot</span> file for your program. 
+<p class="level0">5. Provide appropriate translations, and build and install the corresponding <span Class="bold">\&.gmo</span> files. 
+<p class="level0">The internationalization features are described in full detail in *(EP. <a name="POSIX"></a><h2 class="nroffsh">POSIX COMPATIBILITY</h2>
+<p class="level0">A primary goal for <span Class="emphasis">gawk</span> is compatibility with the *(PX standard, as well as with the latest version of Brian Kernighan's <span Class="emphasis">awk .</span> To this end, <span Class="emphasis">gawk</span> incorporates the following user visible features which are not described in the *(AK book, but are part of the Brian Kernighan's version of <span Class="emphasis">awk ,</span> and are in the *(PX standard. 
+<p class="level0">The book indicates that command line variable assignment happens when <span Class="emphasis">awk</span> would otherwise open the argument as a file, which is after the <span Class="bold">BEGIN</span> rule is executed.  However, in earlier implementations, when such an assignment appeared before any file names, the assignment would happen <span Class="emphasis">before</span> the <span Class="bold">BEGIN</span> rule was run.  Applications came to depend on this *(lqfeature.*(rq When <span Class="emphasis">awk</span> was changed to match its documentation, the <span Class="bold">-v</span> option for assigning variables before program execution was added to accommodate applications that depended upon the old behavior. (This feature was agreed upon by both the Bell Laboratories and the *(GN developers.) 
+<p class="level0">When processing arguments, <span Class="emphasis">gawk</span> uses the special option *(lq-^-*(rq to signal the end of arguments. In compatibility mode, it warns about but otherwise ignores undefined options. In normal operation, such arguments are passed on to the *(AK program for it to process. 
+<p class="level0">The *(AK book does not define the return value of <span Class="manpage">srand() .</span>The *(PX standard has it return the seed it was using, to allow keeping track of random number sequences.  Therefore <span Class="bold">srand()</span> in <span Class="emphasis">gawk</span> also returns its current seed. 
+<p class="level0">Other new features are: The use of multiple <span Class="bold">-f</span> options (from MKS <span Class="emphasis">awk );</span> the <span Class="bold">ENVIRON</span> array; the <span Class="manpage">\ea</span>and <span Class="bold">\ev</span> escape sequences (done originally in <span Class="emphasis">gawk</span> and fed back into the Bell Laboratories version); the <span Class="bold">tolower()</span> and <span Class="bold">toupper()</span> built-in functions (from the Bell Laboratories version); and the ISO C conversion specifications in <span Class="bold">printf</span> (done first in the Bell Laboratories version). <a name="HISTORICAL"></a><h2 class="nroffsh">HISTORICAL FEATURES</h2>
+<p class="level0">There is one feature of historical *(AK implementations that <span Class="emphasis">gawk</span> supports: It is possible to call the <span Class="bold">length()</span> built-in function not only with no argument, but even without parentheses! Thus, 
+<p class="level1">
+<p class="level1">a = length	&#35; Holy Algol 60, Batman! 
+<p class="level0">
+<p class="level0">is the same as either of 
+<p class="level1">
+<p class="level1">a = length() <br>a = length($0) 
+<p class="level0">
+<p class="level0">Using this feature is poor practice, and <span Class="emphasis">gawk</span> issues a warning about its use if <span Class="bold">-\^-lint</span> is specified on the command line. <a name="GNU"></a><h2 class="nroffsh">GNU EXTENSIONS</h2>
+<p class="level0"><span Class="emphasis">Gawk</span> has a too-large number of extensions to *(PX <span Class="emphasis">awk .</span> They are described in this section.  All the extensions described here can be disabled by invoking <span Class="emphasis">gawk</span> with the <span Class="bold">-\^-traditional</span> or <span Class="bold">-\^-posix</span> options. 
+<p class="level0">The following features of <span Class="emphasis">gawk</span> are not available in *(PX <span Class="emphasis">awk .</span> 
+<p class="level0">(bu No path search is performed for files named via the <span Class="bold">-f</span> option.  Therefore the <span Class="bold">AWKPATH</span> environment variable is not special. 
+<p class="level0">(bu There is no facility for doing file inclusion 
+<p class="level0"><span Class="bold">@include</span> mechanism). 
+<p class="level0">(bu There is no facility for dynamically adding new functions written in C 
+<p class="level0"><span Class="bold">@load</span> mechanism). 
+<p class="level0">(bu The <span Class="bold">\ex</span> escape sequence. (Disabled with <span Class="manpage">-\^-posix .)</span>
+<p class="level0">(bu The ability to continue lines after <span Class="bold">?</span> and <span Class="manpage">: .</span>(Disabled with <span Class="manpage">-\^-posix .)</span>
+<p class="level0">(bu Octal and hexadecimal constants in AWK programs. 
+<p class="level0">(bu The <span Class="manpage">ARGIND</span>, <span Class="manpage">BINMODE</span>, <span Class="manpage">ERRNO</span>, <span Class="manpage">LINT</span><span Class="bold">RT</span> and <span Class="bold">TEXTDOMAIN</span> variables are not special. 
+<p class="level0">(bu The <span Class="bold">IGNORECASE</span> variable and its side-effects are not available. 
+<p class="level0">(bu The <span Class="bold">FIELDWIDTHS</span> variable and fixed-width field splitting. 
+<p class="level0">(bu The <span Class="bold">FPAT</span> variable and field splitting based on field values. 
+<p class="level0">(bu The <span Class="bold">PROCINFO</span> array is not available. 
+<p class="level0">(bu The use of <span Class="bold">RS</span> as a regular expression. 
+<p class="level0">(bu The special file names available for I/O redirection are not recognized. 
+<p class="level0">(bu The <span Class="bold">|&</span> operator for creating co-processes. 
+<p class="level0">(bu The <span Class="bold">BEGINFILE</span> and <span Class="bold">ENDFILE</span> special patterns are not available. 
+<p class="level0">(bu The ability to split out individual characters using the null string as the value of <span Class="manpage">FS</span>and as the third argument to <span Class="manpage">split() .</span>
+<p class="level0">(bu An optional fourth argument to <span Class="bold">split()</span> to receive the separator texts. 
+<p class="level0">(bu The optional second argument to the <span Class="bold">close()</span> function. 
+<p class="level0">(bu The optional third argument to the <span Class="bold">match()</span> function. 
+<p class="level0">(bu The ability to use positional specifiers with <span Class="bold">printf</span> and <span Class="manpage">sprintf() .</span>
+<p class="level0">(bu The ability to pass an array to <span Class="manpage">length() .</span>
+<p class="level0">(bu The <span Class="manpage">and()</span>, <span Class="manpage">asort()</span>, <span Class="manpage">asorti()</span>, <span Class="manpage">bindtextdomain()</span>, <span Class="manpage">compl()</span>, <span Class="manpage">dcgettext()</span>, <span Class="manpage">dcngettext()</span>, <span Class="manpage">gensub()</span>, <span Class="manpage">lshift()</span>, <span Class="manpage">mktime()</span>, <span Class="manpage">or()</span>, <span Class="manpage">patsplit()</span>, <span Class="manpage">rshift()</span>, <span Class="manpage">strftime()</span>, <span Class="manpage">strtonum()</span><span Class="bold">systime()</span> and <span Class="bold">xor()</span> functions. 
+<p class="level0">(bu Localizable strings. 
+<p class="level0">The *(AK book does not define the return value of the <span Class="bold">close()</span> function. <span Class="emphasis">Gawk\^ 's</span> <span Class="bold">close()</span> returns the value from <span Class="emphasis">fclose (3),</span> or <span Class="emphasis">pclose (3),</span> when closing an output file or pipe, respectively. It returns the process's exit status when closing an input pipe. The return value is -1 if the named file, pipe or co-process was not opened with a redirection. 
+<p class="level0">When <span Class="emphasis">gawk</span> is invoked with the <span Class="bold">-\^-traditional</span> option, if the <span Class="emphasis">fs</span> argument to the <span Class="bold">-F</span> option is *(lqt*(rq, then <span Class="bold">FS</span> is set to the tab character. Note that typing <span Class="bold">gawk -F\et \&.\|.\|.</span> simply causes the shell to quote the *(lqt,*(rq and does not pass *(lqet*(rq to the <span Class="bold">-F</span> option. Since this is a rather ugly special case, it is not the default behavior. This behavior also does not occur if <span Class="bold">-\^-posix</span> has been specified. To really get a tab character as the field separator, it is best to use single quotes: <span Class="manpage">gawk -F'\et' \&.\|.\|. .</span>
+<p class="level0">
+<p class="level0">If <span Class="emphasis">gawk</span> was compiled for debugging, it accepts the following additional options: 
+<p class="level0">
+<p class="level0"><span Class="bold">-Y</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-parsedebug</span> Turn on <span Class="emphasis">yacc (1)</span> or <span Class="emphasis">bison (1)</span> debugging output during program parsing. This option should only be of interest to the <span Class="emphasis">gawk</span> maintainers, and may not even be compiled into <span Class="emphasis">gawk .</span> <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">The <span Class="bold">AWKPATH</span> environment variable can be used to provide a list of directories that <span Class="emphasis">gawk</span> searches when looking for files named via the <span Class="manpage">-f</span>
+<p class="level0"><span Class="bold">-i</span> and <span Class="bold">-\^-include</span> options.  If the initial search fails, the path is searched again after appending <span Class="bold">\&.awk</span> to the filename. 
+<p class="level0">The <span Class="bold">AWKLIBPATH</span> environment variable can be used to provide a list of directories that <span Class="emphasis">gawk</span> searches when looking for files named via the <span Class="bold">-l</span> and <span Class="bold">-\^-load</span> options. 
+<p class="level0">The <span Class="bold">GAWK_READ_TIMEOUT</span> environment variable can be used to specify a timeout in milliseconds for reading input from a terminal, pipe or two-way communication including sockets. 
+<p class="level0">For connection to a remote host via socket, <span Class="bold">GAWK_SOCK_RETRIES</span> controls the number of retries, and <span Class="bold">GAWK_MSEC_SLEEP</span> and the interval between retries. The interval is in milliseconds. On systems that do not support <span Class="emphasis">usleep (3),</span> the value is rounded up to an integral number of seconds. 
+<p class="level0">If <span Class="bold">POSIXLY_CORRECT</span> exists in the environment, then <span Class="emphasis">gawk</span> behaves exactly as if <span Class="bold">-\^-posix</span> had been specified on the command line. If <span Class="bold">-\^-lint</span> has been specified, <span Class="emphasis">gawk</span> issues a warning message to this effect. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">If the <span Class="bold">exit</span> statement is used with a value, then <span Class="emphasis">gawk</span> exits with the numeric value given to it. 
+<p class="level0">Otherwise, if there were no problems during execution, <span Class="emphasis">gawk</span> exits with the value of the C constant <span Class="manpage">EXIT_SUCCESS .</span>This is usually zero. 
+<p class="level0">If an error occurs, <span Class="emphasis">gawk</span> exits with the value of the C constant <span Class="manpage">EXIT_FAILURE .</span>This is usually one. 
+<p class="level0">If <span Class="emphasis">gawk</span> exits because of a fatal error, the exit status is 2.  On non-POSIX systems, this value may be mapped to <span Class="manpage">EXIT_FAILURE .</span><a name="VERSION"></a><h2 class="nroffsh">VERSION INFORMATION</h2>
+<p class="level0">This man page documents <span Class="emphasis">gawk ,</span> version 4.1. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">The original version of *(UX <span Class="emphasis">awk</span> was designed and implemented by Alfred Aho, Peter Weinberger, and Brian Kernighan of Bell Laboratories.  Brian Kernighan continues to maintain and enhance it. 
+<p class="level0">Paul Rubin and Jay Fenlason, of the Free Software Foundation, wrote <span Class="emphasis">gawk ,</span> to be compatible with the original version of <span Class="emphasis">awk</span> distributed in Seventh Edition *(UX. John Woods contributed a number of bug fixes. David Trueman, with contributions from Arnold Robbins, made <span Class="emphasis">gawk</span> compatible with the new version of *(UX <span Class="emphasis">awk .</span> Arnold Robbins is the current maintainer. 
+<p class="level0">See *(EP for a full list of the contributors to <span Class="emphasis">gawk</span> and its documentation. 
+<p class="level0">See the <span Class="bold">README</span> file in the <span Class="emphasis">gawk</span> distribution for up-to-date information about maintainers and which ports are currently supported. <a name="BUG"></a><h2 class="nroffsh">BUG REPORTS</h2>
+<p class="level0">If you find a bug in <span Class="emphasis">gawk ,</span> please send electronic mail to <span Class="manpage">bug-gawk@gnu.org .</span>Please include your operating system and its revision, the version of <span Class="emphasis">gawk</span> (from <span Class="manpage">gawk -\^-version )</span>which C compiler you used to compile it, and a test program and data that are as small as possible for reproducing the problem. 
+<p class="level0">Before sending a bug report, please do the following things.  First, verify that you have the latest version of <span Class="emphasis">gawk .</span> Many bugs (usually subtle ones) are fixed at each release, and if yours is out of date, the problem may already have been solved. Second, please see if setting the environment variable <span Class="bold">LC_ALL</span> to <span Class="bold">LC_ALL=C</span> causes things to behave as you expect. If so, it's a locale issue, and may or may not really be a bug. Finally, please read this man page and the reference manual carefully to be sure that what you think is a bug really is, instead of just a quirk in the language. 
+<p class="level0">Whatever you do, do <span Class="bold">NOT</span> post a bug report in <span Class="manpage">comp.lang.awk .</span>While the <span Class="emphasis">gawk</span> developers occasionally read this newsgroup, posting bug reports there is an unreliable way to report bugs.  Instead, please use the electronic mail addresses given above. Really. 
+<p class="level0">If you're using a GNU/Linux or BSD-based system, you may wish to submit a bug report to the vendor of your distribution. That's fine, but please send a copy to the official email address as well, since there's no guarantee that the bug report will be forwarded to the <span Class="emphasis">gawk</span> maintainer. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The <span Class="bold">-F</span> option is not necessary given the command line variable assignment feature; it remains only for backwards compatibility. 
+<p class="level0">Syntactically invalid single character programs tend to overflow the parse stack, generating a rather unhelpful message.  Such programs are surprisingly difficult to diagnose in the completely general case, and the effort to do so really is not worth it. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">egrep (1),</span> <span Class="emphasis">sed (1),</span> <span Class="emphasis">getpid (2),</span> <span Class="emphasis">getppid (2),</span> <span Class="emphasis">getpgrp (2),</span> <span Class="emphasis">getuid (2),</span> <span Class="emphasis">geteuid (2),</span> <span Class="emphasis">getgid (2),</span> <span Class="emphasis">getegid (2),</span> <span Class="emphasis">getgroups (2),</span> <span Class="emphasis">usleep (3)</span> 
+<p class="level0"><a class="emphasis" href="#The">The AWK Programming Language ,</a> Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger, Addison-Wesley, 1988.  ISBN 0-201-07981-X. 
+<p class="level0">*(EP, Edition 4.1, shipped with the <span Class="emphasis">gawk</span> source. The current version of this document is available online at <span Class="manpage">http://www.gnu.org/software/gawk/manual .</span><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><pre class="level0">
+Print and sort the login names of all users:
+&nbsp;
+	BEGIN	{ FS = ":" }
+		{ print $1 | "sort" }
+&nbsp;
+Count lines in a file:
+&nbsp;
+		{ nlines++ }
+	END	{ print nlines }
+&nbsp;
+Precede each line by its number in the file:
+&nbsp;
+	{ print FNR, $0 }
+&nbsp;
+Concatenate and line number (a variation on a theme):
+&nbsp;
+	{ print NR, $0 }
+&nbsp;
+Run an external command for particular lines of data:
+&nbsp;
+	tail -f access_log |
+	awk '/myhome.html/ { system("nmap " $1 "&gt;&gt; logdir/myhome.html") }'
+</pre>
+
+<p class="level0"><a name="ACKNOWLEDGEMENTS"></a><h2 class="nroffsh">ACKNOWLEDGEMENTS</h2>
+<p class="level0">Brian Kernighan provided valuable assistance during testing and debugging. We thank him. <a name="COPYING"></a><h2 class="nroffsh">COPYING PERMISSIONS</h2>
+<p class="level0">Copyright &copy; 1989, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2001, 2002, 2003, 2004, 2005, 2007, 2009, 2010, 2011, 2012, 2013, 2014 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual page provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to process this file through troff and print the results, provided the printed document carries copying permission notice identical to this one except for the removal of this paragraph (this paragraph not being relevant to the printed manual page). 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual page under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual page into another language, under the above conditions for modified versions, except that this permission notice may be stated in a translation approved by the Foundation. 

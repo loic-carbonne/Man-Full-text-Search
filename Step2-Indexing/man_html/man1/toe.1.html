@@ -1,0 +1,23 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0"><span Class="bold">toe</span> - table of (terminfo) entries <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">toe</span> [<span Class="bold">-v</span>[<span Class="emphasis">n</span>]] [<span Class="bold">-ahsuUV</span>] <span Class="emphasis">file...</span> <br><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">With no options, <span Class="bold">toe</span> lists all available terminal types by primary name with descriptions. File arguments specify the directories to be scanned; if no such arguments are given, your default terminfo directory is scanned. If you also specify the <span Class="bold">-h</span> option, a directory header will be issued as each directory is entered. 
+<p class="level0">There are other options intended for use by terminfo file maintainers: 
+<p class="level0"><span Class="bold">-a</span> report on all of the terminal databases which ncurses would search, rather than only the first one that it finds. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If the <span Class="bold">-s</span> is also given, <span Class="bold">toe</span> adds a column to the report, showing (like <span Class="bold">conflict</span>(1)) which entries which  belong to a given terminal database. An "*" marks entries which differ, and "+" marks equivalent entries. 
+<p class="level1"><span Class="bold">-s</span> sort the output by the entry names. 
+<p class="level1"><span Class="bold">-u</span> <span Class="emphasis">file</span> says to write a report to the standard output, listing dependencies in the given terminfo/termcap source file. The report condenses the `use' relation: each line consists of the primary name of a terminal that has use capabilities, followed by a colon, followed by the whitespace-separated primary names of all terminals which occur in those use capabilities, followed by a newline 
+<p class="level1"><span Class="bold">-U</span> <span Class="emphasis">file</span> says to write a report to the standard output, listing reverse dependencies in the given terminfo/termcap source file. The report reverses the `use' relation: each line consists of the primary name of a terminal that occurs in use capabilities, followed by a colon, followed by the whitespace-separated primary names of all terminals which depend on it, followed by a newline. 
+<p class="level1"><span Class="bold">-v</span><span Class="emphasis">n</span> specifies that (verbose) output be written to standard error, showing <span Class="bold">toe</span>'s progress. The optional parameter <span Class="emphasis">n</span> is a number from 1 to 10, interpreted as for <span Class="bold">tic</span>(1). 
+<p class="level1"><span Class="bold">-V</span> reports the version of ncurses which was used in this program, and exits. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">*d/?/*</span> Compiled terminal description database. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">tic</span>(1), <span Class="bold">infocmp</span>(1), <span Class="bold">captoinfo</span>(1), <span Class="bold">infotocap</span>(1), <span Class="bold">ncurses</span>(3NCURSES), <span Class="bold">terminfo</span>(*n). 
+<p class="level0">This describes <span Class="bold">ncurses</span> version 5.9 (patch 20140913). 

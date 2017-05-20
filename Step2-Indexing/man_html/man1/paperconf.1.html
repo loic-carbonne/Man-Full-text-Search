@@ -1,0 +1,27 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0"><span Class="bold">paperconf</span> - print paper configuration information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">paperconf</span> [ [ <span Class="bold">-p</span> ] <span Class="emphasis">paper</span> | <span Class="bold">-d</span> | <span Class="bold">-a</span> ] [ <span Class="bold">-z</span> ] [ <span Class="bold">-n</span> | <span Class="bold">-N</span> ] [ <span Class="bold">-s</span> | <span Class="bold">-w</span> | <span Class="bold">-h</span> ] [ <span Class="bold">-c</span> | <span Class="bold">-m</span> | <span Class="bold">-i</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">paperconf</span> prints information about a given paper. The information that can be obtained is the name of the paper, its size and its width or height. When called without arguments, <span Class="bold">paperconf</span> prints the name of the system- or user-specified paper, obtained by looking in order at the <span Class="bold">PAPERSIZE</span> environment variable, at the contents of the file specified by the <span Class="bold">PAPERCONF</span> environment variable, at the contents of <span Class="bold">/etc/papersize</span> or by using <span Class="bold">letter</span> as a fall-back value if none of the other alternatives are successful. By default, width and height of the paper are printed in PostScript points. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-p  paper</span> Specify the name of the <span Class="emphasis">paper</span> about which information is asked. 
+<p class="level0"><span Class="bold">-d</span> Use the default builtin paper name. 
+<p class="level0"><span Class="bold">-a</span> Consider all known paper names. 
+<p class="level0"><span Class="bold">-z</span> If the paper name is unknown, print it but issue a message on the standard error and exit with a non-zero code. 
+<p class="level0"><span Class="bold">-n</span> Print the name of the paper. 
+<p class="level0"><span Class="bold">-N</span> Print the name of the paper with the first letter capitalized. 
+<p class="level0"><span Class="bold">-s</span> Print the size (width followed by height) of the paper. 
+<p class="level0"><span Class="bold">-w</span> Print the width of the paper. 
+<p class="level0"><span Class="bold">-h</span> Print the height of the paper. 
+<p class="level0"><span Class="bold">-c</span> Use centimetres as unit for paper size. 
+<p class="level0"><span Class="bold">-m</span> Use millimetres as unit for paper size. 
+<p class="level0"><span Class="bold">-i</span> Use inches as unit for paper size. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PAPERSIZE</span> Paper size to use regardless of what the papersize file contains. 
+<p class="level0"><span Class="bold">PAPERCONF</span> Full path to a file containing the paper size to use. <a name="FILES"></a><h2 class="nroffsh">FILES         </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">/etc/papersize</span> Contains the name of the system-wide default paper size to be used if the <span Class="bold">PAPERSIZE</span> and <span Class="bold">PAPERCONF</span> variables are not set. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Yves Arrouye &lt;arrouye@debian.org&gt; <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">papersize (5)</span>
+<p class="level0">

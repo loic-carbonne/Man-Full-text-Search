@@ -1,0 +1,230 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">wsimport - Java(TM) API for XML Web Services (JAX-WS) 2.0 
+<p class="level0">f3Specification Version:</span> 2.1 <br>f3Implementation Version:</span> 2.1.1 <br><a name="Overview"></a><h2 class="nroffsh">Overview</h2>
+<p class="level0">
+<p class="level0">The f2wsimport</span> tool generates JAX-WS portable artifacts, such as: 
+<p class="level1">
+<p class="level1">o Service Endpoint Interface (SEI)  
+<p class="level1">o Service  
+<p class="level1">o Exception class mapped from wsdl:fault (if any)  
+<p class="level1">o Async Reponse Bean derived from response wsdl:message (if any)  
+<p class="level1">o JAXB generated value types (mapped java classes from schema types)  
+<p class="level0">
+<p class="level0">These artifacts can be packaged in a WAR file with the WSDL and schema documents along with the endpoint implementation to be deployed. also provides wsimport ant task, see  
+<p class="level0">f2Wsimport ant task</span> @ 
+<p class="level0"><a href="https://jax-ws.dev.java.net/nonav/2.1.1/docs/wsimportant.html.">https://jax-ws.dev.java.net/nonav/2.1.1/docs/wsimportant.html.</a> <br>
+<p class="level0">
+<p class="level0"><a name="Launching"></a><h2 class="nroffsh">Launching wsimport</h2>
+<p class="level0">
+<p class="level1">
+<p class="level1">o f3Solaris/Linux</span>  
+<p class="level2">
+<p class="level2">* f2/bin/wsimport.sh -help</span>  
+<p class="level1">
+<p class="level1">o f3Windows</span>  
+<p class="level2">
+<p class="level2">* f2\bin\wsimport.bat -help</span>  
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Syntax"></a><h2 class="nroffsh">Syntax</h2>
+<p class="level0"><pre class="level0">
+f3
+wsimport [options] &lt;wsdl&gt;
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">The following table lists the f2wsimport</span> options. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Specify where to place generated output files
+<br><br>Specify external JAX-WS or JAXB binding files (Each f2&lt;file&gt;</span> must have its own f2-b</span>)
+<br><br>Pass this option to JAXB schema compiler
+<br><br>Specify catalog file to resolve external entity references, it supports TR9401, XCatalog, and OASIS XML Catalog format. Please read the documentation of
+f2catalog</span> @
+</pre>
+
+<p class="level0"><a href="https://jax-ws.dev.java.net/nonav/2.1.1/docs/catalog-support.html">https://jax-ws.dev.java.net/nonav/2.1.1/docs/catalog-support.html</a> and see f3catalog</span> sample. <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Allow vendor extensions (functionality not specified by the specification). Use of extensions may result in applications that are not portable or may not interoperate with other implementations <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3-httpproxy:&lt;host&gt;:&lt;port&gt; </span> <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Specify an HTTP proxy server (port defaults to 8080) <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Specifying a target package via this command-line option, overrides any wsdl and schema binding customization for package name and the default package name algorithm defined in the specification <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Specify where to place generated source files <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Output messages about what the compiler is doing <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Print version information <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3-wsdllocation &lt;location&gt;</span> <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f2@WebServiceClient.wsdlLocation</span> value <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Generate code as per the given JAX-WS specification version. version 2.0 will generate compliant code for JAX-WS 2.0 spec. <br>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<pre class="level0">
+h'|n(40u'f3Option</span>h'|n(41u'f3Description</span>
+h'|n(40u'f3-d &lt;directory&gt; </span>h'|n(41u'
+h'|n(40u'f3-b &lt;path&gt; </span>h'|n(41u'
+h'|n(40u'f3-B &lt;jaxbOption&gt;</span>h'|n(41u'
+h'|n(40u'f3-catalog</span>h'|n(41u'
+h'|n(40u'f3-extension </span>h'|n(41u'
+h'|n(40u'f3-help </span>h'|n(41u'Display help
+h'|n(40u'h'|n(41u'
+h'|n(40u'f3-keep </span>h'|n(41u'Keep generated files
+h'|n(40u'f3-p </span>h'|n(41u'
+h'|n(40u'f3-s &lt;directory&gt; </span>h'|n(41u'
+h'|n(40u'f3-verbose </span>h'|n(41u'
+h'|n(40u'f3-version </span>h'|n(41u'
+h'|n(40u'h'|n(41u'
+h'|n(40u'f3-target </span>h'|n(41u'
+h'|n(40u'f3-quiet </span>h'|n(41u'Suppress wsimport output
+Multiple JAX-WS and JAXB binding files can be specified using f2-b</span> option and they can be used to customize various things like package names, bean names, etc. More information on JAX-WS and JAXB binding files can be found in the 
+f2customization documentation</span> @
+</pre>
+
+<p class="level0"><a href="https://jax-ws.dev.java.net/nonav/2.1.1/docs/customizations.html.">https://jax-ws.dev.java.net/nonav/2.1.1/docs/customizations.html.</a> 
+<p class="level0">The following table lists f2wsimport</span> non-standard options: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<br>Map headers not bound to request or response message to Java method parameters.
+<br><br>WSDL URI that specifies the file that contains authorization information; this URI is in the following format: http://f2&lt;user name&gt;</span>:f2&lt;password&gt;</span>@f2&lt;host name&gt;</span>/f2&lt;Web service name&gt;</span>?wsdl
+<br><br>Print debugging information.
+<br><br>f3-Xno-addressing-databinding</span>
+<br><br>Enable binding of W3C f2EndpointReferenceType</span> to Java.
+<br><br>Do not compile generated Java files.
+<br><pre class="level0">
+<pre class="level0">
+h'|n(40u'f3Option</span>h'|n(41u'f3Description</span>
+h'|n(40u'f3-XadditionalHeaders</span>h'|n(41u'
+h'|n(40u'f3-Xauthfile &lt;file&gt;</span>h'|n(41u'
+h'|n(40u'f3-Xdebug</span>h'|n(41u'
+h'|n(40u'h'|n(41u'
+h'|n(40u'f3-Xnocompile</span>h'|n(41u'
+&nbsp;
+</pre>
+<a name="Example"></a><h2 class="nroffsh">Example</h2>
+<p class="level0"><pre class="level0">
+f3
+</span>f3wsimport -p stockquote http://stockquote.example.com/quote?wsdl</span>
+</pre>
+
+<p class="level0">
+<p class="level0">This will generate the Java artifacts and compile them by importing the f2http://stockquote.example.com/quote?wsdl</span>. <br>
+<p class="level0">

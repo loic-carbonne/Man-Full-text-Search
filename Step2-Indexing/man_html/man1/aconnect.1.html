@@ -1,0 +1,46 @@
+
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aconnect - ALSA sequencer connection manager 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">aconnect</span> [-d] [-options] sender receiver <br><span Class="bold">aconnect</span> -i|-o [-options] <br><span Class="bold">aconnect</span> -x 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">aconnect</span> is a utility to connect and disconnect two existing ports on ALSA sequencer system. The ports with the arbitrary subscription permission, such as created by <span Class="bold">aseqview(1),</span> can be connected to any (MIDI) device ports using <span Class="bold">aconnect.</span> For example, to connect from port 64:0 to 65:0, run as follows: 
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">% aconnect 64:0 65:0 
+<p class="level1">The connection is one-way, and the whole data to the sender port (64:0) is redirected to the receiver port (65:0).  When another port (e.g. 65:1) is attached to the same sender port, the data is sent to both receiver ports. For disconnection, use <span Class="bold">-d</span> option. 
+<p class="level1">
+<p class="level1">% aconnect -d 64:0 65:0 
+<p class="level1">
+<p class="level1">The address can be given using the client's name. 
+<p class="level1">
+<p class="level1">% aconnect External:0 Emu8000:1 
+<p class="level1">
+<p class="level1">Then the port 0 of the client matching with the string "External" is connected to the port 1 of the client matching with the "Emu8000". 
+<p class="level1">Another function of <span Class="bold">aconnect</span> is to list the present ports on the given condition. The input ports, which may become <span Class="emphasis">sender</span> ports, can be listed with <span Class="bold">-i</span> option. 
+<p class="level1">
+<p class="level1">% aconnect -i client 0: 'System' [type=kernel] &nbsp;   0 'Timer           ' &nbsp;   1 'Announce        ' client 64: 'External MIDI-0' [type=kernel] &nbsp;   0 'MIDI 0-0        ' 
+<p class="level1">
+<p class="level1">Similarly, to see the output ports, use <span Class="bold">-o</span> flag. 
+<p class="level1">You can remove all existing exported connections using <span Class="bold">-x</span> option.  This function is useful for terminating the ALSA drivers, because the modules with sequencer connections cannot be unloaded unless their connections are removed. 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><a name="CONNECTION"></a><h2 class="nroffsh">CONNECTION MANAGEMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d, --disconnect</span> Disconnect the given subscription. 
+<p class="level0"><span Class="bold">-e, --exclusive</span> Connect ports with exclusive mode. Both sender and receiver ports can be no longer connected by any other ports. 
+<p class="level0"><span Class="bold">-r, --real queue</span> Convert time-stamps of event packets to the current value of the given <span Class="emphasis">real-time</span> queue. This is option is, however, not so useful, since the receiver port must use (not necessarily own) the specified queue. 
+<p class="level0"><span Class="bold">-t, --tick queue</span> Like <span Class="bold">-r</span> option, but  time-stamps are converted to the current value of the given <span Class="emphasis">tick</span> queue. 
+<p class="level0"><a name="LIST"></a><h2 class="nroffsh">LIST PORTS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-i, --input</span> List existing input (readable) ports. This option is exclusive to <span Class="bold">-o.</span> 
+<p class="level0"><span Class="bold">-o, --output</span> List existing output (writable) ports. This option is exclusive to <span Class="bold">-i.</span> 
+<p class="level0"><span Class="bold">-l, --list</span> List the current connection status.  The connected and connecting ports from/to each port are listed together. The suffix flag <span Class="bold">[ex]</span> means the connection is exclusive. The suffix flag <span Class="bold">[real:#]</span> and <span Class="bold">[tick:#]</span> mean the connection includes real-time and tick conversion on the listed queue, respectively. 
+<p class="level0"><a name="REMOVE"></a><h2 class="nroffsh">REMOVE ALL CONNECTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-x, --removeall</span> Remove all exported connections. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">aseqnet(1), aseqview(1) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Takashi Iwai &lt;tiwai@suse.de&gt; 

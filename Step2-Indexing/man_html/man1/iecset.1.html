@@ -1,0 +1,44 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">iecset - Set or dump IEC958 status bits 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">iecset</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">cmd</span> <span Class="emphasis">arg</span>...] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">iecset</span> is a small utility to set or dump the IEC958 (or so-called "S/PDIF") status bits of the specified sound card via ALSA control API. 
+<p class="level0">When <span Class="bold">iecset</span> is started without arguments except for options, it will show the current IEC958 status in a human-readable form. When the commands are given in the arguments, they are parsed and the IEC958 status bits are updated.  The resultant status is shown as well. 
+<p class="level0">The commands consist of the command directive and the argument. As the boolean argument, <span Class="emphasis">yes</span>, <span Class="emphasis">no</span>, <span Class="emphasis">true</span>, <span Class="emphasis">false</span>, or a digit number is allowed. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">iecset\ -Dhw:1</span> Displays the current IEC958 status bits on the second card. This is equivalent with <span Class="emphasis">-c 1</span>. 
+<p class="level0"><span Class="bold">iecset\ -x</span> Displays the current IEC958 status bits in a style of the arguments for the PCM stream.  The output string can be passed to the <span Class="emphasis">iec958</span> (or <span Class="emphasis">spdif</span>) PCM type as the optional argument. 
+<p class="level0"><span Class="bold">iecset\ pro\ off\ audio\ off</span> Sets the current status to the consumer-mode and turns on the non-audio bit.  The modified status will be shown, too. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">-D</span> device Specifies the device name of the control to open 
+<p class="level0"><span Class="emphasis">-c</span> card Specifies the card index to open.  Equivalent with <span Class="emphasis">-Dhw:x</span>. 
+<p class="level0"><span Class="emphasis">-n</span> index Specifies the IEC958 control element index, in case you have multiple IEC958 devices and need to choose one of them. 
+<p class="level0"><span Class="emphasis">-x</span> Dumps the status in the form of AESx bytes. 
+<p class="level0"><span Class="emphasis">-i</span> Reads the command sequences from stdin. Each line has single command. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">professional</span> &lt;bool&gt; The professional mode (true) or consumer mode (false). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">audio</span> &lt;bool&gt; The audio mode (true) or non-audio mode (false). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">rate</span> &lt;int&gt; The sample rate in Hz. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">emphasis</span> &lt;int&gt; The emphasis: 0 = none, 1 = 50/15us, 2 = CCITT. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">lock</span> &lt;bool&gt; Rate lock: locked (true), unlocked (false). This command is for the professional mode only. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">sbits</span> &lt;int&gt; Sample bits:  2 = 20bit, 4 = 24bit, 6 = undefined. This command is for the professional mode only. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">wordlength</span> &lt;int&gt; Wordlength: 0 = No, 2 = 22-18 bit, 4 = 23-19 bit, 5 = 24-20 bit, 6 = 20-16 bit. This command is for the professional mode only. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">category</span> &lt;int&gt; Category: the value is from 0 to 0x7f. This command is for the consumer mode only. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">copyright</span> &lt;bool&gt; Copyright: copyrighted (true), non-copyrighted (false). This command is for the consumer mode only. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">original</span> &lt;boo&gt; Original flag: original (true), 1st generation (false). This command is for the consumer mode only. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Takashi Iwai &lt;tiwai@suse.de&gt; 

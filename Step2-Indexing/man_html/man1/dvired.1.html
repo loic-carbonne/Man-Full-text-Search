@@ -1,0 +1,17 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dvired - print dvi-files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dvired</span> [ <span Class="bold">options</span> ] <span Class="bold">file</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">dvired</span> behaves like <span Class="emphasis">dvips ,</span> except for the fact that two logical pages are put onto each physical sheet of paper. 
+<p class="level0">For <span Class="emphasis">options ,</span> see <span Class="emphasis">dvips (1).</span> This program only interprets the following options: 
+<p class="level0"><span Class="emphasis">-o file</span> - redirect output into <span Class="emphasis">file.</span> 
+<p class="level0"><span Class="emphasis">-P printer</span> - direct output to <span Class="emphasis">printer.</span> 
+<p class="level0"><span Class="emphasis">-f</span> - direct output to stdout. 
+<p class="level0">Any other option is passed directly to <span Class="emphasis">dvips .</span> 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">It is assumed that the PRINTER-variable is set. 
+<p class="level0"><span Class="bold">dvired -Plw foo</span> - send output to printer <span Class="emphasis">lw .</span> <br><span Class="bold">dvired -o foo.ps foo</span> - send output to file <span Class="emphasis">foo.ps .</span> <br><span Class="bold">dvired -pp4-7 foo</span> - send 4 pages (reduced onto 2 sheets) of <span Class="emphasis">foo</span> to the printer. <br><span Class="bold">dvired foo -f | ghostview -</span> - preview output with ghostview. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">dvips (1)</span> <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="emphasis">dvired</span> is fixed on A4 paper size. If you want to use it with other paper, you have to change the settings within the source. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Thomas Esser &lt;te@dbs.uni-hannover.de&gt; 

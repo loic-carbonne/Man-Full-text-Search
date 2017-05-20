@@ -1,0 +1,599 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">less - opposite of more <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">less -?</span> <br><span Class="bold">less --help</span> <br><span Class="bold">less -V</span> <br><span Class="bold">less --version</span> <br><span Class="bold">less [-[+]aABcCdeEfFgGiIJKLmMnNqQrRsSuUVwWX~]</span> <br><span Class="bold">     [-b space] [-h lines] [-j line] [-k keyfile]</span> <br><span Class="bold">     [-{oO} logfile] [-p pattern] [-P prompt] [-t tag]</span> <br><span Class="bold">     [-T tagsfile] [-x tab,...] [-y lines] [-[z] lines]</span> <br><a class="bold" href="#-">     [-# shift] [+[+]cmd] [--] [filename]...</a> <br>(See the OPTIONS section for alternate option syntax with long option names.) 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Less</span> is a program similar to  <span Class="emphasis">more</span> (1), but it has many more features. <span Class="emphasis">Less</span> does not have to read the entire input file before starting, so with large input files it starts up faster than text editors like <span Class="emphasis">vi</span> (1). <span Class="emphasis">Less</span> uses termcap (or terminfo on some systems), so it can run on a variety of terminals. There is even limited support for hardcopy terminals. (On a hardcopy terminal, lines which should be printed at the top of the screen are prefixed with a caret.) 
+<p class="level0">Commands are based on both <span Class="emphasis">more</span> and <span Class="emphasis">vi.</span> Commands may be preceded by a decimal number,  called N in the descriptions below. The number is used by some commands, as indicated. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">In the following descriptions, ^X means control-X. ESC stands for the ESCAPE key; for example ESC-v means the two character sequence "ESCAPE", then "v". 
+<p class="level0"><a name="h"></a><span class="nroffip">h or H</span> 
+<p class="level1">Help: display a summary of these commands. If you forget all the other commands, remember this one. 
+<p class="level0"><a name="SPACE"></a><span class="nroffip">SPACE or ^V or f or ^F</span> 
+<p class="level1">Scroll forward N lines, default one window (see option -z below). If N is more than the screen size, only the final screenful is displayed. Warning: some systems use ^V as a special literalization character. 
+<p class="level0"><a name="z"></a><span class="nroffip">z</span> 
+<p class="level1">Like SPACE, but if N is specified, it becomes the new window size. 
+<p class="level0"><a name="ESC-SPACE"></a><span class="nroffip">ESC-SPACE</span> 
+<p class="level1">Like SPACE, but scrolls a full screenful, even if it reaches end-of-file in the process. 
+<p class="level0"><a name="ENTER"></a><span class="nroffip">ENTER or RETURN or ^N or e or ^E or j or ^J</span> 
+<p class="level1">Scroll forward N lines, default 1. The entire N lines are displayed, even if N is more than the screen size. 
+<p class="level0"><a name="d"></a><span class="nroffip">d or ^D</span> 
+<p class="level1">Scroll forward N lines, default one half of the screen size. If N is specified, it becomes the new default for  subsequent d and u commands. 
+<p class="level0"><a name="b"></a><span class="nroffip">b or ^B or ESC-v</span> 
+<p class="level1">Scroll backward N lines, default one window (see option -z below). If N is more than the screen size, only the final screenful is displayed. 
+<p class="level0"><a name="w"></a><span class="nroffip">w</span> 
+<p class="level1">Like ESC-v, but if N is specified, it becomes the new window size. 
+<p class="level0"><a name="y"></a><span class="nroffip">y or ^Y or ^P or k or ^K</span> 
+<p class="level1">Scroll backward N lines, default 1. The entire N lines are displayed, even if N is more than the screen size. Warning: some systems use ^Y as a special job control character. 
+<p class="level0"><a name="u"></a><span class="nroffip">u or ^U</span> 
+<p class="level1">Scroll backward N lines, default one half of the screen size. If N is specified, it becomes the new default for  subsequent d and u commands. 
+<p class="level0"><a name="ESC-"></a><span class="nroffip">ESC-) or RIGHTARROW</span> 
+<p class="level1">Scroll horizontally right N characters, default half the screen width (see the -&#35; option). If a number N is specified, it becomes the default for future RIGHTARROW and LEFTARROW commands. While the text is scrolled, it acts as though the -S option (chop lines) were in effect. 
+<p class="level0"><a name="ESC-"></a><span class="nroffip">ESC-( or LEFTARROW</span> 
+<p class="level1">Scroll horizontally left N characters, default half the screen width (see the -&#35; option). If a number N is specified, it becomes the default for future RIGHTARROW and LEFTARROW commands. 
+<p class="level0"><a name="r"></a><span class="nroffip">r or ^R or ^L</span> 
+<p class="level1">Repaint the screen. 
+<p class="level0"><a name="R"></a><span class="nroffip">R</span> 
+<p class="level1">Repaint the screen, discarding any buffered input. Useful if the file is changing while it is being viewed. 
+<p class="level0"><a name="F"></a><span class="nroffip">F</span> 
+<p class="level1">Scroll forward, and keep trying to read when the end of file is reached. Normally this command would be used when already at the end of the file. It is a way to monitor the tail of a file which is growing while it is being viewed. (The behavior is similar to the "tail -f" command.) 
+<p class="level0"><a name="ESC-F"></a><span class="nroffip">ESC-F</span> 
+<p class="level1">Like F, but as soon as a line is found which matches the last search pattern, the terminal bell is rung  and forward scrolling stops. 
+<p class="level0"><a name="g"></a><span class="nroffip">g or &lt; or ESC-&lt;</span> 
+<p class="level1">Go to line N in the file, default 1 (beginning of file). (Warning: this may be slow if N is large.) 
+<p class="level0"><a name="G"></a><span class="nroffip">G or &gt; or ESC-&gt;</span> 
+<p class="level1">Go to line N in the file, default the end of the file. (Warning: this may be slow if N is large, or if N is not specified and standard input, rather than a file, is being read.) 
+<p class="level0"><a name="p"></a><span class="nroffip">p or %</span> 
+<p class="level1">Go to a position N percent into the file. N should be between 0 and 100, and may contain a decimal point. 
+<p class="level0"><a name="P"></a><span class="nroffip">P</span> 
+<p class="level1">Go to the line containing byte offset N in the file. 
+<p class="level0"><a name=""></a><span class="nroffip">{</span> 
+<p class="level1">If a left curly bracket appears in the top line displayed on the screen, the { command will go to the matching right curly bracket. The matching right curly bracket is positioned on the bottom line of the screen. If there is more than one left curly bracket on the top line, a number N may be used to specify the N-th bracket on the line. 
+<p class="level0"><a name=""></a><span class="nroffip">}</span> 
+<p class="level1">If a right curly bracket appears in the bottom line displayed on the screen, the } command will go to the matching left curly bracket. The matching left curly bracket is positioned on the top line of the screen. If there is more than one right curly bracket on the top line, a number N may be used to specify the N-th bracket on the line. 
+<p class="level0"><a name=""></a><span class="nroffip">(</span> 
+<p class="level1">Like {, but applies to parentheses rather than curly brackets. 
+<p class="level0"><a name=""></a><span class="nroffip">)</span> 
+<p class="level1">Like }, but applies to parentheses rather than curly brackets. 
+<p class="level0"><a name=""></a><span class="nroffip">[</span> 
+<p class="level1">Like {, but applies to square brackets rather than curly brackets. 
+<p class="level0"><a name=""></a><span class="nroffip">]</span> 
+<p class="level1">Like }, but applies to square brackets rather than curly brackets. 
+<p class="level0"><a name="ESC-F"></a><span class="nroffip">ESC-^F</span> 
+<p class="level1">Followed by two characters, acts like {, but uses the two characters as open and close brackets, respectively. For example, "ESC ^F &lt; &gt;" could be used to  go forward to the &gt; which matches the &lt; in the top displayed line. 
+<p class="level0"><a name="ESC-B"></a><span class="nroffip">ESC-^B</span> 
+<p class="level1">Followed by two characters, acts like }, but uses the two characters as open and close brackets, respectively. For example, "ESC ^B &lt; &gt;" could be used to  go backward to the &lt; which matches the &gt; in the bottom displayed line. 
+<p class="level0"><a name="m"></a><span class="nroffip">m</span> 
+<p class="level1">Followed by any lowercase letter,  marks the current position with that letter. 
+<p class="level0"><a name=""></a><span class="nroffip">'</span> 
+<p class="level1">(Single quote.) Followed by any lowercase letter, returns to the position which was previously marked with that letter. Followed by another single quote, returns to the position at which the last "large" movement command was executed. Followed by a ^ or $, jumps to the beginning or end of the file respectively. Marks are preserved when a new file is examined, so the ' command can be used to switch between input files. 
+<p class="level0"><a name="XX"></a><span class="nroffip">^X^X</span> 
+<p class="level1">Same as single quote. 
+<p class="level0"><a name="pattern"></a><span class="nroffip">/pattern</span> 
+<p class="level1">Search forward in the file for the N-th line containing the pattern. N defaults to 1. The pattern is a regular expression, as recognized by the regular expression library supplied by your system. The search starts at the first line displayed (but see the -a and -j options, which change this). 
+<p class="level1">Certain characters are special if entered at the beginning of the pattern; they modify the type of search rather than become part of the pattern: 
+<p class="level2">
+<p class="level1"><a name="N"></a><span class="nroffip">^N or !</span> 
+<p class="level2">Search for lines which do NOT match the pattern. 
+<p class="level1"><a name="E"></a><span class="nroffip">^E or *</span> 
+<p class="level2">Search multiple files. That is, if the search reaches the END of the current file  without finding a match, the search continues in the next file in the command line list. 
+<p class="level1"><a name="F"></a><span class="nroffip">^F or @</span> 
+<p class="level2">Begin the search at the first line of the FIRST file in the command line list, regardless of what is currently displayed on the screen or the settings of the -a or -j options. 
+<p class="level1"><a name="K"></a><span class="nroffip">^K</span> 
+<p class="level2">Highlight any text which matches the pattern on the current screen,  but don't move to the first match (KEEP current position). 
+<p class="level1"><a name="R"></a><span class="nroffip">^R</span> 
+<p class="level2">Don't interpret regular expression metacharacters; that is, do a simple textual comparison. 
+<p class="level1">
+<p class="level0"><a name="pattern"></a><span class="nroffip">?pattern</span> 
+<p class="level1">Search backward in the file for the N-th line containing the pattern. The search starts at the line immediately before the top line displayed. 
+<p class="level1">Certain characters are special as in the / command: 
+<p class="level2">
+<p class="level1"><a name="N"></a><span class="nroffip">^N or !</span> 
+<p class="level2">Search for lines which do NOT match the pattern. 
+<p class="level1"><a name="E"></a><span class="nroffip">^E or *</span> 
+<p class="level2">Search multiple files. That is, if the search reaches the beginning of the current file  without finding a match, the search continues in the previous file in the command line list. 
+<p class="level1"><a name="F"></a><span class="nroffip">^F or @</span> 
+<p class="level2">Begin the search at the last line of the last file in the command line list, regardless of what is currently displayed on the screen or the settings of the -a or -j options. 
+<p class="level1"><a name="K"></a><span class="nroffip">^K</span> 
+<p class="level2">As in forward searches. 
+<p class="level1"><a name="R"></a><span class="nroffip">^R</span> 
+<p class="level2">As in forward searches. 
+<p class="level1">
+<p class="level0"><a name="ESC-pattern"></a><span class="nroffip">ESC-/pattern</span> 
+<p class="level1">Same as "/*". 
+<p class="level0"><a name="ESC-pattern"></a><span class="nroffip">ESC-?pattern</span> 
+<p class="level1">Same as "?*". 
+<p class="level0"><a name="n"></a><span class="nroffip">n</span> 
+<p class="level1">Repeat previous search, for N-th line containing the last pattern. If the previous search was modified by ^N, the search is made for the N-th line NOT containing the pattern. If the previous search was modified by ^E, the search continues in the next (or previous) file if not satisfied in the current file. If the previous search was modified by ^R, the search is done without using regular expressions. There is no effect if the previous search was modified by ^F or ^K. 
+<p class="level0"><a name="N"></a><span class="nroffip">N</span> 
+<p class="level1">Repeat previous search, but in the reverse direction. 
+<p class="level0"><a name="ESC-n"></a><span class="nroffip">ESC-n</span> 
+<p class="level1">Repeat previous search, but crossing file boundaries. The effect is as if the previous search were modified by *. 
+<p class="level0"><a name="ESC-N"></a><span class="nroffip">ESC-N</span> 
+<p class="level1">Repeat previous search, but in the reverse direction and crossing file boundaries. 
+<p class="level0"><a name="ESC-u"></a><span class="nroffip">ESC-u</span> 
+<p class="level1">Undo search highlighting. Turn off highlighting of strings matching the current search pattern.  If highlighting is already off because of a previous ESC-u command, turn highlighting back on. Any search command will also turn highlighting back on. (Highlighting can also be disabled by toggling the -G option; in that case search commands do not turn highlighting back on.) 
+<p class="level0"><a name="pattern"></a><span class="nroffip">&pattern</span> 
+<p class="level1">Display only lines which match the pattern; lines which do not match the pattern are not displayed. If pattern is empty (if you type & immediately followed by ENTER), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden. 
+<p class="level1">Certain characters are special as in the / command: 
+<p class="level2">
+<p class="level1"><a name="N"></a><span class="nroffip">^N or !</span> 
+<p class="level2">Display only lines which do NOT match the pattern. 
+<p class="level1"><a name="R"></a><span class="nroffip">^R</span> 
+<p class="level2">Don't interpret regular expression metacharacters; that is, do a simple textual comparison. 
+<p class="level1">
+<p class="level0"><a name="e"></a><span class="nroffip">:e [filename]</span> 
+<p class="level1">Examine a new file. If the filename is missing, the "current" file (see the :n and :p commands below) from the list of files in the command line is re-examined. A percent sign (%) in the filename is replaced by the name of the current file.   A pound sign (&#35;) is replaced by the name of the previously examined file. However, two consecutive percent signs are simply  replaced with a single percent sign.   This allows you to enter a filename that contains a percent sign in the name. Similarly, two consecutive pound signs are replaced with a single pound sign. The filename is inserted into the command line list of files so that it can be seen by subsequent :n and :p commands. If the filename consists of several files, they are all inserted into the list of files and the first one is examined. If the filename contains one or more spaces, the entire filename should be enclosed in double quotes (also see the -" option). 
+<p class="level0"><a name="XV"></a><span class="nroffip">^X^V or E</span> 
+<p class="level1">Same as :e. Warning: some systems use ^V as a special literalization character. On such systems, you may not be able to use ^V. 
+<p class="level0"><a name="n"></a><span class="nroffip">:n</span> 
+<p class="level1">Examine the next file (from the list of files given in the command line). If a number N is specified, the N-th next file is examined. 
+<p class="level0"><a name="p"></a><span class="nroffip">:p</span> 
+<p class="level1">Examine the previous file in the command line list. If a number N is specified, the N-th previous file is examined. 
+<p class="level0"><a name="x"></a><span class="nroffip">:x</span> 
+<p class="level1">Examine the first file in the command line list. If a number N is specified, the N-th file in the list is examined. 
+<p class="level0"><a name="d"></a><span class="nroffip">:d</span> 
+<p class="level1">Remove the current file from the list of files. 
+<p class="level0"><a name="t"></a><span class="nroffip">t</span> 
+<p class="level1">Go to the next tag, if there were more than one matches for the current tag. See the -t option for more details about tags. 
+<p class="level0"><a name="T"></a><span class="nroffip">T</span> 
+<p class="level1">Go to the previous tag, if there were more than one matches for the current tag. 
+<p class="level0"><a name=""></a><span class="nroffip">= or ^G or :f</span> 
+<p class="level1">Prints some information about the file being viewed, including its name and the line number and byte offset of the bottom line being displayed. If possible, it also prints the length of the file, the number of lines in the file and the percent of the file above the last displayed line. 
+<p class="level0"><a name="-"></a><span class="nroffip">-</span> 
+<p class="level1">Followed by one of the command line option letters (see OPTIONS below), this will change the setting of that option and print a message describing the new setting. If a ^P (CONTROL-P) is entered immediately after the dash, the setting of the option is changed but no message is printed. If the option letter has a numeric value (such as -b or -h), or a string value (such as -P or -t), a new value may be entered after the option letter. If no new value is entered, a message describing the current setting is printed and nothing is changed. 
+<p class="level0"><a name="--"></a><span class="nroffip">--</span> 
+<p class="level1">Like the - command, but takes a long option name (see OPTIONS below) rather than a single option letter. You must press ENTER or RETURN after typing the option name. A ^P immediately after the second dash suppresses printing of a  message describing the new setting, as in the - command. 
+<p class="level0"><a name="-"></a><span class="nroffip">-+</span> 
+<p class="level1">Followed by one of the command line option letters this will reset the option to its default setting and print a message describing the new setting. (The "-+<span Class="emphasis">X</span>" command does the same thing as "-+<span Class="emphasis">X</span>" on the command line.) This does not work for string-valued options. 
+<p class="level0"><a name="--"></a><span class="nroffip">--+</span> 
+<p class="level1">Like the -+ command, but takes a long option name rather than a single option letter. 
+<p class="level0"><a name="-"></a><span class="nroffip">-!</span> 
+<p class="level1">Followed by one of the command line option letters, this will reset the option to the "opposite" of its default setting and print a message describing the new setting. This does not work for numeric or string-valued options. 
+<p class="level0"><a name="--"></a><span class="nroffip">--!</span> 
+<p class="level1">Like the -! command, but takes a long option name rather than a single option letter. 
+<p class="level0"><a name=""></a><span class="nroffip">_</span> 
+<p class="level1">(Underscore.) Followed by one of the command line option letters, this will print a message describing the current setting of that option. The setting of the option is not changed. 
+<p class="level0"><a name=""></a><span class="nroffip">__</span> 
+<p class="level1">(Double underscore.) Like the _ (underscore) command, but takes a long option name rather than a single option letter. You must press ENTER or RETURN after typing the option name. 
+<p class="level0"><a name="cmd"></a><span class="nroffip">+cmd</span> 
+<p class="level1">Causes the specified cmd to be executed each time a new file is examined. For example, +G causes  <span Class="emphasis">less</span> to initially display each file starting at the end  rather than the beginning. 
+<p class="level0"><a name="V"></a><span class="nroffip">V</span> 
+<p class="level1">Prints the version number of  <span Class="emphasis">less </span> being run. 
+<p class="level0"><a name="q"></a><span class="nroffip">q or Q or :q or :Q or ZZ</span> 
+<p class="level1">Exits <span Class="emphasis">less.</span> 
+<p class="level1">The following  four commands may or may not be valid, depending on your particular installation. 
+<p class="level1">
+<p class="level0"><a name="v"></a><span class="nroffip">v</span> 
+<p class="level1">Invokes an editor to edit the current file being viewed. The editor is taken from the environment variable VISUAL if defined, or EDITOR if VISUAL is not defined, or defaults to "vi" if neither VISUAL nor EDITOR is defined. See also the discussion of LESSEDIT under the section on PROMPTS below. 
+<p class="level0"><a name=""></a><span class="nroffip">! shell-command</span> 
+<p class="level1">Invokes a shell to run the shell-command given. A percent sign (%) in the command is replaced by the name of the current file.   A pound sign (&#35;) is replaced by the name of the previously examined file. "!!" repeats the last shell command. "!" with no shell command simply invokes a shell. On Unix systems, the shell is taken from the environment variable SHELL, or defaults to "sh". On MS-DOS and OS/2 systems, the shell is the normal command processor. 
+<p class="level0"><a name=""></a><span class="nroffip">| &lt;m&gt; shell-command</span> 
+<p class="level1">&lt;m&gt; represents any mark letter. Pipes a section of the input file to the given shell command. The section of the file to be piped is between the first line on the current screen and the position marked by the letter. &lt;m&gt; may also be ^ or $ to indicate beginning or end of file respectively. If &lt;m&gt; is . or newline, the current screen is piped. 
+<p class="level0"><a name="s"></a><span class="nroffip">s filename</span> 
+<p class="level1">Save the input to a file. This only works if the input is a pipe, not an ordinary file. 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Command line options are described below. Most options may be changed while <span Class="emphasis">less </span> is running, via the "-" command. 
+<p class="level0">Most options may be given in one of two forms:  either a dash followed by a single letter, or two dashes followed by a long option name. A long option name may be abbreviated as long as the abbreviation is unambiguous. For example, --quit-at-eof may be abbreviated --quit, but not --qui, since both --quit-at-eof and --quiet begin with --qui. Some long option names are in uppercase, such as --QUIT-AT-EOF, as distinct from --quit-at-eof. Such option names need only have their first letter capitalized; the remainder of the name may be in either case. For example, --Quit-at-eof is equivalent to --QUIT-AT-EOF. 
+<p class="level0">Options are also taken from the environment variable "LESS". For example,  to avoid typing "less -options ..." each time  <span Class="emphasis">less </span> is invoked, you might tell  <span Class="emphasis">csh:</span> 
+<p class="level0">setenv LESS "-options" 
+<p class="level0">or if you use  <span Class="emphasis">sh:</span> 
+<p class="level0">LESS="-options"; export LESS 
+<p class="level0">On MS-DOS, you don't need the quotes, but you should replace any  percent signs in the options string by double percent signs. 
+<p class="level0">The environment variable is parsed before the command line, so command line options override the LESS environment variable. If an option appears in the LESS variable, it can be reset to its default value on the command line by beginning the command line option with "-+". 
+<p class="level0">Some options like -k or -D require a string to follow the option letter. The string for that option is considered to end when a dollar sign ($) is found. For example, you can set two -D options on MS-DOS like this: 
+<p class="level0">LESS="Dn9.1$Ds4.1" 
+<p class="level0">If the --use-backslash option appears earlier in the options, then a dollar sign or backslash may be included literally in an option string by preceding it with a backslash. If the --use-backslash option is not in effect, then backslashes are not treated specially, and there is no way to include a dollar sign  in the option string. 
+<p class="level0"><a name="-"></a><span class="nroffip">-? or --help</span> 
+<p class="level1">This option displays a summary of the commands accepted by <span Class="emphasis">less</span> (the same as the h command). (Depending on how your shell interprets the question mark, it may be necessary to quote the question mark, thus: "-e?".) 
+<p class="level0"><a name="-a"></a><span class="nroffip">-a or --search-skip-screen</span> 
+<p class="level1">By default, forward searches start at the top of the displayed screen and backwards searches start at the bottom of the displayed screen (except for repeated searches invoked by the n or N commands, which start after or before the "target" line respectively; see the -j option for more about the target line). The -a option causes forward searches to instead start at the bottom of the screen and backward searches to start at the top of the screen, thus skipping all lines displayed on the screen. 
+<p class="level0"><a name="-A"></a><span class="nroffip">-A or --SEARCH-SKIP-SCREEN</span> 
+<p class="level1">Causes all forward searches (not just non-repeated searches)  to start just after the target line, and all backward searches  to start just before the target line. Thus, forward searches will skip part of the displayed screen (from the first line up to and including the target line). Similarly backwards searches will skip the displayed screen from the last line up to and including the target line. This was the default behavior in less versions prior to 441. 
+<p class="level0"><a name="-bfInfP"></a><span class="nroffip">-b\fIn\fP or --buffers=\fIn\fP</span> 
+<p class="level1">Specifies the amount of buffer space <span Class="emphasis">less</span> will use for each file, in units of kilobytes (1024 bytes). By default 64K of buffer space is used for each file (unless the file is a pipe; see the -B option). The -b option specifies instead that <a class="emphasis" href="#n">n</a> kilobytes of  buffer space should be used for each file. If <a class="emphasis" href="#n">n</a> is -1, buffer space is unlimited; that is, the entire file can be read into memory. 
+<p class="level0"><a name="-B"></a><span class="nroffip">-B or --auto-buffers</span> 
+<p class="level1">By default, when data is read from a pipe, buffers are allocated automatically as needed. If a large amount of data is read from the pipe, this can cause a large amount of memory to be allocated. The -B option disables this automatic allocation of buffers for pipes, so that only 64K  (or the amount of space specified by the -b option) is used for the pipe. Warning: use of -B can result in erroneous display, since only the most recently viewed part of the piped data is kept in memory;  any earlier data is lost. 
+<p class="level0"><a name="-c"></a><span class="nroffip">-c or --clear-screen</span> 
+<p class="level1">Causes full screen repaints to be painted from the top line down. By default, full screen repaints are done by scrolling from the bottom of the screen. 
+<p class="level0"><a name="-C"></a><span class="nroffip">-C or --CLEAR-SCREEN</span> 
+<p class="level1">Same as -c, for compatibility with older versions of  <span Class="emphasis">less.</span> 
+<p class="level0"><a name="-d"></a><span class="nroffip">-d or --dumb</span> 
+<p class="level1">The -d option suppresses the error message normally displayed if the terminal is dumb; that is, lacks some important capability, such as the ability to clear the screen or scroll backward. The -d option does not otherwise change the behavior of <span Class="emphasis">less</span> on a dumb terminal. 
+<p class="level0"><a name="-DfBxfPfIcolorfP"></a><span class="nroffip">-D\fBx\fP\fIcolor\fP or --color=\fBx\fP\fIcolor\fP</span> 
+<p class="level1">[MS-DOS only] Sets the color of the text displayed. <a class="bold" href="#x">x</a> is a single character which selects the type of text whose color is  being set: n=normal, s=standout, d=bold, u=underlined, k=blink. <span Class="emphasis">color</span> is a pair of numbers separated by a period.   The first number selects the foreground color and the second selects  the background color of the text. A single number <a class="emphasis" href="#N">N</a> is the same as <span Class="emphasis">N.M</span>, where <span Class="emphasis">M</span> is the normal background color. 
+<p class="level1">
+<p class="level0"><a name="-e"></a><span class="nroffip">-e or --quit-at-eof</span> 
+<p class="level1">Causes  <span Class="emphasis">less </span> to automatically exit the second time it reaches end-of-file. By default, the only way to exit  <span Class="emphasis">less</span> is via the "q" command. 
+<p class="level0"><a name="-E"></a><span class="nroffip">-E or --QUIT-AT-EOF</span> 
+<p class="level1">Causes  <span Class="emphasis">less</span> to automatically exit the first time it reaches end-of-file. 
+<p class="level0"><a name="-f"></a><span class="nroffip">-f or --force</span> 
+<p class="level1">Forces non-regular files to be opened. (A non-regular file is a directory or a device special file.) Also suppresses the warning message when a binary file is opened. By default, <span Class="emphasis">less</span> will refuse to open non-regular files. Note that some operating systems will not allow directories to be read, even if -f is set. 
+<p class="level0"><a name="-F"></a><span class="nroffip">-F or --quit-if-one-screen</span> 
+<p class="level1">Causes <span Class="emphasis">less</span> to automatically exit if the entire file can be displayed on the first screen. 
+<p class="level0"><a name="-g"></a><span class="nroffip">-g or --hilite-search</span> 
+<p class="level1">Normally,  <span Class="emphasis">less </span> will highlight ALL strings which match the last search command. The -g option changes this behavior to highlight only the particular string  which was found by the last search command. This can cause  <span Class="emphasis">less </span> to run somewhat faster than the default. 
+<p class="level0"><a name="-G"></a><span class="nroffip">-G or --HILITE-SEARCH</span> 
+<p class="level1">The -G option suppresses all highlighting of strings found by search commands. 
+<p class="level0"><a name="-hfInfP"></a><span class="nroffip">-h\fIn\fP or --max-back-scroll=\fIn\fP</span> 
+<p class="level1">Specifies a maximum number of lines to scroll backward. If it is necessary to scroll backward more than <a class="emphasis" href="#n">n</a> lines, the screen is repainted in a forward direction instead. (If the terminal does not have the ability to scroll backward, -h0 is implied.) 
+<p class="level0"><a name="-i"></a><span class="nroffip">-i or --ignore-case</span> 
+<p class="level1">Causes searches to ignore case; that is, uppercase and lowercase are considered identical. This option is ignored if any uppercase letters appear in the search pattern;  in other words, if a pattern contains uppercase letters, then that search does not ignore case. 
+<p class="level0"><a name="-I"></a><span class="nroffip">-I or --IGNORE-CASE</span> 
+<p class="level1">Like -i, but searches ignore case even if  the pattern contains uppercase letters. 
+<p class="level0"><a name="-jfInfP"></a><span class="nroffip">-j\fIn\fP or --jump-target=\fIn\fP</span> 
+<p class="level1">Specifies a line on the screen where the "target" line is to be positioned. The target line is the line specified by any command to search for a pattern, jump to a line number, jump to a file percentage or jump to a tag. The screen line may be specified by a number: the top line on the screen is 1, the next is 2, and so on. The number may be negative to specify a line relative to the bottom of the screen: the bottom line on the screen is -1, the second to the bottom is -2, and so on. Alternately, the screen line may be specified as a fraction of the height of the screen, starting with a decimal point: .5 is in the middle of the screen, .3 is three tenths down from the first line, and so on. If the line is specified as a fraction, the actual line number is recalculated if the terminal window is resized, so that the target line remains at the specified fraction of the screen height. If any form of the -j option is used,  forward searches begin at the line immediately after the target line, and backward searches begin at the target line, unless changed by -a or -A. For example, if "-j4" is used, the target line is the fourth line on the screen, so forward searches begin at the fifth line on the screen. 
+<p class="level0"><a name="-J"></a><span class="nroffip">-J or --status-column</span> 
+<p class="level1">Displays a status column at the left edge of the screen. The status column shows the lines that matched the current search. The status column is also used if the -w or -W option is in effect. 
+<p class="level0"><a name="-kfIfilenamefP"></a><span class="nroffip">-k\fIfilename\fP or --lesskey-file=\fIfilename\fP</span> 
+<p class="level1">Causes <span Class="emphasis">less</span> to open and interpret the named file as a <span Class="emphasis">lesskey</span> (1) file. Multiple -k options may be specified. If the LESSKEY or LESSKEY_SYSTEM environment variable is set, or if a lesskey file is found in a standard place (see KEY BINDINGS), it is also used as a  <span Class="emphasis">lesskey</span> file. 
+<p class="level0"><a name="-K"></a><span class="nroffip">-K or --quit-on-intr</span> 
+<p class="level1">Causes <span Class="emphasis">less</span> to exit immediately (with status 2) when an interrupt character (usually ^C) is typed. Normally, an interrupt character causes <span Class="emphasis">less</span> to stop whatever it is doing and return to its command prompt. Note that use of this option makes it impossible to return to the  command prompt from the "F" command. 
+<p class="level0"><a name="-L"></a><span class="nroffip">-L or --no-lessopen</span> 
+<p class="level1">Ignore the LESSOPEN environment variable (see the INPUT PREPROCESSOR section below). This option can be set from within <span Class="emphasis">less</span>,  but it will apply only to files opened subsequently, not to the  file which is currently open. 
+<p class="level0"><a name="-m"></a><span class="nroffip">-m or --long-prompt</span> 
+<p class="level1">Causes  <span Class="emphasis">less</span> to prompt verbosely (like <span Class="emphasis">more</span>), with the percent into the file. By default, <span Class="emphasis">less</span> prompts with a colon. 
+<p class="level0"><a name="-M"></a><span class="nroffip">-M or --LONG-PROMPT</span> 
+<p class="level1">Causes  <span Class="emphasis">less</span> to prompt even more verbosely than  <span Class="emphasis">more.</span> 
+<p class="level0"><a name="-n"></a><span class="nroffip">-n or --line-numbers</span> 
+<p class="level1">Suppresses line numbers. The default (to use line numbers) may cause <span Class="emphasis">less</span> to run more slowly in some cases, especially with a very large input file. Suppressing line numbers with the -n option will avoid this problem. Using line numbers means: the line number will be displayed in the verbose prompt and in the = command, and the v command will pass the current line number to the editor (see also the discussion of LESSEDIT in PROMPTS below). 
+<p class="level0"><a name="-N"></a><span class="nroffip">-N or --LINE-NUMBERS</span> 
+<p class="level1">Causes a line number to be displayed at the beginning of each line in the display. 
+<p class="level0"><a name="-ofIfilenamefP"></a><span class="nroffip">-o\fIfilename\fP or --log-file=\fIfilename\fP</span> 
+<p class="level1">Causes <span Class="emphasis">less</span> to copy its input to the named file as it is being viewed. This applies only when the input file is a pipe, not an ordinary file. If the file already exists,  <span Class="emphasis">less</span> will ask for confirmation before overwriting it. 
+<p class="level0"><a name="-OfIfilenamefP"></a><span class="nroffip">-O\fIfilename\fP or --LOG-FILE=\fIfilename\fP</span> 
+<p class="level1">The -O option is like -o, but it will overwrite an existing file without asking for confirmation. 
+<p class="level1">If no log file has been specified, the -o and -O options can be used from within  <span Class="emphasis">less</span> to specify a log file. Without a file name, they will simply report the name of the log file. The "s" command is equivalent to specifying -o from within <span Class="emphasis">less.</span> 
+<p class="level0"><a name="-pfIpatternfP"></a><span class="nroffip">-p\fIpattern\fP or --pattern=\fIpattern\fP</span> 
+<p class="level1">The -p option on the command line is equivalent to  specifying +/<a class="emphasis" href="#pattern">pattern</a>; that is, it tells <span Class="emphasis">less</span> to start at the first occurrence of <a class="emphasis" href="#pattern">pattern</a> in the file. 
+<p class="level0"><a name="-PfIpromptfP"></a><span class="nroffip">-P\fIprompt\fP or --prompt=\fIprompt\fP</span> 
+<p class="level1">Provides a way to tailor the three prompt styles to your own preference. This option would normally be put in the LESS environment variable, rather than being typed in with each  <span Class="emphasis">less</span> command. Such an option must either be the last option in the LESS variable, or be terminated by a dollar sign. -Ps followed by a string changes the default (short) prompt  to that string. -Pm changes the medium (-m) prompt. -PM changes the long (-M) prompt. -Ph changes the prompt for the help screen. -P= changes the message printed by the = command. -Pw changes the message printed while waiting for data (in the F command). All prompt strings consist of a sequence of  letters and special escape sequences. See the section on PROMPTS for more details. 
+<p class="level0"><a name="-q"></a><span class="nroffip">-q or --quiet or --silent</span> 
+<p class="level1">Causes moderately "quiet" operation: the terminal bell is not rung  if an attempt is made to scroll past the end of the file or before the beginning of the file. If the terminal has a "visual bell", it is used instead. The bell will be rung on certain other errors, such as typing an invalid character. The default is to ring the terminal bell in all such cases. 
+<p class="level0"><a name="-Q"></a><span class="nroffip">-Q or --QUIET or --SILENT</span> 
+<p class="level1">Causes totally "quiet" operation: the terminal bell is never rung. 
+<p class="level0"><a name="-r"></a><span class="nroffip">-r or --raw-control-chars</span> 
+<p class="level1">Causes "raw" control characters to be displayed. The default is to display control characters using the caret notation; for example, a control-A (octal 001) is displayed as "^A". Warning: when the -r option is used, <span Class="emphasis">less</span> cannot keep track of the actual appearance of the screen (since this depends on how the screen responds to each type of control character). Thus, various display problems may result, such as long lines being split in the wrong place. 
+<p class="level0"><a name="-R"></a><span class="nroffip">-R or --RAW-CONTROL-CHARS</span> 
+<p class="level1">Like -r, but only ANSI "color" escape sequences are output in "raw" form. Unlike -r, the screen appearance is maintained correctly in most cases. ANSI "color" escape sequences are sequences of the form: 
+<p class="level1">	ESC [ ... m 
+<p class="level1">where the "..." is zero or more color specification characters  For the purpose of keeping track of screen appearance, ANSI color escape sequences are assumed to not move the cursor. You can make <span Class="emphasis">less</span> think that characters other than "m" can end ANSI color escape sequences by setting the environment variable LESSANSIENDCHARS to the list of characters which can end a color escape sequence. And you can make  <span Class="emphasis">less </span> think that characters other than the standard ones may appear between  the ESC and the m by setting the environment variable LESSANSIMIDCHARS to the list of characters which can appear. 
+<p class="level0"><a name="-s"></a><span class="nroffip">-s or --squeeze-blank-lines</span> 
+<p class="level1">Causes consecutive blank lines to be squeezed into a single blank line. This is useful when viewing <span Class="emphasis">nroff</span> output. 
+<p class="level0"><a name="-S"></a><span class="nroffip">-S or --chop-long-lines</span> 
+<p class="level1">Causes lines longer than the screen width to be chopped (truncated) rather than wrapped. That is, the portion of a long line that does not fit in the screen width is not shown. The default is to wrap long lines; that is, display the remainder on the next line. 
+<p class="level0"><a name="-tfItagfP"></a><span class="nroffip">-t\fItag\fP or --tag=\fItag\fP</span> 
+<p class="level1">The -t option, followed immediately by a TAG, will edit the file containing that tag. For this to work, tag information must be available; for example, there may be a file in the current directory called "tags", which was previously built by  <span Class="emphasis">ctags</span> (1) or an equivalent command. If the environment variable LESSGLOBALTAGS is set, it is taken to be the name of a command compatible with  <span Class="emphasis">global</span> (1), and that command is executed to find the tag. (See <a href="http://www.gnu.org/software/global/global.html).">http://www.gnu.org/software/global/global.html).</a> The -t option may also be specified from within  <span Class="emphasis">less </span> (using the - command) as a way of examining a new file. The command ":t" is equivalent to specifying -t from within <span Class="emphasis">less.</span> 
+<p class="level0"><a name="-TfItagsfilefP"></a><span class="nroffip">-T\fItagsfile\fP or --tag-file=\fItagsfile\fP</span> 
+<p class="level1">Specifies a tags file to be used instead of "tags". 
+<p class="level0"><a name="-u"></a><span class="nroffip">-u or --underline-special</span> 
+<p class="level1">Causes backspaces and carriage returns to be treated as printable characters; that is, they are sent to the terminal when they appear in the input. 
+<p class="level0"><a name="-U"></a><span class="nroffip">-U or --UNDERLINE-SPECIAL</span> 
+<p class="level1">Causes backspaces, tabs and carriage returns to be  treated as control characters; that is, they are handled as specified by the -r option. 
+<p class="level1">By default, if neither -u nor -U is given, backspaces which appear adjacent to an underscore character are treated specially: the underlined text is displayed  using the terminal's hardware underlining capability. Also, backspaces which appear between two identical characters are treated specially:  the overstruck text is printed  using the terminal's hardware boldface capability. Other backspaces are deleted, along with the preceding character. Carriage returns immediately followed by a newline are deleted. Other carriage returns are handled as specified by the -r option. Text which is overstruck or underlined can be searched for if neither -u nor -U is in effect. 
+<p class="level0"><a name="-V"></a><span class="nroffip">-V or --version</span> 
+<p class="level1">Displays the version number of  <span Class="emphasis">less.</span> 
+<p class="level0"><a name="-w"></a><span class="nroffip">-w or --hilite-unread</span> 
+<p class="level1">Temporarily highlights the first "new" line after a forward movement of a full page. The first "new" line is the line immediately following the line previously at the bottom of the screen. Also highlights the target line after a g or p command. The highlight is removed at the next command which causes movement. The entire line is highlighted, unless the -J option is in effect, in which case only the status column is highlighted. 
+<p class="level0"><a name="-W"></a><span class="nroffip">-W or --HILITE-UNREAD</span> 
+<p class="level1">Like -w, but temporarily highlights the first new line after any  forward movement command larger than one line. 
+<p class="level0"><a name="-xfInfP"></a><span class="nroffip">-x\fIn\fP,... or --tabs=\fIn\fP,...</span> 
+<p class="level1">Sets tab stops. If only one <a class="emphasis" href="#n">n</a> is specified, tab stops are set at multiples of <a class="emphasis" href="#n">n</a>. If multiple values separated by commas are specified, tab stops are set at those positions, and then continue with the same spacing as the last two. For example, <span Class="emphasis">-x9,17</span> will set tabs at positions 9, 17, 25, 33, etc. The default for <a class="emphasis" href="#n">n</a> is 8. 
+<p class="level0"><a name="-X"></a><span class="nroffip">-X or --no-init</span> 
+<p class="level1">Disables sending the termcap initialization and deinitialization strings to the terminal. This is sometimes desirable if the deinitialization string does something unnecessary, like clearing the screen. 
+<p class="level0"><a name="-yfInfP"></a><span class="nroffip">-y\fIn\fP or --max-forw-scroll=\fIn\fP</span> 
+<p class="level1">Specifies a maximum number of lines to scroll forward. If it is necessary to scroll forward more than <a class="emphasis" href="#n">n</a> lines, the screen is repainted instead. The -c or -C option may be used to repaint from the top of the screen if desired. By default, any forward movement causes scrolling. 
+<p class="level0"><a name="-zfInfP"></a><span class="nroffip">-[z]\fIn\fP or --window=\fIn\fP</span> 
+<p class="level1">Changes the default scrolling window size to <a class="emphasis" href="#n">n</a> lines. The default is one screenful. The z and w commands can also be used to change the window size. The "z" may be omitted for compatibility with some versions of  <span Class="emphasis">more.</span> If the number <a class="emphasis" href="#n">n</a> is negative, it indicates  <a class="emphasis" href="#n">n</a> lines less than the current screen size. For example, if the screen is 24 lines, <span Class="emphasis">-z-4</span> sets the  scrolling window to 20 lines.  If the screen is resized to 40 lines, the scrolling window automatically changes to 36 lines. 
+<p class="level0"><a name="-fIdqccfP"></a><span class="nroffip">-\fI\(dqcc\fP\ or\ --quotes=\fIcc\fP</span> 
+<p class="level1">Changes the filename quoting character. This may be necessary if you are trying to name a file which contains both spaces and quote characters. Followed by a single character, this changes the quote character to that character. Filenames containing a space should then be surrounded by that character rather than by double quotes. Followed by two characters, changes the open quote to the first character, and the close quote to the second character. Filenames containing a space should then be preceded by the open quote character and followed by the close quote character. Note that even after the quote characters are changed, this option remains -" (a dash followed by a double quote). 
+<p class="level0"><a name="-"></a><span class="nroffip">-~ or --tilde</span> 
+<p class="level1">Normally lines after end of file are displayed as a single tilde (~). This option causes lines after end of file to be displayed as blank lines. 
+<p class="level0"><a name="-"></a><span class="nroffip">-# or --shift</span> 
+<p class="level1">Specifies the default number of positions to scroll horizontally in the RIGHTARROW and LEFTARROW commands. If the number specified is zero, it sets the default number of positions to one half of the screen width. Alternately, the number may be specified as a fraction of the width of the screen, starting with a decimal point: .5 is half of the screen width, .3 is three tenths of the screen width, and so on. If the number is specified as a fraction, the actual number of  scroll positions is recalculated if the terminal window is resized,  so that the actual scroll remains at the specified fraction  of the screen width. 
+<p class="level0"><a name="--follow-name"></a><span class="nroffip">--follow-name</span> 
+<p class="level1">Normally, if the input file is renamed while an F command is executing,  <span Class="emphasis">less</span> will continue to display the contents of the original file despite its name change. If --follow-name is specified, during an F command <span Class="emphasis">less</span> will periodically attempt to reopen the file by name. If the reopen succeeds and the file is a different file from the original (which means that a new file has been created  with the same name as the original (now renamed) file), <span Class="emphasis">less</span> will display the contents of that new file. 
+<p class="level0"><a name="--no-keypad"></a><span class="nroffip">--no-keypad</span> 
+<p class="level1">Disables sending the keypad initialization and deinitialization strings to the terminal. This is sometimes useful if the keypad strings make the numeric keypad behave in an undesirable manner. 
+<p class="level0"><a name="--use-backslash"></a><span class="nroffip">--use-backslash</span> 
+<p class="level1">This option changes the interpretations of options which follow this one. After the --use-backslash option, any backslash in an option string is removed and the following character is taken literally. This allows a dollar sign to be included in option strings. 
+<p class="level0"><a name="--"></a><span class="nroffip">--</span> 
+<p class="level1">A command line argument of "--" marks the end of option arguments. Any arguments following this are interpreted as filenames. This can be useful when viewing a file whose name begins with a "-" or "+". 
+<p class="level0"><a name=""></a><span class="nroffip">+</span> 
+<p class="level1">If a command line option begins with <a class="bold" href="#">+</a>, the remainder of that option is taken to be an initial command to <span Class="emphasis">less.</span> For example, +G tells <span Class="emphasis">less</span> to start at the end of the file rather than the beginning, and +/xyz tells it to start at the first occurrence of "xyz" in the file. As a special case, +&lt;number&gt; acts like +&lt;number&gt;g;  that is, it starts the display at the specified line number (however, see the caveat under the "g" command above). If the option starts with ++, the initial command applies to every file being viewed, not just the first one. The + command described previously may also be used to set (or change) an initial command for every file. 
+<p class="level1"><a name="LINE"></a><h2 class="nroffsh">LINE EDITING</h2>
+<p class="level0">When entering command line at the bottom of the screen (for example, a filename for the :e command, or the pattern for a search command), certain keys can be used to manipulate the command line. Most commands have an alternate form in [ brackets ] which can be used if a key does not exist on a particular keyboard.  (Note that the forms beginning with ESC do not work  in some MS-DOS and Windows systems because ESC is the line erase character.) Any of these special keys may be entered literally by preceding it with the "literal" character, either ^V or ^A. A backslash itself may also be entered literally by entering two backslashes. 
+<p class="level0"><a name="LEFTARROW"></a><span class="nroffip">LEFTARROW [ ESC-h ]</span> 
+<p class="level1">Move the cursor one space to the left. 
+<p class="level0"><a name="RIGHTARROW"></a><span class="nroffip">RIGHTARROW [ ESC-l ]</span> 
+<p class="level1">Move the cursor one space to the right. 
+<p class="level0"><a name="LEFTARROW"></a><span class="nroffip">^LEFTARROW [ ESC-b or ESC-LEFTARROW ]</span> 
+<p class="level1">(That is, CONTROL and LEFTARROW simultaneously.) Move the cursor one word to the left. 
+<p class="level0"><a name="RIGHTARROW"></a><span class="nroffip">^RIGHTARROW [ ESC-w or ESC-RIGHTARROW ]</span> 
+<p class="level1">(That is, CONTROL and RIGHTARROW simultaneously.) Move the cursor one word to the right. 
+<p class="level0"><a name="HOME"></a><span class="nroffip">HOME [ ESC-0 ]</span> 
+<p class="level1">Move the cursor to the beginning of the line. 
+<p class="level0"><a name="END"></a><span class="nroffip">END [ ESC-$ ]</span> 
+<p class="level1">Move the cursor to the end of the line. 
+<p class="level0"><a name="BACKSPACE"></a><span class="nroffip">BACKSPACE</span> 
+<p class="level1">Delete the character to the left of the cursor, or cancel the command if the command line is empty. 
+<p class="level0"><a name="DELETE"></a><span class="nroffip">DELETE or [ ESC-x ]</span> 
+<p class="level1">Delete the character under the cursor. 
+<p class="level0"><a name="BACKSPACE"></a><span class="nroffip">^BACKSPACE [ ESC-BACKSPACE ]</span> 
+<p class="level1">(That is, CONTROL and BACKSPACE simultaneously.) Delete the word to the left of the cursor. 
+<p class="level0"><a name="DELETE"></a><span class="nroffip">^DELETE [ ESC-X or ESC-DELETE ]</span> 
+<p class="level1">(That is, CONTROL and DELETE simultaneously.) Delete the word under the cursor. 
+<p class="level0"><a name="UPARROW"></a><span class="nroffip">UPARROW [ ESC-k ]</span> 
+<p class="level1">Retrieve the previous command line. If you first enter some text and then press UPARROW, it will retrieve the previous command which begins with that text. 
+<p class="level0"><a name="DOWNARROW"></a><span class="nroffip">DOWNARROW [ ESC-j ]</span> 
+<p class="level1">Retrieve the next command line. If you first enter some text and then press DOWNARROW, it will retrieve the next command which begins with that text. 
+<p class="level0"><a name="TAB"></a><span class="nroffip">TAB</span> 
+<p class="level1">Complete the partial filename to the left of the cursor. If it matches more than one filename, the first match is entered into the command line. Repeated TABs will cycle thru the other matching filenames. If the completed filename is a directory, a "/" is appended to the filename. (On MS-DOS systems, a "e" is appended.) The environment variable LESSSEPARATOR can be used to specify a  different character to append to a directory name. 
+<p class="level0"><a name="BACKTAB"></a><span class="nroffip">BACKTAB [ ESC-TAB ]</span> 
+<p class="level1">Like, TAB, but cycles in the reverse direction thru the matching filenames. 
+<p class="level0"><a name="L"></a><span class="nroffip">^L</span> 
+<p class="level1">Complete the partial filename to the left of the cursor. If it matches more than one filename, all matches are entered into the command line (if they fit). 
+<p class="level0"><a name="U"></a><span class="nroffip">^U (Unix and OS/2) or ESC (MS-DOS)</span> 
+<p class="level1">Delete the entire command line, or cancel the command if the command line is empty. If you have changed your line-kill character in Unix to something other than ^U, that character is used instead of ^U. 
+<p class="level0"><a name="G"></a><span class="nroffip">^G</span> 
+<p class="level1">Delete the entire command line and return to the main prompt. 
+<p class="level1"><a name="KEY"></a><h2 class="nroffsh">KEY BINDINGS</h2>
+<p class="level0">You may define your own  <span Class="emphasis">less</span> commands by using the program  <span Class="emphasis">lesskey</span> (1) to create a lesskey file. This file specifies a set of command keys and an action associated with each key. You may also use <span Class="emphasis">lesskey</span> to change the line-editing keys (see LINE EDITING), and to set environment variables. If the environment variable LESSKEY is set, <span Class="emphasis">less</span> uses that as the name of the lesskey file. Otherwise,  <span Class="emphasis">less</span> looks in a standard place for the lesskey file: On Unix systems, <span Class="emphasis">less</span> looks for a lesskey file called "$HOME/.less". On MS-DOS and Windows systems, <span Class="emphasis">less</span> looks for a lesskey file called "$HOME/_less", and if it is not found there, then looks for a lesskey file called "_less" in any directory specified in the PATH environment variable. On OS/2 systems, <span Class="emphasis">less</span> looks for a lesskey file called "$HOME/less.ini", and if it is not found, then looks for a lesskey file called "less.ini" in any directory specified in the INIT environment variable, and if it not found there, then looks for a lesskey file called "less.ini" in any directory specified in the PATH environment variable. See the <span Class="emphasis">lesskey</span> manual page for more details. 
+<p class="level0">A system-wide lesskey file may also be set up to provide key bindings. If a key is defined in both a local lesskey file and in the system-wide file, key bindings in the local file take precedence over  those in the system-wide file. If the environment variable LESSKEY_SYSTEM is set, <span Class="emphasis">less</span> uses that as the name of the system-wide lesskey file. Otherwise, <span Class="emphasis">less </span> looks in a standard place for the system-wide lesskey file: On Unix systems, the system-wide lesskey file is /usr/local/etc/sysless. (However, if  <span Class="emphasis">less </span> was built with a different sysconf directory than /usr/local/etc, that directory is where the sysless file is found.) On MS-DOS and Windows systems, the system-wide lesskey file is c:e_sysless. On OS/2 systems, the system-wide lesskey file is c:esysless.ini. 
+<p class="level0"><a name="INPUT"></a><h2 class="nroffsh">INPUT PREPROCESSOR</h2>
+<p class="level0">You may define an "input preprocessor" for  <span Class="emphasis">less.</span> Before <span Class="emphasis">less</span> opens a file, it first gives your input preprocessor a chance to modify the way the contents of the file are displayed. An input preprocessor is simply an executable program (or shell script), which writes the contents of the file to a different file, called the replacement file. The contents of the replacement file are then displayed  in place of the contents of the original file. However, it will appear to the user as if the original file is opened; that is,  <span Class="emphasis">less</span> will display the original filename as the name of the current file. 
+<p class="level0">An input preprocessor receives one command line argument, the original filename, as entered by the user. It should create the replacement file, and when finished, print the name of the replacement file to its standard output. If the input preprocessor does not output a replacement filename,  <span Class="emphasis">less</span> uses the original file, as normal. The input preprocessor is not called when viewing standard input. To set up an input preprocessor, set the LESSOPEN environment variable to a command line which will invoke your input preprocessor. This command line should include one occurrence of the string "%s",  which will be replaced by the filename when the input preprocessor command is invoked. 
+<p class="level0">When  <span Class="emphasis">less</span> closes a file opened in such a way, it will call another program, called the input postprocessor, which may perform any desired clean-up action (such as deleting the replacement file created by LESSOPEN). This program receives two command line arguments, the original filename as entered by the user, and the name of the replacement file. To set up an input postprocessor, set the LESSCLOSE environment variable  to a command line which will invoke your input postprocessor. It may include two occurrences of the string "%s";  the first is replaced with the original name of the file and  the second with the name of the replacement file,  which was output by LESSOPEN. 
+<p class="level0">For example, on many Unix systems, these two scripts will allow you to keep files in compressed format, but still let <span Class="emphasis">less</span> view them directly: 
+<p class="level0">lessopen.sh: <br>	&#35;! /bin/sh <br>	case "$1" in <br>	*.Z)	uncompress -c $1  &gt;/tmp/less.$$  2&gt;/dev/null <br>		if [ -s /tmp/less.$$ ]; then  <br>			echo /tmp/less.$$ <br>		else <br>			rm -f /tmp/less.$$ <br>		fi <br>		;; <br>	esac 
+<p class="level0">lessclose.sh: <br>	&#35;! /bin/sh <br>	rm $2 
+<p class="level0">To use these scripts, put them both where they can be executed and set LESSOPEN="lessopen.sh&nbsp;%s", and LESSCLOSE="lessclose.sh&nbsp;%s&nbsp;%s". More complex LESSOPEN and LESSCLOSE scripts may be written to accept other types of compressed files, and so on. 
+<p class="level0">It is also possible to set up an input preprocessor to pipe the file data directly to  <span Class="emphasis">less,</span> rather than putting the data into a replacement file. This avoids the need to decompress the entire file before  starting to view it. An input preprocessor that works this way is called an input pipe. An input pipe, instead of writing the name of a replacement file on its standard output, writes the entire contents of the replacement file on its standard output. If the input pipe does not write any characters on its standard output, then there is no replacement file and  <span Class="emphasis">less</span> uses the original file, as normal. To use an input pipe, make the first character in the LESSOPEN environment variable a  vertical bar (|) to signify that the input preprocessor is an input pipe. 
+<p class="level0">For example, on many Unix systems, this script will work like the previous example scripts: 
+<p class="level0">lesspipe.sh: <br>	&#35;! /bin/sh <br>	case "$1" in <br>	*.Z)	uncompress -c $1  2&gt;/dev/null <br>	*)	exit 1 <br>		;; <br>	esac <br>	exit $? <br>
+<p class="level0">To use this script, put it where it can be executed and set LESSOPEN="|lesspipe.sh %s". 
+<p class="level0">Note that a preprocessor cannot output an empty file, since that is interpreted as meaning there is no replacement, and  the original file is used. To avoid this, if LESSOPEN starts with two vertical bars, the exit status of the script becomes meaningful. If the exit status is zero, the output is considered to be  replacement text, even if it empty. If the exit status is nonzero, any output is ignored and the original file is used. For compatibility with previous versions of <span Class="emphasis">less,</span> if LESSOPEN starts with only one vertical bar, the exit status of the preprocessor is ignored. 
+<p class="level0">When an input pipe is used, a LESSCLOSE postprocessor can be used, but it is usually not necessary since there is no replacement file to clean up. In this case, the replacement file name passed to the LESSCLOSE postprocessor is "-". 
+<p class="level0">For compatibility with previous versions of <span Class="emphasis">less,</span> the input preprocessor or pipe is not used if <span Class="emphasis">less</span> is viewing standard input.   However, if the first character of LESSOPEN is a dash (-), the input preprocessor is used on standard input as well as other files. In this case, the dash is not considered to be part of  the preprocessor command. If standard input is being viewed, the input preprocessor is passed a file name consisting of a single dash. Similarly, if the first two characters of LESSOPEN are vertical bar and dash (|-) or two vertical bars and a dash (||-),  the input pipe is used on standard input as well as other files. Again, in this case the dash is not considered to be part of  the input pipe command. 
+<p class="level0"><a name="NATIONAL"></a><h2 class="nroffsh">NATIONAL CHARACTER SETS</h2>
+<p class="level0">There are three types of characters in the input file: 
+<p class="level0"><a name="normal"></a><span class="nroffip">normal characters</span> 
+<p class="level1">can be displayed directly to the screen. 
+<p class="level0"><a name="control"></a><span class="nroffip">control characters</span> 
+<p class="level1">should not be displayed directly, but are expected to be found in ordinary text files (such as backspace and tab). 
+<p class="level0"><a name="binary"></a><span class="nroffip">binary characters</span> 
+<p class="level1">should not be displayed directly and are not expected to be found in text files. 
+<p class="level1">A "character set" is simply a description of which characters are to be considered normal, control, and binary. The LESSCHARSET environment variable may be used to select a character set. Possible values for LESSCHARSET are: 
+<p class="level0"><a name="ascii"></a><span class="nroffip">ascii</span> 
+<p class="level1">BS, TAB, NL, CR, and formfeed are control characters, all chars with values between 32 and 126 are normal, and all others are binary. 
+<p class="level0"><a name="iso8859"></a><span class="nroffip">iso8859</span> 
+<p class="level1">Selects an ISO 8859 character set. This is the same as ASCII, except characters between 160 and 255 are treated as normal characters. 
+<p class="level0"><a name="latin1"></a><span class="nroffip">latin1</span> 
+<p class="level1">Same as iso8859. 
+<p class="level0"><a name="latin9"></a><span class="nroffip">latin9</span> 
+<p class="level1">Same as iso8859. 
+<p class="level0"><a name="dos"></a><span class="nroffip">dos</span> 
+<p class="level1">Selects a character set appropriate for MS-DOS. 
+<p class="level0"><a name="ebcdic"></a><span class="nroffip">ebcdic</span> 
+<p class="level1">Selects an EBCDIC character set. 
+<p class="level0"><a name="IBM-1047"></a><span class="nroffip">IBM-1047</span> 
+<p class="level1">Selects an EBCDIC character set used by OS/390 Unix Services. This is the EBCDIC analogue of latin1.  You get similar results by setting either LESSCHARSET=IBM-1047 or LC_CTYPE=en_US in your environment. 
+<p class="level0"><a name="koi8-r"></a><span class="nroffip">koi8-r</span> 
+<p class="level1">Selects a Russian character set. 
+<p class="level0"><a name="next"></a><span class="nroffip">next</span> 
+<p class="level1">Selects a character set appropriate for NeXT computers. 
+<p class="level0"><a name="utf-8"></a><span class="nroffip">utf-8</span> 
+<p class="level1">Selects the UTF-8 encoding of the ISO 10646 character set. UTF-8 is special in that it supports multi-byte characters in the input file. It is the only character set that supports multi-byte characters. 
+<p class="level0"><a name="windows"></a><span class="nroffip">windows</span> 
+<p class="level1">Selects a character set appropriate for Microsoft Windows (cp 1251). 
+<p class="level1">In rare cases, it may be desired to tailor <span Class="emphasis">less</span> to use a character set other than the ones definable by LESSCHARSET. In this case, the environment variable LESSCHARDEF can be used to define a character set. It should be set to a string where each character in the string represents one character in the character set. The character "." is used for a normal character, "c" for control, and "b" for binary. A decimal number may be used for repetition. For example, "bccc4b." would mean character 0 is binary, 1, 2 and 3 are control, 4, 5, 6 and 7 are binary, and 8 is normal. All characters after the last are taken to be the same as the last, so characters 9 through 255 would be normal. (This is an example, and does not necessarily  represent any real character set.) 
+<p class="level1">This table shows the value of LESSCHARDEF which is equivalent to each of the possible values for LESSCHARSET: 
+<p class="level1">	ascii&nbsp;	8bcccbcc18b95.b <br>	dos&nbsp;&nbsp;&nbsp;	8bcccbcc12bc5b95.b. <br>	ebcdic	5bc6bcc7bcc41b.9b7.9b5.b..8b6.10b6.b9.7b <br>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	9.8b8.17b3.3b9.7b9.8b8.6b10.b.b.b. <br>	IBM-1047	4cbcbc3b9cbccbccbb4c6bcc5b3cbbc4bc4bccbc <br>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	191.b <br>	iso8859	8bcccbcc18b95.33b. <br>	koi8-r	8bcccbcc18b95.b128. <br>	latin1	8bcccbcc18b95.33b. <br>	next&nbsp;&nbsp;	8bcccbcc18b95.bb125.bb 
+<p class="level1">If neither LESSCHARSET nor LESSCHARDEF is set, but any of the strings "UTF-8", "UTF8", "utf-8" or "utf8"  is found in the LC_ALL, LC_CTYPE or LANG environment variables, then the default character set is utf-8. 
+<p class="level1">If that string is not found, but your system supports the <span Class="emphasis">setlocale</span> interface, <span Class="emphasis">less</span> will use setlocale to determine the character set. setlocale is controlled by setting the LANG or LC_CTYPE environment variables. 
+<p class="level1">Finally, if the <span Class="emphasis">setlocale</span> interface is also not available, the default character set is latin1. 
+<p class="level1">Control and binary characters are displayed in standout (reverse video). Each such character is displayed in caret notation if possible (e.g. ^A for control-A).  Caret notation is used only if  inverting the 0100 bit results in a normal printable character. Otherwise, the character is displayed as a hex number in angle brackets. This format can be changed by  setting the LESSBINFMT environment variable. LESSBINFMT may begin with a "*" and one character to select  the display attribute: "*k" is blinking, "*d" is bold, "*u" is underlined, "*s" is standout, and "*n" is normal. If LESSBINFMT does not begin with a "*", normal attribute is assumed. The remainder of LESSBINFMT is a string which may include one printf-style escape sequence (a % followed by x, X, o, d, etc.). For example, if LESSBINFMT is "*u[%x]", binary characters are displayed in underlined hexadecimal surrounded by brackets. The default if no LESSBINFMT is specified is "*s&lt;%02X&gt;". Warning: the result of expanding the character via LESSBINFMT must be less than 31 characters. 
+<p class="level1">When the character set is utf-8, the LESSUTFBINFMT environment variable acts similarly to LESSBINFMT but it applies to Unicode code points that were successfully decoded but are unsuitable for display (e.g., unassigned code points). Its default value is "&lt;U+%04lX&gt;". Note that LESSUTFBINFMT and LESSBINFMT share their display attribute  setting ("*x") so specifying one will affect both;  LESSUTFBINFMT is read after LESSBINFMT so its setting, if any, will have priority.  Problematic octets in a UTF-8 file (octets of a truncated sequence, octets of a complete but non-shortest form sequence, illegal octets,  and stray trailing octets) are displayed individually using LESSBINFMT so as to facilitate diagnostic of how the UTF-8 file is ill-formed. 
+<p class="level1"><a name="PROMPTS"></a><h2 class="nroffsh">PROMPTS</h2>
+<p class="level0">The -P option allows you to tailor the prompt to your preference. The string given to the -P option replaces the specified prompt string. Certain characters in the string are interpreted specially. The prompt mechanism is rather complicated to provide flexibility, but the ordinary user need not understand the details of constructing personalized prompt strings. 
+<p class="level0">A percent sign followed by a single character is expanded according to what the following character is: 
+<p class="level0"><a name="bfIXfP"></a><span class="nroffip">%b\fIX\fP</span> 
+<p class="level1">Replaced by the byte offset into the current input file. The b is followed by a single character (shown as <span Class="emphasis">X</span> above) which specifies the line whose byte offset is to be used. If the character is a "t", the byte offset of the top line in the display is used, an "m" means use the middle line, a "b" means use the bottom line, a "B" means use the line just after the bottom line, and a "j" means use the "target" line, as specified by the -j option. 
+<p class="level0"><a name="B"></a><span class="nroffip">%B</span> 
+<p class="level1">Replaced by the size of the current input file. 
+<p class="level0"><a name="c"></a><span class="nroffip">%c</span> 
+<p class="level1">Replaced by the column number of the text appearing in the first column of the screen. 
+<p class="level0"><a name="dfIXfP"></a><span class="nroffip">%d\fIX\fP</span> 
+<p class="level1">Replaced by the page number of a line in the input file. The line to be used is determined by the <span Class="emphasis">X</span>, as with the %b option. 
+<p class="level0"><a name="D"></a><span class="nroffip">%D</span> 
+<p class="level1">Replaced by the number of pages in the input file, or equivalently, the page number of the last line in the input file. 
+<p class="level0"><a name="E"></a><span class="nroffip">%E</span> 
+<p class="level1">Replaced by the name of the editor (from the VISUAL environment variable, or the EDITOR environment variable if VISUAL is not defined). See the discussion of the LESSEDIT feature below. 
+<p class="level0"><a name="f"></a><span class="nroffip">%f</span> 
+<p class="level1">Replaced by the name of the current input file. 
+<p class="level0"><a name="F"></a><span class="nroffip">%F</span> 
+<p class="level1">Replaced by the last component of the name of the current input file. 
+<p class="level0"><a name="i"></a><span class="nroffip">%i</span> 
+<p class="level1">Replaced by the index of the current file in the list of input files. 
+<p class="level0"><a name="lfIXfP"></a><span class="nroffip">%l\fIX\fP</span> 
+<p class="level1">Replaced by the line number of a line in the input file. The line to be used is determined by the <span Class="emphasis">X</span>, as with the %b option. 
+<p class="level0"><a name="L"></a><span class="nroffip">%L</span> 
+<p class="level1">Replaced by the line number of the last line in the input file. 
+<p class="level0"><a name="m"></a><span class="nroffip">%m</span> 
+<p class="level1">Replaced by the total number of input files. 
+<p class="level0"><a name="pfIXfP"></a><span class="nroffip">%p\fIX\fP</span> 
+<p class="level1">Replaced by the percent into the current input file, based on byte offsets. The line used is determined by the <span Class="emphasis">X</span> as with the %b option. 
+<p class="level0"><a name="PfIXfP"></a><span class="nroffip">%P\fIX\fP</span> 
+<p class="level1">Replaced by the percent into the current input file, based on line numbers. The line used is determined by the <span Class="emphasis">X</span> as with the %b option. 
+<p class="level0"><a name="s"></a><span class="nroffip">%s</span> 
+<p class="level1">Same as %B. 
+<p class="level0"><a name="t"></a><span class="nroffip">%t</span> 
+<p class="level1">Causes any trailing spaces to be removed. Usually used at the end of the string, but may appear anywhere. 
+<p class="level0"><a name="x"></a><span class="nroffip">%x</span> 
+<p class="level1">Replaced by the name of the next input file in the list. 
+<p class="level1">If any item is unknown (for example, the file size if input is a pipe), a question mark is printed instead. 
+<p class="level1">The format of the prompt string can be changed depending on certain conditions. A question mark followed by a single character acts like an "IF": depending on the following character, a condition is evaluated. If the condition is true, any characters following the question mark and condition character, up to a period, are included in the prompt. If the condition is false, such characters are not included. A colon appearing between the question mark and the period can be used to establish an "ELSE": any characters between the colon and the period are included in the string if and only if the IF condition is false. Condition characters (which follow a question mark) may be: 
+<p class="level0"><a name="a"></a><span class="nroffip">?a</span> 
+<p class="level1">True if any characters have been included in the prompt so far. 
+<p class="level0"><a name="bfIXfP"></a><span class="nroffip">?b\fIX\fP</span> 
+<p class="level1">True if the byte offset of the specified line is known. 
+<p class="level0"><a name="B"></a><span class="nroffip">?B</span> 
+<p class="level1">True if the size of current input file is known. 
+<p class="level0"><a name="c"></a><span class="nroffip">?c</span> 
+<p class="level1">True if the text is horizontally shifted (%c is not zero). 
+<p class="level0"><a name="dfIXfP"></a><span class="nroffip">?d\fIX\fP</span> 
+<p class="level1">True if the page number of the specified line is known. 
+<p class="level0"><a name="e"></a><span class="nroffip">?e</span> 
+<p class="level1">True if at end-of-file. 
+<p class="level0"><a name="f"></a><span class="nroffip">?f</span> 
+<p class="level1">True if there is an input filename (that is, if input is not a pipe). 
+<p class="level0"><a name="lfIXfP"></a><span class="nroffip">?l\fIX\fP</span> 
+<p class="level1">True if the line number of the specified line is known. 
+<p class="level0"><a name="L"></a><span class="nroffip">?L</span> 
+<p class="level1">True if the line number of the last line in the file is known. 
+<p class="level0"><a name="m"></a><span class="nroffip">?m</span> 
+<p class="level1">True if there is more than one input file. 
+<p class="level0"><a name="n"></a><span class="nroffip">?n</span> 
+<p class="level1">True if this is the first prompt in a new input file. 
+<p class="level0"><a name="pfIXfP"></a><span class="nroffip">?p\fIX\fP</span> 
+<p class="level1">True if the percent into the current input file, based on byte offsets, of the specified line is known. 
+<p class="level0"><a name="PfIXfP"></a><span class="nroffip">?P\fIX\fP</span> 
+<p class="level1">True if the percent into the current input file, based on line numbers, of the specified line is known. 
+<p class="level0"><a name="s"></a><span class="nroffip">?s</span> 
+<p class="level1">Same as "?B". 
+<p class="level0"><a name="x"></a><span class="nroffip">?x</span> 
+<p class="level1">True if there is a next input file (that is, if the current input file is not the last one). 
+<p class="level1">Any characters other than the special ones (question mark, colon, period, percent, and backslash) become literally part of the prompt. Any of the special characters may be included in the prompt literally by preceding it with a backslash. 
+<p class="level1">Some examples: 
+<p class="level1">?f%f:Standard input. 
+<p class="level1">This prompt prints the filename, if known; otherwise the string "Standard input". 
+<p class="level1">?f%f .?ltLine %lt:?pt%pte%:?btByte %bt:-... 
+<p class="level1">This prompt would print the filename, if known. The filename is followed by the line number, if known, otherwise the percent if known, otherwise the byte offset if known. Otherwise, a dash is printed. Notice how each question mark has a matching period, and how the % after the %pt is included literally by escaping it with a backslash. 
+<p class="level1">?n?f%f&nbsp;.?m(file&nbsp;%i&nbsp;of&nbsp;%m)&nbsp;..?e(END)&nbsp;?x-&nbsp;Nexte:&nbsp;%x..%t 
+<p class="level1">This prints the filename if this is the first prompt in a file, followed by the "file N of N" message if there is more than one input file. Then, if we are at end-of-file, the string "(END)" is printed followed by the name of the next file, if there is one. Finally, any trailing spaces are truncated. This is the default prompt. For reference, here are the defaults for the other two prompts (-m and -M respectively). Each is broken into two lines here for readability only. <pre class="level1">
+?n?f%f&nbsp;.?m(file&nbsp;%i&nbsp;of&nbsp;%m)&nbsp;..?e(END)&nbsp;?x-&nbsp;Nexte:&nbsp;%x.:
+	?pB%pBe%:byte&nbsp;%bB?s/%s...%t
+?f%f&nbsp;.?n?m(file&nbsp;%i&nbsp;of&nbsp;%m)&nbsp;..?ltlines&nbsp;%lt-%lb?L/%L.&nbsp;:
+	byte&nbsp;%bB?s/%s.&nbsp;.?e(END)&nbsp;?x-&nbsp;Nexte:&nbsp;%x.:?pB%pBe%..%t
+</pre>
+
+<p class="level1">And here is the default message produced by the = command: <pre class="level1">
+?f%f&nbsp;.?m(file&nbsp;%i&nbsp;of&nbsp;%m)&nbsp;.?ltlines&nbsp;%lt-%lb?L/%L.&nbsp;.
+	byte&nbsp;%bB?s/%s.&nbsp;?e(END)&nbsp;:?pB%pBe%..%t
+</pre>
+
+<p class="level1">
+<p class="level1">The prompt expansion features are also used for another purpose: if an environment variable LESSEDIT is defined, it is used as the command to be executed when the v command is invoked. The LESSEDIT string is expanded in the same way as the prompt strings. The default value for LESSEDIT is: <pre class="level1">
+	%E&nbsp;?lm+%lm.&nbsp;%f
+</pre>
+
+<p class="level1">Note that this expands to the editor name, followed by a + and the line number, followed by the file name. If your editor does not accept the "+linenumber" syntax, or has other differences in invocation syntax, the LESSEDIT variable can be  changed to modify this default. 
+<p class="level1"><a name="SECURITY"></a><h2 class="nroffsh">SECURITY</h2>
+<p class="level0">When the environment variable LESSSECURE is set to 1, <span Class="emphasis">less</span> runs in a "secure" mode. This means these features are disabled: 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">!</span> 
+<p class="level1">the shell command 
+<p class="level0"><a name=""></a><span class="nroffip">|</span> 
+<p class="level1">the pipe command 
+<p class="level0"><a name="e"></a><span class="nroffip">:e</span> 
+<p class="level1">the examine command. 
+<p class="level0"><a name="v"></a><span class="nroffip">v</span> 
+<p class="level1">the editing command 
+<p class="level0"><a name="s"></a><span class="nroffip">s  -o</span> 
+<p class="level1">log files 
+<p class="level0"><a name="-k"></a><span class="nroffip">-k</span> 
+<p class="level1">use of lesskey files 
+<p class="level0"><a name="-t"></a><span class="nroffip">-t</span> 
+<p class="level1">use of tags files 
+<p class="level0"><a name=""></a><span class="nroffip"> </span> 
+<p class="level1">metacharacters in filenames, such as * 
+<p class="level0"><a name=""></a><span class="nroffip"> </span> 
+<p class="level1">filename completion (TAB, ^L) 
+<p class="level0">
+<p class="level0">Less can also be compiled to be permanently in "secure" mode. 
+<p class="level0"><a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY WITH MORE</h2>
+<p class="level0">If the environment variable LESS_IS_MORE is set to 1, or if the program is invoked via a file link named "more", <span Class="emphasis">less</span> behaves (mostly) in conformance with the POSIX "more" command specification. In this mode, less behaves differently in these ways: 
+<p class="level0">The -e option works differently. If the -e option is not set,  <span Class="emphasis">less</span> behaves as if the -E option were set. If the -e option is set,  <span Class="emphasis">less</span> behaves as if the -e and -F options were set. 
+<p class="level0">The -m option works differently. If the -m option is not set, the medium prompt is used, and it is prefixed with the string "--More--". If the -m option is set, the short prompt is used. 
+<p class="level0">The -n option acts like the -z option. The normal behavior of the -n option is unavailable in this mode. 
+<p class="level0">The parameter to the -p option is taken to be a  <span Class="emphasis">less</span> command rather than a search pattern. 
+<p class="level0">The LESS environment variable is ignored, and the MORE environment variable is used in its place. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">Environment variables may be specified either in the system environment as usual, or in a  <span Class="emphasis">lesskey</span> (1) file. If environment variables are defined in more than one place,  variables defined in a local lesskey file take precedence over variables defined in the system environment, which take precedence over variables defined in the system-wide lesskey file. 
+<p class="level0"><a name="COLUMNS"></a><span class="nroffip">COLUMNS</span> 
+<p class="level1">Sets the number of columns on the screen. Takes precedence over the number of columns specified by the TERM variable. (But if you have a windowing system which supports TIOCGWINSZ or WIOCGETD, the window system's idea of the screen size takes precedence over the LINES and COLUMNS environment variables.) 
+<p class="level0"><a name="EDITOR"></a><span class="nroffip">EDITOR</span> 
+<p class="level1">The name of the editor (used for the v command). 
+<p class="level0"><a name="HOME"></a><span class="nroffip">HOME</span> 
+<p class="level1">Name of the user's home directory (used to find a lesskey file on Unix and OS/2 systems). 
+<p class="level0"><a name="HOMEDRIVE"></a><span class="nroffip">HOMEDRIVE, HOMEPATH</span> 
+<p class="level1">Concatenation of the HOMEDRIVE and HOMEPATH environment variables is the name of the user's home directory if the HOME variable is not set (only in the Windows version). 
+<p class="level0"><a name="INIT"></a><span class="nroffip">INIT</span> 
+<p class="level1">Name of the user's init directory (used to find a lesskey file on OS/2 systems). 
+<p class="level0"><a name="LANG"></a><span class="nroffip">LANG</span> 
+<p class="level1">Language for determining the character set. 
+<p class="level0"><a name="LCCTYPE"></a><span class="nroffip">LC_CTYPE</span> 
+<p class="level1">Language for determining the character set. 
+<p class="level0"><a name="LESS"></a><span class="nroffip">LESS</span> 
+<p class="level1">Options which are passed to  <span Class="emphasis">less</span> automatically. 
+<p class="level0"><a name="LESSANSIENDCHARS"></a><span class="nroffip">LESSANSIENDCHARS</span> 
+<p class="level1">Characters which may end an ANSI color escape sequence (default "m"). 
+<p class="level0"><a name="LESSANSIMIDCHARS"></a><span class="nroffip">LESSANSIMIDCHARS</span> 
+<p class="level1">Characters which may appear between the ESC character and the end character in an ANSI color escape sequence (default "0123456789;[?!"'&#35;%()*+&nbsp;". 
+<p class="level0"><a name="LESSBINFMT"></a><span class="nroffip">LESSBINFMT</span> 
+<p class="level1">Format for displaying non-printable, non-control characters. 
+<p class="level0"><a name="LESSCHARDEF"></a><span class="nroffip">LESSCHARDEF</span> 
+<p class="level1">Defines a character set. 
+<p class="level0"><a name="LESSCHARSET"></a><span class="nroffip">LESSCHARSET</span> 
+<p class="level1">Selects a predefined character set. 
+<p class="level0"><a name="LESSCLOSE"></a><span class="nroffip">LESSCLOSE</span> 
+<p class="level1">Command line to invoke the (optional) input-postprocessor. 
+<p class="level0"><a name="LESSECHO"></a><span class="nroffip">LESSECHO</span> 
+<p class="level1">Name of the lessecho program (default "lessecho"). The lessecho program is needed to expand metacharacters, such as * and ?, in filenames on Unix systems. 
+<p class="level0"><a name="LESSEDIT"></a><span class="nroffip">LESSEDIT</span> 
+<p class="level1">Editor prototype string (used for the v command). See discussion under PROMPTS. 
+<p class="level0"><a name="LESSGLOBALTAGS"></a><span class="nroffip">LESSGLOBALTAGS</span> 
+<p class="level1">Name of the command used by the -t option to find global tags. Normally should be set to "global" if your system has the <span Class="emphasis">global</span> (1) command.  If not set, global tags are not used. 
+<p class="level0"><a name="LESSHISTFILE"></a><span class="nroffip">LESSHISTFILE</span> 
+<p class="level1">Name of the history file used to remember search commands and shell commands between invocations of  <span Class="emphasis">less.</span> If set to "-" or "/dev/null", a history file is not used. The default is "$HOME/.lesshst" on Unix systems, "$HOME/_lesshst" on DOS and Windows systems, or "$HOME/lesshst.ini" or "$INIT/lesshst.ini"  on OS/2 systems. 
+<p class="level0"><a name="LESSHISTSIZE"></a><span class="nroffip">LESSHISTSIZE</span> 
+<p class="level1">The maximum number of commands to save in the history file. The default is 100. 
+<p class="level0"><a name="LESSKEY"></a><span class="nroffip">LESSKEY</span> 
+<p class="level1">Name of the default lesskey(1) file. 
+<p class="level0"><a name="LESSKEYSYSTEM"></a><span class="nroffip">LESSKEY_SYSTEM</span> 
+<p class="level1">Name of the default system-wide lesskey(1) file. 
+<p class="level0"><a name="LESSMETACHARS"></a><span class="nroffip">LESSMETACHARS</span> 
+<p class="level1">List of characters which are considered "metacharacters" by the shell. 
+<p class="level0"><a name="LESSMETAESCAPE"></a><span class="nroffip">LESSMETAESCAPE</span> 
+<p class="level1">Prefix which less will add before each metacharacter in a command sent to the shell. If LESSMETAESCAPE is an empty string, commands containing metacharacters will not be passed to the shell. 
+<p class="level0"><a name="LESSOPEN"></a><span class="nroffip">LESSOPEN</span> 
+<p class="level1">Command line to invoke the (optional) input-preprocessor. 
+<p class="level0"><a name="LESSSECURE"></a><span class="nroffip">LESSSECURE</span> 
+<p class="level1">Runs less in "secure" mode. See discussion under SECURITY. 
+<p class="level0"><a name="LESSSEPARATOR"></a><span class="nroffip">LESSSEPARATOR</span> 
+<p class="level1">String to be appended to a directory name in filename completion. 
+<p class="level0"><a name="LESSUTFBINFMT"></a><span class="nroffip">LESSUTFBINFMT</span> 
+<p class="level1">Format for displaying non-printable Unicode code points. 
+<p class="level0"><a name="LESSISMORE"></a><span class="nroffip">LESS_IS_MORE</span> 
+<p class="level1">Emulate the  <span Class="emphasis">more</span> (1) command. 
+<p class="level0"><a name="LINES"></a><span class="nroffip">LINES</span> 
+<p class="level1">Sets the number of lines on the screen. Takes precedence over the number of lines specified by the TERM variable. (But if you have a windowing system which supports TIOCGWINSZ or WIOCGETD, the window system's idea of the screen size takes precedence over the LINES and COLUMNS environment variables.) 
+<p class="level0"><a name="MORE"></a><span class="nroffip">MORE</span> 
+<p class="level1">Options which are passed to <span Class="emphasis">less</span> automatically when running in  <span Class="emphasis">more</span> compatible mode. 
+<p class="level0"><a name="PATH"></a><span class="nroffip">PATH</span> 
+<p class="level1">User's search path (used to find a lesskey file  on MS-DOS and OS/2 systems). 
+<p class="level0"><a name="SHELL"></a><span class="nroffip">SHELL</span> 
+<p class="level1">The shell used to execute the ! command, as well as to expand filenames. 
+<p class="level0"><a name="TERM"></a><span class="nroffip">TERM</span> 
+<p class="level1">The type of terminal on which <span Class="emphasis">less</span> is being run. 
+<p class="level0"><a name="VISUAL"></a><span class="nroffip">VISUAL</span> 
+<p class="level1">The name of the editor (used for the v command). 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">lesskey(1) 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright (C) 1984-2012  Mark Nudelman 
+<p class="level0">less is part of the GNU project and is free software. You can redistribute it and/or modify it under the terms of either (1) the GNU General Public License as published by the Free Software Foundation; or (2) the Less License. See the file README in the less distribution for more details regarding redistribution. You should have received a copy of the GNU General Public License  along with the source for less; see the file COPYING. If not, write to the Free Software Foundation, 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA. You should also have received a copy of the Less License; see the file LICENSE. 
+<p class="level0">less is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Mark Nudelman  <br>Send bug reports or comments to &lt;bug-less@gnu.org&gt; <br>See <a href="http://www.greenwoodsoftware.com/less/bugs.html">http://www.greenwoodsoftware.com/less/bugs.html</a> for the latest list of known bugs in less. <br>For more information, see the less homepage at  <br><a href="http://www.greenwoodsoftware.com/less.">http://www.greenwoodsoftware.com/less.</a> 

@@ -1,0 +1,176 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">h2ph - convert .h C header files to .ph Perl header files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span class="bold">h2ph [-d destination directory] [-r | -a] [-l] [-h] [-e] [-D] [-Q] [headerfiles]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">h2ph</span> converts any C header files specified to the corresponding Perl header file format. It is most easily run while in /usr/include: 
+<p class="level0">
+<p class="level0">&nbsp;       cd /usr/include; h2ph * sys/* 
+<p class="level0">
+<p class="level0">or 
+<p class="level0">
+<p class="level0">&nbsp;       cd /usr/include; h2ph * sys/* arpa/* netinet/* 
+<p class="level0">
+<p class="level0">or 
+<p class="level0">
+<p class="level0">&nbsp;       cd /usr/include; h2ph -r -l . 
+<p class="level0">
+<p class="level0">The output files are placed in the hierarchy rooted at Perl's architecture dependent library directory.  You can specify a different hierarchy with a <a class="bold" href="#-d">-d</a> switch. 
+<p class="level0">If run with no arguments, filters standard input to standard output. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="-d"></a><span class="nroffip">-d destination_dir 4</span> 
+<p class="level1">
+<p class="level1">Put the resulting <span Class="bold">.ph</span> files beneath <span Class="bold">destination_dir</span>, instead of beneath the default Perl library location (f(CW$Config{*(Aqinstallsitearch*(Aq}</span>). 
+<p class="level0"><a name="-r"></a><span class="nroffip">-r 4</span> 
+<p class="level1">
+<p class="level1">Run recursively; if any of <span Class="bold">headerfiles</span> are directories, then run <span Class="emphasis">h2ph</span> on all files in those directories (and their subdirectories, etc.).  <a class="bold" href="#-r">-r</a> and <a class="bold" href="#-a">-a</a> are mutually exclusive. 
+<p class="level0"><a name="-a"></a><span class="nroffip">-a 4</span> 
+<p class="level1">
+<p class="level1">Run automagically; convert <span Class="bold">headerfiles</span>, as well as any <span Class="bold">.h</span> files which they include.  This option will search for <span Class="bold">.h</span> files in all directories which your C compiler ordinarily uses.  <a class="bold" href="#-a">-a</a> and <a class="bold" href="#-r">-r</a> are mutually exclusive. 
+<p class="level0"><a name="-l"></a><span class="nroffip">-l 4</span> 
+<p class="level1">
+<p class="level1">Symbolic links will be replicated in the destination directory.  If <a class="bold" href="#-l">-l</a> is not specified, then links are skipped over. 
+<p class="level0"><a name="-h"></a><span class="nroffip">-h 4</span> 
+<p class="level1">
+<p class="level1">Put 'hints' in the .ph files which will help in locating problems with <span Class="emphasis">h2ph</span>.  In those cases when you <span Class="bold">require</span> a <span Class="bold">.ph</span> file containing syntax errors, instead of the cryptic 
+<p class="level1">
+<p class="level1">&nbsp;       [ some error condition ] at (eval mmm) line nnn 
+<p class="level1">
+<p class="level1">you will see the slightly more helpful 
+<p class="level1">
+<p class="level1">&nbsp;       [ some error condition ] at filename.ph line nnn 
+<p class="level1">
+<p class="level1">However, the <span Class="bold">.ph</span> files almost double in size when built using <a class="bold" href="#-h">-h</a>. 
+<p class="level0"><a name="-e"></a><span class="nroffip">-e 4</span> 
+<p class="level1">
+<p class="level1">If an error is encountered during conversion, output file will be removed and a warning emitted instead of terminating the conversion immediately. 
+<p class="level0"><a name="-D"></a><span class="nroffip">-D 4</span> 
+<p class="level1">
+<p class="level1">Include the code from the <span Class="bold">.h</span> file as a comment in the <span Class="bold">.ph</span> file. This is primarily used for debugging <span Class="emphasis">h2ph</span>. 
+<p class="level0"><a name="-Q"></a><span class="nroffip">-Q 4</span> 
+<p class="level1">
+<p class="level1">'Quiet' mode; don't print out the names of the files being converted. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">No environment variables are used. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;/usr/include/*.h &nbsp;/usr/include/sys/*.h 
+<p class="level0">
+<p class="level0">etc. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Larry Wall <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">perl</span>|(1) <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">The usual warnings if it can't read or write the files involved. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Doesn't construct the f(CW%sizeof</span> array for you. 
+<p class="level0">It doesn't handle all C constructs, but it does attempt to isolate definitions inside evals so that you can get at the definitions that it can translate. 
+<p class="level0">It's only intended as a rough tool. You may need to dicker with the files produced. 
+<p class="level0">You have to run this program by hand; it's not run as part of the Perl installation. 
+<p class="level0">Doesn't handle complicated expressions built piecemeal, a la: 
+<p class="level0">
+<p class="level0">&nbsp;   enum { &nbsp;       FIRST_VALUE, &nbsp;       SECOND_VALUE, &nbsp;   &#35;ifdef ABC &nbsp;       THIRD_VALUE &nbsp;   &#35;endif &nbsp;   }; 
+<p class="level0">
+<p class="level0">Doesn't necessarily locate all of your C compiler's internally-defined symbols. 

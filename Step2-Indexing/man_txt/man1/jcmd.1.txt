@@ -1,0 +1,93 @@
+jcmd(1)                     General Commands Manual                    jcmd(1)
+
+
+
+Name
+       jcmd  -  Sends  diagnostic  command  requests to a running Java Virtual
+       Machine
+
+SYNOPSIS
+       jcmd [ options ]
+       jcmd [ pid | main-class ] PerfCounter.print
+       jcmd [ pid | main-class ] command [arguments]
+       jcmd [ pid | main-class ] -f file
+
+
+          options
+             The command-line options. See Options.
+
+          pid
+             Identifies the  process  that  receives  the  diagnostic  command
+             requests.  The  process  must be a Java process. To get a list of
+             Java processes running on a machine, use jps(1) or jcmd(1).
+
+          main-class
+             The main class of the process that receives the  diagnostic  com-
+             mand  requests.  When  matching processes, any process whose main
+             class name contains  the  specified  string  as  a  substring  is
+             matched.  If  several  running Java processes share the same main
+             class, then the diagnostic command request is sent to  all  these
+             processes.  To get a list of Java processes running on a machine,
+             use jps(1) or jcmd(1).
+
+          command [arguments]
+             The main class of the process that receives the  diagnostic  com-
+             mand  requests.  When  matching processes, any process whose main
+             class name contains  the  specified  string  as  a  substring  is
+             matched.  If  several  running Java processes share the same main
+             class, then the diagnostic command request is sent to  all  these
+             processes.  To get a list of Java processes running on a machine,
+             use jps(1) or jcmd(1).
+
+          Perfcounter.print
+             Print the performance counters available  on  the  targeted  Java
+             processes.  The  list of performance counters might vary with the
+             Java process.
+
+          -f file
+             Read commands from file and call them on the targeted  Java  pro-
+             cesses.  In  file, each command must be written on a single line.
+             Lines starting with # are ignored. Processing of file  ends  when
+             all  lines  have  been  called or when a line containing the stop
+             keyword is read.
+
+
+DESCRIPTION
+       jcmd is a utility to send diagnostic command requests to a Java Virtual
+       Machine supporting this feature.
+
+       Used  without  arguments or with the -l option, jcmd prints the list of
+       running Java processes with their process  ID,  their  main  class  and
+       their command-line arguments.
+
+       When  a  process  ID  is  specified on the command line, jcmd sends the
+       diagnostic command request to the process with this ID.
+
+       When a main class is specified on the  command  line,  jcmd  sends  the
+       diagnostic  command  request  to  all Java processes for which the com-
+       mand-line argument is a substring of the Java process' main class.
+
+       With the PerfCounter.print argument, jcmd prints the performance  coun-
+       ters available on the targeted Java processes.
+
+       With the -f option, jcmd sends to the targeted Java processes the diag-
+       nostic commands stored in the specified file.
+
+OPTIONS
+       Options are mutually exclusive. Options, when  used,  must  immediately
+       follow the command name.
+
+          -l Prints the list of running Java processes with their process IDs,
+             their main classes, and their command-line arguments.
+
+          -h Prints a help message.
+
+          -help
+             Prints a help message.
+
+
+SEE ALSO
+          o jps
+
+
+                                  18 Jul 2013                          jcmd(1)

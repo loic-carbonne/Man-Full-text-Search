@@ -1,0 +1,39 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">grub-mkrescue - make a GRUB rescue image <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">grub-mkrescue</span> [<span Class="emphasis">,OPTION/</span>...] [<span Class="emphasis">,OPTION/</span>] <span Class="emphasis">,SOURCE/</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Make GRUB CD-ROM, disk, pendrive and floppy bootable image. 
+<p class="level0"><span Class="bold">--compress[</span>=<span Class="emphasis">,no/</span>,xz,gz,lzo] compress GRUB files [optional] 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--directory</span>=<span Class="emphasis">,DIR/</span> use images and modules under DIR [default=/usr/lib/grub/&lt;platform&gt;] 
+<p class="level0"><span Class="bold">--fonts</span>=<span Class="emphasis">,FONTS/</span> install FONTS [default=unicode] 
+<p class="level0"><span Class="bold">--install-modules</span>=<span Class="emphasis">,MODULES/</span> install only MODULES and their dependencies [default=all] 
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--pubkey</span>=<span Class="emphasis">,FILE/</span> embed FILE as public key for signature checking 
+<p class="level0"><span Class="bold">--locale-directory</span>=<span Class="emphasis">,DIR/</span> use translations under DIR [default=/usr/share/locale] 
+<p class="level0"><span Class="bold">--locales</span>=<span Class="emphasis">,LOCALES/</span> install only LOCALES [default=all] 
+<p class="level0"><span Class="bold">--modules</span>=<span Class="emphasis">,MODULES/</span> pre-load specified modules MODULES 
+<p class="level0"><span Class="bold">--themes</span>=<span Class="emphasis">,THEMES/</span> install THEMES [default=starfield] 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> print verbose messages. 
+<p class="level0"><span Class="bold">--arcs-boot</span> enable ARCS (big-endian mips machines, mostly SGI) boot. Disables HFS+, APM, sparc64 and boot as disk image for i386-pc 
+<p class="level0"><span Class="bold">--core-compress</span>=<span Class="emphasis">,xz/</span>|none|auto choose the compression to use for core image 
+<p class="level0"><span Class="bold">--label-bgcolor</span>=<span Class="emphasis">,COLOR/</span> use COLOR for label background 
+<p class="level0"><span Class="bold">--label-color</span>=<span Class="emphasis">,COLOR/</span> use COLOR for label 
+<p class="level0"><span Class="bold">--label-font</span>=<span Class="emphasis">,FILE/</span> use FILE as font for label 
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output</span>=<span Class="emphasis">,FILE/</span> save output in FILE [required] 
+<p class="level0"><span Class="bold">--product-name</span>=<span Class="emphasis">,STRING/</span> use STRING as product name 
+<p class="level0"><span Class="bold">--product-version</span>=<span Class="emphasis">,STRING/</span> use STRING as product version 
+<p class="level0"><span Class="bold">--rom-directory</span>=<span Class="emphasis">,DIR/</span> save ROM images in DIR [optional] 
+<p class="level0"><span Class="bold">--sparc-boot</span> enable sparc boot. Disables HFS+, APM, ARCS and boot as disk image for i386-pc 
+<p class="level0"><span Class="bold">--xorriso</span>=<span Class="emphasis">,FILE/</span> use FILE as xorriso [optional] 
+<p class="level0">-?, <span Class="bold">--help</span> give this help list 
+<p class="level0"><span Class="bold">--usage</span> give a short usage message 
+<p class="level0"><span Class="bold">-V</span>, <span Class="bold">--version</span> print program version 
+<p class="level0">Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options. 
+<p class="level0">Generates a bootable CD/USB/floppy image.  Arguments other than options to this program are passed to xorriso, and indicate source files, source directories, or any of the mkisofs options listed by the output of `xorriso <span Class="bold">-as</span> mkisofs <span Class="bold">-help</span>'. 
+<p class="level0">Option <span Class="bold">--</span> switches to native xorriso command mode. 
+<p class="level0">Mail xorriso support requests to &lt;bug-xorriso@gnu.org&gt;. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to &lt;bug-grub@gnu.org&gt;. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">grub-mkimage (1)</span>
+<p class="level0">The full documentation for <span Class="bold">grub-mkrescue</span> is maintained as a Texinfo manual.  If the <span Class="bold">info</span> and <span Class="bold">grub-mkrescue</span> programs are properly installed at your site, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">info grub-mkrescue</span> 
+<p class="level1">should give you access to the complete manual. 

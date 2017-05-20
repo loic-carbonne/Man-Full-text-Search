@@ -1,0 +1,23 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">runghc - program to run Haskell programs without first having to compile them. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">runghc</span> 
+<p class="level0">[runghc|flags] [GHC|flags] module [program|flags]... <br><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">runghc </span> is considered a non-interactive interpreter and part of The Glasgow Haskell Compiler.  <span Class="bold">runghc</span> is a compiler that automatically runs its results at the end.   
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">the flags are:  
+<p class="level0"><span Class="bold">-f</span> it tells runghc which GHC to use to run the program. If it is not given then runghc will search for GHC in the directories in the system search path. runghc -f /path/to/ghc 
+<p class="level0"><span Class="bold">-- </span> runghc will try to work out where the boundaries between [runghc flags] and [GHC flags], and [GHC flags] and module are, but you can use a -- flag if it doesn't get it right. For example, runghc -- -fglasgow-exts Foo  means runghc won't try to use glasgow-exts as the path to GHC, but instead will pass the flag to GHC. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">runghc foo</span> 
+<p class="level0"><span Class="bold">runghc -f /path/to/ghc foo</span> 
+<p class="level0"><span Class="bold">runghc -- -fglasgow-exts Foo</span> 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ghc (1)</span>, <span Class="manpage">ghci (1).</span><br>
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 2002, The University Court of the University of Glasgow. All rights reserved. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was written by Efrain Valles Pulgar &lt;effie.jayx@gmail.com&gt;. This is free documentation; see the GNU  General Public Licence version 2 or later for copying conditions. There is NO WARRANTY. 
+<p class="level0">

@@ -1,0 +1,68 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The 
+<p class="level0">utility filters out reverse (and half reverse) line feeds so that the output is in the correct order with only forward and half forward line feeds, and replaces white-space characters with tabs where possible. This can be useful in processing the output of 
+<p class="level0">and 
+<p class="level0">
+<p class="level0">The 
+<p class="level0">utility reads from the standard input and writes to the standard output. 
+<p class="level0">The options are as follows: 
+<p class="level0">
+<p class="level0">Do not output any backspaces, printing only the last character written to each column position. 
+<p class="level0">Forward half line feeds are permitted (``fine'' mode). Normally characters printed on a half line boundary are printed on the following line. 
+<p class="level0">Do not output multiple spaces instead of tabs (default). 
+<p class="level0">Buffer at least 
+<p class="level0">lines in memory. By default, 128 lines are buffered. 
+<p class="level0">Force unknown control sequences to be passed through unchanged. Normally, 
+<p class="level0">will filter out any control sequences from the input other than those recognized and interpreted by itself, which are listed below. 
+<p class="level0">Output multiple spaces instead of tabs. 
+<p class="level0">
+<p class="level0">The control sequences for carriage motion that 
+<p class="level0">understands and their decimal values are listed in the following table: 
+<p class="level0">
+<p class="level0">
+<p class="level0">reverse line feed (escape then 7) 
+<p class="level0">half reverse line feed (escape then 8) 
+<p class="level0">half forward line feed (escape then 9) 
+<p class="level0">moves back one column (8); ignored in the first column 
+<p class="level0">(13) 
+<p class="level0">forward line feed (10); also does carriage return 
+<p class="level0">shift to normal character set (15) 
+<p class="level0">shift to alternate character set (14) 
+<p class="level0">moves forward one column (32) 
+<p class="level0">moves forward to next tab stop (9) 
+<p class="level0">reverse line feed (11) 
+<p class="level0">
+<p class="level0">All unrecognized control characters and escape sequences are discarded. 
+<p class="level0">The 
+<p class="level0">utility keeps track of the character set as characters are read and makes sure the character set is correct when they are output. 
+<p class="level0">If the input attempts to back up to the last flushed line, 
+<p class="level0">will display a warning message. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">The 
+<p class="level0">and 
+<p class="level0">environment variables affect the execution of 
+<p class="level0">as described in 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">The 
+<p class="level0">utility conforms to 
+<p class="level0"><a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">A 
+<p class="level0">command appeared in 
+<p class="level0">

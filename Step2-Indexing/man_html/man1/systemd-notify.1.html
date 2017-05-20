@@ -1,0 +1,67 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-notify - Notify service manager about start-up completion and other daemon status changes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-notify </span><a class="bold" href="#OPTIONS">[OPTIONS...]</a><span Class="bold"> </span><span Class="bold">[VARIABLE=VALUE...]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-notify</span> may be called by daemon scripts to notify the init system about status changes. It can be used to send arbitrary information, encoded in an environment-block-like list of strings. Most importantly it can be used for start-up completion notification. 
+<p class="level0">This is mostly just a wrapper around <span Class="bold">sd_notify()</span> and makes this functionality available to shell scripts. For details see <span Class="bold">sd_notify</span>(3). 
+<p class="level0">The command line may carry a list of environment variables to send as part of the status update. 
+<p class="level0">Note that systemd will refuse reception of status updates from this command unless <span Class="emphasis">NotifyAccess=all</span> is set for the service unit this command is called from. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--ready</span> 
+<p class="level1">Inform the init system about service start-up completion. This is equivalent to <span Class="bold">systemd-notify READY=1</span>. For details about the semantics of this option see <span Class="bold">sd_notify</span>(3). 
+<p class="level0">
+<p class="level0"><span Class="bold">--pid=</span> 
+<p class="level1">Inform the init system about the main PID of the daemon. Takes a PID as argument. If the argument is omitted, the PID of the process that invoked <span Class="bold">systemd-notify</span> is used. This is equivalent to <span Class="bold">systemd-notify MAINPID=$PID</span>. For details about the semantics of this option see <span Class="bold">sd_notify</span>(3). 
+<p class="level0">
+<p class="level0"><span Class="bold">--status=</span> 
+<p class="level1">Send a free-form status string for the daemon to the init systemd. This option takes the status string as argument. This is equivalent to <span Class="bold">systemd-notify STATUS=...</span>. For details about the semantics of this option see <span Class="bold">sd_notify</span>(3). 
+<p class="level0">
+<p class="level0"><span Class="bold">--booted</span> 
+<p class="level1">Returns 0 if the system was booted up with systemd, non-zero otherwise. If this option is passed, no message is sent. This option is hence unrelated to the other options. For details about the semantics of this option, see <span Class="bold">sd_booted</span>(3). 
+<p class="level0">
+<p class="level0"><span Class="bold">--readahead=</span> 
+<p class="level1">Controls disk read-ahead operations. The argument must be a string, and either "cancel", "done" or "noreplay". For details about the semantics of this option see <span Class="bold">sd_readahead</span>(3). 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Example&nbsp;1.&nbsp;Start-up Notification and Status Updates</span> 
+<p class="level0">A simple shell daemon that sends start-up notifications after having set up its communication channel. During runtime it sends further status updates to the init system: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;!/bin/bash
+&nbsp;
+mkfifo /tmp/waldo
+systemd-notify --ready --status="Waiting for data..."
+&nbsp;
+while : ; do
+&nbsp;       read a &lt; /tmp/waldo
+&nbsp;       systemd-notify --status="Processing $a"
+&nbsp;
+&nbsp;       &#35; Do something with $a ...
+&nbsp;
+&nbsp;       systemd-notify --status="Waiting for data..."
+done
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd.unit</span>(5), <span Class="bold">sd_notify</span>(3), <span Class="bold">sd_booted</span>(3) 

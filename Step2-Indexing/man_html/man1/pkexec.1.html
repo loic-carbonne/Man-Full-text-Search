@@ -1,0 +1,176 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pkexec - Execute a command as another user <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkexec</span> [<span Class="bold">--version</span>] [<span Class="bold">--disable-internal-agent</span>] [<span Class="bold">--help</span>] 
+<p class="level0"><span Class="bold">pkexec</span> [<span Class="bold">--user</span>&nbsp;<span Class="emphasis">username</span>] <span Class="emphasis">PROGRAM</span> [<span Class="emphasis">ARGUMENTS</span>...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkexec</span> allows an authorized user to execute <span Class="emphasis">PROGRAM</span> as another user. If <span Class="emphasis">username</span> is not specified, then the program will be executed as the administrative super user, <span Class="emphasis">root</span>. <a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">
+<p class="level0">Upon successful completion, the return value is the return value of <span Class="emphasis">PROGRAM</span>. If the calling process is not authorized or an authorization could not be obtained through authentication or an error occured, <span Class="bold">pkexec</span> exits with a return value of 127. If the authorization could not be obtained because the user dismissed the authentication dialog, <span Class="bold">pkexec</span> exits with a return value of 126. <a name="AUTHENTICATION"></a><h2 class="nroffsh">AUTHENTICATION AGENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pkexec</span>, like any other PolicyKit application, will use the authentication agent registered for the calling process. However, if no authentication agent is available, then <span Class="bold">pkexec</span> will register its own textual authentication agent. This behavior can be turned off by passing the <span Class="bold">--disable-internal-agent</span> option. <a name="SECURITY"></a><h2 class="nroffsh">SECURITY NOTES</h2>
+<p class="level0">
+<p class="level0">Executing a program as another user is a privileged operation. By default the required authorization (See the section called (lqREQUIRED AUTHORIZATIONS(rq) requires administrator authentication. In addition, the authentication dialog presented to the user will display the full path to the program to be executed so the user is aware of what will happen: 
+<p class="level0">
+<p class="level1">[IMAGE]s-2u[1]ds+2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
++----------------------------------------------------------+
+|                     Authenticate                     [X] |
++----------------------------------------------------------+
+|                                                          |
+|  [Icon]  Authentication is needed to run `/bin/bash*(Aq     |
+|          as the super user                               |
+|                                                          |
+|          An application is attempting to perform an      |
+|          action that requires privileges. Authentication |
+|          as the super user is required to perform this   |
+|          action.                                         |
+|                                                          |
+|          Password for root: [_________________________]  |
+|                                                          |
+| [V] Details:                                             |
+|  Command: /bin/bash                                      |
+|  Run As:  Super User (root)                              |
+|  Action:  org.freedesktop.policykit.exec                 |
+|  Vendor:  The PolicyKit Project                          |
+|                                                          |
+|                                  [Cancel] [Authenticate] |
++----------------------------------------------------------+
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">The environment that <span Class="emphasis">PROGRAM</span> will run it, will be set to a minimal known and safe environment in order to avoid injecting code through LD_LIBRARY_PATH or similar mechanisms. In addition the PKEXEC_UID environment variable is set to the user id of the process invoking <span Class="bold">pkexec</span>. As a result, <span Class="bold">pkexec</span> will not allow you to run X11 applications as another user since the $DISPLAY and $XAUTHORITY environment variables are not set. These two variables will be retained if the <span Class="emphasis">org.freedesktop.policykit.exec.allow_gui</span> annotation on an action is set to a nonempty value; this is discouraged, though, and should only be used for legacy programs. <a name="REQUIRED"></a><h2 class="nroffsh">REQUIRED AUTHORIZATIONS</h2>
+<p class="level0">
+<p class="level0">By default, the <span Class="emphasis">org.freedesktop.policykit.exec</span> authorization is required unless an action definition file is present for the program in question. To require another authorization, it can be specified using the <span Class="emphasis">org.freedesktop.policykit.exec.path</span> annotation on an action (See the section called (lqEXAMPLE(rq for details). <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">To specify what kind of authorization is needed to execute the program /usr/bin/pk-example-frobnicate as another user, simply write an action definition file like this 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE policyconfig PUBLIC
+&nbsp;"-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+&nbsp;"http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd"&gt;
+&lt;policyconfig&gt;
+&nbsp;
+&nbsp; &lt;vendor&gt;Examples for the PolicyKit Project&lt;/vendor&gt;
+&nbsp; &lt;vendor_url&gt;http://hal.freedesktop.org/docs/PolicyKit/&lt;/vendor_url&gt;
+&nbsp;
+&nbsp; &lt;action id="org.freedesktop.policykit.example.pkexec.run-frobnicate"&gt;
+&nbsp;   &lt;description&gt;Run the PolicyKit example program Frobnicate&lt;/description&gt;
+&nbsp;   &lt;description xml:lang="da"&gt;Kør PolicyKit eksemplet Frobnicate&lt;/description&gt;
+&nbsp;   &lt;message&gt;Authentication is required to run the PolicyKit example program Frobnicate (user=$(user), program=$(program), command_line=$(command_line))&lt;/message&gt;
+&nbsp;   &lt;message xml:lang="da"&gt;Autorisering er påkrævet for at afvikle PolicyKit eksemplet Frobnicate (user=$(user), program=$(program), command_line=$(command_line))&lt;/message&gt;
+&nbsp;   &lt;icon_name&gt;audio-x-generic&lt;/icon_name&gt; 
+&nbsp;   &lt;defaults&gt;
+&nbsp;     &lt;allow_any&gt;no&lt;/allow_any&gt;
+&nbsp;     &lt;allow_inactive&gt;no&lt;/allow_inactive&gt;
+&nbsp;     &lt;allow_active&gt;auth_self_keep&lt;/allow_active&gt;
+&nbsp;   &lt;/defaults&gt;
+&nbsp;   &lt;annotate key="org.freedesktop.policykit.exec.path"&gt;/usr/bin/pk-example-frobnicate&lt;/annotate&gt;
+&nbsp; &lt;/action&gt;
+&nbsp;
+&lt;/policyconfig&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">and drop it in the /usr/share/polkit-1/actions directory under a suitable name (e.g. matching the namespace of the action). Note that in addition to specifying the program, the authentication message, description, icon and defaults can be specified. Note that occurences of the strings $(user), $(program) and $(command_line) in the message will be replaced with respectively the user (of the form "Real Name (username)" or just "username" if there is no real name for the username), the binary to execute (a fully-qualified path, e.g. "/usr/bin/pk-example-frobnicate") and the command-line, e.g. "pk-example-frobnicate foo bar". For example, for the action defined above, the following authentication dialog will be shown: 
+<p class="level0">
+<p class="level1">[IMAGE]s-2u[2]ds+2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
++----------------------------------------------------------+
+|                     Authenticate                     [X] |
++----------------------------------------------------------+
+|                                                          |
+|  [Icon]  Authentication is required to run the PolicyKit |
+|          example program Frobnicate                      |
+|                                                          |
+|          An application is attempting to perform an      |
+|          action that requires privileges. Authentication |
+|          is required to perform this action.             |
+|                                                          |
+|          Password: [__________________________________]  |
+|                                                          |
+| [V] Details:                                             |
+|  Command: /usr/bin/pk-example-frobnicate                 |
+|  Run As:  Super User (root)                              |
+|  Action:  org.fd.pk.example.pkexec.run-frobnicate        |
+|  Vendor:  Examples for the PolicyKit Project             |
+|                                                          |
+|                                  [Cancel] [Authenticate] |
++----------------------------------------------------------+
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">If the user is using the da_DK locale, the dialog looks like this: 
+<p class="level0">
+<p class="level1">[IMAGE]s-2u[3]ds+2 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
++----------------------------------------------------------+
+|                     Autorisering                     [X] |
++----------------------------------------------------------+
+|                                                          |
+|  [Icon]  Autorisering er påkrævet for at afvikle         |
+|          PolicyKit eksemplet Frobnicate                  |
+|                                                          |
+|          Et program forsøger at udføre en handling der   |
+|          kræver privilegier. Autorisering er påkrævet.   |
+|                                                          |
+|          Kodeord: [___________________________________]  |
+|                                                          |
+| [V] Detaljer:                                            |
+|  Bruger:   Super User (root)                             |
+|  Program:  /usr/bin/pk-example-frobnicate                |
+|  Handling: org.fd.pk.example.pkexec.run-frobnicate       |
+|  Vendor:   Examples for the PolicyKit Project            |
+|                                                          |
+|                                [Annullér] [Autorisering] |
++----------------------------------------------------------+
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">Note that <span Class="bold">pkexec</span> does no validation of the <span Class="emphasis">ARGUMENTS</span> passed to <span Class="emphasis">PROGRAM</span>. In the normal case (where administrator authentication is required every time <span Class="bold">pkexec</span> is used), this is not a problem since if the user is an administrator he might as well just run <span Class="bold">pkexec bash</span> to get root. 
+<p class="level0">However, if an action is used for which the user can retain authorization (or if the user is implicitly authorized), such as with pk-example-frobnicate above, this could be a security hole. Therefore, as a rule of thumb, programs for which the default required authorization is changed, should never implicitly trust user input (e.g. like any other well-written <span Class="emphasis">suid</span> program). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written by David Zeuthen &lt;davidz@redhat.com&gt; with a lot of help from many others. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to either the distribution or the polkit-devel mailing list, see the link m[blue]<span Class="bold">%http://lists.freedesktop.org/mailman/listinfo/polkit-devel</span>m[] on how to subscribe. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">polkit</span>(8), <span Class="bold">pkaction</span>(1), <span Class="bold">pkcheck</span>(1), <span Class="bold">pkttyagent</span>(1) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">/usr/share/gtk-doc/html/polkit-1/pkexec-bash.png 
+<p class="level0"><a name=""></a><span class="nroffip"> 2. 4</span> 
+<p class="level1">/usr/share/gtk-doc/html/polkit-1/pkexec-frobnicate.png 
+<p class="level0"><a name=""></a><span class="nroffip"> 3. 4</span> 
+<p class="level1">/usr/share/gtk-doc/html/polkit-1/pkexec-frobnicate-da.png 

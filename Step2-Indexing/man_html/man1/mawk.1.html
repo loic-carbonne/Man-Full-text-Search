@@ -1,0 +1,409 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mawk - pattern scanning and text processing language <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mawk</span> [-<span class="bold">W <span Class="emphasis">option ]</span> [-<span class="bold">F <span Class="emphasis">value ]</span> [-<span class="bold">v <span Class="emphasis">var=value ]</span> [-|-] 'program text' [file ...] <br><span Class="bold">mawk</span> [-<span class="bold">W <span Class="emphasis">option ]</span> [-<span class="bold">F <span Class="emphasis">value ]</span> [-<span class="bold">v <span Class="emphasis">var=value ]</span> [-<span class="bold">f <span Class="emphasis">program-file ]</span> [-|-] [file ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">mawk</span> is an interpreter for the AWK Programming Language. The AWK language is useful for manipulation of data files, text retrieval and processing, and for prototyping and experimenting with algorithms. <span Class="bold">mawk</span> is a <span Class="emphasis">new awk</span> meaning it implements the AWK language as defined in Aho, Kernighan and Weinberger, <span Class="emphasis">The AWK Programming Language,</span> Addison-Wesley Publishing, 1988.  (Hereafter referred to as the AWK book.) <span Class="bold">mawk</span> conforms to the Posix 1003.2 (draft 11.3) definition of the AWK language which contains a few features not described in the AWK book,  and <span Class="bold">mawk</span> provides a small number of extensions. 
+<p class="level0">An AWK program is a sequence of <span Class="emphasis">pattern {action}</span> pairs and function definitions. Short programs are entered on the command line usually enclosed in ' ' to avoid shell interpretation. Longer programs can be read in from a file with the -f option. Data  input is read from the list of files on the command line or from standard input when the list is empty. The input is broken into records as determined by the record separator variable, <span Class="bold">RS</span>.  Initially, <span Class="bold">RS</span> = "en" and records are synonymous with lines. Each record is compared against each <span Class="emphasis">pattern</span> and if it matches, the program text for <span Class="emphasis">{action}</span> is executed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-<span class="bold">F <span Class="emphasis">value</span> sets the field separator, <span Class="bold">FS</span>, to  <span Class="emphasis">value .</span> 
+<p class="level0">-<span class="bold">f <span class="emphasis">file Program text is read from <span Class="emphasis">file</span> instead of from the command line.  Multiple <span Class="bold">-f</span> options are allowed. 
+<p class="level0">-<span class="bold">v <span Class="emphasis">var=value</span> assigns  <span Class="emphasis">value</span> to program variable  <span Class="emphasis">var .</span> 
+<p class="level0">-|- indicates the unambiguous end of options. 
+<p class="level0">The above options will be available with any Posix compatible implementation of AWK, and implementation specific options are prefaced with <span Class="manpage">-W .</span><span Class="bold">mawk </span> provides six: 
+<p class="level0">-<span Class="bold">W </span>version <span Class="bold">mawk</span> writes its version and copyright to stdout and compiled limits to stderr and exits 0. 
+<p class="level0">-<span Class="bold">W </span>dump writes an assembler like listing of the internal representation of the program to stdout and exits 0  (on successful compilation). 
+<p class="level0">-<span Class="bold">W </span>interactive sets unbuffered writes to stdout and line buffered reads from stdin. Records from stdin are lines regardless of the value of <span Class="manpage">RS .</span>
+<p class="level0">-<span Class="bold">W </span>exec <span class="emphasis">file Program text is read from  <span Class="emphasis">file</span> and this is the last option. Useful on systems that support the <span Class="bold">#!</span> "magic number" convention for executable scripts. 
+<p class="level0">-<span Class="bold">W </span>sprintf=<span Class="emphasis">num</span> adjusts the size of  <span Class="bold">mawk's</span> internal sprintf buffer to  <span Class="emphasis">num</span> bytes.  More than rare use of this option indicates <span Class="bold">mawk</span> should be recompiled. 
+<p class="level0">-<span Class="bold">W </span>posix_space forces <span Class="bold">mawk</span> not to consider 'en' to be space. 
+<p class="level0">The short forms  <span Class="manpage">-W [vdiesp]</span>are recognized and on some systems <span Class="bold">-W</span>e is mandatory to avoid command line length limitations. <a name="THE"></a><h2 class="nroffsh">THE AWK LANGUAGE</h2>
+<p class="level0"><a name="fB1"></a><h2 class="nroffsh">\fB1. Program structure</h2>
+<p class="level0">An AWK program is a sequence of  <span Class="emphasis">pattern {action} </span> pairs and user function definitions. 
+<p class="level0">A pattern can be: <pre class="level0">
+<span class="bold">BEGIN
+END</span>
+expression
+expression , expression
+</pre>
+
+<p class="level0">One, but not both, of <span Class="emphasis">pattern {action}</span> can be omitted.   If  <span Class="emphasis">{action}</span> is omitted it is implicitly { print }.  If  <span Class="emphasis">pattern </span> is omitted, then it is implicitly matched. <span Class="bold">BEGIN</span> and <span Class="bold">END</span> patterns require an action. 
+<p class="level0">Statements are terminated by newlines, semi-colons or both. Groups of statements such as actions or loop bodies are blocked via { ... } as in C.  The last statement in a block doesn't need a terminator.  Blank lines have no meaning; an empty statement is terminated with a semi-colon. Long statements can be continued with a backslash, e|.  A statement can be broken without a backslash after a comma, left brace, &&, ||,  <span Class="manpage">do</span>, <span Class="manpage">else</span>the right parenthesis of an  <span Class="manpage">if</span><span Class="bold">while </span> or <span Class="bold">for</span> statement, and the right parenthesis of a function definition. A comment starts with &#35; and extends to, but does not include the end of line. 
+<p class="level0">The following statements control program flow inside blocks. 
+<p class="level1">
+<p class="level1"><span Class="bold">if </span> ( *(ex ) <span Class="emphasis">statement</span> 
+<p class="level1"><span Class="bold">if </span> ( *(ex ) <span Class="emphasis">statement</span> <span Class="bold">else </span> <span Class="emphasis">statement</span> 
+<p class="level1"><span Class="bold">while</span> ( *(ex ) <span Class="emphasis">statement</span> 
+<p class="level1"><span Class="bold">do</span> <span Class="emphasis">statement</span> <span Class="bold">while</span> ( *(ex ) 
+<p class="level1"><span Class="bold">for</span> ( <span Class="emphasis">opt_expr</span> ; <span Class="emphasis">opt_expr</span> ; <span Class="emphasis">opt_expr</span>  ) <span Class="emphasis">statement</span> 
+<p class="level1"><span Class="bold">for</span> ( <span class="emphasis">var <span class="bold">in <span Class="emphasis">array</span> ) <span Class="emphasis">statement</span> 
+<p class="level1"><span Class="bold">continue</span> 
+<p class="level1"><span Class="bold">break</span> 
+<p class="level0"><a name="fB2"></a><h2 class="nroffsh">\fB2. Data types, conversion and comparison</h2>
+<p class="level0">There are two basic data types, numeric and string. Numeric constants can be integer like -2, decimal like 1.08, or in scientific notation like  -1.1e4 or .28E-3.  All numbers are represented internally and all computations are done in floating point arithmetic. So for example, the expression 0.2e2 == 20 is true and true is represented as 1.0. 
+<p class="level0">String constants are enclosed in double quotes. 
+<p class="level0">
+<p class="level0">"This is a string with a newline at the end.en" 
+<p class="level0">Strings can be continued across a line by escaping (e) the newline. The following escape sequences are recognized. <pre class="level0">
+	ee		e
+	e"		"
+	ea		alert, ascii 7
+	eb		backspace, ascii 8
+	et		tab, ascii 9
+	en		newline, ascii 10
+	ev		vertical tab, ascii 11
+	ef		formfeed, ascii 12
+	er		carriage return, ascii 13
+	eddd		1, 2 or 3 octal digits for ascii ddd
+	exhh		1 or 2 hex digits for ascii  hh
+</pre>
+
+<p class="level0">If you escape any other character ec, you get ec, i.e.,  <span Class="bold">mawk</span> ignores the escape. 
+<p class="level0">There are really three basic data types; the third is  <span Class="emphasis">number and string</span> which has both a numeric value and a string value at the same time. User defined variables come into existence when first referenced and are initialized to  <span Class="emphasis">null ,</span> a number and string value which has numeric value 0 and string value "". Non-trivial number and string typed data come from input  and are typically stored in fields.  (See section 4). 
+<p class="level0">The type of an expression is determined by its context and automatic type conversion occurs if needed.  For example, to evaluate the statements <pre class="level0">
+	y = x + 2  ;  z = x  "hello"
+</pre>
+
+<p class="level0">The value stored in variable y will be typed numeric. If x is not numeric, the value read from x is converted to numeric before it is added to 2 and stored in y.  The value stored in variable z will be typed string, and the value of x will be converted to string if necessary and concatenated with "hello".  (Of course, the value and type stored in x is not changed by any conversions.) A string expression is converted to numeric using its longest numeric prefix as with  <span Class="emphasis">atof (3).</span> A numeric expression is converted to string by replacing <span Class="emphasis">expr</span> with  <span Class="manpage">sprintf(CONVFMT</span><span Class="emphasis">expr ),</span> unless  <span Class="emphasis">expr</span> can be represented on the host machine as an exact integer then it is converted to <span Class="bold">sprintf</span>("%d", *(ex). <span Class="bold">Sprintf()</span> is an AWK built-in that duplicates the functionality of <span Class="emphasis">sprintf (3),</span> and <span Class="bold">CONVFMT</span> is a built-in variable used for internal conversion from number to string and initialized to "%.6g". Explicit type conversions can be forced, *(ex "" is string and <span Class="emphasis">expr +0</span> is numeric. 
+<p class="level0">To evaluate, *(exd1u <span class="bold">rel-op *(exd2u, if both operands are numeric or number and string then the comparison is numeric; if both operands are string the comparison is string; if one operand is string, the non-string operand is converted and the comparison is string.  The result is numeric, 1 or 0. 
+<p class="level0">In boolean contexts such as, <span Class="bold">if</span> ( *(ex ) <span Class="emphasis">statement</span>, a string expression evaluates true if and only if it is not the empty string "";  numeric values if and only if not numerically zero. <a name="fB3"></a><h2 class="nroffsh">\fB3. Regular expressions</h2>
+<p class="level0">In the AWK language, records, fields and strings are often tested for matching a  <span Class="emphasis">regular expression .</span> Regular expressions are enclosed in slashes, and <pre class="level0">
+	*(ex ~ /<span class="emphasis">r</span>/
+</pre>
+
+<p class="level0">is an AWK expression that evaluates to 1 if *(ex "matches" <span Class="emphasis">r ,</span> which means a substring of *(ex is in the set of strings defined by  <span Class="emphasis">r .</span> With no match the expression evaluates to 0; replacing ~ with the "not match" operator, !~ , reverses the meaning. As  pattern-action pairs, <pre class="level0">
+	/<span class="emphasis">r</span>/ { <span class="emphasis">action</span> }   and\
+&nbsp;  <span class="bold">$0</span> ~ /<span class="emphasis">r</span>/ { <span class="emphasis">action</span> }
+</pre>
+
+<p class="level0">are the same, and for each input record that matches <span Class="emphasis">r ,</span> <span Class="emphasis">action</span> is executed. In fact, /<span Class="emphasis">r</span>/ is an AWK expression that is equivalent to (<span Class="bold">$0</span> ~ /<span Class="emphasis">r</span>/) anywhere except when on the right side of a match operator or passed as an argument to a built-in function that expects a regular expression  argument. 
+<p class="level0">AWK uses extended regular expressions as with <span Class="emphasis">egrep (1).</span> The regular expression metacharacters, i.e., those with special meaning in regular expressions are <pre class="level0">
+	&nbsp;^ $ . [ ] | ( ) * + ?
+</pre>
+
+<p class="level0">Regular expressions are built up from characters as follows: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">c</span> matches any non-metacharacter <span Class="emphasis">c .</span> 
+<p class="level1">e<span Class="emphasis">c</span> matches a character defined by the same escape sequences used in string constants or the literal character <span Class="emphasis">c </span> if e<span Class="emphasis">c</span> is not an escape sequence. 
+<p class="level1">. matches any character (including newline). 
+<p class="level1">^ matches the front of a string. 
+<p class="level1">$ matches the back of a string. 
+<p class="level1">[cd1ucd2ucd3u...] matches any character in the class cd1ucd2ucd3u... .  An interval of characters is denoted cd1u-cd2u inside a class [...]. 
+<p class="level1">[^cd1ucd2ucd3u...] matches any character not in the class cd1ucd2ucd3u... 
+<p class="level0">
+<p class="level0">Regular expressions are built up from other regular expressions as follows: 
+<p class="level1">
+<p class="level1"><span Class="emphasis">r</span>d1u<span Class="emphasis">r</span>d2u matches  <span Class="emphasis">r</span>d1u followed immediately by <span Class="emphasis">r</span>d2u (concatenation). 
+<p class="level1"><span Class="emphasis">r</span>d1u | <span Class="emphasis">r</span>d2u matches  <span Class="emphasis">r</span>d1u or <span Class="emphasis">r</span>d2u (alternation). 
+<p class="level1"><span Class="emphasis">r</span>* matches <span Class="emphasis">r</span> repeated zero or more times. 
+<p class="level1"><span Class="emphasis">r</span>+ matches <span Class="emphasis">r</span> repeated one or more times. 
+<p class="level1"><span Class="emphasis">r</span>? matches <span Class="emphasis">r</span> zero or once. 
+<p class="level1">(<span Class="emphasis">r</span>) matches <span Class="emphasis">r</span>, providing grouping. 
+<p class="level0">
+<p class="level0">The increasing precedence of operators is alternation,  concatenation and unary (*, + or ?). 
+<p class="level0">For example, <pre class="level0">
+	/^[_a-zA-Z][_a-zA-Z0-9]*$/  and
+	/^[-+]?([0-9]+e|.?|e|.[0-9])[0-9]*([eE][-+]?[0-9]+)?$/
+</pre>
+
+<p class="level0">are matched by AWK identifiers and AWK numeric constants respectively.  Note that . has to be escaped to be recognized as a decimal point, and that metacharacters are not special inside character classes. 
+<p class="level0">Any expression can be used on the right hand side of the ~ or !~ operators or passed to a built-in that expects a regular expression. If needed, it is converted to string, and then interpreted as a regular expression.  For example, <pre class="level0">
+	BEGIN { identifier = "[_a-zA-Z][_a-zA-Z0-9]*" }
+&nbsp;
+	$0 ~ "^" identifier
+</pre>
+
+<p class="level0">prints all lines that start with an AWK identifier. 
+<p class="level0"><span Class="bold">mawk</span> recognizes the empty regular expression, //|, which matches the empty string and hence is matched by any string at the front, back and between every character.  For example, <pre class="level0">
+	echo  abc | mawk { gsub(//, "X") ; print }
+	XaXbXcX
+</pre>
+
+<p class="level0"><a name="fB4"></a><h2 class="nroffsh">\fB4. Records and fields</h2>
+<p class="level0">Records are read in one at a time, and stored in the <span Class="emphasis">field</span> variable  <span Class="manpage">$0 .</span>The record is split into <span Class="emphasis">fields</span> which are stored in <span Class="manpage">$1</span>, <span Class="manpage">$2</span>, <span Class="manpage">...</span>, <span Class="manpage">$NF .</span>The built-in variable <span Class="bold">NF</span> is set to the number of fields, and  <span Class="bold">NR</span> and <span Class="bold">FNR</span> are incremented by 1. Fields above  <span Class="bold">$NF</span> are set to "". 
+<p class="level0">Assignment to <span Class="bold">$0</span> causes the fields and  <span Class="bold">NF</span> to be recomputed. Assignment to <span Class="bold">NF</span> or to a field causes  <span Class="bold">$0</span> to be reconstructed by concatenating the <span Class="bold">$i's</span> separated by <span Class="manpage">OFS .</span>Assignment to a field with index greater than <span Class="manpage">NF</span>increases <span Class="bold">NF</span> and causes <span Class="bold">$0</span> to be reconstructed. 
+<p class="level0">Data input stored in fields is string, unless the entire field has numeric form and then the type is number and string. For example, 
+<p class="level0"><pre class="level0">
+	echo 24 24E | 
+	mawk '{ print($1&gt;100, $1&gt;"100", $2&gt;100, $2&gt;"100") }'
+	0 1 1 1
+</pre>
+
+<p class="level0">
+<p class="level0"><span Class="bold">$0</span> and <span Class="bold">$2</span> are string and <span Class="bold">$1</span> is number and string.  The first comparison is numeric, the second is string, the third is string (100 is converted to "100"), and the last is string. <a name="fB5"></a><h2 class="nroffsh">\fB5. Expressions and operators</h2>
+<p class="level0">
+<p class="level0">The expression syntax is  similar to C.  Primary expressions are numeric constants, string constants, variables, fields, arrays and function calls.   The identifier for a variable, array or function can be a sequence of letters, digits and underscores, that does not start with a digit. Variables are not declared; they exist when first referenced and are initialized to <span Class="emphasis">null .</span> 
+<p class="level0">New expressions are composed with the following operators in order of increasing precedence. 
+<p class="level0">
+<p class="level1"><pre class="level1">
+<span class="emphasis">assignment</span>		=  +=  -=  *=  /=  %=  ^=
+<span class="emphasis">conditional</span>		?  :
+<span class="emphasis">logical or</span>		||
+<span class="emphasis">logical and</span>		&&
+<span class="emphasis">array membership</span>	<span class="bold">in
+<span class="emphasis">matching</span>		~   !~
+<span class="emphasis">relational</span>		&lt;  &gt;   &lt;=  &gt;=  ==  !=
+<span class="emphasis">concatenation</span>		(no explicit operator)
+<span class="emphasis">add ops</span>			+  -
+<span class="emphasis">mul ops</span>			*  /  % 
+<span class="emphasis">unary</span>			+  -
+<span class="emphasis">logical not</span>		!
+<span class="emphasis">exponentiation</span>		^
+<span class="emphasis">inc and dec</span>		++ -|- (both post and pre)
+<span class="emphasis">field</span>			$
+</pre>
+
+<p class="level0">Assignment, conditional and exponentiation associate right to left; the other operators associate left to right.  Any expression can be parenthesized. <a name="fB6"></a><h2 class="nroffsh">\fB6. Arrays</h2>
+<p class="level0">
+<p class="level0">Awk provides one-dimensional arrays.  Array elements are expressed as *(ae. <span Class="emphasis">Expr</span> is internally converted to string type, so, for example, A[1] and A["1"] are the same element and the actual index is "1". Arrays indexed by strings are called associative arrays. Initially an array is empty; elements exist when first accessed. An expression, <span class="emphasis">expr<span class="bold"> in<span Class="emphasis"> array</span> evaluates to 1 if  *(ae exists, else to 0. 
+<p class="level0">There is a form of the <span Class="bold">for</span> statement that loops over each index of an array. <pre class="level0">
+	<span class="bold">for</span> ( <span class="emphasis">var<span class="bold"> in <span class="emphasis">array </span>) <span class="emphasis">statement</span>
+</pre>
+
+<p class="level0">sets <span Class="emphasis">var</span> to each index of <span Class="emphasis">array</span> and executes  <span Class="emphasis">statement .</span> The order that <span Class="emphasis">var</span> transverses the indices of <span Class="emphasis">array</span> is not defined. 
+<p class="level0">The statement, <span Class="bold">delete</span> *(ae, causes *(ae not to exist. <span Class="bold">mawk </span> supports an extension, <span Class="bold">delete </span> <span Class="emphasis">array ,</span> which deletes all elements of  <span Class="emphasis">array .</span> 
+<p class="level0">Multidimensional arrays are synthesized with concatenation using the built-in variable <span Class="manpage">SUBSEP .</span><span Class="emphasis">array</span>[<span Class="emphasis">expr</span>d1u,|<span Class="emphasis">expr</span>d2u] is equivalent to <span Class="emphasis">array</span>[<span Class="emphasis">expr</span>d1u <span class="bold">SUBSEP <span Class="emphasis">expr</span>d2u]. Testing for a multidimensional element uses a parenthesized index, such as 
+<p class="level0"><pre class="level0">
+	if ( (i, j) in A )  print A[i, j]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fB7"></a><h2 class="nroffsh">\fB7. Builtin-variables\fR</h2>
+<p class="level0">
+<p class="level0">The following variables are built-in and initialized before program execution. 
+<p class="level1">
+<p class="level1"><span Class="bold">ARGC</span> number of command line arguments. 
+<p class="level1"><span Class="bold">ARGV</span> array of command line arguments, 0..ARGC-1. 
+<p class="level1"><span Class="bold">CONVFMT</span> format for internal conversion of numbers to string,  initially = "%.6g". 
+<p class="level1"><span Class="bold">ENVIRON</span> array indexed by environment variables.  An environment string, <span Class="emphasis">var=value</span> is stored as  <span Class="bold">ENVIRON</span>[<span Class="emphasis">var</span>] =  <span Class="emphasis">value .</span> 
+<p class="level1"><span Class="bold">FILENAME</span> name of the current input file. 
+<p class="level1"><span Class="bold">FNR</span> current record number in <span Class="manpage">FILENAME .</span>
+<p class="level1"><span Class="bold">FS</span> splits records into fields as a regular expression. 
+<p class="level1"><span Class="bold">NF</span> number of fields in the current record. 
+<p class="level1"><span Class="bold">NR</span> current record number in the total input stream. 
+<p class="level1"><span Class="bold">OFMT</span> format for printing numbers; initially = "%.6g". 
+<p class="level1"><span Class="bold">OFS</span> inserted between fields on output, initially = " ". 
+<p class="level1"><span Class="bold">ORS</span> terminates each record on output, initially = "en". 
+<p class="level1"><span Class="bold">RLENGTH</span> length set by the last call to the built-in function, <span Class="manpage">match() .</span>
+<p class="level1"><span Class="bold">RS</span> input record separator, initially = "en". 
+<p class="level1"><span Class="bold">RSTART</span> index set by the last call to <span Class="manpage">match() .</span>
+<p class="level1"><span Class="bold">SUBSEP</span> used to build multiple array subscripts, initially = "e034". 
+<p class="level0"><a name="fB8"></a><h2 class="nroffsh">\fB8. Built-in functions</h2>
+<p class="level0">String functions 
+<p class="level1">
+<p class="level1">gsub(<span Class="emphasis">r,s,t</span>)  gsub(<span Class="emphasis">r,s</span>) Global substitution, every match of regular expression <span Class="emphasis">r</span> in variable  <span Class="emphasis">t</span> is replaced by string <span Class="emphasis">s .</span> The number of replacements is returned. If  <span Class="emphasis">t</span> is omitted, <span Class="bold">$0 </span> is used.  An & in the replacement string <span Class="emphasis">s</span> is replaced by the matched substring of <span Class="emphasis">t .</span> e& and ee put  literal & and e, respectively, in the replacement string. 
+<p class="level1">index(<span Class="emphasis">s,t</span>) If  <span Class="emphasis">t</span> is a substring of <span Class="emphasis">s ,</span> then the position where  <span Class="emphasis">t</span> starts is returned, else 0 is returned. The first character of <span Class="emphasis">s</span> is in position 1. 
+<p class="level1">length(<span Class="emphasis">s</span>) Returns the length of string <span Class="emphasis">s .</span> 
+<p class="level1">match(<span Class="emphasis">s,r</span>) Returns the index of the first longest match of regular expression <span Class="emphasis">r</span> in string <span Class="emphasis">s .</span> Returns 0 if no match. As a side effect, <span Class="bold">RSTART</span> is set to the return value. <span Class="bold">RLENGTH</span> is set to the length of the match or -1 if no match.  If the empty string is matched,  <span Class="bold">RLENGTH</span> is set to 0, and 1 is returned if the match is at the front, and length(<span Class="emphasis">s</span>)+1 is returned if the match is at the back. 
+<p class="level1">split(<span Class="emphasis">s,A,r</span>)  split(<span Class="emphasis">s,A</span>) String <span Class="emphasis">s</span> is split into fields by regular expression <span Class="emphasis">r</span> and the fields are loaded into array <span Class="emphasis">A .</span> The number of fields is returned.  See section 11 below for more detail. If <span Class="emphasis">r</span> is omitted,  <span Class="bold">FS</span> is used. 
+<p class="level1">sprintf(<span Class="emphasis">format,expr-list</span>) Returns a string constructed from <span Class="emphasis">expr-list</span> according to <span Class="emphasis">format .</span> See the description of printf() below. 
+<p class="level1">sub(<span Class="emphasis">r,s,t</span>)  sub(<span Class="emphasis">r,s</span>) Single substitution, same as gsub() except at most one substitution. 
+<p class="level1">substr(<span Class="emphasis">s,i,n</span>)  substr(<span Class="emphasis">s,i</span>) Returns the substring of string <span Class="emphasis">s ,</span> starting at index  <span Class="emphasis">i , </span> of length <span Class="emphasis">n .</span> If  <span Class="emphasis">n</span> is omitted, the suffix of <span Class="emphasis">s ,</span> starting at <span Class="emphasis">i</span> is returned. 
+<p class="level1">tolower(<span Class="emphasis">s</span>) Returns a copy of <span Class="emphasis">s</span> with all upper case characters converted to lower case. 
+<p class="level1">toupper(<span Class="emphasis">s</span>) Returns a copy of <span Class="emphasis">s</span> with all lower case characters converted to upper case. 
+<p class="level0">
+<p class="level0">Arithmetic functions 
+<p class="level1">
+<p class="level1"><pre class="level1">
+atan2(<span class="emphasis">y,x</span>)	Arctan of <span class="emphasis">y</span>/<span class="emphasis">x</span> between -*(Pi and *(Pi.
+cos(<span class="emphasis">x</span>)		Cosine function, <span class="emphasis">x</span> in radians.
+exp(<span class="emphasis">x</span>)		Exponential function.
+int(<span class="emphasis">x</span>)		Returns <span class="emphasis">x</span> truncated towards zero.
+log(<span class="emphasis">x</span>)		Natural logarithm.
+rand()		Returns a random number between zero and one.
+sin(<span class="emphasis">x</span>)		Sine function, <span class="emphasis">x</span> in radians.
+sqrt(<span class="emphasis">x</span>)		Returns square root of <span class="emphasis">x</span>.
+</pre>
+
+<p class="level1">
+<p class="level1">srand(<span Class="emphasis">expr</span>)  srand() Seeds the random number generator, using the clock if <span Class="emphasis">expr</span> is omitted, and returns the value of the previous seed. <span Class="bold">mawk</span> seeds the random number generator from the clock at startup so there is no real need to call srand().  Srand(<span Class="emphasis">expr</span>) is useful for repeating pseudo random sequences. 
+<p class="level0"><a name="fB9"></a><h2 class="nroffsh">\fB9. Input and output</h2>
+<p class="level0">There are two output statements,  <span Class="bold">print</span> and <span Class="manpage">printf .</span>
+<p class="level1">
+<p class="level1">print writes <span Class="bold">$0  ORS</span> to standard output. 
+<p class="level1">print *(exd1u, *(exd2u, ..., *(exdnu writes *(exd1u <span class="bold">OFS *(exd2u <span Class="bold">OFS</span> ... *(exdnu <span Class="bold">ORS</span> to standard output.  Numeric expressions are converted to string with  <span Class="manpage">OFMT .</span>
+<p class="level1">printf <span Class="emphasis">format, expr-list</span> duplicates the printf C library function writing to standard output. The complete ANSI C format specifications are recognized with conversions %c, %d, %e, %E, %f, %g, %G, %i, %o, %s, %u, %x, %X and %%, and conversion qualifiers h and l. 
+<p class="level0">
+<p class="level0">The argument list to print or printf can optionally be enclosed in parentheses. Print formats numbers using <span Class="bold">OFMT</span> or "%d" for exact integers. "%c" with a numeric argument prints the corresponding 8 bit  character, with a string argument it prints the first character of the string. The output of print and printf can be redirected to a file or command by appending &gt;  <span Class="emphasis">file ,</span> &gt;&gt; <span Class="emphasis">file</span> or | <span Class="emphasis">command</span> to the end of the print statement. Redirection opens  <span Class="emphasis">file</span> or <span Class="emphasis">command</span> only once, subsequent redirections append to the already open stream. By convention,  <span Class="bold">mawk</span> associates the filename "/dev/stderr" with stderr which allows print and printf to be redirected to stderr. <span Class="bold">mawk</span> also associates "-" and "/dev/stdout" with stdin and stdout which allows these streams to be passed to functions. 
+<p class="level0">The input function <span Class="bold">getline</span> has the following variations. 
+<p class="level1">
+<p class="level1">getline reads into <span Class="manpage">$0</span>updates the fields, <span Class="manpage">NF</span><span Class="bold">NR</span> and  <span Class="manpage">FNR .</span>
+<p class="level1">getline &lt; <span Class="emphasis">file</span> reads into <span Class="bold">$0</span> from <span Class="emphasis">file</span>,  updates the fields and <span Class="manpage">NF .</span>
+<p class="level1">getline <span class="emphasis">var reads the next record into <span Class="emphasis">var ,</span> updates <span Class="bold">NR</span> and , <span Class="manpage">FNR .</span>
+<p class="level1">getline <span Class="emphasis">var</span> &lt; <span class="emphasis">file reads the next record of <span Class="emphasis">file</span> into <span Class="emphasis">var .</span> 
+<p class="level1"><span Class="emphasis"> command</span> | getline pipes a record from  <span Class="emphasis">command</span> into <span Class="bold">$0</span> and updates the fields and <span Class="manpage">NF .</span>
+<p class="level1"><span Class="emphasis"> command</span> | getline <span class="emphasis">var pipes a record from  <span Class="emphasis">command</span> into <span Class="emphasis">var .</span> 
+<p class="level0">
+<p class="level0">Getline returns 0 on end-of-file, -1 on error, otherwise 1. 
+<p class="level0">Commands on the end of pipes are executed by /bin/sh. 
+<p class="level0">The function <span Class="bold">close</span>(*(ex) closes the file or pipe associated with <span Class="emphasis">expr .</span> Close returns 0 if <span Class="emphasis">expr</span> is an open file, the exit status if <span Class="emphasis">expr</span> is a piped command, and -1 otherwise. Close is used to reread a file or command, make sure the other end of an output pipe is finished or conserve file resources. 
+<p class="level0">The function <span Class="bold">fflush</span>(*(ex) flushes the output file or pipe associated with <span Class="emphasis">expr .</span> Fflush returns 0 if <span Class="emphasis">expr</span> is an open output stream else -1. Fflush without an argument flushes stdout. Fflush with an empty argument ("") flushes all open output. 
+<p class="level0">The function  <span Class="bold">system</span>(<span Class="emphasis">expr</span>) uses  /bin/sh to execute <span Class="emphasis">expr</span> and returns the exit status of the command <span Class="emphasis">expr .</span> Changes made to the <span Class="bold">ENVIRON</span> array are not passed to commands executed with <span Class="bold">system</span> or pipes. <a name="fB10"></a><h2 class="nroffsh">\fB10. User defined functions</h2>
+<p class="level0">The syntax for a user defined function is <pre class="level0">
+	<span class="bold">function</span> name( <span class="emphasis">args</span> ) { <span class="emphasis">statements</span> }
+</pre>
+
+<p class="level0">The function body can contain a return statement <pre class="level0">
+	<span class="bold">return<span class="emphasis"> opt_expr</span>
+</pre>
+
+<p class="level0">A return statement is not required.   Function calls may be nested or recursive. Functions are passed expressions by value and arrays by reference. Extra arguments serve as local variables and are initialized to  <span Class="emphasis">null .</span> For example, csplit(<span Class="emphasis">s,|A</span>) puts each character of <span Class="emphasis">s</span> into array <span Class="emphasis">A</span> and returns the length of <span Class="emphasis">s .</span> <pre class="level0">
+	function csplit(s, A,	n, i)
+	{
+	  n = length(s)
+	  for( i = 1 ; i &lt;= n ; i++ ) A[i] = substr(s, i, 1)
+	  return n
+	}
+</pre>
+
+<p class="level0">Putting extra space between passed arguments and local  variables is conventional. Functions can be referenced before they are defined, but the function name and the '(' of the arguments must touch to avoid confusion with concatenation. <a name="fB11"></a><h2 class="nroffsh">\fB11. Splitting strings, records and files</h2>
+<p class="level0">Awk programs use the same algorithm to  split strings into arrays with split(), and records into fields on  <span Class="manpage">FS .</span><span Class="bold">mawk</span> uses essentially the same algorithm to split files into records on <span Class="manpage">RS .</span>
+<p class="level0">Split(<span Class="emphasis">expr,|A,|sep</span>) works as follows: 
+<p class="level1">
+<p class="level1">(1)  If <span Class="emphasis">sep</span> is omitted, it is replaced by <span Class="manpage">FS .</span><span Class="emphasis">Sep </span> can be an expression or regular expression.  If it is an expression of non-string type, it is converted to string. 
+<p class="level1">(2) If <span Class="emphasis">sep</span> = " " (a single space), then &lt;SPACE&gt; is trimmed from the front and back of  <span Class="emphasis">expr ,</span> and <span Class="emphasis">sep</span> becomes &lt;SPACE&gt;. <span Class="bold">mawk</span> defines &lt;SPACE&gt; as the regular expression /[&nbsp;eten]+/.   Otherwise <span Class="emphasis">sep</span> is treated as a regular expression, except that meta-characters are ignored for a string of length 1, e.g., split(x, A, "*") and split(x, A, /e*/) are the same. 
+<p class="level1">(3) If *(ex is not string, it is converted to string. If *(ex is then the empty string "", split() returns 0 and  <span Class="emphasis">A</span> is set empty. Otherwise, all non-overlapping, non-null and longest matches of <span Class="emphasis">sep</span> in <span Class="emphasis">expr ,</span> separate <span Class="emphasis">expr</span> into fields which are loaded into <span Class="emphasis">A .</span> The fields are placed in A[1], A[2], ..., A[n] and split() returns n, the number of fields which is the number  of matches plus one. Data placed in  <span Class="emphasis">A</span> that looks numeric is typed number and string. 
+<p class="level0">
+<p class="level0">Splitting records into fields works the same except the pieces are loaded into  <span Class="manpage">$1</span><span Class="bold">$2</span>,..., <span Class="manpage">$NF .</span>If <span Class="bold">$0</span> is empty, <span Class="bold">NF</span> is set to 0 and all <span Class="bold">$i</span> to "". 
+<p class="level0"><span Class="bold">mawk</span> splits files into records by the same algorithm, but with the  slight difference that  <span Class="bold">RS</span> is really a terminator instead of a separator.  (<span Class="bold">ORS</span> is really a terminator too). 
+<p class="level1">
+<p class="level1">E.g., if  <span Class="bold">FS</span> = ":+" and <span Class="bold">$0</span> = "a::b:" , then <span Class="bold">NF</span> = 3 and <span Class="bold">$1</span> = "a", <span Class="bold">$2</span> = "b" and <span Class="bold">$3</span> = "", but if "a::b:" is the contents of an input file and <span Class="bold">RS</span> = ":+", then there are two records "a" and "b". 
+<p class="level0">
+<p class="level0"><span Class="bold">RS</span> = " " is not special. 
+<p class="level0">If  <span Class="bold">FS </span> = "", then <span Class="bold">mawk</span> breaks the record into individual characters, and, similarly, split(<span Class="emphasis">s,A,</span>"") places the individual characters of <span Class="emphasis">s</span> into  <span Class="emphasis">A .</span> <a name="fB12"></a><h2 class="nroffsh">\fB12. Multi-line records</h2>
+<p class="level0">Since  <span Class="bold">mawk</span> interprets <span Class="bold">RS</span> as a regular expression, multi-line records are easy.  Setting  <span Class="bold">RS</span> = "enen+", makes one or more blank lines separate records.  If  <span Class="bold">FS</span> = " " (the default), then single newlines, by the rules for &lt;SPACE&gt; above, become space and single newlines are field separators. 
+<p class="level1">
+<p class="level1">For example, if a file is "a&nbsp;bencenen", <span Class="bold">RS</span> = "enen+" and <span Class="bold">FS</span> = "&nbsp;", then there is one record "a&nbsp;benc" with three fields "a", "b" and "c".  Changing <span Class="bold">FS</span> = "en", gives two fields "a b" and "c"; changing <span Class="bold">FS</span> = "", gives one field identical to the record. 
+<p class="level0">
+<p class="level0">If you want lines with spaces or tabs to be considered blank, set <span Class="bold">RS</span> = "en([&nbsp;et]*en)+". For compatibility with other awks, setting <span Class="bold">RS</span> = "" has the same effect as if blank lines are stripped from the front and back of files and then records are determined as if <span Class="bold">RS</span> = "enen+". Posix requires that "en" always separates records when <span Class="bold">RS</span> = "" regardless of the value of <span Class="manpage">FS .</span><span Class="bold">mawk </span> does not support this convention, because defining "en" as &lt;SPACE&gt; makes it unnecessary. 
+<p class="level0">Most of the time when you change <span Class="bold">RS</span> for multi-line records, you will also want to change  <span Class="bold">ORS</span> to "enen" so the record spacing is preserved on output. <a name="fB13"></a><h2 class="nroffsh">\fB13. Program execution</h2>
+<p class="level0">This section describes the order of program execution. First  <span Class="bold">ARGC</span> is set to the total number of command line arguments passed to the execution phase of the program. <span Class="bold">ARGV[0]</span> is set the name of the AWK interpreter and <span Class="bold">ARGV[1]</span> ...  <span Class="bold">ARGV[ARGC-1]</span> holds the remaining command line arguments exclusive of  options and program source. For example with <pre class="level0">
+	mawk  -f  prog  v=1  A  t=hello  B
+</pre>
+
+<p class="level0"><span Class="bold">ARGC</span> = 5 with <span Class="bold">ARGV[0]</span> = "mawk", <span Class="bold">ARGV[1]</span> = "v=1", <span Class="bold">ARGV[2]</span> = "A", <span Class="bold">ARGV[3]</span> = "t=hello" and <span Class="bold">ARGV[4]</span> = "B". 
+<p class="level0">Next, each  <span Class="bold">BEGIN</span> block is executed in order. If the program consists entirely of  <span Class="bold">BEGIN</span> blocks, then execution terminates, else an input stream is opened and execution continues. If  <span Class="bold">ARGC</span> equals 1, the input stream is set to stdin, else  the command line arguments <span Class="manpage">ARGV[1]   ...</span><span Class="bold">ARGV[ARGC-1]</span> are examined for a file argument. 
+<p class="level0">The command line arguments divide into three sets:  file arguments, assignment arguments and empty strings "". An assignment has the form <span Class="emphasis">var</span>=<span Class="emphasis">string</span>. When an  <span Class="bold">ARGV[i]</span> is examined as a possible file argument, if it is empty it is skipped; if it is an assignment argument, the assignment to <span Class="emphasis">var</span> takes place and  <span Class="bold">i</span> skips to the next argument; else <span Class="bold">ARGV[i] </span> is opened for input. If it fails to open, execution terminates with exit code 2. If no command line argument is a file argument, then input comes from stdin. Getline in a  <span Class="bold">BEGIN</span> action opens input.  "-" as a file argument denotes stdin. 
+<p class="level0">Once an input stream is open, each input record is tested  against each  <span Class="emphasis">pattern ,</span> and if it matches, the associated  <span Class="emphasis">action</span> is executed. An expression pattern matches if it is boolean true (see the end of section 2). A  <span Class="bold">BEGIN</span> pattern matches before any input has been read, and an <span Class="bold">END</span> pattern matches after all input has been read. A range pattern, <span Class="emphasis">expr</span>1,|<span Class="emphasis">expr</span>2 , matches every record between the match of  <span Class="emphasis">expr 1</span> and the match <span Class="emphasis">expr 2</span> inclusively. 
+<p class="level0">When end of file occurs on the input stream, the remaining command line arguments are examined for a file argument, and if there is one it is opened, else the <span Class="bold">END</span> <span Class="emphasis">pattern</span> is considered matched and all  <span Class="bold">END</span> <span Class="emphasis">actions</span> are executed. 
+<p class="level0">In the example, the assignment v=1 takes place after the <span Class="bold">BEGIN</span> <span Class="emphasis">actions</span> are executed, and the data placed in v is typed number and string. Input is then read from file A. On end of file A, t is set to the string "hello", and B is opened for input. On end of file B, the  <span Class="bold">END</span> <span Class="emphasis">actions</span> are executed. 
+<p class="level0">Program flow at the <span Class="emphasis">pattern</span> <span Class="emphasis">{action}</span> level can be changed with the  <pre class="level0">
+	<span class="bold">next
+	<span class="bold">exit  <span class="emphasis">opt_expr</span>
+</pre>
+
+<p class="level0">statements. A <span Class="bold">next</span> statement causes the next input record to be read and pattern testing to restart with the first  <span Class="emphasis">pattern {action}</span> pair in the program. An <span Class="bold">exit</span> statement causes immediate execution of the  <span Class="bold">END</span> actions or program termination if there are none or if the  <span Class="bold">exit</span> occurs in an  <span Class="bold">END</span> action. The  <span Class="emphasis">opt_expr</span> sets the exit value of the program unless overridden by a later <span Class="bold">exit</span> or subsequent error. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0"><pre class="level0">
+1. emulate cat.
+&nbsp;
+	{ print }
+&nbsp;
+2. emulate wc.
+&nbsp;
+	{ chars += length($0) + 1  &#35; add one for the en
+	  words += NF
+	}
+&nbsp;
+	END{ print NR, words, chars }
+&nbsp;
+3. count the number of unique "real words".
+&nbsp;
+	BEGIN { FS = "[^A-Za-z]+" }
+&nbsp;
+	{ for(i = 1 ; i &lt;= NF ; i++)  word[$i] = "" }
+&nbsp;
+	END { delete word[""]
+	      for ( i in word )  cnt++
+	      print cnt
+	}
+&nbsp;
+</pre>
+
+<p class="level0">4. sum the second field of  every record based on the first field. <pre class="level0">
+&nbsp;
+	$1 ~ /credit|||gain/ { sum += $2 }
+	$1 ~ /debit|||loss/  { sum -= $2 }
+&nbsp;
+	END { print sum }
+&nbsp;
+5. sort a file, comparing as string
+&nbsp;
+	{ line[NR] = $0 "" }  &#35; make sure of comparison type
+			      &#35; in case some lines look numeric
+&nbsp;
+	END {  isort(line, NR)
+	  for(i = 1 ; i &lt;= NR ; i++) print line[i]
+	}
+&nbsp;
+	&#35;insertion sort of A[1..n]
+	function isort( A, n,	i, j, hold)
+	{
+	  for( i = 2 ; i &lt;= n ; i++)
+	  {
+	    hold = A[j = i]
+	    while ( A[j-1] &gt; hold )
+	    { j-|- ; A[j+1] = A[j] }
+	    A[j] = hold
+	  }
+	  &#35; sentinel A[0] = "" will be created if needed
+	}
+&nbsp;
+</pre>
+
+<p class="level0"><a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY ISSUES</h2>
+<p class="level0">The Posix 1003.2(draft 11.3) definition of the AWK language is AWK as described in the AWK book with a few extensions that appeared in SystemVR4 nawk. The extensions are: 
+<p class="level0">
+<p class="level1">New functions: toupper() and tolower(). 
+<p class="level1">New variables: ENVIRON[|] and CONVFMT. 
+<p class="level1">ANSI C conversion specifications for printf() and sprintf(). 
+<p class="level1">New command options:  -v var=value, multiple -f options and implementation options as arguments to -W. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Posix AWK is oriented to operate on files a line at  a time. <span Class="bold">RS</span> can be changed from "en" to another single character, but it is hard to find any use for this (em there are no  examples in the AWK book. By convention, <span Class="bold">RS</span> = "", makes one or more blank lines separate records, allowing multi-line records.  When <span Class="bold">RS</span> = "", "en" is always a field separator  regardless of the value in <span Class="manpage">FS .</span>
+<p class="level0"><span Class="manpage">mawk</span>on the other hand, allows <span Class="bold">RS</span> to be a regular expression. When "en" appears in records, it is treated as space, and <span Class="bold">FS</span> always determines fields. 
+<p class="level0">Removing the line at a time paradigm can make some programs simpler and can often improve performance.  For example, redoing example 3 from above, <pre class="level0">
+	BEGIN { RS = "[^A-Za-z]+" }
+&nbsp;
+	{ word[ $0 ] = "" }
+&nbsp;
+	END { delete  word[ "" ]
+	  for( i in word )  cnt++
+	  print cnt
+	}
+</pre>
+
+<p class="level0">counts the number of unique words by making each word a record. On moderate size files, <span Class="bold">mawk</span> executes twice as fast, because of the simplified inner loop. 
+<p class="level0">The following program replaces each comment by a single space in a C program file, <pre class="level0">
+	BEGIN {
+	  RS = "/|e*([^*]|||e*+[^/*])*e*+/"
+		&#35; comment is record separator
+	  ORS = " "
+	  getline  hold
+&nbsp;      }
+&nbsp;
+&nbsp;      { print hold ; hold = $0 }
+&nbsp;
+&nbsp;      END { printf "%s" , hold }
+</pre>
+
+<p class="level0">Buffering one record is needed to avoid terminating the last record with a space. 
+<p class="level0">With  <span Class="manpage">mawk</span>the following are all equivalent, <pre class="level0">
+	x ~ /ae+b/    x ~ "ae+b"     x ~ "aee+b"
+</pre>
+
+<p class="level0">The strings get scanned twice, once as string and once as regular expression.  On the string scan, <span Class="bold">mawk</span> ignores the escape on non-escape characters while the AWK book advocates  <span Class="emphasis">\ec</span> be recognized as  <span Class="emphasis">c </span> which necessitates the double escaping of meta-characters in strings.   Posix explicitly declines to define the behavior which passively forces programs that must run under a variety of awks to use the more portable but less readable, double escape. 
+<p class="level0">Posix AWK does not recognize "/dev/std{out,err}" or ex hex escape sequences in strings.  Unlike ANSI C, <span Class="bold">mawk</span> limits the number of digits that follows ex to two as the current implementation only supports 8 bit characters. The built-in <span Class="bold">fflush</span> first appeared in a recent (1993) AT&T awk released to netlib, and is not part of the posix standard.  Aggregate deletion with <span Class="bold">delete</span> <span Class="emphasis">array</span> is not part of the posix standard. 
+<p class="level0">Posix explicitly leaves the behavior of  <span Class="bold">FS</span> = "" undefined, and mentions splitting the record into characters as a possible interpretation, but currently this use is not portable across implementations. 
+<p class="level0">Finally, here is how  <span Class="bold">mawk</span> handles exceptional cases not discussed in the AWK book or the Posix draft.  It is unsafe to assume  consistency across awks and safe to skip to the next section. 
+<p class="level0">
+<p class="level1">substr(s, i, n) returns the characters of s in the intersection of the closed interval [1, length(s)] and the half-open interval [i, i+n).  When this intersection is empty, the empty string is returned; so substr("ABC", 1, 0) = "" and substr("ABC", -4, 6) = "A". 
+<p class="level1">Every string, including the empty string, matches the empty string at the front so, s ~ // and s ~ "", are always 1 as is match(s, //) and match(s, "").  The last two set  <span Class="bold">RLENGTH </span> to 0. 
+<p class="level1">index(s, t) is always the same as match(s, t1) where t1 is the same as t with metacharacters escaped.  Hence consistency with match requires that index(s, "") always returns 1. Also the condition, index(s,t) != 0 if and only t is a substring of s, requires index("","") = 1. 
+<p class="level1">If getline encounters end of file, getline var, leaves var unchanged.  Similarly, on entry to the  <span Class="bold">END</span> actions,  <span Class="manpage">$0</span>the fields and <span Class="bold">NF</span> have their value unaltered from the last record. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">egrep (1)</span> 
+<p class="level0">Aho, Kernighan and Weinberger, <span Class="emphasis">The AWK Programming Language ,</span> Addison-Wesley Publishing, 1988, (the AWK book), defines the language, opening with a tutorial and advancing to many interesting programs that delve into issues of software design and analysis relevant to programming in any language. 
+<p class="level0"><span Class="emphasis">The GAWK Manual ,</span> The Free Software Foundation, 1991, is a tutorial and language reference that does not attempt the depth of the AWK book and assumes the reader may be a novice programmer.   The section on AWK arrays is excellent.  It also discusses Posix requirements for AWK. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">mawk</span> cannot handle ascii NUL e0 in the source or data files.  You can output NUL using printf with %c, and any other 8 bit character is acceptable input. 
+<p class="level0"><span Class="bold">mawk</span> implements printf() and sprintf() using the C library functions, printf and sprintf, so full ANSI compatibility requires an ANSI C library.  In practice this means the h conversion qualifier may not be available.  Also  <span Class="bold">mawk</span> inherits any bugs or limitations of the library functions. 
+<p class="level0">Implementors of the AWK language have shown a consistent lack of imagination when naming their programs. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Mike Brennan (brennan@whidbey.com). 

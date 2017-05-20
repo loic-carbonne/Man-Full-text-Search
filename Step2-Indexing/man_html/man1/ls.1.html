@@ -1,0 +1,79 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ls - list directory contents <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ls</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">List information about the FILEs (the current directory by default). Sort entries alphabetically if none of <span Class="bold">-cftuvSUX</span> nor <span Class="bold">--sort</span> is specified. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> do not ignore entries starting with . 
+<p class="level0"><span Class="bold">-A</span>, <span Class="bold">--almost-all</span> do not list implied . and .. 
+<p class="level0"><span Class="bold">--author</span> with <span Class="bold">-l</span>, print the author of each file 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--escape</span> print C-style escapes for nongraphic characters 
+<p class="level0"><span Class="bold">--block-size</span>=<span Class="emphasis">SIZE</span> scale sizes by SIZE before printing them; e.g., '--block-size=M' prints sizes in units of 1,048,576 bytes; see SIZE format below 
+<p class="level0"><span Class="bold">-B</span>, <span Class="bold">--ignore-backups</span> do not list implied entries ending with ~ 
+<p class="level0"><span Class="bold">-c</span> with <span Class="bold">-lt</span>: sort by, and show, ctime (time of last modification of file status information); with <span Class="bold">-l</span>: show ctime and sort by name; otherwise: sort by ctime, newest first 
+<p class="level0"><span Class="bold">-C</span> list entries by columns 
+<p class="level0"><span Class="bold">--color</span>[=<span Class="emphasis">WHEN</span>] colorize the output; WHEN can be 'never', 'auto', or 'always' (the default); more info below 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--directory</span> list directories themselves, not their contents 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--dired</span> generate output designed for Emacs' dired mode 
+<p class="level0"><span Class="bold">-f</span> do not sort, enable <span Class="bold">-aU</span>, disable <span Class="bold">-ls</span> <span Class="bold">--color</span> 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--classify</span> append indicator (one of */=&gt;@|) to entries 
+<p class="level0"><span Class="bold">--file-type</span> likewise, except do not append '*' 
+<p class="level0"><span Class="bold">--format</span>=<span Class="emphasis">WORD</span> across <span Class="bold">-x</span>, commas <span Class="bold">-m</span>, horizontal <span Class="bold">-x</span>, long <span Class="bold">-l</span>, single-column <span Class="bold">-1</span>, verbose <span Class="bold">-l</span>, vertical <span Class="bold">-C</span> 
+<p class="level0"><span Class="bold">--full-time</span> like <span Class="bold">-l</span> <span Class="bold">--time-style</span>=<span Class="emphasis">full-iso</span> 
+<p class="level0"><span Class="bold">-g</span> like <span Class="bold">-l</span>, but do not list owner 
+<p class="level0"><span Class="bold">--group-directories-first</span> group directories before files; 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">can be augmented with a <span Class="bold">--sort</span> option, but any use of <span Class="bold">--sort</span>=<span Class="emphasis">none</span> (<span Class="bold">-U</span>) disables grouping 
+<p class="level1"><span Class="bold">-G</span>, <span Class="bold">--no-group</span> in a long listing, don't print group names 
+<p class="level1"><span Class="bold">-h</span>, <span Class="bold">--human-readable</span> with <span Class="bold">-l</span> and/or <span Class="bold">-s</span>, print human readable sizes (e.g., 1K 234M 2G) 
+<p class="level1"><span Class="bold">--si</span> likewise, but use powers of 1000 not 1024 
+<p class="level1"><span Class="bold">-H</span>, <span Class="bold">--dereference-command-line</span> follow symbolic links listed on the command line 
+<p class="level1"><span Class="bold">--dereference-command-line-symlink-to-dir</span> follow each command line symbolic link 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">that points to a directory 
+<p class="level1"><span Class="bold">--hide</span>=<span Class="emphasis">PATTERN</span> do not list implied entries matching shell PATTERN (overridden by <span Class="bold">-a</span> or <span Class="bold">-A</span>) 
+<p class="level1"><span Class="bold">--indicator-style</span>=<span Class="emphasis">WORD</span> append indicator with style WORD to entry names: none (default), slash (<span Class="bold">-p</span>), file-type (<span Class="bold">--file-type</span>), classify (<span Class="bold">-F</span>) 
+<p class="level1"><span Class="bold">-i</span>, <span Class="bold">--inode</span> print the index number of each file 
+<p class="level1"><span Class="bold">-I</span>, <span Class="bold">--ignore</span>=<span Class="emphasis">PATTERN</span> do not list implied entries matching shell PATTERN 
+<p class="level1"><span Class="bold">-k</span>, <span Class="bold">--kibibytes</span> default to 1024-byte blocks for disk usage 
+<p class="level1"><span Class="bold">-l</span> use a long listing format 
+<p class="level1"><span Class="bold">-L</span>, <span Class="bold">--dereference</span> when showing file information for a symbolic link, show information for the file the link references rather than for the link itself 
+<p class="level1"><span Class="bold">-m</span> fill width with a comma separated list of entries 
+<p class="level1"><span Class="bold">-n</span>, <span Class="bold">--numeric-uid-gid</span> like <span Class="bold">-l</span>, but list numeric user and group IDs 
+<p class="level1"><span Class="bold">-N</span>, <span Class="bold">--literal</span> print raw entry names (don't treat e.g. control characters specially) 
+<p class="level1"><span Class="bold">-o</span> like <span Class="bold">-l</span>, but do not list group information 
+<p class="level1"><span Class="bold">-p</span>, <span Class="bold">--indicator-style</span>=<span Class="emphasis">slash</span> append / indicator to directories 
+<p class="level1"><span Class="bold">-q</span>, <span Class="bold">--hide-control-chars</span> print ? instead of nongraphic characters 
+<p class="level1"><span Class="bold">--show-control-chars</span> show nongraphic characters as-is (the default, unless program is 'ls' and output is a terminal) 
+<p class="level1"><span Class="bold">-Q</span>, <span Class="bold">--quote-name</span> enclose entry names in double quotes 
+<p class="level1"><span Class="bold">--quoting-style</span>=<span Class="emphasis">WORD</span> use quoting style WORD for entry names: literal, locale, shell, shell-always, c, escape 
+<p class="level1"><span Class="bold">-r</span>, <span Class="bold">--reverse</span> reverse order while sorting 
+<p class="level1"><span Class="bold">-R</span>, <span Class="bold">--recursive</span> list subdirectories recursively 
+<p class="level1"><span Class="bold">-s</span>, <span Class="bold">--size</span> print the allocated size of each file, in blocks 
+<p class="level1"><span Class="bold">-S</span> sort by file size 
+<p class="level1"><span Class="bold">--sort</span>=<span Class="emphasis">WORD</span> sort by WORD instead of name: none (<span Class="bold">-U</span>), size (<span Class="bold">-S</span>), time (<span Class="bold">-t</span>), version (<span Class="bold">-v</span>), extension (<span Class="bold">-X</span>) 
+<p class="level1"><span Class="bold">--time</span>=<span Class="emphasis">WORD</span> with <span Class="bold">-l</span>, show time as WORD instead of default modification time: atime or access or use (<span Class="bold">-u</span>) ctime or status (<span Class="bold">-c</span>); also use specified time as sort key if <span Class="bold">--sort</span>=<span Class="emphasis">time</span> 
+<p class="level1"><span Class="bold">--time-style</span>=<span Class="emphasis">STYLE</span> with <span Class="bold">-l</span>, show times using style STYLE: full-iso, long-iso, iso, locale, or +FORMAT; FORMAT is interpreted like in 'date'; if FORMAT is FORMAT1&lt;newline&gt;FORMAT2, then FORMAT1 applies to non-recent files and FORMAT2 to recent files; if STYLE is prefixed with 'posix-', STYLE takes effect only outside the POSIX locale 
+<p class="level1"><span Class="bold">-t</span> sort by modification time, newest first 
+<p class="level1"><span Class="bold">-T</span>, <span Class="bold">--tabsize</span>=<span Class="emphasis">COLS</span> assume tab stops at each COLS instead of 8 
+<p class="level1"><span Class="bold">-u</span> with <span Class="bold">-lt</span>: sort by, and show, access time; with <span Class="bold">-l</span>: show access time and sort by name; otherwise: sort by access time 
+<p class="level1"><span Class="bold">-U</span> do not sort; list entries in directory order 
+<p class="level1"><span Class="bold">-v</span> natural sort of (version) numbers within text 
+<p class="level1"><span Class="bold">-w</span>, <span Class="bold">--width</span>=<span Class="emphasis">COLS</span> assume screen width instead of current value 
+<p class="level1"><span Class="bold">-x</span> list entries by lines instead of by columns 
+<p class="level1"><span Class="bold">-X</span> sort alphabetically by entry extension 
+<p class="level1"><span Class="bold">-Z</span>, <span Class="bold">--context</span> print any security context of each file 
+<p class="level1"><span Class="bold">-1</span> list one file per line 
+<p class="level1"><span Class="bold">--help</span> display this help and exit 
+<p class="level1"><span Class="bold">--version</span> output version information and exit 
+<p class="level1">The SIZE argument is an integer and optional unit (example: 10K is 10*1024). Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000). 
+<p class="level1">Using color to distinguish file types is disabled both by default and with <span Class="bold">--color</span>=<span Class="emphasis">never</span>.  With <span Class="bold">--color</span>=<span Class="emphasis">auto</span>, ls emits color codes only when standard output is connected to a terminal.  The LS_COLORS environment variable can change the settings.  Use the dircolors command to set it. <a name="Exit"></a><h2 class="nroffsh">Exit status:</h2>
+<p class="level0">
+<p class="level0">0 if OK, 
+<p class="level0">1 if minor problems (e.g., cannot access subdirectory), 
+<p class="level0">2 if serious trouble (e.g., cannot access command-line argument). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Richard M. Stallman and David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report ls translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/ls&gt; <br>or available locally via: info (aq(coreutils) ls invocation(aq 

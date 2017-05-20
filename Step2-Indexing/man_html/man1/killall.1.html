@@ -1,0 +1,68 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">killall - kill processes by name <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">killall</span> 
+<p class="level0"><span Class="emphasis">pattern ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">TIME ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">SIGNAL ,\  -SIGNAL ]</span> 
+<p class="level0"><span Class="emphasis">user ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">TIME ]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">name ...</span> <br><span Class="bold">killall</span> 
+<p class="level0"><br><span Class="bold">killall</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">killall</span> sends a signal to all processes running any of the specified commands. If no signal name is specified, SIGTERM is sent. 
+<p class="level0">Signals can be specified either by name (e.g. <span Class="bold">-HUP</span> or <span Class="manpage">-SIGHUP )</span>or by number (e.g. <span Class="manpage">-1 )</span>or by option <span Class="manpage">-s .</span>
+<p class="level0">If the command name is not regular expression (option <span Class="manpage">-r )</span>and contains a slash 
+<p class="level0">processes executing that particular file will be selected for killing, independent of their name. 
+<p class="level0"><span Class="bold">killall</span> returns a zero return code if at least one process has been killed for each listed command, or no commands were listed and at least one process matched the -u and -Z search criteria. <span Class="bold">killall</span> returns non-zero otherwise. 
+<p class="level0">A <span Class="bold">killall</span> process never kills itself (but may kill other <span Class="bold">killall</span> processes). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-efP"></a><span class="nroffip">\fB-e\fP, \fB--exact\fP</span> 
+<p class="level1">Require an exact match for very long names.  If a command name is longer than 15 characters, the full name may be unavailable (i.e.  it is swapped out).  In this case, <span Class="bold">killall</span> will kill everything that matches within the first 15 characters.  With <span Class="manpage">-e</span>such entries are skipped. <span Class="bold">killall</span> prints a message for each skipped entry if <span Class="bold">-v</span> is specified in addition to <span Class="manpage">-e</span>
+<p class="level0"><a name="fB-IfP"></a><span class="nroffip">\fB-I\fP, \fB--ignore-case\fP</span> 
+<p class="level1">Do case insensitive process name match. 
+<p class="level0"><a name="fB-gfP"></a><span class="nroffip">\fB-g\fP, \fB--process-group\fP</span> 
+<p class="level1">Kill the process group to which the process belongs.  The kill signal is only sent once per group, even if multiple processes belonging to the same process group were found. 
+<p class="level0"><a name="fB-ifP"></a><span class="nroffip">\fB-i\fP, \fB--interactive\fP</span> 
+<p class="level1">Interactively ask for confirmation before killing. 
+<p class="level0"><a name="fB-lfP"></a><span class="nroffip">\fB-l\fP, \fB--list\fP</span> 
+<p class="level1">List all known signal names. 
+<p class="level0"><a name="fB-ofP"></a><span class="nroffip">\fB-o\fP, \fB--older-than\fP</span> 
+<p class="level1">Match only processes that are older (started before) the time specified.  The time is specified as a float then a unit.  The units are s,m,h,d,w,M,y for seconds, minutes, hours, days, weeks, Months and years respectively. 
+<p class="level0"><a name="fB-qfP"></a><span class="nroffip">\fB-q\fP, \fB--quiet\fP</span> 
+<p class="level1">Do not complain if no processes were killed. 
+<p class="level0"><a name="fB-rfP"></a><span class="nroffip">\fB-r\fP, \fB--regexp\fP</span> 
+<p class="level1">Interpret process name pattern as a POSIX extended regular expression, per <span Class="manpage">regex (3).</span>
+<p class="level0"><a name="fB-sfP"></a><span class="nroffip">\fB-s\fP, \fB--signal\fP, \fB-SIGNAL\fP</span> 
+<p class="level1">Send this signal instead of SIGTERM. 
+<p class="level0"><a name="fB-ufP"></a><span class="nroffip">\fB-u\fP, \fB--user\fP</span> 
+<p class="level1">Kill only processes the specified user owns.  Command names are optional. 
+<p class="level0"><a name="fB-vfP"></a><span class="nroffip">\fB-v\fP, \fB--verbose\fP</span> 
+<p class="level1">Report if the signal was successfully sent. 
+<p class="level0"><a name="fB-VfP"></a><span class="nroffip">\fB-V\fP, \fB--version\fP</span> 
+<p class="level1">Display version information. 
+<p class="level0"><a name="fB-wfP"></a><span class="nroffip">\fB-w\fP, \fB--wait\fP</span> 
+<p class="level1">Wait for all killed processes to die. <span Class="bold">killall</span> checks once per second if any of the killed processes still exist and only returns if none are left.  Note that <span Class="bold">killall</span> may wait forever if the signal was ignored, had no effect, or if the process stays in zombie state. 
+<p class="level0"><a name="fB-yfP"></a><span class="nroffip">\fB-y\fP, \fB--younger-than\fP</span> 
+<p class="level1">Match only processes that are younger (started after) the time specified.  The time is specified as a float then a unit.  The units are s,m,h,d,w,M,y for seconds, minutes, hours, days, weeks, Months and years respectively. 
+<p class="level0"><a name="fB-ZfP"></a><span class="nroffip">\fB-Z\fP, \fB--context\fP</span> 
+<p class="level1">(SELinux Only) Specify security context: kill only processes having security context that match with given expended regular expression pattern.  Must precede other arguments on the command line.  Command names are optional. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/proc location of the proc file system <a name="KNOWN"></a><h2 class="nroffsh">KNOWN BUGS</h2>
+<p class="level0">Killing by file only works for executables that are kept open during execution, i.e. impure executables can't be killed this way. 
+<p class="level0">Be warned that typing <span Class="bold">killall</span> <span Class="emphasis">name</span> may not have the desired effect on non-Linux systems, especially when done by a privileged user. 
+<p class="level0"><span Class="bold">killall -w</span> doesn't detect if a process disappears and is replaced by a new process with the same PID between scans. 
+<p class="level0">If processes change their name, <span Class="bold">killall</span> may not be able to match them correctly. 
+<p class="level0"><span Class="bold">killall</span> has a limit of names that can be specified on the command line.  This figure is the size of an unsigned long multiplied by 8.  For most 32 bit systems the limit is 32 and similarly for a 64 bit system the limit is usually 64. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">kill (1)</span>, <span Class="manpage">fuser (1)</span>, <span Class="manpage">pgrep (1)</span>, <span Class="manpage">pidof (1)</span>, <span Class="manpage">pkill (1)</span>, <span Class="manpage">ps (1)</span>, <span Class="manpage">kill (2)</span>, <span Class="manpage">regex (3).</span>

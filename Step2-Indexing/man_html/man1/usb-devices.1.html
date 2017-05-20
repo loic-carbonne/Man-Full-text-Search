@@ -1,0 +1,23 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">usb-devices - print USB device details <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">usb-devices</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">usb-devices</span> is a (bash) shell script that can be used to display details of USB buses in the system and the devices connected to them. 
+<p class="level0">The output of the script is similar to the <span Class="emphasis">usb/devices</span> file available either under <span Class="emphasis">/proc/bus</span> (if usbfs is mounted), or under <span Class="emphasis">/sys/kernel/debug</span> (if debugfs is mounted there). The script is primarily intended to be used if the file is not available. 
+<p class="level0">In contrast to the <span Class="emphasis">usb/devices</span> file, this script only lists <span Class="emphasis">active</span> interfaces (those marked with a "*" in the <span Class="emphasis">usb/devices</span> file) and their endpoints. 
+<p class="level0">Be advised that there can be differences in the way information is sorted, as well as in the format of the output. 
+<p class="level0"><a name="RETURN"></a><h2 class="nroffsh">RETURN VALUE</h2>
+<p class="level0">If sysfs is not mounted, a non-zero exit code is returned. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">/sys/bus/usb/devices/usb*</span> The part of the sysfs tree the script walks through to assemble the printed information. 
+<p class="level0"><span Class="bold">/proc/bus/usb/devices</span> Location where the <span Class="emphasis">usb/devices</span> file can normally be found for Linux kernels before 2.6.31, if usbfs is mounted. 
+<p class="level0"><span Class="bold">/sys/kernel/debug/usb/devices</span> Location where the <span Class="emphasis">usb/devices</span> file can normally be found for Linux kernel 2.6.31 and later, if debugfs is mounted. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">lsusb (8)</span>, <span Class="manpage">usbview (8).</span>
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Greg Kroah-Hartman &lt;greg@kroah.com&gt; 
+<p class="level0">Randy Dunlap &lt;rdunlap@xenotime.net&gt; 
+<p class="level0">Frans Pop &lt;elendil@planet.nl&gt; 

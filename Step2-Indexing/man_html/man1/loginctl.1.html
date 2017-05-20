@@ -1,0 +1,121 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">loginctl - Control the systemd login manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">loginctl</span> [OPTIONS...] {COMMAND} [NAME...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">loginctl</span> may be used to introspect and control the state of the <span Class="bold">systemd</span>(1) login manager <span Class="bold">systemd-logind.service</span>(8). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--no-legend</span> 
+<p class="level1">Do not print the legend, i.e. the column headers and the footer. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-ask-password</span> 
+<p class="level1">Do not query the user for authentication for privileged operations. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--property=</span> 
+<p class="level1">When showing session/user/seat properties, limit display to certain properties as specified as argument. If not specified, all set properties are shown. The argument should be a property name, such as "Sessions". If specified more than once, all properties with the specified names are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> 
+<p class="level1">When showing session/user/seat properties, show all properties regardless of whether they are set or not. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--full</span> 
+<p class="level1">Do not ellipsize process tree entries. 
+<p class="level0">
+<p class="level0"><span Class="bold">--kill-who=</span> 
+<p class="level1">When used with <span Class="bold">kill-session</span>, choose which processes to kill. Must be one of <span Class="bold">leader</span>, or <span Class="bold">all</span> to select whether to kill only the leader process of the session or all processes of the session. If omitted, defaults to <span Class="bold">all</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--signal=</span> 
+<p class="level1">When used with <span Class="bold">kill-session</span> or <span Class="bold">kill-user</span>, choose which signal to send to selected processes. Must be one of the well known signal specifiers, such as <span Class="bold">SIGTERM</span>, <span Class="bold">SIGINT</span> or <span Class="bold">SIGSTOP</span>. If omitted, defaults to <span Class="bold">SIGTERM</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--host=</span> 
+<p class="level1">Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine manager instance. Container names may be enumerated with <span Class="bold">machinectl -H </span><span class="bold"><span Class="emphasis">HOST</span></span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Execute operation on a local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0">
+<p class="level0">The following commands are understood: 
+<p class="level0"><span Class="bold">list-sessions</span> 
+<p class="level1">List current sessions. 
+<p class="level0">
+<p class="level0"><span Class="bold">session-status</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Show terse runtime status information about one or more sessions. This function is intended to generate human-readable output. If you are looking for computer-parsable output, use <span Class="bold">show-session</span> instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">show-session</span> [<span Class="emphasis">ID</span>...] 
+<p class="level1">Show properties of one or more sessions or the manager itself. If no argument is specified, properties of the manager will be shown. If a session ID is specified, properties of the session are shown. By default, empty properties are suppressed. Use <span Class="bold">--all</span> to show those too. To select specific properties to show, use <span Class="bold">--property=</span>. This command is intended to be used whenever computer-parsable output is required. Use <span Class="bold">session-status</span> if you are looking for formatted human-readable output. 
+<p class="level0">
+<p class="level0"><span Class="bold">activate</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Activate one or more sessions. This brings one or more sessions into the foreground, if another session is currently in the foreground on the respective seat. 
+<p class="level0">
+<p class="level0"><span Class="bold">lock-session</span> <span Class="emphasis">ID</span>..., <span Class="bold">unlock-session</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Activates/deactivates the screen lock on one or more sessions, if the session supports it. 
+<p class="level0">
+<p class="level0"><span Class="bold">lock-sessions</span>, <span Class="bold">unlock-sessions</span> 
+<p class="level1">Activates/deactivates the screen lock on all current sessions supporting it. 
+<p class="level0">
+<p class="level0"><span Class="bold">terminate-session</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Terminates a session. This kills all processes of the session and deallocates all resources attached to the session. 
+<p class="level0">
+<p class="level0"><span Class="bold">kill-session</span> <span Class="emphasis">ID</span>... 
+<p class="level1">Send a signal to one or more processes of the session. Use <span Class="bold">--kill-who=</span> to select which process to kill. Use <span Class="bold">--signal=</span> to select the signal to send. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-users</span> 
+<p class="level1">List currently logged in users. 
+<p class="level0">
+<p class="level0"><span Class="bold">user-status</span> <span Class="emphasis">USER</span>... 
+<p class="level1">Show terse runtime status information about one or more logged in users. This function is intended to generate human-readable output. If you are looking for computer-parsable output, use <span Class="bold">show-user</span> instead. Users may be specified by their usernames or numeric user IDs. 
+<p class="level0">
+<p class="level0"><span Class="bold">show-user</span> [<span Class="emphasis">USER</span>...] 
+<p class="level1">Show properties of one or more users or the manager itself. If no argument is specified, properties of the manager will be shown. If a user is specified, properties of the user are shown. By default, empty properties are suppressed. Use <span Class="bold">--all</span> to show those too. To select specific properties to show, use <span Class="bold">--property=</span>. This command is intended to be used whenever computer-parsable output is required. Use <span Class="bold">user-status</span> if you are looking for formatted human-readable output. 
+<p class="level0">
+<p class="level0"><span Class="bold">enable-linger</span> <span Class="emphasis">USER</span>..., <span Class="bold">disable-linger</span> <span Class="emphasis">USER</span>... 
+<p class="level1">Enable/disable user lingering for one or more users. If enabled for a specific user, a user manager is spawned for the user at boot and kept around after logouts. This allows users who are not logged in to run long-running services. 
+<p class="level0">
+<p class="level0"><span Class="bold">terminate-user</span> <span Class="emphasis">USER</span>... 
+<p class="level1">Terminates all sessions of a user. This kills all processes of all sessions of the user and deallocates all runtime resources attached to the user. 
+<p class="level0">
+<p class="level0"><span Class="bold">kill-user</span> <span Class="emphasis">USER</span>... 
+<p class="level1">Send a signal to all processes of a user. Use <span Class="bold">--signal=</span> to select the signal to send. 
+<p class="level0">
+<p class="level0"><span Class="bold">list-seats</span> 
+<p class="level1">List currently available seats on the local system. 
+<p class="level0">
+<p class="level0"><span Class="bold">seat-status</span> <a class="emphasis" href="#NAME">NAME</a>... 
+<p class="level1">Show terse runtime status information about one or more seats. This function is intended to generate human-readable output. If you are looking for computer-parsable output, use <span Class="bold">show-seat</span> instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">show-seat</span> <a class="emphasis" href="#NAME">NAME</a>... 
+<p class="level1">Show properties of one or more seats or the manager itself. If no argument is specified, properties of the manager will be shown. If a seat is specified, properties of the seat are shown. By default, empty properties are suppressed. Use <span Class="bold">--all</span> to show those too. To select specific properties to show, use <span Class="bold">--property=</span>. This command is intended to be used whenever computer-parsable output is required. Use <span Class="bold">seat-status</span> if you are looking for formatted human-readable output. 
+<p class="level0">
+<p class="level0"><span Class="bold">attach</span> <a class="emphasis" href="#NAME">NAME</a> <span Class="emphasis">DEVICE</span>... 
+<p class="level1">Persistently attach one or more devices to a seat. The devices should be specified via device paths in the /sys file system. To create a new seat, attach at least one graphics card to a previously unused seat name. Seat names may consist only of a-z, A-Z, 0-9, "-" and "_" and must be prefixed with "seat". To drop assignment of a device to a specific seat, just reassign it to a different seat, or use <span Class="bold">flush-devices</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">flush-devices</span> 
+<p class="level1">Removes all device assignments previously created with <span Class="bold">attach</span>. After this call, only automatically generated seats will remain, and all seat hardware is assigned to them. 
+<p class="level0">
+<p class="level0"><span Class="bold">terminate-seat</span> <a class="emphasis" href="#NAME">NAME</a>... 
+<p class="level1">Terminates all sessions on a seat. This kills all processes of all sessions on the seat and deallocates all runtime resources attached to them. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned, a non-zero failure code otherwise. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemctl</span>(1), <span Class="bold">systemd-logind.service</span>(8), <span Class="bold">logind.conf</span>(5) 

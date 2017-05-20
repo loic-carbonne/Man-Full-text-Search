@@ -1,0 +1,36 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">Dislocate - disconnect and reconnect processes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dislocate</span> [ <span Class="emphasis">program args...</span> ] <a name="INTRODUCTION"></a><h2 class="nroffsh">INTRODUCTION</h2>
+<p class="level0"><span Class="bold">Dislocate</span> allows processes to be disconnected and reconnected to the terminal. Possible uses: 
+<p class="level1">
+<p class="level1">(bu You can disconnect a process from a terminal at work and reconnect from home, to continue working. 
+<p class="level1">(bu After having your line be dropped due to noise, you can get back to your process without having to restart it from scratch. 
+<p class="level1">(bu If you have a problem that you would like to show someone, you can set up the scenario at your own terminal, disconnect, walk down the hall, and reconnect on another terminal. 
+<p class="level1">(bu If you are in the middle of a great game (or whatever) that does not allow you to save, and someone else kicks you off the terminal, you can disconnect, and reconnect later. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">When run with no arguments, <span Class="bold">Dislocate</span> tells you about your disconnected processes and lets you reconnect to one. Otherwise, <span Class="bold">Dislocate</span> runs the named program along with any arguments. 
+<p class="level0">By default, ^] is an escape that lets you talk to <span Class="bold">Dislocate</span> itself.  At that point, you can disconnect (by pressing ^D) or suspend <span Class="bold">Dislocate</span> (by pressing ^Z). 
+<p class="level0">Any Tcl or Expect command is also acceptable at this point. For example, to insert the contents of a the file /etc/motd as if you had typed it, say: <pre class="level0">
+&nbsp;
+&nbsp;    send -i $out [exec cat /etc/motd]
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">To send the numbers 1 to 100 in response to the prompt "next &#35;", say: <pre class="level0">
+&nbsp;
+&nbsp;    for {set i 0} {$i&lt;100} {incr i} {
+&nbsp;        expect -i $in "next &#35;"
+&nbsp;        send -i $out "$i\r"
+&nbsp;    }
+</pre>
+
+<p class="level0">
+<p class="level0">Scripts can also be prepared and sourced in so that you don't have to type them on the spot. 
+<p class="level0"><span Class="bold">Dislocate</span> is actually just a simple <span Class="bold">Expect</span> script.  Feel free to make it do what you want it to do or just use <span Class="bold">Expect</span> directly, without going through <span Class="manpage">Dislocate .</span><span Class="bold">Dislocate</span> understands a few special arguments.  These should appear before any program name.  Each should be separated by whitespace.  If the arguments themselves takes arguments, these should also be separated by whitespace. 
+<p class="level0">The <span Class="bold">-escape</span> flag sets the escape to whatever follows.  The default escape is ^]. 
+<p class="level0"><a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">This program was written by the author as an exercise to show that communicating with disconnected processes is easy.  There are many features that could be added, but that is not the intent of this program. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">Tcl (3)</span>, <span Class="manpage">libexpect (3)</span><br><span Class="emphasis"></span> "Exploring Expect: A Tcl-Based Toolkit for Automating Interactive Programs" </span>by Don Libes, O'Reilly and Associates, January 1995. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Don Libes, National Institute of Standards and Technology 

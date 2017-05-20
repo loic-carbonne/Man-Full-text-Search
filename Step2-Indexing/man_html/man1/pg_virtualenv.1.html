@@ -1,0 +1,143 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_virtualenv - Create a throw-away PostgreSQL environment for running regression tests <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_virtualenv</span> [<span Class="bold">-ash</span> <span Class="bold">-v</span> '<span Class="emphasis">version ...</span>'] [<span Class="emphasis">command</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_virtualenv</span> creates a virtual PostgreSQL server environment, and sets environment variables such that <span Class="emphasis">command</span> can access the PostgreSQL database server(s). The servers are destroyed when <span Class="emphasis">command</span> exits. 
+<p class="level0">The environment variables <span Class="bold">s-1PGHOSTs0</span>, <span Class="bold">s-1PGDATABASEs0</span>, <span Class="bold">s-1PGUSERs0</span>, and <span Class="bold">s-1PGPASSWORDs0</span> will be set. Per default, a single new cluster is created on port <span Class="bold">5432</span>, using the newest PostgreSQL server version installed. When more clusters are created for other versions, they will use other port numbers. 
+<p class="level0"><span Class="bold">pg_createcluster</span> is used to create the database clusters. The clusters are named <span Class="emphasis">version</span>/regress. To access a cluster, set <span Class="bold">PGCLUSTER=</span><span Class="emphasis">version</span><span Class="bold">/regress</span>. For ease of access, the clusters are also registered in <span Class="emphasis">/etc/postgresql-common/pg_service.conf</span>, with the version number as cluster name. Clusters can be accessed by passing the connection string "<span Class="bold">service=</span><span Class="emphasis">version</span>", e.g. <span Class="bold">psql service=9.2</span>. 
+<p class="level0">When invoked as root user, the servers and <span Class="emphasis">command</span> are run in an unshared mount and network namespace; the servers are created on tmpfses, so actions caused by <span Class="emphasis">command</span> in the database do not affect the running system. <span Class="emphasis">command</span> can drop privileges as needed, provided the environment variables are passed. 
+<p class="level0">When invoked as non-root user, <span Class="bold">s-1PG_CLUSTER_CONF_ROOTs0</span> and <span Class="bold">s-1PGSYSCONFDIRs0</span> are set to a temporary directory where all files belonging to the clusters are created. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR 4</span> 
+<p class="level1">
+<p class="level1">Use all PostgreSQL server versions installed. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR \fIversion ...\fR 4</span> 
+<p class="level1">
+<p class="level1">Use these versions (space-separated list). 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR \fIpg_createcluster options\fR 4</span> 
+<p class="level1">
+<p class="level1">Extra options to pass to <span Class="bold">pg_createcluster</span>. 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR \fIinitdb options\fR 4</span> 
+<p class="level1">
+<p class="level1">Extra initdb options to pass to <span Class="bold">pg_createcluster</span>. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR \fIguc\fR\fB=\fR\fIvalue\fR 4</span> 
+<p class="level1">
+<p class="level1">Configuration option to set in the f(CW*(C`postgresql.conf*(C'</span> file, passed to <span Class="bold">pg_createcluster</span>. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR 4</span> 
+<p class="level1">
+<p class="level1">Launch a shell inside the virtual environment when <span Class="emphasis">command</span> fails. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR 4</span> 
+<p class="level1">
+<p class="level1">Show program help. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp; &#35; pg_virtualenv make check 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">When run with <span Class="emphasis">fakeroot</span>|(1), <span Class="bold">pg_virtualenv</span> will fall back to the non-root mode of operation. Running *(L"fakeroot pg_virtualenv*(R" as root will fail, though. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">initdb</span>|(1), <span Class="emphasis">pg_createcluster</span>|(1), <span Class="emphasis">unshare</span>|(1). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Christoph Berg &lt;myon@debian.org&gt; 

@@ -1,0 +1,33 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">k5srvutil - host key table (keytab) manipulation utility 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">k5srvutil</span> <span Class="emphasis">operation</span> [<span Class="bold">-i</span>] [<span Class="bold">-f</span> <span Class="emphasis">filename</span>] [<span Class="bold">-e</span> <span Class="emphasis">keysalts</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">k5srvutil allows an administrator to list or change keys currently in a keytab or to add new keys to the keytab. 
+<p class="level0"><span Class="emphasis">operation</span> must be one of the following: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBlist</span> Lists the keys in a keytab showing version number and principal name. 
+<p class="level0"><span Class="bold">\fBchange</span> Uses the kadmin protocol to update the keys in the Kerberos database to new randomly-generated keys, and updates the keys in the keytab to match.  If a key(aqs version number doesn(aqt match the version number stored in the Kerberos server(aqs database, then the operation will fail.  Old keys are retained in the keytab so that existing tickets continue to work.  If the <span Class="bold">-i</span> flag is given, k5srvutil will prompt for confirmation before changing each key. If the <span Class="bold">-k</span> option is given, the old and new keys will be displayed.  Ordinarily, keys will be generated with the default encryption types and key salts.  This can be overridden with the <span Class="bold">-e</span> option. 
+<p class="level0"><span Class="bold">\fBdelold</span> Deletes keys that are not the most recent version from the keytab. This operation should be used some time after a change operation to remove old keys, after existing tickets issued for the service have expired.  If the <span Class="bold">-i</span> flag is given, then k5srvutil will prompt for confirmation for each principal. 
+<p class="level0"><span Class="bold">\fBdelete</span> Deletes particular keys in the keytab, interactively prompting for each key. 
+<p class="level0">
+<p class="level0">In all cases, the default keytab is used unless this is overridden by the <span Class="bold">-f</span> option. 
+<p class="level0">k5srvutil uses the <span Class="emphasis">kadmin(1)</span> program to edit the keytab in place. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">kadmin(1)</span>, <span Class="emphasis">ktutil(1)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

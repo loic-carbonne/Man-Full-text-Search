@@ -1,0 +1,19 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mktemp - create a temporary file or directory <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mktemp</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">TEMPLATE</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Create a temporary file or directory, safely, and print its name. TEMPLATE must contain at least 3 consecutive 'X's in last component. If TEMPLATE is not specified, use tmp.XXXXXXXXXX, and <span Class="bold">--tmpdir</span> is implied. Files are created u+rw, and directories u+rwx, minus umask restrictions. 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--directory</span> create a directory, not a file 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--dry-run</span> do not create anything; merely print a name (unsafe) 
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> suppress diagnostics about file/dir-creation failure 
+<p class="level0"><span Class="bold">--suffix</span>=<span Class="emphasis">SUFF</span> append SUFF to TEMPLATE; SUFF must not contain a slash. This option is implied if TEMPLATE does not end in X 
+<p class="level0"><span Class="bold">-p</span> DIR, <span Class="bold">--tmpdir</span>[=<span Class="emphasis">DIR</span>] interpret TEMPLATE relative to DIR; if DIR is not specified, use $TMPDIR if set, else <span Class="emphasis">/tmp</span>.  With this option, TEMPLATE must not be an absolute name; unlike with <span Class="bold">-t</span>, TEMPLATE may contain slashes, but mktemp creates only the final component 
+<p class="level0"><span Class="bold">-t</span> interpret TEMPLATE as a single file name component, relative to a directory: $TMPDIR, if set; else the directory specified via <span Class="bold">-p</span>; else <span Class="emphasis">/tmp</span> [deprecated] 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Jim Meyering and Eric Blake. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report mktemp translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">mkstemp(3), mkdtemp(3), mktemp(3) 
+<p class="level0"><br>Full documentation at: &lt;http://www.gnu.org/software/coreutils/mktemp&gt; <br>or available locally via: info (aq(coreutils) mktemp invocation(aq 

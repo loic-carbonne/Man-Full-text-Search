@@ -1,0 +1,123 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">su - change user ID or become superuser <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">su</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">username</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">su</span> command is used to become another user during a login session. Invoked without a <span Class="bold">username</span>, <span Class="bold">su</span> defaults to becoming the superuser. The optional argument <span Class="bold">-</span> may be used to provide an environment similar to what the user would expect had the user logged in directly. 
+<p class="level0">Additional arguments may be provided after the username, in which case they are supplied to the user*(Aqs login shell. In particular, an argument of <span Class="bold">-c</span> will cause the next argument to be treated as a command by most command interpreters. The command will be executed by the shell specified in /etc/passwd for the target user. 
+<p class="level0">You can use the <span Class="bold">--</span> argument to separate <span Class="bold">su</span> options from the arguments supplied to the shell. 
+<p class="level0">The user will be prompted for a password, if appropriate. Invalid passwords will produce an error message. All attempts, both valid and invalid, are logged to detect abuse of the system. 
+<p class="level0">The current environment is passed to the new shell. The value of <span Class="bold">$PATH</span> is reset to /bin:/usr/bin for normal users, or /sbin:/bin:/usr/sbin:/usr/bin for the superuser. This may be changed with the <span Class="bold">ENV_PATH</span> and <span Class="bold">ENV_SUPATH</span> definitions in /etc/login.defs. 
+<p class="level0">A subsystem login is indicated by the presence of a "*" as the first character of the login shell. The given home directory will be used as the root of a new file system which the user is actually logged into. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The options which apply to the <span Class="bold">su</span> command are: 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--command</span>&nbsp;<span Class="emphasis">COMMAND</span> 
+<p class="level1">Specify a command that will be invoked by the shell using its <span Class="bold">-c</span>. 
+<p class="level1">The executed command will have no controlling terminal. This option cannot be used to execute interractive programs which need a controlling TTY. 
+<p class="level0">
+<p class="level0"><span Class="bold">-</span>, <span Class="bold">-l</span>, <span Class="bold">--login</span> 
+<p class="level1">Provide an environment similar to what the user would expect had the user logged in directly. 
+<p class="level1">When <span Class="bold">-</span> is used, it must be specified before any <span Class="bold">username</span>. For portability it is recommended to use it as last option, before any <span Class="bold">username</span>. The other forms (<span Class="bold">-l</span> and <span Class="bold">--login</span>) do not have this restriction. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--shell</span>&nbsp;<span Class="emphasis">SHELL</span> 
+<p class="level1">The shell that will be invoked. 
+<p class="level1">The invoked shell is chosen from (highest priority first): 
+<p class="level1">
+<p class="level2">The shell specified with --shell. 
+<p class="level1">
+<p class="level1">
+<p class="level2">If <span Class="bold">--preserve-environment</span> is used, the shell specified by the <span Class="bold">$SHELL</span> environment variable. 
+<p class="level1">
+<p class="level1">
+<p class="level2">The shell indicated in the /etc/passwd entry for the target user. 
+<p class="level1">
+<p class="level1">
+<p class="level2">/bin/sh if a shell could not be found by any above method. 
+<p class="level1">
+<p class="level1">If the target user has a restricted shell (i.e. the shell field of this user*(Aqs entry in /etc/passwd is not listed in /etc/shells), then the <span Class="bold">--shell</span> option or the <span Class="bold">$SHELL</span> environment variable won*(Aqt be taken into account, unless <span Class="bold">su</span> is called by root. 
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">-p</span>, <span Class="bold">--preserve-environment</span> 
+<p class="level1">Preserve the current environment, except for: 
+<p class="level1"><span Class="bold">$PATH</span> 
+<p class="level2">reset according to the /etc/login.defs options <span Class="bold">ENV_PATH</span> or <span Class="bold">ENV_SUPATH</span> (see below); 
+<p class="level1">
+<p class="level1"><span Class="bold">$IFS</span> 
+<p class="level2">reset to (lq&lt;space&gt;&lt;tab&gt;&lt;newline&gt;(rq, if it was set. 
+<p class="level1">
+<p class="level1">If the target user has a restricted shell, this option has no effect (unless <span Class="bold">su</span> is called by root). 
+<p class="level1">Note that the default behavior for the environment is the following: 
+<p class="level1">
+<p class="level2">The <span Class="bold">$HOME</span>, <span Class="bold">$SHELL</span>, <span Class="bold">$USER</span>, <span Class="bold">$LOGNAME</span>, <span Class="bold">$PATH</span>, and <span Class="bold">$IFS</span> environment variables are reset. 
+<p class="level1">
+<p class="level1">
+<p class="level2">If <span Class="bold">--login</span> is not used, the environment is copied, except for the variables above. 
+<p class="level1">
+<p class="level1">
+<p class="level2">If <span Class="bold">--login</span> is used, the <span Class="bold">$TERM</span>, <span Class="bold">$COLORTERM</span>, <span Class="bold">$DISPLAY</span>, and <span Class="bold">$XAUTHORITY</span> environment variables are copied if they were set. 
+<p class="level1">
+<p class="level1">
+<p class="level2">Other environments might be set by PAM modules. 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">
+<p class="level0">This version of <span Class="bold">su</span> has many compilation options, only some of which may be in use at any particular site. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">The following configuration variables in /etc/login.defs change the behavior of this tool: 
+<p class="level0"><span Class="bold">CONSOLE_GROUPS</span> (string) 
+<p class="level1">List of groups to add to the user*(Aqs supplementary groups set when logging in on the console (as determined by the CONSOLE setting). Default is none. 
+<p class="level1">Use with caution - it is possible for users to gain permanent access to these groups, even when not logged in on the console. 
+<p class="level0">
+<p class="level0"><span Class="bold">DEFAULT_HOME</span> (boolean) 
+<p class="level1">Indicate if login is allowed if we can*(Aqt cd to the home directory. Default is no. 
+<p class="level1">If set to <span Class="emphasis">yes</span>, the user will login in the root (/) directory if it is not possible to cd to her home directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">ENV_PATH</span> (string) 
+<p class="level1">If set, it will be used to define the PATH environment variable when a regular user login. The value is a colon separated list of paths (for example <span Class="emphasis">/bin:/usr/bin</span>) and can be preceded by <span Class="emphasis">PATH=</span>. The default value is <span Class="emphasis">PATH=/bin:/usr/bin</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">ENV_SUPATH</span> (string) 
+<p class="level1">If set, it will be used to define the PATH environment variable when the superuser login. The value is a colon separated list of paths (for example <span Class="emphasis">/sbin:/bin:/usr/sbin:/usr/bin</span>) and can be preceded by <span Class="emphasis">PATH=</span>. The default value is <span Class="emphasis">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">SULOG_FILE</span> (string) 
+<p class="level1">If defined, all su activity is logged to this file. 
+<p class="level0">
+<p class="level0"><span Class="bold">SU_NAME</span> (string) 
+<p class="level1">If defined, the command name to display when running "su -". For example, if this is defined as "su" then a "ps" will display the command is "-su". If not defined, then "ps" would display the name of the shell actually being run, e.g. something like "-sh". 
+<p class="level0">
+<p class="level0"><span Class="bold">SYSLOG_SU_ENAB</span> (boolean) 
+<p class="level1">Enable "syslog" logging of <span Class="bold">su</span> activity - in addition to sulog file logging. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0">
+<p class="level0">/etc/shadow 
+<p class="level1">Secure user account information. 
+<p class="level0">
+<p class="level0">/etc/login.defs 
+<p class="level1">Shadow password suite configuration. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT VALUES</h2>
+<p class="level0">
+<p class="level0">On success, <span Class="bold">su</span> returns the exit value of the command it executed. 
+<p class="level0">If this command was terminated by a signal, <span Class="bold">su</span> returns the number of this signal plus 128. 
+<p class="level0">If su has to kill the command (because it was asked to terminate, and the command did not terminate in time), <span Class="bold">su</span> returns 255. 
+<p class="level0">Some exit values from <span Class="bold">su</span> are independent from the executed command: 
+<p class="level0"><span Class="emphasis">0</span> 
+<p class="level1">success (<span Class="bold">--help</span> only) 
+<p class="level0">
+<p class="level0"><span Class="emphasis">1</span> 
+<p class="level1">System or authentication failure 
+<p class="level0">
+<p class="level0"><span Class="emphasis">126</span> 
+<p class="level1">The requested command was not found 
+<p class="level0">
+<p class="level0"><span Class="emphasis">127</span> 
+<p class="level1">The requested command could not be executed 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">login</span>(1), <span Class="bold">login.defs</span>(5), <span Class="bold">sg</span>(1), <span Class="bold">sh</span>(1). 

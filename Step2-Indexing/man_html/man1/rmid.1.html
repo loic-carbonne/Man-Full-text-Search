@@ -1,0 +1,218 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">rmid - The Java RMI Activation System Daemon 
+<p class="level0">
+<p class="level0">f3rmid</span> starts the activation system daemon that allows objects to be registered and activated in a virtual machine (VM). 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+rmid [options]
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3rmid</span> tool starts the activation system daemon. The activation system daemon must be started before activatable objects can be either registered with the activation system or activated in a VM. See the  
+<p class="level0">f2Java RMI Specification</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/platform/rmi/spec/rmiTOC.html">http://docs.oracle.com/javase/7/docs/platform/rmi/spec/rmiTOC.html</a> and  
+<p class="level0">f2Activation tutorials</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/activation/overview.html">http://docs.oracle.com/javase/7/docs/technotes/guides/rmi/activation/overview.html</a> for details on how to write programs that use activatable remote objects. 
+<p class="level0">
+<p class="level0">The daemon can be started by executing the f2rmid</span> command, and specifying a security policy file, as follows: 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;   rmid -J-Djava.security.policy=rmid.policy
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3Note:</span> When running Sun's implementation of f2rmid</span>, by default you will need to specify a security policy file so that f2rmid</span> can verify whether or not the information in each f2ActivationGroupDesc</span> is allowed to be used to launch a VM for an activation group. Specifically, the command and options specified by the f2CommandEnvironment</span> and any f2Properties</span> passed to an f2ActivationGroupDesc</span>'s constructor must now be explicitly allowed in the security policy file for f2rmid</span>. The value of the f2sun.rmi.activation.execPolicy</span> property dictates the policy that f2rmid</span> uses to determine whether or not the information in an f2ActivationGroupDesc</span> may be used to launch a VM for an activation group. 
+<p class="level0">
+<p class="level0">Executing f2rmid</span> by default 
+<p class="level0">
+<p class="level1">
+<p class="level1">o starts the Activator and an internal registry on the default port, 1098, and  
+<p class="level1">o binds an f2ActivationSystem</span> to the name f2java.rmi.activation.ActivationSystem</span> in this internal registry.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">To specify an alternate port for the registry, you must specify the f2-port</span> option when starting up f2rmid</span>. For example, 
+<p class="level0"><pre class="level0">
+f3
+&nbsp;   rmid -J-Djava.security.policy=rmid.policy -port 1099
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">starts the activation system daemon and a registry on the registry's default port, 1099. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Starting rmid from inetd/xinetd 
+<p class="level0">
+<p class="level0">An alternative to starting f2rmid</span> from the command line is to configure f2inetd</span> (Solaris) or f2xinetd</span> (Linux) to start f2rmid</span> on demand. 
+<p class="level0">
+<p class="level0">When f2rmid</span> starts up, it attempts to obtain an inherited channel (inherited from f2inetd</span>/f2xinetd</span>) by invoking the f2System.inheritedChannel</span> method. If the inherited channel is f2null</span> or not an instance of f2java.nio.channels.ServerSocketChannel</span>, then f2rmid</span> assumes that it was not started by f2inetd</span>/f2xinetd</span>, and it starts up as described above. 
+<p class="level0">
+<p class="level0">If the inherited channel is a f2ServerSocketChannel</span> instance, then f2rmid</span> uses the f2java.net.ServerSocket</span> obtained from the f2ServerSocketChannel</span> as the server socket that accepts requests for the remote objects it exports, namely the registry in which the f2java.rmi.activation.ActivationSystem</span> is bound and the f2java.rmi.activation.Activator</span> remote object. In this mode, f2rmid</span> behaves the same as when it is started from the command line, f2except</span>: 
+<p class="level0">
+<p class="level1">
+<p class="level1">o Output printed to f2System.err</span> is redirected to a file. This file is located in the directory specified by the f2java.io.tmpdir</span> system property (typically f2/var/tmp</span> or f2/tmp</span>) with the prefix f2"rmid-err"</span> and the suffix f2"tmp"</span>.  
+<p class="level1">o The f2-port</span> option is disallowed. If this option is specified, f2rmid</span> will exit with an error message.  
+<p class="level1">o The f2-log</span> option is required. If this option is not specified, f2rmid</span> will exit with an error message.  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">See the man pages for f2inetd</span> (Solaris) or f2xinetd</span> (Linux) for details on how to configure services to be started on demand. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-C&lt;someCommandLineOption&gt;  Specifies an option that is passed as a command-line argument to each child process (activation group) of f2rmid</span> when that process is created. For example, you could pass a property to each virtual machine spawned by the activation system daemon:  <pre class="level1">
+f3
+&nbsp;   rmid -C-Dsome.property=value
+</span>
+</pre>
+
+<p class="level1">This ability to pass command-line arguments to child processes can be useful for debugging. For example, the following command:  <pre class="level1">
+f3
+&nbsp;   rmid -C-Djava.rmi.server.logCalls=true
+</span>
+</pre>
+
+<p class="level1">will enable server-call logging in all child VMs.  
+<p class="level1">
+<p class="level1">-J&lt;someCommandLineOption&gt;  Specifies an option that is passed to the f2java</span> interpreter running f2rmid</span>. For example, to specify that f2rmid</span> use a policy file named f2rmid.policy</span>, the f2-J</span> option can be used to define the f2java.security.policy</span> property on f2rmid</span>'s command line, for example:  <pre class="level1">
+f3
+&nbsp;   rmid -J-Djava.security.policy=rmid.policy
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">-J-Dsun.rmi.activation.execPolicy=&lt;policy&gt;  Specifies the policy that f2rmid</span> employs to check commands and command-line options used to launch the VM in which an activation group runs. Please note that this option exists only in Sun's implementation of the Java RMI activation daemon. If this property is not specified on the command line, the result is the same as if f2-J-Dsun.rmi.activation.execPolicy=default</span> were specified. The possible values of f2&lt;policy&gt;</span> can be f2default</span>, f2&lt;policyClassName&gt;</span>, or f2none</span>:  
+<p class="level2">
+<p class="level2">o f3default (or if this property is </span>f4unspecified</span>f3)</span>  
+<p class="level2">The default f2execPolicy</span> allows f2rmid</span> to execute commands with specific command-line options only if f2rmid</span> has been granted permission to execute those commands and options in the security policy file that f2rmid</span> uses. Only the default activation group implementation can be used with the f2default</span> execution policy.  
+<p class="level2">f2rmid</span> launches a VM for an activation group using the information in the group's registered activation group descriptor, an f2ActivationGroupDesc</span>. The group descriptor specifies an optional f2ActivationGroupDesc.CommandEnvironment</span> which includes the f2command</span> to execute to start the activation group as well as any command line f2options</span> to be added to the command line. By default, f2rmid</span> uses the f2java</span> command found in f2java.home</span>. The group descriptor also contains f2properties</span> overrides that are added to the command line as options defined as:  <pre class="level2">
+f3
+&nbsp;   -D</span>f4&lt;property&gt;</span>f3=</span>f4&lt;value&gt;</span>f3
+</span>
+</pre>
+
+<p class="level2">
+<p class="level2">The permission f2com.sun.rmi.rmid.ExecPermission</span> is used to grant f2rmid</span> permission to execute a command, specified in the group descriptor's f2CommandEnvironment</span> to launch an activation group. The permission f2com.sun.rmi.rmid.ExecOptionPermission</span> is used to allow f2rmid</span> to use command-line options, specified as properties overrides in the group descriptor or as options in the f2CommandEnvironment</span>, when launching the activation group.  
+<p class="level2">When granting f2rmid</span> permission to execute various commands and options, the permissions f2ExecPermission</span> and f2ExecOptionPermission</span> need to be granted universally (i.e., granted to all code sources).  
+<p class="level3">
+<p class="level3">ExecPermission  The f2ExecPermission</span> class represents permission for f2rmid</span> to execute a specific f2command</span> to launch an activation group.  
+<p class="level3">f3Syntax</span> <br>The f2name</span> of an f2ExecPermission</span> is the path name of a command to grant f2rmid</span> permission to execute. A path name that ends in "/*" indicates all the files contained in that directory (where "/" is the file-separator character, f2File.separatorChar</span>). A path name that ends with "/-" indicates all files and subdirectories contained in that directory (recursively). A path name consisting of the special token "&lt;&lt;ALL FILES&gt;&gt;" matches f3any</span> file.  
+<p class="level3">f3Note:</span> A path name consisting of a single "*" indicates all the files in the current directory, while a path name consisting of a single "-" indicates all the files in the current directory and (recursively) all files and subdirectories contained in the current directory.   
+<p class="level3">ExecOptionPermission  The f2ExecOptionPermission</span> class represents permission for f2rmid</span> to use a specific command-line f2option</span> when launching an activation group. The f2name</span> of an f2ExecOptionPermission</span> is the value of a command line option.  
+<p class="level3">f3Syntax</span> <br>Options support a limited wildcard scheme. An asterisk signifies a wildcard match, and it may appear as the option name itself (i.e., it matches any option), or an asterisk may appear at the end of the option name only if the asterisk follows either a "." or "=".  
+<p class="level3">For example: "*" or "-Dfoo.*" or "-Da.b.c=*" is valid, "*foo" or "-Da*b" or "ab*" is not.   
+<p class="level3">Policy file for rmid  When granting f2rmid</span> permission to execute various commands and options, the permissions f2ExecPermission</span> and f2ExecOptionPermission</span> need to be granted universally (i.e., granted to all code sources). It is safe to grant these permissions universally because only f2rmid</span> checks these permissions.  
+<p class="level3">An example policy file that grants various execute permissions to f2rmid</span> is:  <pre class="level3">
+f3
+grant {
+&nbsp;   permission com.sun.rmi.rmid.ExecPermission
+&nbsp;       "/files/apps/java/jdk1.7.0/solaris/bin/java";
+&nbsp;
+&nbsp;   permission com.sun.rmi.rmid.ExecPermission
+&nbsp;       "/files/apps/rmidcmds/*";
+&nbsp;
+&nbsp;   permission com.sun.rmi.rmid.ExecOptionPermission
+&nbsp;       "-Djava.security.policy=/files/policies/group.policy";
+&nbsp;
+&nbsp;   permission com.sun.rmi.rmid.ExecOptionPermission
+&nbsp;       "-Djava.security.debug=*";
+&nbsp;
+&nbsp;   permission com.sun.rmi.rmid.ExecOptionPermission
+&nbsp;       "-Dsun.rmi.*";
+};
+</span>
+</pre>
+
+<p class="level3">The first permission granted allow f2rmid</span> to execute the 1.7.0 version of the f2java</span> command, specified by its explicit path name. Note that by default, the version of the f2java</span> command found in f2java.home</span> is used (the same one that f2rmid</span> uses), and does not need to be specified in the policy file. The second permission allows f2rmid</span> to execute any command in the directory f2/files/apps/rmidcmds</span>.  
+<p class="level3">The third permission granted, an f2ExecOptionPermission</span>, allows f2rmid</span> to launch an activation group that defines the security policy file to be f2/files/policies/group.policy</span>. The next permission allows the f2java.security.debug</span> property to be used by an activation group. The last permission allows any property in the f2sun.rmi</span> property name hierarchy to be used by activation groups.  
+<p class="level3">To start f2rmid</span> with a policy file, the f2java.security.policy</span> property needs to be specified on f2rmid</span>'s command line, for example:  
+<p class="level3">f2rmid -J-Djava.security.policy=rmid.policy</span>   
+<p class="level2">
+<p class="level2">o f4&lt;policyClassName&gt;</span>  
+<p class="level2">If the default behavior is not flexible enough, an administrator can provide, when starting f2rmid</span>, the name of a class whose f2checkExecCommand</span> method is executed in order to check commands to be executed by rmid.  
+<p class="level2">The f2policyClassName</span> specifies a public class with a public, no-argument constructor and an implementation of the following f2checkExecCommand</span> method:  <pre class="level2">
+f3
+&nbsp;   public void checkExecCommand(ActivationGroupDesc desc,
+&nbsp;                                String[] command)
+&nbsp;       throws SecurityException;
+</span>
+</pre>
+
+<p class="level2">Before launching an activation group, f2rmid</span> calls the policy's f2checkExecCommand</span> method, passing it the activation group descriptor and an array containing the complete command to launch the activation group. If the f2checkExecCommand</span> throws a f2SecurityException</span>, f2rmid</span> will not launch the activation group and an f2ActivationException</span> will be thrown to the caller attempting to activate the object.  
+<p class="level2">o f3none</span>  
+<p class="level2">If the f2sun.rmi.activation.execPolicy</span> property value is "none", then f2rmid</span> will not perform any validation of commands to launch activation groups.   
+<p class="level1">
+<p class="level1">
+<p class="level1">-log dir  Specifies the name of the directory the activation system daemon uses to write its database and associated information. The log directory defaults to creating a directory, f2log</span>, in the directory in which the f2rmid</span> command was executed.  
+<p class="level1">
+<p class="level1">-port port  Specifies the port f2rmid</span>'s registry uses. The activation system daemon binds the f2ActivationSystem</span>, with the name f2java.rmi.activation.ActivationSystem</span>, in this registry. Thus, the f2ActivationSystem</span> on the local machine can be obtained using the following f2Naming.lookup</span> method call:  <pre class="level1">
+f3
+&nbsp;   import java.rmi.*; 
+&nbsp;   import java.rmi.activation.*;
+&nbsp;
+&nbsp;   ActivationSystem system; system = (ActivationSystem)
+&nbsp;   Naming.lookup("//:</span>f4port</span>/java.rmi.activation.ActivationSystem");
+</pre>
+
+<p class="level1">
+<p class="level1">-stop  Stops the current invocation of f2rmid</span>, for a port specified by the f2-port</span> option. If no port is specified, it will stop the f2rmid</span> running on port 1098.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">CLASSPATH  Used to provide the system a path to user-defined classes. Directories are separated by colons. For example:  <pre class="level1">
+f3
+&nbsp;   .:/usr/local/java/classes
+</span>
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">rmic(1),  
+<p class="level0">f2CLASSPATH</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;classpath,">http://docs.oracle.com/javase/7/docs/technotes/tools/index.html&#35;classpath,</a> java(1) 
+<p class="level0">
+<p class="level0">

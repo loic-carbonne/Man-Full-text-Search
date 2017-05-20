@@ -1,0 +1,413 @@
+INKSCAPE(1)                        Inkscape                        INKSCAPE(1)
+
+
+
+
+       Inkscape -    SVG ( )
+
+
+       "inkscape [ [_ ...]"
+
+       :
+
+           -?, --help
+               --usage
+           -V, --version
+
+           -f, --file=FILENAME
+
+           -e, --export-png=FILENAME
+           -a, --export-area=x0:y0:x1:y1
+           -C, --export-area-page
+           -D, --export-area-drawing
+               --export-area-snap
+           -i, --export-id=ID
+           -j, --export-id-only
+           -t, --export-use-hints
+           -b, --export-background=COLOR
+           -y, --export-background-opacity=VALUE
+           -d, --export-dpi=DPI
+           -w, --export-width=WIDTH
+           -h, --export-height=HEIGHT
+
+           -P, --export-ps=FILENAME
+           -E, --export-eps=FILENAME
+           -A, --export-pdf=FILENAME
+               --export-latex
+
+           -T, --export-text-to-path
+               --export-ignore-filters
+
+           -l, --export-plain-svg=FILENAME
+
+           -p, --print=PRINTER
+
+           -I, --query-id=ID
+           -X, --query-x
+           -Y, --query-y
+           -W, --query-width
+           -H, --query-height
+           -S, --query-all
+
+           -x, --extension-directory
+
+               --verb-list
+               --verb=VERB-ID
+               --select=OBJECT-ID
+
+               --shell
+
+           -g, --with-gui
+           -z, --without-gui
+
+               --vacuum-defs
+
+               --g-fatal-warnings
+
+
+       Inkscape    GUI Scalable Vector Graphics (SVG),     Adobe Illustrator,
+       CorelDraw, Xara Xtreme, .  Inkscape   ,  bezier,  ,  ,   ,  ,  ,    , ,
+       PNG  PDF, , ,     .          ,     GNOME,   GNOME        .
+
+       SVG    W3C  XML .  ,    . , ,  ..    `' .      SVG    /xml,       SVG
+       .
+
+        Inkscape  SVG           SVG    .
+
+
+       -?, --help
+
+
+       -V, --version
+                  Inkscape   .
+
+       -a x0:y0:x1:y1, --export-area=x0:y0:x1:y1
+                 PNG,        SVG (      Inkscape SVG).         .   (0,0)     .
+
+       -C, --export-area-page
+                 PNG, PDF, PS  EPS,      .      PNG, PDF  PS,    --export-id .
+               EPS, ,    .   EPS,     .     --export-area-page    EPS,
+               .
+
+       -D, --export-area-drawing
+                 PNG, PDF, PS  EPS,      ( ),          (    --export-id ).  ,
+               .    EPS.  PNG, --export-use-hints.
+
+       --export-area-snap
+                 PNG,   SVG    (px).      90 dpi     ,    ( --export-id
+               --export-area-drawing)       .
+
+       -b COLOR, --export-background=COLOR
+                    PNG.     SVG, .. "#ff007f"  "rgb(255, 0, 128)".   ,
+               Inkscape       (  pagecolor= attribute of sodipodi:namedview).
+
+       -d DPI, --export-dpi=DPI
+                    PNG.   PS, EPS,  PDF (   --export-ignore-filters   ).
+               90 dpi,   1   SVG (px,    " ")   1  .   DPI
+               --export-use-hints.
+
+       -e FILENAME, --export-png=FILENAME
+                     PNG.   ,    .
+
+       -f FILENAME, --file=FILENAME
+                 .  ,         -f.
+
+       -g, --with-gui
+                   GUI ( Unix, X     $DISPLAY  ).
+
+       -h HEIGHT, --export-height=HEIGHT
+                     .     --export-dpi (   DPI,   --export-use-hints).
+
+       -i ID, --export-id=ID
+                 PNG, PS, EPS  PDF,    id      .      .  .      --export-area
+               ( PNG)  --export-area-page.
+
+       -j, --export-id-only
+                  PNG      id --export-id.         .  --export-id,    .   PDF,
+               ,       .
+
+       -l, --export-plain-svg=FILENAME
+                    SVG,    sodipodi: inkscape    RDF.
+
+       -x, --extension-directory
+                      Inkscape  .           Inkscape.
+
+       --verb-list
+                     Inkscape  .  .  --verb.
+
+       --verb=VERB-ID, --select=OBJECT-ID
+                 Inkscape    .   .
+
+                 --verb  .    ,      .        ,    --verb-list.
+
+                 --select   .  .  --verb=EditDeselect.     .
+
+       -p PRINTER, --print=PRINTER
+                     `lpr -P  '.   `| COMMAND'   ,   `> '    PostScript      .
+               , ..
+
+               inkscape --print='| ps2pdf - mydoc.pdf' mydoc.svg
+
+       -t, --export-use-hints
+                    DPI  (  --export-id).     ,      Inkscape. ,  ,
+               id="path231"  /home/me/shape.png  300 dpi  document.svg
+               Inkscape GUI    ,
+
+               inkscape -i path231 -t document.svg
+
+                 --export-dpi, --export-width  --export-height  ,    DPI   .
+               --export-png ,      .
+
+       -w WIDTH, --export-width=WIDTH
+                     .     --export-dpi (   DPI   --export-use-hints).
+
+       -y VALUE, --export-background-opacity=VALUE
+                     PNG.    0  1 (0     1  )   1  255 (255   ).     -b  ,
+               Inkscape (   inkscape:pageopacity= attribute
+               sodipodi:namedview).        -b,   255 ( )  .
+
+       -P FILENAME, --export-ps=FILENAME
+                   PostScript.    PostScript  ,       SVG   .    .  .
+               --export-area-drawing.     --export-id   (   ).         ,
+               --export-area-page.
+
+       -E FILENAME, --export-eps=FILENAME
+                    PostScript.  PostScript   ,   SVG   .      .    .      ,
+               --export-area-page   .  --export-id       (   ).
+
+       -A FILENAME, --export-pdf=FILENAME
+                   PDF.  SVG.  .      .    ,  --export-area-drawing.
+               --export-id       (   ).  ,        --export-area-page.
+
+       --export-latex
+               (  PS, EPS  PDF)  LaTeX,         LaTeX.     PDF/PS/EPS,
+               PDF/PS/EPS (..    --export-pdf)    LaTeX.       PDF/PS/EPS,
+               LaTeX.    LaTeX   PDF/PS/EPS.    LaTeX (\input{image.tex})
+               LaTeX         LaTeX.   LaTeX   .  GNUPlot's `epslatex'.
+
+       -T, --export-text-to-path
+                     ,  (  PS, EPS  PDF).
+
+       --export-ignore-filters
+                  (..   )  ,    (  PS, EPS  PDF).  ,     --export-dpi ( 90
+               dpi),   .
+
+       -I, --query-id
+                .   ,    (    ),
+
+       -X, --query-x
+                     ,  ,  --query-id.      px (  SVG).
+
+       -Y, --query-y
+                     ,  ,  --query-id.      px (  SVG).
+
+       -W, --query-width
+                    ,  , --query-id.      px (  SVG).
+
+       -H, --query-height
+                        ,  ,    --query-id.      px (  SVG).
+
+       -S, --query-all
+                  SVG   ,      x, y,   .
+
+       --shell    ,  Inkscape   .    ,     Inkscape  ,    Inkscape   .
+               : ,        Inkscape     (   ).  Inkscape,      Inkscape, ..
+               "file.svg --export-pdf=file.pdf".
+
+       --vacuum-defs
+                       <lt>defs<gt>  SVG.  --export-plain-svg,      .   ,
+               .
+
+       -z, --without-gui
+                  GUI ( Unix,    X).       .     -p, -e, -l  --vacuum-defs.
+
+       --g-fatal-warnings
+                   GTK   , ,     Inkscape ( ).
+
+       --usage      .
+
+
+        ~/.config/inkscape/preferences.xml.        Inkscape (   Inkscape).
+       ,    :
+
+       $HOME/.config/inkscape/extensions/ -  .
+
+       $HOME/.config/inkscape/icons/ - .
+
+       $HOME/.config/inkscape/keys/ -  .
+
+       $HOME/.config/inkscape/templates/ -   .
+
+
+                 .
+
+        STDERR  STDOUT.    SVG  ,   .
+
+
+           Inkscape      GUI,        SVG .
+
+          SVG  GUI:
+
+           inkscape filename.svg
+
+          SVG    :
+
+           inkscape filename.svg -p '| lpr'
+
+          SVG  PNG      90dpi (   SVG     ):
+
+           inkscape filename.svg --export-png=filename.png
+
+        ,     PNG   600x400 :
+
+           inkscape filename.svg --export-png=filename.png -w600 -h400
+
+        ,     (    ),  :
+
+           inkscape filename.svg --export-png=filename.png --export-area-drawing
+
+         PNG    id="text1555",   ,     GUI:
+
+           inkscape filename.svg --export-id=text1555 --export-use-hints
+
+        ,      90 dpi,     SVG (         ):
+
+           inkscape filename.svg --export-id=text1555 --export-png=text.png --export-area-snap
+
+          Inkscape SVG   SVG:
+
+           inkscape filename1.svg --export-plain-svg=filename2.svg
+
+          SVG  EPS, :
+
+           inkscape filename.svg --export-eps=filename.eps --export-text-to-path
+
+            id="text1555":
+
+           inkscape filename.svg --query-width --query-id text1555
+
+           id="path1555",  90 ,  SVG  :
+
+           inkscape filename.svg --select=path1555 --verb=EditDuplicate --verb=ObjectRotate90 --verb=FileSave --verb=FileClose
+
+
+       DISPLAY        .
+
+       TMPDIR   .     .
+
+
+         $PREFIX/share/inkscape/icons/icons.svg,
+       $HOME/.config/inkscape/icons/.    '  (.. fill_none.svg),
+       icons.svg.           ,    .
+
+             SVG  SVG      . ( ..,  "fill_none"   ,  SVG "fill_none"   ,
+       fill_none.svg  icons.svg.)
+
+
+              Inkscape http://www.inkscape.org/.    , , , ,   , ,  .
+
+
+       potrace, cairo, rsvg(1), batik, ghostscript, pstoedit.
+
+          SVG: http://www.w3.org/Graphics/SVG/Test/
+
+        SVG: http://jiggles.w3.org/svgvalidator/
+
+       Scalable Vector Graphics (SVG) 1.1 Specification W3C Recommendation 14
+       January 2003 <http://www.w3.org/TR/SVG11/>
+
+       Scalable Vector Graphics (SVG) 1.2 Specification W3C Working Draft 13
+       November 2003 <http://www.w3.org/TR/SVG12/>
+
+       SVG 1.1/1.2/2.0 Requirements W3C Working Draft 22 April 2002
+       <http://www.w3.org/TR/SVG2Reqs/>
+
+       Document Object Model (DOM): Level 2 Core Arnaud Le Hors et al editors,
+       W3C <http://www.w3.org/TR/DOM-Level-2-Core/>
+
+ GUI
+             Inkscape's GUI,  > .
+
+          SVG,  Inkscape    ( > )    (PNG, BMP, JPG, XPM, GIF, .),  ( Perl),
+       PS  EPS ( Ghostscript), PDF   AI (AI  9.0  ).
+
+        Inkscape   PNG 32- ( > )   AI, PS, EPS, PDF, DXF        >  .
+
+        Inkscape   , ,    .
+
+        Inkscape   GUI  Potrace (http://potrace.sf.net)    Inkscape.
+
+        Inkscape      ( stdin-to-stdout)       .        GUI    .  Inkscape
+       Python.
+
+
+                ,  doc/keys.html  .
+
+
+           .      (inkscape.org) .     (`NEWS').
+
+
+             .  ,  :
+
+       Maximilian Albert, Josh Andler, Tavmjong Bah, Pierre Barbry-Blot, Jean-
+       Franois Barraud, Bill Baxter, John Beard, John Bintz, Arpad Biro,
+       Nicholas Bishop, Joshua L. Blocher, Hanno Bck, Henrik Bohre, Boldewyn,
+       Daniel Borgmann, Bastien Bouclet, Gustav Broberg, Christopher Brown,
+       Hans Breuer, Marcus Brubaker, Luca Bruno, Nicu Buculei, Bulia Byak,
+       Pierre Caclin, Ian Caldwell, Gail Carmichael, Ed Catmur, Chema Celorio,
+       Johan Ceuppens, Zbigniew Chyla, Alexander Clausen, John Cliff, Kees
+       Cook, Ben Cromwell, Robert Crosbie, Jon Cruz, Aurlie De-Cooman, Milosz
+       Derezynski, Daniel Daz, Bruno Dilly, Larry Doolittle, Tim Dwyer, Maxim
+       V. Dziumanenko, Johan Engelen, Miklos Erdelyi, Ulf Erikson, No Falzon,
+       Frank Felfe, Andrew Fitzsimon, Edward Flick, Marcin Floryan, Fred, Ben
+       Fowler, Cedric Gemy, Steren Giannini, Olivier Gondouin, Ted Gould,
+       Toine de Greef, Michael Grosberg, Bryce Harrington, Dale Harvey, Aurlio
+       Adnauer Heckert, Carl Hetherington, Jos Hirth, Hannes Hochreiner,
+       Thomas Holder, Joel Holdsworth, Alan Horkan, Karl Ove Hufthammer,
+       Richard Hughes, Nathan Hurst, inductiveload, Thomas Ingham, Jean-
+       Olivier Irisson, Bob Jamison, jEsuSdA, Lauris Kaplinski, Lynn Kerby,
+       Niko Kiirala, James Kilfiger, Jason Kivlighn, Adrian Knoth, Krzysztof
+       Kosiski, Petr Kovar, Benot Lavorata, Alex Leone, Julien Leray, Raph
+       Levien, Diederik van Lierop, Nicklas Lindgren, Vitaly Lipatov, Ivan
+       Louette, Pierre-Antoine Marc, Aurel-Aim Marmion, Colin Marquardt,
+       Dmitry G. Mastrukov, Matiphas, Michael Meeks, Federico Mena, MenTaLguY,
+       Aubanel Monnier, Vincent Montagne, Tim Mooney, Derek P. Moore, Peter
+       Moulder, Jrg Mller, Yukihiro Nakai, Victor Navez, Christian Neumair,
+       Andreas Nilsson, Mitsuru Oka, Marten Owens, Alvin Penner, Jon Phillips,
+       Zdenko Podobny, Alexandre Prokoudine, Jean-Ren Reinhard, Alexey
+       Remizov, Frederic Rodrigo, Hugo Rodrigues, Juarez Rudsatz, Xavier Conde
+       Rueda, Felipe Corra da Silva Sanches, Christian Schaller, Marco
+       Scholten, Tom von Schwerdtner, Shivaken, Danilo  egan, Michael Sloan,
+       John Smith, Botjan  peti, Aaron Spike, Kaushik Sridharan, Ralf Stephan,
+       Dariusz Stojek, Martin Sucha, ~suv, Pat Suwalski, Adib Taraben, Hugh
+       Tebby, Jonas Termeau, David Turner, Andre Twupack, Aleksandar Uroevi,
+       Alex Valavanis, Lucas Vieites, Michael Wybrow, Daniel Yacob, David Yip,
+       Masatake Yamato
+
+              Bryce Harrington <brycehar@bryceharrington.com>.
+
+
+             Inkscape      1999   Gill,   GNOME Illustrator,    Raph Levien.
+       Gill SVG.  Raph     bezier PostScript,    ,   ,   ,  .    Raph Gill
+       http://www.levien.com/svg/.    Gill     2000.
+
+         Sodipodi,   Lauris Kaplinski.   ,    , ,   Windows  .
+
+        Inkscape   2003 Sodipodi Bryce Harrington, MenTaLguY, Nathan Hurst
+       Ted Gould   SVG,       .   , .
+
+            .  Sodipodi  , .       Livarot     , .  .           .  ,
+       Inkscape .
+
+        ,        ,        .
+
+        Inkscape  , ,  ,   .   ,   "   ",  Inkscape   .
+
+
+       Copyright (C) 1999-2010   .
+
+       Inkscape   .     /       GPL.
+
+
+
+Inkscape-0.48.5                                                    INKSCAPE(1)

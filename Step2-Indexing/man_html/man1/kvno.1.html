@@ -1,0 +1,43 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kvno - print key version numbers of Kerberos principals 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">kvno</span> [<span Class="bold">-c</span> <span Class="emphasis">ccache</span>] [<span Class="bold">-e</span> <span Class="emphasis">etype</span>] [<span Class="bold">-q</span>] [<span Class="bold">-h</span>] [<span Class="bold">-P</span>] [<span Class="bold">-S</span> <span Class="emphasis">sname</span>] [<span Class="bold">-U</span> <span Class="emphasis">for_user</span>] <span Class="emphasis">service1 service2</span> ... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">kvno acquires a service ticket for the specified Kerberos principals and prints out the key version numbers of each. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-c ccache</span> Specifies the name of a credentials cache to use (if not the default) 
+<p class="level0"><span Class="bold">\fB-e etype</span> Specifies the enctype which will be requested for the session key of all the services named on the command line.  This is useful in certain backward compatibility situations. 
+<p class="level0"><span Class="bold">\fB-q</span> Suppress printing output when successful.  If a service ticket cannot be obtained, an error message will still be printed and kvno will exit with nonzero status. 
+<p class="level0"><span Class="bold">\fB-h</span> Prints a usage statement and exits. 
+<p class="level0"><span Class="bold">\fB-P</span> Specifies that the <span Class="emphasis">service1 service2</span> ...  arguments are to be treated as services for which credentials should be acquired using constrained delegation.  This option is only valid when used in conjunction with protocol transition. 
+<p class="level0"><span Class="bold">\fB-S sname</span> Specifies that the <span Class="emphasis">service1 service2</span> ... arguments are interpreted as hostnames, and the service principals are to be constructed from those hostnames and the service name <span Class="emphasis">sname</span>. The service hostnames will be canonicalized according to the usual rules for constructing service principals. 
+<p class="level0"><span Class="bold">\fB-U for_user</span> Specifies that protocol transition (S4U2Self) is to be used to acquire a ticket on behalf of <span Class="emphasis">for_user</span>.  If constrained delegation is not requested, the service name must match the credentials cache client principal. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">kvno uses the following environment variable: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBKRB5CCNAME</span> Location of the credentials (ticket) cache. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fBFILE:/tmp/krb5cc_%{uid}</span> Default location of the credentials cache 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">kinit(1)</span>, <span Class="emphasis">kdestroy(1)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

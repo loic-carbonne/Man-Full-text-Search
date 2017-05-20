@@ -1,0 +1,83 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pstree - display a tree of processes <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pstree</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><br><span Class="bold">pstree</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">pstree</span> shows running processes as a tree.  The tree is rooted at either <span Class="emphasis">pid</span> or <span Class="bold">init</span> if <span Class="emphasis">pid</span> is omitted.  If a user name is specified, all process trees rooted at processes owned by that user are shown. 
+<p class="level0"><span Class="bold">pstree</span> visually merges identical branches by putting them in square brackets and prefixing them with the repetition count, e.g. <pre class="level0">
+&nbsp;   init-+-getty
+&nbsp;        |-getty
+&nbsp;        |-getty
+&nbsp;        `-getty
+</pre>
+
+<p class="level0">becomes <pre class="level0">
+&nbsp;   init---4*[getty]
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">Child threads of a process are found under the parent process and are shown with the process name in curly braces, e.g. <pre class="level0">
+&nbsp;   icecast2---13*[{icecast2}]
+</pre>
+
+<p class="level0">
+<p class="level0">If <span Class="bold">pstree</span> is called as <span Class="bold">pstree.x11</span> then it will prompt the user at the end of the line to press return and will not return until that has happened.  This is useful for when <span Class="bold">pstree</span> is run in a xterminal. 
+<p class="level0">Certain kernel or mount parameters, such as the hidepid option for procfs, will hide information for some processes. In these situations <span Class="bold">pstree</span> will attempt to build the tree without this information, showing process names as question marks. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB-afP"></a><span class="nroffip">\fB-a\fP</span> 
+<p class="level1">Show command line arguments.  If the command line of a process is swapped out, that process is shown in parentheses. <span Class="bold">-a</span> implicitly disables compaction for processes but not threads. 
+<p class="level0"><a name="fB-AfP"></a><span class="nroffip">\fB-A\fP</span> 
+<p class="level1">Use ASCII characters to draw the tree. 
+<p class="level0"><a name="fB-cfP"></a><span class="nroffip">\fB-c\fP</span> 
+<p class="level1">Disable compaction of identical subtrees.  By default, subtrees are compacted whenever possible. 
+<p class="level0"><a name="fB-GfP"></a><span class="nroffip">\fB-G\fP</span> 
+<p class="level1">Use VT100 line drawing characters. 
+<p class="level0"><a name="fB-hfP"></a><span class="nroffip">\fB-h\fP</span> 
+<p class="level1">Highlight the current process and its ancestors.  This is a no-op if the terminal doesn't support highlighting or if neither the current process nor any of its ancestors are in the subtree being shown. 
+<p class="level0"><a name="fB-HfP"></a><span class="nroffip">\fB-H\fP</span> 
+<p class="level1">Like <span Class="manpage">-h</span>but highlight the specified process instead.  Unlike with <span Class="manpage">-h</span><span Class="bold">pstree</span> fails when using <span Class="bold">-H</span> if highlighting is not available. 
+<p class="level0"><a name="fB-gfP"></a><span class="nroffip">\fB-g\fP</span> 
+<p class="level1">Show PGIDs.  Process Group IDs are shown as decimal numbers in parentheses after each process name. <span Class="bold">-g</span> implicitly disables compaction.  If both PIDs and PGIDs are displayed then PIDs are shown first. 
+<p class="level0"><a name="fB-lfP"></a><span class="nroffip">\fB-l\fP</span> 
+<p class="level1">Display long lines.  By default, lines are truncated to either the COLUMNS environment variable or the display width.  If neither of these methods work, the default of 132 columns is used. 
+<p class="level0"><a name="fB-nfP"></a><span class="nroffip">\fB-n\fP</span> 
+<p class="level1">Sort processes with the same ancestor by PID instead of by name.  (Numeric sort.) 
+<p class="level0"><a name="fB-NfP"></a><span class="nroffip">\fB-N\fP</span> 
+<p class="level1">Show individual trees for each namespace of the type specified.  The available types are: ipc, mnt, net, pid, user, uts.  Regular users don't have access to other users' processes information, so the output will be limited. 
+<p class="level0"><a name="fB-pfP"></a><span class="nroffip">\fB-p\fP</span> 
+<p class="level1">Show PIDs.  PIDs are shown as decimal numbers in parentheses after each process name. <span Class="bold">-p</span> implicitly disables compaction. 
+<p class="level0"><a name="fB-sfP"></a><span class="nroffip">\fB-s\fP</span> 
+<p class="level1">Show parent processes of the specified process. 
+<p class="level0"><a name="fB-SfP"></a><span class="nroffip">\fB-S\fP</span> 
+<p class="level1">Show namespaces transitions.  Like -N, the output is limited when running as a regular user. 
+<p class="level0"><a name="fB-ufP"></a><span class="nroffip">\fB-u\fP</span> 
+<p class="level1">Show uid transitions.  Whenever the uid of a process differs from the uid of its parent, the new uid is shown in parentheses after the process name. 
+<p class="level0"><a name="fB-UfP"></a><span class="nroffip">\fB-U\fP</span> 
+<p class="level1">Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54 and above, UTF-8 mode is entered on the console with <span Class="bold">echo -e '\\033%8'</span> and left with <span Class="bold">echo -e '\\033%@'</span> 
+<p class="level0"><a name="fB-VfP"></a><span class="nroffip">\fB-V\fP</span> 
+<p class="level1">Display version information. 
+<p class="level0"><a name="fB-ZfP"></a><span class="nroffip">\fB-Z\fP</span> 
+<p class="level1">(SELinux) Show security context for each process.  This flag will only work if pstree is compilied with SELinux support. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/proc location of the proc file system <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Some character sets may be incompatible with the VT100 characters. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ps (1)</span>, <span Class="manpage">top (1).</span>
+<p class="level0">

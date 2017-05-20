@@ -1,0 +1,86 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_pypy - calculates PyPy dependencies, adds maintainer scripts to byte compile files, etc. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">dh_pypy -p PACKAGE [-V [X.Y][-][A.B]] DIR [-X REGEXPR] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><a name="QUICK"></a><h2 class="nroffsh">QUICK GUIDE FOR MAINTAINERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build-depend on pypy and dh-python, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">add <span Class="emphasis">${pypy:Depends}</span> to Depends 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">build module/application using its standard build system, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">install files to the standard locations, 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">add <span Class="emphasis">pypy</span> to dh(aqs --with option, or: 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">call <span Class="bold">dh_pypy</span> in the <span Class="emphasis">binary-*</span> target, 
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0"><a name="dependencies"></a><h2 class="nroffsh">dependencies</h2>
+<p class="level0">
+<p class="level0">dh_pypy tries to translate Python dependencies from requires.txt file to Debian dependencies. Use debian/pypydist-overrides or --no-guessing-deps option to override it if the guess is incorrect. If you want dh_pypy to generate more strict dependencies (f.e. to avoid ABI problems) create debian/pypy-foo.pydist file. See /usr/share/doc/dh-python/README.PyDist for more information. If the pydist file contains PEP386 flag or set of (uscan like) rules, dh_pypy will make the depedency versioned (version requirements are ignored by default). <a name="private"></a><h2 class="nroffsh">private dirs</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/usr/share/foo</span>, <span Class="emphasis">/usr/share/games/foo</span>, <span Class="emphasis">/usr/lib/foo</span> and <span Class="emphasis">/usr/lib/games/foo</span> private directories are scanned for Python files by default (where <span Class="emphasis">foo</span> is binary package name). If your package is shipping Python files in some other directory, add another dh_pypy call in debian/rules with directory name as an argument - you can use different set of options in this call. If you need to change options for a private directory that is checked by default, invoke dh_pypy with --skip-private option and add another call with a path to this directory and new options. <a name="debug"></a><h2 class="nroffsh">debug packages</h2>
+<p class="level0">
+<p class="level0">In binary packages which name ends with <span Class="emphasis">-dbg</span>, all files in <span Class="emphasis">/usr/lib/pypy/dist-packages/</span> directory that have extensions different than <span Class="emphasis">so</span> or <span Class="emphasis">h</span> are removed by default. Use --no-dbg-cleaning option to disable this feature. <a name="overriding"></a><h2 class="nroffsh">overriding supported / default PyPy versions</h2>
+<p class="level0">
+<p class="level0">If you want to override system(aqs list of supported PyPy versions or the default one (f.e. to build a package that includes symlinks for older version of PyPy or compile .py files only for given interpreter version), you can do that via <span Class="emphasis">DEBPYPY_SUPPORTED</span> and/or <span Class="emphasis">DEBPYPY_DEFAULT</span> env. variables. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> show program(aqs version number and exit 
+<p class="level0"><span Class="bold">-h,\fB  --help</span> show help message and exit 
+<p class="level0"><span Class="bold">--no-guessing-deps</span> disable guessing dependencies 
+<p class="level0"><span Class="bold">--no-dbg-cleaning</span> do not remove any files from debug packages 
+<p class="level0">
+<p class="level0">--no-ext-rename do not add magic tags nor multiarch tuples to extension file names 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-shebang-rewrite</span> do not rewrite shebangs 
+<p class="level0"><span Class="bold">--skip-private</span> don(aqt check private directories 
+<p class="level0"><span Class="bold">-v,\fB  --verbose</span> turn verbose mode on 
+<p class="level0"><span Class="bold">-i,\fB  --indep</span> act on architecture independent packages 
+<p class="level0"><span Class="bold">-a,\fB  --arch</span> act on architecture dependent packages 
+<p class="level0"><span Class="bold">-q,\fB  --quiet</span> be quiet 
+<p class="level0"><span Class="bold">-p \ PACKAGE,\fB \ --package\fB= PACKAGE</span> act on the package named PACKAGE 
+<p class="level0"><span Class="bold">-N \ NO_PACKAGE,\fB \ --no-package\fB= NO_PACKAGE</span> do not act on the specified package 
+<p class="level0"><span Class="bold">-X \ REGEXPR,\fB \ --exclude\fB= REGEXPR</span> exclude items that match given REGEXPR. You may use this option multiple times to build up a list of things to exclude. 
+<p class="level0"><span Class="bold">--compile-all</span> compile all files from given private directory in postinst/rtupdate not just the ones provided by the package (i.e. do not pass the --package parameter to py3compile/py3clean) 
+<p class="level0"><span Class="bold">--depends\fB= DEPENDS</span> translate given requirements into Debian dependencies and add them to ${pypy:Depends}. Use it for missing items in requires.txt 
+<p class="level0"><span Class="bold">--recommends\fB= RECOMMENDS</span> translate given requirements into Debian dependencies and add them to ${pypy:Recommends} 
+<p class="level0"><span Class="bold">--suggests\fB= SUGGESTS</span> translate given requirements into Debian dependencies and add them to ${pypy:Suggests} 
+<p class="level0"><span Class="bold">--requires\fB= FILENAME</span> translate requirements from given file(s) into Debian dependencies and add them to ${pypy:Depends} 
+<p class="level0"><span Class="bold">--shebang\fB= COMMAND</span> use given command as shebang in scripts 
+<p class="level0"><span Class="bold">--ignore-shebangs</span> do not translate shebangs into Debian dependencies 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">/usr/share/doc/dh-python/README.PyDist 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">pybuild(1) 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">%http://deb.li/dhpy</span> - most recent version of this document 
+<p class="level1"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Piotr Ożarowski, 2013 
+<p class="level0">

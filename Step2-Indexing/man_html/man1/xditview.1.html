@@ -1,0 +1,59 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xditview - display ditroff output <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xditview</span> [ -<span Class="emphasis">toolkitoption</span> .|.|. ] [ -<span Class="emphasis">option</span> .|.|. ] [ <span Class="emphasis">filename</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xditview</span> program displays <span Class="emphasis">ditroff</span> output on an X display.  It uses no special metrics and automatically converts the printer coordinates into screen coordinates; using the user-specified screen resolution, rather than the actual resolution so that the appropriate fonts can be found.  If ``<span Class="bold">-</span>'' is given as the <span Class="emphasis">filename,</span> <span Class="emphasis">xditview</span> reads from standard input. If ``<span Class="bold">|</span>'' is the first character of <span Class="emphasis">filename,</span> <span Class="emphasis">xditview</span> forks <span Class="emphasis">sh</span> to run the rest of the ``file name'' and uses the standard output of that command. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xditview</span> accepts all of the standard X Toolkit command line options along with the additional options listed below: 
+<p class="level0"><span Class="bold">-page page-number</span> This option specifies the page number of the document to be displayed at start up time. 
+<p class="level0"><span Class="bold">-resolution screen-resolution</span> This specifies the desired screen resolution to use; fonts will be opened by requesting this resolution field in the XLFD names. 
+<p class="level0"><span Class="bold">-noPolyText</span> Some X servers incorrectly implement PolyText with multiple strings per request.  This option suppresses the use of this feature in <span Class="emphasis">xditview.</span> 
+<p class="level0"><span Class="bold">-backingStore backing-store-type</span> Redisplay can take up to a second or so; this option causes the server to save the window contents so that when it is scrolled around the viewport, the window is painted from contents saved in backing store. <span Class="emphasis">backing-store-type</span> can be one of <span Class="bold">Always</span>, </span>WhenMapped</span> or </span>NotUseful</span>. 
+<p class="level0">The following standard X Toolkit command line arguments are commonly used with <span Class="emphasis">xditview:</span> 
+<p class="level0"><span Class="bold">-bg color</span> This option specifies the color to use for the background of the window. The default is <span Class="emphasis">white</span>. 
+<p class="level0"><span Class="bold">-bd color</span> This option specifies the color to use for the border of the window. The default is <span Class="emphasis">black</span>. 
+<p class="level0"><span Class="bold">-bw number</span> This option specifies the width in pixels of the border surrounding the window. 
+<p class="level0"><span Class="bold">-fg color</span> This option specifies the color to use for displaying text.  The default is <span Class="emphasis">black</span>. 
+<p class="level0"><span Class="bold">-fn font</span> This option specifies the font to be used for displaying widget text.  The default is <span Class="emphasis">fixed</span>. 
+<p class="level0"><span Class="bold">-rv</span> This option indicates that reverse video should be simulated by swapping the foreground and background colors. 
+<p class="level0"><span Class="bold">-geometry geometry</span> This option specifies the preferred size and position of the window. 
+<p class="level0"><span Class="bold">-display host:display</span> This option specifies the X server to contact. 
+<p class="level0"><span Class="bold">-xrm resourcestring</span> This option specifies a resource string to be used. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">This program uses a <span Class="emphasis">Dvi</span> widget.  It understands all of the core resource names and classes as well as: 
+<p class="level0">
+<p class="level0"><span Class="bold">width (class\fB Width)</span> Specifies the width of the window. 
+<p class="level0"><span Class="bold">height (class\fB Height)</span> Specifies the height of the window. 
+<p class="level0"><span Class="bold">foreground (class\fB Foreground)</span> Specifies the default foreground color. 
+<p class="level0"><span Class="bold">font (class\fB Font)</span> Specifies the font to be used for error messages. 
+<p class="level0"><span Class="bold">FontMap (\fBclass\fB FontMap)</span> To associate the <span Class="emphasis">ditroff</span> fonts with appropriate X fonts, this string resource contains a set of new-line separated specifications, each of which consists of a ditroff name, some white space and an XLFD pattern with * characters in appropriate places to allow all sizes to be listed.  The default fontMap is: <pre class="level0">
+R	-*-times-medium-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+I	-*-times-medium-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+B	-*-times-bold-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+F	-*-times-bold-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+BI	-*-times-bold-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+C	-*-courier-medium-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+CO	-*-courier-medium-o-normal-^-*-*-*-*-*-*-iso8859-1ene
+CB	-*-courier-bold-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+CF	-*-courier-bold-o-normal-^-*-*-*-*-*-*-iso8859-1ene
+H	-*-helvetica-medium-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+HO	-*-helvetica-medium-o-normal-^-*-*-*-*-*-*-iso8859-1ene
+HB	-*-helvetica-bold-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+HF	-*-helvetica-bold-o-normal-^-*-*-*-*-*-*-iso8859-1ene
+N	-*-new century schoolbook-medium-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+NI	-*-new century schoolbook-medium-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+NB	-*-new century schoolbook-bold-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+NF	-*-new century schoolbook-bold-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+A	-*-charter-medium-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+AI	-*-charter-medium-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+AB	-*-charter-bold-r-normal-^-*-*-*-*-*-*-iso8859-1ene
+AF	-*-charter-bold-i-normal-^-*-*-*-*-*-*-iso8859-1ene
+S	-*-symbol-medium-r-normal-^-*-*-*-*-*-*-adobe-fontspecificene
+S2	-*-symbol-medium-r-normal-^-*-*-*-*-*-*-adobe-fontspecificen
+</pre>
+
+<p class="level0"><a name="USING"></a><h2 class="nroffsh">USING XDITVIEW WITH DITROFF</h2>
+<p class="level0">
+<p class="level0">You can use any ditroff output file with <span Class="emphasis">xditview,</span> although files which use the fonts appropriate to the fontMap will look more accurate on the screen. On servers which support scaled fonts, all requested font sizes will be accurately reflected on the screen; for servers which do not support scaled <span Class="emphasis">xditview</span> will use the closest font from the same family. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><a class="emphasis" href="#X">X (7),</a> <span Class="emphasis">xrdb (1),</span> <span Class="emphasis">ditroff (1),</span> <a class="emphasis" href="#X">X Logical Font Description Conventions</a> <a name="ORIGIN"></a><h2 class="nroffsh">ORIGIN</h2>
+<p class="level0">Portions of this program originated in <span Class="emphasis">xtroff which was derived</span> from <span Class="emphasis">suntroff.</span> <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1994 X Consortium <br>See <a class="emphasis" href="#X">X</a>(7) for a full statement of rights and permissions. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Keith Packard (MIT X Consortium) <br>Richard L. Hyde (Purdue) <br>David Slattengren (Berkeley) <br>Malcom Slaney (Schlumberger Palo Alto Research) <br>Mark Moraes (University of Toronto) 

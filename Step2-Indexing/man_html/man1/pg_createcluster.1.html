@@ -1,0 +1,229 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_createcluster - create a new PostgreSQL cluster <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_createcluster</span> [<span Class="emphasis">options</span>] <span Class="emphasis">version</span> <span Class="emphasis">name</span> [<span Class="bold">--</span> <span Class="emphasis">initdb options</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_createcluster</span> creates a new PostgreSQL server cluster (i. e. a collection of databases served by a <span Class="emphasis">postmaster</span>|(1) instance) and integrates it into the multi-version/multi-cluster architecture of the <span Class="bold">postgresql-common</span> package. 
+<p class="level0">Every cluster is uniquely identified by its version and name. The name can be arbitrary. The default cluster that is created on installation of a server package is f(CW*(C`main*(C'</span>. However, you might wish to create other clusters for testing, with other superusers, a cluster for each user on a shared server, etc. f(CW*(C`pg_createcluster*(C'</span> will abort with an error if you try to create a cluster with a name that already exists for that version. 
+<p class="level0">Given a major PostgreSQL <span Class="emphasis">version</span> (like *(L"8.2*(R" or *(L"8.3*(R") and a cluster <span Class="emphasis">name</span>, it creates the necessary configuration files in f(CW*(C`/etc/postgresql/*(C'</span><span Class="emphasis">version</span>f(CW*(C`/*(C'</span><span Class="emphasis">name</span>f(CW*(C`/*(C'</span>; in particular these are f(CW*(C`postgresql.conf*(C'</span>, f(CW*(C`pg_ident.conf*(C'</span>, f(CW*(C`pg_hba.conf*(C'</span>, a postgresql-common specific configuration file f(CW*(C`start.conf*(C'</span> (see <span Class="bold">s-1STARTUP CONTROLs0</span> below), f(CW*(C`pg_ctl.conf*(C'</span>, and a symbolic link f(CW*(C`log*(C'</span> which points to the log file (by default, f(CW*(C`/var/log/postgresql/postgresql-*(C'</span><span Class="emphasis">version</span>f(CW*(C`-*(C'</span><span Class="emphasis">name</span>f(CW*(C`.log*(C'</span>). 
+<p class="level0">f(CW*(C`postgresql.conf*(C'</span> is automatically adapted to use the next available port, i. e. the first port (starting from 5432) which is not yet used by an already existing cluster. 
+<p class="level0">If the data directory does not yet exist, PostgreSQL's <span Class="emphasis">initdb</span>|(1) command is used to generate a new cluster structure. If the data directory already exists, it is integrated into the <span Class="bold">postgresql-common</span> structure by moving the configuration file and setting the data_directory option. Please note that this <span Class="emphasis">only</span> works for data directories which were created directly with <span Class="bold">initdb</span>, i. e. all the configuration files (f(CW*(C`postgresql.conf*(C'</span> etc.) must be present in the data directory. 
+<p class="level0">If a custom socket directory is given and it does not exist, it is created. 
+<p class="level0">If the log file does not exist, it is created. In any case the permissions are adjusted to allow write access to the cluster owner. Please note that f(CW*(C`postgresql.conf*(C'</span> can be customized to specify f(CW*(C`log_directory*(C'</span> and/or f(CW*(C`log_filename*(C'</span>; if at least one of these options is present, then the symbolic link f(CW*(C`log*(C'</span> in the cluster configuration directory is ignored. 
+<p class="level0">If the default snakeoil s-1SSLs0 certificate exists (f(CW*(C`/etc/ssl/certs/ssl-cert-snakeoil.pem*(C'</span> and f(CW*(C`/etc/ssl/private/ssl-cert-snakeoil.key*(C'</span>), and the f(CW*(C`postgres*(C'</span> user is in the f(CW*(C`ssl-cert*(C'</span> Unix group, <span Class="bold">pg_createcluster</span> configures the cluster to use this certificate, and enables s-1SSL.s0 Therefore all clusters will use the same s-1SSLs0 certificate by default. For versions up to 9.1, symlinks in the data directory will be created (f(CW*(C`server.crt*(C'</span> and f(CW*(C`server.key*(C'</span>); for 9.2 and later, the appropriate f(CW*(C`postgresql.conf*(C'</span> options will be set (f(CW*(C`ssl_cert_file*(C'</span> and f(CW*(C`ssl_key_file*(C'</span>). Of course you can replace this with a cluster specific certificate. Similarly for f(CW*(C`/etc/postgresql-common/root.crt*(C'</span> and f(CW*(C`/etc/postgresql-common/root.crl*(C'</span>, these files will be configured as client certificate s-1CAs0 and revocation list, when present. (f(CW*(C`root.crt*(C'</span> is initially a placeholder that will only be used if real certificates are added to the file.) <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-ufR"></a><span class="nroffip">\fB-u\fR \fIuser\fR, \fB--user=\fR\fIuser\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the user who owns the cluster and becomes the database superuser to the given name or uid.  By default, this is the user <span Class="bold">postgres</span>.  A cluster must not be owned by root. 
+<p class="level0"><a name="fB-gfR"></a><span class="nroffip">\fB-g\fR \fIgroup\fR, \fB--group=\fR\fIgroup\fR 4</span> 
+<p class="level1">
+<p class="level1">Change the group of the cluster related data files. By default this will be the primary group of the database owner. 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR \fIdir\fR, \fB--datadir=\fR\fIdir\fR 4</span> 
+<p class="level1">
+<p class="level1">Explicitly set the data directory path, which is used to store all the actual databases and tables. This will become quite big (easily in the order of five times the amount of actual data stored in the cluster). Defaults to f(CW*(C`/var/lib/postgresql/*(C'</span><span Class="emphasis">version</span>f(CW*(C`/*(C'</span><span Class="emphasis">cluster</span>. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR \fIdir\fR, \fB--socketdir=\fR\fIdir\fR 4</span> 
+<p class="level1">
+<p class="level1">Explicitly set the directory where the <span Class="emphasis">postmaster</span>|(1) server stores the Unix socket for local connections. Defaults to f(CW*(C`/var/run/postgresql/*(C'</span> for clusters owned by the user <span Class="bold">postgres</span>, and f(CW*(C`/tmp*(C'</span> for clusters owned by other users. Please be aware that f(CW*(C`/tmp*(C'</span> is an unsafe directory since everybody can create a socket there and impersonate the database server. If the given directory does not exist, it is created with appropriate permissions. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR \fIpath\fR, \fB--logfile=\fR\fIpath\fR 4</span> 
+<p class="level1">
+<p class="level1">Explicitly set the path for the <span Class="emphasis">postmaster</span>|(1) server log file. Defaults to f(CW*(C`/var/log/postgresql/postgresql-*(C'</span><span Class="emphasis">version</span>f(CW*(C`-*(C'</span><span Class="emphasis">cluster</span>f(CW*(C`.log*(C'</span>. 
+<p class="level0"><a name="fB--localefRfIlocalefR"></a><span class="nroffip">\fB--locale=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the default locale for the database cluster. If this option is not specified, the locale is inherited from the environment that <span Class="bold">pg_createcluster</span> runs in. 
+<p class="level0"><a name="fB--lc-collatefRfIlocalefR"></a><span class="nroffip">\fB--lc-collate=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-ctypefRfIlocalefR"></a><span class="nroffip">\fB--lc-ctype=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-messagesfRfIlocalefR"></a><span class="nroffip">\fB--lc-messages=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-monetaryfRfIlocalefR"></a><span class="nroffip">\fB--lc-monetary=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-numericfRfIlocalefR"></a><span class="nroffip">\fB--lc-numeric=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--lc-timefRfIlocalefR"></a><span class="nroffip">\fB--lc-time=\fR\fIlocale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Like <span Class="bold">--locale</span>, but only sets the locale in the specified category. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR \fIencoding\fR, \fB--encoding=\fR\fIencoding\fR 4</span> 
+<p class="level1">
+<p class="level1">Select the encoding of the template database. This will also be the default encoding of any database you create later, unless you override it there. The default is derived from the locale, or s-1SQL_ASCIIs0 if that does not work.  The character sets supported by the PostgreSQL server are described in the documentation. 
+<p class="level1"><span Class="bold">Note</span>: It is not recommended to set this option directly! Set the locale instead. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR \fIport\fR, \fB--port=\fR\fIport\fR 4</span> 
+<p class="level1">
+<p class="level1">Select the port the new cluster listens on (for the Unix socket and the s-1TCPs0 port); this must be a number between 1024 and 65535, since PostgreSQL does not run as root and thus needs an unprivileged port number. By default the next free port starting from 5432 is assigned. 
+<p class="level0"><a name="fB--startfR"></a><span class="nroffip">\fB--start\fR 4</span> 
+<p class="level1">
+<p class="level1">Immediately start a server for the cluster after creating it (i. e. call f(CW*(C`pg_ctlcluster*(C'</span> <span Class="emphasis">version cluster</span> f(CW*(C`start*(C'</span> on it). By default, the cluster is not started. 
+<p class="level0"><a name="fB--start-conffRfBautofRfBmanualfRfBdisabledfR"></a><span class="nroffip">\fB--start-conf=\fR\fBauto\fR|\fBmanual\fR|\fBdisabled\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the initial value in the f(CW*(C`start.conf*(C'</span> configuration file. See <span class="bold">s-1STARTUP CONTROLs0</span> below. By default, <span Class="bold">auto</span> is used, which means that the cluster is handled by f(CW*(C`/etc/init.d/postgresql*(C'</span>, i. e. starts and stops automatically on system boot. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR \fIguc\fR\fB=\fR\fIvalue\fR, \fB--pgoption\fR \fIguc\fR\fB=\fR\fIvalue\fR 4</span> 
+<p class="level1">
+<p class="level1">Configuration option to set in the new f(CW*(C`postgresql.conf*(C'</span> file. 
+<p class="level0"><a name="fB--createclusterconffRfIfilefR"></a><span class="nroffip">\fB--createclusterconf=\fR\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Alternative <span Class="bold">createcluster.conf</span> file to use. Default is f(CW*(C`/etc/postgresql-common/createcluster.conf*(C'</span> (or f(CW*(C`$PGSYSCONFDIR/createcluster.conf*(C'</span>). 
+<p class="level0"><a name="fB--environmentfRfIfilefR"></a><span class="nroffip">\fB--environment=\fR\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Alternative default <span Class="bold">environment</span> file to use. Default is f(CW*(C`/etc/postgresql-common/environment*(C'</span> (or f(CW*(C`$PGSYSCONFDIR/environment*(C'</span>). If the file is missing, a placeholder string is used. f(CW%v</span> and f(CW%c</span> are replaced; see s-1DEFAULT VALUESs0 below. 
+<p class="level0"><a name="fB--fR"></a><span class="nroffip">\fB--\fR \fIinitdb options\fR 4</span> 
+<p class="level1">
+<p class="level1">Options passed directly to <span Class="emphasis">initdb</span>|(1). 
+<p class="level1">Per default, <span Class="bold">pg_createcluster</span> will update the f(CW*(C`pg_hba.conf*(C'</span> file generated by initdb to use peer authentication on local (unix) connections, and md5 on s-1TCP s0(host) connections. If explicit authentication config is included here (<span Class="bold">-A</span>, <span Class="bold">--auth</span>, <span Class="bold">--auth-host</span>, <span Class="bold">--auth-local</span>), the f(CW*(C`pg_hba.conf*(C'</span> file will be left untouched. <a name="STARTUP"></a><h2 class="nroffsh">STARTUP CONTROL</h2>
+<p class="level0">
+<p class="level0">The f(CW*(C`start.conf*(C'</span> file in the cluster configuration directory controls the start/stop behavior of that cluster's postmaster process. The file can contain comment lines (started with '&#35;'), empty lines, and must have exactly one line with one of the following keywords: 
+<p class="level0"><a name="fBautofR"></a><span class="nroffip">\fBauto\fR 4</span> 
+<p class="level1">
+<p class="level1">The postmaster process is started/stopped automatically in the init script. This is also the default if the file is missing. 
+<p class="level0"><a name="fBmanualfR"></a><span class="nroffip">\fBmanual\fR 4</span> 
+<p class="level1">
+<p class="level1">The postmaster process is not handled by the init script, but manually controlling the cluster with <span Class="emphasis">pg_ctlcluster</span>|(1) is permitted. 
+<p class="level0"><a name="fBdisabledfR"></a><span class="nroffip">\fBdisabled\fR 4</span> 
+<p class="level1">
+<p class="level1">Neither the init script nor <span Class="emphasis">pg_ctlcluster</span>|(1) are permitted to start/stop the cluster. Please be aware that this will not stop the cluster owner from calling lower level tools to control the postmaster process; this option is only meant to prevent accidents during maintenance, not more. 
+<p class="level1">The f(CW*(C`pg_ctl.conf*(C'</span> file in the cluster configuration directory can contain additional options passed to pg_ctl of that cluster. <a name="DEFAULT"></a><h2 class="nroffsh">DEFAULT VALUES</h2>
+<p class="level0">
+<p class="level0">Some default values used by <span Class="bold">pg_createcluster</span> can be modified in f(CW*(C`/etc/postgresql-common/createcluster.conf*(C'</span>. Occurrences of <span class="bold">f(CB%v<span Class="bold"></span> are replaced by the major version number, and <span class="bold">f(CB%c<span Class="bold"></span> by the cluster name. Use <span Class="bold">%%</span> for a literal <span Class="bold">%</span>. 
+<p class="level0"><a name="fBcreatemainclusterfR"></a><span class="nroffip">\fBcreate_main_cluster\fR (Default: \fBtrue\fR) 4</span> 
+<p class="level1">
+<p class="level1">Create a <span Class="bold">main</span> cluster when a new postgresql-x.y server package is installed. 
+<p class="level0"><a name="fBstartconffR"></a><span class="nroffip">\fBstart_conf\fR (Default: \fBauto\fR) 4</span> 
+<p class="level1">
+<p class="level1">Default f(CW*(C`start.conf*(C'</span> value to use. 
+<p class="level0"><a name="fBdatadirectoryfR"></a><span class="nroffip">\fBdata_directory\fR (Default: \fB/var/lib/postgresql/%v/%c\fR) 4</span> 
+<p class="level1">
+<p class="level1">Default data directory. 
+<p class="level0"><a name="fBxlogdirfR"></a><span class="nroffip">\fBxlogdir\fR (Default: unset) 4</span> 
+<p class="level1">
+<p class="level1">Default directory for transaction logs. When used, <span Class="bold">initdb</span> will create a symlink from f(CW*(C`pg_xlog*(C'</span> in the data directory to this location. Unset by default, i.e. pg_xlog is remains in the data directory. 
+<p class="level0"><a name="fBinitdboptionsfR"></a><span class="nroffip">\fBinitdb_options\fR (Default: unset) 4</span> 
+<p class="level1">
+<p class="level1">Other options to pass to <span Class="bold">initdb</span>. 
+<p class="level0"><a name="Other"></a><span class="nroffip">Other options 4</span> 
+<p class="level1">
+<p class="level1">All other options listed are copied into the new cluster's postgresql.conf, e.g.: 
+<p class="level1">
+<p class="level1">&nbsp;   listen_addresses = *(Aq**(Aq &nbsp;   log_line_prefix = *(Aq%%t *(Aq 
+<p class="level1">
+<p class="level1">Some postgresql.conf options are treated specially: 
+<p class="level2">
+<p class="level1"><a name="fBsslfR"></a><span class="nroffip">\fBssl\fR 4</span> 
+<p class="level2">
+<p class="level2">Only added to postgresql.conf if the default snakeoil certificates exist and are readable for the cluster owner as detailed above. 
+<p class="level1"><a name="fBstatstempdirectoryfR"></a><span class="nroffip">\fBstats_temp_directory\fR 4</span> 
+<p class="level2">
+<p class="level2">Only added to postgresql.conf if existing, and writable for the cluster owner, or else if the parent directory is writable. 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">initdb</span>|(1), <span Class="emphasis">pg_ctlcluster</span>|(8), <span Class="emphasis">pg_lsclusters</span>|(1), <span Class="emphasis">pg_wrapper</span>|(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Martin Pitt &lt;mpitt@debian.org&gt;, Christoph Berg &lt;myon@debian.org&gt; 

@@ -1,0 +1,472 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">kadmin - Kerberos V5 database administration program 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">kadmin</span> [<span Class="bold">-O</span>|<span Class="bold">-N</span>] [<span Class="bold">-r</span> <span Class="emphasis">realm</span>] [<span Class="bold">-p</span> <span Class="emphasis">principal</span>] [<span Class="bold">-q</span> <span Class="emphasis">query</span>] [[<span Class="bold">-c</span> <span Class="emphasis">cache_name</span>]|[<span Class="bold">-k</span> [<span Class="bold">-t</span> <span Class="emphasis">keytab</span>]]|<span Class="bold">-n</span>] [<span Class="bold">-w</span> <span Class="emphasis">password</span>] [<span Class="bold">-s</span> <span Class="emphasis">admin_server</span>[:<span Class="emphasis">port</span>]] 
+<p class="level0"><span Class="bold">kadmin.local</span> [<span Class="bold">-r</span> <span Class="emphasis">realm</span>] [<span Class="bold">-p</span> <span Class="emphasis">principal</span>] [<span Class="bold">-q</span> <span Class="emphasis">query</span>] [<span Class="bold">-d</span> <span Class="emphasis">dbname</span>] [<span Class="bold">-e</span> <span Class="emphasis">enc</span>:<span Class="emphasis">salt</span> ...] [<span Class="bold">-m</span>] [<span Class="bold">-x</span> <span Class="emphasis">db_args</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">kadmin and kadmin.local are command-line interfaces to the Kerberos V5 administration system.  They provide nearly identical functionalities; the difference is that kadmin.local directly accesses the KDC database, while kadmin performs operations using <span Class="emphasis">kadmind(8)</span>. Except as explicitly noted otherwise, this man page will use "kadmin" to refer to both versions.  kadmin provides for the maintenance of Kerberos principals, password policies, and service key tables (keytabs). 
+<p class="level0">The remote kadmin client uses Kerberos to authenticate to kadmind using the service principal <span Class="bold">kadmin/ADMINHOST</span> (where <span Class="emphasis">ADMINHOST</span> is the fully-qualified hostname of the admin server) or <span Class="bold">kadmin/admin</span>. If the credentials cache contains a ticket for one of these principals, and the <span Class="bold">-c</span> credentials_cache option is specified, that ticket is used to authenticate to kadmind.  Otherwise, the <span Class="bold">-p</span> and <span Class="bold">-k</span> options are used to specify the client Kerberos principal name used to authenticate.  Once kadmin has determined the principal name, it requests a service ticket from the KDC, and uses that service ticket to authenticate to kadmind. 
+<p class="level0">Since kadmin.local directly accesses the KDC database, it usually must be run directly on the master KDC with sufficient permissions to read the KDC database.  If the KDC database uses the LDAP database module, kadmin.local can be run on any host which can access the LDAP server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-r realm</span> Use <span Class="emphasis">realm</span> as the default database realm. 
+<p class="level0"><span Class="bold">\fB-p principal</span> Use <span Class="emphasis">principal</span> to authenticate.  Otherwise, kadmin will append <span Class="bold">/admin</span> to the primary principal name of the default ccache, the value of the <span Class="bold">USER</span> environment variable, or the username as obtained with getpwuid, in order of preference. 
+<p class="level0"><span Class="bold">\fB-k</span> Use a keytab to decrypt the KDC response instead of prompting for a password.  In this case, the default principal will be <span Class="bold">host/hostname</span>.  If there is no keytab specified with the <span Class="bold">-t</span> option, then the default keytab will be used. 
+<p class="level0"><span Class="bold">\fB-t keytab</span> Use <span Class="emphasis">keytab</span> to decrypt the KDC response.  This can only be used with the <span Class="bold">-k</span> option. 
+<p class="level0"><span Class="bold">\fB-n</span> Requests anonymous processing.  Two types of anonymous principals are supported.  For fully anonymous Kerberos, configure PKINIT on the KDC and configure <span Class="bold">pkinit_anchors</span> in the client(aqs <span Class="emphasis">krb5.conf(5)</span>.  Then use the <span Class="bold">-n</span> option with a principal of the form <span Class="bold">@REALM</span> (an empty principal name followed by the at-sign and a realm name).  If permitted by the KDC, an anonymous ticket will be returned.  A second form of anonymous tickets is supported; these realm-exposed tickets hide the identity of the client but not the client(aqs realm.  For this mode, use <span class="bold">kinit -n</span> with a normal principal name.  If supported by the KDC, the principal (but not realm) will be replaced by the anonymous principal.  As of release 1.8, the MIT Kerberos KDC only supports fully anonymous operation. 
+<p class="level0"><span Class="bold">\fB-c credentials_cache</span> Use <span Class="emphasis">credentials_cache</span> as the credentials cache.  The cache should contain a service ticket for the <span Class="bold">kadmin/ADMINHOST</span> (where <span Class="emphasis">ADMINHOST</span> is the fully-qualified hostname of the admin server) or <span Class="bold">kadmin/admin</span> service; it can be acquired with the <span Class="emphasis">kinit(1)</span> program.  If this option is not specified, kadmin requests a new service ticket from the KDC, and stores it in its own temporary ccache. 
+<p class="level0"><span Class="bold">\fB-w password</span> Use <span Class="emphasis">password</span> instead of prompting for one.  Use this option with care, as it may expose the password to other users on the system via the process list. 
+<p class="level0"><span Class="bold">\fB-q query</span> Perform the specified query and then exit.  This can be useful for writing scripts. 
+<p class="level0"><span Class="bold">\fB-d dbname</span> Specifies the name of the KDC database.  This option does not apply to the LDAP database module. 
+<p class="level0"><span Class="bold">\fB-s admin_server[:port]</span> Specifies the admin server which kadmin should contact. 
+<p class="level0"><span Class="bold">\fB-m</span> If using kadmin.local, prompt for the database master password instead of reading it from a stash file. 
+<p class="level0"><span Class="bold">\fB-e enc:salt ...</span> Sets the keysalt list to be used for any new keys created.  See <span Class="emphasis">Keysalt_lists</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of possible values. 
+<p class="level0"><span Class="bold">\fB-O</span> Force use of old AUTH_GSSAPI authentication flavor. 
+<p class="level0"><span Class="bold">\fB-N</span> Prevent fallback to AUTH_GSSAPI authentication flavor. 
+<p class="level0"><span Class="bold">\fB-x db_args</span> Specifies the database specific arguments.  Options supported for the LDAP database module are: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-x host=hostname</span> Specifies the LDAP server to connect to by a LDAP URI. 
+<p class="level0"><span Class="bold">\fB-x binddn=bind_dn</span> Specifies the DN of the object used by the administration server to bind to the LDAP server.  This object should have the read and write privileges on the realm container, the principal container, and the subtree that is referenced by the realm. 
+<p class="level0"><span Class="bold">\fB-x bindpwd=bind_password</span> Specifies the password for the above mentioned binddn.  Using this option may expose the password to other users on the system via the process list; to avoid this, instead stash the password using the <span Class="bold">stashsrvpw</span> command of <span Class="emphasis">kdb5_ldap_util(8)</span>. 
+<p class="level0"><span Class="bold">\fB-x debug=level</span> sets the OpenLDAP client library debug level.  <span Class="emphasis">level</span> is an integer to be interpreted by the library.  Debugging messages are printed to standard error.  New in release 1.12. 
+<p class="level0">
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">When using the remote client, available commands may be restricted according to the privileges specified in the <span Class="emphasis">kadm5.acl(5)</span> file on the admin server. <a name="addprincipal"></a><h2 class="nroffsh">add_principal</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#addprincipal">add_principal</a> [<span Class="emphasis">options</span>] <span Class="emphasis">newprinc</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Creates the principal <span Class="emphasis">newprinc</span>, prompting twice for a password.  If no password policy is specified with the <span Class="bold">-policy</span> option, and the policy named <span Class="bold">default</span> is assigned to the principal if it exists. However, creating a policy named <span Class="bold">default</span> will not automatically assign this policy to previously existing principals.  This policy assignment can be suppressed with the <span Class="bold">-clearpolicy</span> option. 
+<p class="level0">This command requires the <span Class="bold">add</span> privilege. 
+<p class="level0">Aliases: <span Class="bold">addprinc</span>, <span Class="bold">ank</span> 
+<p class="level0">Options: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-expire expdate</span> (<span Class="emphasis">getdate</span> string) The expiration date of the principal. 
+<p class="level0"><span Class="bold">\fB-pwexpire pwexpdate</span> (<span Class="emphasis">getdate</span> string) The password expiration date. 
+<p class="level0"><span Class="bold">\fB-maxlife maxlife</span> (<span Class="emphasis">getdate</span> string) The maximum ticket life for the principal. 
+<p class="level0"><span Class="bold">\fB-maxrenewlife maxrenewlife</span> (<span Class="emphasis">getdate</span> string) The maximum renewable life of tickets for the principal. 
+<p class="level0"><span Class="bold">\fB-kvno kvno</span> The initial key version number. 
+<p class="level0"><span Class="bold">\fB-policy policy</span> The password policy used by this principal.  If not specified, the policy <span Class="bold">default</span> is used if it exists (unless <span Class="bold">-clearpolicy</span> is specified). 
+<p class="level0"><span Class="bold">\fB-clearpolicy</span> Prevents any policy from being assigned when <span Class="bold">-policy</span> is not specified. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_postdated</span> <span Class="bold">-allow_postdated</span> prohibits this principal from obtaining postdated tickets.  <span Class="bold">+allow_postdated</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_forwardable</span> <span Class="bold">-allow_forwardable</span> prohibits this principal from obtaining forwardable tickets.  <span Class="bold">+allow_forwardable</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_renewable</span> <span Class="bold">-allow_renewable</span> prohibits this principal from obtaining renewable tickets.  <span Class="bold">+allow_renewable</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_proxiable</span> <span Class="bold">-allow_proxiable</span> prohibits this principal from obtaining proxiable tickets.  <span Class="bold">+allow_proxiable</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_dup_skey</span> <span Class="bold">-allow_dup_skey</span> disables user-to-user authentication for this principal by prohibiting this principal from obtaining a session key for another user.  <span Class="bold">+allow_dup_skey</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBrequires_preauth</span> <span Class="bold">+requires_preauth</span> requires this principal to preauthenticate before being allowed to kinit.  <span Class="bold">-requires_preauth</span> clears this flag.  When <span Class="bold">+requires_preauth</span> is set on a service principal, the KDC will only issue service tickets for that service principal if the client(aqs initial authentication was performed using preauthentication. 
+<p class="level0"><span Class="bold">{-|+}\fBrequires_hwauth</span> <span Class="bold">+requires_hwauth</span> requires this principal to preauthenticate using a hardware device before being allowed to kinit. <span Class="bold">-requires_hwauth</span> clears this flag.  When <span Class="bold">+requires_hwauth</span> is set on a service principal, the KDC will only issue service tickets for that service principal if the client(aqs initial authentication was performed using a hardware device to preauthenticate. 
+<p class="level0"><span Class="bold">{-|+}\fBok_as_delegate</span> <span Class="bold">+ok_as_delegate</span> sets the <span Class="bold">okay as delegate</span> flag on tickets issued with this principal as the service.  Clients may use this flag as a hint that credentials should be delegated when authenticating to the service.  <span Class="bold">-ok_as_delegate</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_svr</span> <span Class="bold">-allow_svr</span> prohibits the issuance of service tickets for this principal.  <span Class="bold">+allow_svr</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_tgs_req</span> <span Class="bold">-allow_tgs_req</span> specifies that a Ticket-Granting Service (TGS) request for a service ticket for this principal is not permitted. <span Class="bold">+allow_tgs_req</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBallow_tix</span> <span Class="bold">-allow_tix</span> forbids the issuance of any tickets for this principal.  <span Class="bold">+allow_tix</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBneedchange</span> <span Class="bold">+needchange</span> forces a password change on the next initial authentication to this principal.  <span Class="bold">-needchange</span> clears this flag. 
+<p class="level0"><span Class="bold">{-|+}\fBpassword_changing_service</span> <span Class="bold">+password_changing_service</span> marks this principal as a password change service principal. 
+<p class="level0"><span Class="bold">{-|+}\fBok_to_auth_as_delegate</span> <span Class="bold">+ok_to_auth_as_delegate</span> allows this principal to acquire forwardable tickets to itself from arbitrary users, for use with constrained delegation. 
+<p class="level0"><span Class="bold">{-|+}\fBno_auth_data_required</span> <span Class="bold">+no_auth_data_required</span> prevents PAC or AD-SIGNEDPATH data from being added to service tickets for the principal. 
+<p class="level0"><span Class="bold">\fB-randkey</span> Sets the key of the principal to a random value. 
+<p class="level0"><span Class="bold">\fB-nokey</span> Causes the principal to be created with no key.  New in release 1.12. 
+<p class="level0"><span Class="bold">\fB-pw password</span> Sets the password of the principal to the specified string and does not prompt for a password.  Note: using this option in a shell script may expose the password to other users on the system via the process list. 
+<p class="level0"><span Class="bold">\fB-e enc:salt,...</span> Uses the specified keysalt list for setting the keys of the principal.  See <span Class="emphasis">Keysalt_lists</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of possible values. 
+<p class="level0"><span Class="bold">\fB-x db_princ_args</span> Indicates database-specific options.  The options for the LDAP database module are: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-x dn=dn</span> Specifies the LDAP object that will contain the Kerberos principal being created. 
+<p class="level0"><span Class="bold">\fB-x linkdn=dn</span> Specifies the LDAP object to which the newly created Kerberos principal object will point. 
+<p class="level0"><span Class="bold">\fB-x containerdn=container_dn</span> Specifies the container object under which the Kerberos principal is to be created. 
+<p class="level0"><span Class="bold">\fB-x tktpolicy=policy</span> Associates a ticket policy to the Kerberos principal. 
+<p class="level0">
+<p class="level0"><a name="Note"></a><span class="nroffip">Note</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">The <span Class="bold">containerdn</span> and <span Class="bold">linkdn</span> options cannot be specified with the <span Class="bold">dn</span> option. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1">If the <span Class="emphasis">dn</span> or <span Class="emphasis">containerdn</span> options are not specified while adding the principal, the principals are created under the principal container configured in the realm or the realm container. 
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2</span> 
+<p class="level1"><span Class="emphasis">dn</span> and <span Class="emphasis">containerdn</span> should be within the subtrees or principal container configured in the realm. 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: addprinc jennifer
+WARNING: no policy specified for "jennifer@ATHENA.MIT.EDU";
+defaulting to no policy.
+Enter password for principal jennifer@ATHENA.MIT.EDU:
+Re-enter password for principal jennifer@ATHENA.MIT.EDU:
+Principal "jennifer@ATHENA.MIT.EDU" created.
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="modifyprincipal"></a><h2 class="nroffsh">modify_principal</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#modifyprincipal">modify_principal</a> [<span Class="emphasis">options</span>] <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Modifies the specified principal, changing the fields as specified. The options to <a class="bold" href="#addprincipal">add_principal</a> also apply to this command, except for the <span Class="bold">-randkey</span>, <span Class="bold">-pw</span>, and <span Class="bold">-e</span> options.  In addition, the option <span Class="bold">-clearpolicy</span> will clear the current policy of a principal. 
+<p class="level0">This command requires the <span Class="emphasis">modify</span> privilege. 
+<p class="level0">Alias: <span Class="bold">modprinc</span> 
+<p class="level0">Options (in addition to the <span Class="bold">addprinc</span> options): 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-unlock</span> Unlocks a locked principal (one which has received too many failed authentication attempts without enough time between them according to its password policy) so that it can successfully authenticate. 
+<p class="level0"><a name="renameprincipal"></a><h2 class="nroffsh">rename_principal</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#renameprincipal">rename_principal</a> [<span Class="bold">-force</span>] <span Class="emphasis">old_principal</span> <span Class="emphasis">new_principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Renames the specified <span Class="emphasis">old_principal</span> to <span Class="emphasis">new_principal</span>.  This command prompts for confirmation, unless the <span Class="bold">-force</span> option is given. 
+<p class="level0">This command requires the <span Class="bold">add</span> and <span Class="bold">delete</span> privileges. 
+<p class="level0">Alias: <span Class="bold">renprinc</span> <a name="deleteprincipal"></a><h2 class="nroffsh">delete_principal</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#deleteprincipal">delete_principal</a> [<span Class="bold">-force</span>] <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Deletes the specified <span Class="emphasis">principal</span> from the database.  This command prompts for deletion, unless the <span Class="bold">-force</span> option is given. 
+<p class="level0">This command requires the <span Class="bold">delete</span> privilege. 
+<p class="level0">Alias: <span Class="bold">delprinc</span> <a name="changepassword"></a><h2 class="nroffsh">change_password</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#changepassword">change_password</a> [<span Class="emphasis">options</span>] <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Changes the password of <span Class="emphasis">principal</span>.  Prompts for a new password if neither <span Class="bold">-randkey</span> or <span Class="bold">-pw</span> is specified. 
+<p class="level0">This command requires the <span Class="bold">changepw</span> privilege, or that the principal running the program is the same as the principal being changed. 
+<p class="level0">Alias: <span Class="bold">cpw</span> 
+<p class="level0">The following options are available: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-randkey</span> Sets the key of the principal to a random value. 
+<p class="level0"><span Class="bold">\fB-pw password</span> Set the password to the specified string.  Using this option in a script may expose the password to other users on the system via the process list. 
+<p class="level0"><span Class="bold">\fB-e enc:salt,...</span> Uses the specified keysalt list for setting the keys of the principal.  See <span Class="emphasis">Keysalt_lists</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of possible values. 
+<p class="level0"><span Class="bold">\fB-keepold</span> Keeps the existing keys in the database.  This flag is usually not necessary except perhaps for <span Class="bold">krbtgt</span> principals. 
+<p class="level0">
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: cpw systest
+Enter password for principal systest@BLEEP.COM:
+Re-enter password for principal systest@BLEEP.COM:
+Password for systest@BLEEP.COM changed.
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="purgekeys"></a><h2 class="nroffsh">purgekeys</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#purgekeys">purgekeys</a> [<span Class="bold">-all</span>|<span Class="bold">-keepkvno</span> <span Class="emphasis">oldest_kvno_to_keep</span>] <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Purges previously retained old keys (e.g., from <span class="bold">change_password -keepold</span>) from <span Class="emphasis">principal</span>.  If <span Class="bold">-keepkvno</span> is specified, then only purges keys with kvnos lower than <span Class="emphasis">oldest_kvno_to_keep</span>.  If <span Class="bold">-all</span> is specified, then all keys are purged.  The <span Class="bold">-all</span> option is new in release 1.12. 
+<p class="level0">This command requires the <span Class="bold">modify</span> privilege. <a name="getprincipal"></a><h2 class="nroffsh">get_principal</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#getprincipal">get_principal</a> [<span Class="bold">-terse</span>] <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Gets the attributes of principal.  With the <span Class="bold">-terse</span> option, outputs fields as quoted tab-separated strings. 
+<p class="level0">This command requires the <span Class="bold">inquire</span> privilege, or that the principal running the the program to be the same as the one being listed. 
+<p class="level0">Alias: <span Class="bold">getprinc</span> 
+<p class="level0">Examples: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: getprinc tlyu/admin
+Principal: tlyu/admin@BLEEP.COM
+Expiration date: [never]
+Last password change: Mon Aug 12 14:16:47 EDT 1996
+Password expiration date: [none]
+Maximum ticket life: 0 days 10:00:00
+Maximum renewable life: 7 days 00:00:00
+Last modified: Mon Aug 12 14:16:47 EDT 1996 (bjaspan/admin@BLEEP.COM)
+Last successful authentication: [never]
+Last failed authentication: [never]
+Failed password attempts: 0
+Number of keys: 2
+Key: vno 1, DES cbc mode with CRC-32, no salt
+Key: vno 1, DES cbc mode with CRC-32, Version 4
+Attributes:
+Policy: [none]
+&nbsp;
+kadmin: getprinc -terse systest
+systest@BLEEP.COM   3    86400     604800    1
+785926535 753241234 785900000
+tlyu/admin@BLEEP.COM     786100034 0    0
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="listprincipals"></a><h2 class="nroffsh">list_principals</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#listprincipals">list_principals</a> [<span Class="emphasis">expression</span>] 
+<p class="level0">
+<p class="level0">
+<p class="level0">Retrieves all or some principal names.  <span Class="emphasis">expression</span> is a shell-style glob expression that can contain the wild-card characters <span Class="bold">?</span>, <span Class="bold">*</span>, and <span Class="bold">[]</span>.  All principal names matching the expression are printed.  If no expression is provided, all principal names are printed.  If the expression does not contain an <span Class="bold">@</span> character, an <span Class="bold">@</span> character followed by the local realm is appended to the expression. 
+<p class="level0">This command requires the <span Class="bold">list</span> privilege. 
+<p class="level0">Alias: <span Class="bold">listprincs</span>, <span Class="bold">get_principals</span>, <span Class="bold">get_princs</span> 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin:  listprincs test*
+test3@SECURE-TEST.OV.COM
+test2@SECURE-TEST.OV.COM
+test1@SECURE-TEST.OV.COM
+testuser@SECURE-TEST.OV.COM
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="getstrings"></a><h2 class="nroffsh">get_strings</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#getstrings">get_strings</a> <span Class="emphasis">principal</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Displays string attributes on <span Class="emphasis">principal</span>. 
+<p class="level0">This command requires the <span Class="bold">inquire</span> privilege. 
+<p class="level0">Alias: <span Class="bold">getstr</span> <a name="setstring"></a><h2 class="nroffsh">set_string</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#setstring">set_string</a> <span Class="emphasis">principal</span> <span Class="emphasis">key</span> <span Class="emphasis">value</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Sets a string attribute on <span Class="emphasis">principal</span>.  String attributes are used to supply per-principal configuration to the KDC and some KDC plugin modules.  The following string attributes are recognized by the KDC: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBsession_enctypes</span> Specifies the encryption types supported for session keys when the principal is authenticated to as a server.  See <span Class="emphasis">Encryption_types</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of the accepted values. 
+<p class="level0">
+<p class="level0">This command requires the <span Class="bold">modify</span> privilege. 
+<p class="level0">Alias: <span Class="bold">setstr</span> <a name="delstring"></a><h2 class="nroffsh">del_string</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#delstring">del_string</a> <span Class="emphasis">principal</span> <span Class="emphasis">key</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Deletes a string attribute from <span Class="emphasis">principal</span>. 
+<p class="level0">This command requires the <span Class="bold">delete</span> privilege. 
+<p class="level0">Alias: <span Class="bold">delstr</span> <a name="addpolicy"></a><h2 class="nroffsh">add_policy</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#addpolicy">add_policy</a> [<span Class="emphasis">options</span>] <span Class="emphasis">policy</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Adds a password policy named <span Class="emphasis">policy</span> to the database. 
+<p class="level0">This command requires the <span Class="bold">add</span> privilege. 
+<p class="level0">Alias: <span Class="bold">addpol</span> 
+<p class="level0">The following options are available: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-maxlife time</span> (<span Class="emphasis">getdate</span> string) Sets the maximum lifetime of a password. 
+<p class="level0"><span Class="bold">\fB-minlife time</span> (<span Class="emphasis">getdate</span> string) Sets the minimum lifetime of a password. 
+<p class="level0"><span Class="bold">\fB-minlength length</span> Sets the minimum length of a password. 
+<p class="level0"><span Class="bold">\fB-minclasses number</span> Sets the minimum number of character classes required in a password.  The five character classes are lower case, upper case, numbers, punctuation, and whitespace/unprintable characters. 
+<p class="level0"><span Class="bold">\fB-history number</span> Sets the number of past keys kept for a principal.  This option is not supported with the LDAP KDC database module. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-maxfailure maxnumber</span> Sets the number of authentication failures before the principal is locked.  Authentication failures are only tracked for principals which require preauthentication.  The counter of failed attempts resets to 0 after a successful attempt to authenticate.  A <span Class="emphasis">maxnumber</span> value of 0 (the default) disables lockout. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-failurecountinterval failuretime</span> (<span Class="emphasis">getdate</span> string) Sets the allowable time between authentication failures.  If an authentication failure happens after <span Class="emphasis">failuretime</span> has elapsed since the previous failure, the number of authentication failures is reset to 1.  A <span Class="emphasis">failuretime</span> value of 0 (the default) means forever. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-lockoutduration lockouttime</span> (<span Class="emphasis">getdate</span> string) Sets the duration for which the principal is locked from authenticating if too many authentication failures occur without the specified failure count interval elapsing. A duration of 0 (the default) means the principal remains locked out until it is administratively unlocked with <span class="bold">modprinc -unlock</span>. 
+<p class="level0"><span Class="bold">\fB-allowedkeysalts</span> Specifies the key/salt tuples supported for long-term keys when setting or changing a principal(aqs password/keys.  See <span Class="emphasis">Keysalt_lists</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of the accepted values, but note that key/salt tuples must be separated with commas ((aq,(aq) only.  To clear the allowed key/salt policy use a value of (aq-(aq. 
+<p class="level0">
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: add_policy -maxlife "2 days" -minlength 5 guests
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="modifypolicy"></a><h2 class="nroffsh">modify_policy</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#modifypolicy">modify_policy</a> [<span Class="emphasis">options</span>] <span Class="emphasis">policy</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Modifies the password policy named <span Class="emphasis">policy</span>.  Options are as described for <a class="bold" href="#addpolicy">add_policy</a>. 
+<p class="level0">This command requires the <span Class="bold">modify</span> privilege. 
+<p class="level0">Alias: <span Class="bold">modpol</span> <a name="deletepolicy"></a><h2 class="nroffsh">delete_policy</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#deletepolicy">delete_policy</a> [<span Class="bold">-force</span>] <span Class="emphasis">policy</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Deletes the password policy named <span Class="emphasis">policy</span>.  Prompts for confirmation before deletion.  The command will fail if the policy is in use by any principals. 
+<p class="level0">This command requires the <span Class="bold">delete</span> privilege. 
+<p class="level0">Alias: <span Class="bold">delpol</span> 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: del_policy guests
+Are you sure you want to delete the policy "guests"?
+(yes/no): yes
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="getpolicy"></a><h2 class="nroffsh">get_policy</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#getpolicy">get_policy</a> [ <span Class="bold">-terse</span> ] <span Class="emphasis">policy</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Displays the values of the password policy named <span Class="emphasis">policy</span>.  With the <span Class="bold">-terse</span> flag, outputs the fields as quoted strings separated by tabs. 
+<p class="level0">This command requires the <span Class="bold">inquire</span> privilege. 
+<p class="level0">Alias: getpol 
+<p class="level0">Examples: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: get_policy admin
+Policy: admin
+Maximum password life: 180 days 00:00:00
+Minimum password life: 00:00:00
+Minimum password length: 6
+Minimum number of password character classes: 2
+Number of old keys kept: 5
+Reference count: 17
+&nbsp;
+kadmin: get_policy -terse admin
+admin     15552000  0    6    2    5    17
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The "Reference count" is the number of principals using that policy. With the LDAP KDC database module, the reference count field is not meaningful. <a name="listpolicies"></a><h2 class="nroffsh">list_policies</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#listpolicies">list_policies</a> [<span Class="emphasis">expression</span>] 
+<p class="level0">
+<p class="level0">
+<p class="level0">Retrieves all or some policy names.  <span Class="emphasis">expression</span> is a shell-style glob expression that can contain the wild-card characters <span Class="bold">?</span>, <span Class="bold">*</span>, and <span Class="bold">[]</span>.  All policy names matching the expression are printed.  If no expression is provided, all existing policy names are printed. 
+<p class="level0">This command requires the <span Class="bold">list</span> privilege. 
+<p class="level0">Aliases: <span Class="bold">listpols</span>, <span Class="bold">get_policies</span>, <span Class="bold">getpols</span>. 
+<p class="level0">Examples: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin:  listpols
+test-pol
+dict-only
+once-a-min
+test-pol-nopw
+&nbsp;
+kadmin:  listpols t*
+test-pol
+test-pol-nopw
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ktadd"></a><h2 class="nroffsh">ktadd</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="bold">ktadd</span> [options] <span class="emphasis">principal</span>
+<span class="bold">ktadd</span> [options] <span class="bold">-glob</span> <span class="emphasis">princ-exp</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Adds a <span Class="emphasis">principal</span>, or all principals matching <span Class="emphasis">princ-exp</span>, to a keytab file.  Each principal(aqs keys are randomized in the process. The rules for <span Class="emphasis">princ-exp</span> are described in the <a class="bold" href="#listprincipals">list_principals</a> command. 
+<p class="level0">This command requires the <span Class="bold">inquire</span> and <span Class="bold">changepw</span> privileges. With the <span Class="bold">-glob</span> form, it also requires the <span Class="bold">list</span> privilege. 
+<p class="level0">The options are: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-k[eytab] keytab</span> Use <span Class="emphasis">keytab</span> as the keytab file.  Otherwise, the default keytab is used. 
+<p class="level0"><span Class="bold">\fB-e enc:salt,...</span> Uses the specified keysalt list for setting the new keys of the principal.  See <span Class="emphasis">Keysalt_lists</span> in <span Class="emphasis">kdc.conf(5)</span> for a list of possible values. 
+<p class="level0"><span Class="bold">\fB-q</span> Display less verbose information. 
+<p class="level0"><span Class="bold">\fB-norandkey</span> Do not randomize the keys. The keys and their version numbers stay unchanged.  This option is only available in kadmin.local, and cannot be specified in combination with the <span Class="bold">-e</span> option. 
+<p class="level0">
+<p class="level0">An entry for each of the principal(aqs unique encryption types is added, ignoring multiple keys with the same encryption type but different salt types. 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: ktadd -k /tmp/foo-new-keytab host/foo.mit.edu
+Entry for principal host/foo.mit.edu@ATHENA.MIT.EDU with kvno 3,
+&nbsp;    encryption type aes256-cts-hmac-sha1-96 added to keytab
+&nbsp;    FILE:/tmp/foo-new-keytab
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ktremove"></a><h2 class="nroffsh">ktremove</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="bold" href="#ktremove">ktremove</a> [options] <span Class="emphasis">principal</span> [<span Class="emphasis">kvno</span> | <span Class="emphasis">all</span> | <span Class="emphasis">old</span>] 
+<p class="level0">
+<p class="level0">
+<p class="level0">Removes entries for the specified <span Class="emphasis">principal</span> from a keytab.  Requires no permissions, since this does not require database access. 
+<p class="level0">If the string "all" is specified, all entries for that principal are removed; if the string "old" is specified, all entries for that principal except those with the highest kvno are removed.  Otherwise, the value specified is parsed as an integer, and all entries whose kvno match that integer are removed. 
+<p class="level0">The options are: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-k[eytab] keytab</span> Use <span Class="emphasis">keytab</span> as the keytab file.  Otherwise, the default keytab is used. 
+<p class="level0"><span Class="bold">\fB-q</span> Display less verbose information. 
+<p class="level0">
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+kadmin: ktremove kadmin/admin all
+Entry for principal kadmin/admin with kvno 3 removed from keytab
+&nbsp;    FILE:/etc/krb5.keytab
+kadmin:
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="lock"></a><h2 class="nroffsh">lock</h2>
+<p class="level0">
+<p class="level0">Lock database exclusively.  Use with extreme caution!  This command only works with the DB2 KDC database module. <a name="unlock"></a><h2 class="nroffsh">unlock</h2>
+<p class="level0">
+<p class="level0">Release the exclusive database lock. <a name="listrequests"></a><h2 class="nroffsh">list_requests</h2>
+<p class="level0">
+<p class="level0">Lists available for kadmin requests. 
+<p class="level0">Aliases: <span Class="bold">lr</span>, <span Class="bold">?</span> <a name="quit"></a><h2 class="nroffsh">quit</h2>
+<p class="level0">
+<p class="level0">Exit program.  If the database was locked, the lock is released. 
+<p class="level0">Aliases: <span Class="bold">exit</span>, <span Class="bold">q</span> <a name="HISTORY"></a><h2 class="nroffsh">HISTORY</h2>
+<p class="level0">
+<p class="level0">The kadmin program was originally written by Tom Yu at MIT, as an interface to the OpenVision Kerberos administration program. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">kpasswd(1)</span>, <span Class="emphasis">kadmind(8)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

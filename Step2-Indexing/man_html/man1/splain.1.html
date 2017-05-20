@@ -1,0 +1,180 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">diagnostics, splain - produce verbose warning diagnostics <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">Using the f(CW*(C`diagnostics*(C'</span> pragma: 
+<p class="level0">
+<p class="level0">&nbsp;   use diagnostics; &nbsp;   use diagnostics -verbose; 
+<p class="level0">&nbsp;   enable  diagnostics; &nbsp;   disable diagnostics; 
+<p class="level0">
+<p class="level0">Using the f(CW*(C`splain*(C'</span> standalone filter program: 
+<p class="level0">
+<p class="level0">&nbsp;   perl program 2&gt;diag.out &nbsp;   splain [-v] [-p] diag.out 
+<p class="level0">
+<p class="level0">Using diagnostics to get stack traces from a misbehaving script: 
+<p class="level0">
+<p class="level0">&nbsp;   perl -Mdiagnostics=-traceonly my_script.pl 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This module extends the terse diagnostics normally emitted by both the perl compiler and the perl interpreter (from running perl with a -w  switch or f(CW*(C`use warnings*(C'</span>), augmenting them with the more explicative and endearing descriptions found in perldiag.  Like the other pragmata, it affects the compilation phase of your program rather than merely the execution phase. 
+<p class="level0">To use in your program as a pragma, merely invoke 
+<p class="level0">
+<p class="level0">&nbsp;   use diagnostics; 
+<p class="level0">
+<p class="level0">at the start (or near the start) of your program.  (Note  that this <span Class="emphasis">does</span> enable perl's <span Class="bold">-w</span> flag.)  Your whole compilation will then be subject(ed :-) to the enhanced diagnostics. These still go out <span Class="bold">s-1STDERRs0</span>. 
+<p class="level0">Due to the interaction between runtime and compiletime issues, and because it's probably not a very good idea anyway, you may not use f(CW*(C`no diagnostics*(C'</span> to turn them off at compiletime. However, you may control their behaviour at runtime using the  <span Class="emphasis">disable()</span> and <span Class="emphasis">enable()</span> methods to turn them off and on respectively. 
+<p class="level0">The <span Class="bold">-verbose</span> flag first prints out the perldiag introduction before any other diagnostics.  The f(CW$diagnostics::PRETTY</span> variable can generate nicer escape sequences for pagers. 
+<p class="level0">Warnings dispatched from perl itself (or more accurately, those that match descriptions found in perldiag) are only displayed once (no duplicate descriptions).  User code generated warnings a la <span Class="emphasis">warn()</span> are unaffected, allowing duplicate user messages to be displayed. 
+<p class="level0">This module also adds a stack trace to the error message when perl dies. This is useful for pinpointing what caused the death.  The <span Class="bold">-traceonly</span> (or just <span Class="bold">-t</span>) flag turns off the explanations of warning messages leaving just the stack traces.  So if your script is dieing, run it again with 
+<p class="level0">
+<p class="level0">&nbsp; perl -Mdiagnostics=-traceonly my_bad_script 
+<p class="level0">
+<p class="level0">to see the call stack at the time of death.  By supplying the <span Class="bold">-warntrace</span> (or just <span Class="bold">-w</span>) flag, any warnings emitted will also come with a stack trace. <a name="The"></a><h2 class="nroffsh">The \fIsplain\fP Program</h2>
+<p class="level0">
+<p class="level0">While apparently a whole nuther program, <span Class="emphasis">splain</span> is actually nothing more than a link to the (executable) <span Class="emphasis">diagnostics.pm</span> module, as well as a link to the <span Class="emphasis">diagnostics.pod</span> documentation.  The <span Class="bold">-v</span> flag is like the f(CW*(C`use diagnostics -verbose*(C'</span> directive. The <span Class="bold">-p</span> flag is like the f(CW$diagnostics::PRETTY</span> variable.  Since you're post-processing with  <span Class="emphasis">splain</span>, there's no sense in being able to <span Class="emphasis">enable()</span> or <span Class="emphasis">disable()</span> processing. 
+<p class="level0">Output from <span Class="emphasis">splain</span> is directed to <span Class="bold">s-1STDOUTs0</span>, unlike the pragma. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">The following file is certain to trigger a few errors at both runtime and compiletime: 
+<p class="level0">
+<p class="level0">&nbsp;   use diagnostics; &nbsp;   print NOWHERE "nothingen"; &nbsp;   print STDERR "enetThis message should be unadorned.en"; &nbsp;   warn "etThis is a user warning"; &nbsp;   print "enDIAGNOSTIC TESTER: Please enter a &lt;CR&gt; here: "; &nbsp;   my $a, $b = scalar &lt;STDIN&gt;; &nbsp;   print "en"; &nbsp;   print $x/$y; 
+<p class="level0">
+<p class="level0">If you prefer to run your program first and look at its problem afterwards, do this: 
+<p class="level0">
+<p class="level0">&nbsp;   perl -w test.pl 2&gt;test.out &nbsp;   ./splain &lt; test.out 
+<p class="level0">
+<p class="level0">Note that this is not in general possible in shells of more dubious heritage,  as the theoretical 
+<p class="level0">
+<p class="level0">&nbsp;   (perl -w test.pl &gt;/dev/tty) &gt;& test.out &nbsp;   ./splain &lt; test.out 
+<p class="level0">
+<p class="level0">Because you just moved the existing <span Class="bold">stdout</span> to somewhere else. 
+<p class="level0">If you don't want to modify your source code, but still have on-the-fly warnings, do this: 
+<p class="level0">
+<p class="level0">&nbsp;   exec 3&gt;&1; perl -w test.pl 2&gt;&1 1&gt;&3 3&gt;&- | splain 1&gt;&2 3&gt;&- 
+<p class="level0">
+<p class="level0">Nifty, eh? 
+<p class="level0">If you want to control warnings on the fly, do something like this. Make sure you do the f(CW*(C`use*(C'</span> first, or you won't be able to get at the <span Class="emphasis">enable()</span> or <span Class="emphasis">disable()</span> methods. 
+<p class="level0">
+<p class="level0">&nbsp;   use diagnostics; &#35; checks entire compilation phase  &nbsp;       print "entime for 1st bogus diags: SQUAWKINGSen"; &nbsp;       print BOGUS1 *(Aqnada*(Aq; &nbsp;       print "done with 1st bogusen"; 
+<p class="level0">&nbsp;   disable diagnostics; &#35; only turns off runtime warnings &nbsp;       print "entime for 2nd bogus: (squelched)en"; &nbsp;       print BOGUS2 *(Aqnada*(Aq; &nbsp;       print "done with 2nd bogusen"; 
+<p class="level0">&nbsp;   enable diagnostics; &#35; turns back on runtime warnings &nbsp;       print "entime for 3rd bogus: SQUAWKINGSen"; &nbsp;       print BOGUS3 *(Aqnada*(Aq; &nbsp;       print "done with 3rd bogusen"; 
+<p class="level0">&nbsp;   disable diagnostics; &nbsp;       print "entime for 4th bogus: (squelched)en"; &nbsp;       print BOGUS4 *(Aqnada*(Aq; &nbsp;       print "done with 4th bogusen"; 
+<p class="level0"><a name="INTERNALS"></a><h2 class="nroffsh">INTERNALS</h2>
+<p class="level0">
+<p class="level0">Diagnostic messages derive from the <span Class="emphasis">perldiag.pod</span> file when available at runtime.  Otherwise, they may be embedded in the file itself when the splain package is built.   See the <span Class="emphasis">Makefile</span> for details. 
+<p class="level0">If an extant f(CW$SIG</span>{_|_WARN_|_} handler is discovered, it will continue to be honored, but only after the <span Class="emphasis">diagnostics::splainthis()</span> function  (the module's f(CW$SIG</span>{_|_WARN_|_} interceptor) has had its way with your warnings. 
+<p class="level0">There is a f(CW$diagnostics::DEBUG</span> variable you may set if you're desperately curious what sorts of things are being intercepted. 
+<p class="level0">
+<p class="level0">&nbsp;   BEGIN { $diagnostics::DEBUG = 1 } 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Not being able to say *(L"no diagnostics*(R" is annoying, but may not be insurmountable. 
+<p class="level0">The f(CW*(C`-pretty*(C'</span> directive is called too late to affect matters. You have to do this instead, and <span Class="emphasis">before</span> you load the module. 
+<p class="level0">
+<p class="level0">&nbsp;   BEGIN { $diagnostics::PRETTY = 1 } 
+<p class="level0">
+<p class="level0">I could start up faster by delaying compilation until it should be needed, but this gets a *(L"panic: top_level*(R" when using the pragma form in Perl 5.001e. 
+<p class="level0">While it's true that this documentation is somewhat subserious, if you use a program named <span Class="emphasis">splain</span>, you should expect a bit of whimsy. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Tom Christiansen &lt;<span Class="emphasis">tchrist@mox.perl.com</span>&gt;, 25 June 1995. 

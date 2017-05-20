@@ -1,0 +1,47 @@
+appletviewer(1)             General Commands Manual            appletviewer(1)
+
+
+
+Name
+       appletviewer - The Java Applet Viewer.
+
+       The  appletviewer  command  allows  you to run applets outside of a web
+       browser.
+
+SYNOPSIS
+       appletviewer [ options ] urls ...
+
+DESCRIPTION
+       The appletviewer command connects to the documents or resources  desig-
+       nated  by  urls and displays each applet referenced by the documents in
+       its own window. Note: if the documents referred to by urls do not  ref-
+       erence  any  applets  with  the  OBJECT,  EMBED,  or  APPLET  tag, then
+       appletviewer  does  nothing.  For  details  on  the  HTML   tags   that
+       appletviewer supports, see AppletViewer Tags @
+       http://docs.oracle.com/javase/7/docs/technotes/tools/appletview-
+       ertags.html.
+
+       Note: The appletviewer is intended for development purposes only. See
+       About Sample / Test Applications and Code for more information.
+
+       Note: The appletviewer requires encoded URLs according to the escaping
+       mechanism defined in RFC2396. Only encoded URLs are supported. However,
+       file names must be unencoded, as specified in RFC2396.
+
+OPTIONS
+          -debug
+             Starts the applet viewer in the Java debugger, jdb(1), thus
+             allowing you to debug the applets in the document.
+
+          -encoding    encoding name
+             Specify the input HTML file encoding name.
+
+          -Jjavaoption
+             Passes through the string javaoption as a single argument to the
+             Java interpreter which runs the appletviewer. The argument should
+             not contain spaces. Multiple argument words must all begin with
+             the prefix -J, which is stripped. This is useful for adjusting
+             the compiler's execution environment or memory usage.
+
+
+                                  18 Jul 2013                  appletviewer(1)

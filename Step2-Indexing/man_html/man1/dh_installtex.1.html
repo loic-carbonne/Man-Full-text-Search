@@ -1,0 +1,174 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dh_installtex - register Type 1 fonts, hyphenation patterns, or formats with TeX <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dh_installtex</span> [<span Class="emphasis">debhelper&nbsp;options</span>] [<span Class="bold">-n</span>] [<span Class="bold">--priority=</span><span Class="emphasis">n</span>] [<span Class="bold">--flavor=</span><span Class="emphasis">flavor</span>[,<span Class="emphasis">flavor</span>]] [<span Class="bold">map=MixedMap,</span><span Class="emphasis">file.map</span>] [<span Class="bold">map=Map,</span><span Class="emphasis">file.map</span>] [<span Class="bold">map=KanjiMap,</span><span Class="emphasis">file.map</span>] [<span Class="bold">mapfile=</span><span Class="emphasis">file.cfg</span>[=<span Class="emphasis">n</span>]] [<span Class="bold">hyphen=</span><span Class="emphasis">lang</span>,<span Class="emphasis">file</span>[,lhm=<span Class="emphasis">n</span>][,rhm=<span Class="emphasis">n</span>][,synonym=<span Class="emphasis">syn</span>,...]] [<span Class="bold">hyphenfile=</span><span Class="emphasis">file.cnf</span>[=<span Class="emphasis">n</span>]] [<span Class="bold">format=</span><span Class="emphasis">format</span>,<span Class="emphasis">engine</span>,<span Class="emphasis">hyphenfile</span>,<span Class="emphasis">rest args</span>] [<span Class="bold">formatfile=</span><span Class="emphasis">file.cnf</span>[=<span Class="emphasis">n</span>]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">dh_installtex is a debhelper program that is responsible for updating the ls-R databases, registering map files, new formats,  and new hyphenation patterns with TeX. 
+<p class="level0">Your package should depend on an appropriate version of tex-common so that the update-* commands are available. (This program adds that dependency to ${misc:Depends}.) 
+<p class="level0"><span Class="bold">s-1WARNINGs0</span> This program does <span Class="bold">not</span> check for the actual existence of any  input files in s-1TEXMFs0 trees. If you call it without any further specification on which packages to work on (using f(CW*(C`-p*(C'</span> or f(CW*(C`-N*(C'</span>) it will add calls to management functions to <span Class="bold">all</span> packages. In this case don't forget to  add ${misc:Depends} to all packages' dependencies. <a name="SIMPLE"></a><h2 class="nroffsh">SIMPLE USAGE: Registering Files</h2>
+<p class="level0">
+<p class="level0">If you only install files into /usr/share/texmf and want to be sure that  mktexlsr is called in a correct way (e.g., also in the postrm script when there is no functional mktexlsr), simply call 
+<p class="level0">
+<p class="level0">&nbsp;       dh_installtex 
+<p class="level0"><a name="COMPLEX"></a><h2 class="nroffsh">COMPLEX USAGE: Registering fonts, hyphenation patterns and formats</h2>
+<p class="level0">
+<p class="level0">If in addition, you have to install map files, hyphenation patterns for additional languages, or format definitions you can use three different methods to specify what should be installed: 
+<p class="level0">1) <span Class="bold">Pre made config files:</span> These files can be specified with the different <span Class="emphasis">type</span>file= options, together with an optional priority. <span Class="emphasis">type</span> can be one of map, format and hyphen, and these files will be installed into /etc/texmf/<span Class="emphasis">configdir</span>/ for the respective type (updmap.d for map files, hyphen.d for hyphenation pattern files, and fmt.d for format files). 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">&nbsp;       dh_installtex mapfile=foo.cfg formatfile=debian/bar.cnf=42 
+<p class="level0">
+<p class="level0">would install foo.cfg as /var/lib/tex-common/fontmap-cfg/texmf/foo.cfg,  and debian/bar.cnf as /etc/texmf/fmt.d/42bar.cnf. 
+<p class="level0">2) <span Class="bold">Directly on the cmd line:</span> You can specify maps, formats, and hyphenations on the cmd line. The items are stored in the respective config file 20package 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">&nbsp;       dh_installtex map=Map,foo.map hyphen=ngerman-x-2011-07-01,dehyphn-x-2011-07-01.tex,hyph-de-1996.pat.txt,lhm=2,rhm=2,synonym=ngerman-x-latest,exceptions=hyph-de-1996.hyp.txt 
+<p class="level0">
+<p class="level0">would install a file /var/lib/tex-common/fontmap-cfg/texmf/package.cfg containing the line 
+<p class="level0">
+<p class="level0">&nbsp;       Map foo.map 
+<p class="level0">
+<p class="level0">and a file /etc/texmf/hyphen.d/20package.cnf containing the lines 
+<p class="level0">
+<p class="level0">&nbsp;   name=ngerman-x-2011-07-01 file=dehyphn-x-2011-07-01.tex file_patterns=hyph-de-1996.pat.txt lefthyphenmin=2 righthyphenmin=2 synonym=ngerman-x-latest file_exceptions=hyph-de-1996.hyp.txt 
+<p class="level0">
+<p class="level0">3) <span Class="bold">Package files:</span> You create a file debian/package.maps or debian/maps, debian/package.hyphens or debian/hyphens,  debian/package.formats or debian/formats. These files are installed with default priority and the name of the package. Each of these files will be installed into the first package dh_installtex is told to act on. By default this is the first binary package in debian/control, but if you use -p, -i, or -a flags, it will be the first package specified by those flags. 
+<p class="level0">Example: 
+<p class="level0">
+<p class="level0">&nbsp;       dh_installtex 
+<p class="level0">
+<p class="level0">would install a present debian/package.formats file as /etc/texmf/fmt.d/20package.cnf. <a name="Mixing"></a><h2 class="nroffsh">Mixing the different variants</h2>
+<p class="level0">
+<p class="level0">The command line items (Variant 2) are merged into the debian/package.maps  (debian/package.hyphens, debian/package.formats) file and the merged file is installed as 20package.cfg/cnf. If you specify an additional package.cfg/cnf (Variant 1) without a different priority than the default one on the cmd line, this will raise an error since both files would be installed as 20package.cfg/cnf. You can only specify  package.cfg/cnf without a different priority than the default one if no debian/package.maps nor any command line Map files are present. <a name="The"></a><h2 class="nroffsh">The pseudo-comment</h2>
+<p class="level0">
+<p class="level0">If the provided cfg files do not contain the pseudo-comment as described in the Debian TeX Policy, Font configuration, an additional header with explanation, warning and the pseudo-comment is added. 
+<p class="level0">This program automatically generates the postinst and postrm commands needed to register the fonts with TeX.  See <span Class="emphasis">dh_installdeb</span>|(1) for an explanation of how this works. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--noscripts\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not modify postinst/prerm scripts. 
+<p class="level0"><a name="fB--priorityfRfInfR"></a><span class="nroffip">\fB--priority=\fR\fIn\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the default priority to <span Class="emphasis">n</span> instead of 20. 
+<p class="level0"><a name="fB--flavorfRfIflavorfRfIflavorfR"></a><span class="nroffip">\fB--flavor=\fR\fIflavor\fR[,\fIflavor\fR] 4</span> 
+<p class="level1">
+<p class="level1">This option is used to select a different tree then the default /usr/share/texmf, and to switch on additional options. The argument specify a list from flavors to be selected. At the moment you can select from the following list of flavors: <span Class="bold">tree:texlive</span>, <span Class="bold">map:config_for_active_maps</span>, <span Class="bold">map:config_for_all_maps</span>,  <span Class="bold">format:build_all</span>, <span class="bold">format:add_one:f(BIformatname<span Class="bold"></span>, and <span Class="bold">lsr:full</span>. 
+<p class="level1"><span Class="bold">tree:texlive</span> will select the tree /usr/share/texlive/texmf-dist and should only be used for files installed into this tree. 
+<p class="level1"><span Class="bold">map:config_for_active_maps</span> will create a file <span Class="emphasis">config.bar</span> for each active (i.e. uncommented) map in each of the cfg file generated by one of the three methods described above. These files are installed in /usr/share/texmf/dvips/config/. 
+<p class="level1">If you select <span Class="bold">map:config_for_all_maps</span> the script will generate <span Class="emphasis">config.bar</span> even for those map files which are present in a cfg file, but deactivated by a comment. 
+<p class="level1">The file <span Class="emphasis">config.bar</span> is used when called by `dvips -Pbar ...'. Thus it allows the activation of single map files even if they are not automatically activated via the updmap(-sys) mechanism. 
+<p class="level1">Default is <span Class="emphasis">not</span> to generate any config files. 
+<p class="level1"><span Class="bold">format:build_all</span> will add code to the postinst script to create all defined formats, and to the postrm script to clean and recreate? s-1FIXMEs0? the generated formats. 
+<p class="level1"><span class="bold">format:add_one:f(BIformatname<span Class="bold"></span> allows to add the generation of a specific format without actually providing it (in a cnf file).  This is useful if a  package adds hyphenation patterns to an existing formats. 
+<p class="level1"><span Class="bold">format:no_links</span>: Usually, for every format that is specified in a configuration file in /etc/texmf/fmt.d/, dh_installtex will create a symlink /usr/bin/<span Class="emphasis">format</span> that points to the corresponding engine.  For example, /usr/bin/latex would be created as a symlink to pdftex. 
+<p class="level1">The flavor <span Class="bold">format:no_links</span> inhibits this. If a link already exists, dh_installtex will skip this format with an informational message, even if this option is not given. 
+<p class="level1"><span Class="bold">lsr:full</span>: Recreate the lsr database not only for the standard trees, but also the distribution tree f(CW*(C`/usr/share/texlive/texmf*(C'</span> and f(CW*(C`/usr/share/texlive/texmf-dist*(C'</span>. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">*(L"dh_installtex*(R" adds a dependency relation onto tex-common to misc:Depends. If files are installed into /usr/share/texmf/doc, the version is &gt;=4, otherwise &gt;=3. 
+<p class="level0">Note that this command is not idempotent. *(L"dh_clean -k*(R" should be called between invocations of this command, unless using the <span Class="bold">-n</span> option. Otherwise, it may cause multiple instances of the same text to be added to maintainer scripts. 
+<p class="level0">Please refer to the Debian TeX policy for details about fonts configuration for TeX by Debian packages. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debhelper</span>|(7) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">This program and its documentation was written by Norbert Preining &lt;<span Class="emphasis">preining@logic.at</span>&gt; for the Debian Operating System and both are licensed under the s-1GNUs0 General Public License Version 2 or later. 

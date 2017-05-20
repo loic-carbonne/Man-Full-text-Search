@@ -1,0 +1,873 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tlmgr - the TeX Live Manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">tlmgr [<a class="emphasis" href="#option">option</a>]... <span Class="emphasis">action</span> [<a class="emphasis" href="#option">option</a>]... [<span Class="emphasis">operand</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">tlmgr</span> manages an existing TeX Live installation, both packages and configuration options.  For information on initially downloading and installing TeX Live, see &lt;http://tug.org/texlive/acquire.html&gt;. 
+<p class="level0">The most up-to-date version of this documentation (updated nightly from the development sources) is available at &lt;http://tug.org/texlive/tlmgr.html&gt;, along with procedures for updating f(CW*(C`tlmgr*(C'</span> itself and information about test versions. 
+<p class="level0">WARNING: tlmgr in Debian runs always in user mode 
+<p class="level0">TeX Live is organized into a few top-level <span Class="emphasis">schemes</span>, each of which is specified as a different set of <span Class="emphasis">collections</span> and <span Class="emphasis">packages</span>, where a collection is a set of packages, and a package is what contains actual files.  Schemes typically contain a mix of collections and packages, but each package is included in exactly one collection, no more and no less. A TeX Live installation can be customized and managed at any level. 
+<p class="level0">See &lt;http://tug.org/texlive/doc&gt; for all the TeX Live documentation available. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">After successfully installing TeX Live, here are a few common operations with f(CW*(C`tlmgr*(C'</span>: 
+<p class="level0">
+<p class="level0">
+<p class="level0">Tell f(CW*(C`tlmgr*(C'</span> to use a nearby s-1CTANs0 mirror for future updates; useful if you installed TeX Live from the s-1DVDs0 image and want continuing updates. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Report what would be updated without actually updating anything. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Make your local TeX installation correspond to what is in the package repository (typically useful when updating from s-1CTANs0). 
+<p class="level0">
+<p class="level0">
+<p class="level0">Display detailed information about <span Class="emphasis">pkg</span>, such as the installation status and description. 
+<p class="level0">For all the capabilities and details of f(CW*(C`tlmgr*(C'</span>, please read the following voluminous information. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options to f(CW*(C`tlmgr*(C'</span> are global options, not specific to any action.  All options, whether global or action-specific, can be given anywhere on the command line, and in any order.  The first non-option argument will be the main action.  In all cases, f(CW*(C`--*(C'</span><a class="emphasis" href="#option">option</a> and f(CW*(C`-*(C'</span><a class="emphasis" href="#option">option</a> are equivalent, and an f(CW*(C`=*(C'</span> is optional between an option name and its value. 
+<p class="level0"><a name="fB--repositoryfR"></a><span class="nroffip">\fB--repository\fR \fIurl|path\fR 4</span> 
+<p class="level1">
+<p class="level1">Specifies the package repository from which packages should be installed or updated, overriding the default package repository found in the installation's TeX Live Package Database (a.k.a. the s-1TLPDB,s0 defined entirely in the file f(CW*(C`tlpkg/texlive.tlpdb*(C'</span>).  The documentation for f(CW*(C`install-tl*(C'</span> has more details about this (&lt;http://tug.org/texlive/doc/install-tl.html&gt;). 
+<p class="level1">f(CW*(C`--repository*(C'</span> changes the repository location only for the current run; to make a permanent change, use f(CW*(C`option repository*(C'</span> (see the *(L"option*(R" action). 
+<p class="level1">For backward compatibility and convenience, f(CW*(C`--location*(C'</span> and f(CW*(C`--repo*(C'</span> are accepted as aliases for this option. 
+<p class="level0"><a name="fB--guifR"></a><span class="nroffip">\fB--gui\fR [\fIaction\fR] 4</span> 
+<p class="level1">
+<p class="level1">f(CW*(C`tlmgr*(C'</span> has a graphical interface as well as the command line interface.  You can give this option, f(CW*(C`--gui*(C'</span>, together with an action to be brought directly into the respective screen of the s-1GUI. s0 For example, running 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr --gui update 
+<p class="level1">
+<p class="level1">starts you directly at the update screen.  If no action is given, the s-1GUIs0 will be started at the main screen. 
+<p class="level0"><a name="fB--gui-langfR"></a><span class="nroffip">\fB--gui-lang\fR \fIllcode\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, the s-1GUIs0 tries to deduce your language from the environment (on Windows via the registry, on Unix via f(CW*(C`LC_MESSAGES*(C'</span>). If that fails you can select a different language by giving this option with a language code (based on s-1ISO 639-1s0).  Currently supported (but not necessarily completely translated) are: English (en, default), Czech (cs), German (de), French (fr), Italian (it), Japanese (ja), Dutch (nl), Polish (pl), Brazilian Portuguese (pt_BR), Russian (ru), Slovak (sk), Slovenian (sl), Serbian (sr), Ukrainian (uk), Vietnamese (vi), simplified Chinese (zh_CN), and traditional Chinese (zh_TW). 
+<p class="level0"><a name="fB--debug-translationfR"></a><span class="nroffip">\fB--debug-translation\fR 4</span> 
+<p class="level1">
+<p class="level1">In s-1GUIs0 mode, this switch tells f(CW*(C`tlmgr*(C'</span> to report any untranslated (or missing) messages to standard error.  This can help translators to see what remains to be done. 
+<p class="level0"><a name="fB--machine-readablefR"></a><span class="nroffip">\fB--machine-readable\fR 4</span> 
+<p class="level1">
+<p class="level1">Instead of the normal output intended for human consumption, write (to standard output) a fixed format more suitable for machine parsing.  See the *(L"MACHINE-READABLE s-1OUTPUT*(R"s0 section below. 
+<p class="level0"><a name="fB--no-execute-actionsfR"></a><span class="nroffip">\fB--no-execute-actions\fR 4</span> 
+<p class="level1">
+<p class="level1">Suppress the execution of the execute actions as defined in the tlpsrc files.  Documented only for completeness, as this is only useful in debugging. 
+<p class="level0"><a name="fB--package-logfilefR"></a><span class="nroffip">\fB--package-logfile\fR \fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">f(CW*(C`tlmgr*(C'</span> logs all package actions (install, remove, update, failed updates, failed restores) to a separate log file, by default f(CW*(C`TEXMFSYSVAR/web2c/tlmgr.log*(C'</span>.  This option allows you to specific a different file for the log. 
+<p class="level0"><a name="fB--pausefR"></a><span class="nroffip">\fB--pause\fR 4</span> 
+<p class="level1">
+<p class="level1">This option makes f(CW*(C`tlmgr*(C'</span> wait for user input before exiting.  Useful on Windows to avoid disappearing command windows. 
+<p class="level0"><a name="fB--persistent-downloadsfR"></a><span class="nroffip">\fB--persistent-downloads\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--no-persistent-downloadsfR"></a><span class="nroffip">\fB--no-persistent-downloads\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">For network-based installations, this option (on by default) makes f(CW*(C`tlmgr*(C'</span> try to set up a persistent connection (using the f(CW*(C`LWP*(C'</span> Perl module).  The idea is to open and reuse only one connection per session between your computer and the server, instead of initiating a new download for each package. 
+<p class="level1">If this is not possible, f(CW*(C`tlmgr*(C'</span> will fall back to using f(CW*(C`wget*(C'</span>.  To disable these persistent connections, use f(CW*(C`--no-persistent-downloads*(C'</span>. 
+<p class="level0"><a name="fB--pin-filefR"></a><span class="nroffip">\fB--pin-file\fR 4</span> 
+<p class="level1">
+<p class="level1">Change the pinning file location from f(CW*(C`TEXMFLOCAL/tlpkg/pinning.txt*(C'</span> (see *(L"Pinning*(R" below).  Documented only for completeness, as this is only useful in debugging. 
+<p class="level0"><a name="fB--usermodefR"></a><span class="nroffip">\fB--usermode\fR 4</span> 
+<p class="level1">
+<p class="level1">Activates user mode for this run of f(CW*(C`tlmgr*(C'</span>; see *(L"s-1USER MODE*(R"s0 below. 
+<p class="level0"><a name="fB--usertreefR"></a><span class="nroffip">\fB--usertree\fR \fIdir\fR 4</span> 
+<p class="level1">
+<p class="level1">Uses <span Class="emphasis">dir</span> for the tree in user mode; see *(L"s-1USER MODE*(R"s0 below. 
+<p class="level1">The standard options for TeX Live programs are also accepted: f(CW*(C`--help/-h/-?*(C'</span>, f(CW*(C`--version*(C'</span>, f(CW*(C`-q*(C'</span> (no informational messages), f(CW*(C`-v*(C'</span> (debugging messages, can be repeated).  For the details about these, see the f(CW*(C`TeXLive::TLUtils*(C'</span> documentation. 
+<p class="level1">The f(CW*(C`--version*(C'</span> option shows version information about the TeX Live release and about the f(CW*(C`tlmgr*(C'</span> script itself.  If f(CW*(C`-v*(C'</span> is also given, revision number for the loaded TeX Live Perl modules are shown, too. <a name="ACTIONS"></a><h2 class="nroffsh">ACTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="help"></a><h2 class="nroffsh">help</h2>
+<p class="level0">
+<p class="level0">Display this help information and exit (same as f(CW*(C`--help*(C'</span>, and on the web at &lt;http://tug.org/texlive/doc/tlmgr.html&gt;).  Sometimes the f(CW*(C`perldoc*(C'</span> and/or f(CW*(C`PAGER*(C'</span> programs on the system have problems, resulting in control characters being literally output.  This can't always be detected, but you can set the f(CW*(C`NOPERLDOC*(C'</span> environment variable and f(CW*(C`perldoc*(C'</span> will not be used. <a name="version"></a><h2 class="nroffsh">version</h2>
+<p class="level0">
+<p class="level0">Gives version information (same as f(CW*(C`--version*(C'</span>). 
+<p class="level0">If f(CW*(C`-v*(C'</span> has been given the revisions of the used modules are reported, too. <a name="backup"></a><h2 class="nroffsh">backup [--clean[=\fIN\fP]] [--backupdir \fIdir\fP] [--all | \fIpkg\fP]...</h2>
+<p class="level0">
+<p class="level0">If the f(CW*(C`--clean*(C'</span> option is not specified, this action makes a backup of the given packages, or all packages given f(CW*(C`--all*(C'</span>. These backups are saved to the value of the f(CW*(C`--backupdir*(C'</span> option, if that is an existing and writable directory. If f(CW*(C`--backupdir*(C'</span> is not given, the f(CW*(C`backupdir*(C'</span> option setting in the s-1TLPDBs0 is used, if present.  If both are missing, no backups are made. 
+<p class="level0">If the f(CW*(C`--clean*(C'</span> option is specified, backups are pruned (removed) instead of saved. The optional integer value <span Class="emphasis">N</span> may be specified to set the number of backups that will be retained when cleaning. If f(CW*(C`N*(C'</span> is not given, the value of the f(CW*(C`autobackup*(C'</span> option is used. If both are missing, an error is issued. For more details of backup pruning, see the f(CW*(C`option*(C'</span> action. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--backupdirfR"></a><span class="nroffip">\fB--backupdir\fR \fIdirectory\fR 4</span> 
+<p class="level1">
+<p class="level1">Overrides the f(CW*(C`backupdir*(C'</span> option setting in the s-1TLPDB.s0 The <span Class="emphasis">directory</span> argument is required and must specify an existing, writable directory where backups are to be placed. 
+<p class="level0"><a name="fB--allfR"></a><span class="nroffip">\fB--all\fR 4</span> 
+<p class="level1">
+<p class="level1">If f(CW*(C`--clean*(C'</span> is not specified, make a backup of all packages in the TeX Live installation; this will take quite a lot of space and time.  If f(CW*(C`--clean*(C'</span> is specified, all packages are pruned. 
+<p class="level0"><a name="fB--cleanfRfINfR"></a><span class="nroffip">\fB--clean\fR[=\fIN\fR] 4</span> 
+<p class="level1">
+<p class="level1">Instead of making backups, prune the backup directory of old backups, as explained above. The optional integer argument <span Class="emphasis">N</span> overrides the f(CW*(C`autobackup*(C'</span> option set in the s-1TLPDB. s0 You must use f(CW*(C`--all*(C'</span> or a list of packages together with this option, as desired. 
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually backed up or removed; instead, the actions to be performed are written to the terminal. <a name="candidates"></a><h2 class="nroffsh">candidates \fIpkg\fP</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBcandidates"></a><span class="nroffip">\fBcandidates \f(BIpkg\fB\fR 4</span> 
+<p class="level1">
+<p class="level1">Shows the available candidate repositories for package <span Class="emphasis">pkg</span>. See *(L"s-1MULTIPLE REPOSITORIES*(R"s0 below. <a name="check"></a><h2 class="nroffsh">check [\fIoption\fP]... [files|depends|executes|runfiles|all]</h2>
+<p class="level0">
+<p class="level0">Executes one (or all) check(s) on the consistency of the installation. 
+<p class="level0"><a name="fBfilesfR"></a><span class="nroffip">\fBfiles\fR 4</span> 
+<p class="level1">
+<p class="level1">Checks that all files listed in the local s-1TLPDB s0(f(CW*(C`texlive.tlpdb*(C'</span>) are actually present, and lists those missing. 
+<p class="level0"><a name="fBdependsfR"></a><span class="nroffip">\fBdepends\fR 4</span> 
+<p class="level1">
+<p class="level1">Lists those packages which occur as dependencies in an installed collections, but are themselves not installed, and those packages that are not contained in any collection. 
+<p class="level1">If you call f(CW*(C`tlmgr check collections*(C'</span> this test will be carried out instead since former versions for f(CW*(C`tlmgr*(C'</span> called it that way. 
+<p class="level0"><a name="fBexecutesfR"></a><span class="nroffip">\fBexecutes\fR 4</span> 
+<p class="level1">
+<p class="level1">Check that the files referred to by f(CW*(C`execute*(C'</span> directives in the TeX Live Database are present. 
+<p class="level0"><a name="fBrunfilesfR"></a><span class="nroffip">\fBrunfiles\fR 4</span> 
+<p class="level1">
+<p class="level1">List those filenames that are occurring more than one time in the runfiles. 
+<p class="level1">Options: 
+<p class="level0"><a name="fB--use-svnfR"></a><span class="nroffip">\fB--use-svn\fR 4</span> 
+<p class="level1">
+<p class="level1">Use the output of f(CW*(C`svn status*(C'</span> instead of listing the files; for checking the s-1TLs0 development repository. <a name="conf"></a><h2 class="nroffsh">conf [texmf|tlmgr|updmap [--conffile \fIfile\fP] [--delete] [\fIkey\fP [\fIvalue\fP]]]</h2>
+<p class="level0">
+<p class="level0">With only f(CW*(C`conf*(C'</span>, show general configuration information for TeX Live, including active configuration files, path settings, and more.  This is like the f(CW*(C`texconfig conf*(C'</span> call, but works on all supported platforms. 
+<p class="level0">With either f(CW*(C`conf texmf*(C'</span>, f(CW*(C`conf tlmgr*(C'</span>, or f(CW*(C`conf updmap*(C'</span> given in addition, shows all key/value pairs (i.e., all settings) as saved in f(CW*(C`ROOT/texmf.cnf*(C'</span>, the tlmgr configuration file (see below), or the first found (via kpsewhich) f(CW*(C`updmap.cfg*(C'</span> file, respectively. 
+<p class="level0">If <span Class="emphasis">key</span> is given in addition, shows the value of only that <span Class="emphasis">key</span> in the respective file.  If option <span Class="emphasis">--delete</span> is also given, the configuration file *(-- it is removed, not just commented out! 
+<p class="level0">If <span Class="emphasis">value</span> is given in addition, <span Class="emphasis">key</span> is set to <span Class="emphasis">value</span> in the  respective file.  <span Class="emphasis">No error checking is done!</span> 
+<p class="level0">In all cases the file used can be explicitly specified via the option f(CW*(C`--conffile f(CIfilef(CW*(C'</span>, in case one wants to operate on a different file. 
+<p class="level0">Practical application: if the execution of (some or all) system commands via f(CW*(C`ewrite18*(C'</span> was left enabled during installation, you can disable it afterwards: 
+<p class="level0">
+<p class="level0">&nbsp; tlmgr conf texmf shell_escape 0 
+<p class="level0">
+<p class="level0">A more complicated example: the f(CW*(C`TEXMFHOME*(C'</span> tree (see the main TeX Live guide, &lt;http://tug.org/texlive/doc.html&gt;) can be set to multiple directories, but they must be enclosed in braces and separated by commas, so quoting the value to the shell is a good idea.  Thus: 
+<p class="level0">
+<p class="level0">&nbsp; tlmgr conf texmf TEXMFHOME "{~/texmf,~/texmfbis}" 
+<p class="level0">
+<p class="level0">Warning: The general facility is here, but tinkering with settings in this way is very strongly discouraged.  Again, no error checking on either keys or values is done, so any sort of breakage is possible. <a name="dump-tlpdb"></a><h2 class="nroffsh">dump-tlpdb [--local|--remote]</h2>
+<p class="level0">
+<p class="level0">Dump complete local or remote s-1TLPDBs0 to standard output, as-is.  The output is analogous to the f(CW*(C`--machine-readable*(C'</span> output; see *(L"MACHINE-READABLE s-1OUTPUT*(R"s0 section. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--localfR"></a><span class="nroffip">\fB--local\fR 4</span> 
+<p class="level1">
+<p class="level1">Dump the local tlpdb. 
+<p class="level0"><a name="fB--remotefR"></a><span class="nroffip">\fB--remote\fR 4</span> 
+<p class="level1">
+<p class="level1">Dump the remote tlpdb. 
+<p class="level1">Exactly one of f(CW*(C`--local*(C'</span> and f(CW*(C`--remote*(C'</span> must be given. 
+<p class="level1">In either case, the first line of the output specifies the repository location, in this format: 
+<p class="level1">
+<p class="level1">&nbsp; "location-url" "et" location 
+<p class="level1">
+<p class="level1">where f(CW*(C`location-url*(C'</span> is the literal field name, followed by a tab, and <span Class="emphasis">location</span> is the file or url to the repository. 
+<p class="level1">Line endings may be either s-1LFs0 or s-1CRLFs0 depending on the current platform. <a name="generate"></a><h2 class="nroffsh">generate [\fIoption\fP]... \fIwhat\fP</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBgenerate"></a><span class="nroffip">\fBgenerate language\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBgenerate"></a><span class="nroffip">\fBgenerate language.dat\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBgenerate"></a><span class="nroffip">\fBgenerate language.def\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBgenerate"></a><span class="nroffip">\fBgenerate language.dat.lua\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBgenerate"></a><span class="nroffip">\fBgenerate fmtutil\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">The f(CW*(C`generate*(C'</span> action overwrites any manual changes made in the respective files: it recreates them from scratch based on the information of the installed packages, plus local adaptions. The TeX Live installer and f(CW*(C`tlmgr*(C'</span> routinely call f(CW*(C`generate*(C'</span> for all of these files. 
+<p class="level1">For managing your own fonts, please read the f(CW*(C`updmap --help*(C'</span> information and/or &lt;http://tug.org/fonts/fontinstall.html&gt;. 
+<p class="level1">In more detail: f(CW*(C`generate*(C'</span> remakes any of the configuration files f(CW*(C`language.dat*(C'</span>, f(CW*(C`language.def*(C'</span>, f(CW*(C`language.dat.lua*(C'</span>, and f(CW*(C`fmtutil.cnf*(C'</span>, from the information present in the local s-1TLPDB,s0 plus locally-maintained files. 
+<p class="level1">The locally-maintained files are f(CW*(C`language-local.dat*(C'</span>, f(CW*(C`language-local.def*(C'</span>, f(CW*(C`language-local.dat.lua*(C'</span>, or f(CW*(C`fmtutil-local.cnf*(C'</span>, searched for in f(CW*(C`TEXMFLOCAL*(C'</span> in the respective directories.  If local additions are present, the final file is made by starting with the main file, omitting any entries that the local file specifies to be disabled, and finally appending the local file. 
+<p class="level1">(Historical note: The formerly supported f(CW*(C`updmap-local.cfg*(C'</span> is no longer read, since f(CW*(C`updmap*(C'</span> now supports multiple f(CW*(C`updmap.cfg*(C'</span> files.  Thus, local additions can and should be put into an f(CW*(C`updmap.cfg*(C'</span> file in f(CW*(C`TEXMFLOCAL*(C'</span>.  The f(CW*(C`generate updmap*(C'</span> action no longer exists.) 
+<p class="level1">Local files specify entries to be disabled with a comment line, namely one of these: 
+<p class="level1">
+<p class="level1">&nbsp; &#35;!NAME &nbsp; %!NAME &nbsp; --!NAME 
+<p class="level1">
+<p class="level1">where f(CW*(C`fmtutil.cnf*(C'</span> uses f(CW*(C`&#35;*(C'</span>, f(CW*(C`language.dat*(C'</span> and f(CW*(C`language.def*(C'</span> use f(CW*(C`%*(C'</span>, and f(CW*(C`language.dat.lua*(C'</span> use f(CW*(C`--*(C'</span>.  In all cases, the <span Class="emphasis">name</span> is the respective format name or hyphenation pattern identifier. Examples: 
+<p class="level1">
+<p class="level1">&nbsp; &#35;!pdflatex &nbsp; %!german &nbsp; --!usenglishmax 
+<p class="level1">
+<p class="level1">(Of course, you're not likely to actually want to disable those particular items.  They're just examples.) 
+<p class="level1">After such a disabling line, the local file can include another entry for the same item, if a different definition is desired.  In general, except for the special disabling lines, the local files follow the same syntax as the master files. 
+<p class="level1">The form f(CW*(C`generate language*(C'</span> recreates all three files f(CW*(C`language.dat*(C'</span>, f(CW*(C`language.def*(C'</span>, and f(CW*(C`language.dat.lua*(C'</span>, while the forms with an extension recreates only that given language file. 
+<p class="level1">Options: 
+<p class="level0"><a name="fB--destfR"></a><span class="nroffip">\fB--dest\fR \fIoutput_file\fR 4</span> 
+<p class="level1">
+<p class="level1">specifies the output file (defaults to the respective location in f(CW*(C`TEXMFSYSVAR*(C'</span>).  If f(CW*(C`--dest*(C'</span> is given to f(CW*(C`generate language*(C'</span>, it serves as a basename onto which f(CW*(C`.dat*(C'</span> will be appended for the name of the f(CW*(C`language.dat*(C'</span> output file, f(CW*(C`.def*(C'</span> will be appended to the value for the name of the f(CW*(C`language.def*(C'</span> output file, and f(CW*(C`.dat.lua*(C'</span> to the name of the f(CW*(C`language.dat.lua*(C'</span> file.  (This is just to avoid overwriting; if you want a specific name for each output file, we recommend invoking f(CW*(C`tlmgr*(C'</span> twice.) 
+<p class="level0"><a name="fB--localcfgfR"></a><span class="nroffip">\fB--localcfg\fR \fIlocal_conf_file\fR 4</span> 
+<p class="level1">
+<p class="level1">specifies the (optional) local additions (defaults to the respective location in f(CW*(C`TEXMFLOCAL*(C'</span>). 
+<p class="level0"><a name="fB--rebuild-sysfR"></a><span class="nroffip">\fB--rebuild-sys\fR 4</span> 
+<p class="level1">
+<p class="level1">tells tlmgr to run necessary programs after config files have been regenerated. These are: f(CW*(C`fmtutil-sys --all*(C'</span> after f(CW*(C`generate fmtutil*(C'</span>, f(CW*(C`fmtutil-sys --byhyphen .../language.dat*(C'</span> after f(CW*(C`generate language.dat*(C'</span>, and f(CW*(C`fmtutil-sys --byhyphen .../language.def*(C'</span> after f(CW*(C`generate language.def*(C'</span>. 
+<p class="level1">These subsequent calls cause the newly-generated files to actually take effect.  This is not done by default since those calls are lengthy processes and one might want to made several related changes in succession before invoking these programs. 
+<p class="level1">The respective locations are as follows: 
+<p class="level1">
+<p class="level1">&nbsp; tex/generic/config/language.dat (and language-local.dat); &nbsp; tex/generic/config/language.def (and language-local.def); &nbsp; tex/generic/config/language.dat.lua (and language-local.dat.lua); &nbsp; web2c/fmtutil.cnf (and fmtutil-local.cnf); 
+<p class="level1"><a name="gui"></a><h2 class="nroffsh">gui</h2>
+<p class="level0">
+<p class="level0">Start the graphical user interface. See <span Class="bold">s-1GUIs0</span> below. <a name="info"></a><h2 class="nroffsh">info [\fIoption\fP...] [collections|schemes|\fIpkg\fP...]</h2>
+<p class="level0">
+<p class="level0">With no argument, lists all packages available at the package repository, prefixing those already installed with f(CW*(C`i*(C'</span>. 
+<p class="level0">With the single word f(CW*(C`collections*(C'</span> or f(CW*(C`schemes*(C'</span> as the argument, lists the request type instead of all packages. 
+<p class="level0">With any other arguments, display information about <span Class="emphasis">pkg</span>: the name, category, short and long description, installation status, and TeX Live revision number.  If <span Class="emphasis">pkg</span> is not locally installed, searches in the remote installation source. 
+<p class="level0">It also displays information taken from the TeX Catalogue, namely the package version, date, and license.  Consider these, especially the package version, as approximations only, due to timing skew of the updates of the different pieces.  By contrast, the f(CW*(C`revision*(C'</span> value comes directly from s-1TLs0 and is reliable. 
+<p class="level0">The former actions f(CW*(C`show*(C'</span> and f(CW*(C`list*(C'</span> are merged into this action, but are still supported for backward compatibility. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--listfR"></a><span class="nroffip">\fB--list\fR 4</span> 
+<p class="level1">
+<p class="level1">If the option f(CW*(C`--list*(C'</span> is given with a package, the list of contained files is also shown, including those for platform-specific dependencies. When given with schemes and collections, f(CW*(C`--list*(C'</span> outputs their dependencies in a similar way. 
+<p class="level0"><a name="fB--only-installedfR"></a><span class="nroffip">\fB--only-installed\fR 4</span> 
+<p class="level1">
+<p class="level1">If this options is given,  the installation source will not be used; only locally installed packages, collections, or schemes are listed. (Does not work for listing of packages for now) 
+<p class="level0"><a name="fB--taxonomyfR"></a><span class="nroffip">\fB--taxonomy\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--keywordfR"></a><span class="nroffip">\fB--keyword\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--functionalityfR"></a><span class="nroffip">\fB--functionality\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--characterizationfR"></a><span class="nroffip">\fB--characterization\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">In addition to the normal data displayed, also display information for given packages from the corresponding taxonomy (or all of them).  See *(L"s-1TAXONOMIES*(R"s0 below for details. <a name="init-usertree"></a><h2 class="nroffsh">init-usertree</h2>
+<p class="level0">
+<p class="level0">Sets up a texmf tree for so-called user mode management, either the default user tree (f(CW*(C`TEXMFHOME*(C'</span>), or one specified on the command line with f(CW*(C`--usertree*(C'</span>.  See *(L"s-1USER MODE*(R"s0 below. <a name="install"></a><h2 class="nroffsh">install [\fIoption\fP]... \fIpkg\fP...</h2>
+<p class="level0">
+<p class="level0">Install each <span Class="emphasis">pkg</span> given on the command line. By default this installs all packages on which the given <span Class="emphasis">pkg</span>s are dependent, also.  Options: 
+<p class="level0"><a name="fB--filefR"></a><span class="nroffip">\fB--file\fR 4</span> 
+<p class="level1">
+<p class="level1">Instead of fetching a package from the installation repository, use the package files given on the command line.  These files must be standard TeX Live package files (with contained tlpobj file). 
+<p class="level0"><a name="fB--reinstallfR"></a><span class="nroffip">\fB--reinstall\fR 4</span> 
+<p class="level1">
+<p class="level1">Reinstall a package (including dependencies for collections) even if it already seems to be installed (i.e, is present in the s-1TLPDBs0).  This is useful to recover from accidental removal of files in the hierarchy. 
+<p class="level1">When re-installing, only dependencies on normal packages are followed (i.e., not those of category Scheme or Collection). 
+<p class="level0"><a name="fB--no-dependsfR"></a><span class="nroffip">\fB--no-depends\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not install dependencies.  (By default, installing a package ensures that all dependencies of this package are fulfilled.) 
+<p class="level0"><a name="fB--no-depends-at-allfR"></a><span class="nroffip">\fB--no-depends-at-all\fR 4</span> 
+<p class="level1">
+<p class="level1">Normally, when you install a package which ships binary files the respective binary package will also be installed.  That is, for a package f(CW*(C`foo*(C'</span>, the package f(CW*(C`foo.i386-linux*(C'</span> will also be installed on an f(CW*(C`i386-linux*(C'</span> system.  This option suppresses this behavior, and also implies f(CW*(C`--no-depends*(C'</span>.  Don't use it unless you are sure of what you are doing. 
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually installed; instead, the actions to be performed are written to the terminal. 
+<p class="level0"><a name="fB--forcefR"></a><span class="nroffip">\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">If updates to f(CW*(C`tlmgr*(C'</span> itself (or other parts of the basic infrastructure) are present, f(CW*(C`tlmgr*(C'</span> will bail out and not perform the installation unless this option is given.  Not recommended. <a name="option"></a><h2 class="nroffsh">option</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBoption"></a><span class="nroffip">\fBoption [show]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBoption"></a><span class="nroffip">\fBoption showall\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBoption"></a><span class="nroffip">\fBoption \f(BIkey\fB [\f(BIvalue\fB]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">The first form shows the global TeX Live settings currently saved in the s-1TLPDBs0 with a short description and the f(CW*(C`key*(C'</span> used for changing it in parentheses. 
+<p class="level1">The second form is similar, but also shows options which can be defined but are not currently set to any value. 
+<p class="level1">In the third form, if <span Class="emphasis">value</span> is not given, the setting for <span Class="emphasis">key</span> is displayed.  If <span Class="emphasis">value</span> is present, <span Class="emphasis">key</span> is set to <span Class="emphasis">value</span>. 
+<p class="level1">Possible values for <span Class="emphasis">key</span> are (run f(CW*(C`tlmgr option showall*(C'</span> for the definitive list): 
+<p class="level1">
+<p class="level1">&nbsp;repository (default package repository), &nbsp;formats    (create formats at installation time), &nbsp;postcode   (run postinst code blobs) &nbsp;docfiles   (install documentation files), &nbsp;srcfiles   (install source files), &nbsp;backupdir  (default directory for backups), &nbsp;autobackup (number of backups to keep). &nbsp;sys_bin    (directory to which executables are linked by the path action) &nbsp;sys_man    (directory to which man pages are linked by the path action) &nbsp;sys_info   (directory to which Info files are linked by the path action) &nbsp;desktop_integration (Windows-only: create Start menu shortcuts) &nbsp;fileassocs (Windows-only: change file associations) &nbsp;multiuser  (Windows-only: install for all users) 
+<p class="level1">
+<p class="level1">One common use of f(CW*(C`option*(C'</span> is to permanently change the installation to get further updates from the Internet, after originally installing from s-1DVD. s0 To do this, you can run 
+<p class="level1">
+<p class="level1">&nbsp;tlmgr option repository <a href="http://mirror.ctan.org/systems/texlive/tlnet">http://mirror.ctan.org/systems/texlive/tlnet</a> 
+<p class="level1">
+<p class="level1">The f(CW*(C`install-tl*(C'</span> documentation has more information about the possible values for f(CW*(C`repository*(C'</span>.  (For backward compatibility, f(CW*(C`location*(C'</span> can be used as alternative name for f(CW*(C`repository*(C'</span>.) 
+<p class="level1">If f(CW*(C`formats*(C'</span> is set (this is the default), then formats are regenerated when either the engine or the format files have changed.  Disable this only when you know what you are doing. 
+<p class="level1">The f(CW*(C`postcode*(C'</span> option controls execution of per-package postinstallation action code.  It is set by default, and again disabling is not likely to be of interest except perhaps to developers. 
+<p class="level1">The f(CW*(C`docfiles*(C'</span> and f(CW*(C`srcfiles*(C'</span> options control the installation of their respective files of a package. By default both are enabled (1). This can be disabled (set to 0) if disk space is (very) limited. 
+<p class="level1">The options f(CW*(C`autobackup*(C'</span> and f(CW*(C`backupdir*(C'</span> determine the defaults for the actions f(CW*(C`update*(C'</span>, f(CW*(C`backup*(C'</span> and f(CW*(C`restore*(C'</span>.  These three actions need a directory in which to read or write the backups.  If f(CW*(C`--backupdir*(C'</span> is not specified on the command line, the f(CW*(C`backupdir*(C'</span> option value is used (if set). 
+<p class="level1">The f(CW*(C`autobackup*(C'</span> option (de)activates automatic generation of backups. Its value is an integer.  If the f(CW*(C`autobackup*(C'</span> value is f(CW*(C`-1*(C'</span>, no backups are removed.  If f(CW*(C`autobackup*(C'</span> is 0 or more, it specifies the number of backups to keep.  Thus, backups are disabled if the value is 0.  In the f(CW*(C`--clean*(C'</span> mode of the f(CW*(C`backup*(C'</span> action this option also specifies the number to be kept. 
+<p class="level1">To setup f(CW*(C`autobackup*(C'</span> to f(CW*(C`-1*(C'</span> on the command line, use: 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr option -- autobackup -1 
+<p class="level1">
+<p class="level1">The f(CW*(C`--*(C'</span> avoids having the f(CW*(C`-1*(C'</span> treated as an option.  (f(CW*(C`--*(C'</span> stops parsing for options at the point where it appears; this is a general feature across most Unix programs.) 
+<p class="level1">The f(CW*(C`sys_bin*(C'</span>, f(CW*(C`sys_man*(C'</span>, and f(CW*(C`sys_info*(C'</span> options are used on Unix-like systems to control the generation of links for executables, info files and man pages. See the f(CW*(C`path*(C'</span> action for details. 
+<p class="level1">The last three options control behaviour on Windows installations.  If f(CW*(C`desktop_integration*(C'</span> is set, then some packages will install items in a sub-folder of the Start menu for f(CW*(C`tlmgr gui*(C'</span>, documentation, etc.  If f(CW*(C`fileassocs*(C'</span> is set, Windows file associations are made (see also the f(CW*(C`postaction*(C'</span> action).  Finally, if f(CW*(C`multiuser*(C'</span> is set, then adaptions to the registry and the menus are done for all users on the system instead of only the current user.  All three options are on by default. <a name="paper"></a><h2 class="nroffsh">paper</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBpaper"></a><span class="nroffip">\fBpaper [a4|letter]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBxdvipdftexdvipsdvipdfmxcontextpsutils"></a><span class="nroffip">\fB[xdvi|pdftex|dvips|dvipdfmx|context|psutils]\ paper\ [\f(BIpapersize\fB|--list]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">With no arguments (f(CW*(C`tlmgr paper*(C'</span>), shows the default paper size setting for all known programs. 
+<p class="level1">With one argument (e.g., f(CW*(C`tlmgr paper a4*(C'</span>), sets the default for all known programs to that paper size. 
+<p class="level1">With a program given as the first argument and no paper size specified (e.g., f(CW*(C`tlmgr dvips paper*(C'</span>), shows the default paper size for that program. 
+<p class="level1">With a program given as the first argument and a paper size as the last argument (e.g., f(CW*(C`tlmgr dvips paper a4*(C'</span>), set the default for that program to that paper size. 
+<p class="level1">With a program given as the first argument and f(CW*(C`--list*(C'</span> given as the last argument (e.g., f(CW*(C`tlmgr dvips paper --list*(C'</span>), shows all valid paper sizes for that program.  The first size shown is the default. 
+<p class="level1">Incidentally, this syntax of having a specific program name before the f(CW*(C`paper*(C'</span> keyword is unusual.  It is inherited from the longstanding f(CW*(C`texconfig*(C'</span> script, which supports other configuration settings for some programs, notably f(CW*(C`dvips*(C'</span>.  f(CW*(C`tlmgr*(C'</span> does not support those extra settings. <a name="path"></a><h2 class="nroffsh">path [--w32mode=user|admin] [add|remove]</h2>
+<p class="level0">
+<p class="level0">On Unix, merely adds or removes symlinks for binaries, man pages, and info pages in the system directories specified by the respective options (see the *(L"option*(R" description above).  Does not change any initialization files, either system or personal. 
+<p class="level0">On Windows, the registry part where the binary directory is added or removed is determined in the following way: 
+<p class="level0">If the user has admin rights, and the option f(CW*(C`--w32mode*(C'</span> is not given, the setting <span Class="emphasis">w32_multi_user</span> determines the location (i.e., if it is on then the system path, otherwise the user path is changed). 
+<p class="level0">If the user has admin rights, and the option f(CW*(C`--w32mode*(C'</span> is given, this option determines the path to be adjusted. 
+<p class="level0">If the user does not have admin rights, and the option f(CW*(C`--w32mode*(C'</span> is not given, and the setting <span Class="emphasis">w32_multi_user</span> is off, the user path is changed, while if the setting <span Class="emphasis">w32_multi_user</span> is on, a warning is issued that the caller does not have enough privileges. 
+<p class="level0">If the user does not have admin rights, and the option f(CW*(C`--w32mode*(C'</span> is given, it must be <a class="bold" href="#user">user</a> and the user path will be adjusted. If a user without admin rights uses the option f(CW*(C`--w32mode admin*(C'</span> a warning is issued that the caller does not have enough privileges. <a name="pinning"></a><h2 class="nroffsh">pinning</h2>
+<p class="level0">
+<p class="level0">The f(CW*(C`pinning*(C'</span> action manages the pinning file, see *(L"Pinning*(R" below. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Shows the current pinning data. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Pins the packages matching the <span Class="emphasis">pkgglob</span>(s) to the repository <span Class="emphasis">repo</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Any packages recorded in the pinning file matching the &lt;pkgglob&gt;s for the given repository <span Class="emphasis">repo</span> are removed. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Remove all pinning data for repository <span Class="emphasis">repo</span>. <a name="platform"></a><h2 class="nroffsh">platform list|add|remove \fIplatform\fP...</h2>
+<p class="level0">
+<p class="level0"><a name="platform"></a><h2 class="nroffsh">platform set \fIplatform\fP</h2>
+<p class="level0">
+<p class="level0"><a name="platform"></a><h2 class="nroffsh">platform set auto</h2>
+<p class="level0">
+<p class="level0">f(CW*(C`platform list*(C'</span> lists the TeX Live names of all the platforms (a.k.a. architectures), (f(CW*(C`i386-linux*(C'</span>, ...) available at the package repository. 
+<p class="level0">f(CW*(C`platform add*(C'</span> <a class="emphasis" href="#platform">platform</a>... adds the executables for each given platform <a class="emphasis" href="#platform">platform</a> to the installation from the repository. 
+<p class="level0">f(CW*(C`platform remove*(C'</span> <a class="emphasis" href="#platform">platform</a>... removes the executables for each given  platform <a class="emphasis" href="#platform">platform</a> from the installation, but keeps the currently  running platform in any case. 
+<p class="level0">f(CW*(C`platform set*(C'</span> <a class="emphasis" href="#platform">platform</a> switches TeX Live to always use the given platform instead of auto detection. 
+<p class="level0">f(CW*(C`platform set auto*(C'</span> switches TeX Live to auto detection mode for platform. 
+<p class="level0">Platform detection is needed to select the proper f(CW*(C`xz*(C'</span>, f(CW*(C`xzdec*(C'</span> and  f(CW*(C`wget*(C'</span> binaries that are shipped with TeX Live. 
+<p class="level0">f(CW*(C`arch*(C'</span> is a synonym for f(CW*(C`platform*(C'</span>. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually installed; instead, the actions to be performed are written to the terminal. <a name="postaction"></a><h2 class="nroffsh">postaction [--w32mode=user|admin] [--fileassocmode=1|2] [--all] [install|remove] [shortcut|fileassoc|script] [\fIpkg\fP]...</h2>
+<p class="level0">
+<p class="level0">Carry out the postaction f(CW*(C`shortcut*(C'</span>, f(CW*(C`fileassoc*(C'</span>, or f(CW*(C`script*(C'</span> given as the second required argument in install or remove mode (which is the first required argument), for either the packages given on the command line, or for all if f(CW*(C`--all*(C'</span> is given. 
+<p class="level0">If the option f(CW*(C`--w32mode*(C'</span> is given the value f(CW*(C`user*(C'</span>, all actions will only be carried out in the user-accessible parts of the registry/filesystem, while the value f(CW*(C`admin*(C'</span> selects the system-wide parts of the registry for the file associations.  If you do not have enough permissions, using f(CW*(C`--w32mode=admin*(C'</span> will not succeed. 
+<p class="level0">f(CW*(C`--fileassocmode*(C'</span> specifies the action for file associations.  If it is set to 1 (the default), only new associations are added; if it is set to 2, all associations are set to the TeX Live programs.  (See also f(CW*(C`option fileassocs*(C'</span>.) <a name="print-platform"></a><h2 class="nroffsh">print-platform</h2>
+<p class="level0">
+<p class="level0">Print the TeX Live identifier for the detected platform (hardware/operating system) combination to standard output, and exit. f(CW*(C`--print-arch*(C'</span> is a synonym. <a name="restore"></a><h2 class="nroffsh">restore [--backupdir \fIdir\fP] [--all | \fIpkg\fP [\fIrev\fP]]</h2>
+<p class="level0">
+<p class="level0">Restore a package from a previously-made backup. 
+<p class="level0">If f(CW*(C`--all*(C'</span> is given, try to restore the latest revision of all  package backups found in the backup directory. 
+<p class="level0">Otherwise, if neither <span Class="emphasis">pkg</span> nor <span Class="emphasis">rev</span> are given, list the available backup revisions for all packages. 
+<p class="level0">With <span Class="emphasis">pkg</span> given but no <span Class="emphasis">rev</span>, list all available backup revisions of <span Class="emphasis">pkg</span>. 
+<p class="level0">When listing available packages tlmgr shows the revision and in  parenthesis the creation time if available (in format yyyy-mm-dd hh:mm). 
+<p class="level0">With both <span Class="emphasis">pkg</span> and <span Class="emphasis">rev</span>, tries to restore the package from the specified backup. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--allfR"></a><span class="nroffip">\fB--all\fR 4</span> 
+<p class="level1">
+<p class="level1">Try to restore the latest revision of all package backups found in the backup directory. Additional non-option arguments (like <span Class="emphasis">pkg</span>) are not allowed. 
+<p class="level0"><a name="fB--backupdirfR"></a><span class="nroffip">\fB--backupdir\fR \fIdirectory\fR 4</span> 
+<p class="level1">
+<p class="level1">Specify the directory where the backups are to be found. If not given it will be taken from the configuration setting in the s-1TLPDB.s0 
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually restored; instead, the actions to be performed are written to the terminal. 
+<p class="level0"><a name="fB--forcefR"></a><span class="nroffip">\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">Don't ask questions. <a name="remove"></a><h2 class="nroffsh">remove [\fIoption\fP]... \fIpkg\fP...</h2>
+<p class="level0">
+<p class="level0">Remove each <span Class="emphasis">pkg</span> specified.  Removing a collection removes all package dependencies (unless f(CW*(C`--no-depends*(C'</span> is specified), but not any collection dependencies of that collection.  However, when removing a package, dependencies are never removed.  Options: 
+<p class="level0"><a name="fB--no-dependsfR"></a><span class="nroffip">\fB--no-depends\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not remove dependent packages. 
+<p class="level0"><a name="fB--no-depends-at-allfR"></a><span class="nroffip">\fB--no-depends-at-all\fR 4</span> 
+<p class="level1">
+<p class="level1">See above under <a class="bold" href="#install">install</a> (and beware). 
+<p class="level0"><a name="fB--forcefR"></a><span class="nroffip">\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, removal of a package or collection that is a dependency of another collection or scheme is not allowed.  With this option, the package will be removed unconditionally.  Use with care. 
+<p class="level1">A package that has been removed using the f(CW*(C`--force*(C'</span> option because it is still listed in an installed collection or scheme will not be updated, and will be mentioned as <span Class="bold">forcibly removed</span> in the output of <span Class="bold">tlmgr update --list</span>. 
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually removed; instead, the actions to be performed are written to the terminal. <a name="repository"></a><h2 class="nroffsh">repository</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBrepository"></a><span class="nroffip">\fBrepository list\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBrepository"></a><span class="nroffip">\fBrepository list \f(BIpath|tag\fB\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBrepository"></a><span class="nroffip">\fBrepository add \f(BIpath\fB [\f(BItag\fB]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBrepository"></a><span class="nroffip">\fBrepository remove \f(BIpath|tag\fB\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBrepository"></a><span class="nroffip">\fBrepository set \f(BIpath\fB[#\f(BItag\fB] [\f(BIpath\fB[#\f(BItag\fB] ...]\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">This action manages the list of repositories.  See *(L"s-1MULTIPLE REPOSITORIES*(R"s0 below for detailed explanations. 
+<p class="level1">The first form (f(CW*(C`list*(C'</span>) lists all configured repositories and the respective tags if set. If a path, url, or tag is given after the f(CW*(C`list*(C'</span> keyword, it is interpreted as source from where to  initialize a TeX Live Database and lists the contained packages. This can also be an up-to-now not used repository, both locally and remote. If one pass in addition f(CW*(C`--with-platforms*(C'</span>, for each package the available platforms (if any) are listed, too. 
+<p class="level1">The third form (f(CW*(C`add*(C'</span>) adds a repository (optionally attaching a tag) to the list of repositories.  The forth form (f(CW*(C`remove*(C'</span>) removes a repository, either by full path/url, or by tag.  The last form (f(CW*(C`set*(C'</span>) sets the list of repositories to the items given on the command line, not keeping previous settings 
+<p class="level1">In all cases, one of the repositories must be tagged as f(CW*(C`main*(C'</span>; otherwise, all operations will fail! <a name="search"></a><h2 class="nroffsh">search [\fIoption\fP...] \fIwhat\fP</h2>
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --file <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --taxonomy <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --keyword <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --functionality <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --characterization <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0"><span class="emphasis">search [<span class="emphasis">option<span class="emphasis">...] --all <span class="emphasis">what<span Class="emphasis"></span> 
+<p class="level0">
+<p class="level0">By default, search the names, short descriptions, and long descriptions of all locally installed packages for the argument <span Class="emphasis">what</span>, interpreted as a regular expression. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB--globalfR"></a><span class="nroffip">\fB--global\fR 4</span> 
+<p class="level1">
+<p class="level1">Search the TeX Live Database of the installation medium, instead of the local installation. 
+<p class="level0"><a name="fB--wordfR"></a><span class="nroffip">\fB--word\fR 4</span> 
+<p class="level1">
+<p class="level1">Restrict the search to match only full words. For example, searching for f(CW*(C`table*(C'</span> with this option will not output packages containing the word f(CW*(C`tables*(C'</span> (unless they also contain the word f(CW*(C`table*(C'</span> on its own). 
+<p class="level0"><a name="fB--listfR"></a><span class="nroffip">\fB--list\fR 4</span> 
+<p class="level1">
+<p class="level1">If a search for any (or all) taxonomies is done, by specifying one of the taxonomy options below, then instead of searching for packages, list the entire corresponding taxonomy (or all of them).  See *(L"s-1TAXONOMIES*(R"s0 below. 
+<p class="level1">Other search options are selected by specifying one of the following: 
+<p class="level0"><a name="fB--filefR"></a><span class="nroffip">\fB--file\fR 4</span> 
+<p class="level1">
+<p class="level1">List all filenames containing <span Class="emphasis">what</span>. 
+<p class="level0"><a name="fB--taxonomyfR"></a><span class="nroffip">\fB--taxonomy\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--keywordfR"></a><span class="nroffip">\fB--keyword\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--functionalityfR"></a><span class="nroffip">\fB--functionality\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--characterizationfR"></a><span class="nroffip">\fB--characterization\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">Search in the corresponding taxonomy (or all) instead of the package descriptions.  See *(L"s-1TAXONOMIES*(R"s0 below. 
+<p class="level0"><a name="fB--allfR"></a><span class="nroffip">\fB--all\fR 4</span> 
+<p class="level1">
+<p class="level1">Search for package names, descriptions, and taxonomies, but not files. <a name="uninstall"></a><h2 class="nroffsh">uninstall</h2>
+<p class="level0">
+<p class="level0">Uninstalls the entire TeX Live installation.  Options: 
+<p class="level0"><a name="fB--forcefR"></a><span class="nroffip">\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">Do not ask for confirmation, remove immediately. <a name="update"></a><h2 class="nroffsh">update [\fIoption\fP]... [\fIpkg\fP]...</h2>
+<p class="level0">
+<p class="level0">Updates the packages given as arguments to the latest version available at the installation source.  Either f(CW*(C`--all*(C'</span> or at least one <span Class="emphasis">pkg</span> name must be specified.  Options: 
+<p class="level0"><a name="fB--allfR"></a><span class="nroffip">\fB--all\fR 4</span> 
+<p class="level1">
+<p class="level1">Update all installed packages except for f(CW*(C`tlmgr*(C'</span> itself.  Thus, if updates to f(CW*(C`tlmgr*(C'</span> itself are present, this will simply give an error, unless also the option f(CW*(C`--force*(C'</span> or f(CW*(C`--self*(C'</span> is given.  (See below.) 
+<p class="level1">In addition to updating the installed packages, during the update of a collection the local installation is (by default) synchronized to the status of the collection on the server, for both additions and removals. 
+<p class="level1">This means that if a package has been removed on the server (and thus has also been removed from the respective collection), f(CW*(C`tlmgr*(C'</span> will remove the package in the local installation.  This is called ``auto-remove'' and is announced as such when using the option f(CW*(C`--list*(C'</span>.  This auto-removal can be suppressed using the option f(CW*(C`--no-auto-remove*(C'</span> (not recommended, see option description). 
+<p class="level1">Analogously, if a package has been added to a collection on the server that is also installed locally, it will be added to the local installation.  This is called ``auto-install'' and is announced as such when using the option f(CW*(C`--list*(C'</span>.  This auto-installation can be suppressed using the option f(CW*(C`--no-auto-install*(C'</span>. 
+<p class="level1">An exception to the collection dependency checks (including the auto-installation of packages just mentioned) are those that have been ``forcibly removed'' by you, that is, you called f(CW*(C`tlmgr remove --force*(C'</span> on them.  (See the f(CW*(C`remove*(C'</span> action documentation.)  To reinstall any such forcibly removed packages use f(CW*(C`--reinstall-forcibly-removed*(C'</span>. 
+<p class="level1">If you want to exclude some packages from the current update run (e.g., due to a slow link), see the f(CW*(C`--exclude*(C'</span> option below. 
+<p class="level0"><a name="fB--selffR"></a><span class="nroffip">\fB--self\fR 4</span> 
+<p class="level1">
+<p class="level1">Update f(CW*(C`tlmgr*(C'</span> itself (that is, the infrastructure packages) if updates to it are present. On Windows this includes updates to the private Perl interpreter shipped inside TeX Live. 
+<p class="level1">If this option is given together with either f(CW*(C`--all*(C'</span> or a list of packages, then f(CW*(C`tlmgr*(C'</span> will be updated first and, if this update succeeds, the new version will be restarted to complete the rest of the updates. 
+<p class="level1">In short: 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr update --self        &#35; update infrastructure only &nbsp; tlmgr update --self --all  &#35; update infrastructure and all packages &nbsp; tlmgr update --force --all &#35; update all packages but *not* infrastructure &nbsp;                            &#35; ... this last at your own risk, not recommended! 
+<p class="level1">
+<p class="level0"><a name="fB--dry-runfR"></a><span class="nroffip">\fB--dry-run\fR 4</span> 
+<p class="level1">
+<p class="level1">Nothing is actually installed; instead, the actions to be performed are written to the terminal.  This is a more detailed report than f(CW*(C`--list*(C'</span>. 
+<p class="level0"><a name="fB--listfR"></a><span class="nroffip">\fB--list\fR [\fIpkg\fR] 4</span> 
+<p class="level1">
+<p class="level1">Concisely list the packages which would be updated, newly installed, or removed, without actually changing anything.  If f(CW*(C`--all*(C'</span> is also given, all available updates are listed. If f(CW*(C`--self*(C'</span> is given, but not f(CW*(C`--all*(C'</span>, only updates to the critical packages (tlmgr, texlive infrastructure, perl on Windows, etc.) are listed. If neither f(CW*(C`--all*(C'</span> nor f(CW*(C`--self*(C'</span> is given, and in addition no <span Class="emphasis">pkg</span> is given, then f(CW*(C`--all*(C'</span> is assumed (thus, f(CW*(C`tlmgr update --list*(C'</span> is the same as f(CW*(C`tlmgr update --list --all*(C'</span>). If neither f(CW*(C`--all*(C'</span> nor f(CW*(C`--self*(C'</span> is given, but specific package names are given, those packages are checked for updates. 
+<p class="level0"><a name="fB--excludefR"></a><span class="nroffip">\fB--exclude\fR \fIpkg\fR 4</span> 
+<p class="level1">
+<p class="level1">Exclude <span Class="emphasis">pkg</span> from the update process.  If this option is given more than once, its arguments accumulate. 
+<p class="level1">An argument <span Class="emphasis">pkg</span> excludes both the package <span Class="emphasis">pkg</span> itself and all its related platform-specific packages <span Class="emphasis">pkg.ARCH</span>.  For example, 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr update --all --exclude a2ping 
+<p class="level1">
+<p class="level1">will not update f(CW*(C`a2ping*(C'</span>, f(CW*(C`a2ping.i386-linux*(C'</span>, or any other f(CW*(C`a2ping.*(C'</span><span Class="emphasis">s-1ARCHs0</span> package. 
+<p class="level1">If this option specifies a package that would otherwise be a candidate for auto-installation, auto-removal, or reinstallation of a forcibly removed package, f(CW*(C`tlmgr*(C'</span> quits with an error message.  Excludes are not supported in these circumstances. 
+<p class="level0"><a name="fB--no-auto-removefR"></a><span class="nroffip">\fB--no-auto-remove\fR [\fIpkg\fR]... 4</span> 
+<p class="level1">
+<p class="level1">By default, f(CW*(C`tlmgr*(C'</span> tries to remove packages which have disappeared on the server, as described above under f(CW*(C`--all*(C'</span>.  This option prevents such removals, either for all packages (with f(CW*(C`--all*(C'</span>), or for just the given <span Class="emphasis">pkg</span> names.  This can lead to an inconsistent TeX installation, since packages are not infrequently renamed or replaced by their authors.  Therefore this is not recommend. 
+<p class="level0"><a name="fB--no-auto-installfR"></a><span class="nroffip">\fB--no-auto-install\fR [\fIpkg\fR]... 4</span> 
+<p class="level1">
+<p class="level1">Under normal circumstances f(CW*(C`tlmgr*(C'</span> will install packages which are new on the server, as described above under f(CW*(C`--all*(C'</span>.  This option prevents any such automatic installation, either for all packages (with f(CW*(C`--all*(C'</span>), or the given <span Class="emphasis">pkg</span> names. 
+<p class="level1">Furthermore, after the f(CW*(C`tlmgr*(C'</span> run using this has finished, the packages that would have been auto-installed <span class="emphasis">will be considered as forcibly removed</span>.  So, if f(CW*(C`foobar*(C'</span> is the only new package on the server, then 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr update --all --no-auto-install 
+<p class="level1">
+<p class="level1">is equivalent to 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr update --all &nbsp; tlmgr remove --force foobar 
+<p class="level1">
+<p class="level0"><a name="fB--reinstall-forcibly-removedfR"></a><span class="nroffip">\fB--reinstall-forcibly-removed\fR 4</span> 
+<p class="level1">
+<p class="level1">Under normal circumstances f(CW*(C`tlmgr*(C'</span> will not install packages that have been forcibly removed by the user; that is, removed with f(CW*(C`remove --force*(C'</span>, or whose installation was prohibited by f(CW*(C`--no-auto-install*(C'</span> during an earlier update. 
+<p class="level1">This option makes f(CW*(C`tlmgr*(C'</span> ignore the forcible removals and re-install all such packages. This can be used to completely synchronize an installation with the server's idea of what is available: 
+<p class="level1">
+<p class="level1">&nbsp; tlmgr update --reinstall-forcibly-removed --all 
+<p class="level1">
+<p class="level0"><a name="fB--backupfR"></a><span class="nroffip">\fB--backup\fR and \fB--backupdir\fR \fIdirectory\fR 4</span> 
+<p class="level1">
+<p class="level1">These two options control the creation of backups of packages <span Class="emphasis">before</span> updating; that is, backup of packages as currently installed.  If neither of these options are given, no backup package will be saved. If f(CW*(C`--backupdir*(C'</span> is given and specifies a writable directory then a backup will be made in that location. If only f(CW*(C`--backup*(C'</span> is given, then a backup will be made to the directory previously set via the f(CW*(C`option*(C'</span> action (see below). If both are given then a backup will be made to the specified <span Class="emphasis">directory</span>. 
+<p class="level1">You can set options via the f(CW*(C`option*(C'</span> action to automatically create backups for all packages, and/or keep only a certain number of backups.  Please see the f(CW*(C`option*(C'</span> action for details. 
+<p class="level1">f(CW*(C`tlmgr*(C'</span> always makes a temporary backup when updating packages, in case of download or other failure during an update.  In contrast, the purpose of this f(CW*(C`--backup*(C'</span> option is to allow you to save a persistent backup in case the actual <span Class="emphasis">content</span> of the update causes problems, e.g., introduces an incompatibility. 
+<p class="level1">The f(CW*(C`restore*(C'</span> action explains how to restore from a backup. 
+<p class="level0"><a name="fB--no-dependsfR"></a><span class="nroffip">\fB--no-depends\fR 4</span> 
+<p class="level1">
+<p class="level1">If you call for updating a package normally all depending packages will also be checked for updates and updated if necessary. This switch suppresses this behavior. 
+<p class="level0"><a name="fB--no-depends-at-allfR"></a><span class="nroffip">\fB--no-depends-at-all\fR 4</span> 
+<p class="level1">
+<p class="level1">See above under <a class="bold" href="#install">install</a> (and beware). 
+<p class="level0"><a name="fB--forcefR"></a><span class="nroffip">\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">Force update of normal packages, without updating f(CW*(C`tlmgr*(C'</span> itself  (unless the f(CW*(C`--self*(C'</span> option is also given).  Not recommended. 
+<p class="level1">Also, f(CW*(C`update --list*(C'</span> is still performed regardless of this option. 
+<p class="level1">If the package on the server is older than the package already installed (e.g., if the selected mirror is out of date), f(CW*(C`tlmgr*(C'</span> does not downgrade.  Also, packages for uninstalled platforms are not installed. <a name="USER"></a><h2 class="nroffsh">USER MODE</h2>
+<p class="level0">
+<p class="level0">f(CW*(C`tlmgr*(C'</span> provides a restricted way, called ``user mode'', to manage arbitrary texmf trees in the same way as the main installation.  For example, this allows people without write permissions on the installation location to update/install packages into a tree of their own. 
+<p class="level0">f(CW*(C`tlmgr*(C'</span> is switched into user mode with the command line option f(CW*(C`--usermode*(C'</span>.  It does not switch automatically, nor is there any configuration file setting for it.  Thus, this option has to be explicitly given every time user mode is to be activated. 
+<p class="level0">This mode of f(CW*(C`tlmgr*(C'</span> works on a user tree, by default the value of the f(CW*(C`TEXMFHOME*(C'</span> variable.  This can be overridden with the command line option f(CW*(C`--usertree*(C'</span>.  In the following when we speak of the user tree we mean either f(CW*(C`TEXMFHOME*(C'</span> or the one given on the command line. 
+<p class="level0">Not all actions are allowed in user mode; f(CW*(C`tlmgr*(C'</span> will warn you and not carry out any problematic actions.  Currently not supported (and probably will never be) is the f(CW*(C`platform*(C'</span> action.  The f(CW*(C`gui*(C'</span> action is currently not supported, but may be in a future release. 
+<p class="level0">Some f(CW*(C`tlmgr*(C'</span> actions don't need any write permissions and thus work the same in user mode and normal mode.  Currently these are: f(CW*(C`check*(C'</span>, f(CW*(C`help*(C'</span>, f(CW*(C`list*(C'</span>, f(CW*(C`print-platform*(C'</span>, f(CW*(C`search*(C'</span>, f(CW*(C`show*(C'</span>, f(CW*(C`version*(C'</span>. 
+<p class="level0">On the other hand, most of the actions dealing with package management do need write permissions, and thus behave differently in user mode, as described below: f(CW*(C`install*(C'</span>, f(CW*(C`update*(C'</span>, f(CW*(C`remove*(C'</span>, f(CW*(C`option*(C'</span>, f(CW*(C`paper*(C'</span>, f(CW*(C`generate*(C'</span>, f(CW*(C`backup*(C'</span>, f(CW*(C`restore*(C'</span>, f(CW*(C`uninstall*(C'</span>, f(CW*(C`symlinks*(C'</span>. 
+<p class="level0">Before using f(CW*(C`tlmgr*(C'</span> in user mode, you have to set up the user tree with the f(CW*(C`init-usertree*(C'</span> action.  This creates <span Class="emphasis">usertree</span>f(CW*(C`/web2c*(C'</span> and <span Class="emphasis">usertree</span>f(CW*(C`/tlpkg/tlpobj*(C'</span>, and a minimal <span Class="emphasis">usertree</span>f(CW*(C`/tlpkg/texlive.tlpdb*(C'</span>.  At that point, you can tell f(CW*(C`tlmgr*(C'</span> to do the (supported) actions by adding the f(CW*(C`--usermode*(C'</span> command line option. 
+<p class="level0">In user mode the file <span Class="emphasis">usertree</span>f(CW*(C`/tlpkg/texlive.tlpdb*(C'</span> contains only the packages that have been installed into the user tree using f(CW*(C`tlmgr*(C'</span>, plus additional options from the ``virtual'' package f(CW*(C`00texlive.installation*(C'</span> (similar to the main installation's f(CW*(C`texlive.tlpdb*(C'</span>). 
+<p class="level0">All actions on packages in user mode can only be carried out on packages that are known as f(CW*(C`relocatable*(C'</span>.  This excludes all packages containing executables and a few other core packages.  Of the 2500 or so packages currently in TeX Live the vast majority are relocatable and can be installed into a user tree. 
+<p class="level0">Description of changes of actions in user mode: <a name="user"></a><h2 class="nroffsh">user mode install</h2>
+<p class="level0">
+<p class="level0">In user mode, the f(CW*(C`install*(C'</span> action checks that the package and all dependencies are all either relocated or already installed in the system installation.  If this is the case, it unpacks all containers to be installed into the user tree (to repeat, that's either f(CW*(C`TEXMFHOME*(C'</span> or the value of f(CW*(C`--usertree*(C'</span>) and add the respective packages to the user tree's f(CW*(C`texlive.tlpdb*(C'</span> (creating it if need be). 
+<p class="level0">Currently installing a collection in user mode installs all dependent packages, but in contrast to normal mode, does <span Class="emphasis">not</span> install dependent collections.  For example, in normal mode f(CW*(C`tlmgr install collection-context*(C'</span> would install f(CW*(C`collection-basic*(C'</span> and other collections, while in user mode, <span Class="emphasis">only</span> the packages mentioned in f(CW*(C`collection-context*(C'</span> are installed. <a name="user"></a><h2 class="nroffsh">user mode backup; restore; remove; update</h2>
+<p class="level0">
+<p class="level0">In user mode, these actions check that all packages to be acted on are installed in the user tree before proceeding; otherwise, they behave just as in normal mode. <a name="user"></a><h2 class="nroffsh">user mode generate; option; paper</h2>
+<p class="level0">
+<p class="level0">In user mode, these actions operate only on the user tree's configuration files and/or f(CW*(C`texlive.tlpdb*(C'</span>. creates configuration files in user tree <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION FILE FOR TLMGR</h2>
+<p class="level0">
+<p class="level0">A small subset of the command line options can be set in a config file for f(CW*(C`tlmgr*(C'</span> which resides in f(CW*(C`TEXMFCONFIG/tlmgr/config*(C'</span>.  By default, the config file is in f(CW*(C`~/.texliveYYYY/texmf-config/tlmgr/config*(C'</span> (replacing f(CW*(C`YYYY*(C'</span> with the year of your TeX Live installation). This is <span Class="emphasis">not</span> f(CW*(C`TEXMFSYSVAR*(C'</span>, so that the file is specific to a single user. 
+<p class="level0">In this file, empty lines and lines starting with &#35; are ignored.  All other lines must look like 
+<p class="level0">
+<p class="level0">&nbsp; key = value 
+<p class="level0">
+<p class="level0">where the allowed keys are f(CW*(C`gui-expertmode*(C'</span> (value 0 or 1), f(CW*(C`persistent-downloads*(C'</span> (value 0 or 1), f(CW*(C`auto-remove*(C'</span> (value 0 or 1), and f(CW*(C`gui-lang*(C'</span> (value like in the command line option). 
+<p class="level0">f(CW*(C`persistent-downloads*(C'</span>, f(CW*(C`gui-lang*(C'</span>, and f(CW*(C`auto-remove*(C'</span> correspond to the respective command line options of the same name.  f(CW*(C`gui-expertmode*(C'</span> switches between the full s-1GUIs0 and a simplified s-1GUIs0 with only the important and mostly used settings. <a name="TAXONOMIES"></a><h2 class="nroffsh">TAXONOMIES</h2>
+<p class="level0">
+<p class="level0">tlmgr allows searching and listing of various categorizations, which we call <span Class="emphasis">taxonomies</span>, as provided by an enhanced TeX Catalogue (available for testing at &lt;http://az.ctan.org&gt;).  This is useful when, for example, you don't know a specific package name but have an idea of the functionality you need; or when you want to see all packages relating to a given area. 
+<p class="level0">There are three different taxonomies, specified by the following options: 
+<p class="level0">
+<p class="level0">
+<p class="level0">The keywords, as specified at &lt;http://az.ctan.org/keyword&gt;. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The ``by-topic'' categorization created by Je"urgen Fenn, as specified at &lt;http://az.ctan.org/characterization/by-function&gt;. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Both the primary and secondary functionalities, as specified at &lt;http://az.ctan.org/characterization/choose_dimen&gt;. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Operate on all the taxonomies. 
+<p class="level0">The taxonomies are updated nightly and stored within TeX Live, so Internet access is not required to search them. 
+<p class="level0">Examples: 
+<p class="level0">
+<p class="level0">&nbsp; tlmgr search --taxonomy exercise      &#35; check all taxonomies for "exercise" &nbsp; tlmgr search --taxonomy --word table  &#35; check for "table" on its own &nbsp; tlmgr search --list --keyword         &#35; dump entire keyword taxonomy &nbsp; tlmgr show --taxonomy pdftex          &#35; show pdftex package information, &nbsp;                                       &#35;   including all taxonomy entries 
+<p class="level0"><a name="MULTIPLE"></a><h2 class="nroffsh">MULTIPLE REPOSITORIES</h2>
+<p class="level0">
+<p class="level0">The main TeX Live repository contains a vast array of packages. Nevertheless, additional local repositories can be useful to provide locally-installed resources, such as proprietary fonts and house styles. Also, alternative package repositories distribute packages that cannot or should not be included in TeX Live, for whatever reason. 
+<p class="level0">The simplest and most reliable method is to temporarily set the installation source to any repository (with the f(CW*(C`-repository*(C'</span> or f(CW*(C`option repository*(C'</span> command line options), and perform your operations. 
+<p class="level0">When you are using multiple repositories over a sustained time, however, explicitly switching between them becomes inconvenient.  Thus, it's possible to tell f(CW*(C`tlmgr*(C'</span> about additional repositories you want to use. The basic command is f(CW*(C`tlmgr repository add*(C'</span>.  The rest of this section explains further. 
+<p class="level0">When using multiple repositories, one of them has to be set as the main repository, which distributes most of the installed packages.  When you switch from a single repository installation to a multiple repository installation, the previous sole repository will be set as the main repository. 
+<p class="level0">By default, even if multiple repositories are configured, packages are <span Class="emphasis">still</span> <span Class="emphasis">only</span> installed from the main repository.  Thus, simply adding a second repository does not actually enable installation of anything from there.  You also have to specify which packages should be taken from the new repository, by specifying so-called ``pinning'' rules, described next. <a name="Pinning"></a><h2 class="nroffsh">Pinning</h2>
+<p class="level0">
+<p class="level0">When a package f(CW*(C`foo*(C'</span> is pinned to a repository, a package f(CW*(C`foo*(C'</span> in any other repository, even if it has a higher revision number, will not be considered an installable candidate. 
+<p class="level0">As mentioned above, by default everything is pinned to the main repository.  Let's now go through an example of setting up a second repository and enabling updates of a package from it. 
+<p class="level0">First, check that we have support for multiple repositories, and have only one enabled (as is the case by default): 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr repository list &nbsp;List of repositories (with tags if set): &nbsp;  /var/www/norbert/tlnet 
+<p class="level0">
+<p class="level0">Ok.  Let's add the f(CW*(C`tlcontrib*(C'</span> repository (this is a real repository, hosted at &lt;http://tlcontrib.metatex.org&gt;, maintained by Taco Hoekwater et al.), with the tag f(CW*(C`tlcontrib*(C'</span>: 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr repository add <a href="http://tlcontrib.metatex.org/2012">http://tlcontrib.metatex.org/2012</a> tlcontrib 
+<p class="level0">
+<p class="level0">Check the repository list again: 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr repository list &nbsp;List of repositories (with tags if set): &nbsp;   <a href="http://tlcontrib.metatex.org/2012">http://tlcontrib.metatex.org/2012</a> (tlcontrib) &nbsp;   /var/www/norbert/tlnet (main) 
+<p class="level0">
+<p class="level0">Now we specify a pinning entry to get the package f(CW*(C`context*(C'</span> from f(CW*(C`tlcontrib*(C'</span>: 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr pinning add tlcontrib context 
+<p class="level0">
+<p class="level0">Check that we can find f(CW*(C`context*(C'</span>: 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr show context &nbsp;tlmgr: package repositories: &nbsp;... &nbsp;package:     context &nbsp;repository:  tlcontrib/26867 &nbsp;... 
+<p class="level0">
+<p class="level0">- install f(CW*(C`context*(C'</span>: 
+<p class="level0">
+<p class="level0">&nbsp;$ tlmgr install context &nbsp;tlmgr: package repositories: &nbsp;... &nbsp;[1/1,  ??:??/??:??] install: context @tlcontrib [ 
+<p class="level0">
+<p class="level0">In the output here you can see that the f(CW*(C`context*(C'</span> package has been installed from the f(CW*(C`tlcontrib*(C'</span> repository (f(CW@tlcontrib</span>). 
+<p class="level0">Finally, f(CW*(C`tlmgr pinning*(C'</span> also supports removing certain or all packages from a given repository: 
+<p class="level0">
+<p class="level0">&nbsp; $ tlmgr pinning remove tlcontrib context  &#35; remove just context &nbsp; $ tlmgr pinning remove tlcontrib --all    &#35; take nothing from tlcontrib 
+<p class="level0">
+<p class="level0">A summary of the f(CW*(C`tlmgr pinning*(C'</span> actions is given above. <a name="GUI"></a><h2 class="nroffsh">GUI FOR TLMGR</h2>
+<p class="level0">
+<p class="level0">The graphical user interface for f(CW*(C`tlmgr*(C'</span> needs Perl/Tk to be installed. For Windows the necessary modules are shipped within TeX Live, for all other (i.e., Unix-based) systems Perl/Tk (as well as Perl of course) has to be installed.  &lt;http://tug.org/texlive/distro.html&#35;perltk&gt; has a list of invocations for some distros. 
+<p class="level0">When started with f(CW*(C`tlmgr gui*(C'</span> the graphical user interface will be shown.  The main window contains a menu bar, the main display, and a status area where messages normally shown on the console are displayed. 
+<p class="level0">Within the main display there are three main parts: the f(CW*(C`Display configuration*(C'</span> area, the list of packages, and the action buttons. 
+<p class="level0">Also, at the top right the currently loaded repository is shown; this also acts as a button and when clicked will try to load the default repository.  To load a different repository, see the f(CW*(C`tlmgr*(C'</span> menu item. 
+<p class="level0">Finally, the status area at the bottom of the window gives additional information about what is going on. <a name="Main"></a><h2 class="nroffsh">Main display</h2>
+<p class="level0">
+<p class="level0"><a class="emphasis" href="#Display">Display configuration area</a> 
+<p class="level0">
+<p class="level0">The first part of the main display allows you to specify (filter) which packages are shown.  By default, all are shown.  Changes here are reflected right away. 
+<p class="level0"><a name="Status"></a><span class="nroffip">Status 4</span> 
+<p class="level1">
+<p class="level1">Select whether to show all packages (the default), only those installed, only those <span Class="emphasis">not</span> installed, or only those with update available. 
+<p class="level0"><a name="Category"></a><span class="nroffip">Category 4</span> 
+<p class="level1">
+<p class="level1">Select which categories are shown: packages, collections, and/or schemes.  These are briefly explained in the *(L"s-1DESCRIPTION*(R"s0 section above. 
+<p class="level0"><a name="Match"></a><span class="nroffip">Match 4</span> 
+<p class="level1">
+<p class="level1">Select packages matching for a specific pattern.  By default, this uses the same algorithm as f(CW*(C`tlmgr search*(C'</span>, i.e., searches everything: descriptions, taxonomies, and/or filenames.  You can also select any subset for searching. 
+<p class="level0"><a name="Selection"></a><span class="nroffip">Selection 4</span> 
+<p class="level1">
+<p class="level1">Select packages to those selected, those not selected, or all.  Here, ``selected'' means that the checkbox in the beginning of the line of a package is ticked. 
+<p class="level0"><a name="Display"></a><span class="nroffip">Display configuration buttons 4</span> 
+<p class="level1">
+<p class="level1">To the right there are three buttons: select all packages, select none (a.k.a. deselect all), and reset all these filters to the defaults, i.e., show all available. 
+<p class="level1"><span Class="emphasis">Package list area</span> 
+<p class="level1">
+<p class="level1">The second are of the main display lists all installed packages.  If a repository is loaded, those that are available but not installed are also listed. 
+<p class="level1">Double clicking on a package line pops up an informational window with further details: the long description, included files, etc. 
+<p class="level1">Each line of the package list consists of the following items: 
+<p class="level0"><a name="a"></a><span class="nroffip">a checkbox 4</span> 
+<p class="level1">
+<p class="level1">Used to select particular packages; some of the action buttons (see below) work only on the selected packages. 
+<p class="level0"><a name="package"></a><span class="nroffip">package name 4</span> 
+<p class="level1">
+<p class="level1">The name (identifier) of the package as given in the database. 
+<p class="level0"><a name="local"></a><span class="nroffip">local revision (and version) 4</span> 
+<p class="level1">
+<p class="level1">If the package is installed the TeX Live revision number for the installed package will be shown.  If there is a catalogue version given in the database for this package, it will be shown in parentheses. However, the catalogue version, unlike the s-1TLs0 revision, is not guaranteed to reflect what is actually installed. 
+<p class="level0"><a name="remote"></a><span class="nroffip">remote revision (and version) 4</span> 
+<p class="level1">
+<p class="level1">If a repository has been loaded the revision of the package in the repository (if present) is shown.  As with the local column, if a catalogue version is provided it will be displayed.  And also as with the local column, the catalogue version may be stale. 
+<p class="level0"><a name="short"></a><span class="nroffip">short description 4</span> 
+<p class="level1">
+<p class="level1">The short description of the package. 
+<p class="level1"><a class="emphasis" href="#Main">Main display action buttons</a> 
+<p class="level1">
+<p class="level1">Below the list of packages are several buttons: 
+<p class="level0"><a name="Update"></a><span class="nroffip">Update all installed 4</span> 
+<p class="level1">
+<p class="level1">This calls f(CW*(C`tlmgr update --all*(C'</span>, i.e., tries to update all available packages.  Below this button is a toggle to allow reinstallation of previously removed packages as part of this action. 
+<p class="level1">The other four buttons only work on the selected packages, i.e., those where the checkbox at the beginning of the package line is ticked. 
+<p class="level0"><a name="Update"></a><span class="nroffip">Update 4</span> 
+<p class="level1">
+<p class="level1">Update only the selected packages. 
+<p class="level0"><a name="Install"></a><span class="nroffip">Install 4</span> 
+<p class="level1">
+<p class="level1">Install the selected packages; acts like f(CW*(C`tlmgr install*(C'</span>, i.e., also installs dependencies.  Thus, installing a collection installs all its constituent packages. 
+<p class="level0"><a name="Remove"></a><span class="nroffip">Remove 4</span> 
+<p class="level1">
+<p class="level1">Removes the selected packages; acts like f(CW*(C`tlmgr remove*(C'</span>, i.e., it will also remove dependencies of collections (but not dependencies of normal packages). 
+<p class="level0"><a name="Backup"></a><span class="nroffip">Backup 4</span> 
+<p class="level1">
+<p class="level1">Makes a backup of the selected packages; acts like f(CW*(C`tlmgr backup*(C'</span>. This action needs the option f(CW*(C`backupdir*(C'</span> set (see f(CW*(C`Options -*(C'</span> General&gt;). <a name="Menu"></a><h2 class="nroffsh">Menu bar</h2>
+<p class="level0">
+<p class="level0">The following entries can be found in the menu bar: 
+<p class="level0">
+<p class="level0">
+<p class="level0">The items here load various repositories: the default as specified in the TeX Live database, the default network repository, the repository specified on the command line (if any), and an arbitrarily manually-entered one.  Also has the so-necessary f(CW*(C`quit*(C'</span> operation. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Provides access to several groups of options: f(CW*(C`Paper*(C'</span> (configuration of default paper sizes), f(CW*(C`Platforms*(C'</span> (only on Unix, configuration of the supported/installed platforms), f(CW*(C`GUI Language*(C'</span> (select language used in the s-1GUIs0 interface), and f(CW*(C`General*(C'</span> (everything else). 
+<p class="level0">Several toggles are also here.  The first is f(CW*(C`Expert options*(C'</span>, which is set by default.  If you turn this off, the next time you start the s-1GUIs0 a simplified screen will be shown that display only the most important functionality.  This setting is saved in the configuration file of f(CW*(C`tlmgr*(C'</span>; see *(L"s-1CONFIGURATION FILE FOR TLMGR*(R"s0 for details. 
+<p class="level0">The other toggles are all off by default: for debugging output, to disable the automatic installation of new packages, and to disable the automatic removal of packages deleted from the server.  Playing with the choices of what is or isn't installed may lead to an inconsistent TeX Live installation; e.g., when a package is renamed. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Provides access to several actions: update the filename database (aka f(CW*(C`ls-R*(C'</span>, f(CW*(C`mktexlsr*(C'</span>, f(CW*(C`texhash*(C'</span>), rebuild all formats (f(CW*(C`fmtutil-sys --all*(C'</span>), update the font map database (f(CW*(C`updmap-sys*(C'</span>), restore from a backup of a package, and use of symbolic links in system directories (not on Windows). 
+<p class="level0">The final action is to remove the entire TeX Live installation (also not on Windows). 
+<p class="level0">
+<p class="level0">
+<p class="level0">Provides access to the TeX Live manual (also on the web at &lt;http://tug.org/texlive/doc.html&gt;) and the usual ``About'' box. <a name="MACHINE-READABLE"></a><h2 class="nroffsh">MACHINE-READABLE OUTPUT</h2>
+<p class="level0">
+<p class="level0">With the f(CW*(C`--machine-readable*(C'</span> option, f(CW*(C`tlmgr*(C'</span> writes to stdout in the fixed line-oriented format described here, and the usual informational messages for human consumption are written to stderr (normally they are written to stdout).  The idea is that a program can get all the information it needs by reading stdout. 
+<p class="level0">Currently this option only applies to the  update, install, and *(L"option*(R" actions. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The output format is as follows: 
+<p class="level0">
+<p class="level0">&nbsp; fieldname "et" value &nbsp; ... &nbsp; "end-of-header" &nbsp; pkgname status localrev serverrev size runtime esttot &nbsp; ... &nbsp; "end-of-updates" &nbsp; other output from post actions, not in machine readable form 
+<p class="level0">
+<p class="level0">The header section currently has two fields: f(CW*(C`location-url*(C'</span> (the repository source from which updates are being drawn), and f(CW*(C`total-bytes*(C'</span> (the total number of bytes to be downloaded). 
+<p class="level0">The <span Class="emphasis">localrev</span> and <span Class="emphasis">serverrev</span> fields for each package are the revision numbers in the local installation and server repository, respectively.  The <span Class="emphasis">size</span> field is the number of bytes to be downloaded, i.e., the size of the compressed tar file for a network installation, not the unpacked size. The runtime and esttot fields  are only present for updated and auto-install packages, and contain the currently passed time since start of installation/updates and the estimated total time. 
+<p class="level0">Line endings may be either s-1LFs0 or s-1CRLFs0 depending on the current platform. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="emphasis">location</span> may be a url (including f(CW*(C`file:///foo/bar/...*(C'</span>), or a directory name (f(CW*(C`/foo/bar*(C'</span>).  It is the package repository from which the new package information was drawn. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="emphasis">count</span> is simply a decimal number, the sum of the sizes of all the packages that need updating or installing (which are listed subsequently). 
+<p class="level0">Then comes a line with only the literal string f(CW*(C`end-of-header*(C'</span>. 
+<p class="level0">Each following line until a line with literal string f(CW*(C`end-of-updates*(C'</span> reports on one package.  The fields on each line are separated by a tab.  Here are the fields. 
+<p class="level0"><a name="fIpkgnamefR"></a><span class="nroffip">\fIpkgname\fR 4</span> 
+<p class="level1">
+<p class="level1">The TeX Live package identifier, with a possible platform suffix for executables.  For instance, f(CW*(C`pdftex*(C'</span> and f(CW*(C`pdftex.i386-linux*(C'</span> are given as two separate packages, one on each line. 
+<p class="level0"><a name="fIstatusfR"></a><span class="nroffip">\fIstatus\fR 4</span> 
+<p class="level1">
+<p class="level1">The status of the package update.  One character, as follows: 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level2">The package was removed on the server. 
+<p class="level2">
+<p class="level2">
+<p class="level2">The package was removed in the local installation, even though a collection depended on it.  (E.g., the user ran f(CW*(C`tlmgr remove --force*(C'</span>.) 
+<p class="level2">
+<p class="level2">
+<p class="level2">Normal update is needed. 
+<p class="level2">
+<p class="level2">
+<p class="level2">Reversed non-update: the locally-installed version is newer than the version on the server. 
+<p class="level2">
+<p class="level2">
+<p class="level2">Automatically-determined need for installation, the package is new on the server and is (most probably) part of an installed collection. 
+<p class="level2">
+<p class="level2">
+<p class="level2">Package will be installed and isn't present in the local installation (action install). 
+<p class="level2">
+<p class="level2">
+<p class="level2">Package is already present but will be reinstalled (action install). 
+<p class="level1">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="fIlocalrevfR"></a><span class="nroffip">\fIlocalrev\fR 4</span> 
+<p class="level1">
+<p class="level1">The revision number of the installed package, or f(CW*(C`-*(C'</span> if it is not present locally. 
+<p class="level0"><a name="fIserverrevfR"></a><span class="nroffip">\fIserverrev\fR 4</span> 
+<p class="level1">
+<p class="level1">The revision number of the package on the server, or f(CW*(C`-*(C'</span> if it is not present on the server. 
+<p class="level0"><a name="fIsizefR"></a><span class="nroffip">\fIsize\fR 4</span> 
+<p class="level1">
+<p class="level1">The size in bytes of the package on the server.  The sum of all the package sizes is given in the f(CW*(C`total-bytes*(C'</span> header field mentioned above. 
+<p class="level0"><a name="fIruntimefR"></a><span class="nroffip">\fIruntime\fR 4</span> 
+<p class="level1">
+<p class="level1">The run time since start of installations or updates. 
+<p class="level0"><a name="fIesttotfR"></a><span class="nroffip">\fIesttot\fR 4</span> 
+<p class="level1">
+<p class="level1">The estimated total time. 
+<p class="level1">
+<p class="level1">
+<p class="level1">The output format is as follows: 
+<p class="level1">
+<p class="level1">&nbsp; key "et" value 
+<p class="level1">
+<p class="level1">If a value is not saved in the database the string f(CW*(C`(not set)*(C'</span> is shown. 
+<p class="level1">If you are developing a program that uses this output, and find that changes would be helpful, do not hesitate to write the mailing list. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS AND COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">This script and its documentation were written for the TeX Live distribution (&lt;http://tug.org/texlive&gt;) and both are licensed under the s-1GNUs0 General Public License Version 2 or later. 

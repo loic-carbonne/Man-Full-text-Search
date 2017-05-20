@@ -1,0 +1,55 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dbus-run-session - start a process as a new D-Bus session <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-run-session</span> [--config-file&nbsp;<span Class="emphasis">FILENAME</span>] [--dbus-daemon&nbsp;<span Class="emphasis">BINARY</span>] [--] <span Class="emphasis">PROGRAM</span> [<span Class="emphasis">ARGUMENTS</span>...] 
+<p class="level0"><span Class="bold">dbus-run-session</span> --help 
+<p class="level0"><span Class="bold">dbus-run-session</span> --version <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-run-session</span> is used to start a session bus instance of <span Class="bold">dbus-daemon</span> from a shell script, and start a specified program in that session. The <span Class="bold">dbus-daemon</span> will run for as long as the program does, after which it will terminate. 
+<p class="level0">One use is to run a shell with its own <span Class="bold">dbus-daemon</span> in a text-mode or SSH session, and have the <span Class="bold">dbus-daemon</span> terminate automatically on leaving the sub-shell, like this: 
+<p class="level0">dbus-run-session -- bash 
+<p class="level0">or to replace the login shell altogether, by combining <span Class="bold">dbus-run-session</span> with the <span Class="bold">exec</span> builtin: 
+<p class="level0">exec dbus-run-session -- bash 
+<p class="level0">Another use is to run regression tests and similar things in an isolated D-Bus session, to avoid either interfering with the "real" D-Bus session or relying on there already being a D-Bus session active, for instance: 
+<p class="level0">dbus-run-session -- make check 
+<p class="level0">or (in <span Class="bold">automake</span>(1)): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;   TESTS_ENVIRONMENT = MY_DEBUG=all dbus-run-session --
+&nbsp;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--config-file=</span><span Class="emphasis">FILENAME</span>, <span Class="bold">--config-file</span> <span Class="emphasis">FILENAME</span> 
+<p class="level1">Pass <span Class="bold">--config-file=</span><span Class="emphasis">FILENAME</span> to the bus daemon, instead of passing it the <span Class="bold">--session</span> argument. See <span Class="bold">dbus-daemon</span>(1). 
+<p class="level0">
+<p class="level0"><span Class="bold">--dbus-daemon=</span><span Class="emphasis">BINARY</span>, <span Class="bold">--dbus-daemon</span> <span Class="emphasis">BINARY</span> 
+<p class="level1">Run <span Class="emphasis">BINARY</span> as <span Class="bold">dbus-daemon</span>(1), instead of searching the <span Class="bold">PATH</span> in the usual way for an executable called <span Class="bold">dbus-daemon</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Print usage information and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print the version of dbus-run-session and exit. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-run-session</span> exits with the exit status of <span Class="emphasis">PROGRAM</span>, 0 if the <span Class="bold">--help</span> or <span Class="bold">--version</span> options were used, 127 on an error within <span Class="bold">dbus-run-session</span> itself, or 128+<span Class="emphasis">n</span> if the <span Class="emphasis">PROGRAM</span> was killed by signal <span Class="emphasis">n</span>. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PATH</span> is searched to find <span Class="emphasis">PROGRAM</span>, and (if the --dbus-daemon option is not used or its argument does not contain a <span Class="bold">/</span> character) to find <span Class="bold">dbus-daemon</span>. 
+<p class="level0">The session bus*(Aq address is made available to <span Class="emphasis">PROGRAM</span> in the environment variable <span Class="bold">DBUS_SESSION_BUS_ADDRESS</span>. 
+<p class="level0">The variables <span Class="bold">DBUS_SESSION_BUS_PID</span>, <span Class="bold">DBUS_SESSION_BUS_WINDOWID</span>, <span Class="bold">DBUS_STARTER_BUS_TYPE</span> and <span Class="bold">DBUS_STARTER_ADDRESS</span> are removed from the environment, if present. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to the D-Bus mailing list or bug tracker, see m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/</span>m[] <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-daemon</span>(1), <span Class="bold">dbus-launch</span>(1) 

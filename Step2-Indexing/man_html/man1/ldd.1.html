@@ -1,0 +1,18 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ldd - print shared library dependencies <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="manpage">ldd  [\fIoption\fP]... \fIfile\fP...</span><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ldd</span> prints the shared libraries required by each program or shared library specified on the command line. <a name="Security"></a><h2 class="nroffsh">Security</h2>
+<p class="level0">In the usual case, <span Class="bold">ldd</span> invokes the standard dynamic linker (see <span Class="manpage">ld.so (8))</span>with the <span Class="bold">LD_TRACE_LOADED_OBJECTS</span> environment variable set to 1, which causes the linker to display the library dependencies. Be aware, however, that in some circumstances, some versions of <span Class="manpage">ldd</span>may attempt to obtain the dependency information by directly executing the program. Thus, you should <span Class="emphasis">never</span> employ <span Class="bold">ldd</span> on an untrusted executable, since this may result in the execution of arbitrary code. A safer alternative when dealing with untrusted executables is: 
+<p class="level0">&nbsp;   $ objdump -p /path/to/program | grep NEEDED <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> Print the version number of <span Class="manpage">ldd .</span>
+<p class="level0"><span Class="bold">-v\ --verbose</span> Print all information, including, for example, symbol versioning information. 
+<p class="level0"><span Class="bold">-u\ --unused</span> Print unused direct dependencies. (Since glibc 2.3.4.) 
+<p class="level0"><span Class="bold">-d\ --data-relocs</span> Perform relocations and report any missing objects (ELF only). 
+<p class="level0"><span Class="bold">-r\ --function-relocs</span> Perform relocations for both data objects and functions, and report any missing objects or functions (ELF only). 
+<p class="level0"><span Class="bold">--help</span> Usage information. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="bold">ldd</span> does not work on a.out shared libraries. 
+<p class="level0"><span Class="bold">ldd</span> does not work with some extremely old a.out programs which were built before <span Class="bold">ldd</span> support was added to the compiler releases. If you use <span Class="bold">ldd</span> on one of these programs, the program will attempt to run with <span Class="emphasis">argc</span> = 0 and the results will be unpredictable. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">sprof (1)</span>, <span Class="manpage">pldd (1)</span>, <span Class="manpage">ld.so (8)</span>, <span Class="manpage">ldconfig (8)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

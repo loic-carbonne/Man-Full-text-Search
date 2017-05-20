@@ -1,0 +1,146 @@
+javaws(1)                   General Commands Manual                  javaws(1)
+
+
+
+Name
+       javaws Command Line
+
+NAME
+       javaws - Java Web Start launcher command
+
+SYNOPSIS
+       javaws [run-options] <jnlp>
+
+       javaws [control-options]
+
+PARAMETERS
+       [run-options]
+
+       Command-line  run-options.  run-options may be in any order. For a dis-
+       cussion of the various run-options, see RUN-OPTIONS below.
+
+       <jnlp>
+
+       This can be either the path of, or the Uniform Resource  Locater  (URL)
+       of the JNLP (Java Network Launching Protocol) file.
+
+       [control-options]
+
+       Command-line  control-options. control-options may be in any order. For
+       a discussion of the various control-options, see CONTROL-OPTIONS below.
+
+DESCRIPTION
+       The javaws command launches Java Web  Start,  which  is  the  reference
+       implementation  of the Java Network Launching Protocol (JNLP). Java Web
+       Start launches Java applications/applets hosted on a network.
+
+       If a JNLP file is specified,  javaws  will  launch  the  Java  applica-
+       tion/applet specified in the JNLP file.
+
+       The javaws launcher has a set of options that are supported in the cur-
+       rent release. However, the options may be removed in a future release.
+
+RUN-OPTIONS
+       -offline
+
+       Run Java Web Start in offline mode.
+
+       -Xnosplash
+
+       Do not display the initial splash screen.
+
+       -open <arguments>
+
+       If specified, replaces the arguments in the jnlp file with -open <argu-
+       ments>.
+
+       -print <arguments>
+
+       If  specified,  replaces  the  arguments  in  the jnlp file with -print
+       <arguments>.
+
+       -online
+
+       Use online mode (default behavior).
+
+       -wait
+
+       If specified, the javaws process will not exit  until  the  application
+       exits. This option does not function as described on Windows platforms.
+
+       -verbose
+
+       Display additional output.
+
+       -J<option>
+
+       Supply options to the VM.
+
+       -system
+
+       Run the application from the system cache only.
+
+CONTROL-OPTIONS
+       -viewer
+
+       Show the Cache Viewer in the Java Control Panel.
+
+       -clearcache
+
+       Remove all non-installed applications from the cache.
+
+       -userConfig <property name>
+
+       Clear the specified deployment property.
+
+       -userConfig <property name> <property value>
+
+       Set the specified deployment property to the specified value.
+
+       -uninstall
+
+       Remove all applications from the cache.
+
+       -uninstall <jnlp>
+
+       Remove the application from the cache.
+
+       -import [import-options] <jnlp>
+
+       Import the application to the cache.
+
+IMPORT-OPTIONS
+       -silent
+
+       Import silently (with no user interface).
+
+       -system
+
+       Import application to the system cache.
+
+       -codebase <url>
+
+       Retrieve resources from the given codebase.
+
+       -shortcut
+
+       Install  shortcuts as if user allowed prompt. This option has no effect
+       unless -silent option is also used.
+
+       -association
+
+       Install associations as if user allowed  prompt.  This  option  has  no
+       effect unless -silent option is also used.
+
+FILES
+       For  information about the user and system cache and deployment.proper-
+       ties files, see System- and User-Level Properties @
+       http://docs.oracle.com/javase/7/docs/technotes/guides/deploy-
+       ment/deployment-guide/properties.html.
+
+MORE INFORMATION
+       For more information about Java Web Start, see Java Web Start @
+       http://docs.oracle.com/javase/7/docs/tech-
+       notes/guides/javaws/index.html.
+
+                                  18 Jul 2013                        javaws(1)

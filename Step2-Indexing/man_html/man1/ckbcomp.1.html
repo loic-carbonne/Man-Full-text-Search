@@ -1,0 +1,70 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ckbcomp - compile a XKB keyboard description to a keymap suitable for loadkeys or kbdcontrol 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ckbcomp</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">ckbcomp</span> keymap compiler converts a description of an XKB keyboard layout into a console keymap that can be read directly by <span Class="manpage">loadkeys (1)</span>or <span Class="manpage">kbdcontrol (1).</span>
+<p class="level0">On its standard output <span Class="bold">ckbcomp</span> dumps the generated keyboard definition.  The most important difference between the arguments of  <span Class="manpage">setxkbmap (1)</span>and the arguments of <span Class="bold">ckbcomp</span> is the additional parameter <span Class="emphasis">-charmap</span> when non-Unicode keyboard map is wanted.  Without <span Class="emphasis">-charmap</span> <span Class="bold">ckbcomp</span> will generate Unicode keyboard. 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><a name="General"></a><h2 class="nroffsh">General options</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">-help</span>Print a usage message and exit. 
+<p class="level0"><span Class="bold">-charmap\  charmap</span> The encoding to use for the output keymap.  There should be an character mapping table defining this encoding in <span Class="emphasis">/usr/share/consoletrans .</span> Definitions of the following charmaps are provided: 
+<p class="level0"><span Class="manpage">ARMSCII-8</span>, <span Class="manpage">CP1251</span>, <span Class="manpage">CP1255</span>, <span Class="manpage">CP1256</span>, <span Class="manpage">GEORGIAN-ACADEMY</span>, <span Class="manpage">GEORGIAN-PS</span>, <span Class="manpage">IBM1133</span>, <span Class="manpage">ISIRI-3342</span>, <span Class="manpage">ISO-8859-1</span>, <span Class="manpage">ISO-8859-2</span>, <span Class="manpage">ISO-8859-3</span>, <span Class="manpage">ISO-8859-4</span>, <span Class="manpage">ISO-8859-5</span>, <span Class="manpage">ISO-8859-6</span>, <span Class="manpage">ISO-8859-7</span>, <span Class="manpage">ISO-8859-8</span>, <span Class="manpage">ISO-8859-9</span>, <span Class="manpage">ISO-8859-10</span>, <span Class="manpage">ISO-8859-11</span>, <span Class="manpage">ISO-8859-13</span>, <span Class="manpage">ISO-8859-14</span>, <span Class="manpage">ISO-8859-15</span>, <span Class="manpage">ISO-8859-16</span>, <span Class="manpage">KOI8-R</span>, <span Class="manpage">KOI8-U</span>, <span Class="manpage">TIS-620  and</span>, <span Class="manpage">VISCII .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-I dir</span> Look in the top-level directory <span Class="emphasis">dir</span> for files included by the keymap description.  This option may be used multiple times.  If a file can not be found in any of the specified directories, it will be searched also in some other standard locations, such as <span Class="emphasis">/etc/console-setup/ckb ,</span> <span Class="emphasis">/usr/share/X11/xkb</span> and <span Class="emphasis">/etc/X11/xkb</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-v\  level</span> Set level of detail for listing.  The argument <span Class="emphasis">level</span> must be a number from 1 to 10. 
+<p class="level0"><span Class="bold">-compact</span> Generate a compact keymap with at most two xkb groups and two levels in each or only one xkb-group and up to four levels. 
+<p class="level0"><span Class="bold">-freebsd</span> Generate a keymap for FreeBSD. 
+<p class="level0"><span Class="manpage">-backspace\  [ bs | del ]</span>Specifies the behaviour of the 
+<p class="level0">and 
+<p class="level0">keys. Value <span Class="bold">bs</span> specifies VT100-conformant behaviour: 
+<p class="level0">
+<p class="level0">
+<p class="level0">will generate <span Class="bold">^H</span> 
+<p class="level0">and 
+<p class="level0">
+<p class="level0">
+<p class="level0">will generate <span Class="bold">^?</span> 
+<p class="level0">Value <span Class="bold">del</span> specifies VT220-conformant behavior: 
+<p class="level0">
+<p class="level0">
+<p class="level0">will generate <span Class="bold">^?</span> 
+<p class="level0">and 
+<p class="level0">
+<p class="level0">
+<p class="level0">will generate a special function sequence. 
+<p class="level0"><a name="XKB"></a><h2 class="nroffsh">XKB Keyboard Description</h2>
+<p class="level0">The keyboard layout, variant and options components can be also specified directly on the command line.  See the synopsis of the command. 
+<p class="level0"><span Class="bold">-symbols\  name</span> Specifies the symbols component name of the XKB keyboard description. 
+<p class="level0"><span Class="bold">-keycodes\  name</span> Specifies the keycodes component name of the XKB keyboard description. 
+<p class="level0"><span Class="bold">-rules\  name</span> The name of the rules file to use. 
+<p class="level0"><span Class="bold">-model\  name</span> Specifies the keyboard model used to choose the component names. 
+<p class="level0"><span Class="bold">-layout\  name</span> Specifies the layout used to choose the component names. 
+<p class="level0"><span Class="bold">-variant\  name</span> Specifies the layout variant used to choose the component names. 
+<p class="level0"><span Class="bold">-option\  name</span> Adds an option used to choose component names. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">/usr/share/consoletrans</span> <br><span Class="emphasis">/etc/console-setup/ckb</span> <br><span Class="emphasis">/usr/share/X11/xkb</span> <br><span Class="emphasis">/etc/X11/xkb</span> 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">If the option <span Class="emphasis">-freebsd</span> is used together with <span Class="emphasis">-backspace\ del ,</span> then the key 
+<p class="level0">will generate the special code <span Class="manpage">fkey70 .</span>It is your responsibility to assign the appropriate sequence to this special  code by using the following command: 
+<p class="level0"><pre class="level0">
+&nbsp;
+kbdcontrol -f 70 "`printf '\033[3~'`"
+&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">keyboard (5)</span>, <span Class="manpage">setxkbmap (1)</span>

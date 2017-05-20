@@ -1,0 +1,40 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xhost - server access control program for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xhost</span> [[+-]name ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xhost</span> program is used to add and delete host names or user names to the list allowed to make connections to the X server.  In the case of hosts, this provides a rudimentary form of privacy control and security.  It is only sufficient for a workstation (single user) environment, although it does limit the worst abuses.  Environments which require more sophisticated measures should implement the user-based mechanism or use the hooks in the protocol for passing other authentication data to the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xhost</span> accepts the following command line options described below.  For security, the options that affect access control may only be run from the "controlling host".  For workstations, this is the same machine as the server.  For X terminals, it is the login host. 
+<p class="level0"><span Class="bold">-help</span> Prints a usage message. 
+<p class="level0"><span Class="bold">[+] name</span> The given <span Class="emphasis">name</span> (the plus sign is optional) is added to the list allowed to connect to the X server. The name can be a host name or a complete name (See 
+<p class="level0"><a class="bold" href="#NAMES">NAMES</a> for more details). 
+<p class="level0"><span Class="bold">- name</span> The given <span Class="emphasis">name</span> is removed from the list of allowed to connect to the server.  The name can be a host name or a complete name (See 
+<p class="level0"><a class="bold" href="#NAMES">NAMES</a> for more details). Existing connections are not broken, but new connection attempts will be denied. Note that the current machine is allowed to be removed; however, further connections (including attempts to add it back) will not be permitted. Resetting the server (thereby breaking all connections) is the only way to allow local connections again. 
+<p class="level0"><span Class="bold">\+</span> Access is granted to everyone, even if they aren't on the list (i.e., access control is turned off). 
+<p class="level0"><span Class="bold">-</span> Access is restricted to only those on the list (i.e., access control is turned on). 
+<p class="level0"><span Class="emphasis">nothing</span> If no command line arguments are given, a message indicating whether or not access control is currently enabled is printed, followed by the list of those allowed to connect. This is the only option that may be used from machines other than the controlling host. <a name="NAMES"></a><h2 class="nroffsh">NAMES</h2>
+<p class="level0">A complete name has the syntax ``family:name'' where the families are as follows: 
+<p class="level0"><pre class="level0">
+inet	Internet host (IPv4)
+inet6	Internet host (IPv6)
+dnet	DECnet host
+nis	Secure RPC network name
+krb	Kerberos V5 principal
+local	contains only one name, the empty string
+si	Server Interpreted
+</pre>
+
+<p class="level0">
+<p class="level0">The family is case insensitive. The format of the name varies with the family. 
+<p class="level0">When Secure RPC is being used, the network independent netname (e.g., "nis:unix.<span Class="emphasis">uid</span>@<span Class="emphasis">domainname</span>") can be specified, or a local user can be specified with just the username and a trailing at-sign (e.g., "nis:pat@"). 
+<p class="level0">For backward compatibility with pre-R6 <span Class="emphasis">xhost</span>, names that contain an at-sign (@) are assumed to be in the nis family. Otherwise they are assumed to be Internet addresses. If compiled to support IPv6, then all IPv4 and IPv6 addresses returned by getaddrinfo(3) are added to the access list in the appropriate inet or inet6 family. 
+<p class="level0">The local family specifies all the local connections at once. However, the server interpreted address "si:localuser:<span Class="emphasis">username</span>" can be used to specify a single local user. (See the <span Class="emphasis">Xsecurity</span>(7) manual page for more details.) 
+<p class="level0">Server interpreted addresses consist of a case-sensitive type tag and a string representing a given value, separated by a colon.  For example, "si:hostname:almas" is a server interpreted address of type <span Class="emphasis">hostname</span>, with a value of <span Class="emphasis">almas</span>.   For more information on the available forms of server interpreted addresses, see the <span Class="emphasis">Xsecurity</span>(7) manual page. 
+<p class="level0">The initial access control list for display number <span Class="bold">n</span> may be set by the file <span class="emphasis">/etc/X<span class="bold">n<span Class="emphasis">.hosts</span>, where <span Class="bold">n</span> is the display number of the server.  See <span Class="emphasis">Xserver</span>(1) for details. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">For each name added to the access control list, a line of the form "<span Class="emphasis">name</span> being added to access control list" is printed. For each name removed from the access control list, a line of the form "<span Class="emphasis">name</span> being removed from access control list" is printed. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), Xsecurity(7), Xserver(1), xdm(1), xauth(1), getaddrinfo(3) <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display to use. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">You can't specify a display on the command line because <span Class="bold">-display</span> is a valid command line argument (indicating that you want to remove the machine named <span Class="emphasis">``display''</span> from the access list). 
+<p class="level0">The X server stores network addresses, not host names, unless you use the server-interpreted hostname type address.  If somehow you change a host's network address while the server is still running, and you are using a network-address based form of authentication, <span Class="emphasis">xhost</span> must be used to add the new address and/or remove the old address. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Bob Scheifler, MIT Laboratory for Computer Science, <br>Jim Gettys, MIT Project Athena (DEC). 

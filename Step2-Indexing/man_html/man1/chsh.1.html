@@ -1,0 +1,37 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chsh - change login shell <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chsh</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">LOGIN</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">chsh</span> command changes the user login shell. This determines the name of the user*(Aqs initial login command. A normal user may only change the login shell for her own account; the superuser may change the login shell for any account. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The options which apply to the <span Class="bold">chsh</span> command are: 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Display help message and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--root</span>&nbsp;<span Class="emphasis">CHROOT_DIR</span> 
+<p class="level1">Apply changes in the <span Class="emphasis">CHROOT_DIR</span> directory and use the configuration files from the <span Class="emphasis">CHROOT_DIR</span> directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--shell</span>&nbsp;<span Class="emphasis">SHELL</span> 
+<p class="level1">The name of the user*(Aqs new login shell. Setting this field to blank causes the system to select the default login shell. 
+<p class="level0">
+<p class="level0">If the <span Class="bold">-s</span> option is not selected, <span Class="bold">chsh</span> operates in an interactive fashion, prompting the user with the current login shell. Enter the new value to change the shell, or leave the line blank to use the current one. The current shell is displayed between a pair of <span Class="emphasis">[ ]</span> marks. <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">
+<p class="level0">The only restriction placed on the login shell is that the command name must be listed in /etc/shells, unless the invoker is the superuser, and then any value may be added. An account with a restricted login shell may not change her login shell. For this reason, placing /bin/rsh in /etc/shells is discouraged since accidentally changing to a restricted shell would prevent the user from ever changing her login shell back to its original value. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0">
+<p class="level0">/etc/shells 
+<p class="level1">List of valid login shells. 
+<p class="level0">
+<p class="level0">/etc/login.defs 
+<p class="level1">Shadow password suite configuration. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chfn</span>(1), <span Class="bold">login.defs</span>(5), <span Class="bold">passwd</span>(5). 

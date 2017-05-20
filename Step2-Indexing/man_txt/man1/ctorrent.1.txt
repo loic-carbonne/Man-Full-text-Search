@@ -1,0 +1,103 @@
+ctorrent(1)                       2008-10-11                       ctorrent(1)
+
+
+
+NAME
+       ctorrent - Download bittorrent files from command line
+
+SYNOPSIS
+         ctorrent - [options] *.torrent
+
+OPTIONS
+       -a  Preallocate files on disk
+
+       -A USER-AGENT-STRING
+           Set User-Agent header (default "Enhanced-CTorrent/dnh3.2")
+
+       -b FILE
+           Bitfield save FILE (default is torrent+".bf")
+
+       -c  Check pieces only, don't download
+
+       -d  Daemon mode (fork to background)
+
+       -D rate
+           Max bandwidth down (unit KiB/s)
+
+       -e hours
+           Exit while seed HOURS later (default 72 hours)
+
+       -E ratio
+           Exit after seeding to RATIO (UL:DL)
+
+       -f  Force saved bitfield or seed mode (skip initial hash check)
+
+       -h|-H
+           Display short help.
+
+       -i IP
+           Listen for connections on specific IP address (default all/any)
+
+       -l LENGTH
+           Piece length (default 262144)
+
+       -m PEERS-MIN
+           Min peers count (default 1)
+
+       -M PEERS-MAX
+           Max peers count (default 100)
+
+       -n FILE-NBR-LIST
+           Specify file number(s) to download
+
+       -p PORT
+            Listen PORT (default 2706 -> 2106)
+
+       -P ID
+           Set Peer ID prefix (default "-CD0302-")
+
+       -s SAVEFILE|DIR
+           Download ("save as") to a different file or directory
+
+       -t  Create a new torrent file
+
+       -t URL
+           Tracker's URL
+
+       -v  Verbose output (for debugging)
+
+       -x  Decode metainfo (torrent) file only, don't download
+
+       -z SLICE-SIZE
+           Download slice/block size, unit KB (default 16, max 128)
+
+DESCRIPTION
+       CTorrent is a BitTorrent Client program written in C/C++. Fast and
+       small are CTorrent's two strengths.
+
+       EXAMPLES
+
+           ctorrent -s save.iso -e 12 -C 32 -p 6881 iso.torrent
+
+ENVIRONMENT
+       None.
+
+FILES
+       None.
+
+SEE ALSO
+       azureus(1) bittornado(1) bittorrent(1) ktorrent(1) qbittorrent(1)
+       qtorrent(1) rtorrent(1) transmission-cli(1)
+
+AUTHORS
+       This manual page was written by Jari Aalto <jari.aalto@cante.net>, for
+       the Debian GNU system (but may be used by others). Released under
+       license GNU GPL v2 or (at your option) any later version.
+
+       The program development was discontinued 2006-06-07. See project page
+       https://sourceforge.net/projects/ctorrent
+
+
+
+
+ctorrent                          2008-10-11                       ctorrent(1)

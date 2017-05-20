@@ -1,0 +1,95 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">is a utility for gathering the public ssh host keys of a number of hosts. It was designed to aid in building and verifying 
+<p class="level0">files. 
+<p class="level0">provides a minimal interface suitable for use by shell and perl scripts. 
+<p class="level0">
+<p class="level0">uses non-blocking socket I/O to contact as many hosts as possible in parallel, so it is very efficient. The keys from a domain of 1,000 hosts can be collected in tens of seconds, even when some of those hosts are down or do not run ssh. For scanning, one does not need login access to the machines that are being scanned, nor does the scanning process involve any encryption. 
+<p class="level0">The options are as follows: 
+<p class="level0">
+<p class="level0">Forces 
+<p class="level0">to use IPv4 addresses only. 
+<p class="level0">Forces 
+<p class="level0">to use IPv6 addresses only. 
+<p class="level0">Read hosts or 
+<p class="level0">pairs from 
+<p class="level0">one per line. If 
+<p class="level0">is supplied instead of a filename, 
+<p class="level0">will read hosts or 
+<p class="level0">pairs from the standard input. 
+<p class="level0">Hash all hostnames and addresses in the output. Hashed names may be used normally by 
+<p class="level0">and 
+<p class="level0">but they do not reveal identifying information should the file's contents be disclosed. 
+<p class="level0">Port to connect to on the remote host. 
+<p class="level0">Set the timeout for connection attempts. If 
+<p class="level0">seconds have elapsed since a connection was initiated to a host or since the last time anything was read from that host, then the connection is closed and the host in question considered unavailable. Default is 5 seconds. 
+<p class="level0">Specifies the type of the key to fetch from the scanned hosts. The possible values are 
+<p class="level0">for protocol version 1 and 
+<p class="level0">
+<p class="level0">
+<p class="level0">or 
+<p class="level0">for protocol version 2. Multiple values may be specified by separating them with commas. The default is to fetch 
+<p class="level0">
+<p class="level0">and 
+<p class="level0">keys. 
+<p class="level0">Verbose mode. Causes 
+<p class="level0">to print debugging messages about its progress. 
+<p class="level0"><a name="SECURITY"></a><h2 class="nroffsh">SECURITY</h2>
+<p class="level0">If an ssh_known_hosts file is constructed using 
+<p class="level0">without verifying the keys, users will be vulnerable to 
+<p class="level0">attacks. On the other hand, if the security model allows such a risk, 
+<p class="level0">can help in the detection of tampered keyfiles or man in the middle attacks which have begun after the ssh_known_hosts file was created. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">Input format: 
+<p class="level0">1.2.3.4,1.2.4.4 name.my.domain,name,n.my.domain,n,1.2.3.4,1.2.4.4 
+<p class="level0">
+<p class="level0">Output format for RSA1 keys: 
+<p class="level0">host-or-namelist bits exponent modulus 
+<p class="level0">
+<p class="level0">Output format for RSA, DSA, ECDSA, and ED25519 keys: 
+<p class="level0">host-or-namelist keytype base64-encoded-key 
+<p class="level0">
+<p class="level0">Where 
+<p class="level0">is either 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">or 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Print the rsa host key for machine 
+<p class="level0">
+<p class="level0">$ ssh-keyscan hostname 
+<p class="level0">
+<p class="level0">Find all hosts from the file 
+<p class="level0">which have new or different keys from those in the sorted file 
+<p class="level0">
+<p class="level0">$ ssh-keyscan -t rsa,dsa,ecdsa,ed25519 -f ssh_hosts | e 	sort -u - ssh_known_hosts | diff ssh_known_hosts - 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">wrote the initial version, and 
+<p class="level0">added support for protocol version 2. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">It generates "Connection closed by remote host" messages on the consoles of all the machines it scans if the server is older than version 2.9. This is because it opens a connection to the ssh port, reads the public key, and drops the connection as soon as it gets the key. 

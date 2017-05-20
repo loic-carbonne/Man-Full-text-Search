@@ -1,0 +1,17 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">smproxy - Session Manager Proxy <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">smproxy</span> [-clientId id] [-restore saveFile] <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-clientId id</span> Specifies the session ID used by <span Class="emphasis">smproxy</span> in the previous session. 
+<p class="level0"><span Class="bold">-restore saveFile</span> Specifies the file used by <span Class="emphasis">smproxy</span> to save state in the previous session. <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">smproxy</span> allows X applications that do not support X11R6 session management to participate in an X11R6 session. <br>
+<p class="level0">In order for <span Class="emphasis">smproxy</span> to act as a proxy for an X application, one of the following must be true: <br>
+<p class="level0">- The application maps a top level window containing the <span Class="bold">WM_CLIENT_LEADER</span> property.  This property provides a pointer to the client leader window which contains the <span Class="bold">WM_CLASS</span>, <span Class="bold">WM_NAME</span>, <span Class="bold">WM_COMMAND</span>, and <span Class="bold">WM_CLIENT_MACHINE</span> properties. <br>
+<p class="level0">or ... <br>
+<p class="level0">- The application maps a top level window which does not contain the <span Class="bold">WM_CLIENT_LEADER</span> property.  However, this top level window contains the <span Class="bold">WM_CLASS</span>, <span Class="bold">WM_NAME</span>, <span Class="bold">WM_COMMAND</span>, and <span Class="bold">WM_CLIENT_MACHINE</span> properties. 
+<p class="level0">An application that support the <span Class="bold">WM_SAVE_YOURSELF</span> protocol will receive a <span Class="bold">WM_SAVE_YOURSELF</span> client message each time the session manager issues a checkpoint or shutdown.  This allows the application to save state.  If an application does not support the <span Class="bold">WM_SAVE_YOURSELF</span> protocol, then the proxy will provide enough information to the session manager to restart the application (using <span Class="bold">WM_COMMAND</span>), but no state will be restored. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">xsm(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Ralph Mor, X Consortium 
+<p class="level0">

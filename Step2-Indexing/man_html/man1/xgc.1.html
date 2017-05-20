@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xgc - X graphics demo <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xgc</span> [-<span Class="emphasis">toolkitoption</span> ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xgc</span> program demonstrates various features of the X graphics primitives. In X, most of the details about the graphics to be generated are stored in a resource called a graphics context (GC).  The <span Class="bold">xgc</span> program provides a user interface for setting various GC components. Pressing the "Run" button causes these results to be displayed in the large drawing window on the right.  Timing information is displayed in the window immediately below. 
+<p class="level0">The items in the upper left hand window work as follows: 
+<p class="level0"><span Class="emphasis">Function</span> - specify the logical function with which primitives will drawn.  The most usual setting is "set", i.e. simply to render pixels without regard to what has been drawn before. 
+<p class="level0"><span Class="emphasis">LineStyle</span> - specify whether lines should be drawn solid in foreground, dashed in foreground or alternating foreground and background. 
+<p class="level0"><span Class="emphasis">CapStyle</span> - specify the appearance of the ends of a line. 
+<p class="level0"><span Class="emphasis">JoinStyle</span> - specify the appearance of joints between consecutive lines drawn within a single graphics primitive. 
+<p class="level0"><span Class="emphasis">FillStyle</span> - specify whether lines, text and fill requests are solid, tiled with a pixmap or stippled. 
+<p class="level0"><span Class="emphasis">FillRule</span> - specifies the rule used to fill polygons.  The EvenOdd rule means that if areas overlap an odd number of times, they are not drawn.  Winding rule means that overlapping areas are always filled, regardless of how many times they overlap. 
+<p class="level0"><span Class="emphasis">ArcMode</span> - specifies the rule for filling of arcs.  The boundary of the arc is either a Chord or two radii. 
+<p class="level0"><span Class="emphasis">planemask</span> - specifies which planes of the drawing window are modified.  By default, all planes are modified. 
+<p class="level0"><span Class="emphasis">dashlist</span> - specifies a pattern to be used when drawing dashed lines. 
+<p class="level0"><span Class="emphasis">Line Width</span> - specifies the width in pixels of lines to be drawn. Zero means to draw using the server's fastest algorithm with a line width of one pixel. 
+<p class="level0"><span Class="emphasis">Font</span> - specifies the font to be used for text primitives. 
+<p class="level0"><span Class="emphasis">Foreground</span> and <span Class="emphasis">Background</span> - specify the pixel values to be applied when drawing primitives. The Foreground value is used as the pixel value for set bits in the source in all primitives. The Background value is used as the pixel value for unset bits in the source when using Copy Plane, drawing lines with LineStyle of DoubleDash and filling with FillStyle of OpaqueStippled. 
+<p class="level0"><span Class="emphasis">Percentage of Test</span> - scrollbar permits specifying only a percentage of the test to be run.  The number at the left indicates the current setting, which defaults to 100%. 
+<p class="level0">The window labeled "Test" permits choice of one a number of graphics primitive tests, including Points, Segments, Lines, Arcs and Filled Arcs, 8-bit Text and Image Text, Rectangles and Filled Rectangles, Image draws, as well as Copy Plane and Copy Area. 
+<p class="level0">The window to the right of this has buttons which permit record/playback of the primitives rendered. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xgc</span> accepts all of the standard X Toolkit command line options. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">This program accepts the usual defaults for toolkit applications. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7) <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">This program isn't really finished yet, but it probably never will be, since it only demonstrates the original X11 core protocol rendering operations, which few modern programs use anymore. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Dan Schmidt, MIT 

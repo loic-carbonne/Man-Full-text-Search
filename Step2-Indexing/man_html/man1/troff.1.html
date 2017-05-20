@@ -1,0 +1,242 @@
+
+<p class="level0">
+<p class="level0">troff.man 
+<p class="level0">This file is part of groff, the GNU roff type-setting system. 
+<p class="level0">Copyright (C) 1989, 2000, 2001, 2002, 2003, 2007, 2008, 2009 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">written by James Clark 
+<p class="level0">modified by Werner Lemberg &lt;wl@gnu.org&gt; &nbsp;           Bernd Warken &lt;groff-bernd.warken-72@web.de&gt; 
+<p class="level0">Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with the Invariant Sections being this .ig-section and AUTHOR, with no Front-Cover Texts, and with no Back-Cover Texts. 
+<p class="level0">A copy of the Free Documentation License is included as a file called FDL in the main directory of the groff source package. 
+<p class="level0">A copy of the GNU Free Documentation License is also available in this Debian package as /usr/share/doc/groff-base/copyright. 
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">troff - the troff processor of the groff text formatting system 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This manual page describes the GNU version of <span Class="manpage">troff .</span>It is part of the groff document formatting system. 
+<p class="level0">It is functionally compatible with UNIX troff, but has many extensions, see <span Class="manpage">\%groff_diff (7).</span>Usually it should be invoked using the <span Class="manpage">groff (1)</span>command which will also run preprocessors and postprocessors in the appropriate order and with the appropriate options. 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">It is possible to have whitespace between a command line option and its parameter. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span> Generate an 
+<p class="level0">approximation of the typeset output. 
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span> Print a backtrace with each warning or error message. 
+<p class="level0">This backtrace should help track down the cause of the error. 
+<p class="level0">The line numbers given in the backtrace may not always be correct, for <span Class="manpage">troff 's</span>idea of line numbers gets confused by <span Class="bold">as</span> or  <span Class="bold">am</span> requests. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span> Disable color output (always disabled in compatibility mode). 
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> Enable compatibility mode. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d cs</span> 
+<p class="level0"><span Class="bold">-d name = s</span> Define <span Class="emphasis">c</span> or <span Class="emphasis">name</span> to be a string <span Class="emphasis">s ;</span> <span Class="emphasis">c</span> must be a one letter name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E</span> Inhibit all error messages of , <span Class="manpage">troff .</span>Note that this doesn't affect messages output to standard error by macro packages using the <span Class="bold">tm</span> or <span Class="bold">tm1</span> requests. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f fam</span> Use <span Class="emphasis">fam</span> as the default font family. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F dir</span> Search in directory (or directory path) <span Class="emphasis">dir</span> for subdirectories <span Class="bold">dev name</span> 
+<p class="level0">is the name of the device) and there for the <span Class="bold">DESC</span> file and font files. <span Class="emphasis">dir</span> is scanned before all other font directories. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> Read the standard input after all the named input files have been processed. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I dir</span> This option may be used to add a directory to the search path for files (both those on the command line and those named in <span Class="bold">\&.psbb</span> requests). The search path is initialized with the current directory. This option may be specified more than once; the directories are then searched in the order specified (but before the current directory). If you want to make the current directory be read before other directories, add <span Class="bold">-I.\&</span> at the appropriate place. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">No directory search is performed for files with an absolute file name. 
+<p class="level1">
+<p class="level1"><span Class="bold">-m name</span> Read in the file 
+<p class="level1">If it isn't found, try <span Class="bold">tmac. name</span> instead. 
+<p class="level1">It will be first searched for in directories given with the <span Class="bold">-M</span> command line option, then in directories given in the <span Class="bold">GROFF_TMAC_PATH</span> environment variable, then in the current directory (only if in unsafe mode), the home directory, /usr/lib/groff/site-tmac, /usr/share/groff/site-tmac, and /usr/share/groff/1.22.2/tmac. 
+<p class="level1">
+<p class="level1"><span Class="bold">-M dir</span> Search directory (or directory path) <span Class="emphasis">dir</span> for macro files. 
+<p class="level1">This is scanned before all other macro directories. 
+<p class="level1">
+<p class="level1"><span Class="bold">-n num</span> Number the first page <span Class="emphasis">num .</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">-o list</span> Output only pages in <span Class="emphasis">list ,</span> which is a comma-separated list of page ranges; <span Class="emphasis">n</span> means print page <span Class="emphasis">n ,</span> 
+<p class="level1">means print every page between <span Class="emphasis">m</span> and <span Class="emphasis">n ,</span> <span Class="bold">- n</span> means print every page up to <span Class="emphasis">n ,</span> 
+<p class="level1">means print every page from <span Class="emphasis">n .</span> <span Class="bold">troff</span> will exit after printing the last page in the list. 
+<p class="level1">
+<p class="level1"><span Class="bold">-r cn</span> 
+<p class="level1"><span Class="bold">-r name = n</span> Set number register <span Class="emphasis">c</span> or <span Class="emphasis">name</span> to <span Class="emphasis">n ;</span> <span Class="emphasis">c</span> must be a one character name; <span Class="emphasis">n</span> can be any troff numeric expression. 
+<p class="level1">
+<p class="level1"><span Class="bold">-R</span> Don't load <span Class="bold">troffrc</span> and <span Class="manpage">troffrc-end .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">-T name</span> Prepare output for device <span Class="emphasis">name ,</span> rather than the default <span Class="manpage">ps ;</span>see <span Class="manpage">groff (1)</span>for a more detailed description. 
+<p class="level1">
+<p class="level1"><span Class="bold">-U</span> Unsafe mode. 
+<p class="level1">This will enable the following requests: <span Class="manpage">open</span>, <span Class="manpage">opena</span>, <span Class="manpage">pso</span>, <span Class="manpage">sy</span>and <span Class="manpage">pi .</span>For security reasons, these potentially dangerous requests are disabled otherwise. 
+<p class="level1">It will also add the current directory to the macro search path. 
+<p class="level1">
+<p class="level1"><span Class="bold">-v</span> Print the version number. 
+<p class="level1">
+<p class="level1"><span Class="bold">-w name</span> Enable warning <span Class="emphasis">name .</span> Available warnings are described in the section <a class="emphasis" href="#WARNINGS">WARNINGS</a> below. 
+<p class="level1">For example, to enable all warnings, use <span Class="bold">-w</span> <span Class="manpage">all .</span>Multiple <span Class="bold">-w</span> options are allowed. 
+<p class="level1">
+<p class="level1"><span Class="bold">-W name</span> Inhibit warning <span Class="emphasis">name .</span> Multiple <span Class="bold">-W</span> options are allowed. 
+<p class="level1">
+<p class="level1"><span Class="bold">-z</span> Suppress formatted output. 
+<p class="level1">
+<p class="level1"><a name="WARNINGS"></a><h2 class="nroffsh">WARNINGS</h2>
+<p class="level0">
+<p class="level0">The warnings that can be given by <span Class="bold">troff</span> are divided into the following categories. 
+<p class="level0">The name associated with each warning is used by the <span Class="bold">-w</span> and <span Class="bold">-W</span> options; the number is used by the <span Class="bold">warn</span> request, and by the <span Class="bold">.warn</span> register; it is always a power of 2 to allow bitwise composition. 
+<p class="level0">
+<p class="level0">
+<p class="level0">tab(@), center, box; c c c | c c c r rI lB | r rI lB. Bit@Code@Warning@Bit@Code@Warning _ 0@1@char@10@1024@reg 1@2@number@11@2048@tab 2@4@break@12@4096@right-brace 3@8@delim@13@8192@missing 4@16@el@14@16384@input 5@32@scale@15@32768@escape 6@64@range@16@65536@space 7@128@syntax@17@131072@font 8@256@di@18@262144@ig 9@512@mac@19@524288@color @@@20@1048576@file 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">break \t4</span>In fill mode, lines which could not be broken so that their length was less than the line length. 
+<p class="level0">This is enabled by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">char \t1</span>Non-existent characters. 
+<p class="level0">This is enabled by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">color \t524288</span>Color related warnings. 
+<p class="level0">
+<p class="level0"><span Class="manpage">delim \t8</span>Missing or mismatched closing delimiters. 
+<p class="level0">
+<p class="level0"><span Class="manpage">di \t256</span>Use of <span Class="bold">di</span> or <span Class="bold">da</span> without an argument when there is no current diversion. 
+<p class="level0">
+<p class="level0"><span Class="manpage">el \t16</span>Use of the <span Class="bold">el</span> request with no matching <span Class="bold">ie</span> request. 
+<p class="level0">
+<p class="level0"><span Class="manpage">escape \t32768</span>Unrecognized escape sequences. 
+<p class="level0">When an unrecognized escape sequence is encountered, the escape character is ignored. 
+<p class="level0">
+<p class="level0"><span Class="manpage">file \t1048576</span>Indicates a missing file for the <span Class="bold">mso</span> request. 
+<p class="level0">Enabled by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">font \t131072</span>Non-existent fonts. 
+<p class="level0">This is enabled by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">ig \t262144</span>Invalid escapes in text ignored with the <span Class="bold">ig</span> request. 
+<p class="level0">These are conditions that are errors when they do not occur in ignored text. 
+<p class="level0">
+<p class="level0"><span Class="manpage">input \t16384</span>Invalid input characters. 
+<p class="level0">
+<p class="level0"><span Class="manpage">mac \t512</span>Use of undefined strings, macros and diversions. 
+<p class="level0">When an undefined string, macro or diversion is used, that string is automatically defined as empty. 
+<p class="level0">So, in most cases, at most one warning will be given for each name. 
+<p class="level0">
+<p class="level0"><span Class="manpage">missing \t8192</span>Requests that are missing non-optional arguments. 
+<p class="level0">
+<p class="level0"><span Class="manpage">number \t2</span>Invalid numeric expressions. 
+<p class="level0">This is enabled by default. 
+<p class="level0">
+<p class="level0"><span Class="manpage">range \t64</span>Out of range arguments. 
+<p class="level0">
+<p class="level0"><span Class="manpage">reg \t1024</span>Use of undefined number registers. 
+<p class="level0">When an undefined number register is used, that register is automatically defined to have a value of~0. 
+<p class="level0">So, in most cases, at most one warning will be given for use of a particular name. 
+<p class="level0">
+<p class="level0"><span Class="manpage">right-brace \t4096</span>Use of <span Class="bold">\[rs]}</span> where a number was expected. 
+<p class="level0">
+<p class="level0"><span Class="manpage">scale \t32</span>Meaningless scaling indicators. 
+<p class="level0">
+<p class="level0"><span Class="manpage">space \t65536</span>Missing space between a request or macro and its argument. 
+<p class="level0">This warning will be given when an undefined name longer than two characters is encountered, and the first two characters of the name make a defined name. 
+<p class="level0">The request or macro will not be invoked. 
+<p class="level0">When this warning is given, no macro is automatically defined. 
+<p class="level0">This is enabled by default. 
+<p class="level0">This warning will never occur in compatibility mode. 
+<p class="level0">
+<p class="level0"><span Class="manpage">syntax \t128</span>Dubious syntax in numeric expressions. 
+<p class="level0">
+<p class="level0"><span Class="manpage">tab \t2048</span>Inappropriate use of a tab character. Either use of a tab character where a number was expected, or use of tab character in an unquoted macro argument. 
+<p class="level0">
+<p class="level0">There are also names that can be used to refer to groups of warnings: 
+<p class="level0">
+<p class="level0"><span Class="bold">all</span> All warnings except <span Class="manpage">di</span>, <span Class="manpage">mac</span>and <span Class="manpage">reg .</span>It is intended that this covers all warnings that are useful with traditional macro packages. 
+<p class="level0">
+<p class="level0"><span Class="bold">w</span> All warnings. 
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_TMAC_PATH</span> A colon separated list of directories in which to search for macro files. <span Class="bold">troff</span> will scan directories given in the <span Class="bold">-M</span> option before these, and in standard directories (current directory if in unsafe mode, home directory, <span Class="manpage">/usr/lib/groff/site-tmac</span>, <span Class="manpage">/usr/share/groff/site-tmac</span>, <span Class="manpage">/usr/share/groff/1.22.2/tmac )</span>after these. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_TYPESETTER</span> Default device. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_FONT_PATH</span> A colon separated list of directories in which to search for the <span Class="bold">dev name</span> directory. <span Class="bold">troff</span> will scan directories given in the <span Class="bold">-F</span> option before these, and in standard directories 
+<p class="level0"><span Class="manpage">/usr/share/groff/1.22.2/font</span>, <span Class="manpage">/usr/lib/font )</span>after these. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/troffrc</span> Initialization file (called before any other macro package). 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/troffrc-end</span> Initialization file (called after any other macro package). 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/ name .tmac</span> 
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/tmac. name</span> Macro files 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/dev name /DESC</span> Device description file for device <span Class="emphasis">name .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/dev name / F</span> Font file for font <span Class="emphasis">F</span> of device <span Class="emphasis">name .</span> 
+<p class="level0">Note that <span Class="bold">troffrc</span> and <span Class="bold">troffrc-end</span> are neither searched in the current nor in the home directory by default for security reasons (even if the <span Class="bold">-U</span> option is given). 
+<p class="level0">Use the <span Class="bold">-M</span> command line option or the <span Class="bold">GROFF_TMAC_PATH</span> environment variable to add these directories to the search path if necessary. 
+<p class="level0">
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Copyright (C) 1989, 2001, 2002, 2003, 2007, 2008, 2009 Free Software Foundation, Inc. 
+<p class="level0">
+<p class="level0">This document is distributed under the terms of the FDL (GNU Free Documentation License) version 1.3 or later. 
+<p class="level0">You should have received a copy of the FDL on your system, it is also available on-line at the 
+<p class="level0">GNU copyleft site 
+<p class="level0">This document was written by James Clark, with modifications from 
+<p class="level0">Werner Lemberg 
+<p class="level0">and 
+<p class="level0">Bernd Warken 
+<p class="level0">
+<p class="level0">
+<p class="level0">This document is part of <span Class="emphasis">groff ,</span> the GNU roff distribution. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">groff (1)</span>The main program of the <span Class="emphasis">groff</span> system, a wrapper around <span Class="emphasis">troff .</span> 
+<p class="level0">
+<p class="level0"><span Class="manpage">groff (7)</span>A description of the <span Class="emphasis">groff</span> language, including a short but complete reference of all predefined requests, registers, and escapes of plain <span Class="emphasis">groff .</span> From the command line, this is called by 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">man 7 groff</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="manpage">\%groff_diff (7)</span>The differences of the <span Class="emphasis">groff</span> language and the <span Class="emphasis">classical troff</span> language. 
+<p class="level0">Currently, this is the most actual document of the <span Class="emphasis">groff</span> system. 
+<p class="level0">
+<p class="level0"><span Class="manpage">roff (7)</span>An overview over <span Class="emphasis">groff</span> and other <span Class="emphasis">roff</span> systems, including pointers to further related documentation. 
+<p class="level0">
+<p class="level0">The <span Class="emphasis">groff info</span> <span Class="emphasis">file ,</span> cf. <span Class="manpage">info (1)</span>presents all groff documentation within a single document. 
+<p class="level0">
+<p class="level0">

@@ -1,0 +1,75 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-screensaver - command line tool for controlling the screensaver <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-screensaver</span> <span Class="bold">suspend&nbsp;</span><span class="bold"><span Class="emphasis">WindowID</span></span> 
+<p class="level0"><span Class="bold">xdg-screensaver</span> <span Class="bold">resume&nbsp;</span><span class="bold"><span Class="emphasis">WindowID</span></span> 
+<p class="level0"><span Class="bold">xdg-screensaver</span> {<span Class="bold">activate</span> | <span Class="bold">lock</span> | <span Class="bold">reset</span> | <span Class="bold">status</span>} 
+<p class="level0"><span Class="bold">xdg-screensaver</span> {<span Class="bold">--help</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">xdg-screensaver provides commands to control the screensaver. 
+<p class="level0">xdg-screensaver is for use inside a desktop session only. It is not recommended to use xdg-screensaver as root. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">suspend </span><span class="bold"><span Class="emphasis">WindowID</span></span> 
+<p class="level1">Suspends the screensaver and monitor power management. <span Class="emphasis">WindowID</span> must be the X Window ID of an existing window of the calling application. The window must remain in existence for the duration of the suspension. 
+<p class="level1">WindowID can be represented as either a decimal number or as a hexadecimal number consisting of the prefix <span Class="emphasis">0x</span> followed by one or more hexadecimal digits. 
+<p class="level1">The screensaver can be suspended in relation to multiple windows at the same time. In that case screensaver operation is only restored once the screensaver has been resumed in relation to each of the windows 
+<p class="level0">
+<p class="level0"><span Class="bold">resume </span><span class="bold"><span Class="emphasis">WindowID</span></span> 
+<p class="level1">Resume the screensaver and monitor power management after being suspended. <span Class="emphasis">WindowID</span> must be the same X Window ID that was passed to a previous call of <span Class="bold">xdg-screensaver suspend</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">activate</span> 
+<p class="level1">Turns the screensaver on immediately. This may result in the screen getting locked, depending on existing system policies. 
+<p class="level0">
+<p class="level0"><span Class="bold">lock</span> 
+<p class="level1">Lock the screen immediately. 
+<p class="level0">
+<p class="level0"><span Class="bold">reset</span> 
+<p class="level1">Turns the screensaver off immediately. If the screen was locked the user may be asked to authenticate first. 
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> 
+<p class="level1">Prints <span Class="emphasis">enabled</span> to stdout if the screensaver is enabled to turn on after a period of inactivity and prints <span Class="emphasis">disabled</span> if the screensaver is not enabled. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-screensaver suspend 0x1c00007
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Causes the screensaver to be disabled till <span Class="bold">xdg-screensaver resume 0x1c00007</span> is called. <span Class="emphasis">0x1c00007</span> must be the X Window ID of an existing window. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Bryce Harrington</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2006 <br>

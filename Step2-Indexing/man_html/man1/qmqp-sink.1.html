@@ -1,0 +1,42 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">qmqp-sink - multi-threaded QMQP test server <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">qmqp-sink</span> [<span Class="bold">-46cv</span>] [<span class="bold">-x <span Class="emphasis">time</span>] [<span Class="bold">inet:</span>][<span Class="emphasis">host</span>]:<span Class="emphasis">port</span> <span Class="emphasis">backlog</span> 
+<p class="level0"><span Class="bold">qmqp-sink</span> [<span Class="bold">-46cv</span>] [<span class="bold">-x <span Class="emphasis">time</span>] <span Class="bold">unix:</span><span Class="emphasis">pathname</span> <span Class="emphasis">backlog</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">qmqp-sink</span> listens on the named host (or address) and port. It receives messages from the network and throws them away. The purpose is to measure QMQP client performance, not protocol compliance. Connections can be accepted on IPv4 or IPv6 endpoints, or on UNIX-domain sockets. IPv4 and IPv6 are the default. This program is the complement of the <span Class="bold">qmqp-source</span>(1) program. 
+<p class="level0">Note: this is an unsupported test program. No attempt is made to maintain compatibility between successive versions. 
+<p class="level0">Arguments: 
+<p class="level0"><a name="fB-4fR"></a><span class="nroffip">\fB-4\fR</span> 
+<p class="level1">Support IPv4 only. This option has no effect when Postfix is built without IPv6 support. 
+<p class="level0"><a name="fB-6fR"></a><span class="nroffip">\fB-6\fR</span> 
+<p class="level1">Support IPv6 only. This option is not available when Postfix is built without IPv6 support. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR</span> 
+<p class="level1">Display a running counter that is updated whenever a delivery is completed. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Increase verbosity. Specify <span Class="bold">-v -v</span> to see some of the QMQP conversation. 
+<p class="level0"><a name="fB-x"></a><span class="nroffip">\fB-x \fItime\fR</span> 
+<p class="level1">Terminate after <span Class="emphasis">time</span> seconds. This is to facilitate memory leak testing. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+qmqp-source(1), QMQP message generator
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

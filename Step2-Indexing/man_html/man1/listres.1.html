@@ -1,0 +1,17 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">listres - list resources in widgets <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">listres</span> [-option ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="emphasis">listres</span> program generates a list of a widget's resource database. The class in which each resource is first defined, the instance and class name, and the type of each resource is listed.  If no specific widgets or the <span Class="emphasis">-all</span> switch are given, a two-column list of widget names and their class hierarchies is printed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Listres</span> accepts all of the standard toolkit command line options along with those listed below: 
+<p class="level0"><span Class="bold">-all</span> This option indicates that <span Class="emphasis">listres</span> should print information for all known widgets and objects. 
+<p class="level0"><span Class="bold">-nosuper</span> This option indicates that resources that are inherited from a superclass should not be listed.  This is useful for determining which resources are new to a subclass. 
+<p class="level0"><span Class="bold">-variable</span> This option indicates that widgets should be identified by the names of the class record variables rather than the class name given in the variable.  This is useful for distinguishing subclasses that have the same class name as their superclasses. 
+<p class="level0"><span Class="bold">-top name</span> This option specifies the name of the widget to be treated as the top of the hierarchy.  Case is not significant, and the name may match either the class variable name or the class name.  The default is ``core''. 
+<p class="level0"><span Class="bold">-format printf-string</span> This option specifies the <span Class="emphasis">printf</span>-style format string to be used to print out the name, instance, class, and type of each resource. <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">To be written. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1), appropriate widget documents <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">On operating systems that do not support dynamic linking of run-time routines, this program must have all of its known widgets compiled in.  The sources provide several tools for automating this process for various widget sets. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1994 X Consortium <br>See <span Class="emphasis">X(7)</span> for a full statement of rights and permissions. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Jim Fulton, MIT X Consortium 

@@ -1,0 +1,59 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-check-ignore - Debug gitignore / exclude files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git check-ignore</span> [options] pathname...
+<span class="emphasis">git check-ignore</span> [options] --stdin &lt; &lt;list-of-paths&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">For each pathname given via the command-line or from a file via --stdin, show the pattern from .gitignore (or other input files to the exclude mechanism) that decides if the pathname is excluded or included. Later patterns within a file take precedence over earlier ones. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-q, --quiet 
+<p class="level1">Don(cqt output anything, just set exit status. This is only valid with a single pathname. 
+<p class="level0">
+<p class="level0">-v, --verbose 
+<p class="level1">Also output details about the matching pattern (if any) for each given pathname. 
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">Read file names from stdin instead of from the command-line. 
+<p class="level0">
+<p class="level0">-z 
+<p class="level1">The output format is modified to be machine-parseable (see below). If --stdin is also given, input paths are separated with a NUL character instead of a linefeed character. 
+<p class="level0">
+<p class="level0">-n, --non-matching 
+<p class="level1">Show given paths which don(cqt match any pattern. This only makes sense when --verbose is enabled, otherwise it would not be possible to distinguish between paths which match a pattern and those which don(cqt. 
+<p class="level0">
+<p class="level0">--no-index 
+<p class="level1">Don(cqt look in the index when undertaking the checks. This can be used to debug why a path became tracked by e.g. git add . and was not ignored by the rules as expected by the user or when developing patterns including negation to match a path previously added with git add -f. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0">By default, any of the given pathnames which match an ignore pattern will be output, one per line. If no pattern matches a given path, nothing will be output for that path; this means that path will not be ignored. 
+<p class="level0">If --verbose is specified, the output is a series of lines of the form: 
+<p class="level0">&lt;source&gt; &lt;COLON&gt; &lt;linenum&gt; &lt;COLON&gt; &lt;pattern&gt; &lt;HT&gt; &lt;pathname&gt; 
+<p class="level0">&lt;pathname&gt; is the path of a file being queried, &lt;pattern&gt; is the matching pattern, &lt;source&gt; is the pattern(cqs source file, and &lt;linenum&gt; is the line number of the pattern within that source. If the pattern contained a ! prefix or / suffix, it will be preserved in the output. &lt;source&gt; will be an absolute path when referring to the file configured by core.excludesfile, or relative to the repository root when referring to .git/info/exclude or a per-directory exclude file. 
+<p class="level0">If -z is specified, the pathnames in the output are delimited by the null character; if --verbose is also specified then null characters are also used instead of colons and hard tabs: 
+<p class="level0">&lt;source&gt; &lt;NULL&gt; &lt;linenum&gt; &lt;NULL&gt; &lt;pattern&gt; &lt;NULL&gt; &lt;pathname&gt; &lt;NULL&gt; 
+<p class="level0">If -n or --non-matching are specified, non-matching pathnames will also be output, in which case all fields in each output record except for &lt;pathname&gt; will be empty. This can be useful when running non-interactively, so that files can be incrementally streamed to STDIN of a long-running check-ignore process, and for each of these files, STDOUT will indicate whether that file matched a pattern or not. (Without this option, it would be impossible to tell whether the absence of output for a given file meant that it didn(cqt match any pattern, or that the output hadn(cqt been generated yet.) 
+<p class="level0">Buffering happens as documented under the GIT_FLUSH option in <span Class="bold">git</span>(1). The caller is responsible for avoiding deadlocks caused by overfilling an input buffer or reading from an empty output buffer. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">0 
+<p class="level1">One or more of the provided paths is ignored. 
+<p class="level0">
+<p class="level0">1 
+<p class="level1">None of the provided paths are ignored. 
+<p class="level0">
+<p class="level0">128 
+<p class="level1">A fatal error was encountered. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gitignore</span>(5) <span Class="bold">gitconfig</span>(5) <span Class="bold">git-ls-files</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

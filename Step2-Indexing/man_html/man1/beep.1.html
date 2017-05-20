@@ -1,0 +1,84 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">beep - beep the pc speaker any number of ways <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">beep</span> [--verbose | --debug] [-e device | --device device] [-f N] [-l N] [-r N] [-d N] [-D N] [-s] [-c] 
+<p class="level0"><span Class="bold">beep</span> [ OPTIONS ] [-n] [--new] [ OPTIONS ] 
+<p class="level0"><span Class="bold">beep</span> [-h] [--help] 
+<p class="level0"><span Class="bold">beep</span> [-v] [-V] [--version] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">beep</span> allows the user to control the pc-speaker with precision, allowing different sounds to indicate different events.  While it can be run quite happily on the command line, it's intended place of residence is within shell/perl scripts, notifying the user when something interesting occurs.  Of course, it has no notion of what's interesting, but it's real good at that notifying part. 
+<p class="level0">All options have default values, meaning that just typing '<span Class="bold">beep</span>' will work.  If an option is specified more than once on the command line, subsequent options override their predecessors.  So '<span Class="bold">beep</span> -f 200 -f 300' will beep at 300Hz. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--verbose</span>, <span Class="bold">--debug</span> enable debug output. This option prints a line like the following before each beep: 
+<p class="level0">[DEBUG] 5 times 200 ms beeps (100 delay between, 0 delay after) @ 1000.00 Hz 
+<p class="level0"><span Class="bold">-e</span> device, <span Class="bold">--device</span> device use device as event device. If the switch isn't used, /dev/tty0 and /dev/vc/0 are tried in turn. 
+<p class="level0"><span Class="bold">-f</span> N beep at N Hz, where 0 &lt; N &lt; 20000.  As a general ballpark, the regular terminal beep is around 750Hz.  N is not, incidentally, restricted to whole numbers. 
+<p class="level0"><span Class="bold">-l</span> N beep for N milliseconds. 
+<p class="level0"><span Class="bold">-r</span> N specify the number of repetitions (defaults to 1). 
+<p class="level0"><span Class="bold">-d</span> N, <span Class="bold">-D</span> N specify a delay of N milliseconds between repetitions.  Use of -d specifies that this delay should only occur <span Class="emphasis">between</span> beeps, that is, it should not occur after the last repetition.  -D indicates that the delay should occur after every repetition, including the last.  Normally, -d is what you want, but if, for example, you are stringing several <span Class="bold">beep</span> commands together to play the star wars anthem, you may want control over every delay. 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--new</span> this option allows you to break the command line up into specifying multiple beeps.  Each time this option is used, beep starts treating all further arguments as though they were for a new beep.  So for example: 
+<p class="level0"><span Class="bold">beep</span> -f 1000 -n -f 2000 -n -f 1500 
+<p class="level0">would produce a sequence of three beeps, the first with a frequency of 1000Hz (and otherwise default values), then a second beep with a frequency of 2000Hz (again, with things like delay and reps being set to their defaults), then a third beep, at 1500Hz.  This is different from specifying a -r value, since -r repeats the same beep multiple times, whereas -n allows you to specify different beeps.  After a -n, the new beep is created with all the default values, and any of these can be specified without altering values for preceding (or later) beeps.  See the <a class="bold" href="#EXAMPLES">EXAMPLES</a> section if this managed to confuse you. 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">-c</span> these options put <span Class="bold">beep</span> into input-processing mode.  -s tells <span Class="bold">beep</span> to read from stdin, and beep after each newline, and -c tells it to do so after every character.  In both cases, the program will also echo the input back out to stdout, which makes it easy to slip <span Class="bold">beep</span> into a text-processing pipeline, see the <a class="bold" href="#EXAMPLES">EXAMPLES</a> section. 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> display usage info and exit 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">-V</span>, <span Class="bold">--version</span> display version information and exit <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">At its simplest (yet still effective) 
+<p class="level0"><span Class="bold">beep</span> 
+<p class="level0">A more interesting standalone setup 
+<p class="level0"><span Class="bold">beep</span> -f 300.7 -r 2 -d 100 -l 400 
+<p class="level0">As part of a log-watching pipeline 
+<p class="level0">tail -f /var/log/xferlog | grep --line-buffered passwd | \ <br><span Class="bold">beep</span> -f 1000 -r 5 -s 
+<p class="level0">When using -c mode, I recommend using a short -D, and a shorter -l, so that the beeps don't blur together.  Something like this will get you a cheesy 1970's style beep-as-you-type-each-letter effect 
+<p class="level0">cat file | <span Class="bold">beep</span> -c -f 400 -D 50 -l 10 
+<p class="level0">
+<p class="level0">A highly contrived example of -n/--new usage 
+<p class="level0"><span Class="bold">beep</span> -f 1000 -r 2 -n -r 5 -l 10 --new  
+<p class="level0">will produce first two 1000Hz beeps, then 5 beeps at the default tone, but only 10ms long each, followed by a third beep using all the default settings (since none are specified). 
+<p class="level0">
+<p class="level0"><a name="IOCTL"></a><h2 class="nroffsh">IOCTL WACKINESS</h2>
+<p class="level0">
+<p class="level0">Some users will encounter a situation where beep dies with a complaint from ioctl().  The reason for this, as Peter Tirsek was nice enough to point out to me, stems from how the kernel handles beep's attempt to poke at (for non-programmers: ioctl is a sort of catch-all function that lets you poke at things that have no other predefined poking-at mechanism) the tty, which is how it beeps.  The short story is, the kernel checks that either: 
+<p class="level0">- you are the superuser 
+<p class="level0">- you own the current tty 
+<p class="level0">What this means is that root can always make beep work (to the best of my knowledge!), and that any local user can make beep work, BUT a non-root remote user cannot use beep in it's natural state.  What's worse, an xterm, or other x-session counts, as far as the kernel is concerned, as 'remote', so beep won't work from a non-privileged xterm either.  I had originally chalked this up to a bug, but there's actually nothing I can do about it, and it really is a Good Thing that the kernel does things this way.  There is also a solution. 
+<p class="level0">By default beep is not installed with the suid bit set, because that would just be zany.  On the other hand, if you do make it suid root, all your problems with beep bailing on ioctl calls will magically vanish, which is pleasant, and the only reason not to is that any suid program is a potential security hole.  Conveniently, beep is very short, so auditing it is pretty straightforward. 
+<p class="level0">Decide for yourself, of course, but it looks safe to me - there's only one buffer and fgets doesn't let it overflow, there's only one file opening, and while there is a potential race condition there, it's with /dev/console.  If someone can exploit this race by replacing /dev/console, you've got bigger problems.  :) 
+<p class="level0">So the quick, only, and likely safe solution if beep is not beeping when you want it to is (as root): 
+<p class="level0">&#35; chmod 4755 /usr/bin/beep 
+<p class="level0">(or wherever you put it) 
+<p class="level0">The one snag is that this will give any little nitwit the ability to run beep successfully - make sure this is what you want.  If it isn't, a slightly more complex fix would be something like: 
+<p class="level0">&#35; chgrp beep /usr/bin/beep 
+<p class="level0">&#35; chmod 4750 /usr/bin/beep 
+<p class="level0">
+<p class="level0">and then add only beep-worthy users to the 'beep' group. <a name="FREQUENCY"></a><h2 class="nroffsh">FREQUENCY TABLE</h2>
+<p class="level0">
+<p class="level0">Several people have asked for some basic help translating music notes to frequencies.  There are a lot of music notes, and several tables online will give you translations, but here are <span Class="emphasis">approximate</span> numbers for the octave of middle C, to get you started. 
+<p class="level0">Note		Frequency <pre class="level0">
+C		261.6
+C&#35;		277.2
+D		293.7
+D&#35;		311.1
+E		329.6
+F		349.2
+F&#35;		370.0
+G		392.0
+G&#35;		415.3
+A		440.0
+A&#35;		466.2
+B		493.9
+C		523.2
+</pre>
+<a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">None that I'm aware of, though see the <a class="bold" href="#IOCTL">IOCTL WACKINESS</a> section. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to &lt;johnath@johnath.com&gt; <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">This program was written by Johnathan Nightingale (johnath@johnath.com) and is distributed under the GNU General Public License.  For more contributing information, check the source, and past contributors can be found in CREDITS. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

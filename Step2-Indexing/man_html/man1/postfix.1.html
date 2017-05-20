@@ -1,0 +1,262 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postfix - Postfix control program <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">postfix</span> [<span Class="bold">-Dv</span>] [<span class="bold">-c <span Class="emphasis">config_dir</span>] <span Class="emphasis">command</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">This command is reserved for the superuser. To submit mail, use the Postfix <span Class="bold">sendmail</span>(1) command. 
+<p class="level0">The <span Class="bold">postfix</span>(1) command controls the operation of the Postfix mail system: start or stop the <span Class="bold">master</span>(8) daemon, do a health check, and other maintenance. 
+<p class="level0">By default, the <span Class="bold">postfix</span>(1) command sets up a standardized environment and runs the <span Class="bold">postfix-script</span> shell script to do the actual work. 
+<p class="level0">However, when support for multiple Postfix instances is configured, <span Class="bold">postfix</span>(1) executes the command specified with the <span Class="bold">multi_instance_wrapper</span> configuration parameter. This command will execute the <span Class="emphasis">command</span> for each applicable Postfix instance. 
+<p class="level0">The following commands are implemented: 
+<p class="level0"><a name="fBcheckfR"></a><span class="nroffip">\fBcheck\fR</span> 
+<p class="level1">Warn about bad directory/file ownership or permissions, and create missing directories. 
+<p class="level0"><a name="fBstartfR"></a><span class="nroffip">\fBstart\fR</span> 
+<p class="level1">Start the Postfix mail system. This also runs the configuration check described above. 
+<p class="level0"><a name="fBstopfR"></a><span class="nroffip">\fBstop\fR</span> 
+<p class="level1">Stop the Postfix mail system in an orderly fashion. If possible, running processes are allowed to terminate at their earliest convenience. 
+<p class="level1">Note: in order to refresh the Postfix mail system after a configuration change, do not use the <span Class="bold">start</span> and <span Class="bold">stop</span> commands in succession. Use the <span Class="bold">reload</span> command instead. 
+<p class="level0"><a name="fBabortfR"></a><span class="nroffip">\fBabort\fR</span> 
+<p class="level1">Stop the Postfix mail system abruptly. Running processes are signaled to stop immediately. 
+<p class="level0"><a name="fBflushfR"></a><span class="nroffip">\fBflush\fR</span> 
+<p class="level1">Force delivery: attempt to deliver every message in the deferred mail queue. Normally, attempts to deliver delayed mail happen at regular intervals, the interval doubling after each failed attempt. 
+<p class="level1">Warning: flushing undeliverable mail frequently will result in poor delivery performance of all other mail. 
+<p class="level0"><a name="fBreloadfR"></a><span class="nroffip">\fBreload\fR</span> 
+<p class="level1">Re-read configuration files. Running processes terminate at their earliest convenience. 
+<p class="level0"><a name="fBstatusfR"></a><span class="nroffip">\fBstatus\fR</span> 
+<p class="level1">Indicate if the Postfix mail system is currently running. 
+<p class="level0"><a name="fBset-permissionsfR"></a><span class="nroffip">\fBset-permissions\fR \fB[\fIname\fR=\fIvalue ...\fB]\fR</span> 
+<p class="level1">Set the ownership and permissions of Postfix related files and directories, as specified in the <span Class="bold">postfix-files</span> file. 
+<p class="level1">Specify <span Class="emphasis">name</span>=<span Class="emphasis">value</span> to override and update specific main.cf configuration parameters. Use this, for example, to change the <span Class="bold">mail_owner</span> or <span Class="bold">setgid_group</span> setting for an already installed Postfix system. 
+<p class="level1">This feature is available in Postfix 2.1 and later.  With Postfix 2.0 and earlier, use "<span class="bold">$config_directory/post-install set-permissions</span>". 
+<p class="level0"><a name="fBupgrade-configurationfR"></a><span class="nroffip">\fBupgrade-configuration\fR \fB[\fIname\fR=\fIvalue ...\fB]\fR</span> 
+<p class="level1">Update the <span Class="bold">main.cf</span> and <span Class="bold">master.cf</span> files with information that Postfix needs in order to run: add or update services, and add or update configuration parameter settings. 
+<p class="level1">Specify <span Class="emphasis">name</span>=<span Class="emphasis">value</span> to override and update specific main.cf configuration parameters. 
+<p class="level1">This feature is available in Postfix 2.1 and later.  With Postfix 2.0 and earlier, use "<span class="bold">$config_directory/post-install upgrade-configuration</span>". 
+<p class="level1">The following options are implemented: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">Read the <span Class="bold">main.cf</span> and <span Class="bold">master.cf</span> configuration files in the named directory instead of the default configuration directory. Use this to distinguish between multiple Postfix instances on the same host. 
+<p class="level1">With Postfix 2.6 and later, this option forces the postfix(1) command to operate on the specified Postfix instance only. This behavior is inherited by postfix(1) commands that run as a descendant of the current process. 
+<p class="level0"><a name="fB-DfR"></a><span class="nroffip">\fB-D\fR (with \fBpostfix start\fR only)</span> 
+<p class="level1">Run each Postfix daemon under control of a debugger as specified via the <span Class="bold">debugger_command</span> configuration parameter. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The <span Class="bold">postfix</span>(1) command exports the following environment variables before executing the <span Class="bold">postfix-script</span> file: 
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">This is set when the -c command-line option is present. 
+<p class="level1">With Postfix 2.6 and later, this environment variable forces the postfix(1) command to operate on the specified Postfix instance only.  This behavior is inherited by postfix(1) commands that run as a descendant of the current process. 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">This is set when the -v command-line option is present. 
+<p class="level0"><a name="fBMAILDEBUGfR"></a><span class="nroffip">\fBMAIL_DEBUG\fR</span> 
+<p class="level1">This is set when the -D command-line option is present. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> configuration parameters are exported as environment variables with the same names: 
+<p class="level0"><a name="fBcommanddirectory"></a><span class="nroffip">\fBcommand_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of all postfix administrative commands. 
+<p class="level0"><a name="fBdaemondirectory"></a><span class="nroffip">\fBdaemon_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The directory with Postfix support programs and daemon programs. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBqueuedirectory"></a><span class="nroffip">\fBqueue_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of the Postfix top-level queue directory. 
+<p class="level0"><a name="fBmailowner"></a><span class="nroffip">\fBmail_owner (postfix)\fR</span> 
+<p class="level1">The UNIX system account that owns the Postfix queue and most Postfix daemon processes. 
+<p class="level0"><a name="fBsetgidgroup"></a><span class="nroffip">\fBsetgid_group (postdrop)\fR</span> 
+<p class="level1">The group ownership of set-gid Postfix commands and of group-writable Postfix directories. 
+<p class="level0"><a name="fBsendmailpath"></a><span class="nroffip">\fBsendmail_path (see 'postconf -d' output)\fR</span> 
+<p class="level1">A Sendmail compatibility feature that specifies the location of the Postfix <span Class="bold">sendmail</span>(1) command. 
+<p class="level0"><a name="fBnewaliasespath"></a><span class="nroffip">\fBnewaliases_path (see 'postconf -d' output)\fR</span> 
+<p class="level1">Sendmail compatibility feature that specifies the location of the <span Class="bold">newaliases</span>(1) command. 
+<p class="level0"><a name="fBmailqpath"></a><span class="nroffip">\fBmailq_path (see 'postconf -d' output)\fR</span> 
+<p class="level1">Sendmail compatibility feature that specifies where the Postfix <span Class="bold">mailq</span>(1) command is installed. 
+<p class="level0"><a name="fBhtmldirectory"></a><span class="nroffip">\fBhtml_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of Postfix HTML files that describe how to build, configure or operate a specific Postfix subsystem or feature. 
+<p class="level0"><a name="fBmanpagedirectory"></a><span class="nroffip">\fBmanpage_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">Where the Postfix manual pages are installed. 
+<p class="level0"><a name="fBreadmedirectory"></a><span class="nroffip">\fBreadme_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of Postfix README files that describe how to build, configure or operate a specific Postfix subsystem or feature. 
+<p class="level1">Available in Postfix version 2.5 and later: 
+<p class="level0"><a name="fBdatadirectory"></a><span class="nroffip">\fBdata_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The directory with Postfix-writable data files (for example: caches, pseudo-random numbers). 
+<p class="level1">Other configuration parameters: 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBimportenvironment"></a><span class="nroffip">\fBimport_environment (see 'postconf -d' output)\fR</span> 
+<p class="level1">The list of environment parameters that a Postfix process will import from a non-Postfix parent process. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". 
+<p class="level1">Available in Postfix version 2.6 and later: 
+<p class="level0"><a name="fBmultiinstancedirectories"></a><span class="nroffip">\fBmulti_instance_directories (empty)\fR</span> 
+<p class="level1">An optional list of non-default Postfix configuration directories; these directories belong to additional Postfix instances that share the Postfix executable files and documentation with the default Postfix instance, and that are started, stopped, etc., together with the default Postfix instance. 
+<p class="level0"><a name="fBmultiinstancewrapper"></a><span class="nroffip">\fBmulti_instance_wrapper (empty)\fR</span> 
+<p class="level1">The pathname of a multi-instance manager command that the <span Class="bold">postfix</span>(1) command invokes when the multi_instance_directories parameter value is non-empty. 
+<p class="level0"><a name="fBmultiinstancegroup"></a><span class="nroffip">\fBmulti_instance_group (empty)\fR</span> 
+<p class="level1">The optional instance group name of this Postfix instance. 
+<p class="level0"><a name="fBmultiinstancename"></a><span class="nroffip">\fBmulti_instance_name (empty)\fR</span> 
+<p class="level1">The optional instance name of this Postfix instance. 
+<p class="level0"><a name="fBmultiinstanceenable"></a><span class="nroffip">\fBmulti_instance_enable (no)\fR</span> 
+<p class="level1">Allow this Postfix instance to be started, stopped, etc., by a multi-instance manager. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Prior to Postfix version 2.6, all of the following files were in <span Class="bold">$config_directory</span>. Some files are now in <span Class="bold">$daemon_directory</span> so that they can be shared among multiple instances that run the same Postfix version. 
+<p class="level0">Use the command "<span Class="bold">postconf config_directory</span>" or "<span Class="bold">postconf daemon_directory</span>" to expand the names into their actual values. 
+<p class="level0"><pre class="level0">
+&nbsp;
+$config_directory/main.cf, Postfix configuration parameters
+$config_directory/master.cf, Postfix daemon processes
+$daemon_directory/postfix-files, file/directory permissions
+$daemon_directory/postfix-script, administrative commands
+$daemon_directory/post-install, post-installation configuration
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Commands:
+postalias(1), create/update/query alias database
+postcat(1), examine Postfix queue file
+postconf(1), Postfix configuration utility
+postfix(1), Postfix control program
+postkick(1), trigger Postfix daemon
+postlock(1), Postfix-compatible locking
+postlog(1), Postfix-compatible logging
+postmap(1), Postfix lookup table manager
+postmulti(1), Postfix multi-instance manager
+postqueue(1), Postfix mail queue control
+postsuper(1), Postfix housekeeping
+mailq(1), Sendmail compatibility interface
+newaliases(1), Sendmail compatibility interface
+sendmail(1), Sendmail compatibility interface
+&nbsp;
+Postfix configuration:
+bounce(5), Postfix bounce message templates
+master(5), Postfix master.cf file syntax
+postconf(5), Postfix main.cf file syntax
+postfix-wrapper(5), Postfix multi-instance API
+&nbsp;
+Table-driven mechanisms:
+access(5), Postfix SMTP access control table
+aliases(5), Postfix alias database
+canonical(5), Postfix input address rewriting
+generic(5), Postfix output address rewriting
+header_checks(5), body_checks(5), Postfix content inspection
+relocated(5), Users that have moved
+transport(5), Postfix routing table
+virtual(5), Postfix virtual aliasing
+&nbsp;
+Table lookup mechanisms:
+cidr_table(5), Associate CIDR pattern with value
+ldap_table(5), Postfix LDAP client
+lmdb_table(5), Postfix LMDB database driver
+memcache_table(5), Postfix memcache client
+mysql_table(5), Postfix MYSQL client
+nisplus_table(5), Postfix NIS+ client
+pcre_table(5), Associate PCRE pattern with value
+pgsql_table(5), Postfix PostgreSQL client
+regexp_table(5), Associate POSIX regexp pattern with value
+socketmap_table(5), Postfix socketmap client
+sqlite_table(5), Postfix SQLite database driver
+tcp_table(5), Postfix client-server table lookup
+&nbsp;
+Daemon processes:
+anvil(8), Postfix connection/rate limiting
+bounce(8), defer(8), trace(8), Delivery status reports
+cleanup(8), canonicalize and enqueue message
+discard(8), Postfix discard delivery agent
+dnsblog(8), DNS black/whitelist logger
+error(8), Postfix error delivery agent
+flush(8), Postfix fast ETRN service
+local(8), Postfix local delivery agent
+master(8), Postfix master daemon
+oqmgr(8), old Postfix queue manager
+pickup(8), Postfix local mail pickup
+pipe(8), deliver mail to non-Postfix command
+postscreen(8), Postfix zombie blocker
+proxymap(8), Postfix lookup table proxy server
+qmgr(8), Postfix queue manager
+qmqpd(8), Postfix QMQP server
+scache(8), Postfix connection cache manager
+showq(8), list Postfix mail queue
+smtp(8), lmtp(8), Postfix SMTP+LMTP client
+smtpd(8), Postfix SMTP server
+spawn(8), run non-Postfix server
+tlsmgr(8), Postfix TLS cache and randomness manager
+tlsproxy(8), Postfix TLS proxy server
+trivial-rewrite(8), Postfix address rewriting
+verify(8), Postfix address verification
+virtual(8), Postfix virtual delivery agent
+&nbsp;
+Other:
+syslogd(8), system logging
+</pre>
+<a name="README"></a><h2 class="nroffsh">README FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">Use "<span Class="bold">postconf readme_directory</span>" or "<span Class="bold">postconf html_directory</span>" to locate this information. 
+<p class="level0"><pre class="level0">
+OVERVIEW, overview of Postfix commands and processes
+BASIC_CONFIGURATION_README, Postfix basic configuration
+ADDRESS_REWRITING_README, Postfix address rewriting
+SMTPD_ACCESS_README, SMTP relay/access control
+CONTENT_INSPECTION_README, Postfix content inspection
+QSHAPE_README, Postfix queue analysis
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA
+&nbsp;
+TLS support by:
+Lutz Jaenicke
+Brandenburg University of Technology
+Cottbus, Germany
+&nbsp;
+Victor Duchovni
+Morgan Stanley
+&nbsp;
+SASL support originally by:
+Till Franke
+SuSE Rhein/Main AG
+65760 Eschborn, Germany
+&nbsp;
+LMTP support originally by:
+Philip A. Prindeville
+Mirapoint, Inc.
+USA.
+&nbsp;
+Amos Gouaux
+University of Texas at Dallas
+P.O. Box 830688, MC34
+Richardson, TX 75083, USA
+&nbsp;
+IPv6 support originally by:
+Mark Huizer, Eindhoven University, The Netherlands
+Jun-ichiro 'itojun' Hagino, KAME project, Japan
+The Linux PLD project
+Dean Strik, Eindhoven University, The Netherlands

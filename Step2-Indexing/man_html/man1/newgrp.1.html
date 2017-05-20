@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">newgrp - log in to a new group <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">newgrp</span> [-] [<span Class="emphasis">group</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">newgrp</span> command is used to change the current group ID during a login session. If the optional <span Class="bold">-</span> flag is given, the user*(Aqs environment will be reinitialized as though the user had logged in, otherwise the current environment, including current working directory, remains unchanged. 
+<p class="level0"><span Class="bold">newgrp</span> changes the current real group ID to the named group, or to the default group listed in /etc/passwd if no group name is given. <span Class="bold">newgrp</span> also tries to add the group to the user groupset. If not root, the user will be prompted for a password if she does not have a password (in /etc/shadow if this user has an entry in the shadowed password file, or in /etc/passwd otherwise) and the group does, or if the user is not listed as a member and the group has a password. The user will be denied access if the group password is empty and the user is not listed as a member. 
+<p class="level0">If there is an entry for this group in /etc/gshadow, then the list of members and the password of this group will be taken from this file, otherwise, the entry in /etc/group is considered. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">The following configuration variables in /etc/login.defs change the behavior of this tool: 
+<p class="level0"><span Class="bold">SYSLOG_SG_ENAB</span> (boolean) 
+<p class="level1">Enable "syslog" logging of <span Class="bold">sg</span> activity. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0">
+<p class="level0">/etc/shadow 
+<p class="level1">Secure user account information. 
+<p class="level0">
+<p class="level0">/etc/group 
+<p class="level1">Group account information. 
+<p class="level0">
+<p class="level0">/etc/gshadow 
+<p class="level1">Secure group account information. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">id</span>(1), <span Class="bold">login</span>(1), <span Class="bold">su</span>(1), <span Class="bold">sg</span>(1), <span Class="bold">gpasswd</span>(1), <span Class="bold">group</span>(5), <span Class="bold">gshadow</span>(5). 

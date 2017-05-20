@@ -1,0 +1,24 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zsoelim - satisfy .so requests in roff input <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">zsoelim </span> 
+<p class="level0">
+<p class="level0">.|.|.|] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">zsoelim </span> parses  <span Class="emphasis">file</span> arguments, or if none are specified, its standard input for lines of the form: 
+<p class="level0"><span Class="bold">.so  </span> 
+<p class="level0">
+<p class="level0">These requests are replaced by the contents of the  <span Class="emphasis">filename</span> specified. If the request cannot be met, <span Class="bold">zsoelim</span> looks for  <span Class="emphasis">filename.ext</span> where <span Class="emphasis">.ext</span> can be one of  <span Class="manpage">.gz</span>, <span Class="manpage">.Z</span>or <span Class="manpage">.z .</span>Other extension types may be supported depending upon compile time options. If the request can be met by a compressed file, this file is decompressed using an appropriate decompressor and its output is used to satisfy the request. 
+<p class="level0">Traditionally, <span Class="bold">soelim </span> programs were used to allow roff preprocessors to be able to preprocess the  files referred to by the requests. This particular version was written to circumvent problems created by support for compressed manual pages. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-C</span>, <span Class="manpage">--compatible</span>This flag is available for compatibility with other  <span Class="bold">soelim</span> programs. Its use is to enable .so requests followed by something other than  whitespace. As this is already the default behaviour, it is ignored. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Print a help message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">groff (1)</span>, <span Class="manpage">man (1)</span>, <span Class="manpage">nroff (1)</span>, <span Class="manpage">troff (1)</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><pre class="level0">
+Wilf. (G.Wilford@ee.surrey.ac.uk).
+Fabrizio Polacco (fpolacco@debian.org).
+Colin Watson (cjwatson@debian.org).
+</pre>
+
+<p class="level0">

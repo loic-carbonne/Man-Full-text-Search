@@ -1,0 +1,25 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-sh-i18n--envsubst - Git*(Aqs own envsubst(1) for i18n fallbacks <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+eval_gettext () {
+&nbsp;       printf "%s" "$1" | (
+&nbsp;               export PATH $(<span class="emphasis">git sh-i18n--envsubst</span> --variables "$1");
+&nbsp;               <span class="emphasis">git sh-i18n--envsubst</span> "$1"
+&nbsp;       )
+}
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This is not a command the end user would want to run. Ever. This documentation is meant for people who are studying the plumbing scripts and/or are writing new ones. 
+<p class="level0"><span Class="emphasis">git sh-i18n--envsubst</span> is Git(cqs stripped-down copy of the GNU envsubst(1) program that comes with the GNU gettext package. It(cqs used internally by <span Class="bold">git-sh-i18n</span>(1) to interpolate the variables passed to the eval_gettext function. 
+<p class="level0">No promises are made about the interface, or that this program won(cqt disappear without warning in the next version of Git. Don(cqt use it. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

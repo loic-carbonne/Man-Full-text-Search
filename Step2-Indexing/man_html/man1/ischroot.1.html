@@ -1,0 +1,15 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ischroot - detect if running in a chroot <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ischroot</span> [--default-false] [--default-true] [--help] [--version] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">ischroot</span> detects if it is currently running in a chroot. The exit status is: 
+<p class="level0">0 if currently running in a chroot 
+<p class="level0">1 if currently not running in a chroot 
+<p class="level0">2 if the detection is not possible (On GNU/Linux this happens if the script is not run as root). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-f, --default-false </span> Exit with status 1 if the detection is not possible. 
+<p class="level0"><span Class="bold">-t, --default-true </span> Exit with status 0 if the detection is not possible. 
+<p class="level0"><span Class="bold">--help</span> Print a usage message on standard output and exit successfully. 
+<p class="level0"><span Class="bold">--version</span> Print version information on standard output and exit successfully. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">On GNU/Linux, chroot detection is not possible when not root. This works correctly on GNU/Hurd and GNU/kFreeBSD. 

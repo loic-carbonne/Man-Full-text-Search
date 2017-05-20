@@ -1,0 +1,319 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">journalctl - Query the systemd journal <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">journalctl</span> [OPTIONS...] [MATCHES...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">journalctl</span> may be used to query the contents of the <span Class="bold">systemd</span>(1) journal as written by <span Class="bold">systemd-journald.service</span>(8). 
+<p class="level0">If called without parameters, it will show the full contents of the journal, starting with the oldest entry collected. 
+<p class="level0">If one or more match arguments are passed, the output is filtered accordingly. A match is in the format "FIELD=VALUE", e.g. "_SYSTEMD_UNIT=httpd.service", referring to the components of a structured journal entry. See <span Class="bold">systemd.journal-fields</span>(7) for a list of well-known fields. If multiple matches are specified matching different fields, the log entries are filtered by both, i.e. the resulting output will show only entries matching all the specified matches of this kind. If two matches apply to the same field, then they are automatically matched as alternatives, i.e. the resulting output will show entries matching any of the specified matches for the same field. Finally, if the character "+" appears as a separate word on the command line, all matches before and after are combined in a disjunction (i.e. logical OR). 
+<p class="level0">As shortcuts for a few types of field/value matches, file paths may be specified. If a file path refers to an executable file, this is equivalent to an "_EXE=" match for the canonicalized binary path. Similarly, if a path refers to a device node, this is equivalent to a "_KERNEL_DEVICE=" match for the device. 
+<p class="level0">Output is interleaved from all accessible journal files, whether they are rotated or currently being written, and regardless of whether they belong to the system itself or are accessible user journals. 
+<p class="level0">All users are granted access to their private per-user journals. However, by default, only root and users who are members of the "systemd-journal" group get access to the system journal and the journals of other users. 
+<p class="level0">The output is paged through <span Class="bold">less</span> by default, and long lines are "truncated" to screen width. The hidden part can be viewed by using the left-arrow and right-arrow keys. Paging can be disabled; see the <span Class="bold">--no-pager</span> option and the "Environment" section below. 
+<p class="level0">When outputing to a tty, lines are colored according to priority: lines of level ERROR and higher are colored red; lines of level NOTICE and higher are highlighted; other lines are displayed normally. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">--no-full</span>, <span Class="bold">--full</span>, <span Class="bold">-l</span> 
+<p class="level1">Ellipsize fields when they do not fit in available columns. The default is to show full fields, allowing them to wrap or be truncated by the pager, if one is used. 
+<p class="level1">The old options <span Class="bold">-l</span>/<span Class="bold">--full</span> are not useful anymore, except to undo <span Class="bold">--no-full</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> 
+<p class="level1">Show all fields in full, even if they include unprintable characters or are very long. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--follow</span> 
+<p class="level1">Show only the most recent journal entries, and continuously print new entries as they are appended to the journal. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span>, <span Class="bold">--pager-end</span> 
+<p class="level1">Immediately jump to the end of the journal inside the implied pager tool. This implies <span Class="bold">-n1000</span> to guarantee that the pager will not buffer logs of unbounded size. This may be overridden with an explicit <span Class="bold">-n</span> with some other numeric value on the command line. Note that this option is only supported for the <span Class="bold">less</span>(1) pager. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--lines=</span> 
+<p class="level1">Show the most recent journal events and limit the number of events shown. If <span Class="bold">--follow</span> is used, this option is implied. The argument, a positive integer, is optional, and defaults to 10. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-tail</span> 
+<p class="level1">Show all stored output lines, even in follow mode. Undoes the effect of <span Class="bold">--lines=</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--reverse</span> 
+<p class="level1">Reverse output so that the newest entries are displayed first. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--output=</span> 
+<p class="level1">Controls the formatting of the journal entries that are shown. Takes one of the following options: 
+<p class="level1"><span Class="bold">short</span> 
+<p class="level2">is the default and generates an output that is mostly identical to the formatting of classic syslog files, showing one line per journal entry. 
+<p class="level1">
+<p class="level1"><span Class="bold">short-iso</span> 
+<p class="level2">is very similar, but shows ISO 8601 wallclock timestamps. 
+<p class="level1">
+<p class="level1"><span Class="bold">short-precise</span> 
+<p class="level2">is very similar, but shows timestamps with full microsecond precision. 
+<p class="level1">
+<p class="level1"><span Class="bold">short-monotonic</span> 
+<p class="level2">is very similar, but shows monotonic timestamps instead of wallclock timestamps. 
+<p class="level1">
+<p class="level1"><span Class="bold">verbose</span> 
+<p class="level2">shows the full-structured entry items with all fields. 
+<p class="level1">
+<p class="level1"><span Class="bold">export</span> 
+<p class="level2">serializes the journal into a binary (but mostly text-based) stream suitable for backups and network transfer (see m[blue]<span Class="bold">Journal Export Format</span>m[]s-2u[1]ds+2 for more information). 
+<p class="level1">
+<p class="level1"><span Class="bold">json</span> 
+<p class="level2">formats entries as JSON data structures, one per line (see m[blue]<span Class="bold">Journal JSON Format</span>m[]s-2u[2]ds+2 for more information). 
+<p class="level1">
+<p class="level1"><span Class="bold">json-pretty</span> 
+<p class="level2">formats entries as JSON data structures, but formats them in multiple lines in order to make them more readable by humans. 
+<p class="level1">
+<p class="level1"><span Class="bold">json-sse</span> 
+<p class="level2">formats entries as JSON data structures, but wraps them in a format suitable for m[blue]<span Class="bold">Server-Sent Events</span>m[]s-2u[3]ds+2. 
+<p class="level1">
+<p class="level1"><span Class="bold">cat</span> 
+<p class="level2">generates a very terse output, only showing the actual message of each journal entry with no metadata, not even a timestamp. 
+<p class="level1">
+<p class="level0">
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--catalog</span> 
+<p class="level1">Augment log lines with explanation texts from the message catalog. This will add explanatory help texts to log messages in the output where this is available. These short help texts will explain the context of an error or log event, possible solutions, as well as pointers to support forums, developer documentation, and any other relevant manuals. Note that help texts are not available for all messages, but only for selected ones. For more information on the message catalog, please refer to the m[blue]<span Class="bold">Message Catalog Developer Documentation</span>m[]s-2u[4]ds+2. 
+<p class="level1">Note: when attaching <span Class="bold">journalctl</span> output to bug reports, please do <span Class="emphasis">not</span> use <span Class="bold">-x</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Suppresses any warning messages regarding inaccessible system journals when run as a normal user. 
+<p class="level0">
+<p class="level0"><span Class="bold">-m</span>, <span Class="bold">--merge</span> 
+<p class="level1">Show entries interleaved from all available journals, including remote ones. 
+<p class="level0">
+<p class="level0"><span Class="bold">-b </span><span class="bold">[<span Class="emphasis">ID</span>]</span><span class="bold">[<span Class="emphasis">(+-offset</span>]</span>, <span Class="bold">--boot=</span><span class="bold">[<span Class="emphasis">ID</span>]</span><span class="bold">[<span Class="emphasis">(+-offset</span>]</span> 
+<p class="level1">Show messages from a specific boot. This will add a match for "_BOOT_ID=". 
+<p class="level1">The argument may be empty, in which case logs for the current boot will be shown. 
+<p class="level1">If the boot ID is omitted, a positive <span Class="emphasis">offset</span> will look up the boots starting from the beginning of the journal, and a equal-or-less-than zero <span Class="emphasis">offset</span> will look up boots starting from the end of the journal. Thus, <span Class="bold">1</span> means the first boot found in the journal in chronological order, <span Class="bold">2</span> the second and so on; while <span Class="bold">-0</span> is the last boot, <span Class="bold">-1</span> the boot before last, and so on. An empty <span Class="emphasis">offset</span> is equivalent to specifying <span Class="bold">-0</span>, except when the current boot is not the last boot (e.g. because <span Class="bold">--directory</span> was specified to look at logs from a different machine). 
+<p class="level1">If the 32-character <span Class="emphasis">ID</span> is specified, it may optionally be followed by <span Class="emphasis">offset</span> which identifies the boot relative to the one given by boot <span Class="emphasis">ID</span>. Negative values mean earlier boots and a positive values mean later boots. If <span Class="emphasis">offset</span> is not specified, a value of zero is assumed, and the logs for the boot given by <span Class="emphasis">ID</span> are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">--list-boots</span> 
+<p class="level1">Show a tabular list of boot numbers (relative to the current boot), their IDs, and the timestamps of the first and last message pertaining to the boot. 
+<p class="level0">
+<p class="level0"><span Class="bold">-k</span>, <span Class="bold">--dmesg</span> 
+<p class="level1">Show only kernel messages. This implies <span Class="bold">-b</span> and adds the match "_TRANSPORT=kernel". 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--unit=</span><span class="bold"><span Class="emphasis">UNIT</span></span><a class="bold" href="#">|</a><span class="bold"><span Class="emphasis">PATTERN</span></span> 
+<p class="level1">Show messages for the specified systemd unit <span Class="emphasis">UNIT</span>, or for any of the units matched by <span Class="emphasis">PATTERN</span>. If a pattern is specified, a list of unit names found in the journal is compared with the specified pattern and all that match are used. For each unit name, a match is added for messages from the unit ("_SYSTEMD_UNIT=<span Class="emphasis">UNIT</span>"), along with additional matches for messages from systemd and messages about coredumps for the specified unit. 
+<p class="level1">This parameter can be specified multiple times. 
+<p class="level0">
+<p class="level0"><span Class="bold">--user-unit=</span> 
+<p class="level1">Show messages for the specified user session unit. This will add a match for messages from the unit ("_SYSTEMD_USER_UNIT=" and "_UID=") and additional matches for messages from session systemd and messages about coredumps for the specified unit. 
+<p class="level1">This parameter can be specified multiple times. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--priority=</span> 
+<p class="level1">Filter output by message priorities or priority ranges. Takes either a single numeric or textual log level (i.e. between 0/"emerg" and 7/"debug"), or a range of numeric/text log levels in the form FROM..TO. The log levels are the usual syslog log levels as documented in <span Class="bold">syslog</span>(3), i.e. "emerg" (0), "alert" (1), "crit" (2), "err" (3), "warning" (4), "notice" (5), "info" (6), "debug" (7). If a single log level is specified, all messages with this log level or a lower (hence more important) log level are shown. If a range is specified, all messages within the range are shown, including both the start and the end value of the range. This will add "PRIORITY=" matches for the specified priorities. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--cursor=</span> 
+<p class="level1">Start showing entries from the location in the journal specified by the passed cursor. 
+<p class="level0">
+<p class="level0"><span Class="bold">--after-cursor=</span> 
+<p class="level1">Start showing entries from the location in the journal <span Class="emphasis">after</span> the location specified by the this cursor. The cursor is shown when the <span Class="bold">--show-cursor</span> option is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">--show-cursor</span> 
+<p class="level1">The cursor is shown after the last entry after two dashes: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+-- cursor: s=0639...
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">The format of the cursor is private and subject to change. 
+<p class="level0">
+<p class="level0"><span Class="bold">--since=</span>, <span Class="bold">--until=</span> 
+<p class="level1">Start showing entries on or newer than the specified date, or on or older than the specified date, respectively. Date specifications should be of the format "2012-10-30 18:17:16". If the time part is omitted, "00:00:00" is assumed. If only the seconds component is omitted, ":00" is assumed. If the date component is omitted, the current day is assumed. Alternatively the strings "yesterday", "today", "tomorrow" are understood, which refer to 00:00:00 of the day before the current day, the current day, or the day after the current day, respectively. "now" refers to the current time. Finally, relative times may be specified, prefixed with "-" or "+", referring to times before or after the current time, respectively. 
+<p class="level0">
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--field=</span> 
+<p class="level1">Print all possible data values the specified field can take in all entries of the journal. 
+<p class="level0">
+<p class="level0"><span Class="bold">--system</span>, <span Class="bold">--user</span> 
+<p class="level1">Show messages from system services and the kernel (with <span Class="bold">--system</span>). Show messages from service of current user (with <span Class="bold">--user</span>). If neither is specified, show all messages that the user can see. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Show messages from a running, local container. Specify a container name to connect to. 
+<p class="level0">
+<p class="level0"><span Class="bold">-D </span><span class="bold"><span Class="emphasis">DIR</span></span>, <span Class="bold">--directory=</span><span class="bold"><span Class="emphasis">DIR</span></span> 
+<p class="level1">Takes a directory path as argument. If specified, journalctl will operate on the specified journal directory <span Class="emphasis">DIR</span> instead of the default runtime and system journal paths. 
+<p class="level0">
+<p class="level0"><span Class="bold">--file=</span><span class="bold"><span Class="emphasis">GLOB</span></span> 
+<p class="level1">Takes a file glob as an argument. If specified, journalctl will operate on the specified journal files matching <span Class="emphasis">GLOB</span> instead of the default runtime and system journal paths. May be specified multiple times, in which case files will be suitably interleaved. 
+<p class="level0">
+<p class="level0"><span Class="bold">--root=</span><span class="bold"><span Class="emphasis">ROOT</span></span> 
+<p class="level1">Takes a directory path as an argument. If specified, journalctl will operate on catalog file hierarchy underneath the specified directory instead of the root directory (e.g. <span Class="bold">--update-catalog</span> will create <span Class="emphasis">ROOT</span>/var/lib/systemd/catalog/database). 
+<p class="level0">
+<p class="level0"><span Class="bold">--new-id128</span> 
+<p class="level1">Instead of showing journal contents, generate a new 128-bit ID suitable for identifying messages. This is intended for usage by developers who need a new identifier for a new message they introduce and want to make recognizable. This will print the new ID in three different formats which can be copied into source code or similar. 
+<p class="level0">
+<p class="level0"><span Class="bold">--header</span> 
+<p class="level1">Instead of showing journal contents, show internal header information of the journal fields accessed. 
+<p class="level0">
+<p class="level0"><span Class="bold">--disk-usage</span> 
+<p class="level1">Shows the current disk usage of all journal files. 
+<p class="level0">
+<p class="level0"><span Class="bold">--list-catalog </span><span class="bold">[<span Class="emphasis">128-bit-ID...</span>]</span><a class="bold" href="#"> </a> 
+<p class="level1">List the contents of the message catalog as a table of message IDs, plus their short description strings. 
+<p class="level1">If any <span Class="emphasis">128-bit-ID</span>s are specified, only those entries are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">--dump-catalog </span><span class="bold">[<span Class="emphasis">128-bit-ID...</span>]</span><a class="bold" href="#"> </a> 
+<p class="level1">Show the contents of the message catalog, with entries separated by a line consisting of two dashes and the ID (the format is the same as .catalog files). 
+<p class="level1">If any <span Class="emphasis">128-bit-ID</span>s are specified, only those entries are shown. 
+<p class="level0">
+<p class="level0"><span Class="bold">--update-catalog</span> 
+<p class="level1">Update the message catalog index. This command needs to be executed each time new catalog files are installed, removed, or updated to rebuild the binary catalog index. 
+<p class="level0">
+<p class="level0"><span Class="bold">--setup-keys</span> 
+<p class="level1">Instead of showing journal contents, generate a new key pair for Forward Secure Sealing (FSS). This will generate a sealing key and a verification key. The sealing key is stored in the journal data directory and shall remain on the host. The verification key should be stored externally. Refer to the <span Class="bold">Seal=</span> option in <span Class="bold">journald.conf</span>(5) for information on Forward Secure Sealing and for a link to a refereed scholarly paper detailing the cryptographic theory it is based on. 
+<p class="level0">
+<p class="level0"><span Class="bold">--force</span> 
+<p class="level1">When <span Class="bold">--setup-keys</span> is passed and Forward Secure Sealing (FSS) has already been configured, recreate FSS keys. 
+<p class="level0">
+<p class="level0"><span Class="bold">--interval=</span> 
+<p class="level1">Specifies the change interval for the sealing key when generating an FSS key pair with <span Class="bold">--setup-keys</span>. Shorter intervals increase CPU consumption but shorten the time range of undetectable journal alterations. Defaults to 15min. 
+<p class="level0">
+<p class="level0"><span Class="bold">--verify</span> 
+<p class="level1">Check the journal file for internal consistency. If the file has been generated with FSS enabled and the FSS verification key has been specified with <span Class="bold">--verify-key=</span>, authenticity of the journal file is verified. 
+<p class="level0">
+<p class="level0"><span Class="bold">--verify-key=</span> 
+<p class="level1">Specifies the FSS verification key to use for the <span Class="bold">--verify</span> operation. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-pager</span> 
+<p class="level1">Do not pipe output into a pager. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">On success, 0 is returned; otherwise, a non-zero failure code is returned. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_PAGER</span> 
+<p class="level1">Pager to use when <span Class="bold">--no-pager</span> is not given; overrides <span Class="emphasis">$PAGER</span>. Setting this to an empty string or the value "cat" is equivalent to passing <span Class="bold">--no-pager</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">$SYSTEMD_LESS</span> 
+<p class="level1">Override the default options passed to <span Class="bold">less</span> ("FRSXMK"). 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Without arguments, all collected logs are shown unfiltered: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">With one match specified, all entries with a field matching the expression are shown: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl _SYSTEMD_UNIT=avahi-daemon.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">If two different fields are matched, only entries matching both expressions at the same time are shown: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl _SYSTEMD_UNIT=avahi-daemon.service _PID=28097
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">If two matches refer to the same field, all entries matching either expression are shown: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl _SYSTEMD_UNIT=avahi-daemon.service _SYSTEMD_UNIT=dbus.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">If the separator "+" is used, two expressions may be combined in a logical OR. The following will show all messages from the Avahi service process with the PID 28097 plus all messages from the D-Bus service (from any of its processes): 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl _SYSTEMD_UNIT=avahi-daemon.service _PID=28097 + _SYSTEMD_UNIT=dbus.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Show all logs generated by the D-Bus executable: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl /usr/bin/dbus-daemon
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Show all logs of the kernel device node /dev/sda: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl /dev/sda
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Show all kernel logs from previous boot: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+journalctl -k -b -1
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">systemd-journald.service</span>(8), <span Class="bold">systemctl</span>(1), <span Class="bold">coredumpctl</span>(1), <span Class="bold">systemd.journal-fields</span>(7), <span Class="bold">journald.conf</span>(5) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Journal Export Format 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/export 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 2. 4</span> 
+<p class="level1">Journal JSON Format 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/json 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 3. 4</span> 
+<p class="level1">Server-Sent Events 
+<p class="level2">%https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 4. 4</span> 
+<p class="level1">Message Catalog Developer Documentation 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/catalog 
+<p class="level1">

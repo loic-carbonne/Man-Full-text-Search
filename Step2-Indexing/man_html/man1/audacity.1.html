@@ -1,0 +1,57 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">audacity - Graphical cross-platform audio editor <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">audacity</span> -help <br><span Class="bold">audacity</span> -version <br>
+<p class="level0"><span Class="bold">audacity</span> [-blocksize nnn] -test <br><span Class="bold">audacity</span> [-blocksize nnn] [ <span Class="emphasis">AUDIO-FILE</span> ] <span Class="bold">...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">Audacity</span> is a graphical audio editor.  This man page does not describe all of the features of Audacity or how to use it; for this, see the html documentation that came with the program, which should be accessible from the Help menu.  This man page describes the Unix-specific features, including special files and environment variables. 
+<p class="level0">Audacity currently uses <span Class="bold">libsndfile</span> to open many uncompressed audio formats such as WAV, AIFF, and AU, and it can also be linked to <span Class="bold">libmad,</span> <span Class="bold">libvorbis,</span> and <span Class="bold">libflac,</span> to provide support for opening MP2/3, Ogg Vorbis, and FLAC files, respectively. <span Class="bold">LAME, libvorbis, libflac</span> and <span Class="bold">libtwolame</span> provide facilities to export files to all these formats as well. 
+<p class="level0">Audacity is primarily an interactive, graphical editor, not a batch-processing tool. Whilst there is a basic batch processing tool it is experimental and  incomplete. If you need to batch-process audio or do simple edits from the command line, using  <span Class="bold">sox</span> or <span Class="bold">ecasound</span> driven by a bash script will be much more powerful than audacity. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-help</span> display a brief list of command line options 
+<p class="level0"><span Class="bold">-version</span> display the audacity version number 
+<p class="level0"><span Class="bold">-test</span> run self diagnostics tests (only present in development builds) 
+<p class="level0"><span Class="bold">-blocksize nnn</span> set the audacity block size for writing files to disk to nnn bytes 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0"><span Class="emphasis">~/.audacity-data/audacity.cfg</span> 
+<p class="level1">Per user configuration file. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">/var/tmp/audacity-&lt;user&gt;/</span> 
+<p class="level1">Default location of Audacity's temp directory, where &lt;user&gt; is your username.  If this location is not suitable (not enough space in /var/tmp, for example), you should change the temp directory in the Preferences and restart Audacity.  Audacity is a disk-based editor, so the temp directory is very important: it should always be on a fast (local) disk with lots of free space. 
+<p class="level1">Note that older versions of Audacity put the temp directory inside of the user's home directory.  This is undesirable on many systems, and using some directory in /tmp is recommended. 
+<p class="level1">On many modern Linux systems all files in /tmp/ will be deleted  each time the system boots up, which makes recovering a recording that was going on when the system crashed much harder. This is why the default is to use a directory in /var/tmp/ which will not normally be deleted by the system. Open the Preferences to check. 
+<p class="level0"><a name="SEARCH"></a><h2 class="nroffsh">SEARCH PATH</h2>
+<p class="level0">When looking for plug-ins, help files, localization files, or other configuration files, Audacity searches the following locations, in this order: 
+<p class="level0"><span Class="emphasis">AUDACITY_PATH</span> 
+<p class="level1">Any directories in the  <span Class="emphasis">AUDACITY_PATH </span> environment variable will be searched before anywhere else. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">.</span> 
+<p class="level1">The current working directory when Audacity is started. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">~/.audacity-data/Plug-Ins</span> 
+<p class="level0"><span Class="emphasis">&lt;prefix&gt;/share/audacity</span> 
+<p class="level1">The system-wide Audacity directory, where &lt;prefix&gt; is usually /usr or /usr/local, depending on where the program was installed. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">&lt;prefix&gt;/share/doc/audacity</span> 
+<p class="level1">The system-wide Audacity documentation directory, where &lt;prefix&gt; is usually /usr or /usr/local, depending on where the program was installed. 
+<p class="level0">
+<p class="level0">For localization files in particular (i.e. translations of Audacity into other languages), Audacity also searches <span Class="emphasis">&lt;prefix&gt;/share/locale</span> 
+<p class="level0"><a name="PLUG-INS"></a><h2 class="nroffsh">PLUG-INS</h2>
+<p class="level0">
+<p class="level0">Audacity supports two types of plug-ins on Unix: LADSPA and Nyquist plug-ins.  These are generally placed in a directory called  <span Class="emphasis">plug-ins </span> somewhere on the search path (see above). 
+<p class="level0">LADSPA plug-ins can either be in the plug-ins directory, or alternatively in a  <span Class="emphasis">ladspa </span> directory on the search path if you choose to create one.  Audacity will also search the directories in the  <span Class="emphasis">LADSPA_PATH </span> environment variable for additional LADSPA plug-ins. 
+<p class="level0">Nyquist plug-ins can either be in the plug-ins directory, or alternatively in a  <span Class="emphasis">nyquist</span> directory on the search path if you choose to create one. 
+<p class="level0"><a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">This man page documents audacity version 1.3.5 
+<p class="level0"><a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0">Audacity is distributed under the GPL, however some of the libraries it links to are distributed under other free licenses, including the LGPL and BSD licenses. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">For details of known problems, see the release notes and the audacity wiki: <br><a href="http://www.audacityteam.org/wiki/index.php?title=Known_Issues">http://www.audacityteam.org/wiki/index.php?title=Known_Issues</a> 
+<p class="level0">To report a bug, see the instructions at <br><a href="http://www.audacityteam.org/wiki/index.php?title=Reporting_Bugs">http://www.audacityteam.org/wiki/index.php?title=Reporting_Bugs</a> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Project leaders include Dominic Mazzoni, Matt Brubeck, James Crook, Vaughan Johnson, Leland Lucius, and Markus Meyer, but dozens of others have contributed, and Audacity would not be possible without wxWindows, libsndfile, and many of the other libraries it is built upon.  For the most recent list of contributors and current email addresses, see our website: 
+<p class="level0"><a href="http://audacity.sourceforge.net/about/credits/">http://audacity.sourceforge.net/about/credits/</a> 
+<p class="level0">
+<p class="level0">

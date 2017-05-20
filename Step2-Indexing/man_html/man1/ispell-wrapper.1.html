@@ -1,0 +1,150 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ispell-wrapper - smart wrapper for ispell <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;ispell-wrapper [--emacs=name] [--language=regexp] [--dry-run] [ispell options] file 
+<p class="level0">&nbsp;  Options (all long only options): &nbsp;   --emacs=name           Set the language to use by emacs dict name &nbsp;   --language=regexp      Set the language to use by name &nbsp;   --dry-run              Only show what would have done 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">ispell-wrapper</span> is a wrapper script for ispell intended to be used in a Debian system in conjunction with the infrastructure introduced by the dictionaries-common package. Option --dry-run will show the string to be run without doing anything else. 
+<p class="level0">It automatically sets the <span Class="bold">-d</span>, <span Class="bold">-w</span>, and <span Class="bold">-T</span> options to ispell as a function of the chosen language.  Of course, this only works for dictionary packages that comply with the above mentioned Policy. 
+<p class="level0">Here is how the language is defined (in order of priority): 
+<p class="level0"><a name="1"></a><span class="nroffip">1) 4</span> 
+<p class="level1">
+<p class="level1">By matching the emacs dict name given in --emacs option to the name of one of the emacs dicts names provided by installed languages in the system. This match must be exact (although is case insensitive). Note that this will override any value given in the --language option. 
+<p class="level0"><a name="2"></a><span class="nroffip">2) 4</span> 
+<p class="level1">
+<p class="level1">By matching the regexp given in option --language to the list of installed languages in the system. 
+<p class="level0"><a name="3"></a><span class="nroffip">3) 4</span> 
+<p class="level1">
+<p class="level1">By matching the regexp stored in the environment variable s-1ISPELLDEFAULTs0 to the list of installed languages in the system. 
+<p class="level0"><a name="4"></a><span class="nroffip">4) 4</span> 
+<p class="level1">
+<p class="level1">By using the value stored in the user-specific file ~/.ispell-default (use <span Class="emphasis">select-default-iwrap</span>|(1) to set it). 
+<p class="level0"><a name="5"></a><span class="nroffip">5) 4</span> 
+<p class="level1">
+<p class="level1">By using the value stored in the site-wide file /etc/dictionaries-common/ispell-default (use <span Class="emphasis">select-default-ispell</span>|(8) as superuser to set it). 
+<p class="level1">Note: regexp matches are case-insensitive and the s-1ISO-8859-1s0 special characters are transformed into their s-1ASCIIs0 equivalents.  German ess-zet is equivalent to the character *(L"s*(R" and the ae ligature to the character *(L"e*(R". <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">Let us say that the following dictionaries are installed in the system (as appearing in the Debconf question at installation time): 
+<p class="level0">
+<p class="level0">&nbsp;   castellano (Spanish TeX mode) &nbsp;   castellano8 (Spanish 8 bit) &nbsp;   portugu[^e]s (European Portuguese) &nbsp;   portugu[^e]s brasileiro (Brazilian Portuguese) 
+<p class="level0">
+<p class="level0">Choosing the regexp (either in the --language option or in the environment variable s-1ISPELLDEFAULTs0) to be *(L"span*(R" will yield an error, since two languages will match (*(L"castellano*(R" and *(L"castellano8*(R"). However, if the regexp is *(L"span.*8*(R", the language *(L"castellano8 (Spanish 8 bit)*(R" will be chosen. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="s-1ISPELLDEFAULTs0"></a><span class="nroffip">\s-1ISPELLDEFAULT\s0 4</span> 
+<p class="level1">
+<p class="level1">Regexp that matches the name of the default language to use, if no --language option is given. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Contains the name of the language to use, if no --language option is given or if the s-1ISPELLDEFAULTs0 environment variable is not set.  This is a user-specific choice. 
+<p class="level0"><a name="etcdictionaries-commonispell-default"></a><span class="nroffip">/etc/dictionaries-common/ispell-default 4</span> 
+<p class="level1">
+<p class="level1">Name of the language to use when everything above is not set. This is a system-wide setting. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">select-default-ispell</span>|(8), <span Class="emphasis">select-default-iwrap</span>|(1) <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Rafael Laboissiere 

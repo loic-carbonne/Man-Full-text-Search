@@ -1,0 +1,44 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">logger - a shell command interface to the syslog(3) system log module <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">logger</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">logger</span> makes entries in the system log.  It provides a shell command interface to the <span Class="manpage">syslog (3)</span>system log module. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--udp</span> Use datagram (UDP) only.  By default the connection is tried to the <span Class="emphasis">syslog</span> port defined in /etc/services, which is often <span Class="emphasis">514 .</span> 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> Display help text and exit. 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--id</span> Log the process ID of the logger process with each line. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--server</span> <span Class="emphasis">server</span> Write to the specified remote syslog <span Class="emphasis">server</span> instead of to the builtin syslog routines.  Unless <span Class="bold">--udp</span> or <span Class="bold">--tcp</span> is specified, <span Class="bold">logger</span> will first try to use UDP, but if thist fails a TCP connection is attempted. 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--port</span> <span Class="emphasis">port</span> Use the specified <span Class="emphasis">port .</span> 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--file</span> <span Class="emphasis">file</span> Log the contents of the specified <span Class="emphasis">file .</span> This option cannot be combined with a command-line message. 
+<p class="level0"><span Class="bold">-p</span>, <span Class="bold">--priority</span> <span Class="emphasis">priority</span> Enter the message into the log with the specified <span Class="emphasis">priority  .</span> The priority may be specified numerically or as a <span Class="emphasis">facility.level</span> pair. For example, <span Class="bold">-p</span> <span Class="emphasis">local3.info</span> logs the message as informational in the local3 facility. The default is <span Class="emphasis">user.notice .</span> 
+<p class="level0"><span Class="bold">--prio-prefix</span> Look for a syslog prefix on every line read from standard input. This prefix is a number within angle brackets that contains both the facility and the level.  This decimal prefix is constructed by multiplying the facility by 8 and then adding the level.  Thus, for example, <span Class="emphasis">local0.info</span>, facility=16 and level=6, becomes <span Class="emphasis">&lt;134&gt;</span>. 
+<p class="level0">If the prefix contains no facility, the facility defaults to what is specified by the <span Class="bold">-p</span> option.  Similarly, if no prefix is provided, the line is logged using the <span Class="bold">-p</span> <span Class="emphasis">priority</span>. 
+<p class="level0">This option doesn't affect a command-line message. 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--stderr</span> Output the message to standard error as well as to the system log. 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--tcp</span> Use stream (TCP) only.  By default the connection is tried to the <span Class="emphasis">syslog-conn</span> port defined in /etc/services, which is often <span Class="emphasis">601 .</span> 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--tag</span> <span Class="emphasis">tag</span> Mark every line to be logged with the specified <span Class="emphasis">tag .</span> 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--socket</span> <span Class="emphasis">socket</span> Write to the specified <span Class="emphasis">socket</span> instead of to the builtin syslog routines. 
+<p class="level0"><span Class="bold">--journald</span> [<span Class="emphasis">file</span>] Write systemd journal entry.  The entry is read from <span Class="emphasis">stdin</span> or input <span Class="emphasis">file .</span> Each new line must begin with a field that is accepted by journald, see <span Class="emphasis">systemd.journal-fields (7)</span> for details.  Use of MESSAGE_ID field is generally good idea, as they make finding entries easy. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><pre class="level1">
+$ printf "%s\n%s\n%s\n" MESSAGE_ID=86184c3b1aa444f58ebe7b30fec1438b DOGS=bark "CARAVAN=goes on" | logger --journald
+$ logger --journald=entry.txt
+</pre>
+
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Notice that <span Class="bold">--journald</span> will ignore values of other options, such as priority.  If priority is needed it must be within input, and use PRIORITY field.  The simple execution of <span Class="bold">journalctl</span> will display MESSAGE field.  Use <span Class="bold">journalctl --output json-pretty</span> to see rest of the fields. 
+<p class="level1"><span Class="bold">-V</span>, <span Class="bold">--version</span> Display version information and exit. 
+<p class="level1"><span Class="bold">--</span> End the argument list.  This is to allow the <span Class="emphasis">message</span> to start with a hyphen (-). 
+<p class="level1"><span Class="emphasis">message</span> Write this <span Class="emphasis">message</span> to the log; if not specified, and the <span Class="bold">-f</span> flag is not provided, standard input is logged. 
+<p class="level1">The <span Class="bold">logger</span> utility exits 0 on success, and &gt;0 if an error occurs. 
+<p class="level1">Valid facility names are: <span Class="emphasis">auth , \ authpriv</span> (for security information of a sensitive nature), <span Class="emphasis">cron , \ daemon , \ ftp , \ kern</span> (can't be generated from user process), <span Class="emphasis">lpr , \ mail , \ news , \ security</span> (deprecated synonym for <span Class="emphasis">auth ), \ syslog , \ user , \ uucp ,</span> and <span Class="emphasis">local0 \ to \ local7 ,</span> inclusive. 
+<p class="level1">Valid level names are: <span Class="emphasis">alert , \ crit , \ debug , \ emerg , \ err , \ error</span> (deprecated synonym for <span Class="emphasis">err ), \ info , \ notice , \ panic</span> (deprecated synonym for <span Class="emphasis">emerg ), \ warning , \ warn</span> (deprecated synonym for <span Class="emphasis">warning ).</span> For the priority order and intended purposes of these levels, see <span Class="manpage">syslog (3).</span><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">logger System rebooted <br>logger -p local0.notice -t HOSTIDM -f /dev/idmc <br>logger -n loghost.example.com System rebooted <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">syslog (3)</span>, <span Class="manpage">syslogd (8)</span>, <span Class="manpage">journalctl (1)</span>, <span Class="manpage">systemd.journal-fields (7)</span><a name="STANDARDS"></a><h2 class="nroffsh">STANDARDS</h2>
+<p class="level0">The <span Class="bold">logger</span> command is expected to be IEEE Std 1003.2 ("POSIX.2") compatible. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The logger command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

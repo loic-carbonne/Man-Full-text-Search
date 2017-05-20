@@ -1,0 +1,34 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setarch - change reported architecture in new program environment and set personality flags <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">setarch</span> <span Class="emphasis">arch</span> [options] 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">setarch</span> <span Class="manpage">--list | -h | -V</span><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">setarch</span> currently only affects the output of <span Class="bold">uname -m</span>. For example, on an AMD64 system, running 'setarch i386 program' will cause 'program' to see <span Class="emphasis">i686</span> instead of <span Class="emphasis">x86_64</span> as the machine type.  It also allows to set various personality options. The default <span Class="bold">program</span> is /bin/sh. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--list</span> List the architectures that can be set. 
+<p class="level0"><span Class="bold">--uname-2.6</span> Causes the program to see a kernel version number beginning with 2.6. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Be verbose. 
+<p class="level0"><span Class="bold">-3</span>, <span Class="bold">--3gb</span> Specifies that processes should use a maximum of 3GB of address space on systems where it is supported (ADDR_LIMIT_3GB). 
+<p class="level0"><span Class="bold">--4gb</span> Ignored (for backward compatibility only). 
+<p class="level0"><span Class="bold">-B</span>, <span Class="bold">--32bit</span> Turns on ADDR_LIMIT_32BIT. 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--fdpic-funcptrs</span> Userspace function pointers point to descriptors (turns on FDPIC_FUNCPTRS). 
+<p class="level0"><span Class="bold">-I</span>, <span Class="bold">--short-inode</span> Turns on SHORT_INODE. 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--addr-compat-layout</span> Changes the way virtual memory is allocated (turns on the ADDR_COMPAT_LAYOUT). 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--addr-no-randomize</span> Disables randomization of the virtual address space (turns on ADDR_NO_RANDOMIZE). 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--whole-seconds</span> Turns on WHOLE_SECONDS. 
+<p class="level0"><span Class="bold">-T</span>, <span Class="bold">--sticky-timeouts</span> Turns on STICKY_TIMEOUTS. 
+<p class="level0"><span Class="bold">-X</span>, <span Class="bold">--read-implies-exec</span> Turns on READ_IMPLIES_EXEC. 
+<p class="level0"><span Class="bold">-Z</span>, <span Class="bold">--mmap-page-zero</span> Turns on MMAP_PAGE_ZERO. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information and exit. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">setarch ppc32 rpmbuild --target=ppc --rebuild foo.src.rpm <br>setarch ppc32 -v -vL3 rpmbuild --target=ppc --rebuild bar.src.rpm <br>setarch ppc32 --32bit rpmbuild --target=ppc --rebuild foo.src.rpm <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Elliot Lee 
+<p class="level0"><br>
+<p class="level0">Jindrich Novy 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The setarch command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

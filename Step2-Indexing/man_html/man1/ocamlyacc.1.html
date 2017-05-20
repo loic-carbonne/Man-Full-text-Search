@@ -1,0 +1,33 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlyacc - The OCaml parser generator 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlyacc</span> [ <span Class="bold">-b prefix</span> ] [ <span Class="bold">-q</span> ] [ <span Class="bold">-v</span> ] [ <span Class="bold">-version</span> ] [ <span Class="bold">-vnum</span> ] <span Class="emphasis">filename.mly</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="manpage">ocamlyacc (1)</span>command produces a parser from a LALR(1) context-free grammar specification with attached semantic actions, in the style of <span Class="manpage">yacc (1).</span>Assuming the input file is <span Class="emphasis">grammar \&.mly,</span> running <span Class="bold">ocamlyacc</span> produces OCaml code for a parser in the file <span Class="emphasis">grammar \&.ml,</span> and its interface in file <span Class="emphasis">grammar \&.mli.</span> 
+<p class="level0">The generated module defines one parsing function per entry point in the grammar. These functions have the same names as the entry points. Parsing functions take as arguments a lexical analyzer (a function from lexer buffers to tokens) and a lexer buffer, and return the semantic attribute of the corresponding entry point. Lexical analyzer functions are usually generated from a lexer specification by the <span Class="manpage">ocamllex (1)</span>program. Lexer buffers are an abstract data type implemented in the standard library module Lexing. Tokens are values from the concrete type token, defined in the interface file <span Class="emphasis">grammar \&.mli</span> produced by <span Class="manpage">ocamlyacc (1).</span>
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The <span Class="manpage">ocamlyacc (1)</span>command recognizes the following options: 
+<p class="level0"><span Class="bold">-b prefix</span> Name the output files <span Class="emphasis">prefix \&.ml,</span> <span Class="emphasis">prefix \&.mli,</span> <span Class="emphasis">prefix \&.output,</span> instead of the default naming convention. 
+<p class="level0"><span Class="bold">-q</span> This option has no effect. 
+<p class="level0"><span Class="bold">-v</span> Generate a description of the parsing tables and a report on conflicts resulting from ambiguities in the grammar. The description is put in file <span Class="emphasis">grammar .output.</span> 
+<p class="level0"><span Class="bold">-version</span> Print version string and exit. 
+<p class="level0"><span Class="bold">-vnum</span> Print short version number and exit. 
+<p class="level0"><span Class="bold">-</span> Read the grammar specification from standard input.  The default output file names are stdin.ml and stdin.mli. 
+<p class="level0"><span Class="bold">-- \ file</span> Process <span Class="emphasis">file</span> as the grammar specification, even if its name starts with a dash (-) character.  This option must be the last on the command line. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamllex (1).</span><br><span Class="emphasis">The OCaml user's manual ,</span> chapter "Lexer and parser generators". 

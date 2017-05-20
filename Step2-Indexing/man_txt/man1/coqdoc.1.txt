@@ -1,0 +1,190 @@
+coqdoc(1)                   General Commands Manual                  coqdoc(1)
+
+
+
+NAME
+       coqdoc - A documentation tool for the Coq proof assistant
+
+
+
+SYNOPSIS
+       coqdoc [ options ] files
+
+
+
+DESCRIPTION
+       coqdoc is a documentation tool for the Coq proof assistant.  It creates
+       LaTeX or HTML documents from a set of Coq files.  See the Coq reference
+       manual for documentation (url below).
+
+
+
+OPTIONS
+   Overall options
+       -h     Help.  Will  give  you  the complete list of options accepted by
+              coqdoc.
+
+       --html Select a HTML output.
+
+       --latex
+              Select a LATEX output.
+
+       --dvi  Select a DVI output.
+
+       --ps   Select a PostScript output.
+
+       --texmacs
+              Select a TeXmacs output.
+
+       --stdout
+              Redirect the output to stdout
+
+       -o file,--output file
+              Redirect the output into the file file.
+
+       -d dir, --directory dir
+              Output files into directory dir  instead  of  current  directory
+              (option  -d  does  not change the filename specified with option
+              -o, if any).
+
+       -s,  --short
+              Do not insert titles for the files. The default behavior  is  to
+              insert a title like ``Library Foo'' for each file.
+
+       -t string, --title string
+              Set the document title.
+
+       --body-only
+              Suppress the header and trailer of the final document. Thus, you
+              can insert the resulting document into a larger one.
+
+       -p string, --preamble string
+              Insert  some  material  in  the  LATEX  preamble,  right  before
+              \begin{document} (meaningless with -html).
+
+       --vernac-file file, --tex-file file
+              Considers the file `file' respectively as a .v (or .g) file or a
+              .tex file.
+
+       --files-from file
+              Read file names to process in file `file' as if they were  given
+              on the command line. Useful for program sources split in several
+              directories.
+
+       -q,  --quiet
+              Be quiet. Do not print anything except errors.
+
+       -h,  --help
+              Give a short summary of the options and exit.
+
+       -v,  --version
+              Print the version and exit.
+
+
+   Index options
+       Default behavior is to build an index, for the HTML output  only,  into
+       index.html.
+
+
+       --no-index
+              Do not output the index.
+
+       --multi-index
+              Generate  one  page  for  each  category  and each letter in the
+              index, together with a top page index.html.
+
+
+   Table of contents option
+       -toc,  --table-of-contents
+              Insert a table of contents. For a LATEX  output,  it  inserts  a
+              \tableofcontents  at  the  beginning of the document. For a HTML
+              output, it builds a table of contents into toc.html.
+
+
+   Hyperlinks options
+       --glob-from  file
+              Make references using Coq globalizations from file  file.  (Such
+              globalizations are obtained with Coq option -dump-glob).
+
+
+       --no-externals
+              Do not insert links to the Coq standard library.
+
+
+       --external url libroot
+              Set  base URL for the external library whose root prefix is lib-
+              root.
+
+
+       --coqlib url
+              Set  base  URL  for  the  Coq  standard  library   (default   is
+              http://coq.inria.fr/library/).
+
+
+       --coqlib_path dir
+              Set  the base path where the Coq files are installed, especially
+              style files coqdoc.sty and coqdoc.css.
+
+
+       -R dir coqdir
+              Map physical directory dir to Coq logical directory coqdir (sim-
+              ilarly  to  Coq  option -R).  Note: option -R only has effect on
+              the files following it on the command line, so you will probably
+              need to put this option first.
+
+
+   Contents options
+       -g,  --gallina
+              Do not print proofs.
+
+
+       -l,  --light
+              Light  mode. Suppress proofs (as with -g) and the following com-
+              mands:
+
+                      * [Recursive] Tactic Definition
+                      * Hint / Hints
+                      * Require
+                      * Transparent / Opaque
+                      * Implicit Argument / Implicits
+                      * Section / Variable / Hypothesis / End
+
+              The behavior of options -g and  -l  can  be  locally  overridden
+              using  the  (* begin show *) ... (* end show *) environment (see
+              above).
+
+
+   Language options
+       Default behavior is to assume ASCII 7 bits input files.
+
+
+       -latin1,  --latin1
+              Select ISO-8859-1 input files. It is  equivalent  to  --inputenc
+              latin1 --charset iso-8859-1.
+
+
+       -utf8,  --utf8
+              Select  UTF-8 (Unicode) input files. It is equivalent to --inpu-
+              tenc utf8 --charset utf-8. LATEX UTF-8 support can be  found  at
+              http://www.ctan.org/tex-archive/macros/latex/contrib/sup-
+              ported/unicode/.
+
+
+       --inputenc string
+              Give a LATEX input encoding, as an option to LATEX package inpu-
+              tenc.
+
+
+       --charset string
+              Specify  the  HTML  character  set,  to  be inserted in the HTML
+              header.
+
+
+
+SEE ALSO
+       The Coq Reference Manual from http://coq.inria.fr/
+
+
+
+
+                                  April, 2006                        coqdoc(1)

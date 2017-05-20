@@ -1,0 +1,28 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chcon - change file security context <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">chcon</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">CONTEXT FILE</span>... <br><span Class="bold">chcon</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">-u USER</span>] [<span Class="emphasis">-r ROLE</span>] [<span Class="emphasis">-l RANGE</span>] [<span Class="emphasis">-t TYPE</span>] <span Class="emphasis">FILE</span>... <br><span Class="bold">chcon</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">--reference=RFILE FILE</span>... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Change the SELinux security context of each FILE to CONTEXT. With <span Class="bold">--reference</span>, change the security context of each FILE to that of RFILE. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">--dereference</span> affect the referent of each symbolic link (this is the default), rather than the symbolic link itself 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--no-dereference</span> affect symbolic links instead of any referenced file 
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--user</span>=<span Class="emphasis">USER</span> set user USER in the target security context 
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--role</span>=<span Class="emphasis">ROLE</span> set role ROLE in the target security context 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--type</span>=<span Class="emphasis">TYPE</span> set type TYPE in the target security context 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--range</span>=<span Class="emphasis">RANGE</span> set range RANGE in the target security context 
+<p class="level0"><span Class="bold">--no-preserve-root</span> do not treat '/' specially (the default) 
+<p class="level0"><span Class="bold">--preserve-root</span> fail to operate recursively on '/' 
+<p class="level0"><span Class="bold">--reference</span>=<span Class="emphasis">RFILE</span> use RFILE's security context rather than specifying a CONTEXT value 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--recursive</span> operate on files and directories recursively 
+<p class="level0"><span Class="bold">-v</span>, <span Class="bold">--verbose</span> output a diagnostic for every file processed 
+<p class="level0">The following options modify how a hierarchy is traversed when the <span Class="bold">-R</span> option is also specified.  If more than one is specified, only the final one takes effect. 
+<p class="level0"><span Class="bold">-H</span> if a command line argument is a symbolic link to a directory, traverse it 
+<p class="level0"><span Class="bold">-L</span> traverse every symbolic link to a directory encountered 
+<p class="level0"><span Class="bold">-P</span> do not traverse any symbolic links (default) 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Russell Coker and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report chcon translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/chcon&gt; <br>or available locally via: info (aq(coreutils) chcon invocation(aq 

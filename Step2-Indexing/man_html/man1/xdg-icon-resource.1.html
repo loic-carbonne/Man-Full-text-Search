@@ -1,0 +1,118 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-icon-resource - command line tool for (un)installing icon resources <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-icon-resource</span> install [<span Class="bold">--noupdate</span>] [<span Class="bold">--novendor</span>] [<span Class="bold">--theme&nbsp;</span><span class="bold"><span Class="emphasis">theme</span></span>] [<span Class="bold">--context&nbsp;</span><span class="bold"><span Class="emphasis">context</span></span>] [<span Class="bold">--mode&nbsp;</span><span class="bold"><span Class="emphasis">mode</span></span>] <span Class="bold">--size&nbsp;</span><span class="bold"><span Class="emphasis">size</span></span> <span Class="emphasis">icon-file</span> [<span Class="emphasis">icon-name</span>] 
+<p class="level0"><span Class="bold">xdg-icon-resource</span> uninstall [<span Class="bold">--noupdate</span>] [<span Class="bold">--theme&nbsp;</span><span class="bold"><span Class="emphasis">theme</span></span>] [<span Class="bold">--context&nbsp;</span><span class="bold"><span Class="emphasis">context</span></span>] [<span Class="bold">--mode&nbsp;</span><span class="bold"><span Class="emphasis">mode</span></span>] <span Class="bold">--size&nbsp;</span><span class="bold"><span Class="emphasis">size</span></span> <span Class="emphasis">icon-name</span> 
+<p class="level0"><span Class="bold">xdg-icon-resource</span> forceupdate [<span Class="bold">--theme&nbsp;</span><span class="bold"><span Class="emphasis">theme</span></span>] [<span Class="bold">--mode&nbsp;</span><span class="bold"><span Class="emphasis">mode</span></span>] 
+<p class="level0"><span Class="bold">xdg-icon-resource</span> {<span Class="bold">--help</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The xdg-icon-resource program can be used to install icon resources into the desktop icon system in order to illustrate menu entries, to depict desktop icons or to graphically represent file types. 
+<p class="level0">The desktop icon system identifies icons by name. Depending on the required size, the choice of icon theme and the context in which the icon is used, the desktop icon system locates an appropriate icon resource to depict an icon. Icon resources can be XPM files or PNG files. 
+<p class="level0">The desktop icon system works according to the XDG Icon Theme Specification at m[blue]<span Class="bold">%http://www.freedesktop.org/wiki/Specifications/icon-theme-spec</span>m[] <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">install 
+<p class="level1">Installs the icon file indicated by <span Class="emphasis">icon-file</span> to the desktop icon system under the name <span Class="emphasis">icon-name</span>. Icon names do not have an extension. If <span Class="emphasis">icon-name</span> is not provided the name is derived from <span Class="emphasis">icon-file</span>. The icon file must have <span Class="emphasis">.png</span> or <span Class="emphasis">.xpm</span> as extension. If a corresponding <span Class="emphasis">.icon</span> file exists in the same location as <span Class="emphasis">icon-file</span> it will be installed as well. 
+<p class="level0">
+<p class="level0">uninstall 
+<p class="level1">Removes the icon indicated by <span Class="emphasis">icon-name</span> from the desktop icon system. Note that icon names do not have an extension. 
+<p class="level0">
+<p class="level0">forceupdate 
+<p class="level1">Force an update of the desktop icon system. This is only useful if the last call to xdg-icon-resource included the <span Class="bold">--noupdate</span> option. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--noupdate</span> 
+<p class="level1">Postpone updating the desktop icon system. If multiple icons are added in sequence this flag can be used to indicate that additional changes will follow and that it is not necessary to update the desktop icon system right away. 
+<p class="level0">
+<p class="level0"><span Class="bold">--novendor</span> 
+<p class="level1">Normally, xdg-icon-resource checks to ensure that an icon file to be installed in the <span Class="emphasis">apps</span> context has a proper vendor prefix. This option can be used to disable that check. 
+<p class="level1">A vendor prefix consists of alpha characters ([a-zA-Z]) and is terminated with a dash ("-"). Companies and organizations are encouraged to use a word or phrase, preferably the organizations name, for which they hold a trademark as their vendor prefix. The purpose of the vendor prefix is to prevent name conflicts. 
+<p class="level0">
+<p class="level0"><span Class="bold">--theme</span> <span Class="emphasis">theme</span> 
+<p class="level1">Installs or removes the icon file as part of <span Class="emphasis">theme</span>. If no theme is specified the icons will be installed as part of the default <span Class="emphasis">hicolor</span> theme. Applications may install icons under multiple themes but should at least install icons for the default <span Class="emphasis">hicolor</span> theme. 
+<p class="level0">
+<p class="level0"><span Class="bold">--context</span> <span Class="emphasis">context</span> 
+<p class="level1">Specifies the context for the icon. Icons to be used in the application menu and as desktop icon should use <span Class="emphasis">apps</span> as context which is the default context. Icons to be used as file icons should use <span Class="emphasis">mimetypes</span> as context. Other common contexts are <span Class="emphasis">actions</span>, <span Class="emphasis">devices</span>, <span Class="emphasis">emblems</span>, <span Class="emphasis">filesystems</span> and <span Class="emphasis">stock</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--size</span> <span Class="emphasis">size</span> 
+<p class="level1">Specifies the size of the icon. All icons must be square. Common sizes for icons in the apps context are: 16, 22, 32, 48, 64 and 128. Common sizes for icons in the mimetypes context are: 16, 22, 32, 48, 64 and 128 
+<p class="level0">
+<p class="level0"><span Class="bold">--mode</span> <span Class="emphasis">mode</span> 
+<p class="level1"><span Class="emphasis">mode</span> can be <span Class="emphasis">user</span> or <span Class="emphasis">system</span>. In user mode the file is (un)installed for the current user only. In system mode the file is (un)installed for all users on the system. Usually only root is allowed to install in system mode. 
+<p class="level1">The default is to use system mode when called by root and to use user mode when called by a non-root user. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">xdg-icon-resource honours the following environment variables: 
+<p class="level0">XDG_UTILS_DEBUG_LEVEL 
+<p class="level1">Setting this environment variable to a non-zero numerical value makes xdg-icon-resource do more verbose reporting on stderr. Setting a higher value increases the verbosity. 
+<p class="level0">
+<p class="level0">XDG_UTILS_INSTALL_MODE 
+<p class="level1">This environment variable can be used by the user or administrator to override the installation mode. Valid values are <span Class="emphasis">user</span> and <span Class="emphasis">system</span>. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">One of the files passed on the command line did not exist. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0">
+<p class="level0"><span Class="bold">5</span> 
+<p class="level1">No permission to read one of the files passed on the command line. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-desktop-icon</span>(1), <span Class="bold">xdg-desktop-menu</span>(1), <span Class="bold">xdg-mime</span>(1) <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To install an icon resource to depict a launcher for the application myfoobar, the company ShinyThings Inc. can use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-icon-resource install --size 64 shinythings-myfoobar.png
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To install an icon for a new application/x-foobar file type one can use: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-icon-resource install --context mimetypes --size 48 ./mime-foobar-48.png application-x-foobar
+xdg-icon-resource install --context mimetypes --size 64 ./mime-foobar-64.png application-x-foobar
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This will install two icons with the name application-x-foobar but with different sizes. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Kevin Krammer</span> 
+<p class="level1">Author. 
+<p class="level0">
+<p class="level0"><span Class="bold">Jeremy White</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2006 <br>

@@ -1,0 +1,136 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">stty - change and print terminal line settings <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">stty</span> [<span Class="emphasis">-F DEVICE | --file=DEVICE</span>] [<span Class="emphasis">SETTING</span>]... <br><span Class="bold">stty</span> [<span Class="emphasis">-F DEVICE | --file=DEVICE</span>] [<span Class="emphasis">-a|--all</span>] <br><span Class="bold">stty</span> [<span Class="emphasis">-F DEVICE | --file=DEVICE</span>] [<span Class="emphasis">-g|--save</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Print or change terminal characteristics. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> print all current settings in human-readable form 
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--save</span> print all current settings in a stty-readable form 
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--file</span>=<span Class="emphasis">DEVICE</span> open and use the specified DEVICE instead of stdin 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Optional - before SETTING indicates negation.  An * marks non-POSIX settings.  The underlying system defines which settings are available. <a name="Special"></a><h2 class="nroffsh">Special characters:</h2>
+<p class="level0">
+<p class="level0">* dsusp CHAR CHAR will send a terminal stop signal once input flushed 
+<p class="level0">eof CHAR CHAR will send an end of file (terminate the input) 
+<p class="level0">eol CHAR CHAR will end the line 
+<p class="level0">* eol2 CHAR alternate CHAR for ending the line 
+<p class="level0">erase CHAR CHAR will erase the last character typed 
+<p class="level0">intr CHAR CHAR will send an interrupt signal 
+<p class="level0">kill CHAR CHAR will erase the current line 
+<p class="level0">* lnext CHAR CHAR will enter the next character quoted 
+<p class="level0">quit CHAR CHAR will send a quit signal 
+<p class="level0">* rprnt CHAR CHAR will redraw the current line 
+<p class="level0">start CHAR CHAR will restart the output after stopping it 
+<p class="level0">stop CHAR CHAR will stop the output 
+<p class="level0">susp CHAR CHAR will send a terminal stop signal 
+<p class="level0">* swtch CHAR CHAR will switch to a different shell layer 
+<p class="level0">* werase CHAR CHAR will erase the last word typed <a name="Special"></a><h2 class="nroffsh">Special settings:</h2>
+<p class="level0">
+<p class="level0">N set the input and output speeds to N bauds 
+<p class="level0">* cols N tell the kernel that the terminal has N columns 
+<p class="level0">* columns N same as cols N 
+<p class="level0">ispeed N set the input speed to N 
+<p class="level0">* line N use line discipline N 
+<p class="level0">min N with <span Class="bold">-icanon</span>, set N characters minimum for a completed read 
+<p class="level0">ospeed N set the output speed to N 
+<p class="level0">* rows N tell the kernel that the terminal has N rows 
+<p class="level0">* size print the number of rows and columns according to the kernel 
+<p class="level0">speed print the terminal speed 
+<p class="level0">time N with <span Class="bold">-icanon</span>, set read timeout of N tenths of a second <a name="Control"></a><h2 class="nroffsh">Control settings:</h2>
+<p class="level0">
+<p class="level0">[-]clocal disable modem control signals 
+<p class="level0">[-]cread allow input to be received 
+<p class="level0">* [-]crtscts enable RTS/CTS handshaking 
+<p class="level0">* [-]cdtrdsr enable DTR/DSR handshaking 
+<p class="level0">csN set character size to N bits, N in [5..8] 
+<p class="level0">[-]cstopb use two stop bits per character (one with '-') 
+<p class="level0">[-]hup send a hangup signal when the last process closes the tty 
+<p class="level0">[-]hupcl same as [-]hup 
+<p class="level0">[-]parenb generate parity bit in output and expect parity bit in input 
+<p class="level0">[-]parodd set odd parity (or even parity with '-') 
+<p class="level0">* [-]cmspar use "stick" (mark/space) parity <a name="Input"></a><h2 class="nroffsh">Input settings:</h2>
+<p class="level0">
+<p class="level0">[-]brkint breaks cause an interrupt signal 
+<p class="level0">[-]icrnl translate carriage return to newline 
+<p class="level0">[-]ignbrk ignore break characters 
+<p class="level0">[-]igncr ignore carriage return 
+<p class="level0">[-]ignpar ignore characters with parity errors 
+<p class="level0">* [-]imaxbel beep and do not flush a full input buffer on a character 
+<p class="level0">[-]inlcr translate newline to carriage return 
+<p class="level0">[-]inpck enable input parity checking 
+<p class="level0">[-]istrip clear high (8th) bit of input characters 
+<p class="level0">* [-]iutf8 assume input characters are UTF-8 encoded 
+<p class="level0">* [-]iuclc translate uppercase characters to lowercase 
+<p class="level0">* [-]ixany let any character restart output, not only start character 
+<p class="level0">[-]ixoff enable sending of start/stop characters 
+<p class="level0">[-]ixon enable XON/XOFF flow control 
+<p class="level0">[-]parmrk mark parity errors (with a 255-0-character sequence) 
+<p class="level0">[-]tandem same as [-]ixoff <a name="Output"></a><h2 class="nroffsh">Output settings:</h2>
+<p class="level0">
+<p class="level0">* bsN backspace delay style, N in [0..1] 
+<p class="level0">* crN carriage return delay style, N in [0..3] 
+<p class="level0">* ffN form feed delay style, N in [0..1] 
+<p class="level0">* nlN newline delay style, N in [0..1] 
+<p class="level0">* [-]ocrnl translate carriage return to newline 
+<p class="level0">* [-]ofdel use delete characters for fill instead of NUL characters 
+<p class="level0">* [-]ofill use fill (padding) characters instead of timing for delays 
+<p class="level0">* [-]olcuc translate lowercase characters to uppercase 
+<p class="level0">* [-]onlcr translate newline to carriage return-newline 
+<p class="level0">* [-]onlret newline performs a carriage return 
+<p class="level0">* [-]onocr do not print carriage returns in the first column 
+<p class="level0">[-]opost postprocess output 
+<p class="level0">* tabN horizontal tab delay style, N in [0..3] 
+<p class="level0">* tabs same as tab0 
+<p class="level0">* <span Class="bold">-tabs</span> same as tab3 
+<p class="level0">* vtN vertical tab delay style, N in [0..1] <a name="Local"></a><h2 class="nroffsh">Local settings:</h2>
+<p class="level0">
+<p class="level0">[-]crterase echo erase characters as backspace-space-backspace 
+<p class="level0">* crtkill kill all line by obeying the echoprt and echoe settings 
+<p class="level0">* <span Class="bold">-crtkill</span> kill all line by obeying the echoctl and echok settings 
+<p class="level0">* [-]ctlecho echo control characters in hat notation ('^c') 
+<p class="level0">[-]echo echo input characters 
+<p class="level0">* [-]echoctl same as [-]ctlecho 
+<p class="level0">[-]echoe same as [-]crterase 
+<p class="level0">[-]echok echo a newline after a kill character 
+<p class="level0">* [-]echoke same as [-]crtkill 
+<p class="level0">[-]echonl echo newline even if not echoing other characters 
+<p class="level0">* [-]echoprt echo erased characters backward, between 'e' and '/' 
+<p class="level0">[-]icanon enable erase, kill, werase, and rprnt special characters 
+<p class="level0">[-]iexten enable non-POSIX special characters 
+<p class="level0">[-]isig enable interrupt, quit, and suspend special characters 
+<p class="level0">[-]noflsh disable flushing after interrupt and quit special characters 
+<p class="level0">* [-]prterase same as [-]echoprt 
+<p class="level0">* [-]tostop stop background jobs that try to write to the terminal 
+<p class="level0">* [-]xcase with icanon, escape with 'e' for uppercase characters <a name="Combination"></a><h2 class="nroffsh">Combination settings:</h2>
+<p class="level0">
+<p class="level0">* [-]LCASE same as [-]lcase 
+<p class="level0">cbreak same as <span Class="bold">-icanon</span> 
+<p class="level0"><span Class="bold">-cbreak</span> same as icanon 
+<p class="level0">cooked same as brkint ignpar istrip icrnl ixon opost isig icanon, eof and eol characters to their default values 
+<p class="level0"><span Class="bold">-cooked</span> same as raw 
+<p class="level0">crt same as echoe echoctl echoke 
+<p class="level0">dec same as echoe echoctl echoke <span Class="bold">-ixany</span> intr ^c erase 0177 kill ^u 
+<p class="level0">* [-]decctlq same as [-]ixany 
+<p class="level0">ek erase and kill characters to their default values 
+<p class="level0">evenp same as parenb <span Class="bold">-parodd</span> cs7 
+<p class="level0"><span Class="bold">-evenp</span> same as <span Class="bold">-parenb</span> cs8 
+<p class="level0">* [-]lcase same as xcase iuclc olcuc 
+<p class="level0">litout same as <span Class="bold">-parenb</span> <span Class="bold">-istrip</span> <span Class="bold">-opost</span> cs8 
+<p class="level0"><span Class="bold">-litout</span> same as parenb istrip opost cs7 
+<p class="level0">nl same as <span Class="bold">-icrnl</span> <span Class="bold">-onlcr</span> 
+<p class="level0"><span Class="bold">-nl</span> same as icrnl <span Class="bold">-inlcr</span> <span Class="bold">-igncr</span> onlcr <span Class="bold">-ocrnl</span> <span Class="bold">-onlret</span> 
+<p class="level0">oddp same as parenb parodd cs7 
+<p class="level0"><span Class="bold">-oddp</span> same as <span Class="bold">-parenb</span> cs8 
+<p class="level0">[-]parity same as [-]evenp 
+<p class="level0">pass8 same as <span Class="bold">-parenb</span> <span Class="bold">-istrip</span> cs8 
+<p class="level0"><span Class="bold">-pass8</span> same as parenb istrip cs7 
+<p class="level0">raw same as <span Class="bold">-ignbrk</span> <span Class="bold">-brkint</span> <span Class="bold">-ignpar</span> <span Class="bold">-parmrk</span> <span Class="bold">-inpck</span> <span Class="bold">-istrip</span> <span Class="bold">-inlcr</span> <span Class="bold">-igncr</span> <span Class="bold">-icrnl</span>  <span Class="bold">-ixon</span>  <span Class="bold">-ixoff</span>  <span Class="bold">-iuclc</span>  <span Class="bold">-ixany</span> <span Class="bold">-imaxbel</span> <span Class="bold">-opost</span> <span Class="bold">-isig</span> <span Class="bold">-icanon</span> <span Class="bold">-xcase</span> min 1 time 0 
+<p class="level0"><span Class="bold">-raw</span> same as cooked 
+<p class="level0">sane same as cread <span Class="bold">-ignbrk</span> brkint <span Class="bold">-inlcr</span> <span Class="bold">-igncr</span> icrnl <span Class="bold">-iutf8</span> <span Class="bold">-ixoff</span> <span Class="bold">-iuclc</span> <span Class="bold">-ixany</span> imaxbel opost <span Class="bold">-olcuc</span> <span Class="bold">-ocrnl</span> onlcr <span Class="bold">-onocr</span> <span Class="bold">-onlret</span> <span Class="bold">-ofill</span> <span Class="bold">-ofdel</span> nl0 cr0 tab0 bs0 vt0 ff0 isig icanon iexten echo echoe echok <span Class="bold">-echonl</span> <span Class="bold">-noflsh</span> <span Class="bold">-xcase</span> <span Class="bold">-tostop</span> <span Class="bold">-echoprt</span> echoctl echoke, all special characters to their default values 
+<p class="level0">Handle the tty line connected to standard input.  Without arguments, prints baud rate, line discipline, and deviations from stty sane.  In settings, CHAR is taken literally, or coded as in ^c, 0x37, 0177 or 127; special values ^- or undef used to disable special characters. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by David MacKenzie. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report stty translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/stty&gt; <br>or available locally via: info (aq(coreutils) stty invocation(aq 

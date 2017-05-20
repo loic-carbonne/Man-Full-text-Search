@@ -1,0 +1,31 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-upload-pack - Send objects packed back to git-fetch-pack <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git-upload-pack</span> [--strict] [--timeout=&lt;n&gt;] &lt;directory&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Invoked by <span Class="emphasis">git fetch-pack</span>, learns what objects the other side is missing, and sends them after packing. 
+<p class="level0">This command is usually not invoked directly by the end user. The UI for the protocol is on the <span Class="emphasis">git fetch-pack</span> side, and the program pair is meant to be used to pull updates from a remote repository. For push operations, see <span Class="emphasis">git send-pack</span>. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--strict 
+<p class="level1">Do not try &lt;directory&gt;/.git/ if &lt;directory&gt; is no Git directory. 
+<p class="level0">
+<p class="level0">--timeout=&lt;n&gt; 
+<p class="level1">Interrupt transfer after &lt;n&gt; seconds of inactivity. 
+<p class="level0">
+<p class="level0">&lt;directory&gt; 
+<p class="level1">The repository to sync from. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gitnamespaces</span>(7) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

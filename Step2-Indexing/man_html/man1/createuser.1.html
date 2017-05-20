@@ -1,0 +1,167 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">createuser - define a new PostgreSQL user account <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">createuser</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] [<span Class="emphasis">username</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createuser creates a new PostgreSQL user (or more precisely, a role). Only superusers and users with CREATEROLE privilege can create new users, so createuser must be invoked by someone who can connect as a superuser or a user with CREATEROLE privilege. 
+<p class="level0">If you wish to create a new superuser, you must connect as a superuser, not merely with CREATEROLE privilege. Being a superuser implies the ability to bypass all access permission checks within the database, so superuserdom should not be granted lightly. 
+<p class="level0">
+<p class="level0">createuser is a wrapper around the SQL command CREATE ROLE (<span Class="bold">CREATE_ROLE</span>(7)). There is no effective difference between creating users via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createuser accepts the following command-line arguments: 
+<p class="level0"><span Class="emphasis">username</span> 
+<p class="level1">Specifies the name of the PostgreSQL user to be created. This name must be different from all existing roles in this PostgreSQL installation. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c </span><span class="bold"><span Class="emphasis">number</span></span> <br><span Class="bold">--connection-limit=</span><span class="bold"><span Class="emphasis">number</span></span> 
+<p class="level1">Set a maximum number of connections for the new user. The default is to set no limit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span> <br><span Class="bold">--createdb</span> 
+<p class="level1">The new user will be allowed to create databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">-D</span> <br><span Class="bold">--no-createdb</span> 
+<p class="level1">The new user will not be allowed to create databases. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that createuser generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E</span> <br><span Class="bold">--encrypted</span> 
+<p class="level1">Encrypts the user*(Aqs password stored in the database. If not specified, the default password behavior is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-g </span><span class="bold"><span Class="emphasis">role</span></span> <br><span Class="bold">--role=</span><span class="bold"><span Class="emphasis">role</span></span> 
+<p class="level1">Indicates role to which this role will be added immediately as a new member. Multiple roles to which this role will be added as a member can be specified by writing multiple <span Class="bold">-g</span> switches. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span> <br><span Class="bold">--inherit</span> 
+<p class="level1">The new role will automatically inherit privileges of roles it is a member of. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I</span> <br><span Class="bold">--no-inherit</span> 
+<p class="level1">The new role will not automatically inherit privileges of roles it is a member of. 
+<p class="level0">
+<p class="level0"><span Class="bold">--interactive</span> 
+<p class="level1">Prompt for the user name if none is specified on the command line, and also prompt for whichever of the options <span Class="bold">-d</span>/<span Class="bold">-D</span>, <span Class="bold">-r</span>/<span Class="bold">-R</span>, <span Class="bold">-s</span>/<span Class="bold">-S</span> is not specified on the command line. (This was the default behavior up to PostgreSQL 9.1.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-l</span> <br><span Class="bold">--login</span> 
+<p class="level1">The new user will be allowed to log in (that is, the user name can be used as the initial session user identifier). This is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-L</span> <br><span Class="bold">--no-login</span> 
+<p class="level1">The new user will not be allowed to log in. (A role without login privilege is still useful as a means of managing database permissions.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-N</span> <br><span Class="bold">--unencrypted</span> 
+<p class="level1">Does not encrypt the user*(Aqs password stored in the database. If not specified, the default password behavior is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-P</span> <br><span Class="bold">--pwprompt</span> 
+<p class="level1">If given, createuser will issue a prompt for the password of the new user. This is not necessary if you do not plan on using password authentication. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span> <br><span Class="bold">--createrole</span> 
+<p class="level1">The new user will be allowed to create new roles (that is, this user will have CREATEROLE privilege). 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span> <br><span Class="bold">--no-createrole</span> 
+<p class="level1">The new user will not be allowed to create new roles. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-s</span> <br><span Class="bold">--superuser</span> 
+<p class="level1">The new user will be a superuser. 
+<p class="level0">
+<p class="level0"><span Class="bold">-S</span> <br><span Class="bold">--no-superuser</span> 
+<p class="level1">The new user will not be a superuser. This is the default. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the createuser version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--replication</span> 
+<p class="level1">The new user will have the REPLICATION privilege, which is described more fully in the documentation for CREATE ROLE (<span Class="bold">CREATE_ROLE</span>(7)). 
+<p class="level0">
+<p class="level0"><span Class="bold">--no-replication</span> 
+<p class="level1">The new user will not have the REPLICATION privilege, which is described more fully in the documentation for CREATE ROLE (<span Class="bold">CREATE_ROLE</span>(7)). 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about createuser command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">createuser also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as (not the user name to create). 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force createuser to prompt for a password (for connecting to the server, not for the password of the new user). 
+<p class="level1">This option is never essential, since createuser will automatically prompt for a password if the server demands password authentication. However, createuser will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see CREATE ROLE (<span Class="bold">CREATE_ROLE</span>(7)) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To create a user joe on the default database server: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createuser joe</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To create a user joe on the default database server with prompting for some additional attributes: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createuser --interactive joe</span>
+Shall the new role be a superuser? (y/n) <span class="bold">n</span>
+Shall the new role be allowed to create databases? (y/n) <span class="bold">n</span>
+Shall the new role be allowed to create more new roles? (y/n) <span class="bold">n</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To create the same user joe using the server on host eden, port 5000, with attributes explicitly specified, taking a look at the underlying command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createuser -h eden -p 5000 -S -D -R -e joe</span>
+CREATE ROLE joe NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To create the user joe as a superuser, and assign a password immediately: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createuser -P -s -e joe</span>
+Enter password for new role: <span class="bold">xyzzy</span>
+Enter it again: <span class="bold">xyzzy</span>
+CREATE ROLE joe PASSWORD *(Aqmd5b5f5ba1a423792b526f799ae4eb3d59e*(Aq SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">In the above example, the new password isn*(Aqt actually echoed when typed, but we show what was typed for clarity. As you see, the password is encrypted before it is sent to the client. If the option <span Class="bold">--unencrypted</span> is used, the password <span Class="emphasis">will</span> appear in the echoed command (and possibly also in the server log and elsewhere), so you don*(Aqt want to use <span Class="bold">-e</span> in that case, if anyone else can see your screen. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">dropuser</span>(1), CREATE ROLE (<span Class="bold">CREATE_ROLE</span>(7)) 

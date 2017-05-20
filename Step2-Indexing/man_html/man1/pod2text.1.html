@@ -1,0 +1,196 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pod2text - Convert POD data to formatted ASCII text <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">pod2text [<span Class="bold">-aclostu</span>] [<span Class="bold">--code</span>] [<span Class="bold">--errors</span>=<span Class="emphasis">style</span>] [<span Class="bold">-i</span> <span Class="emphasis">indent</span>] &nbsp;   [<span Class="bold">-q</span>&nbsp;<span Class="emphasis">quotes</span>] [<span Class="bold">--nourls</span>] [<span Class="bold">--stderr</span>] [<span Class="bold">-w</span>&nbsp;<span Class="emphasis">width</span>] &nbsp;   [<span Class="emphasis">input</span> [<span Class="emphasis">output</span> ...]] 
+<p class="level0">pod2text <span Class="bold">-h</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pod2text</span> is a front-end for Pod::Text and its subclasses.  It uses them to generate formatted s-1ASCIIs0 text from s-1PODs0 source.  It can optionally use either termcap sequences or s-1ANSIs0 color escape sequences to format the text. 
+<p class="level0"><span Class="emphasis">input</span> is the file to read for s-1PODs0 source (the s-1PODs0 can be embedded in code).  If <span Class="emphasis">input</span> isn't given, it defaults to f(CW*(C`STDIN*(C'</span>.  <span Class="emphasis">output</span>, if given, is the file to which to write the formatted output.  If <span Class="emphasis">output</span> isn't given, the formatted output is written to f(CW*(C`STDOUT*(C'</span>.  Several s-1PODs0 files can be processed in the same <span Class="bold">pod2text</span> invocation (saving module load and compile times) by providing multiple pairs of <span Class="emphasis">input</span> and <span Class="emphasis">output</span> files on the command line. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR, \fB--alt\fR 4</span> 
+<p class="level1">
+<p class="level1">Use an alternate output format that, among other things, uses a different heading style and marks f(CW*(C`=item*(C'</span> entries with a colon in the left margin. 
+<p class="level0"><a name="fB--codefR"></a><span class="nroffip">\fB--code\fR 4</span> 
+<p class="level1">
+<p class="level1">Include any non-POD text from the input file in the output as well.  Useful for viewing code documented with s-1PODs0 blocks with the s-1PODs0 rendered and the code left intact. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR, \fB--color\fR 4</span> 
+<p class="level1">
+<p class="level1">Format the output with s-1ANSIs0 color escape sequences.  Using this option requires that Term::ANSIColor be installed on your system. 
+<p class="level0"><a name="fB-ifR"></a><span class="nroffip">\fB-i\fR \fIindent\fR, \fB--indent=\fR\fIindent\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the number of spaces to indent regular text, and the default indentation for f(CW*(C`=over*(C'</span> blocks.  Defaults to 4 spaces if this option isn't given. 
+<p class="level0"><a name="fB-errorsfRfIstylefR"></a><span class="nroffip">\fB-errors\fR=\fIstyle\fR 4</span> 
+<p class="level1">
+<p class="level1">Set the error handling style.  f(CW*(C`die*(C'</span> says to throw an exception on any s-1PODs0 formatting error.  f(CW*(C`stderr*(C'</span> says to report errors on standard error, but not to throw an exception.  f(CW*(C`pod*(C'</span> says to include a s-1POD ERRORSs0 section in the resulting documentation summarizing the errors.  f(CW*(C`none*(C'</span> ignores s-1PODs0 errors entirely, as much as possible. 
+<p class="level1">The default is f(CW*(C`die*(C'</span>. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB--help\fR 4</span> 
+<p class="level1">
+<p class="level1">Print out usage information and exit. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR, \fB--loose\fR 4</span> 
+<p class="level1">
+<p class="level1">Print a blank line after a f(CW*(C`=head1*(C'</span> heading.  Normally, no blank line is printed after f(CW*(C`=head1*(C'</span>, although one is still printed after f(CW*(C`=head2*(C'</span>, because this is the expected formatting for manual pages; if you're formatting arbitrary text documents, using this option is recommended. 
+<p class="level0"><a name="fB-mfR"></a><span class="nroffip">\fB-m\fR \fIwidth\fR, \fB--left-margin\fR=\fIwidth\fR, \fB--margin\fR=\fIwidth\fR 4</span> 
+<p class="level1">
+<p class="level1">The width of the left margin in spaces.  Defaults to 0.  This is the margin for all text, including headings, not the amount by which regular text is indented; for the latter, see <span Class="bold">-i</span> option. 
+<p class="level0"><a name="fB--nourlsfR"></a><span class="nroffip">\fB--nourls\fR 4</span> 
+<p class="level1">
+<p class="level1">Normally, L&lt;&gt; formatting codes with a s-1URLs0 but anchor text are formatted to show both the anchor text and the s-1URL. s0 In other words: 
+<p class="level1">
+<p class="level1">&nbsp;   L&lt;foo|http://example.com/&gt; 
+<p class="level1">
+<p class="level1">is formatted as: 
+<p class="level1">
+<p class="level1">&nbsp;   foo &lt;http://example.com/&gt; 
+<p class="level1">
+<p class="level1">This flag, if given, suppresses the s-1URLs0 when anchor text is given, so this example would be formatted as just f(CW*(C`foo*(C'</span>.  This can produce less cluttered output in cases where the URLs are not particularly important. 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR, \fB--overstrike\fR 4</span> 
+<p class="level1">
+<p class="level1">Format the output with overstrike printing.  Bold text is rendered as character, backspace, character.  Italics and file names are rendered as underscore, backspace, character.  Many pagers, such as <span Class="bold">less</span>, know how to convert this to bold or underlined text. 
+<p class="level0"><a name="fB-qfR"></a><span class="nroffip">\fB-q\fR \fIquotes\fR, \fB--quotes\fR=\fIquotes\fR 4</span> 
+<p class="level1">
+<p class="level1">Sets the quote marks used to surround C&lt;&gt; text to <span Class="emphasis">quotes</span>.  If <span Class="emphasis">quotes</span> is a single character, it is used as both the left and right quote; if <span Class="emphasis">quotes</span> is two characters, the first character is used as the left quote and the second as the right quoted; and if <span Class="emphasis">quotes</span> is four characters, the first two are used as the left quote and the second two as the right quote. 
+<p class="level1"><span Class="emphasis">quotes</span> may also be set to the special value f(CW*(C`none*(C'</span>, in which case no quote marks are added around C&lt;&gt; text. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR, \fB--sentence\fR 4</span> 
+<p class="level1">
+<p class="level1">Assume each sentence ends with two spaces and try to preserve that spacing. Without this option, all consecutive whitespace in non-verbatim paragraphs is compressed into a single space. 
+<p class="level0"><a name="fB--stderrfR"></a><span class="nroffip">\fB--stderr\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, <span Class="bold">pod2text</span> dies if any errors are detected in the s-1PODs0 input. If <span Class="bold">--stderr</span> is given and no <span Class="bold">--errors</span> flag is present, errors are sent to standard error, but <span Class="bold">pod2text</span> does not abort.  This is equivalent to f(CW*(C`--errors=stderr*(C'</span> and is supported for backward compatibility. 
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR, \fB--termcap\fR 4</span> 
+<p class="level1">
+<p class="level1">Try to determine the width of the screen and the bold and underline sequences for the terminal from termcap, and use that information in formatting the output.  Output will be wrapped at two columns less than the width of your terminal device.  Using this option requires that your system have a termcap file somewhere where Term::Cap can find it and requires that your system support termios.  With this option, the output of <span Class="bold">pod2text</span> will contain terminal control sequences for your current terminal type. 
+<p class="level0"><a name="fB-ufR"></a><span class="nroffip">\fB-u\fR, \fB--utf8\fR 4</span> 
+<p class="level1">
+<p class="level1">By default, <span Class="bold">pod2text</span> tries to use the same output encoding as its input encoding (to be backward-compatible with older versions).  This option says to instead force the output encoding to s-1UTF-8.s0 
+<p class="level1">Be aware that, when using this option, the input encoding of your s-1PODs0 source must be properly declared unless it is US-ASCII or Latin-1.  s-1PODs0 input without an f(CW*(C`=encoding*(C'</span> command will be assumed to be in Latin-1, and if it's actually in s-1UTF-8,s0 the output will be double-encoded.  See <span Class="emphasis">perlpod</span>|(1) for more information on the f(CW*(C`=encoding*(C'</span> command. 
+<p class="level0"><a name="fB-wfR"></a><span class="nroffip">\fB-w\fR, \fB--width=\fR\fIwidth\fR, \fB-\fR\fIwidth\fR 4</span> 
+<p class="level1">
+<p class="level1">The column at which to wrap text on the right-hand side.  Defaults to 76, unless <span Class="bold">-t</span> is given, in which case it's two columns less than the width of your terminal device. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">As long as all documents processed result in some output, even if that output includes errata (a f(CW*(C`POD ERRORS*(C'</span> section generated with f(CW*(C`--errors=pod*(C'</span>), <span Class="bold">pod2text</span> will exit with status 0.  If any of the documents being processed do not result in an output document, <span Class="bold">pod2text</span> will exit with status 1.  If there are syntax errors in a s-1PODs0 document being processed and the error handling style is set to the default of f(CW*(C`die*(C'</span>, <span Class="bold">pod2text</span> will abort immediately with exit status 255. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">If <span Class="bold">pod2text</span> fails with errors, see Pod::Text and Pod::Simple for information about what those errors might mean.  Internally, it can also produce the following diagnostics: 
+<p class="level0"><a name="-c"></a><span class="nroffip">-c (--color) requires Term::ANSIColor be installed 4</span> 
+<p class="level1">
+<p class="level1">(F) <a class="bold" href="#-c">-c</a> or <span Class="bold">--color</span> were given, but Term::ANSIColor could not be loaded. 
+<p class="level1">
+<p class="level1">
+<p class="level1">(F) An unknown command line option was given. 
+<p class="level1">In addition, other Getopt::Long error messages may result from invalid command-line options. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="s-1COLUMNSs0"></a><span class="nroffip">\s-1COLUMNS\s0 4</span> 
+<p class="level1">
+<p class="level1">If <span Class="bold">-t</span> is given, <span Class="bold">pod2text</span> will take the current width of your screen from this environment variable, if available.  It overrides terminal width information in s-1TERMCAP.s0 
+<p class="level0"><a name="s-1TERMCAPs0"></a><span class="nroffip">\s-1TERMCAP\s0 4</span> 
+<p class="level1">
+<p class="level1">If <span Class="bold">-t</span> is given, <span Class="bold">pod2text</span> will use the contents of this environment variable if available to determine the correct formatting sequences for your current terminal device. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">Pod::Text, Pod::Text::Color, Pod::Text::Overstrike, Pod::Text::Termcap, Pod::Simple, <span Class="emphasis">perlpod</span>|(1) 
+<p class="level0">The current version of this script is always available from its web site at &lt;http://www.eyrie.org/~eagle/software/podlators/&gt;.  It is also part of the Perl core distribution as of 5.6.0. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Russ Allbery &lt;rra@stanford.edu&gt;. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT AND LICENSE</h2>
+<p class="level0">
+<p class="level0">Copyright 1999, 2000, 2001, 2004, 2006, 2008, 2010, 2012, 2013 Russ Allbery &lt;rra@stanford.edu&gt;. 
+<p class="level0">This program is free software; you may redistribute it and/or modify it under the same terms as Perl itself. 

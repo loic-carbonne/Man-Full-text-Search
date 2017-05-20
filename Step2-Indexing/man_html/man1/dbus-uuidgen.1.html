@@ -1,0 +1,47 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dbus-uuidgen - Utility to generate UUIDs <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dbus-uuidgen</span> [--version] [--ensure&nbsp;[<span Class="emphasis">=FILENAME</span>]] [--get&nbsp;[<span Class="emphasis">=FILENAME</span>]] <br>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">dbus-uuidgen</span> command generates or reads a universally unique ID. 
+<p class="level0">Note that the D-Bus UUID has no relationship to <a href="http://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a> and does not generate UUIDs compatible with that spec. Many systems have a separate command for that (often called "uuidgen"). 
+<p class="level0">See m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/</span>m[] for more information about D-Bus. 
+<p class="level0">The primary usage of <span Class="bold">dbus-uuidgen</span> is to run in the post-install script of a D-Bus package like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp; dbus-uuidgen --ensure
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This will ensure that /var/lib/dbus/machine-id exists and has the uuid in it. It won*(Aqt overwrite an existing uuid, since this id should remain fixed for a single machine until the next reboot at least. 
+<p class="level0">The important properties of the machine UUID are that 1) it remains unchanged until the next reboot and 2) it is different for any two running instances of the OS kernel. That is, if two processes see the same UUID, they should also see the same shared memory, UNIX domain sockets, local X displays, localhost.localdomain resolution, process IDs, and so forth. 
+<p class="level0">If you run <span Class="bold">dbus-uuidgen</span> with no options it just prints a new uuid made up out of thin air. 
+<p class="level0">If you run it with --get, it prints the machine UUID by default, or the UUID in the specified file if you specify a file. 
+<p class="level0">If you try to change an existing machine-id on a running system, it will probably result in bad things happening. Don*(Aqt try to change this file. Also, don*(Aqt make it the same on two different systems; it needs to be different anytime there are two different kernels running. 
+<p class="level0">The UUID should be different on two different virtual machines, because there are two different kernels. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following options are supported: 
+<p class="level0"><span Class="bold">--get[=FILENAME]</span> 
+<p class="level1">If a filename is not given, defaults to localstatedir/lib/dbus/machine-id (localstatedir is usually /var). If this file exists and is valid, the uuid in the file is printed on stdout. Otherwise, the command exits with a nonzero status. 
+<p class="level0">
+<p class="level0"><span Class="bold">--ensure[=FILENAME]</span> 
+<p class="level1">If a filename is not given, defaults to localstatedir/lib/dbus/machine-id (localstatedir is usually /var). If this file exists then it will be validated, and a failure code returned if it contains the wrong thing. If the file does not exist, it will be created with a new uuid in it. On success, prints no output. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print the version of dbus-uuidgen 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">See m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/doc/AUTHORS</span>m[] <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to the D-Bus mailing list or bug tracker, see m[blue]<span Class="bold">http://www.freedesktop.org/software/dbus/</span>m[] 

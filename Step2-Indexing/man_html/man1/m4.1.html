@@ -1,0 +1,55 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">m4 - macro processor <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">m4</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Process macros in FILEs.  If no FILE or if FILE is `-', standard input is read. 
+<p class="level0">Mandatory or optional arguments to long options are mandatory or optional for short options too. <a name="Operation"></a><h2 class="nroffsh">Operation modes:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0"><span Class="bold">-E</span>, <span Class="bold">--fatal-warnings</span> once: warnings become errors, twice: stop execution at first error 
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--interactive</span> unbuffer output, ignore interrupts 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--prefix-builtins</span> force a `m4_' prefix to all builtins 
+<p class="level0"><span Class="bold">-Q</span>, <span Class="bold">--quiet</span>, <span Class="bold">--silent</span> suppress some warnings for builtins 
+<p class="level0"><span Class="bold">--warn-macro-sequence</span>[=<span Class="emphasis">REGEXP</span>] warn if macro definition matches REGEXP, 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">default e$e({[^}]*}e|[0-9][0-9]+e) <a name="Preprocessor"></a><h2 class="nroffsh">Preprocessor features:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--define=NAME</span>[=<span Class="emphasis">VALUE</span>] define NAME as having VALUE, or empty 
+<p class="level0"><span Class="bold">-I</span>, <span Class="bold">--include</span>=<span Class="emphasis">DIRECTORY</span> append DIRECTORY to include path 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--synclines</span> generate `&#35;line NUM "FILE"' lines 
+<p class="level0"><span Class="bold">-U</span>, <span Class="bold">--undefine</span>=<a class="emphasis" href="#NAME">NAME</a> undefine NAME <a name="Limits"></a><h2 class="nroffsh">Limits control:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span>, <span Class="bold">--gnu</span> override <span Class="bold">-G</span> to re-enable GNU extensions 
+<p class="level0"><span Class="bold">-G</span>, <span Class="bold">--traditional</span> suppress all GNU extensions 
+<p class="level0"><span Class="bold">-H</span>, <span Class="bold">--hashsize</span>=<span Class="emphasis">PRIME</span> set symbol lookup hash table size [509] 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--nesting-limit</span>=<span Class="emphasis">NUMBER</span> change nesting limit, 0 for unlimited [0] <a name="Frozen"></a><h2 class="nroffsh">Frozen state files:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-F</span>, <span Class="bold">--freeze-state</span>=<span Class="emphasis">FILE</span> produce a frozen state on FILE at end 
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--reload-state</span>=<span Class="emphasis">FILE</span> reload a frozen state from FILE at start <a name="Debugging"></a><h2 class="nroffsh">Debugging:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--debug</span>[=<a class="emphasis" href="#FLAGS">FLAGS</a>] set debug level (no FLAGS implies `aeq') 
+<p class="level0"><span Class="bold">--debugfile</span>[=<span Class="emphasis">FILE</span>] redirect debug and trace output to FILE (default stderr, discard if empty string) 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--arglength</span>=<span Class="emphasis">NUM</span> restrict macro tracing size 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--trace</span>=<a class="emphasis" href="#NAME">NAME</a> trace NAME when it is defined <a name="FLAGS"></a><h2 class="nroffsh">FLAGS is any of:</h2>
+<p class="level0">
+<p class="level0">a show actual arguments 
+<p class="level0">c show before collect, after collect and after call 
+<p class="level0">e show expansion 
+<p class="level0">f say current input file name 
+<p class="level0">i show changes in input files 
+<p class="level0">l say current input line number 
+<p class="level0">p show results of path searches 
+<p class="level0">q quote values as necessary, with a or e flag 
+<p class="level0">t trace for all macro calls, not only traceon'ed 
+<p class="level0">x add a unique macro call id, useful with c flag 
+<p class="level0">V shorthand for all of the above flags 
+<p class="level0">If defined, the environment variable `M4PATH' is a colon-separated list of directories included after any specified by `-I'. 
+<p class="level0">Exit status is 0 for success, 1 for failure, 63 for frozen file version mismatch, or whatever value was passed to the m4exit macro. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Rene' Seindal. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to: bug-m4@gnu.org <br>GNU M4 home page: &lt;http://www.gnu.org/software/m4/&gt; <br>General help using GNU software: &lt;http://www.gnu.org/gethelp/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2013 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">The full documentation for <span Class="bold">m4</span> is maintained as a Texinfo manual.  If the <span Class="bold">info</span> and <span Class="bold">m4</span> programs are properly installed at your site, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">info m4</span> 
+<p class="level1">should give you access to the complete manual. 

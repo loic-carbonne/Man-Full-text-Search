@@ -1,0 +1,133 @@
+
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\$1</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ucfq - query the ucf database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">&nbsp;usage: ucfq [options] (/path/to/file|package)[/path/to/file|package  ...] 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><a name="fB--helpfR"></a><span class="nroffip">\fB--help\fR \fBh\fR Print out a usage message. 3</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fB--debugfR"></a><span class="nroffip">\fB--debug\fR \fB-d\fR Turn on debugging mode. 3</span> 
+<p class="level1">
+<p class="level0"><a name="fB--verbosefR"></a><span class="nroffip">\fB--verbose\fR \fB-v\fR Make the script more verbose.. 3</span> 
+<p class="level1">
+<p class="level0"><a name="fB--with-colonsfR"></a><span class="nroffip">\fB--with-colons\fR \fB-w\fR 3</span> 
+<p class="level1">
+<p class="level2">
+<p class="level2">
+<p class="level3">Normally, the script presents the information in a human readable tabular format, but that may be harder for a machine to parse. With this option, the output is a compact, colon separated line, with no dividers, headers, or footer. 
+<p class="level2">
+<p class="level1">
+<p class="level2">
+<p class="level1">
+<p class="level0"><a name="fB--state-drfR"></a><span class="nroffip">\fB--state-dr\fR dir 3</span> 
+<p class="level1">
+<p class="level2">
+<p class="level3">Set the state directory to f(CW*(C`/path/to/dir*(C'</span> instead of the default f(CW*(C`/var/lib/ucf*(C'</span>.  Used mostly for testing. 
+<p class="level2">
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This script takes a set of arguments, each of which is a package name (and thus does not contain a /) or a full path to a configuration file, and outputs the associated package, if any, if the file exists on disk, and whether it has been modified by the user.  The output is either a human readable tabular form, or a compact colon-separated machine friendly format. 
+<p class="level0">This script can potentially be used in package f(CW*(C`postrm*(C'</span> scripts during purge to query the system for configuration files that may still exist on the system, and whether these files have been locally modified by the user *(-- assuming that the package registered all the configuration files with <span Class="bold">ucf</span> using f(CW*(C`ucfr*(C'</span>. <a name="CAVEATS"></a><h2 class="nroffsh">CAVEATS</h2>
+<p class="level0">This is very inchoate, at the moment, and needs testing. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">None Known so far. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Manoj Srivastava &lt;srivastae@debian.org&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT AND LICENSE</h2>
+<p class="level0">This script is a part of the Ucf package, and is  
+<p class="level0">Copyright (c) 2006 Manoj Srivastava &lt;srivastae@debian.org&gt; 
+<p class="level0">This program is free software; you can redistribute it and / or modify it under the terms of the s-1GNUs0 General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. 
+<p class="level0">This program is distributed in the hope that it will be useful, but s-1WITHOUTs0 s-1ANYs0 s-1WARRANTYs0; without even the implied warranty of s-1MERCHANTABILITYs0 or s-1FITNESSs0 s-1FORs0 A s-1PARTICULARs0 s-1PURPOSEs0.  See the s-1GNUs0 General Public License for more details. 
+<p class="level0">You should have received a copy of the s-1GNUs0 General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, s-1MAs0  02111-1307  s-1USAs0 

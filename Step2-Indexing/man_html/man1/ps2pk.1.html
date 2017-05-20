@@ -1,0 +1,85 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ps2pk - creates a TeX pkfont from a type1 PostScript font <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">ps2pk [ -v ] [ -e<span Class="emphasis">enc</span> ] [ -X<span Class="emphasis">xres</span> ] [ -E<span Class="emphasis">expansion</span> ] [ -S<span Class="emphasis">slant</span>  ] [ -P<span Class="emphasis">pointsize</span> ] [ -R<span Class="emphasis">baseres</span> ] [ -r<span Class="emphasis">aspectratio</span>  ] [ -Y<span Class="emphasis">yres</span> ] [ -a<span Class="emphasis">AFMfile</span> ] [ -m<span Class="emphasis">modename</span> ] type1 [pkfont] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This program renders a given type1 PostScript font at a given pointsize (default 10.0 points) and resolution (default 300dpi) into a TeX pkfont.  
+<p class="level0">To generate the pkfont ps2pk needs a valid type1 font file (for example Utopia-Regular, Utopia-Regula.pfb or Utopia-Regula.pfa) and its corresponding AFM-file (Utopia-Regular.afm) with the font metrics. The program accepts both the binary type1 format (Utopia-Regula.pfb) and its ASCII equivalent (Utopia-Regular or Utopia-Regula.pfa).  To locate the files, ps2pk uses the kpathsea library (see the info page on kpathsea). Additionally, pfb and pfa files are searched for in the directory specified in the environment variable T1INPUTS, and afm files are searched in AFMFONTS, if they are set (the -v flag will report which filenames are looked for). 
+<p class="level0">The program will make a pkfont in which the character codes are derived from their AFM (Adobe Font Metrics) defined values.  This can be overruled by specifying an explicit encoding file via the -e option. The encoding file <span Class="emphasis">enc</span> should contain a valid PostScript encoding containing PostScript names like /hyphen.  Here is an incomplete example (see afm2tfm for complete syntax): 
+<p class="level0">
+<p class="level1"><pre class="level1">
+% This is the EC encoding.
+/ECEncoding [          % now 256 chars follow
+% 0x00
+&nbsp; /grave /acute /circumflex /tilde /dieresis /hungarumlaut
+&nbsp; /ring /caron /breve /macron /dotaccent /cedilla
+&nbsp; /ogonek /quotesinglbase /guilsinglleft /guilsinglright
+&nbsp;
+&nbsp; (Rest of lines omitted.)
+&nbsp;
+% 0xF0
+&nbsp; /eth /ntilde /ograve /oacute /ocircumflex /otilde
+&nbsp; /odieresis /oe /oslash /ugrave /uacute /ucircumflex
+&nbsp; /udieresis /yacute /thorn /germandbls ] def
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Options and arguments: 
+<p class="level0"><a name="-afIAFMfilefP"></a><span class="nroffip">-a\fIAFMfile\fP 12</span> 
+<p class="level1">Overrules the name that is used to locate the AFM file. 
+<p class="level1">
+<p class="level0"><a name="-efIencfP"></a><span class="nroffip">-e\fIenc\fP 12</span> 
+<p class="level1">Name of a file containing an encoding scheme  (default - the encoding named in the AFM-file is used).  The actual PostScript name of the encoding scheme is written as a "special" at the end of the pkfont. 
+<p class="level1">
+<p class="level0"><a name="-EfIextensionfP"></a><span class="nroffip">-E\fIextension\fP 12</span> 
+<p class="level1">The extension factor (real value, default 1.0). 
+<p class="level1">
+<p class="level0"><a name="-mfImodenamefP"></a><span class="nroffip">-m\fImodename\fP 12</span> 
+<p class="level1">A modename such as would be used by METAFONT (default "Unknown mode"). 
+<p class="level1">
+<p class="level0"><a name="-PfIpointsizefP"></a><span class="nroffip">-P\fIpointsize\fP 12</span> 
+<p class="level1">The desired pointsize (real value, default 10.0 points).  
+<p class="level1">
+<p class="level0"><a name="-RfIbaseresfP"></a><span class="nroffip">-R\fIbaseres\fP 12</span> 
+<p class="level1">The desired base resolution (integer value, default 300 dpi).  If this differs from the value of <span Class="emphasis">xres</span>, the appropriate magnification will be shown in the "specials" at the end of the pkfont. If possible, this will be expressed as a magstep, otherwise as a real number. For example, a pkfont with an <span Class="emphasis">xres</span> of 329, using the default base resolution of 300, will include the "special" text "mag=magstep(0.5)" at the end of the font. 
+<p class="level1">
+<p class="level0"><a name="-rfIaspectratiofP"></a><span class="nroffip">-r\fIaspectratio\fP 12</span> 
+<p class="level1">The desired aspect ratio (expression, integerY/integerX, default 300/300).  This will be shown in the "specials" at the end of the pkfont.  Setting the aspect ratio creates a value for <span Class="emphasis">yres</span> but an explicit <span Class="emphasis">yres</span> value will take precedence. Argument must be in "" if spaces are left around `/'. 
+<p class="level1">
+<p class="level0"><a name="-SfIslantfP"></a><span class="nroffip">-S\fIslant\fP 12</span> 
+<p class="level1">The slant (real value, default 0.0). 
+<p class="level1">
+<p class="level0"><a name="-XfIxresfP"></a><span class="nroffip">-X\fIxres\fP 12</span> 
+<p class="level1">The resolution in the X direction (integer value, default 300 dpi).  
+<p class="level1">
+<p class="level0"><a name="-YfIyresfP"></a><span class="nroffip">-Y\fIyres\fP 12</span> 
+<p class="level1">The resolution in the Y direction (integer value, default the value of <span Class="emphasis">xres</span>). If <span Class="emphasis">yres</span> differs from <span Class="emphasis">xres</span>, a "special" text giving the aspect ratio will be written at the end of the pkfont. 
+<p class="level1">
+<p class="level0"><a name="-v"></a><span class="nroffip">-v 12</span> 
+<p class="level1">Verbose flag. (Tells what the program is doing.) 
+<p class="level1">
+<p class="level0"><a name="type1"></a><span class="nroffip">type1 12</span> 
+<p class="level1">The name of the PostScript type1 font.  The name of the AFM-file will be constructed from this name by removing the extension (if suplied) and adding ".afm".  The PostScript "FontName" is extracted from the AFM-file and written into a "special" at the end of the pkfont. 
+<p class="level1">
+<p class="level0"><a name="pkfont"></a><span class="nroffip">[pkfont] 12</span> 
+<p class="level1">The name of the resulting pkfont can be overruled with this name.  The default name of pkfont is derived from the basename of the type1 font, the pointsize and <span Class="emphasis">xres</span>.  For example `ps2pk -P17.28 Utopia-Regular' will result in `Utopia-Regular17.300pk'. An explicit value for the name of the pkfont is necessary when the type1 font name already shows the point size, otherwise the <span Class="emphasis">pointsize</span> value is catenated on to the pkfont basename which is usually not what is wanted. 
+<p class="level1">
+<p class="level1">The following PK "specials" provide an internal check on the characteristics of the pkfont, in accordance with the recommendations of the TeX Working Group on the TeX Directory Standard (TWG-TDS): <br>"fontid=<span Class="emphasis">FontName</span>", "codingscheme=<span Class="emphasis">Encoding</span>", "fontfacebyte", "mag", "mode=(ps2pk)<span Class="emphasis">modename</span>", "pixels-per-inch", and "aspect-ratio" if it is other than unity. 
+<p class="level1"><a name="ACKNOWLEDGEMENT"></a><h2 class="nroffsh">ACKNOWLEDGEMENT</h2>
+<p class="level0">This program uses the type1 hinting and rendering software IBM  has donated to the X-consortium. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><pre class="level0">
+`METAFONT: The Program', Donald Knuth.
+`The GFtoPK processor', belonging to the METAFONTware.
+`Adobe Font Metric Files', Version 3.0, PostScript Developer
+Support Group.
+afm2tfm(1)
+pk2bm(1)
+kpsewhich(1)
+info kpathsea
+&nbsp;
+</pre>
+<a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">1.4 (January 1994) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Piet Tutelaers &lt;rcpt@urc.tue.nl&gt;. Modified for ps2pkm by Pierre A. Mackay &lt;mackay@cs.washington.edu&gt;, This manpage was adapted to teTeX by Frank Kuester &lt;frank@kuesterei.ch&gt;. 

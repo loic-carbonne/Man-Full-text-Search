@@ -1,0 +1,38 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zipgrep - search files in a ZIP archive for lines matching a pattern 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">zipgrep</span> [<span Class="bold">egrep_options</span>] <span Class="emphasis">pattern</span> <span Class="emphasis">file</span>[<span Class="emphasis">.zip</span>] [<span Class="emphasis">file(s)</span>&nbsp;.|.|.] [<span Class="bold">-x</span>&nbsp;<span Class="emphasis">xfile(s)</span>&nbsp;.|.|.] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">zipgrep</span> will search files within a ZIP archive for lines matching the given string or pattern.  <span Class="emphasis">zipgrep</span> is a shell script and requires <span Class="emphasis">egrep</span>(1) and <span Class="emphasis">unzip</span>(1) to function.  Its output is identical to that of <span Class="emphasis">egrep</span>(1). 
+<p class="level0"><a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fIpatternfP"></a><span class="nroffip">\fIpattern\fP</span> 
+<p class="level1">The pattern to be located within a ZIP archive.  Any string or regular expression accepted by <span Class="emphasis">egrep</span>(1) may be used. <span Class="emphasis">file [ .zip ]</span> Path of the ZIP archive.  (Wildcard expressions for the ZIP archive name are not supported.)  If the literal filename is not found, the suffix fC.zip</span> is appended.  Note that self-extracting ZIP files are supported, as with any other ZIP archive; just specify the fC.exe</span> suffix (if any) explicitly. 
+<p class="level0"><a name="fIfilesfP"></a><span class="nroffip">[\fIfile(s)\fP]</span> 
+<p class="level1">An optional list of archive members to be processed, separated by spaces. If no member files are specified, all members of the ZIP archive are searched. Regular expressions (wildcards) may be used to match multiple members: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">*</span> 
+<p class="level2">matches a sequence of 0 or more characters 
+<p class="level1"><a name=""></a><span class="nroffip">?</span> 
+<p class="level2">matches exactly 1 character 
+<p class="level1"><a name=""></a><span class="nroffip">[.\|.\|.]</span> 
+<p class="level2">matches any single character found inside the brackets; ranges are specified by a beginning character, a hyphen, and an ending character.  If an exclamation point or a caret (`!' or `^') follows the left bracket, then the range of characters within the brackets is complemented (that is, anything <span Class="emphasis">except</span> the characters inside the brackets is considered a match). 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">(Be sure to quote any character that might otherwise be interpreted or modified by the operating system.) 
+<p class="level0"><a name="fB-xfP"></a><span class="nroffip">[\fB-x\fP\ \fIxfile(s)\fP]</span> 
+<p class="level1">An optional list of archive members to be excluded from processing. Since wildcard characters match directory separators (`/'), this option may be used to exclude any files that are in subdirectories.  For example, ``fCzipgrep grumpy foo *.[ch] -x */*</span>'' would search for the string ``grumpy'' in all C source files in the main directory of the ``foo'' archive, but none in any subdirectories.  Without the <span Class="bold">-x</span> option, all C source files in all directories within the zipfile would be searched. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">All options prior to the ZIP archive filename are passed to <span Class="emphasis">egrep</span>(1). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">egrep</span>(1), <span Class="emphasis">unzip</span>(1), <span Class="emphasis">zip</span>(1), <span Class="emphasis">funzip</span>(1), <span Class="emphasis">zipcloak</span>(1), <span Class="emphasis">zipinfo</span>(1), <span Class="emphasis">zipnote</span>(1), <span Class="emphasis">zipsplit</span>(1) 
+<p class="level0"><a name="URL"></a><h2 class="nroffsh">URL</h2>
+<p class="level0">The Info-ZIP home page is currently at 
+<p class="level0">fChttp://www.info-zip.org/pub/infozip/</span> 
+<p class="level0">or 
+<p class="level0">fCftp://ftp.info-zip.org/pub/infozip/</span> . 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0"><span Class="emphasis">zipgrep</span> was written by Jean-loup Gailly. 
+<p class="level0">

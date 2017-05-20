@@ -1,0 +1,357 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dvilj4, dvilj4l, dvilj2p, dvilj - convert a TeX DVI file to PCL, for HP LaserJet printers <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;dvilj [--Dnumber] [-ccopies] [-dmode] [-D] [-E] [-eoutputfile] &nbsp;      [-ffrompage] [-g] [-hheaderfile] [-l] [-Mflag] [-mmag] [-ppages] &nbsp;      [-q] [-r] [-ttopage] [-spagesize] [-v] [-Vmode] [-w] [-xxoff(mm)] &nbsp;      [-yyoff(mm)] [-Xxoff(dots)] [-Yyoff(dots)] [-z] [filename] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dvilj</span> and siblings convert TeX-output f(CW*(C`.dvi*(C'</span> files into s-1PCL s0(the Hewlett-Packard Printer Control Language) commands suitable for printing on a s-1HPs0 LaserJet+, s-1HPs0 LaserJet s-1IIP s0(using <span Class="bold">dvilj2p</span>), s-1HPs0 LaserJet 4 (using <span Class="bold">dvilj4</span>), and fully compatible printers. 
+<p class="level0"><span Class="bold">dvilj4</span> also provides support for the builtin Intellifont and TrueType fonts; s-1TFMs0 and s-1VFs0 files are provided in the distribution. Virtual fonts are not supported directly by <span Class="bold">dvilj</span>, so you must run <span Class="emphasis">dvicopy</span>|(1) first, or otherwise expand the virtual fonts 
+<p class="level0">All programs are generated from one source file <span Class="emphasis">dvi2xx.c</span>. They are usually called via a shell script or as a line printer filter. One such script, <span Class="emphasis">dvihp</span>|(1), is included in the distribution. It provides command-line options similar to those of <span Class="emphasis">dvips</span>|(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB--DfRfInumberfR"></a><span class="nroffip">\fB--D\fR\fInumber\fR 4</span> 
+<p class="level1">
+<p class="level1">Debug according to the bits of <span Class="emphasis">number</span>; see the <span Class="emphasis">kpathsea</span>|(3) manual for values. Also turns on general verbosity. 
+<p class="level0"><a name="fB-cfRfInumberfR"></a><span class="nroffip">\fB-c\fR\fInumber\fR 4</span> 
+<p class="level1">
+<p class="level1">Print each page <span Class="emphasis">number</span> times (including original) 
+<p class="level0"><a name="fB-dfRfInumberfR"></a><span class="nroffip">\fB-d\fR\fInumber\fR 4</span> 
+<p class="level1">
+<p class="level1">print in duplex mode. The option <span Class="bold">-d1</span> means long edge binding, <span Class="bold">-d2</span> stands for short edge binding. This option is only selectable in <span Class="bold">dvilj4</span> and <span Class="bold">dvilj2p</span>. 
+<p class="level0"><a name="fB-DfRfI-12fR"></a><span class="nroffip">\fB-D\fR\fI[-12]\fR 4</span> 
+<p class="level1">
+<p class="level1">Double-sided printing - see below; <span Class="bold">-D1</span> prints odd sides only, <span Class="bold">-D2</span> is for even pages, a trailing <span Class="bold">-</span> suppresses printing of empty padding pages. 
+<p class="level0"><a name="fB-EfR"></a><span class="nroffip">\fB-E\fR 4</span> 
+<p class="level1">
+<p class="level1">Switch printer into econo mode (<span Class="bold">dvilj4</span> only). 
+<p class="level0"><a name="fB-efRfIoutfilefR"></a><span class="nroffip">\fB-e\fR\fIoutfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Send output to <span Class="emphasis">outfile</span> instead of the basename of dvi file extended with f(CW*(C`.lj*(C'</span>. If outfile is <span Class="bold">-</span> (as in f(CW*(C`-e-*(C'</span>) the output is directed to standard output and can be directly piped into a spooler. 
+<p class="level0"><a name="fB-ffRfIpagenumfR"></a><span class="nroffip">\fB-f\fR\fIpagenum\fR 4</span> 
+<p class="level1">
+<p class="level1">Print pages with TeX page numbers greater than or equal to <span Class="emphasis">pagenum</span>. 
+<p class="level0"><a name="fB-gfR"></a><span class="nroffip">\fB-g\fR 4</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">Go</span> mode: do not reset printer at start of job. 
+<p class="level0"><a name="fB-hfRfIheaderfilefR"></a><span class="nroffip">\fB-h\fR\fIheaderfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Copy <span Class="emphasis">headerfile</span> to output before translation of the s-1DVIs0 file. Used to send arbitrary commands to the laserprinter. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR 4</span> 
+<p class="level1">
+<p class="level1">Print output in landscape mode; supported only by <span Class="bold">dvilj2p</span> and <span Class="bold">dvilj4</span>. 
+<p class="level0"><a name="fB-MfRfIflagfR"></a><span class="nroffip">\fB-M\fR\fIflag\fR 4</span> 
+<p class="level1">
+<p class="level1">Do (not) call <span Class="emphasis">mktexpk</span>|(1) to generate fonts on demand. <span Class="bold">-M1</span> and <span Class="bold">-M</span> are equivalent. <span Class="bold">-M0</span> enables invoking <span Class="emphasis">mktexpk</span>|(1). (This is the same as in <span Class="emphasis">dvips</span>|(1).) The default behavior (i.e., if no <span Class="bold">-M</span> option is given) is chosen at compile-time; as distributed, mktexpk is enabled. 
+<p class="level0"><a name="fB-mfRfImagnificationfR"></a><span class="nroffip">\fB-m\fR\fImagnification\fR 4</span> 
+<p class="level1">
+<p class="level1">Specify the magnification to use. The following are available: 
+<p class="level1">
+<p class="level1">&nbsp; -m&#35;usermag e.g., &#35;900 &nbsp; -m0 equivalent to -m&#35;1000 &nbsp; -mh equivalent to -m&#35;1095 &nbsp; -m1 equivalent to -m&#35;1200 &nbsp; -mq equivalent to -m&#35;1250 &nbsp; -m2 equivalent to -m&#35;1440 &nbsp; -m3 equivalent to -m&#35;1728 &nbsp; -m4 equivalent to -m&#35;2074 &nbsp; -m5 equivalent to -m&#35;2488 
+<p class="level1">
+<p class="level0"><a name="fB-pfRfIpagecountfR"></a><span class="nroffip">\fB-p\fR\fIpagecount\fR 4</span> 
+<p class="level1">
+<p class="level1">Print <span Class="emphasis">pagecount</span> pages after the starting page. 
+<p class="level0"><a name="fB-qfR"></a><span class="nroffip">\fB-q\fR 4</span> 
+<p class="level1">
+<p class="level1">Quiet operation: omit final statistics, etc. 
+<p class="level0"><a name="fB-rfR"></a><span class="nroffip">\fB-r\fR 4</span> 
+<p class="level1">
+<p class="level1">Toggle page reversal. 
+<p class="level0"><a name="fB-sfRfIpagesizefR"></a><span class="nroffip">\fB-s\fR\fIpagesize\fR 4</span> 
+<p class="level1">
+<p class="level1">Specify the page size: 
+<p class="level1">
+<p class="level1">&nbsp; -s1: Executive (7.25" x 10.5") &nbsp; -s2: Letter (8.5" x 11") &nbsp; -s3: Legal (8.5" x 14") &nbsp; -s6: Ledger (11" x 17") &nbsp; -s25: A5 paper (148mm x 210mm) &nbsp; -s26: A4 paper (210mm x 297mm) &nbsp; -s27: A3 (297mm x 420mm) &nbsp; -s45: JIS B5 paper (182mm x 257mm) &nbsp; -s46: JIS B4 paper (250mm x 354mm) &nbsp; -s71: Hagaki postcard (100mm x 148mm) &nbsp; -s72: Oufuku-Hagaki postcard (200mm x 148mm) &nbsp; -s80: Monarch Envelope (3 7/8" x 7 1/2") &nbsp; -s81: Commercial Envelope 10 (4 1/8" x 9 1/2") &nbsp; -s90: International DL (110mm x 220mm) &nbsp; -s91: International C5 (162mm x 229mm) &nbsp; -s100: International B5 (176mm x 250mm) 
+<p class="level1">
+<p class="level1">These values are from the s-1PCL 5s0 technical reference manual. If the <span Class="bold">-s</span> commandline option is omitted, no clipping is performed at the bottom of the page. (But printing below the paper bottom should not disturb any correctly behaving s-1PCLs0 printer.) Please remember that the correct paper tray must be installed for selected paper size, so use this option only if you have full control over your print destination. 
+<p class="level0"><a name="fB-tfRfIpagenumfR"></a><span class="nroffip">\fB-t\fR\fIpagenum\fR 4</span> 
+<p class="level1">
+<p class="level1">Print pages with TeX page numbers less than or equal to <span Class="emphasis">pagenum</span>. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR 4</span> 
+<p class="level1">
+<p class="level1">Verbose mode: list fonts used, etc. 
+<p class="level0"><a name="fB-VfRfImodefR"></a><span class="nroffip">\fB-V\fR\fImode\fR 4</span> 
+<p class="level1">
+<p class="level1">Compatibility mode. As <span Class="emphasis">mode</span>, use f(CW*(C`K*(C'</span> for Kyocera, f(CW*(C`B*(C'</span> for Brother, f(CW6</span> for s-1LJ6s0 printers. 
+<p class="level0"><a name="fB-wfR"></a><span class="nroffip">\fB-w\fR 4</span> 
+<p class="level1">
+<p class="level1">Omit warnings. 
+<p class="level0"><a name="fB-xfRfIoffsetfR"></a><span class="nroffip">\fB-x\fR\fIoffset\fR 4</span> 
+<p class="level1">
+<p class="level1">Global x-offset in mm on output page relative to 1 inch/1 inch origin. 
+<p class="level0"><a name="fB-yfRfIoffsetfR"></a><span class="nroffip">\fB-y\fR\fIoffset\fR 4</span> 
+<p class="level1">
+<p class="level1">Global y-offset in mm on output page relative to 1 inch/1 inch origin. 
+<p class="level0"><a name="fB-XfRfIoffsetfR"></a><span class="nroffip">\fB-X\fR\fIoffset\fR 4</span> 
+<p class="level1">
+<p class="level1">Global x-offset in dots on output page (overrides 1 inch/1 inch origin). 
+<p class="level0"><a name="fB-YfRfIoffsetfR"></a><span class="nroffip">\fB-Y\fR\fIoffset\fR 4</span> 
+<p class="level1">
+<p class="level1">Global y-offset in dots on output page (overrides 1 inch/1 inch origin). 
+<p class="level0"><a name="fB-zfR"></a><span class="nroffip">\fB-z\fR 4</span> 
+<p class="level1">
+<p class="level1">Print a test page with the page counter at end of job. <a name="OPERANDS"></a><h2 class="nroffsh">OPERANDS</h2>
+<p class="level0">
+<p class="level0">If no operands are specified a brief usage message is displayed. 
+<p class="level0"><a name="fIfilenamefR"></a><span class="nroffip">\fIfilename\fR 4</span> 
+<p class="level1">
+<p class="level1">The s-1DVIs0 file name that shall be converted by <span Class="bold">dvilj</span>. It must always be seekable. 
+<p class="level1">The output file name is constructed from <span Class="emphasis">filename</span>. Either an extension f(CW*(C`.dvi*(C'</span> is replaced by f(CW*(C`.lj*(C'</span>, or the extension f(CW*(C`.lj*(C'</span> is appended. 
+<p class="level1">If <span Class="emphasis">filename</span> is <span Class="bold">-</span>, the s-1DVIs0 file is read from standard input and the resulting s-1PCLs0 document is written to standard output. (Please remember that thhe s-1DVIs0 file must be seekable, even if it's stdin.) <a name="SUPPORTED"></a><h2 class="nroffsh">SUPPORTED TeX \especial COMMANDS</h2>
+<p class="level0">
+<p class="level0">f(CW*(C`especial*(C'</span> commands supported by <span Class="bold">dvilj</span> have the generic syntax 
+<p class="level0">
+<p class="level0">&nbsp; especial{key1=value key1="value with space"} &nbsp; especial{key3 = value key4 = *(Aqnote optional spaces around equal sign*(Aq} 
+<p class="level0">
+<p class="level0">I.e., specials are a sequence of key/value pairs, separated by an equal sign. Spaces around the equal sign are ignored. The value is either a space separated word, or a quoted string. Both double and single quotes can be used, alternatively. There is no support for quoting quote characters in values; if you want both double and single quotes in one value, you're out of luck. 
+<p class="level0">The following key/value combinations are valid: 
+<p class="level0"><a name="fBhpfilefRfIfilefR"></a><span class="nroffip">\fBhpfile\fR=\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Insert <span Class="emphasis">file</span> at the current position. <span Class="emphasis">file</span> is searched with <span Class="emphasis">kpathsea</span>|(3), see below. 
+<p class="level1">The file content must be valid for this printer, i.e., it should contain s-1PCLs0 escape sequences or s-1HP-GL/2s0 commands. If the file is a graphics file, this typically means that the upper left corner of the graphics is placed at the current position. 
+<p class="level1">s-1PCLs0 absolute positioning escape sequences in <span Class="emphasis">file</span> are rewritten to be relative positioning commands; the lowest appearing coordinate is used as reference. 
+<p class="level0"><a name="fBhpfileverbatimfRfIfilefR"></a><span class="nroffip">\fBhpfile_verbatim\fR=\fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Insert <span Class="emphasis">file</span> verbatim at the current position, without any changes of the file content. <span Class="emphasis">file</span> is searched with <span Class="emphasis">kpathsea</span>|(3), see below. 
+<p class="level1">This is mostly used to keep absolute positions in s-1PCLs0 files. 
+<p class="level0"><a name="fBpsfilefRfIfilefR"></a><span class="nroffip">\fBpsfile\fR=\fIfile\fR \fBllx\fR=\fIx0\fR \fBlly\fR=\fIy0\fR \fBurx\fR=\fIx1\fR \fBury\fR=\fIy1\fR \fBrwi\fR=\fIs\fR 4</span> 
+<p class="level1">
+<p class="level1">Convert Postscript file <span Class="emphasis">file</span> to s-1HP PCL,s0 by Ghostscript with device f(CW*(C`ljetplus*(C'</span>, and insert the resulting graphics file at the current position, rewriting absolute position escape sequences. <span Class="emphasis">file</span> is searched with <span Class="emphasis">kpathsea</span>|(3), see below. 
+<p class="level1">The accompanying key/value pairs are mandatory, they can be specified in an arbitrary order. Values <span Class="emphasis">x0</span>, <span Class="emphasis">x1</span>, <span Class="emphasis">y0</span>, <span Class="emphasis">y1</span>, and <span Class="emphasis">s</span> are integers. (<span Class="emphasis">x0</span>,<span Class="emphasis">y0</span>) is the lower left corner, (<span Class="emphasis">x1</span>,<span Class="emphasis">y1</span>) the upper right corner of the image. 
+<p class="level1"><span Class="bold">Please note: The specific semantics of this special is not known.</span> In particular, the <span Class="bold">rwi</span> parameter is some scale factor; but even looking at the source code it is not quite clear what the special's author intended to implement here. In addition, it is unclear what dimensions are used to specify the corners, Postscript points or s-1PCLs0 dots. 
+<p class="level1"><span class="emphasis">If you happen to know the psfile semantics, or if you spent the work analyzing them, please inform us at tex-k@tug.org, so that we can update this man page with the relevant information.</span> 
+<p class="level0"><a name="fBdvilj-psfile-syntaxfRfIsyntaxfR"></a><span class="nroffip">\fBdvilj-psfile-syntax\fR=\fIsyntax\fR 4</span> 
+<p class="level1">
+<p class="level1">where <span Class="emphasis">syntax</span> is either f(CW*(C`dvilj*(C'</span> or f(CW*(C`ignore*(C'</span>. This is a very crude way to tell the driver what to do with <span Class="bold">psfile</span> specials. 
+<p class="level1">If the value is f(CW*(C`ignore*(C'</span>, all <span Class="bold">psfile</span> specials that are processed afterwards are ignored, until the next <span Class="bold">dvilj-psfile-syntax</span> special is processed. 
+<p class="level1">If the value is f(CW*(C`dvilj*(C'</span>, <span Class="bold">psfiles</span> specials are processed as explained above, until the next <span Class="bold">dvilj-psfile-syntax</span> special is processed. 
+<p class="level1">An obvious, planned, extension is the value f(CW*(C`dvips*(C'</span>, but this has not been implemented yet. 
+<p class="level1">That special is not as simple as it sounds at first. Since its semantics is defined by processing order, it is only of use if it is placed on the same page as the <span Class="bold">psfile</span> special. Having it once in a file (e.g., on the first page) does not help if you print just one page of the document *(-- <span Class="bold">dvilj</span> does not do prescanning of first-page specials like some other drivers do. (Patches would be welcome, of course.) 
+<p class="level0"><a name="fBcommentfRfIarbitrary"></a><span class="nroffip">\fBcomment\fR=\fIarbitrary text\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBcommentfR"></a><span class="nroffip">\fBcomment\fR \fIarbitrary text\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">This causes the rest of the special to be ignored; it may be used to add meta-information to a s-1DVIs0 file. 
+<p class="level1">With the first form, the comment may appear anywhere in the special. When it appears first, the processing of this special is terminated and all other text behind is ignored. 
+<p class="level1">The second form is a speciality that has been introduced for compatibility with other drivers. If the first keyword of the special is <span Class="bold">comment</span> and has no value, it is taken as a valid comment syntax, too; the rest of the special is ignored. 
+<p class="level0"><a name="fBorientationfRfIpofR"></a><span class="nroffip">\fBorientation\fR=\fIpo\fR 4</span> 
+<p class="level1">
+<p class="level1">Position the page on the physical paper. The value <span Class="emphasis">po</span> may be one of the following values: 
+<p class="level1">
+<p class="level1">&nbsp; 0  for portrait &nbsp; 1  for landscape &nbsp; 2  for reverse portrait &nbsp; 3  for reverse landscape 
+<p class="level1">
+<p class="level0"><a name="fBdefpointfRfInxyfR"></a><span class="nroffip">\fBdefpoint\fR=\fIn(x,y)\fR 4</span> 
+<p class="level1">
+<p class="level1">Define the point number <span Class="emphasis">n</span>. This point can be referred to later in other special commands to specify areas that shall be filled with some pattern. <span Class="emphasis">n</span> must be between 0 and 79. 
+<p class="level1"><span Class="emphasis">x</span> and <span Class="emphasis">y</span> are the position of that point and have the form f(CW*(C`?pt*(C'</span> where f(CW*(C`?*(C'</span> is a floating point number. The positions are relative to the s-1DVIs0 page origin; i.e., coordinates increase moving right and down, the point of origin is (1in,1in) in the upper left corner, altered by options <span Class="bold">-x</span>, <span Class="bold">-y</span>, <span Class="bold">-X</span>, and <span Class="bold">-Y</span>, but not by ehoffset and evoffset. 
+<p class="level1"><span Class="emphasis">x</span> and <span Class="emphasis">y</span> can be omitted, i.e., the values f(CW3</span> or f(CW*(C`4(,)*(C'</span> are valid. Then the current page position is used as position for point <span Class="emphasis">n</span>. 
+<p class="level1">
+<p class="level1">
+<p class="level1">This undefines all points again. 
+<p class="level0"><a name="fBgrayfRfIgrayscalefR"></a><span class="nroffip">\fBgray\fR=\fIgray_scale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="fBgreyfRfIgrayscalefR"></a><span class="nroffip">\fBgrey\fR=\fIgray_scale\fR 4</span> 
+<p class="level1">
+<p class="level1">
+<p class="level1">This sets the fill mode for the next <span Class="bold">fill</span> special, the area will be filled with gray color. (<span Class="bold">grey</span> is an alias for <span Class="bold">gray</span>.) Any pattern specification is reset. 
+<p class="level1"><span Class="emphasis">gray_scale</span> is the percentage of gray that shall be used here; with f(CW0</span> meaning white and f(CW100</span> meaning black. 
+<p class="level1">Caveat: That special is actually a misnomer. s-1PCLs0 names these gray scales <span Class="emphasis">shading patterns</span> and they are created by placing dots in the area. The gray scale selects how far spread the dots are. In the lower ranges, this doesn't look very gray on close sight, but more like a dotted background. Furthermore, the gray scales are not as fine-grained as the value range 0..100 might make you believe. In reality, there are only 8 different gray patterns available: 
+<p class="level1">
+<p class="level1">&nbsp;  1 -  2% &nbsp;  3 - 10% &nbsp; 11 - 20% &nbsp; 21 - 35% &nbsp; 36 - 55% &nbsp; 56 - 80% &nbsp; 81 - 99% &nbsp; 100% 
+<p class="level1">
+<p class="level1">One of these patterns is selected according to the <span Class="emphasis">gray_scale</span> value. 
+<p class="level0"><a name="fBpatternfRfIpatfR"></a><span class="nroffip">\fBpattern\fR=\fIpat\fR 4</span> 
+<p class="level1">
+<p class="level1">This sets the fill mode for the next <span Class="bold">fill</span> special, the area will be filled with a pattern. Any gray color specification is reset. 
+<p class="level1"><span Class="emphasis">pat</span> is one of the following values: 
+<p class="level1">
+<p class="level1">&nbsp; 1  horizontal lines &nbsp; 2  vertical lines &nbsp; 3  diagonal lines, from lower left corner to upper right corner &nbsp; 4  diagonal lines, from upper right corner to lower left corner &nbsp; 5  crossed lines, vertically &nbsp; 6  crossed lines, diagonally 
+<p class="level1">
+<p class="level0"><a name="fBfillfRfIabfR"></a><span class="nroffip">\fBfill\fR=\fIa/b\fR 4</span> 
+<p class="level1">
+<p class="level1">Fill the area between the points <span Class="emphasis">a</span> and <span Class="emphasis">b</span>, according to the current fill mode. 
+<p class="level1">Point <span Class="emphasis">a</span> <span Class="bold">must</span> be the upper left corner and point <span Class="emphasis">b</span> <span Class="bold">must</span> be the lower left corner of the rectangle. Otherwise the result is garbage. 
+<p class="level1">The default fill mode is 10% gray color filling. 
+<p class="level0"><a name="fIfilenamefR"></a><span class="nroffip">\fIfilename\fR 4</span> 
+<p class="level1">
+<p class="level1">This is a legacy special, its use is depreciated. If the special is just one word that names an existing file, that file is verbatim included. Contrary to other file inclusion means, the file is not searched with <span Class="emphasis">kpathsea</span>|(3). <span class="emphasis">You are not supposed to use this special and we won't fix any problems with it.</span> 
+<p class="level1">It should be noted that the special parser does sometimes accept constructs that are not valid as in the documentation above. Then, the output is most often damaged in some way. <a name="Searching"></a><h2 class="nroffsh">Searching for Included Files</h2>
+<p class="level0">
+<p class="level0">Proper file include specials search the file with <span Class="emphasis">kpathsea</span>|(3). The search path is configured by variable f(CW*(C`DVILJINPUTS*(C'</span> and, if the file is not found in that search path, by variable f(CW*(C`TEXINPUTS*(C'</span>. 
+<p class="level0">Search via f(CW*(C`DVILJINPUTS*(C'</span> covers the use case that one has common site-wide graphics that shall be included in documents, e.g., scanned signatures. Search via f(CW*(C`TEXINPUTS*(C'</span> covers the use case that one has graphics as part of ones current document. 
+<p class="level0">f(CW*(C`dvilj*(C'</span> is used as the f(CW*(C`.PROGRAM*(C'</span> name in <span Class="emphasis">texmf.cnf</span>, for all driver variants, independent of the actual program name. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">Kpathsea</span>|(3) has the concept of warning suppression with the configuration variable f(CW*(C`TEX_HUSH*(C'</span>, please refer to its Info node <span Class="emphasis">TeX support / Suppressing warnings</span>. That variable holds a colon-separated identifiers that specifies the to-be-suppressed warnings. 
+<p class="level0">If f(CW*(C`special*(C'</span> is among the listed values, <span Class="bold">dvilj</span> does not output warnings any more about specials that it doesn't know about. But if there is a recognized special and if that special has an invalid parameter, then a warning is output nevertheless, independent of the content of f(CW*(C`TEX_HUSH*(C'</span>. <a name="DOUBLE"></a><h2 class="nroffsh">DOUBLE PAGE PRINTING</h2>
+<p class="level0">
+<p class="level0">If the printer has a duplex unit installed, duplex printing can be demanded with the <span Class="bold">-d</span> option. 
+<p class="level0">Otherwise, the command line option <span Class="bold">-D</span> causes the printer to print in doublepage mode, that is, roughly speaking, printing first the even pages and then the odd pages of a document. If <span Class="bold">-D</span> is used to print both even and odd pages (<span Class="bold">-D</span> is used without the optional 1 or 2) the following will happen after half of the pages is printed: s-1LJ:s0 the printer stops, shows message *(L"s-1FEED*(R"s0 and switches on manual feed led. The printer continues when either the printed pages are fed into the manual page feeder, or the operator pushes the continue button (after placing first the printed pages into the paper tray). 
+<p class="level0">If <span Class="bold">-D1</span> was specified only odd pages will be printed, <span Class="bold">-D2</span> can be used for even pages. A trailing f(CW*(C`-*(C'</span> (as in <span Class="bold">-D-</span>, <span Class="bold">-D1-</span> or <span Class="bold">-D2-</span>) supresses printing of empty pages which are generated for padding otherwise. 
+<p class="level0">The driver allows the <span Class="bold">-D</span> option for both print-directions (front-to-back or back-to-front printing). It tries to be clever in certain cases: when a document has an odd number of pages it inserts in the right place an empty page when a document starts with page 0 the driver inserts an empty page after the 0-page when a piece of a document is printed that starts with an even page-number it prints this page at the backside of the first page to ensure that the odd sides are always on the frontside. The 0-page is treated like an odd page. 
+<p class="level0">The doubleside option works for all LJs, not only for the new D model with does doubleside-printing (actually, I don't know whether it makes much sense on the new s-1LJ II Ds0 at all). 
+<p class="level0">Caveat on the doubleside-option: When it is used frequently or on very large files, it might become necessary to clean the printer much more frequently. 
+<p class="level0">The command line option <span Class="bold">-p</span><span Class="emphasis">X</span> can be used to abort printing after the output of <span Class="emphasis">X</span> pages (can lead to strange results together with <span Class="bold">-D</span>). I personally dislike this option. The secure way of printing a part of a document is using <span Class="bold">-f</span> (from) and <span Class="bold">-t</span> (to). <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dvilj</span> uses the same environment variables and algorithms for finding font files as TeX and its friends do. See the documentation for the <span Class="emphasis">kpathsea</span>|(3) library for details. (Repeating it here is too cumbersome.) 
+<p class="level0">
+<p class="level0">
+<p class="level0">If set, overrides all other font paths. 
+<p class="level0">
+<p class="level0">
+<p class="level0">If set, overrides <span Class="emphasis">mktexpk</span>|(1) as the name of the command to execute to create a s-1PKs0 file if one isn't found. 
+<p class="level0">
+<p class="level0">
+<p class="level0">May be set to indicate which sizes of fonts are available. It should consist of a list of numbers separated by colons. If the list begins with a colon, the system default sizes are used, as well. Sizes are expressed in dots per inch; decimals may be used for f(CW*(C`pxl*(C'</span> files: for example, a 300 dots per inch file magnified by half a step comes out to 1643 dots per five inches, which should be encoded as 328.6. <span Class="bold">dvilj</span> tries the actual size of the font before trying any of the given sizes. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Primary search path for include files. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Secondary search path for include files. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Colon separated list of identifiers that name situations where no warning shall be output. The following identifiers are used: 
+<p class="level0">
+<p class="level0">&nbsp; checksum  suppress mismatched font checksum warnings &nbsp; readable  suppress warnings about unreadable files &nbsp; special   suppress warnings about unknown specials &nbsp; all       suppress all warning classes above &nbsp; none      suppress no warnings 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Trace <span Class="emphasis">kpathsea</span>|(3) lookups; set to -1 for complete tracing. 
+<p class="level0">
+<p class="level0">
+<p class="level0">On Windows, this may be the path to Ghostscript; there the default is <span Class="emphasis">gswin32c.exe</span>. 
+<p class="level0">On Unix, this environment variable is not used. Ghostscript is called as <span Class="emphasis">gs</span>|(1) and must be found over f(CW$PATH</span>. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">dvihp</span>|(1), <span Class="emphasis">dvicopy</span>|(1), <span Class="emphasis">dvips</span>|(1), <span Class="emphasis">xdvi</span>|(1), <span Class="emphasis">mktexpk</span>|(1), <span Class="emphasis">gs</span>|(1), <span Class="emphasis">kpathsea</span>|(3) 
+<p class="level0">Email bug reports to tex-k@tug.org. 
+<p class="level0">Source is at &lt;http://mirror.ctan.org/dviware/dviljk/&gt;; but for compilation the texk build environment is needed, from &lt;svn://tug.org/texlive/*/Build/source&gt;. 
+<p class="level0">As of July 2007, s-1PCLs0 reference documentation is found at s-1HPs0's Web site at &lt;http://h20000.www2.hp.com/bizsupport/TechSupport/Document.jsp?objectID=bpl04568&gt;. At the end of that page are links to reference manuals for s-1PCLs0 and s-1PJL.s0 
+<p class="level0">In case that page is changed, here are the URLs of these documents. All have the form &lt;http://h20000.www2.hp.com/bc/docs/support/SupportManual/bpl&lt;s-1IDs0&gt;/bpl&lt;s-1IDs0&gt;.pdf&gt;, where f(CW*(C`&lt;ID&gt;*(C'</span> is the following document s-1ID:s0 
+<p class="level0"><a name="fB13205fR"></a><span class="nroffip">\fB13205\fR 4</span> 
+<p class="level1">
+<p class="level1">s-1PCL 5s0 Technical Quick Reference Guide. This is the 1st thing to look up if you have questions about s-1PCLs0 escape sequences. 
+<p class="level0"><a name="fB13210fR"></a><span class="nroffip">\fB13210\fR and \fB13211\fR 4</span> 
+<p class="level1">
+<p class="level1">s-1PCL 5s0 Technical Reference Manual (part I and s-1IIs0). This is the full-detailled explanation that you need to look up if you don't understand how the printer works. Part I is the actual manual, part s-1IIs0 explains s-1HP-GL/2s0 and has overall tips. 
+<p class="level0"><a name="fB13208fR"></a><span class="nroffip">\fB13208\fR and \fB13207\fR 4</span> 
+<p class="level1">
+<p class="level1">s-1PJLs0 Technical Reference Manual (and addendum) 
+<p class="level0"><a name="fB13212fR"></a><span class="nroffip">\fB13212\fR 4</span> 
+<p class="level1">
+<p class="level1">s-1PCL 5s0 Color Manual. This explains color specials for the newer s-1HPs0 printers. (Not of much use today; for practical purposes we would need to add color specials to <span Class="bold">dvilj</span> first.) 
+<p class="level0"><a name="fB13206fR"></a><span class="nroffip">\fB13206\fR and \fB13209\fR 4</span> 
+<p class="level1">
+<p class="level1">Comparison Guide (and addendum) that documents which s-1PCLs0 escape sequences are supported on which s-1HPs0 printers. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">dvi2xx by Gustaf Neumann, Wirtschaftsuniversitaet Wien. 
+<p class="level0">dviljk fork by Karl Berry. 
+<p class="level0">Joachim Schrod &lt;jschrod@acm.org&gt; supplied security fixes and updated this man page. <a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0">dvi2xx is public domain software. dviljk changes are covered by the s-1GNUs0 General Public License. 

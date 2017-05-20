@@ -1,0 +1,24 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME </h2>
+<p class="level0">openbox-session (em Runs an Openbox session without any session manager.  
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION </h2>
+<p class="level0">
+<p class="level0"><span Class="bold">openbox-session</span> runs an openbox session without  any session manager. Without a session manager, you will not be able  to save your state from one log in to the next.  
+<p class="level0"><span Class="bold">openbox-session</span> does not take any command line  arguments.  
+<p class="level0">On log in, <span Class="bold">openbox-session</span> will run the  ~/.config/openbox/autostart script if it exists, and will run the  system-wide script /etc/xdg/openbox/autostart otherwise. You may  place anything you want to run automatically in those files, for example:  
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xsetroot -solid grey & 
+gnome-settings-daemon & 
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">Make sure that each line is followed by a "&" or else the script will  stop there and further commands will not be executed. You can use the  /etc/xdg/openbox/autostart file as an example for creating your  own.  <a name="SEE"></a><h2 class="nroffsh">SEE ALSO </h2>
+<p class="level0">
+<p class="level0">openbox(1), openbox-session(1), openbox-gnome-session(1).  
+<p class="level0">
+<p class="level0">The program's full documentation is available on the website:  <span Class="bold">http://openbox.org/</span>  
+<p class="level0">Please report bugs to: <span class="bold">http://bugzilla.icculus.org/  </span>  

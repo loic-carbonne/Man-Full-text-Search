@@ -1,0 +1,74 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">klist - list cached Kerberos tickets 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">\$1 \n[an-margin] level \n[rst2man-indent-level] level margin: \n[rst2man-indent\n[rst2man-indent-level]] - \n[rst2man-indent0] \n[rst2man-indent1] \n[rst2man-indent2] 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">klist</span> [<span Class="bold">-e</span>] [[<span Class="bold">-c</span>] [<span Class="bold">-l</span>] [<span Class="bold">-A</span>] [<span Class="bold">-f</span>] [<span Class="bold">-s</span>] [<span Class="bold">-a</span> [<span Class="bold">-n</span>]]] [<span Class="bold">-C</span>] [<span Class="bold">-k</span> [<span Class="bold">-t</span>] [<span Class="bold">-K</span>]] [<span Class="bold">-V</span>] [<span Class="emphasis">cache_name</span>|<span Class="emphasis">keytab_name</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">klist lists the Kerberos principal and Kerberos tickets held in a credentials cache, or the keys held in a keytab file. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-e</span> Displays the encryption types of the session key and the ticket for each credential in the credential cache, or each key in the keytab file. 
+<p class="level0"><span Class="bold">\fB-l</span> If a cache collection is available, displays a table summarizing the caches present in the collection. 
+<p class="level0"><span Class="bold">\fB-A</span> If a cache collection is available, displays the contents of all of the caches in the collection. 
+<p class="level0"><span Class="bold">\fB-c</span> List tickets held in a credentials cache. This is the default if neither <span Class="bold">-c</span> nor <span Class="bold">-k</span> is specified. 
+<p class="level0"><span Class="bold">\fB-f</span> Shows the flags present in the credentials, using the following abbreviations: 
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+F    Forwardable
+f    forwarded
+P    Proxiable
+p    proxy
+D    postDateable
+d    postdated
+R    Renewable
+I    Initial
+i    invalid
+H    Hardware authenticated
+A    preAuthenticated
+T    Transit policy checked
+O    Okay as delegate
+a    anonymous
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fB-s</span> Causes klist to run silently (produce no output).  klist will exit with status 1 if the credentials cache cannot be read or is expired, and with status 0 otherwise. 
+<p class="level0"><span Class="bold">\fB-a</span> Display list of addresses in credentials. 
+<p class="level0"><span Class="bold">\fB-n</span> Show numeric addresses instead of reverse-resolving addresses. 
+<p class="level0"><span Class="bold">\fB-C</span> List configuration data that has been stored in the credentials cache when klist encounters it.  By default, configuration data is not listed. 
+<p class="level0"><span Class="bold">\fB-k</span> List keys held in a keytab file. 
+<p class="level0"><span Class="bold">\fB-i</span> In combination with <span Class="bold">-k</span>, defaults to using the default client keytab instead of the default acceptor keytab, if no name is given. 
+<p class="level0"><span Class="bold">\fB-t</span> Display the time entry timestamps for each keytab entry in the keytab file. 
+<p class="level0"><span Class="bold">\fB-K</span> Display the value of the encryption key in each keytab entry in the keytab file. 
+<p class="level0"><span Class="bold">\fB-V</span> Display the Kerberos version number and exit. 
+<p class="level0">
+<p class="level0">If <span Class="emphasis">cache_name</span> or <span Class="emphasis">keytab_name</span> is not specified, klist will display the credentials in the default credentials cache or keytab file as appropriate.  If the <span Class="bold">KRB5CCNAME</span> environment variable is set, its value is used to locate the default ticket cache. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">klist uses the following environment variable: 
+<p class="level0">
+<p class="level0"><span Class="bold">\fBKRB5CCNAME</span> Location of the default Kerberos 5 credentials (ticket) cache, in the form <span Class="emphasis">type</span>:<span Class="emphasis">residual</span>.  If no <span Class="emphasis">type</span> prefix is present, the <span Class="bold">FILE</span> type is assumed.  The type of the default cache may determine the availability of a cache collection; for instance, a default cache of type <span Class="bold">DIR</span> causes caches within the directory to be present in the collection. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">\fBFILE:/tmp/krb5cc_%{uid}</span> Default location of Kerberos 5 credentials cache 
+<p class="level0"><span Class="bold">\fBFILE:/etc/krb5.keytab</span> Default location for the local host(aqs keytab file. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">kinit(1)</span>, <span Class="emphasis">kdestroy(1)</span> <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">MIT <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">1985-2013, MIT 
+<p class="level0">

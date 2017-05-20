@@ -1,0 +1,63 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">qshape - Print Postfix queue domain and age distribution <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">qshape</span> [<span Class="bold">-s</span>] [<span Class="bold">-p</span>] [<span class="bold">-m <span Class="emphasis">min_subdomains</span>] &nbsp;       [<span class="bold">-b <span Class="emphasis">bucket_count</span>] [<span class="bold">-t <span Class="emphasis">bucket_time</span>] &nbsp;       [<span Class="bold">-l</span>] [<span class="bold">-w <span Class="emphasis">terminal_width</span>] &nbsp;       [<span class="bold">-N <span Class="emphasis">batch_msg_count</span>] [<span class="bold">-n <span Class="emphasis">batch_top_domains</span>] &nbsp;       [<span class="bold">-c <span Class="emphasis">config_directory</span>] [<span Class="emphasis">queue_name</span> ...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">qshape</span> program helps the administrator understand the Postfix queue message distribution in time and by sender domain or recipient domain. The program needs read access to the queue directories and queue files, so it must run as the superuser or the <span Class="bold">mail_owner</span> specified in <span Class="bold">main.cf</span> (typically <span Class="bold">postfix</span>). 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR</span> 
+<p class="level1">Display the sender domain distribution instead of the recipient domain distribution.  By default the recipient distribution is displayed. There can be more recipients than messages, but as each message has only one sender, the sender distribution is a message distribution. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Generate aggregate statistics for parent domains. Top level domains are not shown, nor are domains with fewer than <span Class="emphasis">min_subdomains</span> subdomains. The names of parent domains are shown with a leading dot, (e.g. <span Class="emphasis">.example.com</span>). 
+<p class="level0"><a name="fB-m"></a><span class="nroffip">\fB-m \fImin_subdomains\fR</span> 
+<p class="level1">When used with the <span Class="bold">-p</span> option, sets the minimum subdomain count needed to show a separate line for a parent domain. The default is 5. 
+<p class="level0"><a name="fB-b"></a><span class="nroffip">\fB-b \fIbucket_count\fR</span> 
+<p class="level1">The age distribution is broken up into a sequence of geometrically increasing intervals. This option sets the number of intervals or "buckets". Each bucket has a maximum queue age that is twice as large as that of the previous bucket. The last bucket has no age limit. 
+<p class="level0"><a name="fB-t"></a><span class="nroffip">\fB-t \fIbucket_time\fR</span> 
+<p class="level1">The age limit in minutes for the first time bucket. The default value is 5, meaning that the first bucket counts messages between 0 and 5 minutes old. 
+<p class="level0"><a name="fB-lfR"></a><span class="nroffip">\fB-l\fR</span> 
+<p class="level1">Instead of using a geometric age sequence, use a linear age sequence, in other words simple multiples of <span Class="bold">bucket_time</span>. 
+<p class="level1">This feature is available in Postfix 2.2 and later. 
+<p class="level0"><a name="fB-w"></a><span class="nroffip">\fB-w \fIterminal_width\fR</span> 
+<p class="level1">The output is right justified, with the counts for the last bucket shown on the 80th column, the <span Class="emphasis">terminal_width</span> can be adjusted for wider screens allowing more buckets to be displayed without truncating the domain names on the left. When a row for a full domain name and its counters does not fit in the specified number of columns, only the last 17 bytes of the domain name are shown with the prefix replaced by a '+' character. Truncated parent domain rows are shown as '.+' followed by the last 16 bytes of the domain name. If this is still too narrow to show the domain name and all the counters, the terminal_width limit is violated. 
+<p class="level0"><a name="fB-N"></a><span class="nroffip">\fB-N \fIbatch_msg_count\fR</span> 
+<p class="level1">When the output device is a terminal, intermediate results are shown each "batch_msg_count" messages. This produces usable results in a reasonable time even when the deferred queue is large. The default is to show intermediate results every 1000 messages. 
+<p class="level0"><a name="fB-n"></a><span class="nroffip">\fB-n \fIbatch_top_domains\fR</span> 
+<p class="level1">When reporting intermediate or final results to a termainal, report only the top "batch_top_domains" domains. The default limit is 20 domains. 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_directory\fR</span> 
+<p class="level1">The <span Class="bold">main.cf</span> configuration file is in the named directory instead of the default configuration directory. 
+<p class="level1">Arguments: 
+<p class="level0"><a name="fIqueuenamefR"></a><span class="nroffip">\fIqueue_name\fR</span> 
+<p class="level1">By default <span Class="bold">qshape</span> displays the combined distribution of the incoming and active queues. To display a different set of queues, just list their directory names on the command line. Absolute paths are used as is, other paths are taken relative to the <span Class="bold">main.cf</span> <span Class="bold">queue_directory</span> parameter setting. While <span Class="bold">main.cf</span> supports the use of <span Class="emphasis">$variable</span> expansion in the definition of the <span Class="bold">queue_directory</span> parameter, the <span Class="bold">qshape</span> program does not. If you must use variable expansions in the <span Class="bold">queue_directory</span> setting, you must specify an explicit absolute path for each queue subdirectory even if you want the default incoming and active queue distribution. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+mailq(1), List all messages in the queue.
+QSHAPE_README Examples and background material.
+</pre>
+<a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+$config_directory/main.cf, Postfix installation parameters.
+$queue_directory/maildrop/, local submission directory.
+$queue_directory/incoming/, new message queue.
+$queue_directory/hold/, messages waiting for tech support.
+$queue_directory/active/, messages scheduled for delivery.
+$queue_directory/deferred/, messages postponed for later delivery.
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Victor Duchovni
+Morgan Stanley

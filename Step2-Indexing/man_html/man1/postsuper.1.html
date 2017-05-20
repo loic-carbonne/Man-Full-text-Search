@@ -1,0 +1,144 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postsuper - Postfix superintendent <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">postsuper</span> [<span Class="bold">-psSv</span>] [<span class="bold">-c <span Class="emphasis">config_dir</span>] [<span class="bold">-d <span Class="emphasis">queue_id</span>] &nbsp;       [<span class="bold">-h <span Class="emphasis">queue_id</span>] [<span class="bold">-H <span Class="emphasis">queue_id</span>] &nbsp;       [<span class="bold">-r <span Class="emphasis">queue_id</span>] [<span Class="emphasis">directory ...</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postsuper</span>(1) command does maintenance jobs on the Postfix queue. Use of the command is restricted to the superuser. See the <span Class="bold">postqueue</span>(1) command for unprivileged queue operations such as listing or flushing the mail queue. 
+<p class="level0">By default, <span Class="bold">postsuper</span>(1) performs the operations requested with the <span Class="bold">-s</span> and <span Class="bold">-p</span> command-line options on all Postfix queue directories - this includes the <span Class="bold">incoming</span>, <span Class="bold">active</span> and <span Class="bold">deferred</span> directories with mail files and the <span Class="bold">bounce</span>, <span Class="bold">defer</span>, <span Class="bold">trace</span> and <span Class="bold">flush</span> directories with log files. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">The <span Class="bold">main.cf</span> configuration file is in the named directory instead of the default configuration directory. See also the MAIL_CONFIG environment setting below. 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d \fIqueue_id\fR</span> 
+<p class="level1">Delete one message with the named queue ID from the named mail queue(s) (default: <span Class="bold">hold</span>, <span Class="bold">incoming</span>, <span Class="bold">active</span> and <span Class="bold">deferred</span>). 
+<p class="level1">If a <span Class="emphasis">queue_id</span> of <span Class="bold">-</span> is specified, the program reads queue IDs from standard input. For example, to delete all mail with exactly one recipient <span Class="bold">user@example.com</span>: 
+<p class="level1"><pre class="level1">
+mailq | tail +2 | grep -v '^ *(' | awk  &acute;BEGIN { RS = "" }
+&nbsp;   &#35; $7=sender, $8=recipient1, $9=recipient2
+&nbsp;   { if ($8 == "user@example.com" && $9 == "")
+&nbsp;         print $1 }
+&acute; | tr -d '*!' | postsuper -d -
+</pre>
+
+<p class="level1">
+<p class="level1">Specify "<span Class="bold">-d ALL</span>" to remove all messages; for example, specify "<span Class="bold">-d ALL deferred</span>" to delete all mail in the <span Class="bold">deferred</span> queue. As a safety measure, the word <span Class="bold">ALL</span> must be specified in upper case. 
+<p class="level1">Warning: Postfix queue IDs are reused (always with Postfix &lt;= 2.8; and with Postfix &gt;= 2.9 when enable_long_queue_ids=no). There is a very small possibility that postsuper deletes the wrong message file when it is executed while the Postfix mail system is delivering mail. 
+<p class="level1">The scenario is as follows: 
+<p class="level2">
+<p class="level1"><a name="1"></a><span class="nroffip">1)</span> 
+<p class="level2">The Postfix queue manager deletes the message that <span Class="bold">postsuper</span>(1) is asked to delete, because Postfix is finished with the message (it is delivered, or it is returned to the sender). 
+<p class="level1"><a name="2"></a><span class="nroffip">2)</span> 
+<p class="level2">New mail arrives, and the new message is given the same queue ID as the message that <span Class="bold">postsuper</span>(1) is supposed to delete. The probability for reusing a deleted queue ID is about 1 in 2**15 (the number of different microsecond values that the system clock can distinguish within a second). 
+<p class="level1"><a name="3"></a><span class="nroffip">3)</span> 
+<p class="level2"><span Class="bold">postsuper</span>(1) deletes the new message, instead of the old message that it should have deleted. 
+<p class="level1">
+<p class="level0"><a name="fB-h"></a><span class="nroffip">\fB-h \fIqueue_id\fR</span> 
+<p class="level1">Put mail "on hold" so that no attempt is made to deliver it. Move one message with the named queue ID from the named mail queue(s) (default: <span Class="bold">incoming</span>, <span Class="bold">active</span> and <span Class="bold">deferred</span>) to the <span Class="bold">hold</span> queue. 
+<p class="level1">If a <span Class="emphasis">queue_id</span> of <span Class="bold">-</span> is specified, the program reads queue IDs from standard input. 
+<p class="level1">Specify "<span Class="bold">-h ALL</span>" to hold all messages; for example, specify "<span Class="bold">-h ALL deferred</span>" to hold all mail in the <span Class="bold">deferred</span> queue. As a safety measure, the word <span Class="bold">ALL</span> must be specified in upper case. 
+<p class="level1">Note: while mail is "on hold" it will not expire when its time in the queue exceeds the <span Class="bold">maximal_queue_lifetime</span> or <span Class="bold">bounce_queue_lifetime</span> setting. It becomes subject to expiration after it is released from "hold". 
+<p class="level1">This feature is available in Postfix 2.0 and later. 
+<p class="level0"><a name="fB-H"></a><span class="nroffip">\fB-H \fIqueue_id\fR</span> 
+<p class="level1">Release mail that was put "on hold". Move one message with the named queue ID from the named mail queue(s) (default: <span Class="bold">hold</span>) to the <span Class="bold">deferred</span> queue. 
+<p class="level1">If a <span Class="emphasis">queue_id</span> of <span Class="bold">-</span> is specified, the program reads queue IDs from standard input. 
+<p class="level1">Note: specify "<span Class="bold">postsuper -r</span>" to release mail that was kept on hold for a significant fraction of <span Class="bold">$maximal_queue_lifetime</span> or <span Class="bold">$bounce_queue_lifetime</span>, or longer. 
+<p class="level1">Specify "<span Class="bold">-H ALL</span>" to release all mail that is "on hold". As a safety measure, the word <span Class="bold">ALL</span> must be specified in upper case. 
+<p class="level1">This feature is available in Postfix 2.0 and later. 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR</span> 
+<p class="level1">Purge old temporary files that are left over after system or software crashes. 
+<p class="level0"><a name="fB-r"></a><span class="nroffip">\fB-r \fIqueue_id\fR</span> 
+<p class="level1">Requeue the message with the named queue ID from the named mail queue(s) (default: <span Class="bold">hold</span>, <span Class="bold">incoming</span>, <span Class="bold">active</span> and <span Class="bold">deferred</span>). To requeue multiple messages, specify multiple <span Class="bold">-r</span> command-line options. 
+<p class="level1">Alternatively, if a <span Class="emphasis">queue_id</span> of <span Class="bold">-</span> is specified, the program reads queue IDs from standard input. 
+<p class="level1">Specify "<span Class="bold">-r ALL</span>" to requeue all messages. As a safety measure, the word <span Class="bold">ALL</span> must be specified in upper case. 
+<p class="level1">A requeued message is moved to the <span Class="bold">maildrop</span> queue, from where it is copied by the <span Class="bold">pickup</span>(8) and <span Class="bold">cleanup</span>(8) daemons to a new queue file. In many respects its handling differs from that of a new local submission. 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The message is not subjected to the smtpd_milters or non_smtpd_milters settings.  When mail has passed through an external content filter, this would produce incorrect results with Milter applications that depend on original SMTP connection state information. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The message is subjected again to mail address rewriting and substitution.  This is useful when rewriting rules or virtual mappings have changed. 
+<p class="level2">The address rewriting context (local or remote) is the same as when the message was received. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">The message is subjected to the same content_filter settings (if any) as used for new local mail submissions.  This is useful when content_filter settings have changed. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Warning: Postfix queue IDs are reused (always with Postfix &lt;= 2.8; and with Postfix &gt;= 2.9 when enable_long_queue_ids=no). There is a very small possibility that <span Class="bold">postsuper</span>(1) requeues the wrong message file when it is executed while the Postfix mail system is running, but no harm should be done. 
+<p class="level1">This feature is available in Postfix 1.1 and later. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR</span> 
+<p class="level1">Structure check and structure repair.  This should be done once before Postfix startup. 
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">Rename files whose name does not match the message file inode number. This operation is necessary after restoring a mail queue from a different machine or from backup, when queue files were created with Postfix &lt;= 2.8 or with "enable_long_queue_ids = no". 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">Move queue files that are in the wrong place in the file system hierarchy and remove subdirectories that are no longer needed. File position rearrangements are necessary after a change in the <span Class="bold">hash_queue_names</span> and/or <span Class="bold">hash_queue_depth</span> configuration parameters. 
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level2">Rename queue files created with "enable_long_queue_ids = yes" to short names, for migration to Postfix &lt;= 2.8.  The procedure is as follows: 
+<p class="level2"><pre class="level2">
+&#35; postfix stop
+&#35; postconf enable_long_queue_ids=no
+&#35; postsuper
+</pre>
+
+<p class="level2">
+<p class="level2">Run <span Class="bold">postsuper</span>(1) repeatedly until it stops reporting file name changes. 
+<p class="level1">
+<p class="level0"><a name="fB-SfR"></a><span class="nroffip">\fB-S\fR</span> 
+<p class="level1">A redundant version of <span Class="bold">-s</span> that requires that long file names also match the message file inode number. This option exists for testing purposes, and is available with Postfix 2.9 and later. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Problems are reported to the standard error stream and to <span Class="bold">syslogd</span>(8). 
+<p class="level0"><span Class="bold">postsuper</span>(1) reports the number of messages deleted with <span Class="bold">-d</span>, the number of messages requeued with <span Class="bold">-r</span>, and the number of messages whose queue file name was fixed with <span Class="bold">-s</span>. The report is written to the standard error stream and to <span Class="bold">syslogd</span>(8). <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="MAILCONFIG"></a><span class="nroffip">MAIL_CONFIG</span> 
+<p class="level1">Directory with the <span Class="bold">main.cf</span> file. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">Mail that is not sanitized by Postfix (i.e. mail in the <span Class="bold">maildrop</span> queue) cannot be placed "on hold". <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. 
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. 
+<p class="level0"><a name="fBhashqueuedepth"></a><span class="nroffip">\fBhash_queue_depth (1)\fR</span> 
+<p class="level1">The number of subdirectory levels for queue directories listed with the hash_queue_names parameter. 
+<p class="level0"><a name="fBhashqueuenames"></a><span class="nroffip">\fBhash_queue_names (deferred, defer)\fR</span> 
+<p class="level1">The names of queue directories that are split across multiple subdirectory levels. 
+<p class="level0"><a name="fBqueuedirectory"></a><span class="nroffip">\fBqueue_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The location of the Postfix top-level queue directory. 
+<p class="level0"><a name="fBsyslogfacility"></a><span class="nroffip">\fBsyslog_facility (mail)\fR</span> 
+<p class="level1">The syslog facility of Postfix logging. 
+<p class="level0"><a name="fBsyslogname"></a><span class="nroffip">\fBsyslog_name (see 'postconf -d' output)\fR</span> 
+<p class="level1">The mail system name that is prepended to the process name in syslog records, so that "smtpd" becomes, for example, "postfix/smtpd". 
+<p class="level1">Available in Postfix version 2.9 and later: 
+<p class="level0"><a name="fBenablelongqueueids"></a><span class="nroffip">\fBenable_long_queue_ids (no)\fR</span> 
+<p class="level1">Enable long, non-repeating, queue IDs (queue file names). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+sendmail(1), Sendmail-compatible user interface
+postqueue(1), unprivileged queue operations
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

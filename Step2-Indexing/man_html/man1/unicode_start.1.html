@@ -1,0 +1,12 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">unicode_start - put keyboard and console in unicode mode <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">unicode_start</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">unicode_start</span> command will put the keyboard and console into Unicode (UTF-8) mode. 
+<p class="level0">For the keyboard this means that one can attach 16-bit U+xxxx values to keyboard keys using <span Class="manpage">loadkeys (1)</span>and have these appear as UTF-8 input to user programs. Also, that one can type hexadecimal Alt-xxxx using the numeric keypad, and again produce UTF-8. 
+<p class="level0">For the console this means that the kernel expects UTF-8 output from user programs, and displays the output accordingly. 
+<p class="level0">The parameter <span Class="emphasis">font</span> is a font that is loaded. It should have a built-in Unicode map, or, if it hasn't, such a map can be given explicitly as second parameter. When no font was specified, the current font is kept. <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">Unicode mode is a parameter with a value per virtual console. However, usually the font and keymap is common to all consoles. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">dumpkeys (1)</span>, <span Class="manpage">kbd_mode (1)</span>, <span Class="manpage">loadkeys (1)</span>, <span Class="manpage">unicode_stop (1)</span>, <span Class="manpage">utf-8(7)</span>, <span Class="manpage">setfont (8)</span>

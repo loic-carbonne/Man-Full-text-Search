@@ -1,0 +1,90 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">postlock - lock mail folder and execute command <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0"><span Class="bold">postlock</span> [<span class="bold">-c <span class="emphasis">config_dir<span class="bold">] [<span class="bold">-l <span class="emphasis">lock_style<span class="bold">] &nbsp;       [<span Class="bold">-v</span>] <span Class="emphasis">file command...</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">postlock</span>(1) command locks <span Class="emphasis">file</span> for exclusive access, and executes <span Class="emphasis">command</span>. The locking method is compatible with the Postfix UNIX-style local delivery agent. 
+<p class="level0">Options: 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c \fIconfig_dir\fR</span> 
+<p class="level1">Read the <span Class="bold">main.cf</span> configuration file in the named directory instead of the default configuration directory. 
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l \fIlock_style\fR</span> 
+<p class="level1">Override the locking method specified via the <span Class="bold">mailbox_delivery_lock</span> configuration parameter (see below). 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. Multiple <span Class="bold">-v</span> options make the software increasingly verbose. 
+<p class="level1">Arguments: 
+<p class="level0"><a name="fIfilefR"></a><span class="nroffip">\fIfile\fR</span> 
+<p class="level1">A mailbox file. The user should have read/write permission. 
+<p class="level0"><a name="fIcommandfR"></a><span class="nroffip">\fIcommand...\fR</span> 
+<p class="level1">The command to execute while <span Class="emphasis">file</span> is locked for exclusive access.  The command is executed directly, i.e. without interpretation by a shell command interpreter. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The result status is 75 (EX_TEMPFAIL) when <span Class="bold">postlock</span>(1) could not perform the requested operation.  Otherwise, the exit status is the exit status from the command. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">With remote file systems, the ability to acquire a lock does not necessarily eliminate access conflicts. Avoid file access by processes running on different machines. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBMAILCONFIGfR"></a><span class="nroffip">\fBMAIL_CONFIG\fR</span> 
+<p class="level1">Directory with Postfix configuration files. 
+<p class="level0"><a name="fBMAILVERBOSEfR"></a><span class="nroffip">\fBMAIL_VERBOSE\fR</span> 
+<p class="level1">Enable verbose logging for debugging purposes. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION PARAMETERS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The following <span Class="bold">main.cf</span> parameters are especially relevant to this program. The text below provides only a parameter summary. See <span Class="bold">postconf</span>(5) for more details including examples. <a name="LOCKING"></a><h2 class="nroffsh">LOCKING CONTROLS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBdeliverlockattempts"></a><span class="nroffip">\fBdeliver_lock_attempts (20)\fR</span> 
+<p class="level1">The maximal number of attempts to acquire an exclusive lock on a mailbox file or <span Class="bold">bounce</span>(8) logfile. 
+<p class="level0"><a name="fBdeliverlockdelay"></a><span class="nroffip">\fBdeliver_lock_delay (1s)\fR</span> 
+<p class="level1">The time between attempts to acquire an exclusive lock on a mailbox file or <span Class="bold">bounce</span>(8) logfile. 
+<p class="level0"><a name="fBstalelocktime"></a><span class="nroffip">\fBstale_lock_time (500s)\fR</span> 
+<p class="level1">The time after which a stale exclusive mailbox lockfile is removed. 
+<p class="level0"><a name="fBmailboxdeliverylock"></a><span class="nroffip">\fBmailbox_delivery_lock (see 'postconf -d' output)\fR</span> 
+<p class="level1">How to lock a UNIX-style <span Class="bold">local</span>(8) mailbox before attempting delivery. <a name="RESOURCE"></a><h2 class="nroffsh">RESOURCE AND RATE CONTROLS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBforkattempts"></a><span class="nroffip">\fBfork_attempts (5)\fR</span> 
+<p class="level1">The maximal number of attempts to fork() a child process. 
+<p class="level0"><a name="fBforkdelay"></a><span class="nroffip">\fBfork_delay (1s)\fR</span> 
+<p class="level1">The delay between attempts to fork() a child process. <a name="MISCELLANEOUS"></a><h2 class="nroffsh">MISCELLANEOUS CONTROLS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="fBconfigdirectory"></a><span class="nroffip">\fBconfig_directory (see 'postconf -d' output)\fR</span> 
+<p class="level1">The default location of the Postfix main.cf and master.cf configuration files. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+postconf(5), configuration parameters
+</pre>
+<a name="LICENSE"></a><h2 class="nroffsh">LICENSE</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">The Secure Mailer license must be distributed with this software. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHOR(S)</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+Wietse Venema
+IBM T.J. Watson Research
+P.O. Box 704
+Yorktown Heights, NY 10598, USA

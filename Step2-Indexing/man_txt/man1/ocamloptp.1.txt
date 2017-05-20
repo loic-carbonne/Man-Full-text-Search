@@ -1,0 +1,70 @@
+OCAMLCP(1)                  General Commands Manual                 OCAMLCP(1)
+
+
+
+NAME
+       ocamlcp, ocamloptp - The OCaml profiling compilers
+
+
+SYNOPSIS
+       ocamlcp [ ocamlc options ] [ -P flags ] filename ...
+
+       ocamloptp [ ocamlopt options ] [ -P flags ] filename ...
+
+
+DESCRIPTION
+       The  ocamlcp  and  ocamloptp  commands  are front-ends to ocamlc(1) and
+       ocamlopt(1) that instrument the source code, adding code to record  how
+       many  times  functions  are called, branches of conditionals are taken,
+       etc.  Execution of instrumented code produces an execution  profile  in
+       the file ocamlprof.dump, which can be read using ocamlprof(1).
+
+       ocamlcp  accepts  the same arguments and options as ocamlc(1) and ocam-
+       loptp accepts the same arguments and options as ocamlopt(1).  There  is
+       only one exception: in both cases, the -pp option is not supported.  If
+       you need to preprocess your source files, you will have to do it  sepa-
+       rately before calling ocamlcp or ocamloptp.
+
+
+OPTIONS
+       In  addition to the ocamlc(1) or ocamlopt(1) options, ocamlcp and ocam-
+       loptp accept one option to control the kind of  profiling  information,
+       the  -P letters option. The letters indicate which parts of the program
+       should be profiled:
+
+       a      all options
+
+       f      function calls : a count point is set at the beginning  of  each
+              function body
+
+       i      if ... then ... else: count points are set in both then and else
+              branches
+
+       l      while, for loops: a count point is set at the beginning  of  the
+              loop body
+
+       m      match  branches:  a  count  point is set at the beginning of the
+              body of each branch of a pattern-matching
+
+       t      try ... with branches: a count point is set at the beginning  of
+              the body of each branch of an exception catcher
+
+
+       For  instance,  compiling with ocamlcp -P film profiles function calls,
+       if ... then ... else ..., loops, and pattern matching.
+
+       Calling ocamlcp(1) or ocamloptp(1) without the -P  option  defaults  to
+       -P fm,  meaning  that only function calls and pattern matching are pro-
+       filed.
+
+       Note: for compatibility with previous versions, ocamlcp(1) also accepts
+       the option -p with the same argument and meaning as -P.
+
+
+SEE ALSO
+       ocamlc(1), ocamlopt(1), ocamlprof(1).
+       The OCaml user's manual, chapter "Profiling".
+
+
+
+                                                                    OCAMLCP(1)

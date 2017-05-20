@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">javah - C Header and Stub File Generator 
+<p class="level0">
+<p class="level0">f3javah</span> produces C header files and C source files from a Java class. These files provide the connective glue that allow your Java and C code to interact. 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+javah [ </span>f3options</span>f3 ] fully-qualified-classname. . .
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3javah</span> generates C header and source files that are needed to implement native methods. The generated header and source files are used by C programs to reference an object's instance variables from native source code. The .h file contains a struct definition whose layout parallels the layout of the corresponding class. The fields in the struct correspond to instance variables in the class. 
+<p class="level0">
+<p class="level0">The name of the header file and the structure declared within it are derived from the name of the class. If the class passed to f3javah</span> is inside a package, the package name is prepended to both the header file name and the structure name. Underscores (_) are used as name delimiters. 
+<p class="level0">
+<p class="level0">By default f3javah</span> creates a header file for each class listed on the command line and puts the files in the current directory. Use the f2-stubs</span> option to create source files. Use the f2-o</span> option to concatenate the results for all listed classes into a single file. 
+<p class="level0">
+<p class="level0">The new native method interface, Java Native Interface (JNI), does not require header information or stub files. f3javah</span> can still be used to generate native method function proptotypes needed for JNI-style native methods. f3javah</span> produces JNI-style output by default, and places the result in the .h file. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-o outputfile  Concatenates the resulting header or source files for all the classes listed on the command line into f2outputfile</span>. Only one of f3-o</span> or f3-d</span> may be used.  
+<p class="level1">-d directory  Sets the directory where f3javah</span> saves the header files or the stub files. Only one of f3-d</span> or f3-o</span> may be used.  
+<p class="level1">-stubs  Causes f3javah</span> to generate C declarations from the Java object file.  
+<p class="level1">-verbose  Indicates verbose output and causes f3javah</span> to print a message to stdout concerning the status of the generated files.  
+<p class="level1">-help  Print help message for f3javah</span> usage.  
+<p class="level1">-version  Print out f3javah</span> version information.  
+<p class="level1">-jni  Causes f3javah</span> to create an output file containing JNI-style native method function prototypes. This is the default output, so use of f3-jni</span> is optional.  
+<p class="level1">-classpath path  Specifies the path f3javah</span> uses to look up classes. Overrides the default or the CLASSPATH environment variable if it is set. Directories are separated by colons. Thus the general format for f2path</span> is:  <pre class="level1">
+f3
+&nbsp;  .:&lt;your_path&gt;
+</span>
+</pre>
+
+<p class="level1">For example:  <pre class="level1">
+f3
+&nbsp;  .:/home/avh/classes:/usr/local/java/classes
+</span>
+</pre>
+
+<p class="level1">As a special convenience, a class path element containing a basename of f2*</span> is considered equivalent to specifying a list of all the files in the directory with the extension f2.jar</span> or f2.JAR</span> (a java program cannot tell the difference between the two invocations). <br><br>For example, if directory f2foo</span> contains f2a.jar</span> and f2b.JAR</span>, then the class path element f2foo/*</span> is expanded to a f2A.jar:b.JAR</span>, except that the order of jar files is unspecified. All jar files in the specified directory, even hidden ones, are included in the list. A classpath entry consisting simply of f2*</span> expands to a list of all the jar files in the current directory. The f2CLASSPATH</span> environment variable, where defined, will be similarly expanded. Any classpath wildcard expansion occurs before the Java virtual machine is started -- no Java program will ever see unexpanded wildcards except by querying the environment. For example; by invoking f2System.getenv("CLASSPATH")</span>.   
+<p class="level1">-bootclasspath path  Specifies path from which to load bootstrap classes. By default, the bootstrap classes are the classes implementing the core Java 2 platform located in f2jre/lib/rt.jar</span> and several other jar files.  
+<p class="level1">-old  Specifies that old JDK1.0-style header files should be generated.  
+<p class="level1">-force  Specifies that output files should always be written.  
+<p class="level1">-Joption  Pass f2option</span> to the Java virtual machine, where f2option</span> is one of the options described on the reference page for the java(1). For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">CLASSPATH  Used to provide the system a path to user-defined classes. Directories are separated by colons, for example,  <pre class="level1">
+f3
+</span>
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">javac(1), java(1), jdb(1), javap(1), javadoc(1) 
+<p class="level0">
+<p class="level0">

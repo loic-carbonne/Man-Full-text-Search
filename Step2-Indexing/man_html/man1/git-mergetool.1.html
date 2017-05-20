@@ -1,0 +1,40 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-mergetool - Run merge conflict resolution tools to resolve merge conflicts <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git mergetool</span> [--tool=&lt;tool&gt;] [-y | --[no-]prompt] [&lt;file&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Use git mergetool to run one of several merge utilities to resolve merge conflicts. It is typically run after <span Class="emphasis">git merge</span>. 
+<p class="level0">If one or more &lt;file&gt; parameters are given, the merge tool program will be run to resolve differences on each file (skipping those without conflicts). Specifying a directory will include all unresolved files in that path. If no &lt;file&gt; names are specified, <span Class="emphasis">git mergetool</span> will run the merge tool program on every file with merge conflicts. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-t &lt;tool&gt;, --tool=&lt;tool&gt; 
+<p class="level1">Use the merge resolution program specified by &lt;tool&gt;. Valid values include emerge, gvimdiff, kdiff3, meld, vimdiff, and tortoisemerge. Run git mergetool --tool-help for the list of valid &lt;tool&gt; settings. 
+<p class="level1">If a merge resolution program is not specified, <span Class="emphasis">git mergetool</span> will use the configuration variable merge.tool. If the configuration variable merge.tool is not set, <span Class="emphasis">git mergetool</span> will pick a suitable default. 
+<p class="level1">You can explicitly provide a full path to the tool by setting the configuration variable mergetool.&lt;tool&gt;.path. For example, you can configure the absolute path to kdiff3 by setting mergetool.kdiff3.path. Otherwise, <span Class="emphasis">git mergetool</span> assumes the tool is available in PATH. 
+<p class="level1">Instead of running one of the known merge tool programs, <span Class="emphasis">git mergetool</span> can be customized to run an alternative program by specifying the command line to invoke in a configuration variable mergetool.&lt;tool&gt;.cmd. 
+<p class="level1">When <span Class="emphasis">git mergetool</span> is invoked with this tool (either through the -t or --tool option or the merge.tool configuration variable) the configured command line will be invoked with $BASE set to the name of a temporary file containing the common base for the merge, if available; $LOCAL set to the name of a temporary file containing the contents of the file on the current branch; $REMOTE set to the name of a temporary file containing the contents of the file to be merged, and $MERGED set to the name of the file to which the merge tool should write the result of the merge resolution. 
+<p class="level1">If the custom merge tool correctly indicates the success of a merge resolution with its exit code, then the configuration variable mergetool.&lt;tool&gt;.trustExitCode can be set to true. Otherwise, <span Class="emphasis">git mergetool</span> will prompt the user to indicate the success of the resolution after the custom tool has exited. 
+<p class="level0">
+<p class="level0">--tool-help 
+<p class="level1">Print a list of merge tools that may be used with --tool. 
+<p class="level0">
+<p class="level0">-y, --no-prompt 
+<p class="level1">Don(cqt prompt before each invocation of the merge resolution program. This is the default if the merge resolution program is explicitly specified with the --tool option or with the merge.tool configuration variable. 
+<p class="level0">
+<p class="level0">--prompt 
+<p class="level1">Prompt before each invocation of the merge resolution program to give the user a chance to skip the path. 
+<p class="level0"><a name="TEMPORARY"></a><h2 class="nroffsh">TEMPORARY FILES</h2>
+<p class="level0">
+<p class="level0">git mergetool creates *.orig backup files while resolving merges. These are safe to remove once a file has been merged and its git mergetool session has completed. 
+<p class="level0">Setting the mergetool.keepBackup configuration variable to false causes git mergetool to automatically remove the backup as files are successfully merged. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

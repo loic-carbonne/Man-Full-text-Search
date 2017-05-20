@@ -1,0 +1,38 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">PCManFM - A lightweight Gtk+ based file manager for X Window. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">pcmanfm</span> [ options ] [ <span Class="emphasis">directories</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">PCMan File Manager (<span Class="bold">PCManFM</span>) is an extremly fast, lightweight, yet feature-rich file manager with tabbed browsing. It is the default file manager for the lightweight desktop environment, <span Class="bold">LXDE</span>. <br>Features: &nbsp; * Extremly fast and lightweight &nbsp; * Can be started in one second on normal machine &nbsp; * Tabbed browsing (similar to Firefox) &nbsp; * Drag & Drop handling with XDS (X direct save) support &nbsp; * Files can be dragged between tabs &nbsp; * Load large directories in reasonable time &nbsp; * File association support (with default application setup) &nbsp; * Basic thumbnail support with optional EXIF support &nbsp; * Bookmarks support &nbsp; * Handles non-UTF-8 encoded filenames correctly &nbsp; * Provide icon view and detailed list view &nbsp; * Standard compliant (follows FreeDesktop.org specifications) &nbsp; * Clean and user-friendly interface (GTK+ 2.0) &nbsp; * Full desktop management &nbsp; * Can set individual wallpapers for each workspace &nbsp; * Removable media mounts support &nbsp; * Seamless access to remote file systems such as sftp, smb, and ftp &nbsp; * Trash can support <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><a name="Global"></a><h2 class="nroffsh">Global options:</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">-\^-daemon-mode</span>run PCManFM as a daemon (ignored if another PCManFM is already running) 
+<p class="level0"><span Class="bold">-p  profile , -\^-profile= profile</span> load another configuration <span Class="emphasis">profile</span> instead of <span Class="bold">"default"</span> 
+<p class="level0"><span Class="bold">-\^-no-desktop</span> for Nautilus compatibility 
+<p class="level0"><a name="Per-instance"></a><h2 class="nroffsh">Per-instance options:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-\^-desktop</span> launch desktop manager (ignores <span Class="bold">-d</span>) 
+<p class="level0"><span Class="bold">-\^-desktop-off</span> turn off desktop manager if it's running 
+<p class="level0"><span Class="bold">-\^-desktop-pref</span> open desktop preference dialog 
+<p class="level0"><span Class="bold">-\^-one-screen</span> manage desktop only on current X screen (only if <span Class="bold">--desktop</span> is used) 
+<p class="level0"><span Class="bold">-n, -\^-new-win</span> open <span Class="emphasis">directories</span> in new window 
+<p class="level0"><span Class="bold">-\^-role</span> set X role for window (only if <span Class="bold">-n</span> is used) 
+<p class="level0"><span Class="bold">-\^-wallpaper-mode= mode</span> Set mode of desktop wallpaper, <span Class="emphasis">mode</span> is: &nbsp;<span Class="bold">color</span> (fill with solid color), &nbsp;<span Class="bold">stretch</span> (stretch to fill entire monitor), &nbsp;<span Class="bold">fit</span> (stretch to fit monitor size), &nbsp;<span Class="bold">center</span> (place on center of monitor), &nbsp;<span Class="bold">tile</span> (tile to fill entire monitor), &nbsp;<span Class="bold">crop</span> (stretch and crop to fill monitor), or &nbsp;<span Class="bold">screen</span> (stretch to fill entire screen) 
+<p class="level0"><span Class="bold">-w  file , -\^-set-wallpaper= file</span> set desktop wallpaper from image <span Class="emphasis">file</span> 
+<p class="level0"><span Class="bold">-\^-show-pref  n</span> open preferences dialog on page <span Class="emphasis">n</span> 
+<p class="level0"><span Class="bold">-f, -\^-find-files</span> open a file search dialog window 
+<p class="level0"><span Class="emphasis">directories</span> directories to open <a name="DESKTOP"></a><h2 class="nroffsh">DESKTOP MANAGEMENT</h2>
+<p class="level0">The PCMan File Manager can manage your desktop. That includes drawing some background on it and showing icons of Desktop folder. To activate the desktop management the <span Class="bold">pcmanfm</span> should be executed with option <span Class="bold">--desktop</span>. Other option that affects this mode is <span Class="bold">--one-screen</span>. Change running desktop manager parameters you can by executing <span Class="bold">pcmanfm</span> with option <span Class="bold">--desktop-pref</span> which opens window with preferences or using command line parameters for options <span Class="bold">--set-wallpaper</span> or <span Class="bold">--wallpaper-mode</span>. Execution <span Class="bold">pcmanfm --desktop-off</span> terminates desktop management. 
+<p class="level0">While <span Class="bold">pcmanfm</span> manages desktop it displays icons on desktop. Behavior of icons resembles folder view in main window of <span Class="bold">pcmanfm</span> but icons on desktop can "remember" their position. If you have two or more monitors then desktop background and set of icons will be shown on each of them. Icons positions will be remembered individually for each of monitors. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">XDG_CURRENT_DESKTOP</span> The current desktop environment. This variable affects items which will be shown in menu://applications/ folder. 
+<p class="level0"><span Class="emphasis">XDG_MENU_PREFIX</span> The prefix for XDG menu definition XML file. This variable affects layout of items shown in menu://applications/ folder. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">~/.config/pcmanfm/default</span> The default configuration profile directory 
+<p class="level0"><span Class="emphasis">~/.config/pcmanfm/default/pcmanfm.conf</span> The main configuration file 
+<p class="level0"><span Class="emphasis">~/.config/pcmanfm/default/desktop-items-0.conf</span> The desktop items layout for screen 0 (primary screen) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">PCManFM is named after its author's nickname on the internet, PCMan. It was written by Hong Jen Yee &lt;pcman.tw@gmail.com&gt;. 
+<p class="level0">This manual page was written by Tetralet &lt;tetralet@debian.or.tw&gt; for the Debian GNU/Linux system. Updated by Andriy Grytsenko &lt;andrej@rep.kiev.ua&gt; 

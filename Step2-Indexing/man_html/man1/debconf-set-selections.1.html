@@ -1,0 +1,74 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">debconf-set-selections - insert new values into the debconf database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;debconf-set-selections file &nbsp;debconf-get-selections | ssh newhost debconf-set-selections 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debconf-set-selections</span> can be used to pre-seed the debconf database with answers, or to change answers in the database. Each question will be marked as seen to prevent debconf from asking the question interactively. 
+<p class="level0">Reads from a file if a filename is given, otherwise from stdin. <a name="WARNING"></a><h2 class="nroffsh">WARNING</h2>
+<p class="level0">
+<p class="level0">Only use this command to seed debconf values for packages that will be or are installed. Otherwise you can end up with values in the database for uninstalled packages that will not go away, or with worse problems involving shared values. It is recommended that this only be used to seed the database if the originating machine has an identical install. <a name="DATA"></a><h2 class="nroffsh">DATA FORMAT</h2>
+<p class="level0">
+<p class="level0">The data is a series of lines. Lines beginning with a &#35; character are comments. Blank lines are ignored. All other lines set the value of one question, and should contain four values, each separated by one character of whitespace. The first value is the name of the package that owns the question. The second is the name of the question, the third value is the type of this question, and the fourth value (through the end of the line) is the value to use for the answer of the question. 
+<p class="level0">Alternatively, the third value can be *(L"seen*(R"; then the preseed line only controls whether the question is marked as seen in debconf's database. Note that preseeding a question's value defaults to marking that question as seen, so to override the default value without marking a question seen, you need two lines. 
+<p class="level0">Lines can be continued to the next line by ending them with a *(L"e*(R" character. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;&#35; Force debconf priority to critical. &nbsp;debconf debconf/priority select critical 
+<p class="level0">&nbsp;&#35; Override default frontend to readline, but allow user to select. &nbsp;debconf debconf/frontend select readline &nbsp;debconf debconf/frontend seen false 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB--verbosefR"></a><span class="nroffip">\fB--verbose\fR, \fB-v\fR 4</span> 
+<p class="level1">
+<p class="level1">verbose output 
+<p class="level0"><a name="fB--checkonlyfR"></a><span class="nroffip">\fB--checkonly\fR, \fB-c\fR 4</span> 
+<p class="level1">
+<p class="level1">only check the input file format, do not save changes to database <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">debconf-get-selections</span>|(1) (available in the debconf-utils package) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Petter Reinholdtsen &lt;pere@hungry.com&gt; 

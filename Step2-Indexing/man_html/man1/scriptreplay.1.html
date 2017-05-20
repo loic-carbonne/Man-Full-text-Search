@@ -1,0 +1,44 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">scriptreplay - play back typescripts, using timing information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">scriptreplay</span> [options] 
+<p class="level0"><span Class="emphasis">timingfile</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This program replays a typescript, using timing information to ensure that output happens in the same rhythm as it originally appeared when the script was recorded. 
+<p class="level0">The replay simply displays the information again; the programs that were run when the typescript was being recorded are not run again. Since the same information is simply being displayed, <span Class="bold">scriptreplay</span> is only guaranteed to work properly if run on the same type of terminal the typescript was recorded on.  Otherwise, any escape characters in the typescript may be interpreted differently by the terminal to which <span Class="bold">scriptreplay</span> is sending its output. 
+<p class="level0">The timing information is what <span Class="manpage">script (1)</span>outputs to standard error if it is run with the <span Class="bold">-t</span> parameter. 
+<p class="level0">By default, the typescript to display is assumed to be named <span Class="manpage">typescript</span>but other filenames may be specified, as the second parameter or with option <span Class="manpage">-s .</span>
+<p class="level0">If the third parameter is specified, it is used as a speed-up multiplier. For example, a speed-up of 2 makes <span Class="bold">scriptreplay</span> go twice as fast, and a speed-up of 0.1 makes it go ten times slower than the original session. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The first three options will overide old-style arguments. 
+<p class="level0"><span Class="manpage">-t</span>, <span Class="manpage">--timing  \fIfile\fR</span>File containing <span Class="bold">script</span>'s timing output. 
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--typescript  \fIfile\fR</span>File containing <span Class="bold">script</span>'s terminal output. 
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--divisor  \fInumber\fR</span>Speed up the replay displaying this <span Class="emphasis">number</span> of times.  The argument is a floating point number.  It's called divisor because it divides the timings by this factor. 
+<p class="level0"><span Class="manpage">-m</span>, <span Class="manpage">--maxdelay  \fInumber\fR</span>Set the maximum delay between transcript updates to <span Class="emphasis">number</span> of seconds.  The argument is a floating point number.  This can be used to avoid long pauses in the transcript replay. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Display version information and exit. 
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Display help text and exit. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0"><pre class="level0">
+% script --timing=file.tm script.out
+Script started, file is script.out
+% ls
+&lt;etc, etc&gt;
+% exit
+Script done, file is script.out
+% scriptreplay --timing file.tm --typescript script.out
+<pre class="level0">
+</pre>
+<a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">script (1)</span><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2008 James Youngman <br>Copyright &copy; 2008 Karel Zak 
+<p class="level0">This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+<p class="level0">Released under the GNU General Public License version 2 or later. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">The original <span Class="bold">scriptreplay</span> program was written by 
+<p class="level0">Joey Hess 
+<p class="level0">The program was re-written in C by 
+<p class="level0">James Youngman 
+<p class="level0">and 
+<p class="level0">Karel Zak 
+<p class="level0"><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The scriptreplay command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

@@ -1,0 +1,50 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">chfn - change real user name and information <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chfn</span> [<span Class="emphasis">options</span>] [<span Class="emphasis">LOGIN</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="bold">chfn</span> command changes user fullname, office room number, office phone number, and home phone number information for a user*(Aqs account. This information is typically printed by <span Class="bold">finger</span>(1) and similar programs. A normal user may only change the fields for her own account, subject to the restrictions in /etc/login.defs. (The default configuration is to prevent users from changing their fullname.) The superuser may change any field for any account. Additionally, only the superuser may use the <span Class="bold">-o</span> option to change the undefined portions of the GECOS field. 
+<p class="level0">These fields must not contain any colons. Except for the <span Class="emphasis">other</span> field, they should not contain any comma or equal sign. It is also recommended to avoid non-US-ASCII characters, but this is only enforced for the phone numbers. The <span Class="emphasis">other</span> field is used to store accounting information used by other applications. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The options which apply to the <span Class="bold">chfn</span> command are: 
+<p class="level0"><span Class="bold">-f</span>, <span Class="bold">--full-name</span>&nbsp;<span Class="emphasis">FULL_NAME</span> 
+<p class="level1">Change the user*(Aqs full name. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--home-phone</span>&nbsp;<span Class="emphasis">HOME_PHONE</span> 
+<p class="level1">Change the user*(Aqs home phone number. 
+<p class="level0">
+<p class="level0"><span Class="bold">-o</span>, <span Class="bold">--other</span>&nbsp;<span Class="emphasis">OTHER</span> 
+<p class="level1">Change the user*(Aqs other GECOS information. This field is used to store accounting information used by other applications, and can be changed only by a superuser. 
+<p class="level0">
+<p class="level0"><span Class="bold">-r</span>, <span Class="bold">--room</span>&nbsp;<span Class="emphasis">ROOM_NUMBER</span> 
+<p class="level1">Change the user*(Aqs room number. 
+<p class="level0">
+<p class="level0"><span Class="bold">-R</span>, <span Class="bold">--root</span>&nbsp;<span Class="emphasis">CHROOT_DIR</span> 
+<p class="level1">Apply changes in the <span Class="emphasis">CHROOT_DIR</span> directory and use the configuration files from the <span Class="emphasis">CHROOT_DIR</span> directory. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--help</span> 
+<p class="level1">Display help message and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span>, <span Class="bold">--work-phone</span>&nbsp;<span Class="emphasis">WORK_PHONE</span> 
+<p class="level1">Change the user*(Aqs office phone number. 
+<p class="level0">
+<p class="level0">If none of the options are selected, <span Class="bold">chfn</span> operates in an interactive fashion, prompting the user with the current values for all of the fields. Enter the new value to change the field, or leave the line blank to use the current value. The current value is displayed between a pair of <span Class="bold">[ ]</span> marks. Without options, <span Class="bold">chfn</span> prompts for the current user account. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">The following configuration variables in /etc/login.defs change the behavior of this tool: 
+<p class="level0"><span Class="bold">CHFN_RESTRICT</span> (string) 
+<p class="level1">This parameter specifies which values in the <span Class="emphasis">gecos</span> field of the /etc/passwd file may be changed by regular users using the <span Class="bold">chfn</span> program. It can be any combination of letters <span Class="emphasis">f</span>, <span Class="emphasis">r</span>, <span Class="emphasis">w</span>, <span Class="emphasis">h</span>, for Full name, Room number, Work phone, and Home phone, respectively. For backward compatibility, <span Class="emphasis">yes</span> is equivalent to <span Class="emphasis">rwh</span> and <span Class="emphasis">no</span> is equivalent to <span Class="emphasis">frwh</span>. If not specified, only the superuser can make any changes. The most restrictive setting is better achieved by not installing <span Class="bold">chfn</span> SUID. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">/etc/login.defs 
+<p class="level1">Shadow password suite configuration. 
+<p class="level0">
+<p class="level0">/etc/passwd 
+<p class="level1">User account information. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">chsh</span>(1), <span Class="bold">login.defs</span>(5), <span Class="bold">passwd</span>(5). 

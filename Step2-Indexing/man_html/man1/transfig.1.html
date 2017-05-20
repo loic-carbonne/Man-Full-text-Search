@@ -1,0 +1,62 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">transfig - creates a makefile for portable LaTeX figures <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">transfig</span> [ -L <span Class="emphasis">language</span> ] [ -M <span Class="emphasis">makefile</span> ] [ -T <span Class="emphasis">texfile</span> ] [ -I <span Class="emphasis">macrofile</span> ] [ -V ]  [ <span Class="emphasis">control_specs</span> figfile ... ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">Transfig</span> creates a makefile to translate figures described in Fig code or PIC into a specified LaTeX graphics <span Class="emphasis">language</span>. PIC files are identified by the suffix ".pic"; Fig files can be specified either with or without the suffix ".fig" . Transfig also creates a TeX macro file appropriate to the target language. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The <span Class="emphasis">language</span> specifier must be one of <span Class="manpage">box</span>, <span Class="manpage">cgm</span>, <span Class="manpage">eepic</span>, <span Class="manpage">eepicemu</span>, <span Class="manpage">emf</span>, <span Class="manpage">epic</span>, <span Class="manpage">eps</span>, <span Class="manpage">ge</span>, <span Class="manpage">gif</span>, <span Class="manpage">ibmgl</span>, <span Class="manpage">jpeg</span>, <span Class="manpage">latex</span>, <span Class="manpage">map</span>, <span Class="manpage">mf</span>, <span Class="manpage">mmp</span>, <span Class="manpage">mp</span>, <span Class="manpage">pcx</span>, <span Class="manpage">pdf</span>, <span Class="manpage">pdftex</span>, <span Class="manpage">pdftex_t</span>, <span Class="manpage">pic</span>, <span Class="manpage">pictex</span>, <span Class="manpage">png</span>, <span Class="manpage">ppm</span>, <span Class="manpage">ps</span>, <span Class="manpage">psfig</span>, <span Class="manpage">pstex</span>, <span Class="manpage">pstex_t</span>, <span Class="manpage">ptk</span>, <span Class="manpage">sld</span>, <span Class="manpage">textyl</span>, <span Class="manpage">tiff</span>, <span Class="manpage">tk</span>, <span Class="manpage">tpic</span>, <span Class="manpage">xbm</span>, <span Class="manpage">xpm</span>or <span Class="manpage">null .</span>The specifier <span Class="bold">psfig</span> is like the  <span Class="bold">ps</span> specifier, except that it make use of the psfig macro package. The specifier <span Class="bold">pstex</span> is like <span Class="bold">psfig,</span> except that it uses LaTeX to process formatted (special) text. The specifier  <span Class="bold">null</span> results in the figures being replaced by empty boxes of the appropriate size. If no language is specified, <span Class="bold">epic</span> is the default. 
+<p class="level0">The names of the makefile and TeX macro file can be set with the -M and -T options. The default names are "Makefile" and "transfig.tex", respectively. If there is already an existing <span Class="emphasis">makefile</span> in the directory, transfig first renames it to <span Class="emphasis">makefile~</span>.  The same holds for any existing TeX macro file. If the -I option is specified, then a command to read in <span Class="emphasis">macrofile</span> is 	inserted into the TeX macro file. If the -V option is specified, the program version number is printed only. 
+<p class="level0">Control specifiers are  
+<p class="level0"><span class="bold">-m<span Class="emphasis"> mag</span> set the magnification at which the figure is rendered (default 1.0). 
+<p class="level0"><span class="bold">-f<span Class="emphasis"> font</span> set the default font family used for text objects (default "<span Class="bold">rm</span>"). 
+<p class="level0"><span class="bold">-s <span Class="emphasis">fontsize</span> set the default font size (in points) for text objects (default 11*<span Class="emphasis">mag</span>). 
+<p class="level0"><span class="bold">-o <span Class="emphasis">option</span> pass the specified option string through to fig2dev. 
+<p class="level0">If there is no scaling, the default font is an eleven point roman font. Language and control specifiers may occur more than once; they affect the translation of files which appear to their right in the argument list.  If no files are specified, then "*.fig" is assumed. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">fig(l), fig2dev(l), pic(l), pic2fig(l), xfig(l) <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright (C) 1985 Supoj Sutantavibul <br>Copyright (C) 1991 Micah Beck <br>Parts Copyright (C) 1991-2002 Brian Smith 
+<p class="level0">THE AUTHORS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
+<p class="level0">Any party obtaining a copy of these files is granted, free of charge, a full and unrestricted irrevocable, world-wide, paid up, royalty-free, nonexclusive right and license to deal in this software and documentation files (the "Software"), including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons who receive copies from any such party to do so, with the only requirement being that this copyright notice remain intact. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Micah Beck 

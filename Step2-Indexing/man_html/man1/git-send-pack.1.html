@@ -1,0 +1,113 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-send-pack - Push objects over Git protocol to another repository <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git send-pack</span> [--all] [--dry-run] [--force] [--receive-pack=&lt;git-receive-pack&gt;] [--verbose] [--thin] [&lt;host&gt;:]&lt;directory&gt; [&lt;ref&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Usually you would want to use <span Class="emphasis">git push</span>, which is a higher-level wrapper of this command, instead. See <span Class="bold">git-push</span>(1). 
+<p class="level0">Invokes <span Class="emphasis">git-receive-pack</span> on a possibly remote repository, and updates it from the current repository, sending named refs. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--receive-pack=&lt;git-receive-pack&gt; 
+<p class="level1">Path to the <span Class="emphasis">git-receive-pack</span> program on the remote end. Sometimes useful when pushing to a remote repository over ssh, and you do not have the program in a directory on the default $PATH. 
+<p class="level0">
+<p class="level0">--exec=&lt;git-receive-pack&gt; 
+<p class="level1">Same as --receive-pack=&lt;git-receive-pack&gt;. 
+<p class="level0">
+<p class="level0">--all 
+<p class="level1">Instead of explicitly specifying which refs to update, update all heads that locally exist. 
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">Take the list of refs from stdin, one per line. If there are refs specified on the command line in addition to this option, then the refs from stdin are processed after those on the command line. 
+<p class="level1">If <span Class="emphasis">--stateless-rpc</span> is specified together with this option then the list of refs must be in packet format (pkt-line). Each ref must be in a separate packet, and the list must end with a flush packet. 
+<p class="level0">
+<p class="level0">--dry-run 
+<p class="level1">Do everything except actually send the updates. 
+<p class="level0">
+<p class="level0">--force 
+<p class="level1">Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. This flag disables the check. What this means is that the remote repository can lose commits; use it with care. 
+<p class="level0">
+<p class="level0">--verbose 
+<p class="level1">Run verbosely. 
+<p class="level0">
+<p class="level0">--thin 
+<p class="level1">Send a "thin" pack, which records objects in deltified form based on objects not included in the pack to reduce network traffic. 
+<p class="level0">
+<p class="level0">&lt;host&gt; 
+<p class="level1">A remote host to house the repository. When this part is specified, <span Class="emphasis">git-receive-pack</span> is invoked via ssh. 
+<p class="level0">
+<p class="level0">&lt;directory&gt; 
+<p class="level1">The repository to update. 
+<p class="level0">
+<p class="level0">&lt;ref&gt;... 
+<p class="level1">The remote refs to update. 
+<p class="level0"><a name="SPECIFYING"></a><h2 class="nroffsh">SPECIFYING THE REFS</h2>
+<p class="level0">
+<p class="level0">There are three ways to specify which refs to update on the remote end. 
+<p class="level0">With <span Class="emphasis">--all</span> flag, all refs that exist locally are transferred to the remote side. You cannot specify any <span Class="emphasis">&lt;ref&gt;</span> if you use this flag. 
+<p class="level0">Without <span Class="emphasis">--all</span> and without any <span Class="emphasis">&lt;ref&gt;</span>, the heads that exist both on the local side and on the remote side are updated. 
+<p class="level0">When one or more <span Class="emphasis">&lt;ref&gt;</span> are specified explicitly (whether on the command line or via --stdin), it can be either a single pattern, or a pair of such pattern separated by a colon ":" (this means that a ref name cannot have a colon in it). A single pattern <span Class="emphasis">&lt;name&gt;</span> is just a shorthand for <span Class="emphasis">&lt;name&gt;:&lt;name&gt;</span>. 
+<p class="level0">Each pattern pair consists of the source side (before the colon) and the destination side (after the colon). The ref to be pushed is determined by finding a match that matches the source side, and where it is pushed is determined by using the destination side. The rules used to match a ref are the same rules used by <span Class="emphasis">git rev-parse</span> to resolve a symbolic ref name. See <span Class="bold">git-rev-parse</span>(1). 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">It is an error if &lt;src&gt; does not match exactly one of the local refs. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">It is an error if &lt;dst&gt; matches more than one remote refs. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">If &lt;dst&gt; does not match any remote ref, either 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">it has to start with "refs/"; &lt;dst&gt; is used as the destination literally in this case. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">&lt;src&gt; == &lt;dst&gt; and the ref that matched the &lt;src&gt; must not exist in the set of remote refs; the ref matched &lt;src&gt; locally is used as the name of the destination. 
+<p class="level1">
+<p class="level0">
+<p class="level0">Without <span Class="emphasis">--force</span>, the &lt;src&gt; ref is stored at the remote only if &lt;dst&gt; does not exist, or &lt;dst&gt; is a proper subset (i.e. an ancestor) of &lt;src&gt;. This check, known as "fast-forward check", is performed in order to avoid accidentally overwriting the remote ref and lose other peoples*(Aq commits from there. 
+<p class="level0">With <span Class="emphasis">--force</span>, the fast-forward check is disabled for all refs. 
+<p class="level0">Optionally, a &lt;ref&gt; parameter can be prefixed with a plus <span Class="emphasis">+</span> sign to disable the fast-forward check only on that ref. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

@@ -1,0 +1,41 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gpg-zip - encrypt or sign files into an archive 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gpg-zip</span> 
+<p class="level0"><span Class="emphasis">filename1  [ filename2, ... ]</span> <span Class="emphasis">directory1  [ directory2, ... ]</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page documents briefly the  <span Class="bold">gpg-zip</span> command. 
+<p class="level0"><span Class="bold">gpg-zip</span> encrypts or signs files into an archive. It is an gpg-ized tar using the same format as PGP's PGP Zip. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-e</span>, <span Class="manpage">--encrypt</span>Encrypt data. This option may be combined with  <span Class="bold">--symmetric</span> (for output that may be decrypted via a secret key or a passphrase). 
+<p class="level0"><span Class="manpage">-d</span>, <span Class="manpage">--decrypt</span>Decrypt data. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">--symmetric</span>Encrypt with a symmetric cipher using a passphrase.  The default symmetric cipher used is CAST5, but may be chosen with the <span Class="bold">--cipher-algo</span> option to <span Class="manpage">gpg (1).</span>
+<p class="level0"><span Class="manpage">-s</span>, <span Class="manpage">--sign</span>Make a signature. See <span Class="manpage">gpg (1).</span>
+<p class="level0"><span Class="manpage">-r</span>, <span Class="manpage">--recipient  \fIUSER\fR</span>Encrypt for user id <span Class="emphasis">USER</span>. See <span Class="manpage">gpg (1).</span>
+<p class="level0"><span Class="manpage">-u</span>, <span Class="manpage">--local-user  \fIUSER\fR</span>Use <span Class="emphasis">USER</span> as the key to sign with. See <span Class="manpage">gpg (1).</span>
+<p class="level0"><span Class="bold">--list-archive</span> List the contents of the specified archive. 
+<p class="level0"><span Class="manpage">-o</span>, <span Class="manpage">--output   \fIFILE\fR</span>Write output to specified file <span Class="emphasis">FILE .</span> 
+<p class="level0"><span Class="bold">--gpg  GPG</span> Use the specified command instead of <span Class="manpage">gpg .</span>
+<p class="level0"><span Class="bold">--gpg-args  ARGS</span> Pass the specified options to <span Class="manpage">gpg (1).</span>
+<p class="level0"><span Class="bold">--tar  TAR</span> Use the specified command instead of <span Class="manpage">tar .</span>
+<p class="level0"><span Class="bold">--tar-args  ARGS</span> Pass the specified options to  <span Class="manpage">tar (1).</span>
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">--help</span>Output a short usage information. 
+<p class="level0"><span Class="bold">--version</span> Output the program version. 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">The program returns <span Class="bold">0</span> if everything was fine, <span Class="bold">1</span> otherwise. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">Encrypt the contents of directory <span Class="emphasis">mydocs</span> for user Bob to file <span Class="emphasis">test1</span>: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">gpg-zip --encrypt --output test1 --gpg-args -r Bob mydocs</span> 
+<p class="level1">List the contents of archive <span Class="emphasis">test1</span>: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">gpg-zip --list-archive test1</span> 
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">gpg (1)</span>, <span Class="manpage">tar (1)</span>
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Copyright (C) 2005 Free Software Foundation, Inc. Please report bugs to &lt;bug-gnupg@gnu.org&gt;. 
+<p class="level0">This manpage was written by <span Class="bold">Colin Tuckley</span> &lt;colin@tuckley.org&gt; and <span Class="bold">Daniel Leidert</span> &lt;daniel.leidert@wgdd.de&gt; for the Debian distribution (but may be used by others). 
+<p class="level0">

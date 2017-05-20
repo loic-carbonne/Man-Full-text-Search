@@ -1,0 +1,26 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">update-desktop-database - Build cache database of MIME types handled by desktop files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">update-desktop-database [-q|--quiet] [-v|--verbose] [DIRECTORY...]</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">update-desktop-database</span> program is a tool to build a cache database of the MIME types handled by desktop files. 
+<p class="level0">The cache database contains the list of MIME types that can be handled by desktop files, as well as, for each MIME type, a list of desktop files that can handle this MIME type. This cache database ease the work of applications that need to find an application that can open a document of a specific MIME type: those applications will not have to parse all the desktop files existing on the system, and can instead parse this cache database. 
+<p class="level0">If no <span Class="emphasis">DIRECTORY</span> is specified as argument, the desktop files that will be processed are the ones installed in <span Class="bold">$XDG_DATA_DIRS/applications</span>. 
+<p class="level0">If both the <span Class="emphasis">--quiet</span> and <span Class="emphasis">--verbose</span> options are used, then <span Class="emphasis">--verbose</span> will be ignored. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The following options are supported: 
+<p class="level0"><span Class="emphasis">-q, --quiet</span> Do not display any information about processing and updating progress. 
+<p class="level0"><span Class="emphasis">-v, --verbose</span> Display more information about processing and updating progress. <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0">If an invalid MIME type is met, it will be ignored and the creation of the cache database will continue. 
+<p class="level0">The format of the cache database is a simple desktop entry format, with a <span Class="bold">MIME Cache</span> group, containing one key per MIME type. The key name is the MIME type, and the key value is the list of desktop file that can handle this MIME type. 
+<p class="level0">The order of the desktop files found for a MIME type is not significant. Therefore, an external mechanism must be used to determine what is the preferred desktop file for a MIME type. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">Here is a simple example of a cache database: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">&nbsp;[MIME Cache] &nbsp;application/x-shellscript=gedit.desktop; &nbsp;text/plain=gedit.desktop;gvim.desktop; &nbsp;video/webm=totem.desktop; 
+<p class="level1">This cache database is created with three desktop files, each containing a <span Class="bold">MimeType</span> key: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">&nbsp;<span Class="bold">gedit.desktop</span>: MimeType=text/plain;application/x-shellscript; &nbsp;<span Class="bold">gvim.desktop</span>: MimeType=text/plain; &nbsp;<span Class="bold">totem.desktop</span>: MimeType=video/webm; <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">$XDG_DATA_DIRS/applications/mimeinfo.cache</span> 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This file is the cache database created by <span Class="emphasis">update-desktop-database</span>. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">If you find bugs in the <span Class="emphasis">update-desktop-database</span> program, please report these on <a href="https://bugs.freedesktop.org.">https://bugs.freedesktop.org.</a> 

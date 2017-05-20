@@ -1,0 +1,60 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocaml - The OCaml interactive toplevel 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocaml</span> [ <span Class="emphasis">options</span> ] [ <span Class="emphasis">object-files</span> ] [ <span Class="emphasis">script-file</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="manpage">ocaml (1)</span>command is the toplevel system for OCaml, that permits interactive use of the OCaml system through a read-eval-print loop. In this mode, the system repeatedly reads OCaml phrases from the input, then typechecks, compiles and evaluates them, then prints the inferred type and result value, if any. The system prints a &#35; (sharp) prompt before reading each phrase. 
+<p class="level0">A toplevel phrase can span several lines. It is terminated by ;; (a double-semicolon). The syntax of toplevel phrases is as follows. 
+<p class="level0">The toplevel system is started by the command <span Class="manpage">ocaml (1).</span>Phrases are read on standard input, results are printed on standard output, errors on standard error. End-of-file on standard input terminates <span Class="manpage">ocaml (1).</span>
+<p class="level0">If one or more <span Class="emphasis">object-files</span> (ending in .cmo or .cma) are given, they are loaded silently before starting the toplevel. 
+<p class="level0">If a <span Class="emphasis">script-file</span> is given, phrases are read silently from the file, errors printed on standard error. <span Class="manpage">ocaml (1)</span>exits after the execution of the last phrase. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following command-line options are recognized by <span Class="manpage">ocaml (1).</span>
+<p class="level0"><span Class="bold">-absname</span> Show absolute filenames in error messages. 
+<p class="level0"><span Class="bold">-I \ directory</span> Add the given directory to the list of directories searched for source and compiled files. By default, the current directory is searched first, then the standard library directory. Directories added with <span Class="bold">-I</span> are searched after the current directory, in the order in which they were given on the command line, but before the standard library directory. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If the given directory starts with <a class="manpage" href="#">+</a>it is taken relative to the standard library directory. For instance, <span Class="bold">-I\ +labltk</span> adds the subdirectory <span Class="bold">labltk</span> of the standard library to the search path. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Directories can also be added to the search path once the toplevel is running with the <span Class="bold">#directory</span> directive. 
+<p class="level1"><span Class="bold">-init \ file</span> Load the given file instead of the default initialization file. The default file is <span Class="bold">.ocamlinit</span> in the current directory if it exists, otherwise <span Class="bold">.ocamlinit</span> in the user's home directory. 
+<p class="level1"><span Class="bold">-labels</span> Labels are not ignored in types, labels may be used in applications, and labelled parameters can be given in any order.  This is the default. 
+<p class="level1"><span Class="bold">-no-app-funct</span> Deactivates the applicative behaviour of functors. With this option, each functor application generates new types in its result and applying the same functor twice to the same argument yields two incompatible structures. 
+<p class="level1"><span Class="bold">-noassert</span> Do not compile assertion checks.  Note that the special form <span Class="bold">assert\ false</span> is always compiled because it is typed specially. 
+<p class="level1"><span Class="bold">-nolabels</span> Ignore non-optional labels in types. Labels cannot be used in applications, and parameter order becomes strict. 
+<p class="level1"><span Class="bold">-noprompt</span> Do not display any prompt when waiting for input. 
+<p class="level1"><span Class="bold">-nopromptcont</span> Do not display the secondary prompt when waiting for continuation lines in multi-line inputs.  This should be used e.g. when running <span Class="manpage">ocaml (1)</span>in an <span Class="manpage">emacs (1)</span>window. 
+<p class="level1"><span Class="bold">-nostdlib</span> Do not include the standard library directory in the list of directories searched for source and compiled files. 
+<p class="level1"><span Class="bold">-ppx \ command</span> After parsing, pipe the abstract syntax tree through the preprocessor <span Class="emphasis">command .</span> The format of the input and output of the preprocessor are not yet documented. 
+<p class="level1"><span Class="bold">-principal</span> Check information path during type-checking, to make sure that all types are derived in a principal way.  When using labelled arguments and/or polymorphic methods, this flag is required to ensure future versions of the compiler will be able to infer types correctly, even if internal algorithms change. All programs accepted in <span Class="bold">-principal</span> mode are also accepted in the default mode with equivalent types, but different binary signatures, and this may slow down type checking; yet it is a good idea to use it once before publishing source code. 
+<p class="level1"><span Class="bold">-rectypes</span> Allow arbitrary recursive types during type-checking.  By default, only recursive types where the recursion goes through an object type are supported. 
+<p class="level1"><span Class="bold">-short-paths</span> When a type is visible under several module-paths, use the shortest one when printing the type's name in inferred interfaces and error and warning messages. 
+<p class="level1"><span Class="bold">-stdin</span> Read the standard input as a script file rather than starting an interactive session. 
+<p class="level1"><span Class="bold">-strict-sequence</span> Force the left-hand part of each sequence to have type unit. 
+<p class="level1"><span Class="bold">-unsafe</span> Turn bound checking off on array and string accesses (the <span Class="manpage">v.(i) and s.[i]</span>constructs). Programs compiled with <span Class="bold">-unsafe</span> are therefore slightly faster, but unsafe: anything can happen if the program accesses an array or string outside of its bounds. 
+<p class="level1"><span Class="bold">-version</span> Print version string and exit. 
+<p class="level1"><span Class="bold">-vnum</span> Print short version number and exit. 
+<p class="level1"><span Class="bold">-w \ warning-list</span> Enable or disable warnings according to the argument <span Class="emphasis">warning-list .</span> See <span Class="manpage">ocamlc (1)</span>for the syntax of the <span Class="emphasis">warning-list</span> argument. 
+<p class="level1"><span Class="bold">-warn-error \ warning-list</span> Mark as fatal the warnings described by the argument <span Class="emphasis">warning-list .</span> Note that a warning is not triggered (and does not trigger an error) if it is disabled by the <span Class="bold">-w</span> option.  See <span Class="manpage">ocamlc (1)</span>for the syntax of the <span Class="emphasis">warning-list</span> argument. 
+<p class="level1"><span Class="bold">-warn-help</span> Show the description of all available warning numbers. 
+<p class="level1"><span Class="bold">- \ file</span> Use <span Class="emphasis">file</span> as a script file name, even when it starts with a hyphen (-). 
+<p class="level1"><span Class="manpage">-help \ or \ --help</span>Display a short usage summary and exit. 
+<p class="level1"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">LC_CTYPE</span> If set to iso_8859_1, accented characters (from the ISO Latin-1 character set) in string and character literals are printed as is; otherwise, they are printed as decimal escape sequences. 
+<p class="level0"><span Class="bold">TERM</span> When printing error messages, the toplevel system attempts to underline visually the location of the error. It consults the TERM variable to determines the type of output terminal and look up its capabilities in the terminal database. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamlc (1)</span>, <a class="manpage" href="#">\ ocamlopt (1)</a>, <a class="manpage" href="#">\ ocamlrun (1).</a><br><span Class="emphasis">The\ OCaml\ user's\ manual ,</span> chapter "The toplevel system". 

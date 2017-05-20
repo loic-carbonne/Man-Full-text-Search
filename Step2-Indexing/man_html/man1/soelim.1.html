@@ -1,0 +1,111 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2000, 2001, 2003, 2004, 2006, 2008, 2009 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">soelim - interpret .so requests in groff input 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="emphasis" href="#">\|.\|.\|. ]</a> 
+<p class="level0">
+<p class="level0">
+<p class="level0">It is possible to have whitespace between the <span Class="bold">-I</span> command line option and its parameter. 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">soelim</span> reads <span Class="emphasis">files</span> and replaces lines of the form 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">.so\~ file</span> 
+<p class="level1">by the contents of <span Class="emphasis">file .</span> It is useful if files included with <span Class="bold">.so</span> need to be preprocessed. Normally, <span Class="bold">soelim</span> should be invoked with the <span Class="bold">-s</span> option of <span Class="manpage">groff .</span>
+<p class="level1">
+<p class="level1">To embed `[rs]' in the file name, write `[rs][rs]' or `[rs]e'. To embed a space, write `[rs]&nbsp;'. Any other escape sequence in <span Class="emphasis">file</span> makes <span Class="bold">soelim</span> ignore the whole line. 
+<p class="level1">
+<p class="level1">Note that there must be no whitespace between the leading dot and the two characters `s' and `o'. Otherwise, only <span Class="bold">groff</span> interprets the <span Class="bold">.so</span> request (and <span Class="bold">soelim</span> ignores it). 
+<p class="level1">
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-C</span> Recognize <span Class="bold">.so</span> even when followed by a character other than space or newline. 
+<p class="level0">
+<p class="level0"><span Class="bold">-I dir</span> This option may be used to add a directory to the search path for files (both those on the command line and those named in <span Class="bold">.so</span> requests). The search path is initialized with the current directory. This option may be specified more than once; the directories are then searched in the order specified (but before the current directory). If you want to make the current directory be read before other directories, add <span Class="bold">-I.\&</span> at the appropriate place. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">No directory search is performed for files with an absolute file name. 
+<p class="level1">
+<p class="level1"><span Class="bold">-r</span> Do not add <span Class="bold">.lf</span> requests (for general use, with non-groff files). 
+<p class="level1">
+<p class="level1"><span Class="bold">-t</span> Don't emit <span Class="bold">.lf</span> requests but TeX comment lines (starting with `%') giving the current file and line number. 
+<p class="level1">
+<p class="level1"><span Class="bold">-v</span> Print the version number. 
+<p class="level1">
+<p class="level1"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">The normal processing sequence of groff is this: 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">box invisible width 0.5 height 0.4 "input" "file"; move to last box .bottom; down; arrow 0.3; box invisible width 0.8 height 0.2 "preprocessor"; move to last box .right right; arrow 0.3; A: box invisible width 0.35 height 0.2 "troff"; move to last box .top; up; move 0.3; box invisible width 0.6 height 0.4 "sourced" "file"; line &lt;- up 0.3 from A.top; move to A.right; right; arrow 0.3; box invisible width 0.85 height 0.2 "postprocessor"; move to last box .bottom; down; arrow 0.3; box invisible width 0.5 height 0.4 "output" "file" 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+&nbsp;         input        sourced
+&nbsp;         file          file
+&nbsp;           |             |
+&nbsp;           v             v
+&nbsp;       preprocessor -&gt; troff -&gt; postprocessor
+&nbsp;                                     |
+&nbsp;                                     v
+&nbsp;                                  output
+&nbsp;                                   file
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">That is, files sourced with <span Class="bold">.so</span> are normally read <span Class="emphasis">only</span> by <span Class="bold">troff</span> (the actual formatter). <span Class="bold">soelim</span> is <span Class="emphasis">not</span> required for <span Class="bold">troff</span> to source files. 
+<p class="level0">
+<p class="level0">If a file to be sourced should also be preprocessed, it must already be read <span Class="emphasis">before</span> the input file passes through the preprocessor. This is handled by <span Class="manpage">soelim :</span>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">box invisible width 0.5 height 0.4 "input" "file"; move to last box .bottom; down; arrow 0.3; A: box invisible width 0.5 height 0.2 "soelim"; line &lt;- 0.3; box invisible width 0.5 height 0.4 "sourced" "file"; move to A.right; right; arrow 0.3; box invisible width 0.8 height 0.2 "preprocessor"; arrow 0.3; box invisible width 0.35 height 0.2 "troff"; arrow 0.3 box invisible width 0.85 height 0.2 "postprocessor"; move to last box .bottom; down; arrow 0.3; box invisible width 0.5 height 0.4 "output" "file" 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+&nbsp;         input
+&nbsp;         file
+&nbsp;           |
+&nbsp;           v
+&nbsp;         soelim -&gt; preprocessor -&gt; troff -&gt; postprocessor
+&nbsp;           ^                                     |
+&nbsp;           |                                     v
+&nbsp;        sourced                               output
+&nbsp;         file                                  file
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">groff (1)</span>
+<p class="level0">

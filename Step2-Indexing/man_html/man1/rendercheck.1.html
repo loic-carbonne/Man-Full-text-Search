@@ -1,0 +1,23 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">rendercheck - simple tests of the X Render extension. <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><pre class="level0">
+<span class="bold">rendercheck [-d|--display display] [-i|--iter] [--sync] \</span> 
+[-t|--tests test1,test2,test3,...] [-o|--ops op1,op2,op3,...]
+[-v|--verbose] [--minimalrendering]
+</pre>
+
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">rendercheck</span> is a set of simple tests of the X Render extension.  It is designed for authors of Render implementations in X Servers. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d|--display\ display</span> Specifies the display to test against. 
+<p class="level0"><span Class="bold">-i|--iter\ iterations</span> Specifies the number of times to repeat each operation before sampling results. Some X Servers may behave differently (hardware vs software rendering paths) depending on the previous operations done, so this may be used to influence the server's choices. 
+<p class="level0"><span Class="bold">--sync</span> Enables synchronous xlib operation, for debugging. 
+<p class="level0"><span Class="bold">-t|--tests\ test1,test2,test3...</span> Enables only a specific subset of the possible tests.  Test names include  fill, dcoords, scoords, mcoords, tscoords, tmcoords, blend, composite, cacomposite, gradients, repeat, triangles, and bug7366. Names must be separated by commas and have no spaces. 
+<p class="level0"><span Class="bold">-f|--formats\ format1,format2,format3...</span> Enables only a specific subset of the possible formats.  Only formats listed in the server-supported format list are available.  Names must be separated by commas and have no spaces. 
+<p class="level0"><span Class="bold">-o|--ops</span> Enables only a specific subset of the Render operators. 
+<p class="level0"><span Class="bold">-v|--verbose</span> Enables verbose printing of information on tests run, and successes and failures. 
+<p class="level0"><span Class="bold">--minimalrendering</span> Disables copying of offscreen destinations to the window, which is on by default to provide the user with visual feedback. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Several limitations are documented in the TODO file accompanying the source. Please report any further bugs you find to <a href="http://bugs.freedesktop.org/.">http://bugs.freedesktop.org/.</a> <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Eric Anholt, with help from Keith Packard. 

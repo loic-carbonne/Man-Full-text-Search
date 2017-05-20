@@ -1,0 +1,47 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2001, 2002, 2003, 2005, 2007, 2009 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">nroff - emulate nroff command with groff 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> | <span Class="bold">--version</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="bold">nroff</span> script emulates the <span Class="bold">nroff</span> command using groff. Only <span Class="manpage">ascii</span>, <span Class="manpage">latin1</span>, <span Class="manpage">utf8</span>and <span Class="bold">cp1047</span> are devices accepted by <span Class="manpage">nroff</span>to select the output encoding emitted by <span Class="manpage">grotty</span>groff's TTY output device. If neither the <span Class="bold">GROFF_TYPESETTER</span> environment variable nor the <span Class="bold">-T</span> command line option (which overrides the environment variable) specifies a (valid) device, <span Class="bold">nroff</span> checks the current locale to select a default output device. It first tries the <span Class="bold">locale</span> program, then the environment variables <span Class="manpage">LC_ALL</span>, <span Class="manpage">LC_CTYPE</span>and <span Class="manpage">LANG</span>and finally the <span Class="bold">LESSCHARSET</span> environment variable. 
+<p class="level0">The <span Class="bold">-h</span> and <span Class="bold">-c</span> options are equivalent to <span Class="manpage">grotty 's</span>options <span Class="bold">-h</span> (using tabs in the output) and <span Class="bold">-c</span> (using the old output scheme instead of SGR escape sequences). The <span Class="manpage">-d</span>, <span Class="manpage">-C</span>, <span Class="manpage">-i</span>, <span Class="manpage">-M</span>, <span Class="manpage">-m</span>, <span Class="manpage">-n</span>, <span Class="manpage">-o</span>, <span Class="manpage">-r</span>, <span Class="manpage">-w</span>and <span Class="bold">-W</span> options have the effect described in <span Class="manpage">troff (1).</span>In addition, <span Class="bold">nroff</span> silently ignores the options <span Class="manpage">-e</span>, <span Class="manpage">-q</span>and <span Class="manpage">-s</span>(which are not implemented in <span Class="manpage">troff ).</span>Options <span Class="bold">-p</span> (pic), <span Class="bold">-t</span> (tbl), <span Class="bold">-S</span> (safer), and <span Class="bold">-U</span> (unsafe) are passed to <span Class="manpage">groff .</span><span Class="bold">-v</span> and <span Class="bold">--version</span> show the version number, <span Class="bold">--help</span> prints a help message. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_TYPESETTER</span> The default device for <span Class="manpage">groff .</span>If not set (which is the normal case), it defaults to `ps'. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_BIN_PATH</span> A colon separated list of directories in which to search for the <span Class="bold">groff</span> executable before searching in PATH.  If unset, `/usr/bin' is used. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This shell script is basically intended for use with <span Class="manpage">man (1).</span>nroff-style character definitions (in the file tty-char.tmac) are also loaded to emulate unrepresentable glyphs. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">groff (1)</span>, <span Class="manpage">troff (1)</span>, <span Class="manpage">grotty (1)</span>
+<p class="level0">

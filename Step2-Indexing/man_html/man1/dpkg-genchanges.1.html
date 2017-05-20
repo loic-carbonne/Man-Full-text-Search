@@ -1,0 +1,42 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-genchanges - generate Debian .changes files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-genchanges</span> 
+<p class="level0"><br>
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-genchanges</span> reads information from an unpacked and built Debian source tree and from the files it has generated and generates a Debian upload control file 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-g</span> Specifies that only source and architecture independent packages should be uploaded (no architecture specific packages will be included). 
+<p class="level0"><span Class="bold">-G</span> Specifies that only source and architecture specific packages should be uploaded (no architecture independent packages will be included). 
+<p class="level0"><span Class="manpage">-b</span>, <span Class="manpage">-B</span>, <span Class="manpage">-A</span>Specifies that a binary-only build is taking place (no source files are to be included). There's no distinction between <span Class="bold">-b</span>, <span Class="bold">-B</span> and <span Class="bold">-A</span>, the produced <span Class="bold">.changes</span> file will include whatever files were created by the <span Class="bold">binary-*</span> target(s) of the package being built. 
+<p class="level0"><span Class="bold">-S</span> Specifies that only the source should be uploaded (no binary packages will be included). 
+<p class="level0">The <span Class="bold">-s</span><span Class="emphasis">x</span> options control whether the original source archive is included in the upload if any source is being generated (i.e. <span Class="manpage">-b  or  -B</span>haven't been used). 
+<p class="level0"><span Class="bold">-si</span> By default, or if specified, the original source will be included only if the upstream version number (the version without epoch and without Debian revision) differs from the upstream version number of the previous changelog entry. 
+<p class="level0"><span Class="bold">-sa</span> Forces the inclusion of the original source. 
+<p class="level0"><span Class="bold">-sd</span> Forces the exclusion of the original source and includes only the diff. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v version</span> Causes changelog information from all versions strictly later than <span Class="emphasis">version</span> to be used. 
+<p class="level0"><span Class="bold">-C changes-description</span> Read the description of the changes from the file <span Class="emphasis">changes-description</span> rather than using the information from the source tree's changelog file. 
+<p class="level0"><span Class="bold">-m maintainer-address</span> Use <span Class="emphasis">maintainer-address</span> as the name and email address of the maintainer for this package, rather than using the information from the source tree's control file. 
+<p class="level0"><span Class="bold">-e maintainer-address</span> Use <span Class="emphasis">maintainer-address</span> as the name and email address of the maintainer for this upload, rather than using the information from the source tree's changelog. 
+<p class="level0"><span Class="bold">-V name = value</span> Set an output substitution variable. See <span Class="bold">deb-substvars</span>(5) for a discussion of output substitution. 
+<p class="level0"><span Class="bold">-T substvars-file</span> Read substitution variables in <span Class="emphasis">substvars-file ;</span> the default is <span Class="manpage">debian/substvars .</span>No variable substitution is done on any of the fields that are output, however the special variable <span Class="emphasis">Format</span> will override the field of the same name. This option can be used multiple times to read substitution variables from multiple files. 
+<p class="level0">
+<p class="level0"><span Class="bold">-D field = value</span> Override or add an output control file field. 
+<p class="level0"><span Class="bold">-U field</span> Remove an output control file field. 
+<p class="level0"><span Class="bold">-c controlfile</span> Specifies the main source control file to read information from. The default is <span Class="manpage">debian/control .</span>
+<p class="level0"><span Class="bold">-l changelog-file</span> Specifies the changelog file to read information from. The default is <span Class="manpage">debian/changelog .</span>
+<p class="level0"><span Class="bold">-f files-list-file</span> Read the list of files to be uploaded here, rather than using <span Class="manpage">debian/files .</span>
+<p class="level0"><span Class="bold">-F changelog-format</span> Specifies the format of the changelog. See <span Class="bold">dpkg-parsechangelog</span>(1) for information about alternative formats. 
+<p class="level0"><span Class="bold">-u upload-files-dir</span> Look for the files to be uploaded in <span Class="emphasis">upload-files-dir</span> rather than <span Class="bold">..</span> 
+<p class="level0">needs to find these files so that it can include their sizes and checksums in the <span Class="bold">.changes</span> file). 
+<p class="level0"><span Class="bold">-q</span> Usually <span Class="bold">dpkg-genchanges</span> will produce informative messages on standard error, for example about how many of the package's source files are being uploaded. <span Class="bold">-q</span> suppresses these messages. 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">--help</span>Show the usage message and exit. 
+<p class="level0"><span Class="manpage">--version</span>Show the version and exit. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debian/files</span> The list of generated files which are part of the upload being prepared. <span Class="bold">dpkg-genchanges</span> reads the data here when producing a <span Class="bold">.changes</span> file. 

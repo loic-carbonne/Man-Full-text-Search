@@ -1,0 +1,207 @@
+OCAMLBUILD(1)               General Commands Manual              OCAMLBUILD(1)
+
+
+
+NAME
+       ocamlbuild - The OCaml project compilation tool
+
+
+
+SYNOPSIS
+       ocamlbuild  [  -Is  dir1,...  ] [ -libs lib1,...  ] [ -lflags flag1,...
+       ] [ -pp flags ] [ -tags tag1,...  ] [ -j  parallel-jobs ] target.native
+       [ -- arg1 arg2 ...  ]
+
+       (same options)
+
+
+DESCRIPTION
+       ocamlbuild(1)  orchestrates  the  compilation  process  of  your  OCaml
+       project.  It is similar in function to make(1) except that it  is  tai-
+       lor-made  to automatically compile most OCaml projects with very little
+       user input.
+
+       ocamlbuild should be invoked in the root of a clean project tree (e.g.,
+       with no leftover compilation files).  Given one or more targets to com-
+       pile, it scans the required subdirectories to gather information  about
+       the various files present, running tools such as ocamldep(1) to extract
+       dependency information, and gathering optional files that fine-tune its
+       behaviour.  Target names are very significant.
+
+
+TARGET NAMES
+       ocamlbuild  uses  a set of target naming conventions to select the kind
+       of objects to produce.  Target names are  of  the  form  base.extension
+       where  base  is  usually  the  name  of the underlying OCaml module and
+       extension denotes the kind of object to produce from  that  file  --  a
+       byte  code executable, a native executable, documentation...  Of course
+       extensions such as .cmo, .cma, .cmi...  map  to  their  usual  counter-
+       parts.  Here is a list of the most important ocamlbuild-specific exten-
+       sions:
+
+
+       .native             Native code executable
+
+
+       .byte               Byte code executable
+
+
+       .inferred.mli       Interface inferred with ocamlc-i
+
+
+       .docdir/index.html  HTML documentation generated with ocamldoc
+
+
+OPTIONS
+       The following command-line options are recognized by ocamlbuild(1).
+
+
+       -version
+              Display the version
+
+       -quiet Make as quiet as possible
+
+       -verbose <level>
+              Set the verbose level
+
+       -documentation
+              Show rules and flags
+
+       -log <file>
+              Set log file
+
+       -no-log
+              No log file
+
+       -clean Remove build directory and other files, then exit
+
+       -I <path>
+              Add to include directories
+
+       -Is <path,...>
+              (same as above, but accepts a comma-separated list)
+
+       -X <path>
+              Directory to ignore
+
+       -Xs <path,...>
+              (idem)
+
+       -lib <flag>
+              Link to this ocaml library
+
+       -libs <flag,...>
+              (idem)
+
+       -lflag <flag>
+              Add to ocamlc link flags
+
+       -lflags <flag,...>
+              (idem)
+
+       -cflag <flag>
+              Add to ocamlc compile flags
+
+       -cflags <flag,...>
+              (idem)
+
+       -yaccflag <flag>
+              Add to ocamlyacc flags
+
+       -yaccflags <flag,...>
+              (idem)
+
+       -lexflag <flag>
+              Add to ocamllex flags
+
+       -lexflags <flag,...>
+              (idem)
+
+       -ppflag <flag>
+              Add to ocaml preprocessing flags
+
+       -pp <flag,...>
+              (idem)
+
+       -tag <tag>
+              Add to default tags
+
+       -tags <tag,...>
+              (idem)
+
+       -ignore <module,...>
+              Don't try to build these modules
+
+       -no-links
+              Don't make links of produced final targets
+
+       -no-skip
+              Don't skip modules that are requested by ocamldep but cannot  be
+              built
+
+       -no-hygiene
+              Don't apply sanity-check rules
+
+       -no-plugin
+              Don't build myocamlbuild.ml
+
+       -no-stdlib
+              Don't ignore stdlib modules
+
+       -just-plugin
+              Just build myocamlbuild.ml
+
+       -byte-plugin
+              Don't use a native plugin but bytecode
+
+       -no-sanitize
+              Do not enforce sanity-check rules
+
+       -nothing-should-be-rebuilt
+              Fail if something needs to be rebuilt
+
+       -classic-display
+              Display executed commands the old-fashioned way
+
+       -j <N> Allow N jobs at once (0 for unlimited)
+
+       -build-dir <path>
+              Set build directory
+
+       -install-dir <path>
+              Set the install directory
+
+       -where Display the install directory
+
+       -ocamlc <command>
+              Set the OCaml bytecode compiler
+
+       -ocamlopt <command>
+              Set the OCaml native compiler
+
+       -ocamldep <command>
+              Set the OCaml dependency tool
+
+       -ocamlyacc <command>
+              Set the ocamlyacc tool
+
+       -ocamllex <command>
+              Set the ocamllex tool
+
+       -ocamlrun <command>
+              Set the ocamlrun tool
+
+       --     Stop  argument  processing, remaining arguments are given to the
+              user program
+
+       -help  Display the list of options
+
+       --help Display the list of options
+
+SEE ALSO
+       The ocamlbuild manual, ocaml(1), make(1).
+       The OCaml user's manual, chapter Batch compilation .
+
+
+
+                                                                 OCAMLBUILD(1)

@@ -1,0 +1,68 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xclock - analog / digital clock for X <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xclock</span> [ <span Class="bold">-help</span> ] [ <span Class="bold">-analog</span> | <span Class="bold">-digital</span> ] [ <span Class="bold">-brief</span> ] [ <span Class="bold">-chime</span> ] [ <span Class="bold">-hd</span> <span Class="emphasis">color</span> ] [ <span Class="bold">-hl</span> <span Class="emphasis">color</span> ] [ <span Class="bold">-update</span> <span Class="emphasis">seconds</span> ] [ <span Class="bold">-strftime</span> <span Class="emphasis">format</span> ] [ <span Class="bold">-twelve</span> | <span Class="bold">-twentyfour</span> | <span Class="bold">-utime</span> ] [ <span Class="bold">-padding</span> <span Class="emphasis">number</span> ] [ <span Class="bold">-norender</span> ] [ <span Class="bold">-render</span> ] [ <span Class="bold">-sharp</span> ] [ <span Class="bold">-face</span> <span Class="emphasis">pattern</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">The <span Class="emphasis">xclock</span> program displays the time in analog or digital form.  The time is continuously updated at a frequency which may be specified by the user. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">Xclock</span> accepts all of the standard X Toolkit command line options along with the additional options listed below: 
+<p class="level0"><span Class="bold">-help</span> This option indicates that a brief summary of the allowed options should be printed on the standard error. 
+<p class="level0"><span Class="bold">-analog</span> This option indicates that a conventional 12 hour clock face with tick marks and hands should be used.  This is the default. 
+<p class="level0"><span Class="bold">-digital</span> or <span Class="bold">-d</span> This option indicates that a 24 hour digital clock should be used. 
+<p class="level0"><span Class="bold">-brief</span> This option indicates that the digital clock should only display the hours and minutes fields.  The default is to show the full time and date information. 
+<p class="level0"><span Class="bold">-utime</span> This option indicates that a digital clock should display seconds since the Epoch (in format '970012340 seconds since Epoch' instead of a standard 24-hour time. 
+<p class="level0"><span Class="bold">-strftime format</span> This option allows an strftime(3) format string to be specified for the digital clock's display. 
+<p class="level0"><span Class="bold">-twelve</span> This option indicates that a digital clock should display the time in twelve hour format. 
+<p class="level0"><span Class="bold">-twentyfour</span> This option indicates that a digital clock should display the time in twenty-four hour format.  This is the default when a digital clock is used. 
+<p class="level0"><span Class="bold">-chime</span> This option indicates that the clock should chime once on the half hour and twice on the hour. 
+<p class="level0"><span Class="bold">-hands</span> <span Class="emphasis">color</span> (or <span Class="bold">-hd</span> <span Class="emphasis">color</span>) This option specifies the color of the hands on an analog clock.  The default is <span Class="emphasis">black</span>. This option is effectively ignored when Xrender is in use. 
+<p class="level0"><span Class="bold">-highlight</span> <span Class="emphasis">color</span> (or <span Class="bold">-hl</span> <span Class="emphasis">color</span>) This option specifies the color of the edges of the hands on an analog clock, and is only useful on color displays.  The default is <span Class="emphasis">black</span>. This option is effectively ignored when Xrender is in use. 
+<p class="level0"><span Class="bold">-update seconds</span> This option specifies the frequency in seconds at which <span Class="emphasis">xclock</span> should update its display.  If the clock is obscured and then exposed, it will be updated immediately.  A value of 30 seconds or less will enable a second hand on an analog clock.  The default is 60 seconds. 
+<p class="level0"><span Class="bold">-padding number</span> This option specifies the width in pixels of the padding between the window border and clock text or picture.  The default is 10 on a digital clock and 8 on an analog clock. 
+<p class="level0"><span Class="bold">-render</span> This option tells <span Class="emphasis">xclock</span> to use the Xrender extension to draw an anti-aliased face. This is the default if <span Class="emphasis">xclock</span> has been compiled with Xrender support. Note that the color selection options and resources used when Xrender is in effect differ from the standard options. 
+<p class="level0"><span Class="bold">-norender</span> This option turns off the use of Xrender to draw the clock. 
+<p class="level0"><span Class="bold">-sharp</span> This option tells <span Class="emphasis">xclock</span> to use sharper edges when drawn using the Xrender extension. 
+<p class="level0"><span Class="bold">-face pattern</span> This option specifies the font to use in digital mode when the Xrender extension is used.  Patterns are specified using the fontconfig face format described in the <span Class="emphasis">Font Names</span> section of <span Class="emphasis">fonts.conf (5).</span> <a name="X"></a><h2 class="nroffsh">X DEFAULTS</h2>
+<p class="level0">This program uses the <span Class="emphasis">Clock</span> widget.  It understands all of the core resource names and classes as well as: 
+<p class="level0">
+<p class="level0"><span Class="bold">width (class\fB Width)</span> Specifies the width of the clock.  The default for analog clocks is 164 pixels; the default for digital clocks is whatever is needed to hold the clock when displayed in the chosen font. 
+<p class="level0"><span Class="bold">height (class\fB Height)</span> Specifies the height of the clock.  The default for analog clocks is 164 pixels; the default for digital clocks is whatever is needed to hold the clock when displayed in the chosen font. 
+<p class="level0"><span Class="bold">update (class\fB Interval)</span> Specifies the frequency in seconds at which the time should be redisplayed. 
+<p class="level0"><span Class="bold">foreground (class\fB Foreground)</span> Specifies the color for the tick marks. The default depends on whether <span Class="emphasis">reverseVideo</span> is specified.  If <span Class="emphasis">reverseVideo</span> is specified the default is <span Class="emphasis">lwhite</span>, otherwise the default is <span Class="emphasis">black</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">hands (class\fB Foreground)</span> Specifies the color of the insides of the clock's hands. The default depends on whether <span Class="emphasis">reverseVideo</span> is specified.  If <span Class="emphasis">reverseVideo</span> is specified the default is <span Class="emphasis">lwhite</span>, otherwise the default is <span Class="emphasis">black</span>. Note that this resource is not used when Xrender is in effect. 
+<p class="level0"><span Class="bold">highlight (class\fB Foreground)</span> Specifies the color used to highlight the clock's hands. The default is &nbsp;depends on whether <span Class="emphasis">reverseVideo</span> is specified.  If <span Class="emphasis">reverseVideo</span> is specified the default is <span Class="emphasis">lwhite</span>, otherwise the default is <span Class="emphasis">black</span>. Note that this resource is not used when Xrender is in effect. 
+<p class="level0"><span Class="bold">analog (class\fB Boolean)</span> Specifies whether or not an analog clock should be used instead of a digital one.  The default is True. 
+<p class="level0"><span Class="bold">twentyfour (class\fB Boolean)</span> Specifies whether or not a digital clock should display the time in twenty-four hour format.  The default is True. 
+<p class="level0"><span Class="bold">chime (class\fB Boolean)</span> Specifies whether or not a bell should be rung on the hour and half hour. 
+<p class="level0"><span Class="bold">padding (class\fB Margin)</span> Specifies the amount of internal padding in pixels to be used.  The default is 8. 
+<p class="level0"><span Class="bold">font (class\fB Font)</span> Specifies the font to be used for the digital clock.  Note that variable width fonts currently will not always display correctly. This font is only used when Xrender is not in effect. 
+<p class="level0"><span Class="bold">render (class\fB Boolean)</span> Specifies whether or not the Xrender extension should be used for the display. The default is True if <span Class="emphasis">xclock</span> has been compiled with Xrender support. 
+<p class="level0">When Xrender is in effect, the following additional resources are understood: 
+<p class="level0">
+<p class="level0"><span Class="bold">face (class\fB FaceName)</span> Specify the pattern for the font to be used for the digital clock when Xrender is used.   Patterns are specified using the fontconfig face format described in the <span Class="emphasis">Font Names</span> section of <span Class="emphasis">fonts.conf (5).</span> 
+<p class="level0"><span Class="bold">sharp (class\fB Boolean)</span> Specifies if sharp edges should be used when rendering the clock. The default is False. 
+<p class="level0"><span Class="bold">buffer (class\fB Boolean)</span> Specifies that the updates of the image are drawn to a pixmap before copied into the window instead drawing them into the window directly. 
+<p class="level0">The defaults of the following color resources depend on whether <span Class="emphasis">reverseVideo</span> is specified. If <span Class="emphasis">reverseVideo</span> is specified the default is <span Class="emphasis">lwhite</span>, otherwise the default is <span Class="emphasis">black</span>. 
+<p class="level0"><span Class="bold">hourColor (class\fB Foreground)</span> The color of the hour hand. 
+<p class="level0"><span Class="bold">minuteColor (class\fB Foreground)</span> The color of the minute hand. 
+<p class="level0"><span Class="bold">secondColor (class\fB Foreground)</span> The color of the second hand. 
+<p class="level0"><span Class="bold">majorColor (class\fB Foreground)</span> The color of the major scale ticks (i. e. each five minutes). 
+<p class="level0"><span Class="bold">minorColor (class\fB Foreground)</span> The color of the minor scale ticks (between major ticks). <a name="WIDGETS"></a><h2 class="nroffsh">WIDGETS</h2>
+<p class="level0">In order to specify resources, it is useful to know the hierarchy of the widgets which compose <span Class="emphasis">xclock</span>.  In the notation below, indentation indicates hierarchical structure.  The widget class name is given first, followed by the widget instance name. 
+<p class="level0"><pre class="level0">
+XClock  xclock
+&nbsp;       Clock  clock
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">DISPLAY</span> to get the default host and display number. 
+<p class="level0"><span Class="bold">XENVIRONMENT</span> to get the name of a resource file that overrides the global resources stored in the RESOURCE_MANAGER property. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/etc/X11/app-defaults/XClock</span> specifies required resources <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7), xrdb(1), time(3), fonts.conf (5). <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0"><span Class="emphasis">Xclock</span> believes the system clock. 
+<p class="level0">When in digital mode, the string should be centered automatically. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Tony Della Fera (MIT-Athena, DEC) <br>Dave Mankins (MIT-Athena, BBN) <br>Ed Moy (UC Berkeley) 
+<p class="level0">

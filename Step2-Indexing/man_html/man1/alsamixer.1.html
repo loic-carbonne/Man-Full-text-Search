@@ -1,0 +1,70 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">alsamixer - soundcard mixer for ALSA soundcard driver, with ncurses interface <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">alsamixer</span> [<span Class="emphasis">options</span>] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">alsamixer</span> is an ncurses mixer program for use with the ALSA soundcard drivers. It supports multiple soundcards with multiple devices. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">-h, --help</span> Help: show available flags. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-c, --card</span> &lt;card number or identification&gt; Select the soundcard to use, if you have more than one. Cards are numbered from 0 (the default). 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-D, --device</span> &lt;device identification&gt; Select the mixer device to control. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-V, --view</span> &lt;mode&gt; Select the starting view mode, either <span Class="emphasis">playback</span>, <span Class="emphasis">capture</span> or <span Class="emphasis">all</span>. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">-g, --no-color</span> Toggle the using of colors. 
+<p class="level0"><a name="MIXER"></a><h2 class="nroffsh">MIXER VIEWS</h2>
+<p class="level0">
+<p class="level0">The top-left corner of <span Class="bold">alsamixer</span> is the are to show some basic information: the card name, the mixer chip name, the current view mode and the currently selected mixer item. When the mixer item is switched off, <span Class="emphasis">[Off]</span> is displayed in its name. 
+<p class="level0">Volume bars are located below the basic information area.  You can scroll left/right when all controls can't be put in a single screen. The name of each control is shown in the bottom below the volume bars. The currently selected item is drawn in red and/of emphasized. 
+<p class="level0">Each mixer control with volume capability shows a box and the current volume filled in that box.  The volume percentages are displayed below the volume bar for left and right channels.  For a mono control, only one value is shown there. 
+<p class="level0">When a mixer control is turned off, <span Class="emphasis">M</span> (mute) appears below the volume bar.  When it's turned on, <span Class="emphasis">O</span> in green appears instead. You can toggle the switch via <span Class="emphasis">m</span> key. 
+<p class="level0">When a mixer control has capture capability, the capture flag appears below the volume bar, too.  When the capture is turned off, ------- is shown.  <span Class="emphasis">CAPTURE</span> in red appears when the capture switch is turned on.  In addition, <span Class="emphasis">L</span> and <span Class="emphasis">R</span> letters appear in left and right side to indicate that left and the right channels are turned on. 
+<p class="level0">Some controls have the enumeration list, and don't show boxes but only texts which indicate the currently active item.  You can change the item via up/down keys. 
+<p class="level0"><a name="VIEW"></a><h2 class="nroffsh">VIEW MODES</h2>
+<p class="level0"><span Class="bold">alsamixer</span> has three view modes: playback, capture and all. In the playback view, only the controls related with playback are shown. Similarly, only the controls for capture (recording) are shown in the capture view.  The all view mode shows all controls.  The current view mode is displayed in the top-left position together with the mixer name, etc. 
+<p class="level0">The default view mode is the playback view.  You can change it via  <span Class="emphasis">-V</span> option. 
+<p class="level0">Each view mode can be switched via keyboard commands, too. See the next section. 
+<p class="level0"><a name="KEYBOARD"></a><h2 class="nroffsh">KEYBOARD COMMANDS</h2>
+<p class="level0"><span Class="bold">alsamixer</span> recognizes the following keyboard commands to control the soundcard.  Commands shown here in upper case can also be given in lower case. To be reminded of these keystrokes, hit the <span Class="emphasis">h</span> key. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">General Controls 
+<p class="level0">The <span Class="emphasis">Left</span> and <span Class="emphasis">right arrow</span> keys are used to select the channel (or device, depending on your preferred terminology). You can also use <span Class="emphasis">n</span> ("next") and <span Class="emphasis">p</span> ("previous"). 
+<p class="level0">The <span Class="emphasis">Up</span> and <span Class="emphasis">Down Arrows</span> control the volume for the currently selected device. You can also use <a class="emphasis" href="#">+</a> or <span Class="emphasis">-</span> for the same purpose. Both the left and right signals are affected. For independent left and right control, see below. 
+<p class="level0">The <span Class="emphasis">B</span> or <a class="emphasis" href="#">=</a> key adjusts the balance of volumes on left and right channels. 
+<p class="level0"><span Class="emphasis">M</span> toggles muting for the current channel (both left and right). If the hardware supports it, you can mute left and right independently by using <a class="emphasis" href="#">,</a> (or <span Class="emphasis">&lt;</span>) and <a class="emphasis" href="#">.</a> (or <span Class="emphasis">&gt;</span>) respectively. 
+<p class="level0"><span Class="emphasis">SPACE</span> enables recording for the current channel. If any other channels have recording enabled, they will have their recording function disabled first. This only works for valid input channels, of course. 
+<p class="level0"><span Class="emphasis">L</span> re-draws the screen. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">View Mode Controls Function keys are used to change view modes. You can switch to the help mode and the proc info mode via <span Class="emphasis">F1</span> and <span Class="emphasis">F2</span> keys, respectively. On terminals that can't use function keys like gnome-terminal, <a class="emphasis" href="#">?</a> and <a class="emphasis" href="#">/</a> keys can be used alternatively for help and proc modes. 
+<p class="level0"><span Class="emphasis">F3</span>, <span Class="emphasis">F4</span> and <span Class="emphasis">F5</span> keys are used to switch to playback, capture and all view mode, respectively.  <span Class="emphasis">TAB</span> key toggles the current view mode circularly. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Quick Volume Changes 
+<p class="level0"><span Class="emphasis">PageUp</span> increases volume by 5. 
+<p class="level0"><span Class="emphasis">PageDown</span> decreases volume by 5. 
+<p class="level0"><span Class="emphasis">End</span> sets volume to 0. 
+<p class="level0">You can also control left & right levels for the current channel independently, as follows: 
+<p class="level0">[<span Class="emphasis">Q</span> | <span Class="emphasis">W</span> | <span Class="emphasis">E</span> ]  -- turn UP [ left | both | right ] 
+<p class="level0">[<span Class="emphasis">Z</span> | <span Class="emphasis">X</span> | <span Class="emphasis">C</span> ] -- turn DOWN [ left | both | right ]    
+<p class="level0">If the currently selected mixer channel is not a stereo channel, then all UP keys will work like <span Class="emphasis">W</span>, and all DOWN keys will work like <span Class="emphasis">X</span>. 
+<p class="level0">The number keys from <span Class="emphasis">0</span> to <span Class="emphasis">9</span> are to change the absolute volume quickly.  They correspond to 0 to 90% volume. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Selecting the Sound Card 
+<p class="level0">You can select another sound card by pressing the <span Class="emphasis">F6</span> or <span Class="emphasis">S</span> keys. This will show a list of available sound cards to choose from, and an entry to enter the mixer device name by hand. 
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">Exiting 
+<p class="level0">Quit the program with <span Class="emphasis">ALT Q</span>, or by hitting <span Class="emphasis">ESC</span>. Please note that you might need to hit <span Class="emphasis">ESC</span> twice on some terminals since it's regarded as a prefix key. 
+<p class="level0"><a name="VOLUME"></a><h2 class="nroffsh">VOLUME MAPPING</h2>
+<p class="level0">In <span Class="bold">alsamixer</span>, the volume is mapped to a value that is more natural for a human ear.  The mapping is designed so that the position in the interval is proportional to the volume as a human ear would perceive it, i.e. the position is the cubic root of the linear sample multiplication factor.  For controls with a small range (24 dB or less), the mapping is linear in the dB values so that each step has the same size visually. 
+<p class="level0">Only for controls without dB information, a linear mapping of the hardware volume register values is used (this is the same algorithm as used in the old <span Class="bold">alsamixer</span>). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span class="bold"> amixer(1), aplay(1), arecord(1) </span> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS </h2>
+<p class="level0">Some terminal emulators (e.g. <span Class="bold">nxterm</span>) may not work quite right with ncurses, but that's their own damn fault. Plain old <span Class="bold">xterm</span> seems to be fine. 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">alsamixer</span> has been written by Tim Janik and been further improved by Jaroslav Kysela &lt;perex@perex.cz&gt; and Clemens Ladisch &lt;clemens@ladisch.de&gt;. 
+<p class="level0">This manual page was provided by Paul Winkler &lt;zarmzarm@erols.com&gt;. 

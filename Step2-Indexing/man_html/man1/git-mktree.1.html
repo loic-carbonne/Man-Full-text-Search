@@ -1,0 +1,28 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-mktree - Build a tree-object from ls-tree formatted text <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git mktree</span> [-z] [--missing] [--batch]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Reads standard input in non-recursive ls-tree output format, and creates a tree object. The order of the tree entries is normalised by mktree so pre-sorting the input is not required. The object name of the tree object built is written to the standard output. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-z 
+<p class="level1">Read the NUL-terminated ls-tree -z output instead. 
+<p class="level0">
+<p class="level0">--missing 
+<p class="level1">Allow missing objects. The default behaviour (without this option) is to verify that each tree entry(cqs sha1 identifies an existing object. This option has no effect on the treatment of gitlink entries (aka "submodules") which are always allowed to be missing. 
+<p class="level0">
+<p class="level0">--batch 
+<p class="level1">Allow building of more than one tree object before exiting. Each tree is separated by as single blank line. The final new-line is optional. Note - if the <span Class="emphasis">-z</span> option is used, lines are terminated with NUL. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

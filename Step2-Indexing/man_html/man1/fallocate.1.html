@@ -1,0 +1,55 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">fallocate - preallocate or deallocate space to a file <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">fallocate</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">offset ]</span> <span Class="bold">-l</span> <span Class="emphasis">length</span> <span Class="emphasis">filename</span> 
+<p class="level0"><span Class="bold">fallocate</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">offset ]</span> 
+<p class="level0"><span Class="emphasis">length ]</span> <span Class="emphasis">filename</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">fallocate</span> is used to manipulate the allocated disk space for a file, either to deallocate or preallocate it. For filesystems which support the fallocate system call, preallocation is done quickly by allocating blocks and marking them as uninitialized, requiring no IO to the data blocks. This is much faster than creating a file by filling it with zeros. 
+<p class="level0">The exit code returned by <span Class="bold">fallocate</span> is 0 on success and 1 on failure. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The <span Class="emphasis">length</span> and <span Class="emphasis">offset</span> arguments may be followed by the multiplicative suffixes KiB=1024, MiB=1024*1024, and so on for GiB, TiB, PiB, EiB, ZiB and YiB (the "iB" is optional, e.g. "K" has the same meaning as "KiB") or the suffixes KB=1000, MB=1000*1000, and so on for GB, TB, PB, EB, ZB and YB. 
+<p class="level0">The options <span Class="bold">--collapse-range</span>, <span Class="bold">--dig-holes</span>, <span Class="bold">--punch-hole</span> and <span Class="bold">--zero-range</span> are mutually exclusive. 
+<p class="level0">
+<p class="level0"><a name="fB-n"></a><span class="nroffip">\fB-n, --keep-size\fP</span> 
+<p class="level1">Do not modify the apparent length of the file.  This may effectively allocate blocks past EOF, which can be removed with a truncate. 
+<p class="level0"><a name="fB-p"></a><span class="nroffip">\fB-p, --punch-hole\fP</span> 
+<p class="level1">Deallocates space (i.e., creates a hole) in the byte range starting at <span Class="emphasis">offset</span> and continuing for <span Class="emphasis">length</span> bytes.  Within the specified range, partial filesystem blocks are zeroed, and whole filesystem blocks are removed from the file.  After a successful call, subsequent reads from this range will return zeroes.  This option may not be specified at the same time as  the <span Class="bold">--zero-range</span> option. Also, when using this option, <span Class="bold">--keep-size</span> is implied. 
+<p class="level1">Supported for XFS (since Linux 2.6.38), ext4 (since Linux 3.0), Btrfs (since Linux 3.7) and tmpfs (since Linux 3.5). 
+<p class="level0"><a name="fB-d"></a><span class="nroffip">\fB-d, --dig-holes\fP</span> 
+<p class="level1">Detect and dig holes. Makes the file sparse in-place, without using extra disk space. The minimal size of the hole depends on filesystem I/O block size (usually 4096 bytes). Also, when using this option, <span Class="bold">--keep-size</span> is implied. If no range is specified by <span Class="bold">--offset</span> and <span Class="bold">--length</span>, then all file is analyzed for holes. 
+<p class="level1">You can think of this as doing a "<span Class="bold">cp --sparse</span>" and renaming the dest file as the original, without the need for extra disk space. 
+<p class="level1">See <span Class="bold">--punch-hole</span> for list of the supported filesystems. 
+<p class="level0"><a name="fB-c"></a><span class="nroffip">\fB-c, --collapse-range\fP</span> 
+<p class="level1">Removes a byte range from a file, without leaving a hole.  The byte range to be collapsed starts at <span Class="emphasis">offset</span> and continues for <span Class="emphasis">length</span> bytes.  At the completion of the operation, the contents of the file starting at the location offset+length will be appended at the location offset, and the file will be <span Class="emphasis">length</span> bytes smaller. The option <span Class="bold">--keep-size</span> may not be specified for colapse range operation. 
+<p class="level1">Available since Linux 3.15 for ext4 (only for extent-based files) and XFS. 
+<p class="level0"><a name="fB-z"></a><span class="nroffip">\fB-z, --zero-range\fP</span> 
+<p class="level1">Zeroes space in the byte range starting at <span Class="emphasis">offset</span> and continuing for <span Class="emphasis">length</span> bytes.  Within the specified range, blocks are preallocated for the regions that span the holes in the file.  After a successful call, subsequent reads from this range will return zeroes. 
+<p class="level1">Zeroing is done within the filesystem preferably by converting the range into unwritten extents.  This approach means that the specified range will not be physically zeroed out on the device (except for partial blocks at the either end of the range), and I/O is (otherwise) required only to update metadata. 
+<p class="level1">Option <span Class="bold">--keep-size</span> can be specified to prevent file length modification. 
+<p class="level1">Available since Linux 3.14 for ext4 (only for extent-based files) and XFS. 
+<p class="level0"><a name="fB-o"></a><span class="nroffip">\fB-o, --offset\fP \fIoffset\fP</span> 
+<p class="level1">Specifies the beginning offset of the range, in bytes. 
+<p class="level0"><a name="fB-l"></a><span class="nroffip">\fB-l, --length\fP \fIlength\fP</span> 
+<p class="level1">Specifies the length of the range, in bytes. 
+<p class="level0"><a name="fB-h"></a><span class="nroffip">\fB-h, --help\fP</span> 
+<p class="level1">Display help text and exit. 
+<p class="level0"><a name="fB-v"></a><span class="nroffip">\fB-v, --verbose</span> 
+<p class="level1">Enable verbose mode. 
+<p class="level0"><a name="fB-V"></a><span class="nroffip">\fB-V, --version</span> 
+<p class="level1">Display version information and exit. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Eric Sandeen 
+<p class="level0"><br>
+<p class="level0">Karel Zak 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">fallocate (2)</span>, <span Class="manpage">posix_fallocate (3)</span>, <span Class="manpage">truncate (1)</span><a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The fallocate command is part of the util-linux package and is available from 
+<p class="level0">Linux Kernel Archive 
+<p class="level0">

@@ -1,0 +1,76 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jmap - Memory Map 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jmap</span> [ option ] pid
+f3jmap</span> [ option ] executable core
+f3jmap</span> [ option ] [server-id@]remote-hostname-or-IP
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">option  Options are mutually exclusive. Option, if used, should follow immediately after the command name.  
+<p class="level1">pid  process id for which the memory map is to be printed. The process must be a Java process. To get a list of Java processes running on a machine, jps(1) may be used.  <br>
+<p class="level1">executable  Java executable from which the core dump was produced.  <br>
+<p class="level1">core  core file for which the memory map is to be printed.  <br>
+<p class="level1">remote-hostname-or-IP  remote debug server's (see jsadebugd(1)) hostname or IP address.  <br>
+<p class="level1">server-id  optional unique id, if multiple debug servers are running on the same remote host. <br>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">f3jmap</span> prints shared object memory maps or heap memory details of a given process or core file or a remote debug server. If the given process is running on a 64-bit VM, you may need to specify the f2-J-d64</span> option, e.g.: 
+<p class="level0"><pre class="level0">
+f3
+jmap -J-d64 -heap pid
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">f3NOTE: This utility is unsupported and may or may not be available in future versions of the JDK. In Windows Systems where dbgeng.dll is not present, 'Debugging Tools For Windows' needs to be installed to have these tools working. Also, </span>f4PATH</span>f3 environment variable should contain the location of </span>f4jvm.dll</span>f3 used by the target process or the location from which the Crash Dump file was produced.</span> 
+<p class="level0">
+<p class="level0">f3For example, </span>f4set PATH=&lt;jdk&gt;\jre\bin\client;%PATH%</span> 
+<p class="level0"><br>
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">&lt;no option&gt;  When no option is used jmap prints shared object mappings. For each shared object loaded in the target VM, start address, the size of the mapping, and the full path of the shared object file are printed. This is similar to the Solaris f3pmap</span> utility.  <br>
+<p class="level1">-dump:[live,]format=b,file=&lt;filename&gt;  Dumps the Java heap in hprof binary format to filename. The f2live</span> suboption is optional. If specified, only the live objects in the heap are dumped. To browse the heap dump, you can use jhat(1) (Java Heap Analysis Tool) to read the generated file.  <br>
+<p class="level1">-finalizerinfo  Prints information on objects awaiting finalization.  <br>
+<p class="level1">-heap  Prints a heap summary. GC algorithm used, heap configuration and generation wise heap usage are printed.  <br>
+<p class="level1">-histo[:live]  Prints a histogram of the heap. For each Java class, number of objects, memory size in bytes, and fully qualified class names are printed. VM internal class names are printed with '*' prefix. If the f2live</span> suboption is specified, only live objects are counted.  <br>
+<p class="level1">-permstat  Prints class loader wise statistics of permanent generation of Java heap. For each class loader, its name, liveness, address, parent class loader, and the number and size of classes it has loaded are printed. In addition, the number and size of interned Strings are printed.  <br>
+<p class="level1">-F  Force. Use with jmap -dump or jmap -histo option if the pid does not respond. The f2live</span> suboption is not supported in this mode.  <br>
+<p class="level1">-h  Prints a help message. <br><br>
+<p class="level1">-help  Prints a help message. <br><br>
+<p class="level1">-J&lt;flag&gt;  Passes &lt;flag&gt; to the Java virtual machine on which jmap is run.  <br>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o pmap(1)  
+<p class="level1">o jhat(1)  
+<p class="level1">o jps(1)  
+<p class="level1">o jsadebugd(1)  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

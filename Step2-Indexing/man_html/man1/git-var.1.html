@@ -1,0 +1,50 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-var - Show a Git logical variable <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git var</span> ( -l | &lt;variable&gt; )
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Prints a Git logical variable. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-l 
+<p class="level1">Cause the logical variables to be listed. In addition, all the variables of the Git configuration file .git/config are listed as well. (However, the configuration variables listing functionality is deprecated in favor of git config -l.) 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ git var GIT_AUTHOR_IDENT
+Eric W. Biederman &lt;ebiederm@lnxi.com&gt; 1121223278 -0600
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="VARIABLES"></a><h2 class="nroffsh">VARIABLES</h2>
+<p class="level0">
+<p class="level0">GIT_AUTHOR_IDENT 
+<p class="level1">The author of a piece of code. 
+<p class="level0">
+<p class="level0">GIT_COMMITTER_IDENT 
+<p class="level1">The person who put a piece of code into Git. 
+<p class="level0">
+<p class="level0">GIT_EDITOR 
+<p class="level1">Text editor for use by Git commands. The value is meant to be interpreted by the shell when it is used. Examples: ~/bin/vi, $SOME_ENVIRONMENT_VARIABLE, "C:eProgram FileseVimegvim.exe" --nofork. The order of preference is the $GIT_EDITOR environment variable, then core.editor configuration, then $VISUAL, then $EDITOR, and then the default chosen at compile time, which is usually <span Class="emphasis">vi</span>. 
+<p class="level0">
+<p class="level0">GIT_PAGER 
+<p class="level1">Text viewer for use by Git commands (e.g., <span Class="emphasis">less</span>). The value is meant to be interpreted by the shell. The order of preference is the $GIT_PAGER environment variable, then core.pager configuration, then $PAGER, and then the default chosen at compile time (usually <span Class="emphasis">less</span>). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">git-commit-tree</span>(1) <span Class="bold">git-tag</span>(1) <span Class="bold">git-config</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

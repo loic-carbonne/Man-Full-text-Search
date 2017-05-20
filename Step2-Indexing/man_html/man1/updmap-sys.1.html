@@ -1,0 +1,181 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">updmap - manage TeX font maps, per-user <br>updmap-sys - manage TeX font maps, system-wide <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">updmap</span> [<span Class="emphasis">,OPTION/</span>] ... [<span Class="emphasis">,COMMAND/</span>] <br><span Class="bold">updmap-sys</span> [<span Class="emphasis">,OPTION/</span>] ... [<span Class="emphasis">,COMMAND/</span>] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">updmap version svn33988 (2014-05-12 15:39:32 +0900) 
+<p class="level0">Update the default font map files used by pdftex, dvips, and dvipdfm(x), and optionally pxdvi, as determined by all configuration files updmap.cfg (the ones returned by running "kpsewhich <span Class="bold">--all</span> updmap.cfg", but see below). 
+<p class="level0">Among other things, these map files are used to determine which fonts should be used as bitmaps and which as outlines, and to determine which font files are included in the PDF or PostScript output. 
+<p class="level0">updmap-sys is intended to affect the system-wide configuration, while updmap affects personal configuration files only, overriding the system files.  As a consequence, once updmap has been run, even a single time, running updmap-sys no longer has any effect.  (updmap-sys issues a warning in this situation.) 
+<p class="level0">By default, the TeX filename database (ls-R) is also updated. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--cnffile</span> FILE read FILE for the updmap configuration (can be given multiple times, in which case all the files are used) 
+<p class="level0"><span Class="bold">--dvipdfmxoutputdir</span> DIR specify output directory (dvipdfm(x) syntax) 
+<p class="level0"><span Class="bold">--dvipsoutputdir</span> DIR specify output directory (dvips syntax) 
+<p class="level0"><span Class="bold">--pdftexoutputdir</span> DIR specify output directory (pdftex syntax) 
+<p class="level0"><span Class="bold">--pxdvioutputdir</span> DIR specify output directory (pxdvi syntax) 
+<p class="level0"><span Class="bold">--outputdir</span> DIR specify output directory (for all files) 
+<p class="level0"><span Class="bold">--copy</span> cp generic files rather than using symlinks 
+<p class="level0"><span Class="bold">--force</span> recreate files even if config hasn't changed 
+<p class="level0"><span Class="bold">--nomkmap</span> do not recreate map files 
+<p class="level0"><span Class="bold">--nohash</span> do not run texhash 
+<p class="level0"><span Class="bold">--sys</span> affect system-wide files (equivalent to updmap-sys) 
+<p class="level0"><span Class="bold">-n</span>, <span Class="bold">--dry-run</span> only show the configuration, no output 
+<p class="level0"><span Class="bold">--quiet</span>, <span Class="bold">--silent</span> reduce verbosity <a name="Commands"></a><h2 class="nroffsh">Commands:</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> show this message and exit 
+<p class="level0"><span Class="bold">--version</span> show version information and exit 
+<p class="level0"><span Class="bold">--showoption</span> OPTION show the current setting of OPTION 
+<p class="level0"><span Class="bold">--showoptions</span> OPTION show possible settings for OPTION 
+<p class="level0"><span Class="bold">--setoption</span> OPTION VALUE set OPTION to value; option names below 
+<p class="level0"><span Class="bold">--setoption</span> OPTION=VALUE as above, just different syntax 
+<p class="level0"><span Class="bold">--enable</span> MAPTYPE MAPFILE add "MAPTYPE MAPFILE" to updmap.cfg, where MAPTYPE is Map, MixedMap, or KanjiMap 
+<p class="level0"><span Class="bold">--enable</span> Map=MAPFILE add "Map MAPFILE" to updmap.cfg 
+<p class="level0"><span Class="bold">--enable</span> MixedMap=MAPFILE add "MixedMap MAPFILE" to updmap.cfg 
+<p class="level0"><span Class="bold">--enable</span> KanjiMap=MAPFILE add "KanjiMap MAPFILE" to updmap.cfg 
+<p class="level0"><span Class="bold">--disable</span> MAPFILE disable MAPFILE, of whatever type 
+<p class="level0"><span Class="bold">--listmaps</span> list all active and inactive maps 
+<p class="level0"><span Class="bold">--listavailablemaps</span> same as <span Class="bold">--listmaps</span>, but without unavailable map files 
+<p class="level0"><span Class="bold">--syncwithtrees</span> disable unavailable map files in updmap.cfg 
+<p class="level0">Explanation of the map types: the (only) difference between Map and MixedMap is that MixedMap entries are not added to psfonts_pk.map. The purpose is to help users with devices that render Type 1 outline fonts worse than mode-tuned Type 1 bitmap fonts.  So, MixedMap is used for fonts that are available as both Type 1 and Metafont. KanjiMap entries are added to psfonts_t1.map and kanjix.map. 
+<p class="level0">Explanation of the OPTION names for <span Class="bold">--showoptions</span>, <span Class="bold">--showoption</span>, <span Class="bold">--setoption</span>: 
+<p class="level0">dvipsPreferOutline true,false  (default true) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Whether dvips uses bitmaps or outlines, when both are available. 
+<p class="level1">dvipsDownloadBase35 true,false  (default true) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Whether dvips includes the standard 35 PostScript fonts in its output. 
+<p class="level1">pdftexDownloadBase14 true,false   (default true) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Whether pdftex includes the standard 14 PDF fonts in its output. 
+<p class="level1">pxdviUse true,false  (default false) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Whether maps for pxdvi (Japanese-patched xdvi) are under updmap's control. 
+<p class="level1">kanjiEmbed (any string) 
+<p class="level1">kanjiVariant (any string) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">See below. 
+<p class="level1">LW35 URWkb,URW,ADOBEkb,ADOBE  (default URWkb) 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Adapt the font and file names of the standard 35 PostScript fonts. <pre class="level1">
+URWkb
+URW fonts with "berry" filenames    (e.g. uhvbo8ac.pfb)
+URW
+URW fonts with "vendor" filenames   (e.g. n019064l.pfb)
+</pre>
+
+<p class="level1">
+<p class="level1">ADOBEkb Adobe fonts with "berry" filenames  (e.g. phvbo8an.pfb) 
+<p class="level1">ADOBE Adobe fonts with "vendor" filenames (e.g. hvnbo___.pfb) 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">These options are only read and acted on by updmap; dvips, pdftex, etc., do not know anything about them.  They work by changing the default map file which the programs read, so they can be overridden by specifying command-line options or configuration files to the programs, as explained at the beginning of updmap.cfg. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The options kanjiEmbed and kanjiVariant specify special replacements in the map lines.  If a map contains the string @kanjiEmbed@, then this will be replaced by the value of that option; similarly for kanjiVariant.  In this way, users of Japanese TeX can select different fonts to be included in the final output. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">Explanation of trees and files normally used: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If <span Class="bold">--cnffile</span> is specified on the command line (possibly multiple times), its value(s) are used.  Otherwise, updmap reads all the updmap.cfg files found by running `kpsewhich <span Class="bold">-all</span> updmap.cfg', in the order returned by kpsewhich. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">In any case, if multiple updmap.cfg files are found, all the maps mentioned in all the updmap.cfg files are merged. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Thus, if updmap.cfg files are present in all trees, and the default layout is used as shipped with TeX Live on Debian, the following files are read, in the given order. <pre class="level1">
+<a name=""></a><span class="nroffip"></span> For updmap-sys:
+TEXMFSYSCONFIG <span class="emphasis">/etc/texmf/web2c/updmap.cfg</span>
+TEXMFSYSVAR    <span class="emphasis">/var/lib/texmf/web2c/updmap.cfg</span>
+TEXMFLOCAL     <span class="emphasis">/usr/local/share/texmf/web2c/updmap.cfg</span>
+TEXMFDEBIAN    <span class="emphasis">/usr/share/texmf/web2c/updmap.cfg</span>
+TEXMFDIST      <span class="emphasis">/usr/share/texlive/texmf-dist/web2c/updmap.cfg</span>
+<a name=""></a><span class="nroffip"></span> For updmap:
+TEXMFCONFIG    $HOME/.texmf-config/web2c/updmap.cfg
+TEXMFVAR       $HOME/.texmf-var/web2c/updmap.cfg
+TEXMFHOME      <span class="emphasis">,$HOME/texmf/web2c/updmap.cfg/</span>
+TEXMFSYSCONFIG <span class="emphasis">/etc/texmf/web2c/updmap.cfg</span>
+TEXMFSYSVAR    <span class="emphasis">/var/lib/texmf/web2c/updmap.cfg</span>
+TEXMFLOCAL     <span class="emphasis">/usr/local/share/texmf/web2c/updmap.cfg</span>
+TEXMFDEBIAN    <span class="emphasis">/usr/share/texmf/web2c/updmap.cfg</span>
+TEXMFDIST      <span class="emphasis">/usr/share/texlive/texmf-dist/web2c/updmap.cfg</span>
+<a name=""></a><span class="nroffip"></span> </pre>
+
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">According to the actions, updmap might write to one of the given files or create a new updmap.cfg, described further below. 
+<p class="level1">Where changes are saved: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If config files are given on the command line, then the first one given will be used to save any changes from <span Class="bold">--setoption</span>, <span Class="bold">--enable</span> or <span Class="bold">--disable</span>.  If the config files are taken from kpsewhich output, then the algorithm is more complex: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">1) If <span Class="emphasis">,$TEXMFCONFIG/web2c/updmap.cfg/</span> or <span Class="emphasis">,$TEXMFHOME/web2c/updmap.cfg/</span> appears in the list of used files, then the one listed first by kpsewhich <span Class="bold">--all</span> (equivalently, the one returned by kpsewhich updmap.cfg), is used. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">2) If neither of the above two are present and changes are made, a new config file is created in <span Class="emphasis">,$TEXMFCONFIG/web2c/updmap.cfg/</span>. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">In general, the idea is that if a given config file is not writable, a higher-level one can be used.  That way, the distribution's settings can be overridden for system-wide using TEXMFLOCAL, and then system settings can be overridden again for a particular using using TEXMFHOME. 
+<p class="level1">Resolving multiple definitions of a font: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If a font is defined in more than one map file, then the definition coming from the first-listed updmap.cfg is used.  If a font is defined multiple times within the same map file, one is chosen arbitrarily.  In both cases a warning is issued. 
+<p class="level1">Disabling maps: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">updmap.cfg files with higher priority (listed earlier) can disable maps mentioned in lower priority (listed later) updmap.cfg files by writing, e.g., 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">&#35;! Map mapname.map 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">or 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">&#35;! MixedMap mapname.map 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">in the higher-priority updmap.cfg file. 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">As an example, suppose you have a copy of MathTime Pro fonts and want to disable the Belleek version of the fonts; that is, disable the map belleek.map.  You can create the file <span Class="emphasis">,$TEXMFCONFIG/web2c/updmap.cfg/</span> with the content 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">&#35;! Map belleek.map Map mt-plus.map Map mt-yy.map 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">and call updmap. 
+<p class="level1">updmap writes the map files for dvips (psfonts.map) and pdftex (pdftex.map) to the TEXMFVAR/fonts/map/updmap/{dvips,pdftex}/ directories. 
+<p class="level1">The log file is written to TEXMFVAR/web2c/updmap.log. 
+<p class="level1">When updmap-sys is run, TEXMFSYSCONFIG and TEXMFSYSVAR are used instead of TEXMFCONFIG and TEXMFVAR, respectively.  This is the only difference between updmap-sys and updmap. 
+<p class="level1">Other locations may be used if you give them on the command line, or these trees don't exist, or you are not using the original TeX Live. 
+<p class="level1">To see the precise locations of the various files that will be read and written, give the <span Class="bold">-n</span> option (or read the source). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">For step-by-step instructions on making new fonts known to TeX, read <a href="http://tug.org/fonts/fontinstall.html.">http://tug.org/fonts/fontinstall.html.</a>  For even more terse instructions, read the beginning of the main updmap.cfg. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">Configuration and input files: 
+<p class="level0"><a name="fIupdmapcfgfP"></a><span class="nroffip">\fIupdmap\&.cfg\fP</span> 
+<p class="level1">Main configuration file.  In <span Class="emphasis">texmf-dist/web2c</span> by default, but may be located elsewhere depending on your distribution.  Each texmf tree read should have its own <span Class="emphasis">updmap.cfg</span>. 
+<p class="level0"><a name="fIdvips35mapfP"></a><span class="nroffip">\fIdvips35\&.map\fP</span> 
+<p class="level1">Map file for standard 35 PostScript fonts for use with <span Class="bold">dvips</span>(1). 
+<p class="level0"><a name="fIpdftex35mapfP"></a><span class="nroffip">\fIpdftex35\&.map\fP</span> 
+<p class="level1">Map file for standard 35 PostScript fonts for use with <span Class="bold">pdftex</span>(1). 
+<p class="level0"><a name="fIps2pk35mapfP"></a><span class="nroffip">\fIps2pk35\&.map\fP</span> 
+<p class="level1">Map file for standard 35 PostScript fonts for use with <span Class="bold">ps2pk</span>(1). 
+<p class="level1">Output files: 
+<p class="level0"><a name="fIpsfontsmapfP"></a><span class="nroffip">\fIpsfonts\&.map\fP</span> 
+<p class="level1">For <span Class="bold">dvips</span>(1). Same as <span Class="emphasis">psfonts_t1.map</span> if option <span Class="bold">dvipsPreferOutline</span> active, else as <span Class="emphasis">psfonts_pk.map</span>. 
+<p class="level0"><a name="fIpsfontspkmapfP"></a><span class="nroffip">\fIpsfonts_pk\&.map\fP</span> 
+<p class="level1">For <span Class="bold">dvips</span>(1). Without information from MixedMap files. (Setting of <span Class="bold">dvipsPreferOutline</span> ignored.) 
+<p class="level0"><a name="fIpsfontst1mapfP"></a><span class="nroffip">\fIpsfonts_t1\&.map\fP</span> 
+<p class="level1">For <span Class="bold">dvips</span>(1). With information from MixedMap files. (Setting of <span Class="bold">dvipsPreferOutline</span> ignored.) 
+<p class="level0"><a name="fIdownload35mapfP"></a><span class="nroffip">\fIdownload35\&.map\fP</span> 
+<p class="level1">For <span Class="bold">dvips</span>(1). Always downloads the standard 35 fonts. (Setting of <span Class="bold">dvipsDownloadBase35</span> ignored.) 
+<p class="level0"><a name="fIbuiltin35mapfP"></a><span class="nroffip">\fIbuiltin35\&.map\fP</span> 
+<p class="level1">For <span Class="bold">dvips</span>(1). Never downloads the standard 35 fonts. (Setting of <span Class="bold">dvipsDownloadBase35</span> ignored.) 
+<p class="level0"><a name="fIpdftexmapfP"></a><span class="nroffip">\fIpdftex\&.map\fP</span> 
+<p class="level1">For <span Class="bold">pdftex</span>(1). Same as <span Class="emphasis">pdftex_dl14.map</span> if option <span Class="bold">pdftexDownloadBase14</span> active, else as <span Class="emphasis">pdftex_ndl14.map</span>. 
+<p class="level0"><a name="fIpdftexdl14mapfP"></a><span class="nroffip">\fIpdftex_dl14\&.map\fP</span> 
+<p class="level1">For <span Class="bold">pdftex</span>(1). Always downloads the standard 14 fonts. 
+<p class="level0"><a name="fIpdftexndl14mapfP"></a><span class="nroffip">\fIpdftex_ndl14\&.map\fP</span> 
+<p class="level1">For <span Class="bold">pdftex</span>(1). Never downloads the standard 14 fonts. 
+<p class="level0"><a name="fIps2pkmapfP"></a><span class="nroffip">\fIps2pk\&.map\fP</span> 
+<p class="level1">Similar to <span Class="emphasis">psfonts.map</span> file, but forces all fonts to be downloaded, so this map file can be used with <span Class="bold">xdvi</span>(1) and <span Class="bold">ps2pk</span>(1). 
+<p class="level1">Configuration files for <span Class="bold">dvips</span>(1): 
+<p class="level0"><a name="fIconfigbuiltin35fP"></a><span class="nroffip">\fIconfig\&.builtin35\fP</span> 
+<p class="level1">Loads <span Class="emphasis">builtin35.map</span> instead of <span Class="emphasis">psfonts.map</span>. 
+<p class="level0"><a name="fIconfigdownload35fP"></a><span class="nroffip">\fIconfig\&.download35\fP</span> 
+<p class="level1">Loads <span Class="emphasis">download35.map</span> instead of <span Class="emphasis">psfonts.map</span>. 
+<p class="level0"><a name="fIconfigoutlinefP"></a><span class="nroffip">\fIconfig\&.outline\fP</span> 
+<p class="level1">Loads <span Class="emphasis">psfonts_t1.map</span> instead of <span Class="emphasis">psfonts.map</span>. 
+<p class="level0"><a name="fIconfigpdffP"></a><span class="nroffip">\fIconfig\&.pdf\fP</span> 
+<p class="level1">Loads <span Class="emphasis">psfonts_t1.map</span> instead of <span Class="emphasis">psfonts.map</span> and has additional optimizations for PDF generation. 
+<p class="level0"><a name="fIconfigpkfP"></a><span class="nroffip">\fIconfig\&.pk\fP</span> 
+<p class="level1">Loads <span Class="emphasis">psfonts_pk.map</span> instead of <span Class="emphasis">psfonts.map</span>. 
+<p class="level0"><a name="fIconfigwwwfP"></a><span class="nroffip">\fIconfig\&.www\fP</span> 
+<p class="level1">Loads <span Class="emphasis">psfonts_t1.map</span> instead of <span Class="emphasis">psfonts.map</span>. (For compatibility with old versions.) 
+<p class="level0"><a name="fIconfiggstopkfP"></a><span class="nroffip">\fIconfig\&.gstopk\fP</span> 
+<p class="level1">Loads <span Class="emphasis">psfonts_t1.map</span> instead of <span Class="emphasis">psfonts.map</span>. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">Report bugs to: tex-k@tug.org <br>TeX Live home page: &lt;http://tug.org/texlive/&gt; 

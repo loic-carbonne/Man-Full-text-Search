@@ -1,0 +1,77 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">udisksctl - The udisks command line tool <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisksctl</span> status 
+<p class="level0"><span Class="bold">udisksctl</span> info {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} 
+<p class="level0"><span Class="bold">udisksctl</span> mount {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--filesystem-type&nbsp;<span Class="emphasis">TYPE</span>] [--options&nbsp;<span Class="emphasis">OPTIONS</span>...] [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> unmount {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--force] [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> unlock {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> lock {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> loop-setup --file&nbsp;<span Class="emphasis">PATH</span> [--read-only] [--offset&nbsp;<span Class="emphasis">OFFSET</span>] [--size&nbsp;<span Class="emphasis">SIZE</span>] [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> loop-delete {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> power-off {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> smart-simulate --file&nbsp;<span Class="emphasis">PATH</span> {--object-path&nbsp;<span Class="emphasis">OBJECT</span> | --block-device&nbsp;<span Class="emphasis">DEVICE</span>} [--no-user-interaction] 
+<p class="level0"><span Class="bold">udisksctl</span> monitor 
+<p class="level0"><span Class="bold">udisksctl</span> dump 
+<p class="level0"><span Class="bold">udisksctl</span> help <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisksctl</span> is a command-line program used to interact with the <span Class="bold">udisksd</span>(8) daemon process. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">status</span> 
+<p class="level1">Shows high-level information about disk drives and block devices. 
+<p class="level0">
+<p class="level0"><span Class="bold">info</span> 
+<p class="level1">Shows detailed information about <span Class="emphasis">OBJECT</span> or <span Class="emphasis">DEVICE</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">mount</span> 
+<p class="level1">Mounts a device. The device will be mounted in a subdirectory in the /media hierarchy - upon successful completion, the mount point will be printed to standard output. 
+<p class="level1">The device will be mounted with a safe set of default options. You can influence the options passed to the <span Class="bold">mount</span>(8) command with <span Class="bold">--options</span>. Note that only safe options are allowed - requests with inherently unsafe options such as <span Class="emphasis">suid</span> or <span Class="emphasis">dev</span> that would allow the caller to gain additional privileges, are rejected. 
+<p class="level0">
+<p class="level0"><span Class="bold">unmount</span> 
+<p class="level1">Unmounts a device. This only works if the device is mounted. The option <span Class="bold">--force</span> can be used to request that the device is unmounted even if active references exists. 
+<p class="level0">
+<p class="level0"><span Class="bold">unlock</span> 
+<p class="level1">Unlocks an encrypted device. The passphrase will be requested from the controlling terminal and upon successful completion, the cleartext device will be printed to standard output. 
+<p class="level0">
+<p class="level0"><span Class="bold">lock</span> 
+<p class="level1">Locks a device. This only works if the device is a cleartext device backed by a cryptotext device. 
+<p class="level0">
+<p class="level0"><span Class="bold">loop-setup</span> 
+<p class="level1">Sets up a loop device backed by <span Class="emphasis">FILE</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">loop-delete</span> 
+<p class="level1">Tears down a loop device. 
+<p class="level0">
+<p class="level0"><span Class="bold">power-off</span> 
+<p class="level1">Arranges for the drive to be safely removed and powered off. On the OS side this includes ensuring that no process is using the drive, then requesting that in-flight buffers and caches are committed to stable storage. The exact steps for powering off the drive depends on the drive itself and the interconnect used. For drives connected through USB, the effect is that the USB device will be deconfigured followed by disabling the upstream hub port it is connected to. 
+<p class="level1">Note that as some physical devices contain multiple drives (for example 4-in-1 flash card reader USB devices) powering off one drive may affect other drives. As such there are not a lot of guarantees associated with performing this action. Usually the effect is that the drive disappears as if it was unplugged. 
+<p class="level0">
+<p class="level0"><span Class="bold">smart-simulate</span> 
+<p class="level1">Sets SMART data from the libatasmart blob given by <span Class="emphasis">FILE</span> - see /usr/share/doc/libatasmart-devel-VERSION/ for blobs shipped with libatasmart. This is a debugging feature used to check that applications act correctly when a disk is failing. 
+<p class="level0">
+<p class="level0"><span Class="bold">monitor</span> 
+<p class="level1">Monitors the daemon for events. 
+<p class="level0">
+<p class="level0"><span Class="bold">dump</span> 
+<p class="level1">Prints the current state of the daemon. 
+<p class="level0">
+<p class="level0"><span Class="bold">help</span> 
+<p class="level1">Prints help and exit. 
+<p class="level0"><a name="COMMON"></a><h2 class="nroffsh">COMMON OPTIONS</h2>
+<p class="level0">
+<p class="level0">The option <span Class="bold">--no-user-interaction</span> can be used to request that no interaction (such as the user being presented with an authentication dialog) must occur when checking with <span Class="bold">polkit</span>(8) whether the caller is authorized to perform the requested action. <a name="AUDIENCE"></a><h2 class="nroffsh">AUDIENCE</h2>
+<p class="level0">
+<p class="level0">This program does not assume that the caller is the super user - it is intended to be used by unprivileged users and authorizations are checked by the udisks daemon using <span Class="bold">polkit</span>(8). Additionally, this program is not intended to be used by scripts or other programs - options/commands may change in incompatible ways in the future even in maintenance releases. See the (lqAPI STABILITY(rq section of <span Class="bold">udisks</span>(8) for more information. <a name="BASH"></a><h2 class="nroffsh">BASH COMPLETION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisksctl</span> ships with a bash completion script to complete commands, objects, block devices and some options. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Written by David Zeuthen &lt;zeuthen@gmail.com&gt; with a lot of help from many others. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Please send bug reports to either the distribution bug tracker or the upstream bug tracker at m[blue]<span Class="bold">%http://bugs.freedesktop.org/enter_bug.cgi?product=udisks</span>m[]. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">udisks</span>(8), <span Class="bold">udisksd</span>(8), <span Class="bold">polkit</span>(8) 

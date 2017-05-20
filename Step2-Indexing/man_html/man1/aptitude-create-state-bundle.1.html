@@ -1,0 +1,99 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aptitude-create-state-bundle - bundle the current aptitude state <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-create-state-bundle</span> [&lt;<span Class="emphasis">options</span>&gt;...] &lt;<span Class="emphasis">output-file</span>&gt; <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-create-state-bundle</span> produces a compressed archive storing the files that are required to replicate the current package archive state. The following files and directories are included in the bundle: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">$HOME</span>/.aptitude 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/var/lib/aptitude 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/var/lib/apt 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/var/cache/apt/*.bin 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/etc/apt 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">/var/lib/dpkg/status 
+<p class="level0">
+<p class="level0">The output of this program can be used as an argument to <span Class="bold">aptitude-run-state-bundle</span>(1). <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--force-bzip2</span> 
+<p class="level1">Override the autodetection of which compression algorithm to use. By default, <span Class="bold">aptitude-create-state-bundle</span> uses <span Class="bold">bzip2</span>(1) if it is available, and <span Class="bold">gzip</span>(1) otherwise. Passing this option forces the use of <span Class="bold">bzip2</span> even if it doesn*(Aqt appear to be available. 
+<p class="level0">
+<p class="level0"><span Class="bold">--force-gzip</span> 
+<p class="level1">Override the autodetection of which compression algorithm to use. By default, <span Class="bold">aptitude-create-state-bundle</span> uses <span Class="bold">bzip2</span>(1) if it is available, and <span Class="bold">gzip</span>(1) otherwise. Passing this option forces the use of <span Class="bold">gzip</span> even if <span Class="bold">bzip2</span> is available. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Print a brief usage message, then exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--print-inputs</span> 
+<p class="level1">Instead of creating a bundle, display a list of the files and directories that the program would include if it generated a bundle. 
+<p class="level0"><a name="FILE"></a><h2 class="nroffsh">FILE FORMAT</h2>
+<p class="level0">
+<p class="level0">The bundle file is simply a <span Class="bold">tar</span>(1) file compressed with <span Class="bold">bzip2</span>(1) or <span Class="bold">gzip</span>(1), with each of the input directory trees rooted at (lq.(rq. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">aptitude-run-state-bundle</span>(1), <span Class="bold">aptitude</span>(8), <span Class="bold">apt</span>(8) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Daniel Burrows</span> &lt;dburrows@debian.org&gt; 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>
+<p class="level0">Copyright 2007 Daniel Burrows. 
+<p class="level0">This manual page is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version. 
+<p class="level0">This manual page is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. 
+<p class="level0">You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. 
+<p class="level0">

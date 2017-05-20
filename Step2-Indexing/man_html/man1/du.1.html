@@ -1,0 +1,46 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">du - estimate file space usage <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">du</span> [<span Class="emphasis">OPTION</span>]... [<span Class="emphasis">FILE</span>]... <br><span Class="bold">du</span> [<span Class="emphasis">OPTION</span>]... <span Class="emphasis">--files0-from=F</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Summarize disk usage of each FILE, recursively for directories. 
+<p class="level0">Mandatory arguments to long options are mandatory for short options too. 
+<p class="level0"><span Class="bold">-0</span>, <span Class="bold">--null</span> end each output line with NUL, not newline 
+<p class="level0"><span Class="bold">-a</span>, <span Class="bold">--all</span> write counts for all files, not just directories 
+<p class="level0"><span Class="bold">--apparent-size</span> print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like 
+<p class="level0"><span Class="bold">-B</span>, <span Class="bold">--block-size</span>=<span Class="emphasis">SIZE</span> scale sizes by SIZE before printing them; e.g., '-BM' prints sizes in units of 1,048,576 bytes; see SIZE format below 
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--bytes</span> equivalent to '--apparent-size <span Class="bold">--block-size</span>=<span Class="emphasis">1</span>' 
+<p class="level0"><span Class="bold">-c</span>, <span Class="bold">--total</span> produce a grand total 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--dereference-args</span> dereference only symlinks that are listed on the command line 
+<p class="level0"><span Class="bold">-d</span>, <span Class="bold">--max-depth</span>=<span Class="emphasis">N</span> print the total for a directory (or file, with <span Class="bold">--all</span>) only if it is N or fewer levels below the command line argument;  <span Class="bold">--max-depth</span>=<span Class="emphasis">0</span> is the same as <span Class="bold">--summarize</span> 
+<p class="level0"><span Class="bold">--files0-from</span>=<span Class="emphasis">F</span> summarize disk usage of the NUL-terminated file names specified in file F; if F is -, then read names from standard input 
+<p class="level0"><span Class="bold">-H</span> equivalent to <span Class="bold">--dereference-args</span> (<span Class="bold">-D</span>) 
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--human-readable</span> print sizes in human readable format (e.g., 1K 234M 2G) 
+<p class="level0"><span Class="bold">--inodes</span> list inode usage information instead of block usage 
+<p class="level0"><span Class="bold">-k</span> like <span Class="bold">--block-size</span>=<span Class="emphasis">1K</span> 
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--dereference</span> dereference all symbolic links 
+<p class="level0"><span Class="bold">-l</span>, <span Class="bold">--count-links</span> count sizes many times if hard linked 
+<p class="level0"><span Class="bold">-m</span> like <span Class="bold">--block-size</span>=<span Class="emphasis">1M</span> 
+<p class="level0"><span Class="bold">-P</span>, <span Class="bold">--no-dereference</span> don't follow any symbolic links (this is the default) 
+<p class="level0"><span Class="bold">-S</span>, <span Class="bold">--separate-dirs</span> for directories do not include size of subdirectories 
+<p class="level0"><span Class="bold">--si</span> like <span Class="bold">-h</span>, but use powers of 1000 not 1024 
+<p class="level0"><span Class="bold">-s</span>, <span Class="bold">--summarize</span> display only a total for each argument 
+<p class="level0"><span Class="bold">-t</span>, <span Class="bold">--threshold</span>=<span Class="emphasis">SIZE</span> exclude entries smaller than SIZE if positive, or entries greater than SIZE if negative 
+<p class="level0"><span Class="bold">--time</span> show time of the last modification of any file in the directory, or any of its subdirectories 
+<p class="level0"><span Class="bold">--time</span>=<span Class="emphasis">WORD</span> show time as WORD instead of modification time: atime, access, use, ctime or status 
+<p class="level0"><span Class="bold">--time-style</span>=<span Class="emphasis">STYLE</span> show times using STYLE, which can be: full-iso, long-iso, iso, or +FORMAT; FORMAT is interpreted like in 'date' 
+<p class="level0"><span Class="bold">-X</span>, <span Class="bold">--exclude-from</span>=<span Class="emphasis">FILE</span> exclude files that match any pattern in FILE 
+<p class="level0"><span Class="bold">--exclude</span>=<span Class="emphasis">PATTERN</span> exclude files that match PATTERN 
+<p class="level0"><span Class="bold">-x</span>, <span Class="bold">--one-file-system</span> skip directories on different file systems 
+<p class="level0"><span Class="bold">--help</span> display this help and exit 
+<p class="level0"><span Class="bold">--version</span> output version information and exit 
+<p class="level0">Display values are in units of the first available SIZE from <span Class="bold">--block-size</span>, and the DU_BLOCK_SIZE, BLOCK_SIZE and BLOCKSIZE environment variables. Otherwise, units default to 1024 bytes (or 512 if POSIXLY_CORRECT is set). 
+<p class="level0">The SIZE argument is an integer and optional unit (example: 10K is 10*1024). Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000). <a name="PATTERNS"></a><h2 class="nroffsh">PATTERNS</h2>
+<p class="level0">PATTERN is a shell pattern (not a regular expression).  The pattern <a class="manpage" href="#">?</a>matches any one character, whereas <a class="manpage" href="#">*</a>matches any string (composed of zero, one or multiple characters).  For example, <span Class="manpage">*.o</span>will match any files whose names end in <span Class="manpage">.o .</span>Therefore, the command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">du --exclude=\(aq*.o\(aq</span> 
+<p class="level1">will skip all files and subdirectories ending in <span Class="manpage">.o</span>(including the file <span Class="manpage">.o</span>itself). <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Torbjorn Granlund, David MacKenzie, Paul Eggert, and Jim Meyering. <a name="REPORTING"></a><h2 class="nroffsh">REPORTING BUGS</h2>
+<p class="level0">GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt; <br>Report du translation bugs to &lt;http://translationproject.org/team/&gt; <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2014 Free Software Foundation, Inc. License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;. <br>This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">Full documentation at: &lt;http://www.gnu.org/software/coreutils/du&gt; <br>or available locally via: info (aq(coreutils) du invocation(aq 

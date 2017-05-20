@@ -1,0 +1,102 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">memusage - profile memory usage of a program <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="manpage">memusage  [\fIoption\fR]... \fIprogram\fR [\fIprogramoption\fR]...</span><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">memusage</span> is a bash script which profiles memory usage of the program, <span Class="emphasis">program .</span> It preloads the <span Class="bold">libmemusage.so</span> library into the caller's environment (via the <span Class="bold">LD_PRELOAD</span> environment variable; see <span Class="manpage">ld.so (8)).</span>The <span Class="bold">libmemusage.so</span> library traces memory allocation by intercepting calls to <span Class="manpage">malloc (3)</span>, <span Class="manpage">calloc (3)</span>, <span Class="manpage">free (3)</span>and <span Class="manpage">realloc (3);</span>optionally, calls to <span Class="manpage">mmap (2)</span>, <span Class="manpage">mremap (2)</span>and <span Class="manpage">munmap (2)</span>can also be intercepted. 
+<p class="level0"><span Class="bold">memusage</span> can output the collected data in textual form, or it can use <span Class="manpage">memusagestat (1)</span>(see the <span Class="bold">-p</span> option,  below) to create a PNG file containing graphical representation of the collected data. <a name="Memory"></a><h2 class="nroffsh">Memory usage summary</h2>
+<p class="level0">The "Memory usage summary" line output by <span Class="manpage">memusage</span>contains three fields: 
+<p class="level1">
+<p class="level1"><span Class="bold">heap total</span> Sum of <span Class="emphasis">size</span> arguments of all <span Class="manpage">malloc (3)</span>calls, products of arguments (<span Class="emphasis">nmemb</span>*<span Class="emphasis">size</span>) of all <span Class="manpage">calloc (3)</span>calls, and sum of <span Class="emphasis">length</span> arguments of all <span Class="manpage">mmap (2)</span>calls. In the case of <span Class="manpage">realloc (3)</span>and <span Class="manpage">mremap (2)</span>if the new size of an allocation is larger than the previous size, the sum of all such differences (new size minus old size) is added. 
+<p class="level1"><span Class="bold">heap peak</span> Maximum of all <span Class="emphasis">size</span> arguments of <span Class="manpage">malloc (3)</span>all products of <span Class="emphasis">nmemb</span>*<span Class="emphasis">size</span> of <span Class="manpage">calloc (3)</span>all <span Class="emphasis">size</span> arguments of <span Class="manpage">realloc (3)</span><span Class="emphasis">length</span> arguments of <span Class="manpage">mmap (2)</span>and <span Class="emphasis">new_size</span> arguments of <span Class="manpage">mremap (2).</span>
+<p class="level1"><span Class="bold">stack peak</span> Before the first call to any monitored function, the stack pointer address (base stack pointer) is saved. After each function call, the actual stack pointer address is read and the difference from the base stack pointer computed. The maximum of these differences is then the stack peak. 
+<p class="level0">
+<p class="level0">Immediately following this summary line, a table shows the number calls, total memory allocated or deallocated, and number of failed calls for each intercepted function. For <span Class="manpage">realloc (3)</span>and <span Class="manpage">mremap (2)</span>the additional field "nomove" shows reallocations that changed the address of a block, and the additional "dec" field shows reallocations that decreased the size of the block. For <span Class="manpage">realloc (3)</span>the additional field "free" shows reallocations that caused a block to be freed (i.e., the reallocated size was 0). 
+<p class="level0">
+<p class="level0">The "realloc/total memory" of the table output by <span Class="bold">memusage</span> does not reflect cases where <span Class="manpage">realloc (3)</span>is used to reallocate a block of memory to have a smaller size than previously. This can cause sum of all "total memory" cells (excluding "free") to be larger than the "free/total memory" cell. <a name="Histogram"></a><h2 class="nroffsh">Histogram for block sizes</h2>
+<p class="level0">The "Histogram for block sizes" provides a breakdown of memory allocations into various bucket sizes. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-n\  name ,\ \fB--progname= name</span> Name of the program file to profile. 
+<p class="level0"><span Class="bold">-p\  file ,\ \fB--png= file</span> Generate PNG graphic and store it in <span Class="emphasis">file .</span> 
+<p class="level0"><span Class="bold">-d\  file ,\ \fB--data= file</span> Generate binary data file and store it in <span Class="emphasis">file .</span> 
+<p class="level0"><span Class="bold">-u,\ \fB--unbuffered</span> Do not buffer output. 
+<p class="level0"><span Class="bold">-b\  size ,\ \fB--buffer= size</span> Collect <span Class="emphasis">size</span> entries before writing them out. 
+<p class="level0"><span Class="bold">\fB--no-timer</span> Disable timer-based 
+<p class="level0">sampling of stack pointer value. 
+<p class="level0"><span Class="bold">-m,\ \fB--mmap</span> Also trace <span Class="manpage">mmap (2)</span>, <span Class="manpage">mremap (2)</span>and <span Class="manpage">mmap (2).</span>
+<p class="level0"><span Class="bold">-?,\ \fB--help</span> Print help and exit. 
+<p class="level0"><span Class="bold">\fB--usage</span> Print a short usage message and exit. 
+<p class="level0"><span Class="bold">-V,\ \fB--version</span> Print version information and exit. 
+<p class="level0">The following options only apply when generating graphical output: 
+<p class="level0"><span Class="bold">-t,\ \fB--time-based</span> Use time (rather than number of function calls) as the scale for the X axis. 
+<p class="level0"><span Class="bold">-T,\ \fB--total</span> Also draw a graph of total memory use. 
+<p class="level0"><span Class="bold">\fB--title= name</span> Use <span Class="emphasis">name</span> as the title of the graph. 
+<p class="level0"><span Class="bold">-x\  size ,\ \fB--x-size= size</span> Make the graph <span Class="emphasis">size</span> pixels wide. 
+<p class="level0"><span Class="bold">-y\  size ,\ \fB--y-size= size</span> Make the graph <span Class="emphasis">size</span> pixels high. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">Exit status is equal to the exit status of profiled program. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">Below is a simple program that reallocates a block of memory in cycles that rise to a peak before then cyclically reallocating the memory in smaller blocks that return to zero. After compiling the program and running the following commands, a graph of the memory usage of the program can be found in the file <span Class="emphasis">memusage.png :</span> 
+<p class="level0">
+<p class="level0"><pre class="level0">
+$ <span class="bold">memusage --data=memusage.dat ./a.out</span>
+...
+Memory usage summary: heap total: 45200, heap peak: 6440, stack peak: 224
+&nbsp;       total calls  total memory  failed calls
+&nbsp;malloc|         1           400             0
+realloc|        40         44800             0  (nomove:40, dec:19, free:0)
+&nbsp;calloc|         0             0             0
+&nbsp;  free|         1           440
+Histogram for block sizes:
+&nbsp; 192-207             1   2% ================
+...
+&nbsp;2192-2207            1   2% ================
+&nbsp;2240-2255            2   4% =================================
+&nbsp;2832-2847            2   4% =================================
+&nbsp;3440-3455            2   4% =================================
+&nbsp;4032-4047            2   4% =================================
+&nbsp;4640-4655            2   4% =================================
+&nbsp;5232-5247            2   4% =================================
+&nbsp;5840-5855            2   4% =================================
+&nbsp;6432-6447            1   2% ================
+$ <span class="bold">memusagestat memusage.dat memusage.png</span>
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="Program"></a><h2 class="nroffsh">Program source</h2>
+<p class="level0"><pre class="level0">
+&#35;include &lt;stdio.h&gt;
+&#35;include &lt;stdlib.h&gt;
+&nbsp;
+&#35;define CYCLES 20
+&nbsp;
+int
+main(int argc, char *argv[])
+{
+&nbsp;    int i, j;
+&nbsp;    int *p;
+&nbsp;
+&nbsp;    printf("malloc: %zd\n", sizeof(int) * 100);
+&nbsp;    p = malloc(sizeof(int) * 100);
+&nbsp;
+&nbsp;    for (i = 0; i &lt; CYCLES; i++) {
+&nbsp;        if (i &lt; CYCLES / 2)
+&nbsp;            j = i;
+&nbsp;        else
+&nbsp;            j--;
+&nbsp;
+&nbsp;        printf("realloc: %zd\n", sizeof(int) * (j * 50 + 110));
+&nbsp;        p = realloc(p, sizeof(int) * (j * 50 + 100));
+&nbsp;
+&nbsp;        printf("realloc: %zd\n", sizeof(int) * ((j+1) * 150 + 110));
+&nbsp;        p = realloc(p, sizeof(int) * ((j + 1) * 150 + 110));
+&nbsp;    }
+&nbsp;
+&nbsp;    free(p);
+&nbsp;    exit(EXIT_SUCCESS);
+}
+</pre>
+
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">To report bugs, see 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">memusagestat (1)</span>, <span Class="manpage">mtrace (1)</span>, <span Class="manpage">ld.so (8)</span><a name="COLOPHON"></a><h2 class="nroffsh">COLOPHON</h2>
+<p class="level0">This page is part of release 3.74 of the Linux <span Class="emphasis">man-pages</span> project. A description of the project, information about reporting bugs, and the latest version of this page, can be found at %http://www.kernel.org/doc/man-pages/. 

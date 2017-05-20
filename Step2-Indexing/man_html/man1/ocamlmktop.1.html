@@ -1,0 +1,32 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ocamlmktop - Building custom toplevel systems 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ocamlmktop</span> [ <span Class="manpage">-v | -version | -vnum</span>] [ <span Class="bold">-cclib \ libname</span> ] [ <span Class="bold">-ccopt \ option</span> ] [ <span Class="bold">-custom</span> [ <span Class="bold">-o \ exec-file</span> ] [ <span Class="bold">-I \ lib-dir</span> ] <span Class="emphasis">filename ...</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="manpage">ocamlmktop (1)</span>command builds OCaml toplevels that contain user code preloaded at start-up. The <span Class="manpage">ocamlmktop (1)</span>command takes as argument a set of <span Class="emphasis">x .cmo</span> and <span Class="emphasis">x .cma</span> files, and links them with the object files that implement the OCaml toplevel.  If the <span Class="bold">-custom</span> flag is given, C object files and libraries (.o and .a files) can also be given on the command line and are linked in the resulting toplevel. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The following command-line options are recognized by <span Class="manpage">ocamlmktop (1).</span>
+<p class="level0"><span Class="bold">-v</span> Print the version string of the compiler and exit. 
+<p class="level0"><span Class="manpage">-vnum \ or\  -version</span>Print the version number of the compiler in short form and exit. 
+<p class="level0"><span Class="bold">-cclib\ -l libname</span> Pass the <span Class="bold">-l libname</span> option to the C linker when linking in ``custom runtime'' mode (see the corresponding option for <span Class="manpage">ocamlc (1).</span>
+<p class="level0"><span Class="bold">-ccopt</span> Pass the given option to the C compiler and linker, when linking in ``custom runtime'' mode. See the corresponding option for <span Class="manpage">ocamlc (1).</span>
+<p class="level0"><span Class="bold">-custom</span> Link in ``custom runtime'' mode. See the corresponding option for <span Class="manpage">ocamlc (1).</span>
+<p class="level0"><span Class="bold">-I \ directory</span> Add the given directory to the list of directories searched for compiled interface files (.cmo and .cma). 
+<p class="level0"><span Class="bold">-o \ exec-file</span> Specify the name of the toplevel file produced by the linker. The default is is <span Class="manpage">a.out .</span>
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ocamlc (1).</span>

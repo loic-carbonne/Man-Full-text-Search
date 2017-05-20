@@ -1,0 +1,60 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ttfdump - Dumping the contents of a TrueType Font file <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ttfdump</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">tablename ]</span> 
+<p class="level0"><span Class="emphasis">glyphnumber ]</span> 
+<p class="level0"><span Class="emphasis">collection ]</span> 
+<p class="level0"><span Class="emphasis">dumpfile ]</span> 
+<p class="level0"><span Class="emphasis">ttfile</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ttfdump</span> dumps the contents of a TrueType font file in ASCII form.  A TrueType font file is consist of various tables. Those table are divided into two categories - <span Class="emphasis">Required Tables</span> and <span Class="emphasis">Optional Tables</span>. Mulitiple  TrueType fonts can be merged to a TrueType Collection. <a name="Options"></a><h2 class="nroffsh">Options</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> Print a help message on standard output and exit. 
+<p class="level0"><span class="bold">-t<span Class="emphasis"> tablename</span> If this option is specified then dump the table <span Class="emphasis">"tablename"</span>, otherwise  dump every tables in <span Class="emphasis">ttfile</span>. <span Class="emphasis">Tablename</span> can be one of the following: 
+<p class="level1">
+<p class="level1"><span Class="bold">Required Tables</span> 
+<p class="level1"><span Class="emphasis">cmap</span>  character to glyph mapping table 
+<p class="level1"><span Class="emphasis">glyf</span> glyph data 
+<p class="level1"><span Class="emphasis">head</span> font header 
+<p class="level1"><span Class="emphasis">hhea</span> horizontal header 
+<p class="level1"><span Class="emphasis">hmtx</span> horizontal metrics 
+<p class="level1"><span Class="emphasis">loca</span> index to location 
+<p class="level1"><span Class="emphasis">maxp</span> maximum profile 
+<p class="level1"><span Class="emphasis">name</span> naming table 
+<p class="level1"><span Class="emphasis">post</span> PostScript information 
+<p class="level1"><span Class="emphasis">OS/2</span> OS/2 and windows specific metrics 
+<p class="level1"><span Class="bold">Optional Tables</span> 
+<p class="level1"><span Class="emphasis">cvt</span> control value table 
+<p class="level1"><span Class="emphasis">fpgm</span> font program; <span Class="emphasis">not implemented yet.</span> 
+<p class="level1"><span Class="emphasis">gasp</span> grid-fitting and scan conversion procedure (grayscale) 
+<p class="level1"><span Class="emphasis">hdmx</span> horizontal device metrics 
+<p class="level1"><span Class="emphasis">kern</span> kerning table 
+<p class="level1"><span Class="emphasis">LTSH</span> Linear threshold table 
+<p class="level1"><span Class="emphasis">prep</span> CVT program; <span Class="emphasis">not implemented yet</span> 
+<p class="level1"><span Class="emphasis">PCLT</span> PCL5 table 
+<p class="level1"><span Class="emphasis">VDMX</span> Vertical Device Metrics table 
+<p class="level1"><span Class="emphasis">vhea</span> vertical metrics header 
+<p class="level1"><span Class="emphasis">vmtx</span> vertical metrics 
+<p class="level1"><span Class="bold">Additional OpenType Tables</span> 
+<p class="level1"><span Class="emphasis">GPOS</span> glyph positioning table 
+<p class="level1"><span Class="emphasis">GSUB</span> glyph substitution table 
+<p class="level0">
+<p class="level0"><span class="bold">-g<span Class="emphasis"> glyphnumber</span> If this option is specified then dump the glyph with index <span Class="emphasis">glyphnumber</span>,  otherwise dump all glyphs in <span Class="emphasis">ttfile</span>. 
+<p class="level0"><span class="bold">-c<span Class="emphasis"> collection</span> Select a TrueType font in a TrueType Collection. 
+<p class="level0"><span class="bold">-o<span Class="emphasis"> dumpfile</span> Output of the dump. If this option is not specified, dump to stdout. 
+<p class="level0"><span class="bold">-i<span Class="emphasis"> ttfile</span> TrueType font file to be dumped. 
+<p class="level-1"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">To dump all information in the TrueType font file times.ttf: 
+<p class="level1">ttfdump times.ttf 
+<p class="level0">
+<p class="level0">To dump the required table <span Class="emphasis">cmap</span> in the file: 
+<p class="level1">ttfdump -t cmap times.ttf 
+<p class="level0">
+<p class="level0">To dump a single glyph with index 50: 
+<p class="level1">ttfdump -g 50 times.ttf 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">TrueType 1.0 Font Files, <span Class="emphasis"> Technical Specification Revision 1.66 November 1995</span> <a name="NOTE"></a><h2 class="nroffsh">NOTE</h2>
+<p class="level0">Instruction disassembler in not implemented. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Li-Da Lho, ollie@ms1.hinet.net  

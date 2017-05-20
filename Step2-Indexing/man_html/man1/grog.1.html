@@ -1,0 +1,217 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">grog.1 - man page for grog (section 1) 
+<p class="level0">Source file position:  &lt;groff_source_top&gt;/src/roff/grog/grog.man Installed position:    $prefix/share/man/man1/grog.1 
+<p class="level0">Last Update: 22 Jan 2011 Copyright (C) 1989-2003, 2006, 2007, 2009-2012 Free Software Foundation, Inc. 
+<p class="level0">Written by James Clark. Maintained by 
+<p class="level0">Werner Lemberg 
+<p class="level0">Rewritten and put under GPL by Bernd Warken &lt;groff-bernd.warken-72@web.de&gt;. 
+<p class="level0">
+<p class="level0">This file is part of <span Class="emphasis">grog ,</span> which is part of <span Class="emphasis">groff ,</span> a free software project. 
+<p class="level0">You can redistribute it and/or modify it under the terms of the 
+<p class="level0"><span Class="bold">GNU General Public License</span> 
+<p class="level0">(f[CR]GPLf[]) as published by the 
+<p class="level0"><span Class="manpage">Free Software Foundation</span>
+<p class="level0">either version~2, or (at your option) any later version. 
+<p class="level0">
+<p class="level0">You should have received a copy of the f[CR]GNU General Public Licensef[] along with <span Class="emphasis">groff ,</span> see the files %f[CB]COPYINGf[] and %f[CB]LICENSEf[] in the top directory of the <span Class="emphasis">groff</span> source package. 
+<p class="level0">Or read the <span Class="emphasis">man\~page</span> <span Class="manpage">gpl (1).</span>You can also write to the 
+<p class="level0"><span Class="bold">Free Software Foundation, 51 Franklin St - Fifth Floor, Boston,</span> <span Class="manpage">MA 02110-1301</span>, <span Class="manpage">USA .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="emphasis">\\$1</span> 
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">grog - guess options for groff command 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span> | <span Class="bold">--help</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> | <span Class="bold">--version</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">grog</span> reads the input (file names or standard input) and guesses which of the <span Class="manpage">groff  (1)</span>options are needed to perform the input with the <span Class="bold">groff</span> program. 
+<p class="level0">The corresponding <span Class="bold">groff</span> command is output. 
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">The only <span Class="bold">grog</span> options recognized are <span Class="bold">-C</span> (which is also passed on) to enable compatibility mode; <span Class="bold">-v</span> and <span Class="bold">--version</span> print information on the version number; and <span Class="bold">-h</span> and <span Class="bold">--help</span> print usage information. 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--version</span>, <span Class="manpage">-h</span>and <span Class="bold">--help</span> stop the program directly without printing a <span Class="bold">groff</span> command to standard output. 
+<p class="level0">
+<p class="level0">
+<p class="level0">All other specified short options (words starting with one minus character <span Class="manpage">- )</span>are interpreted as <span Class="bold">groff</span> options or option clusters with or without argument. 
+<p class="level0">No space is allowed between options and their argument. 
+<p class="level0">Except from the <span Class="bold">-m arg</span> options, all options will be passed on, i.e. they are included unchanged in the command for the output without effecting the work of <span Class="manpage">grog .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0">A <span Class="emphasis">filespec</span> argument can either be the name of an existing file or a single minus <span Class="bold">-</span> to mean standard input. 
+<p class="level0">If no <span Class="emphasis">filespec</span> is specified standard input is read automatically. 
+<p class="level0">
+<p class="level0"><a name="DETAILS"></a><h2 class="nroffsh">DETAILS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">grog</span> reads all <span Class="emphasis">filespec</span> parameters as a whole. 
+<p class="level0">It tries to guess which of the following <span Class="bold">groff</span> options are required for running the input under <span Class="manpage">groff :</span>, <span Class="manpage">-e</span>, <span Class="manpage">-man</span>, <span Class="manpage">-me</span>, <span Class="manpage">-mm</span>, <span Class="manpage">-mom</span>, <span Class="manpage">-ms</span>, <span Class="manpage">-mdoc</span>, <span Class="manpage">-mdoc-old</span>, <span Class="manpage">-p</span>, <span Class="manpage">-R</span>, <span Class="manpage">-g</span>, <span Class="manpage">-G</span>, <span Class="manpage">-s</span>and <span Class="manpage">-t .</span>The guessed <span Class="bold">groff</span> command including those options and the found <span Class="emphasis">filespec</span> parameters is put on the standard output. 
+<p class="level0">
+<p class="level0">
+<p class="level0">It is possible to specify arbitrary <span Class="bold">groff</span> options on the command line. 
+<p class="level0">These are passed on the output without change, except for the <span Class="bold">-m arg</span> options. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">groff</span> program has trouble when the wrong <span Class="bold">-m arg</span> option or several of these options are specified. 
+<p class="level0">In these cases, <span Class="bold">grog</span> will print an error message and exit with an error code. 
+<p class="level0">It is better to specify no <span Class="bold">-m arg</span> option. 
+<p class="level0">Because such an option is only accepted and passed when <span Class="bold">grog</span> does not find any of these options or the same option is found. 
+<p class="level0">
+<p class="level0">
+<p class="level0">If several different <span Class="bold">-m arg</span> options are found by <span Class="bold">grog</span> an error message is produced and the program is terminated with an error code. 
+<p class="level0">But the output is written with the wrong options nevertheless. 
+<p class="level0">
+<p class="level0">
+<p class="level0">Remember that it is not necessary to determine a macro package. 
+<p class="level0">A <span Class="emphasis">roff</span> file can also be written in the <span Class="emphasis">groff</span> language without any macro package. 
+<p class="level0"><span Class="bold">grog</span> will produce an output without an <span Class="bold">-m arg</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">As <span Class="bold">groff</span> also works with pure text files without any <span Class="emphasis">roff</span> requests, <span Class="bold">grog</span> cannot be used to identify a file to be a <span Class="emphasis">roff</span> file. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="manpage">groffer  (1)</span>program heavily depends on a working <span Class="manpage">grog .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">grog</span> source contains two files written in different programming languages: 
+<p class="level0">grog.pl is the <span Class="emphasis">Perl</span> version, while grog.sh is a shell script using <span Class="manpage">awk (1).</span>During the run of <span Class="manpage">make (1)</span>it is determined whether the system contains a suitable version of <span Class="manpage">perl (1).</span>If so, grog.pl is transformed into <span Class="manpage">grog ;</span>otherwise grog.sh is used instead. 
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">Calling 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">grog meintro.me 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">results in 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">groff -me meintro.me 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">So <span Class="bold">grog</span> recognized that the file 
+<p class="level1">is written with the <span Class="bold">-me</span> macro package. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">On the other hand, 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">grog pic.ms 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">outputs 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">groff -pte -ms pic.ms 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Besides determining the macro package <span Class="manpage">-ms</span><span Class="bold">grog</span> recognized that the file 
+<p class="level1">additionally needs <span Class="manpage">-pte</span>the combination of <span Class="bold">-p</span> for <span Class="emphasis">pic ,</span> <span Class="bold">-t</span> for <span Class="emphasis">tbl ,</span> and <span Class="bold">-e</span> for <span Class="emphasis">eqn .</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">If both files are combined by the command 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">grog meintro.me pic.ms 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">an error message is sent to standard error because <span Class="bold">groff</span> cannot work with two different macro packages: 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">grog: error: there are several macro packages: -me -ms 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Additionally the corresponding output with the wrong options is printed to standard output: 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">groff -pte -me -ms meintro.me pic.ms 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">But the program is terminated with an error code. 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu</span> 
+<p class="level1">The call of 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">grog -ksS -Tdvi grnexmpl.g 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">contains several <span Class="bold">groff</span> options that are just passed on the output without any interface to <span Class="manpage">grog .</span>These are the option cluster <span Class="bold">-ksS</span> consisting of <span Class="manpage">-k</span>, <span Class="manpage">-s</span>and <span Class="manpage">-S ;</span>and the option <span Class="bold">-T</span> with argument <span Class="manpage">dvi .</span>The output is 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">
+<p class="level2">groff -ksS -Tdvi grnexmpl.g 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">so no additional option was added by <span Class="manpage">grog .</span>As no option <span Class="bold">-m arg</span> was found by <span Class="bold">grog</span> this file does not use a macro package. 
+<p class="level1">
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">groff (1)</span>, <span Class="manpage">troff (1)</span>, <span Class="manpage">tbl (1)</span>, <span Class="manpage">pic (1)</span>, <span Class="manpage">chem (1)</span>, <span Class="manpage">eqn (1)</span>, <span Class="manpage">refer (1)</span>, <span Class="manpage">grn (1)</span>, <span Class="manpage">grap (1)</span>, <span Class="manpage">soelim (1)</span>, <span Class="manpage">groff_me (7)</span>, <span Class="manpage">groff_ms (7)</span>, <span Class="manpage">groff_mm (7)</span>, <span Class="manpage">groff_mom (7)</span>, <span Class="manpage">groff_man (7)</span>, <span Class="manpage">groffer (1)</span>
+<p class="level0">
+<p class="level0"><a name="COPYING"></a><h2 class="nroffsh">COPYING</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

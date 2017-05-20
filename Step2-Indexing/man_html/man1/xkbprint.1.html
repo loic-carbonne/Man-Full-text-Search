@@ -1,0 +1,34 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xkbprint - print an XKB keyboard description <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">xkbprint </span> [options] source [ output_file ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The <span Class="emphasis">xkbprint</span> command generates a printable or encapsulated PostScript description of the  XKB keyboard description specified by <span Class="emphasis">source</span>.  The <span Class="emphasis">source</span> can be  any compiled keymap (.xkm) file that includes a geometry description or an  X display specification.  If an <span Class="emphasis">output_file</span> is specified, xkbprint  writes to it.  If no output file is specified, xkbprint creates replaces the extension of the source file with <span Class="emphasis">.ps</span> or <span Class="emphasis">.eps</span> depending on the requested format.  If the source is a non-local X display (e.g.:0),  xkbprint appends the appropriate prefix to the display specification,  replacing the colon with a dash.  For a local display, xkprint uses server-<span Class="emphasis">n</span> where <span Class="emphasis">n</span> is the number of the display. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-?, -help</span> Prints a usage message. 
+<p class="level0"><span Class="bold">-color</span> Print using the colors specified in the geometry file;  by default, xkbprint prints a black-and-white image of the keyboard. 
+<p class="level0"><span Class="bold">-dflts</span> Attempt to compute default names for any missing components, such as keys. 
+<p class="level0"><span Class="bold">-diffs</span> Show symbols only where they are explicitly bound. 
+<p class="level0"><span Class="bold">-eps</span> Generate an encapsulated PostScript file. 
+<p class="level0"><span Class="bold">-fit</span> Fit the keyboard image on the page (default). 
+<p class="level0"><span Class="bold">-full</span> Print the keyboard at full size. 
+<p class="level0"><span Class="bold">-grid\ res</span> Print a grid with <span Class="emphasis">res</span>mm resolution over the keyboard. 
+<p class="level0"><span Class="bold">-if\ fontName</span> Specifies an internal PostScript type 1 font to dump to the specified output file or to <span Class="emphasis">fontName</span>.pfa, if no output file is specified. No keyboard description is printed if an internal font is dumped. 
+<p class="level0"><span Class="bold">-label\ type</span> Specifies the labels to be printed on keys;  legal types are: <span Class="emphasis">none</span>, <span Class="emphasis">name</span>,<span Class="emphasis">code</span>,<span Class="emphasis">symbols</span>. 
+<p class="level0"><span Class="bold">-lc\ &lt;locale&gt;</span> Specifies a locale in which KeySyms should be resolved. 
+<p class="level0"><span Class="bold">-level1</span> Generate level 1 PostScript. 
+<p class="level0"><span Class="bold">-level2</span> Generate level 2 PostScript. 
+<p class="level0"><span Class="bold">-lg\ group</span> Print symbols in keyboard groups starting from <span Class="emphasis">group</span>. 
+<p class="level0"><span Class="bold">-ll\ level</span> Print symbols starting from shift level <span Class="emphasis">level</span>. 
+<p class="level0"><span Class="bold">-mono</span> Generate black-and-white image of keyboard (default). 
+<p class="level0"><span Class="bold">-n\ num</span> Print <span Class="emphasis">num</span> copies. 
+<p class="level0"><span Class="bold">-nkg\ num</span> Print the symbols in <span Class="emphasis">num</span> keyboard groups. 
+<p class="level0"><span Class="bold">-npk\ num</span> Number of keyboard images to print on each page; for EPS files, this  specifies the total number of keyboard images to print. 
+<p class="level0"><span Class="bold">-o\ file</span> Write output to <span Class="emphasis">file</span>. 
+<p class="level0"><span Class="bold">-Rdirectory</span> Use <span Class="emphasis">directory</span> as the root directory; all path names are interpreted relative to <span Class="emphasis">directory</span>. 
+<p class="level0"><span Class="bold">-pict which</span> Controls use of pictographs instead of keysym names where available.  <span Class="emphasis">which</span> can be any of <span Class="emphasis">all</span>, <span Class="emphasis">none</span>, or <span Class="emphasis">common</span>(default). 
+<p class="level0"><span Class="bold">-synch</span> Forces synchronization for X requests. 
+<p class="level0"><span Class="bold">-w\ level</span> Sets warning level (0 for no warning, 10 for all warnings). <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">X(7),xkbcomp(1) <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright 1995, Silicon Graphics Computer Systems Copyright 1995, 1998  The Open Group <br>See <span Class="emphasis">X(7)</span> for a full statement of rights and permissions. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Erik Fortune, Silicon Graphics 

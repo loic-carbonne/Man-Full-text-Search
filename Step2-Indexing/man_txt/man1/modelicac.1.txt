@@ -1,0 +1,61 @@
+modelicac(1)                General Commands Manual               modelicac(1)
+
+
+
+NAME
+       modelicac  -  modelicac is a compiler for a subset of the Modelica lan-
+       guage including parts of the 'equation' subset that can  express  rela-
+       tions between Real variable.
+
+SYNOPSIS
+       modelicac  [-c]  [-o  <outputfile>] <inputfile> [ -L directory | -hpath
+       directory | -keep-all-variables | -jac | -no-parameter-removal  |  -no-
+       simplifs  | -trace filename | -xml ] This manual page documents briefly
+       the modelicac commands.  Note that modelicac is only available  on  the
+       platform  which are supported by ocamlopt (ie amd64 hurd-i386 i386 pow-
+       erpc sparc)
+
+OPTIONS
+       A complete list of options is included below.
+
+       -c     Compile only, do not instantiate. Modelicac produces  a  "*.moc"
+              file when invoked with that option.
+
+       -o outputfile
+              Set  output  file  name  to <outputfile> (this option also works
+              with -c option but is somewhat useless because of the class name
+              restrictions given above).
+
+       -L directory
+              Add  <directory>  to the list of directories to be searched when
+              producing a C file (no effect when used with -c).
+
+       -hpath directory
+              Specify a path to be added to #include directives in the  gener-
+              ated C code.
+
+       -keep-all-variables
+               Do not remove any variable from the initial system.
+
+       -jac   Generate analytic jacobian matrix code.
+
+       -no-parameter-removal
+              Do not remove any parameter
+
+       -no-simplifs
+              Same as -keep-all-variables -no-parameter-removal
+
+       -trace filename
+              Generate  tracing  information  for external function calls into
+              <filename>
+
+       -xml   Generate an XML version of the model instead of target code
+
+AUTHOR
+       Modelicac was written by TNI-Valiosys and Imagineby.
+
+       This manual page was written by Sylvestre Ledru <sylvestre@debian.org>.
+
+
+
+                               November 18, 2008                  modelicac(1)

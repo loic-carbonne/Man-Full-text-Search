@@ -1,0 +1,97 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">time - run programs and summarize system resource usage <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">time</span> [ <span Class="bold">-apqvV</span> ] [ <span Class="bold">-f  FORMAT</span> ] [ <span Class="bold">-o  FILE</span> ] <br>[ <span Class="bold">--append</span> ] [ <span Class="bold">--verbose</span> ] [ <span Class="bold">--quiet</span> ] [ <span Class="bold">--portability</span> ] <br>[ <span Class="bold">--format= FORMAT</span> ] [ <span Class="bold">--output= FILE</span> ] [ <span Class="bold">--version</span> ] <br>[ <span Class="bold">--help</span> ] <span Class="emphasis">COMMAND</span> [ <span Class="emphasis">ARGS</span> ] 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">time</span> run the program <span Class="emphasis">COMMAND</span> with any given arguments <span Class="emphasis">ARG... .</span> When <span Class="emphasis">COMMAND</span> finishes, <span Class="bold">time</span> displays information about resources used by <span Class="emphasis">COMMAND</span> (on the standard error output, by default).  If <span Class="emphasis">COMMAND</span> exits with non-zero status, <span Class="bold">time</span> displays a warning message and the exit status. 
+<p class="level0"><span Class="bold">time</span> determines which information to display about the resources used by the <span Class="emphasis">COMMAND</span> from the string <span Class="emphasis">FORMAT .</span> If no format is specified on the command line, but the <span Class="bold">TIME</span> environment variable is set, its value is used as the format. Otherwise, a default format built into <span Class="bold">time</span> is used. 
+<p class="level0">Options to <span Class="bold">time</span> must appear on the command line before <span Class="emphasis">COMMAND .</span> Anything on the command line after <span Class="emphasis">COMMAND</span> is passed as arguments to <span Class="emphasis">COMMAND .</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-o  FILE,  --output= FILE </span> Write the resource use statistics to <span Class="emphasis">FILE</span> instead of to the standard error stream.  By default, this overwrites the file, destroying the file's previous contents.  This option is useful for collecting information on interactive programs and programs that produce output on the standard error stream. 
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">--append</span>Append the resource use information to the output file instead of overwriting it.  This option is only useful with the `-o' or `--output' option. 
+<p class="level0"><span Class="bold">-f  FORMAT,  --format  FORMAT </span> Use <span Class="emphasis">FORMAT</span> as the format string that controls the output of <span Class="manpage">time .</span>See the below more information. 
+<p class="level0"><span Class="bold">--help</span> Print a summary of the command line options and exit. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">--portability</span>Use the following format string, for conformance with POSIX standard 1003.2: &nbsp;         real %e &nbsp;         user %U &nbsp;         sys %S 
+<p class="level0"><span Class="manpage">-v</span>, <span Class="manpage">--verbose</span>Use the built-in verbose format, which displays each available piece of information on the program's resource use on its own line, with an English description of its meaning. 
+<p class="level0"><span Class="bold">--quiet</span> Do not report the status of the program even if it is different from zero. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">--version</span>Print the version number of <span Class="bold">time</span> and exit. 
+<p class="level0"><a name="FORMATTING"></a><h2 class="nroffsh">FORMATTING THE OUTPUT</h2>
+<p class="level0">The format string <span Class="emphasis">FORMAT</span> controls the contents of the <span Class="bold">time</span> output.  The format string can be set using the `-f' or `--format', `-v' or `--verbose', or `-p' or `--portability' options.  If they are not given, but the <span Class="emphasis">TIME</span> environment variable is set, its value is used as the format string. Otherwise, a built-in default format is used.  The default format is: &nbsp; %Uuser %Ssystem %Eelapsed %PCPU (%Xtext+%Ddata %Mmax)k &nbsp; %Iinputs+%Ooutputs (%Fmajor+%Rminor)pagefaults %Wswaps 
+<p class="level0">The format string usually consists of `resource specifiers' interspersed with plain text.  A percent sign (`%') in the format string causes the following character to be interpreted as a resource specifier, which is similar to the formatting characters in the <span Class="manpage">printf (3)</span>function. 
+<p class="level0">A backslash (`&acute;) introduces a `backslash escape', which is translated into a single printing character upon output.  `\t' outputs a tab character, `\n' outputs a newline, and `\&acute; outputs a backslash. A backslash followed by any other character outputs a question mark (`?') followed by a backslash, to indicate that an invalid backslash escape was given. 
+<p class="level0">Other text in the format string is copied verbatim to the output. <span Class="bold">time</span> always prints a newline after printing the resource use information, so normally format strings do not end with a newline character (or `en'). 
+<p class="level0">There are many resource specifications.  Not all resources are measured by all versions of Unix, so some of the values might be reported as zero.  Any character following a percent sign that is not listed in the table below causes a question mark (`?') to be output, followed by that character, to indicate that an invalid resource specifier was given. 
+<p class="level0">
+<p class="level0">The resource specifiers, which are a superset of those recognized by the <span Class="manpage">tcsh (1)</span>builtin `time' command, are: 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">%</span> 
+<p class="level1">A literal `%'. 
+<p class="level0"><a name="C"></a><span class="nroffip">C</span> 
+<p class="level1">Name and command line arguments of the command being timed. 
+<p class="level0"><a name="D"></a><span class="nroffip">D</span> 
+<p class="level1">Average size of the process's unshared data area, in Kilobytes. 
+<p class="level0"><a name="E"></a><span class="nroffip">E</span> 
+<p class="level1">Elapsed real (wall clock) time used by the process, in [hours:]minutes:seconds. 
+<p class="level0"><a name="F"></a><span class="nroffip">F</span> 
+<p class="level1">Number of major, or I/O-requiring, page faults that occurred while the process was running.  These are faults where the page has actually migrated out of primary memory. 
+<p class="level0"><a name="I"></a><span class="nroffip">I</span> 
+<p class="level1">Number of file system inputs by the process. 
+<p class="level0"><a name="K"></a><span class="nroffip">K</span> 
+<p class="level1">Average total (data+stack+text) memory use of the process, in Kilobytes. 
+<p class="level0"><a name="M"></a><span class="nroffip">M</span> 
+<p class="level1">Maximum resident set size of the process during its lifetime, in Kilobytes. 
+<p class="level0"><a name="O"></a><span class="nroffip">O</span> 
+<p class="level1">Number of file system outputs by the process. 
+<p class="level0"><a name="P"></a><span class="nroffip">P</span> 
+<p class="level1">Percentage of the CPU that this job got.  This is just user + system times divided by the total running time.  It also prints a percentage sign. 
+<p class="level0"><a name="R"></a><span class="nroffip">R</span> 
+<p class="level1">Number of minor, or recoverable, page faults.  These are pages that are not valid (so they fault) but which have not yet been claimed by other virtual pages.  Thus the data in the page is still valid but the system tables must be updated. 
+<p class="level0"><a name="S"></a><span class="nroffip">S</span> 
+<p class="level1">Total number of CPU-seconds used by the system on behalf of the process (in kernel mode), in seconds. 
+<p class="level0"><a name="U"></a><span class="nroffip">U</span> 
+<p class="level1">Total number of CPU-seconds that the process used directly (in user mode), in seconds. 
+<p class="level0"><a name="W"></a><span class="nroffip">W</span> 
+<p class="level1">Number of times the process was swapped out of main memory. 
+<p class="level0"><a name="X"></a><span class="nroffip">X</span> 
+<p class="level1">Average amount of shared text in the process, in Kilobytes. 
+<p class="level0"><a name="Z"></a><span class="nroffip">Z</span> 
+<p class="level1">System's page size, in bytes.  This is a per-system constant, but varies between systems. 
+<p class="level0"><a name="c"></a><span class="nroffip">c</span> 
+<p class="level1">Number of times the process was context-switched involuntarily (because the time slice expired). 
+<p class="level0"><a name="e"></a><span class="nroffip">e</span> 
+<p class="level1">Elapsed real (wall clock) time used by the process, in seconds. 
+<p class="level0"><a name="k"></a><span class="nroffip">k</span> 
+<p class="level1">Number of signals delivered to the process. 
+<p class="level0"><a name="p"></a><span class="nroffip">p</span> 
+<p class="level1">Average unshared stack size of the process, in Kilobytes. 
+<p class="level0"><a name="r"></a><span class="nroffip">r</span> 
+<p class="level1">Number of socket messages received by the process. 
+<p class="level0"><a name="s"></a><span class="nroffip">s</span> 
+<p class="level1">Number of socket messages sent by the process. 
+<p class="level0"><a name="t"></a><span class="nroffip">t</span> 
+<p class="level1">Average resident set size of the process, in Kilobytes. 
+<p class="level0"><a name="w"></a><span class="nroffip">w</span> 
+<p class="level1">Number of times that the program was context-switched voluntarily, for instance while waiting for an I/O operation to complete. 
+<p class="level0"><a name="x"></a><span class="nroffip">x</span> 
+<p class="level1">Exit status of the command. 
+<p class="level2">
+<p class="level2"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">To run the command `wc /etc/hosts' and show the default information: &nbsp;    time wc /etc/hosts 
+<p class="level0">To run the command `ls -Fs' and show just the user, system, and total time: &nbsp;    time -f "et%E real,et%U user,et%S sys" ls -Fs 
+<p class="level0">To edit the file BORK and have `time' append the elapsed time and number of signals to the file `log', reading the format string from the environment variable `TIME': &nbsp;    export TIME="et%E,et%k" &#35; If using bash or ksh &nbsp;    setenv TIME "et%E,et%k" &#35; If using csh or tcsh &nbsp;    time -a -o log emacs bork 
+<p class="level0">Users of the <span Class="bold">bash</span> shell need to use an explicit path in order to run the external <span Class="bold">time</span> command and not the shell builtin variant.  On system where <span Class="bold">time</span> is installed in <span Class="emphasis">/usr/bin ,</span> the first example would become &nbsp;    /usr/bin/time wc /etc/hosts 
+<p class="level0"><a name="ACCURACY"></a><h2 class="nroffsh">ACCURACY</h2>
+<p class="level0">The elapsed time is not collected atomically with the execution of the program; as a result, in bizarre circumstances (if the <span Class="bold">time</span> command gets stopped or swapped out in between when the program being timed exits and when <span Class="bold">time</span> calculates how long it took to run), it could be much larger than the actual execution time. 
+<p class="level0">When the running time of a command is very nearly zero, some values (e.g., the percentage of CPU used) may be reported as either zero (which is wrong) or a question mark. 
+<p class="level0">Most information shown by <span Class="bold">time</span> is derived from the <span Class="manpage">wait3 (2)</span>system call.  The numbers are only as good as those returned by <span Class="manpage">wait3 (2).</span>On systems that do not have a <span Class="manpage">wait3 (2)</span>call that returns status information, the <span Class="manpage">times (2)</span>system call is used instead.  However, it provides much less information than <span Class="manpage">wait3 (2)</span>so on those systems <span Class="bold">time</span> reports the majority of the resources as zero. 
+<p class="level0">The `%I' and `%O' values are allegedly only `real' input and output and do not include those supplied by caching devices.  The meaning of `real' I/O reported by `%I' and `%O' may be muddled for workstations, especially diskless ones. 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">The <span Class="bold">time</span> command returns when the program exits, stops, or is terminated by a signal. If the program exited normally, the return value of <span Class="bold">time</span> is the return value of the program it executed and measured.  Otherwise, the return value is 128 plus the number of the signal which caused the program to stop or terminate. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0"><span Class="bold">time</span> was written by David MacKenzie.  This man page was added by Dirk Eddelbuettel &lt;edd@debian.org&gt;, the Debian GNU/Linux maintainer, for use by the Debian GNU/Linux distribution but may of course be used by others. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tcsh (1)</span>, <span Class="manpage">printf (3)</span>

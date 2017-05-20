@@ -1,0 +1,68 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">rmiregistry - The Java Remote Object Registry 
+<p class="level0">
+<p class="level1">The f3rmiregistry</span> command starts a remote object registry on the specified port on the current host.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+rmiregistry [</span>f4port</span>f3]
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3rmiregistry</span> command creates and starts a remote object registry on the specified f2port</span> on the current host. If f2port</span> is omitted, the registry is started on port 1099. The f3rmiregistry</span> command produces no output and is typically run in the background. For example: 
+<p class="level0">
+<p class="level0">f2rmiregistry &</span> 
+<p class="level0">
+<p class="level0">A remote object registry is a bootstrap naming service that is used by RMI servers on the same host to bind remote objects to names. Clients on local and remote hosts can then look up remote objects and make remote method invocations. 
+<p class="level0">
+<p class="level0">The registry is typically used to locate the first remote object on which an application needs to invoke methods. That object in turn will provide application-specific support for finding other objects. 
+<p class="level0">
+<p class="level0">The methods of the f2java.rmi.registry.LocateRegistry</span> class are used to get a registry operating on the local host or local host and port. 
+<p class="level0">
+<p class="level0">The URL-based methods of the f2java.rmi.Naming</span> class operate on a registry and can be used to look up a remote object on any host, and on the local host: bind a simple (string) name to a remote object, rebind a new name to a remote object (overriding the old binding), unbind a remote object, and list the URLs bound in the registry. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-J  Used in conjunction with any f2java</span> option, it passes the option following the f2-J</span> (no spaces between the -J and the option) on to the f2java</span> interpreter.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">java(1),  
+<p class="level0">f2java.rmi.registry.LocateRegistry</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/api/java/rmi/registry/LocateRegistry.html">http://docs.oracle.com/javase/7/docs/api/java/rmi/registry/LocateRegistry.html</a> and  
+<p class="level0">f2java.rmi.Naming</span> @ 
+<p class="level0"><a href="http://docs.oracle.com/javase/7/docs/api/java/rmi/Naming.html">http://docs.oracle.com/javase/7/docs/api/java/rmi/Naming.html</a>   

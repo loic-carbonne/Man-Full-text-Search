@@ -1,0 +1,61 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dumpkeys - dump keyboard translation tables <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dumpkeys</span> [ <span Class="bold">-hilfn</span> <span Class="bold">-c charset</span> <span Class="bold">--help --short-info --long-info --numeric --full-table --funcs-only --keys-only --compose-only</span> <span Class="bold">--charset= charset</span> ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">dumpkeys</span> writes, to the standard output, the current contents of the keyboard driver's translation tables, in the format specified by <span Class="manpage">keymaps (5).</span>
+<p class="level0">Using the various options, the format of the output can be controlled and also other information from the kernel and the programs <span Class="manpage">dumpkeys (1)</span>and <span Class="manpage">loadkeys (1)</span>can be obtained. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h --help</span> Prints the program's version number and a short usage message to the program's standard error output and exits. 
+<p class="level0"><span Class="bold">-i --short-info</span> Prints some characteristics of the kernel's keyboard driver. The items shown are: 
+<p class="level0">
+<p class="level1">Keycode range supported by the kernel 
+<p class="level1">
+<p class="level2">This tells what values can be used after the <span Class="bold">keycode</span> keyword in keytable files. See <span Class="manpage">keymaps (5)</span>for more information and the syntax of these files. 
+<p class="level1">
+<p class="level1">Number of actions bindable to a key 
+<p class="level1">
+<p class="level2">This tells how many different actions a single key can output using various modifier keys. If the value is 16 for example, you can define up to 16 different actions to a key combined with modifiers. When the value is 16, the kernel probably knows about four modifier keys, which you can press in different combinations with the key to access all the bound actions. 
+<p class="level1">
+<p class="level1">Ranges of action codes supported by the kernel 
+<p class="level1">
+<p class="level2">This item contains a list of action code ranges in hexadecimal notation. These are the values that can be used in the right hand side of a key definition, ie. the <span Class="emphasis">vv 's</span> in a line 
+<p class="level2">
+<p class="level3"><span Class="bold">keycode</span> <span Class="emphasis">xx</span> = <span Class="emphasis">vv vv vv vv</span> 
+<p class="level2">
+<p class="level2">(see <span Class="manpage">keymaps (5)</span>for more information about the format of key definition lines). <span Class="manpage">dumpkeys (1)</span>and <span Class="manpage">loadkeys (1)</span>support a symbolic notation, which is preferable to the numeric one, as the action codes may vary from kernel to kernel while the symbolic names usually remain the same. However, the list of action code ranges can be used to determine, if the kernel actually supports all the symbols <span Class="manpage">loadkeys (1)</span>knows, or are there maybe some actions supported by the kernel that have no symbolic name in your <span Class="manpage">loadkeys (1)</span>program. To see this, you compare the range list with the action symbol list, see option <span Class="bold">--long-info</span> below. 
+<p class="level1">
+<p class="level1">Number of function keys supported by kernel 
+<p class="level1">
+<p class="level2">This tells the number of action codes that can be used to output strings of characters. These action codes are traditionally bound to the various function and editing keys of the keyboard and are defined to send standard escape sequences. However, you can redefine these to send common command lines, email addresses or whatever you like. Especially if the number of this item is greater than the number of function and editing keys in your keyboard, you may have some "spare" action codes that you can bind to AltGr-letter combinations, for example, to send some useful strings. See <span Class="manpage">loadkeys (1)</span>for more details. 
+<p class="level1">
+<p class="level1">Function strings 
+<p class="level1">
+<p class="level2">You can see you current function key definitions with the command 
+<p class="level2">
+<p class="level3"><span Class="bold">dumpkeys --funcs-only</span> 
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-l --long-info</span> This option instructs <span Class="bold">dumpkeys</span> to print a long information listing. The output is the same as with the <span Class="bold">--short-info</span> appended with the list of action symbols supported by <span Class="manpage">loadkeys (1)</span>and <span Class="manpage">dumpkeys (1)</span>along with the symbols' numeric values. 
+<p class="level0">
+<p class="level0"><span Class="bold">-n --numeric</span> This option causes <span Class="bold">dumpkeys</span> to by-pass the conversion of action code values to symbolic notation and to print the in hexadecimal format instead. 
+<p class="level0">
+<p class="level0"><span Class="bold">-f --full-table</span> This makes <span Class="bold">dumpkeys</span> skip all the short-hand heuristics (see <span Class="manpage">keymaps (5))</span>and output the key bindings in the canonical form. First a keymaps line describing the currently defined modifier combinations is printed. Then for each key a row with a column for each modifier combination is printed. For example, if the current keymap in use uses seven modifiers, every row will have seven action code columns. This format can be useful for example to programs that post-process the output of <span Class="manpage">dumpkeys .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">--funcs-only</span> When this option is given, <span Class="bold">dumpkeys</span> prints only the function key string definitions. Normally <span Class="bold">dumpkeys</span> prints both the key bindings and the string definitions. 
+<p class="level0">
+<p class="level0"><span Class="bold">--keys-only</span> When this option is given, <span Class="bold">dumpkeys</span> prints only the key bindings. Normally <span Class="bold">dumpkeys</span> prints both the key bindings and the string definitions. 
+<p class="level0">
+<p class="level0"><span Class="bold">--compose-only</span> When this option is given, <span Class="bold">dumpkeys</span> prints only the compose key combinations. This option is available only if your kernel has compose key support. 
+<p class="level0">
+<p class="level0"><span Class="bold">-c charset     --charset= charset</span> This instructs <span Class="bold">dumpkeys</span> to interpret character code values according to the specified character set. This affects only the translation of character code values to symbolic names. Valid values for <span Class="emphasis">charset</span> currently are <span Class="manpage">iso-8859-X</span>Where X is a digit in 1-9.  If no <span Class="emphasis">charset</span> is specified, <span Class="bold">iso-8859-1</span> is used as a default. This option produces an output line `charset "iso-8859-X"', telling loadkeys how to interpret the keymap. (For example, "division" is 0xf7 in iso-8859-1 but 0xba in iso-8859-8.) 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/keymaps</span> recommended directory for keytable files 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">loadkeys (1)</span>, <span Class="manpage">keymaps (5)</span>
+<p class="level0">

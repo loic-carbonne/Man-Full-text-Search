@@ -1,0 +1,102 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-settings - get various settings from the desktop environment <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-settings</span> {<span class="bold"><span Class="emphasis">get</span></span> | <span class="bold"><span Class="emphasis">check</span></span> | <span class="bold"><span Class="emphasis">set</span></span>} {<span Class="bold">property</span>} [<span Class="bold">subproperty</span>] [<span Class="bold">value</span>] 
+<p class="level0"><span Class="bold">xdg-settings</span> {<span Class="bold">--help</span> | <span Class="bold">--list</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">xdg-settings gets various settings from the desktop environment. For instance, desktop environments often provide proxy configuration and default web browser settings. Using xdg-settings these parameters can be extracted for use by applications that do not use the desktop environment*(Aqs libraries (which would use the settings natively). 
+<p class="level0">xdg-settings is for use inside a desktop session only. It is not recommended to use xdg-settings as root. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--list</span> 
+<p class="level1">List all properties xdg-settings knows about. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="PROPERTIES"></a><h2 class="nroffsh">PROPERTIES</h2>
+<p class="level0">
+<p class="level0">When using xdg-settings to get, check or set a destkop setting, properties and possibly sub-properties are used to specify the setting to be changed. 
+<p class="level0">Some properties (such as default-web-browser) fully describe the setting to be changed. Other properties (such as default-url-scheme-handler) require more information (in this case the actual scheme to set the default handler for) which must be provided in a sub-property. <a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">One of the files passed on the command line did not exist. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Get the desktop file name of the current default web browser 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       xdg-settings get default-web-browser
+&nbsp;     
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Check whether the default web browser is firefox.desktop, which can be false even if "get default-web-browser" says that is the current value (if only some of the underlying settings actually reflect that value) 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       xdg-settings check default-web-browser firefox.desktop
+&nbsp;     
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Set the default web browser to google-chrome.desktop 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       xdg-settings set default-web-browser google-chrome.desktop
+&nbsp;     
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Set the default mailto URL scheme handler to be evolution.desktop 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;       xdg-settings set default-url-scheme-handler mailto evolution.desktop
+&nbsp;     
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Mike Mammarella</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2009-2011 <br>

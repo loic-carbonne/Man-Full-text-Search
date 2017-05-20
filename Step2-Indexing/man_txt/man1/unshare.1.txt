@@ -1,0 +1,113 @@
+UNSHARE(1)                       User Commands                      UNSHARE(1)
+
+
+
+NAME
+       unshare - run program with some namespaces unshared from parent
+
+SYNOPSIS
+       unshare [options] program [arguments]
+
+DESCRIPTION
+       Unshares the indicated namespaces from the parent process and then exe-
+       cutes the specified program.  The namespaces to be unshared  are  indi-
+       cated via options.  Unshareable namespaces are:
+
+       mount namespace
+              Mounting  and unmounting filesystems will not affect the rest of
+              the system (CLONE_NEWNS flag), except for filesystems which  are
+              explicitly  marked  as  shared  (with  mount  --make-shared; see
+              /proc/self/mountinfo for the shared flags).
+
+              It's recommended to use mount --make-rprivate or  mount  --make-
+              rslave  after  unshare  --mount to make sure that mountpoints in
+              the new namespace are really unshared from the  parental  names-
+              pace.
+
+       UTS namespace
+              Setting  hostname  or domainname will not affect the rest of the
+              system.  (CLONE_NEWUTS flag)
+
+       IPC namespace
+              The process will have an independent namespace for System V mes-
+              sage   queues,   semaphore  sets  and  shared  memory  segments.
+              (CLONE_NEWIPC flag)
+
+       network namespace
+              The process will have independent IPv4 and IPv6 stacks, IP rout-
+              ing  tables,  firewall  rules,  the /proc/net and /sys/class/net
+              directory trees, sockets, etc.  (CLONE_NEWNET flag)
+
+       pid namespace
+              Children will have a distinct set of  PID  to  process  mappings
+              from their parent.  (CLONE_NEWPID flag)
+
+       user namespace
+              The process will have a distinct set of UIDs, GIDs and capabili-
+              ties.  (CLONE_NEWUSER flag)
+
+       See clone(2) for the exact semantics of the flags.
+
+OPTIONS
+       -h, --help
+              Display help text and exit.
+
+       -i, --ipc
+              Unshare the IPC namespace.
+
+       -m, --mount
+              Unshare the mount namespace.
+
+       -n, --net
+              Unshare the network namespace.
+
+       -p, --pid
+              Unshare the pid namespace.  See also the --fork and --mount-proc
+              options.
+
+       -u, --uts
+              Unshare the UTS namespace.
+
+       -U, --user
+              Unshare the user namespace.
+
+       -f, --fork
+              Fork  the specified program as a child process of unshare rather
+              than running it directly.  This is useful when  creating  a  new
+              pid namespace.
+
+       --mount-proc[=mountpoint]
+              Just  before  running  the program, mount the proc filesystem at
+              mountpoint (default is /proc).  This is useful when  creating  a
+              new  pid namespace.  It also implies creating a new mount names-
+              pace since the /proc mount would otherwise mess up existing pro-
+              grams  on  the  system.   The  new proc filesystem is explicitly
+              mounted as private (by MS_PRIVATE|MS_REC).
+
+       -r, --map-root-user
+              Run the program only after the current effective user and  group
+              IDs  have  been mapped to the superuser UID and GID in the newly
+              created user namespace.  This makes it possible to  conveniently
+              gain  capabilities needed to manage various aspects of the newly
+              created namespaces (such as configuring interfaces in  the  net-
+              work  namespace  or mounting filesystems in the mount namespace)
+              even when run unprivileged.  As a mere convenience  feature,  it
+              does  not  support more sophisticated use cases, such as mapping
+              multiple ranges of UIDs and GIDs.
+
+SEE ALSO
+       unshare(2), clone(2), mount(8)
+
+BUGS
+       None known so far.
+
+AUTHOR
+       Mikhail Gusarov <dottedmag@dottedmag.net>
+
+AVAILABILITY
+       The unshare command is part of the util-linux package and is  available
+       from ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
+
+
+
+util-linux                         July 2014                        UNSHARE(1)

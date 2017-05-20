@@ -1,0 +1,24 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-vendor - queries information about distribution vendors 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-vendor</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">dpkg-vendor</span> is a tool to query information about vendors listed in <span Class="bold">/etc/dpkg/origins</span>. <span Class="bold">/etc/dpkg/origins/default</span> contains information about the current vendor. 
+<p class="level0"><a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--is  vendor</span> Exits with <span Class="bold">0</span> if the current vendor is <span Class="emphasis">vendor</span>. Otherwise exits with non-zero. 
+<p class="level0"><span Class="bold">--derives-from  vendor</span> Exits with <span Class="bold">0</span> if the current vendor distribution is a derivative of <span Class="emphasis">vendor</span>, otherwise exits with non-zero. It uses the <span Class="bold">Parent</span> field to browse all ancestors of the current vendor. 
+<p class="level0"><span Class="bold">--query  field</span> Print on standard output the value of the vendor-specific <span Class="emphasis">field</span> for the current vendor. 
+<p class="level0"><span Class="bold">--help</span> Show the usage message and exit. 
+<p class="level0"><span Class="bold">--version</span> Show the version and exit. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--vendor  vendor</span> Assumes the current vendor is <span Class="emphasis">vendor</span> instead of discovering it with the <span Class="bold">DEB_VENDOR</span> environment variable or <span Class="bold">/etc/dpkg/origins/default</span>. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">DEB_VENDOR</span> This setting defines the current vendor. If not set, it will discover the current vendor by reading <span Class="bold">/etc/dpkg/origins/default</span>. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">deb-origin (5).</span>

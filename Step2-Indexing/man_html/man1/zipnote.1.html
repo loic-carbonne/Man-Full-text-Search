@@ -1,0 +1,53 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">zipnote - write the comments in zipfile to stdout, edit comments and rename files in zipfile 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="emphasis">zipnote</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">zipfile 
+<p class="level0"><a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">zipfile  Zipfile to read comments from or edit. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> Write comments to a zipfile from stdin (see below). 
+<p class="level0"><span Class="bold">-b\ path</span> Use path for the temporary zip file. 
+<p class="level0"><span Class="bold">-h</span> Show a short help. 
+<p class="level0"><span Class="bold">-v</span> Show version information. 
+<p class="level0"><span Class="bold">-L</span> Show software license. 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">zipnote</span> writes the comments in a zipfile to stdout.  This is the default mode.  A second mode allows updating the comments in a zipfile as well as allows changing the names of the files in the zipfile.  These modes are described below. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">To write all comments in a zipfile to stdout use for example 
+<p class="level0"><pre class="level0">
+&nbsp;    zipnote foo.zip &gt; foo.tmp
+</pre>
+
+<p class="level0">
+<p class="level0">This writes all comments in the zipfile <span Class="emphasis">foo.zip</span> to the file <span Class="emphasis">foo.tmp</span> in a specific format. 
+<p class="level0">
+<p class="level0">If desired, this file can then be edited to change the comments and then used to update the zipfile. 
+<p class="level0"><pre class="level0">
+&nbsp;    zipnote -w foo.zip &lt; foo.tmp
+</pre>
+
+<p class="level0">
+<p class="level0">The names of the files in the zipfile can also be changed in this way.  This is done by following lines like <pre class="level0">
+&nbsp;    "@ name"
+</pre>
+
+<p class="level0">in the created temporary file (called <span Class="emphasis">foo.tmp</span> here) with lines like <pre class="level0">
+&nbsp;    "@=newname"
+</pre>
+
+<p class="level0">and then using the -w option as above. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The temporary file format is rather specific and zipnote is rather picky about it. It should be easier to change file names in a script. 
+<p class="level0">Does not yet support large (&gt; 2 GB) or split archives. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">zip(1), unzip(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Info-ZIP 

@@ -1,0 +1,143 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-check-mailmap - Show canonical names and email addresses of contacts <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git check-mailmap</span> [options] &lt;contact&gt;...
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">For each (lqName &lt;user@host&gt;(rq or (lq&lt;user@host&gt;(rq from the command-line or standard input (when using --stdin), look up the person(cqs canonical name and email address (see "Mapping Authors" below). If found, print them; otherwise print the input as-is. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">Read contacts, one per line, from the standard input after exhausting contacts provided on the command-line. 
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT</h2>
+<p class="level0">
+<p class="level0">For each contact, a single line is output, terminated by a newline. If the name is provided or known to the <span Class="emphasis">mailmap</span>, (lqName &lt;user@host&gt;(rq is printed; otherwise only (lq&lt;user@host&gt;(rq is printed. <a name="MAPPING"></a><h2 class="nroffsh">MAPPING AUTHORS</h2>
+<p class="level0">
+<p class="level0">If the file .mailmap exists at the toplevel of the repository, or at the location pointed to by the mailmap.file or mailmap.blob configuration options, it is used to map author and committer names and email addresses to canonical real names and email addresses. 
+<p class="level0">In the simple form, each line in the file consists of the canonical real name of an author, whitespace, and an email address used in the commit (enclosed by <span Class="emphasis">&lt;</span> and <span Class="emphasis">&gt;</span>) to map to the name. For example: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">The more complex forms are: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;proper@email.xx&gt; &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace only the email part of a commit, and: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;proper@email.xx&gt; &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace both the name and the email of a commit matching the specified commit email address, and: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Proper Name &lt;proper@email.xx&gt; Commit Name &lt;commit@email.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">which allows mailmap to replace both the name and the email of a commit matching both the specified commit name and email address. 
+<p class="level0">Example 1: Your history contains commits by two authors, Jane and Joe, whose names appear in the repository under several forms: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Joe Developer &lt;joe@example.com&gt;
+Joe R. Developer &lt;joe@example.com&gt;
+Jane Doe &lt;jane@example.com&gt;
+Jane Doe &lt;jane@laptop.(none)&gt;
+Jane D. &lt;jane@desktop.(none)&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Now suppose that Joe wants his middle name initial used, and Jane prefers her family name fully spelled out. A proper .mailmap file would look like: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+Jane Doe         &lt;jane@desktop.(none)&gt;
+Joe R. Developer &lt;joe@example.com&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Note how there is no need for an entry for &lt;jane@laptop.(none)&gt;, because the real name of that author is already correct. 
+<p class="level0">Example 2: Your repository contains commits from the following authors: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+nick1 &lt;bugs@company.xx&gt;
+nick2 &lt;bugs@company.xx&gt;
+nick2 &lt;nick2@company.xx&gt;
+santa &lt;me@company.xx&gt;
+claus &lt;me@company.xx&gt;
+CTO &lt;cto@coompany.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Then you might want a .mailmap file that looks like: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&lt;cto@company.xx&gt;                       &lt;cto@coompany.xx&gt;
+Some Dude &lt;some@dude.xx&gt;         nick1 &lt;bugs@company.xx&gt;
+Other Author &lt;other@author.xx&gt;   nick2 &lt;bugs@company.xx&gt;
+Other Author &lt;other@author.xx&gt;         &lt;nick2@company.xx&gt;
+Santa Claus &lt;santa.claus@northpole.xx&gt; &lt;me@company.xx&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Use hash <span Class="emphasis">&#35;</span> for comments that are either on their own line, or after the email address. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

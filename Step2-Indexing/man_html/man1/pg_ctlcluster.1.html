@@ -1,0 +1,163 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">pg_ctlcluster - start/stop/restart/reload a PostgreSQL cluster <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">pg_ctlcluster</span> [<span Class="emphasis">options</span>] <span Class="emphasis">cluster-version</span> <span Class="emphasis">cluster-name</span> <span Class="emphasis">action</span> <span Class="bold">--</span> [<span Class="emphasis">pg_ctl options</span>] 
+<p class="level0">where <span Class="emphasis">action</span> = <span Class="bold">start</span>|<span Class="bold">stop</span>|<span Class="bold">restart</span>|<span Class="bold">reload</span>|<span Class="bold">status</span>|<span Class="bold">promote</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program controls the <span Class="bold">postgres</span> server for a particular cluster. It essentially wraps the <span Class="emphasis">pg_ctl</span>|(1) command. It determines the cluster version and data path and calls the right version of <span Class="bold">pg_ctl</span> with appropriate configuration parameters and paths. 
+<p class="level0">You have to start this program as the user who owns the database cluster or as root. 
+<p class="level0">To ease integration with <span Class="bold">systemd</span> operation, the alternative syntax "<span Class="bold">pg_ctlcluster</span> <span Class="emphasis">version</span><span Class="bold">-</span><span Class="emphasis">cluster</span> <span Class="emphasis">action</span>" is also supported. <a name="ACTIONS"></a><h2 class="nroffsh">ACTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fBstartfR"></a><span class="nroffip">\fBstart\fR 4</span> 
+<p class="level1">
+<p class="level1">A log file for this specific cluster is created if it does not exist yet (by default, f(CW*(C`/var/log/postgresql/postgresql-*(C'</span><span Class="emphasis">cluster-version</span>f(CW*(C`-*(C'</span><span Class="emphasis">cluster-name</span>f(CW*(C`.log*(C'</span>), and a PostreSQL server process (<span Class="emphasis">postgres</span>|(1)) is started on it. Exits with 0 on success, with 2 if the server is already running, and with 1 on other failure conditions. 
+<p class="level0"><a name="fBstopfR"></a><span class="nroffip">\fBstop\fR 4</span> 
+<p class="level1">
+<p class="level1">Stops the <span Class="emphasis">postgres</span>|(1) server of the given cluster. By default, *(L"smart*(R" shutdown mode is used, which waits until all clients disconnected. 
+<p class="level0"><a name="fBrestartfR"></a><span class="nroffip">\fBrestart\fR 4</span> 
+<p class="level1">
+<p class="level1">Stops the server if it is running and starts it (again). 
+<p class="level0"><a name="fBreloadfR"></a><span class="nroffip">\fBreload\fR 4</span> 
+<p class="level1">
+<p class="level1">Causes the configuration files to be re-read without a full shutdown of the server. 
+<p class="level0"><a name="fBstatusfR"></a><span class="nroffip">\fBstatus\fR 4</span> 
+<p class="level1">
+<p class="level1">Checks whether a server is running. If it is, the s-1PIDs0 and the command line options that were used to invoke it are displayed. 
+<p class="level0"><a name="fBpromotefR"></a><span class="nroffip">\fBpromote\fR 4</span> 
+<p class="level1">
+<p class="level1">Commands a running standby server to exit recovery and begin read-write operations. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-ffRfB--forcefR"></a><span class="nroffip">\fB-f\fR|\fB--force\fR 4</span> 
+<p class="level1">
+<p class="level1">For <span Class="bold">stop</span> and <span Class="bold">restart</span>, the *(L"fast*(R" mode is used which rolls back all active transactions, disconnects clients immediately and thus shuts down cleanly. If that does not work, shutdown is attempted again in *(L"immediate*(R" mode, which can leave the cluster in an inconsistent state and thus will lead to a recovery run at the next start. If this still does not help, the <span Class="bold">postgres</span> process is killed.  Exits with 0 on success, with 2 if the server is not running, and with 1 on other failure conditions. This mode should only be used when the machine is about to be shut down. 
+<p class="level0"><a name="fB-mfRfB--modefR"></a><span class="nroffip">\fB-m\fR|\fB--mode\fR [\fBsmart\fR|\fBfast\fR|\fBimmediate\fR] 4</span> 
+<p class="level1">
+<p class="level1">Shutdown mode to use for <span Class="bold">stop</span> and <span Class="bold">restart</span> actions, default is <span Class="bold">smart</span>. See <span Class="emphasis">pg_ctl</span>|(1) for documentation. 
+<p class="level0"><a name="fB--foregroundfR"></a><span class="nroffip">\fB--foreground\fR 4</span> 
+<p class="level1">
+<p class="level1">Start <span Class="bold">postgres</span> in foreground, without daemonizing via <span Class="bold">pg_ctl</span>. 
+<p class="level0"><a name="fB--stdlogfR"></a><span class="nroffip">\fB--stdlog\fR 4</span> 
+<p class="level1">
+<p class="level1">When <span Class="bold">--foreground</span> is in use, redirect stderr to the standard logfile in f(CW*(C`/var/log/postgresql/*(C'</span>.  (Default when not run in foreground.) 
+<p class="level0"><a name="fB-ofRfB--optionsfR"></a><span class="nroffip">\fB-o\fR|\fB--options\fR \fIoption\fR 4</span> 
+<p class="level1">
+<p class="level1">Pass given <span Class="emphasis">option</span> as command line option to the f(CW*(C`postgres*(C'</span> process. It is possible to specify <span Class="bold">-o</span> multiple times. See <span Class="emphasis">postgres</span>|(1) for a description of valid options. 
+<p class="level0"><a name="fIpgctl"></a><span class="nroffip">\fIpg_ctl options\fR 4</span> 
+<p class="level1">
+<p class="level1">Pass given <span Class="emphasis">pg_ctl options</span> as command line options to <span Class="bold">pg_ctl</span>. See <span Class="emphasis">pg_ctl</span>|(1) for a description of valid options. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This configuration file contains cluster specific options to be passed to <span Class="emphasis">pg_ctl</span>|(1). 
+<p class="level0">
+<p class="level0">
+<p class="level0">This configuration file controls the start/stop behavior of the cluster. See section *(L"s-1STARTUP CONTROL*(R"s0 in <span Class="emphasis">pg_createcluster</span>|(8) for details. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">Changing the port number on startup using <span Class="bold">-o -p</span> will not work as it breaks the checks for running clusters. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">pg_createcluster</span>|(8), <span Class="emphasis">pg_ctl</span>|(1), <span Class="emphasis">pg_wrapper</span>|(1), <span Class="emphasis">pg_lsclusters</span>|(1), <span Class="emphasis">postgres</span>|(1) <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Martin Pitt &lt;mpitt@debian.org&gt; 

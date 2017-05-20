@@ -1,0 +1,58 @@
+
+<p class="level0">
+<p class="level0">\$2 (laURL: \$1 (ra\$3 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">mpost - MetaPost, a system for creating graphics <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">mpost</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">mpost </span> <span Class="bold">--dvitomp</span> <span Class="emphasis">dvifile [\fB.dvi\fP]</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">*(MP interprets the *(MP language and produces PostScript (EPS) or Scalable Vector Graphics (SVG) pictures.  The *(MP language is similar  to Knuth's *(MF with additional features for including <span Class="manpage">tex (1)</span>or <span Class="manpage">troff (1)</span>commands and accessing features of PostScript not found in *(MF.  
+<p class="level0">*(MP is normally used with some preloaded macros, and it  will use its executable name as the name of the preload  file to use.   For example, when called as <span Class="bold">mpost</span> the <span Class="emphasis">mpost.mp</span> file is used, which is identical to <span Class="emphasis">plain.mp.</span> When the <span Class="bold">--ini</span> option is given, preloading does not happen.   
+<p class="level0">The <span Class="emphasis">commands</span> given on the command line to the *(MP program are passed to it as the first input line.  (But it is often easier to type extended arguments as the first input line, since UNIX shells tend to gobble up or misinterpret *(MP's favorite symbols, like semicolons, unless you quote them.) The normal usage is to say <span Class="emphasis">mpost figs</span> to process the file <span Class="emphasis">figs.mp .</span> The basename of <span Class="emphasis">figs</span> becomes the ``jobname'', and is used in forming output file names.  If no file is named, the jobname becomes <span Class="emphasis">mpout .</span> The default extension, <span Class="emphasis">.mp ,</span> can be overridden by specifying an extension explicitly. 
+<p class="level0">When the <span Class="bold">--dvitomp</span> option is given, *(MP acts as DVI-to-MPX converter only. See dvitomp (1) for details. 
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(MP can be found in the User Manual that should have been installed along with the program and is also available from <a href="http://tug.org/metapost.">http://tug.org/metapost.</a> See the FILES section below. 
+<p class="level0">The *(MP language is similar to *(MF, but the manual assumes no knowledge of *(MF.  *(MP does not have bitmap output commands or *(MF's online display mechanism. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">plain.mp</span> The standard preload file. 
+<p class="level0"><span Class="emphasis">mfplain.mp</span> The *(MF-compatible preload file.  
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/metapost/base/*.mp</span> The standard *(MP macros included in the original distribution. 
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/metapost/support/*</span> Various tables for handling included <span Class="emphasis">tex</span> and <span Class="emphasis">troff .</span> 
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/metapost/support/trfonts.map</span> Table of corresponding font names for <span Class="emphasis">troff </span> and PostScript. 
+<p class="level0"><span Class="emphasis">psfonts.map</span> Table of corresponding font names for <span Class="emphasis">tex</span> and PostScript. 
+<p class="level0"><span Class="emphasis">$TEXMFMAIN/doc/metapost/*</span> The *(MP manual and tutorial source, also including sample figures 
+<p class="level0"><a name="SUGGESTED"></a><h2 class="nroffsh">SUGGESTED READING</h2>
+<p class="level0">Donald E. Knuth, <span Class="emphasis">The \*(MF\^book</span> (Volume C of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13445-4. <br><span Class="emphasis">TUGboat</span> (the journal of the *(TX Users Group). 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">dvitomp (1)</span>, <span Class="manpage">epstopdf (1)</span>, <span Class="manpage">mf (1)</span>, <span Class="manpage">mptopdf (1)</span>, <span Class="manpage">tex (1)</span>
+<p class="level0">
+<p class="level0"><br>
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">*(MP was designed by John D. Hobby, incorporating algorithms from  *(MF by Donald E. Knuth.  It was originally implemented on Unix, incorporating system-dependent routines from <span Class="manpage">web2c</span>while not relying on it except for the actual *(WB-to-C translator. 
+<p class="level0">Ulrik Vieth adapted *(MP to take advantage of the advanced path  searching features in more recent versions of <span Class="bold">web2c</span> and worked towards fully integrating *(MP into the canonical Unix  *(TX distribution. 
+<p class="level0">The current, CWEB based version of MetaPost is maintained by  Taco Hoekwater. 
+<p class="level0">The manual and tutorial are maintained by Stephan Hennig and Troy Henderson. 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Email bug reports to metapost@tug.org. 

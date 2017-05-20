@@ -1,0 +1,26 @@
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">dpkg-mergechangelogs - 3-way merge of debian/changelog files 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">dpkg-mergechangelogs</span> 
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">This program will use the 3 provided versions of the Debian changelog to generate a merged changelog file. The resulting changelog is stored in the file <span Class="emphasis">out</span> or output to the standard output if that parameter is not given. 
+<p class="level0">Each entry is identified by its version number and they are assumed to be not conflicting, they are simply merged in the right order (by decreasing version number). When <span Class="bold">--merge-prereleases</span> is used, the part of the version number after the last tilde is dropped so that 1.0-1~exp1 and 1.0-1~exp5 are considered to be the same entry. When the same version is available in both <span Class="emphasis">new-a</span> and <span Class="emphasis">new-b</span>, a standard line-based 3-way merge is attempted (provided that the module Algorithm::Merge is available [em] it's part of the package libalgorithm-merge-perl [em] otherwise you get a global conflict on the content of the entry). 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">--merge-prereleases</span>, <span Class="manpage">-m</span>Drop the part after the last tilde in the version number when doing version comparison to identify if two entries are supposed to be the same or not. 
+<p class="level0">This is useful when you keep using the same changelog entry but you increase its version number regularly. For instance, you might have 2.3-1~exp1, 2.3-1~exp2, ... until the official release 2.3-1 and they are all the same changelog entry that has evolved over time. 
+<p class="level0"><span Class="bold">--help</span> Show the usage message and exit. 
+<p class="level0"><span Class="bold">--version</span> Show the version and exit. 
+<p class="level0"><a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS</h2>
+<p class="level0">
+<p class="level0">Anything that is not parsed by Dpkg::Changelog is lost during the merge. This might include stuff like vim modelines, comments which were not supposed to be there, etc. 
+<p class="level0"><a name="INTEGRATION"></a><h2 class="nroffsh">INTEGRATION WITH GIT</h2>
+<p class="level0">
+<p class="level0">If you want to use this program to merge Debian changelog files in a git repository, you have first to register a new merge driver in <span Class="bold">.git/config</span> or <span Class="bold">~/.gitconfig</span>: 
+<p class="level0">&nbsp;[merge "dpkg-mergechangelogs"] &nbsp;    name = debian/changelog merge driver &nbsp;    driver = dpkg-mergechangelogs -m %O %A %B %A 
+<p class="level0">Then you have to setup the merge attribute for the debian/changelog file either in <span Class="bold">.gitattributes</span> in the repository itself, or in <span Class="bold">.git/info/attributes</span>: 
+<p class="level0">&nbsp;debian/changelog merge=dpkg-mergechangelogs 

@@ -1,0 +1,113 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">createdb - create a new PostgreSQL database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">createdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="emphasis">option</span>...] [<span Class="emphasis">dbname</span>&nbsp;[<span Class="emphasis">description</span>]] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createdb creates a new PostgreSQL database. 
+<p class="level0">Normally, the database user who executes this command becomes the owner of the new database. However, a different owner can be specified via the <span Class="bold">-O</span> option, if the executing user has appropriate privileges. 
+<p class="level0">
+<p class="level0">createdb is a wrapper around the SQL command CREATE DATABASE (<span Class="bold">CREATE_DATABASE</span>(7)). There is no effective difference between creating databases via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">createdb accepts the following command-line arguments: 
+<p class="level0"><span Class="emphasis">dbname</span> 
+<p class="level1">Specifies the name of the database to be created. The name must be unique among all PostgreSQL databases in this cluster. The default is to create a database with the same name as the current system user. 
+<p class="level0">
+<p class="level0"><span Class="emphasis">description</span> 
+<p class="level1">Specifies a comment to be associated with the newly created database. 
+<p class="level0">
+<p class="level0"><span Class="bold">-D </span><span class="bold"><span Class="emphasis">tablespace</span></span> <br><span Class="bold">--tablespace=</span><span class="bold"><span Class="emphasis">tablespace</span></span> 
+<p class="level1">Specifies the default tablespace for the database. (This name is processed as a double-quoted identifier.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that createdb generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-E </span><span class="bold"><span Class="emphasis">encoding</span></span> <br><span Class="bold">--encoding=</span><span class="bold"><span Class="emphasis">encoding</span></span> 
+<p class="level1">Specifies the character encoding scheme to be used in this database. The character sets supported by the PostgreSQL server are described in Section 22.3.1, (lqSupported Character Sets(rq, in the documentation. 
+<p class="level0">
+<p class="level0"><span Class="bold">-l </span><span class="bold"><span Class="emphasis">locale</span></span> <br><span Class="bold">--locale=</span><span class="bold"><span Class="emphasis">locale</span></span> 
+<p class="level1">Specifies the locale to be used in this database. This is equivalent to specifying both <span Class="bold">--lc-collate</span> and <span Class="bold">--lc-ctype</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--lc-collate=</span><span class="bold"><span Class="emphasis">locale</span></span> 
+<p class="level1">Specifies the LC_COLLATE setting to be used in this database. 
+<p class="level0">
+<p class="level0"><span Class="bold">--lc-ctype=</span><span class="bold"><span Class="emphasis">locale</span></span> 
+<p class="level1">Specifies the LC_CTYPE setting to be used in this database. 
+<p class="level0">
+<p class="level0"><span Class="bold">-O </span><span class="bold"><span Class="emphasis">owner</span></span> <br><span Class="bold">--owner=</span><span class="bold"><span Class="emphasis">owner</span></span> 
+<p class="level1">Specifies the database user who will own the new database. (This name is processed as a double-quoted identifier.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-T </span><span class="bold"><span Class="emphasis">template</span></span> <br><span Class="bold">--template=</span><span class="bold"><span Class="emphasis">template</span></span> 
+<p class="level1">Specifies the template database from which to build this database. (This name is processed as a double-quoted identifier.) 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the createdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about createdb command line arguments, and exit. 
+<p class="level0">
+<p class="level0">The options <span Class="bold">-D</span>, <span Class="bold">-l</span>, <span Class="bold">-E</span>, <span Class="bold">-O</span>, and <span Class="bold">-T</span> correspond to options of the underlying SQL command CREATE DATABASE (<span Class="bold">CREATE_DATABASE</span>(7)); see there for more information about them. 
+<p class="level0">
+<p class="level0">createdb also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or the local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force createdb to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since createdb will automatically prompt for a password if the server demands password authentication. However, createdb will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0"><span Class="bold">--maintenance-db=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to when creating the new database. If not specified, the postgres database will be used; if that does not exist (or if it is the name of the new database being created), template1 will be used. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATABASE</span> 
+<p class="level1">If set, the name of the database to create, unless overridden on the command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters. <span Class="bold">PGUSER</span> also determines the name of the database to create, if it is not specified on the command line or by <span Class="bold">PGDATABASE</span>. 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see CREATE DATABASE (<span Class="bold">CREATE_DATABASE</span>(7)) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To create the database demo using the default database server: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createdb demo</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To create the database demo using the server on host eden, port 5000, using the LATIN1 encoding scheme with a look at the underlying command: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">createdb -p 5000 -h eden -E LATIN1 -e demo</span>
+CREATE DATABASE demo ENCODING *(AqLATIN1*(Aq;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">dropdb</span>(1), CREATE DATABASE (<span Class="bold">CREATE_DATABASE</span>(7)) 

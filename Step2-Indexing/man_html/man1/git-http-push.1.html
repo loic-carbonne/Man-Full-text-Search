@@ -1,0 +1,114 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-http-push - Push objects over HTTP/DAV to another repository <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git http-push</span> [--all] [--dry-run] [--force] [--verbose] &lt;url&gt; &lt;ref&gt; [&lt;ref&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Sends missing objects to remote repository, and updates the remote branch. 
+<p class="level0"><span Class="bold">NOTE</span>: This command is temporarily disabled if your libcurl is older than 7.16, as the combination has been reported not to work and sometimes corrupts repository. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--all 
+<p class="level1">Do not assume that the remote repository is complete in its current state, and verify all objects in the entire local ref(cqs history exist in the remote repository. 
+<p class="level0">
+<p class="level0">--force 
+<p class="level1">Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. This flag disables the check. What this means is that the remote repository can lose commits; use it with care. 
+<p class="level0">
+<p class="level0">--dry-run 
+<p class="level1">Do everything except actually send the updates. 
+<p class="level0">
+<p class="level0">--verbose 
+<p class="level1">Report the list of objects being walked locally and the list of objects successfully sent to the remote repository. 
+<p class="level0">
+<p class="level0">-d, -D 
+<p class="level1">Remove &lt;ref&gt; from remote repository. The specified branch cannot be the remote HEAD. If -d is specified the following other conditions must also be met: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Remote HEAD must resolve to an object that exists locally 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Specified branch resolves to an object that exists locally 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Specified branch is an ancestor of the remote HEAD 
+<p class="level1">
+<p class="level0">
+<p class="level0">&lt;ref&gt;... 
+<p class="level1">The remote refs to update. 
+<p class="level0"><a name="SPECIFYING"></a><h2 class="nroffsh">SPECIFYING THE REFS</h2>
+<p class="level0">
+<p class="level0">A <span Class="emphasis">&lt;ref&gt;</span> specification can be either a single pattern, or a pair of such patterns separated by a colon ":" (this means that a ref name cannot have a colon in it). A single pattern <span Class="emphasis">&lt;name&gt;</span> is just a shorthand for <span Class="emphasis">&lt;name&gt;:&lt;name&gt;</span>. 
+<p class="level0">Each pattern pair consists of the source side (before the colon) and the destination side (after the colon). The ref to be pushed is determined by finding a match that matches the source side, and where it is pushed is determined by using the destination side. 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">It is an error if &lt;src&gt; does not match exactly one of the local refs. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">If &lt;dst&gt; does not match any remote ref, either 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">it has to start with "refs/"; &lt;dst&gt; is used as the destination literally in this case. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">&lt;src&gt; == &lt;dst&gt; and the ref that matched the &lt;src&gt; must not exist in the set of remote refs; the ref matched &lt;src&gt; locally is used as the name of the destination. 
+<p class="level1">
+<p class="level0">
+<p class="level0">Without <span Class="emphasis">--force</span>, the &lt;src&gt; ref is stored at the remote only if &lt;dst&gt; does not exist, or &lt;dst&gt; is a proper subset (i.e. an ancestor) of &lt;src&gt;. This check, known as "fast-forward check", is performed in order to avoid accidentally overwriting the remote ref and lose other peoples*(Aq commits from there. 
+<p class="level0">With <span Class="emphasis">--force</span>, the fast-forward check is disabled for all refs. 
+<p class="level0">Optionally, a &lt;ref&gt; parameter can be prefixed with a plus <span Class="emphasis">+</span> sign to disable the fast-forward check only on that ref. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

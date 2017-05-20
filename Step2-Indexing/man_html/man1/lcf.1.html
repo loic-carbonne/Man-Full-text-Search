@@ -1,0 +1,16 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">lcf - Determine which of the historical versions of a config is installed <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">lcf</span> <span Class="emphasis">[options]</span> <span Class="emphasis">&lt;Destination File Name&gt;</span> <span Class="emphasis">&lt;Historical MD5SUM source directory&gt;</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This script, given a destination file name, and a directory containing md5sums of historical versions of the file, attempts to determine if the installed version corresponds to a historical version. lcf uses the same algorithm that ucf uses, and should exhibit the same behaviour.  
+<p class="level0">The source directory is the place where historical md5sums are expected to live. Specifically, the historical md5sums are looked for in either the file  <span Class="emphasis">${filename}.md5sum, </span> or the subdirectory <span Class="emphasis">${filename}.md5sum.d/</span> <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-h, --help</span> Print a short usage message 
+<p class="level0"><span Class="bold">-n, --no-action</span> Dry run. Print the actions that would be taken if the script is invoked, but take no action. 
+<p class="level0"><span Class="bold">-d [n], --debug [n]</span> Set the debug level to the (optional) level <span Class="emphasis">n </span> (n defaults to 1). This turns on copious debugging information. 
+<p class="level0"><span Class="bold">-v,  --verbose</span> Make the script be very verbose about setting internal variables. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">/var/lib/ucf/hashfile,</span> <span Class="emphasis">/etc/ucf.conf</span> <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">ucf(1) ucf.conf(5). <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">There are no bugs.  Any resemblance thereof is delirium. Really. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was written Manoj Srivastava &lt;srivasta@debian.org&gt;, for the Debian GNU/Linux system. 

@@ -1,0 +1,36 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-mktag - Creates a tag object <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git mktag</span> &lt; signature_file
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Reads a tag contents on standard input and creates a tag object that can also be used to sign other objects. 
+<p class="level0">The output is the new tag(cqs &lt;object&gt; identifier. <a name="TAG"></a><h2 class="nroffsh">TAG FORMAT</h2>
+<p class="level0">
+<p class="level0">A tag signature file has a very simple fixed format: four lines of 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+object &lt;sha1&gt;
+type &lt;typename&gt;
+tag &lt;tagname&gt;
+tagger &lt;tagger&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">followed by some <span Class="emphasis">optional</span> free-form message (some tags created by older Git may not have tagger line). The message, when exists, is separated by a blank line from the header. The message part may contain a signature that Git itself doesn(cqt care about, but that can be verified with gpg. <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

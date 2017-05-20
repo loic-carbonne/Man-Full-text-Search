@@ -1,0 +1,158 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-mime - command line tool for querying information about file type handling and adding descriptions for new file types <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-mime</span> query {filetype | default} ... 
+<p class="level0"><span Class="bold">xdg-mime</span> default <span Class="emphasis">application</span> <span Class="emphasis">mimetype(s)</span> 
+<p class="level0"><span Class="bold">xdg-mime</span> install [<span Class="bold">--mode&nbsp;</span><span class="bold"><span Class="emphasis">mode</span></span>] [<span Class="bold">--novendor</span>] <span Class="emphasis">mimetypes-file</span> 
+<p class="level0"><span Class="bold">xdg-mime</span> uninstall [<span Class="bold">--mode&nbsp;</span><span class="bold"><span Class="emphasis">mode</span></span>] <span Class="emphasis">mimetypes-file</span> 
+<p class="level0"><span Class="bold">xdg-mime</span> {<span Class="bold">--help</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">The xdg-mime program can be used to query information about file types and to add descriptions for new file types. <a name="COMMANDS"></a><h2 class="nroffsh">COMMANDS</h2>
+<p class="level0">
+<p class="level0">query 
+<p class="level1">Returns information related to file types. 
+<p class="level1">The <span Class="emphasis">query</span> option is for use inside a desktop session only. It is not recommended to use xdg-mime query as root. 
+<p class="level1">The following queries are supported: 
+<p class="level1">query filetype <span Class="emphasis">FILE</span>: Returns the file type of <span Class="emphasis">FILE</span> in the form of a MIME type. 
+<p class="level1">query default <span Class="emphasis">mimetype</span>: Returns the default application that the desktop environment uses for opening files of type <span Class="emphasis">mimetype</span>. The default application is identified by its *.desktop file. 
+<p class="level0">
+<p class="level0">default 
+<p class="level1">Ask the desktop environment to make <span Class="emphasis">application</span> the default application for opening files of type <span Class="emphasis">mimetype</span>. An application can be made the default for several file types by specifying multiple mimetypes. 
+<p class="level1"><span Class="emphasis">application</span> is the desktop file id of the application and has the form vendor-name.desktop <span Class="emphasis">application</span> must already be installed in the desktop menu before it can be made the default handler. The application*(Aqs desktop file must list support for all the MIME types that it wishes to be the default handler for. 
+<p class="level1">Requests to make an application a default handler may be subject to system policy or approval by the end-user. xdg-mime query can be used to verify whether an application is the actual default handler for a specific file type. 
+<p class="level1">The <span Class="emphasis">default</span> option is for use inside a desktop session only. It is not recommended to use xdg-mime default as root. 
+<p class="level0">
+<p class="level0">install 
+<p class="level1">Adds the file type descriptions provided in <span Class="emphasis">mimetypes-file</span> to the desktop environment. <span Class="emphasis">mimetypes-file</span> must be a XML file that follows the freedesktop.org Shared MIME-info Database specification and that has a mime-info element as its document root. For each new file type one or more icons with name <span Class="emphasis">type</span>-<span Class="emphasis">subtype</span> must be installed with the <span Class="bold">xdg-icon-resource</span> command in the <span Class="emphasis">mimetypes</span> context. For example the filetype application/vnd.oasis.opendocument.text requires an icon named application-vnd.oasis.opendocument.text to be installed (unless the file type recommends another icon name). 
+<p class="level0">
+<p class="level0">uninstall 
+<p class="level1">Removes the file type descriptions provided in <span Class="emphasis">mimetypes-file</span> and previously added with <span Class="bold">xdg-mime install</span> from the desktop environment. <span Class="emphasis">mimetypes-file</span> must be a XML file that follows the freedesktop.org Shared MIME-info Database specification and that has a mime-info element as its document root. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--mode</span> <span Class="emphasis">mode</span> 
+<p class="level1"><span Class="emphasis">mode</span> can be <span Class="emphasis">user</span> or <span Class="emphasis">system</span>. In user mode the file is (un)installed for the current user only. In system mode the file is (un)installed for all users on the system. Usually only root is allowed to install in system mode. 
+<p class="level1">The default is to use system mode when called by root and to use user mode when called by a non-root user. 
+<p class="level0">
+<p class="level0"><span Class="bold">--novendor</span> 
+<p class="level1">Normally, xdg-mime checks to ensure that the <span Class="emphasis">mimetypes-file</span> to be installed has a proper vendor prefix. This option can be used to disable that check. 
+<p class="level1">A vendor prefix consists of alpha characters ([a-zA-Z]) and is terminated with a dash ("-"). Companies and organizations are encouraged to use a word or phrase, preferably the organizations name, for which they hold a trademark as their vendor prefix. The purpose of the vendor prefix is to prevent name conflicts. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">xdg-mime honours the following environment variables: 
+<p class="level0">XDG_UTILS_DEBUG_LEVEL 
+<p class="level1">Setting this environment variable to a non-zero numerical value makes xdg-mime do more verbose reporting on stderr. Setting a higher value increases the verbosity. 
+<p class="level0">
+<p class="level0">XDG_UTILS_INSTALL_MODE 
+<p class="level1">This environment variable can be used by the user or administrator to override the installation mode. Valid values are <span Class="emphasis">user</span> and <span Class="emphasis">system</span>. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">One of the files passed on the command line did not exist. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0">
+<p class="level0"><span Class="bold">5</span> 
+<p class="level1">No permission to read one of the files passed on the command line. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-icon-resource</span>(1), <span Class="bold">xdg-desktop-menu</span>(1) <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-mime query filetype /tmp/foobar.png
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Prints the MIME type of the file /tmp/foobar.png, in this case image/png 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-mime query default image/png
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Prints the .desktop filename of the application which is registered to open PNG files. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-mime install shinythings-shiny.xml
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Adds a file type description for "shiny"-files. "shinythings-" is used as the vendor prefix. The file type description could look as follows. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+shinythings-shiny.xml:
+&nbsp;
+&lt;?xml version="1.0"?&gt;
+&lt;mime-info xmlns=*(Aqhttp://www.freedesktop.org/standards/shared-mime-info*(Aq&gt;
+&nbsp; &lt;mime-type type="text/x-shiny"&gt;
+&nbsp;   &lt;comment&gt;Shiny new file type&lt;/comment&gt;
+&nbsp;   &lt;glob pattern="*.shiny"/&gt;
+&nbsp;   &lt;glob pattern="*.shi"/&gt;
+&nbsp; &lt;/mime-type&gt;
+&lt;/mime-info&gt;
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">An icon for this new file type must also be installed, for example with: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-icon-resource install --context mimetypes --size 64 shiny-file-icon.png text-x-shiny
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Kevin Krammer</span> 
+<p class="level1">Author. 
+<p class="level0">
+<p class="level0"><span Class="bold">Jeremy White</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2006 <br>

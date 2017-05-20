@@ -1,0 +1,115 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">xdg-email - command line tool for sending mail using the user*(Aqs preferred e-mail composer <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">xdg-email</span> [<span Class="bold">--utf8</span>] [<span Class="bold">--cc</span>&nbsp;<span Class="emphasis">address</span>] [<span Class="bold">--bcc</span>&nbsp;<span Class="emphasis">address</span>] [<span Class="bold">--subject</span>&nbsp;<span Class="emphasis">text</span>] [<span Class="bold">--body</span>&nbsp;<span Class="emphasis">text</span>] [<span Class="bold">--attach</span>&nbsp;<span Class="emphasis">file</span>] [<span Class="emphasis">mailto-uri</span> | <span Class="emphasis">address(es)</span>] 
+<p class="level0"><span Class="bold">xdg-email</span> {<span Class="bold">--help</span> | <span Class="bold">--manual</span> | <span Class="bold">--version</span>} <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">xdg-email opens the user*(Aqs preferred e-mail composer in order to send a mail to <span Class="emphasis">address(es)</span> or <span Class="emphasis">mailto-uri</span>. <a href="http://www.ietf.org/rfc/rfc2368.txt">RFC 2368</a> defines mailto: URIs. xdg-email limits support to, cc, subject and body fields in <span Class="emphasis">mailto-uri</span>, all other fields are silently ignored. <span Class="emphasis">address(es)</span> must follow the syntax of <a href="http://www.ietf.org/rfc/rfc822.txt">RFC 822</a>. Multiple addresses may be provided as separate arguments. 
+<p class="level0">All information provided on the command line is used to prefill corresponding fields in the user*(Aqs e-mail composer. The user will have the opportunity to change any of this information before actually sending the e-mail. 
+<p class="level0">xdg-email is for use inside a desktop session only. It is not recommended to use xdg-email as root. 
+<p class="level0">See m[blue]<span Class="bold">%http://portland.freedesktop.org/wiki/EmailConfig</span>m[] for information on how the user can change the e-mail composer that is used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">--utf8</span> 
+<p class="level1">Indicates that all command line options that follow are in utf8. Without this option, command line options are expected to be encoded according to locale. If the locale already specifies utf8 this option has no effect. This option does not affect mailto URIs that are passed on the command line. 
+<p class="level0">
+<p class="level0"><span Class="bold">--cc</span> <span Class="emphasis">address</span> 
+<p class="level1">Specify a recipient to be copied on the e-mail. 
+<p class="level0">
+<p class="level0"><span Class="bold">--bcc</span> <span Class="emphasis">address</span> 
+<p class="level1">Specify a recipient to be blindly copied on the e-mail. 
+<p class="level0">
+<p class="level0"><span Class="bold">--subject</span> <span Class="emphasis">text</span> 
+<p class="level1">Specify a subject for the e-mail. 
+<p class="level0">
+<p class="level0"><span Class="bold">--body</span> <span Class="emphasis">text</span> 
+<p class="level1">Specify a body for the e-mail. Since the user will be able to make changes before actually sending the e-mail, this can be used to provide the user with a template for the e-mail. <span Class="emphasis">text</span> may contain linebreaks. 
+<p class="level0">
+<p class="level0"><span Class="bold">--attach</span> <span Class="emphasis">file</span> 
+<p class="level1">Specify an attachment for the e-mail. <span Class="emphasis">file</span> must point to an existing file. 
+<p class="level1">Some e-mail applications require the file to remain present after xdg-email returns. 
+<p class="level0">
+<p class="level0"><span Class="bold">--help</span> 
+<p class="level1">Show command synopsis. 
+<p class="level0">
+<p class="level0"><span Class="bold">--manual</span> 
+<p class="level1">Show this manual page. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Show the xdg-utils version information. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0">xdg-email honours the following environment variables: 
+<p class="level0">XDG_UTILS_DEBUG_LEVEL 
+<p class="level1">Setting this environment variable to a non-zero numerical value makes xdg-email do more verbose reporting on stderr. Setting a higher value increases the verbosity. 
+<p class="level0"><a name="EXIT"></a><h2 class="nroffsh">EXIT CODES</h2>
+<p class="level0">
+<p class="level0">An exit code of 0 indicates success while a non-zero exit code indicates failure. The following failure codes can be returned: 
+<p class="level0"><span Class="bold">1</span> 
+<p class="level1">Error in command line syntax. 
+<p class="level0">
+<p class="level0"><span Class="bold">2</span> 
+<p class="level1">One of the files passed on the command line did not exist. 
+<p class="level0">
+<p class="level0"><span Class="bold">3</span> 
+<p class="level1">A required tool could not be found. 
+<p class="level0">
+<p class="level0"><span Class="bold">4</span> 
+<p class="level1">The action failed. 
+<p class="level0">
+<p class="level0"><span Class="bold">5</span> 
+<p class="level1">No permission to read one of the files passed on the command line. 
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">Visit m[blue]<span Class="bold">%http://portland.freedesktop.org/wiki/EmailConfig</span>m[] for information how to configure xdg-email to use the email client of your choice. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-email *(AqJeremy White &lt;jwhite@example.com&gt;*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-email --attach /tmp/logo.png e
+&nbsp;         --subject *(AqLogo contest*(Aq e
+&nbsp;         --body *(AqAttached you find the logo for the contest.*(Aq e
+&nbsp;         *(Aqjwhite@example.com*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+xdg-email --subject *(AqYour password is about to expire*(Aq e
+&nbsp;         *(Aqjwhite@example.com*(Aq *(Aqbastian@example.com*(Aq *(Aqwhipple@example.com*(Aq
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">Kevin Krammer</span> 
+<p class="level1">Author. 
+<p class="level0">
+<p class="level0"><span Class="bold">Jeremy White</span> 
+<p class="level1">Author. 
+<p class="level0"><a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0"><br>Copyright &copy; 2006 <br>

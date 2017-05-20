@@ -1,0 +1,36 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">tempfile - create a temporary file in a safe manner <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">tempfile</span> [-d DIR] [-p STRING] [-s STRING] [-m MODE] [-n FILE] [--directory=DIR] [--prefix=STRING] [--suffix=STRING] [--mode=MODE] [--name=FILE] [--help] [--version] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">tempfile</span> creates a temporary file in a safe manner.  It uses <span Class="manpage">tempnam (3)</span>to choose the name and opens it with O_RDWR | O_CREAT | O_EXCL.  The filename is printed on standard output. See <span Class="manpage">tempnam (3)</span>for the actual steps involved in directory selection. 
+<p class="level0">The directory in which to create the file might be searched for in this order (but refer to <span Class="manpage">tempnam (3)</span>for authoritative answers): 
+<p class="level0">a) In case the environment variable <span Class="bold">TMPDIR</span> exists and contains the name of an appropriate directory, that is used. 
+<p class="level0">b) Otherwise, if the <span Class="emphasis">--directory</span> argument is specified and appropriate, it is used. 
+<p class="level0">c) Otherwise, <span Class="emphasis">P_tmpdir</span> (as defined in <span Class="emphasis">&lt;stdio.h&gt; )</span> is used when appropriate. 
+<p class="level0">d) Finally an implementation-defined directory <span Class="emphasis">(/tmp)</span> may be used. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-d, --directory  DIR</span> Place the file in DIR. 
+<p class="level0"><span Class="bold">-m, --mode  MODE</span> Open the file with MODE instead of 0600. 
+<p class="level0"><span Class="bold">-n, --name  FILE</span> Use FILE for the name instead of <span Class="manpage">tempnam (3) .</span>The options -d, -p, and -s are ignored if this option is given. 
+<p class="level0"><span Class="bold">-p, --prefix  STRING</span> Use up to five letters of STRING to generate the name. 
+<p class="level0"><span Class="bold">-s, --suffix  STRING</span> Generate the file with STRING as the suffix. 
+<p class="level0"><span Class="bold">--help</span> Print a usage message on standard output and exit successfully. 
+<p class="level0"><span Class="bold">--version</span> Print version information on standard output and exit successfully. <a name="RETURN"></a><h2 class="nroffsh">RETURN VALUES</h2>
+<p class="level0">An exit status of 0 means the temporary file was created successfully. Any other exit status indicates an error. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">Exclusive creation is not guaranteed when creating files on NFS partitions.  tempfile cannot make temporary directories. tempfile is deprecated; you should use mktemp(1) instead. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1"><pre class="level1">
+&#35;!/bin/sh
+&#35;[...]
+t=$(tempfile) || exit
+trap "rm -f -- '$t'" EXIT
+&#35;[...]
+rm -f -- "$t"
+trap - EXIT
+exit
+</pre>
+
+<p class="level1"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tempnam (3)</span>, <span Class="manpage">mktemp (1)</span>

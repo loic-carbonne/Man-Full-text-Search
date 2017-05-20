@@ -1,0 +1,550 @@
+
+<p class="level0">
+<p class="level0">Copyright (C) 1989-2006, 2008-2011 &nbsp; Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies. 
+<p class="level0">Permission is granted to copy and distribute modified versions of this manual under the conditions for verbatim copying, provided that the entire resulting derived work is distributed under the terms of a permission notice identical to this one. 
+<p class="level0">Permission is granted to copy and distribute translations of this manual into another language, under the above conditions for modified versions, except that this permission notice may be included in translations approved by the Free Software Foundation instead of in the original English. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">
+<p class="level0">grops - PostScript driver for groff 
+<p class="level0">
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a class="emphasis" href="#">.\|.\|. ]</a> 
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">grops</span> translates the output of GNU <span Class="bold">troff</span> to PostScript. 
+<p class="level0">Normally <span Class="bold">grops</span> should be invoked by using the groff command with a <span Class="bold">-Tps</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">If no files are given, <span Class="bold">grops</span> reads the standard input. 
+<p class="level0">A filename of <span Class="bold">-</span> also causes <span Class="bold">grops</span> to read the standard input. 
+<p class="level0">PostScript output is written to the standard output. 
+<p class="level0">When <span Class="bold">grops</span> is run by <span Class="bold">groff</span> options can be passed to <span Class="bold">grops</span> using <span Class="manpage">groff 's</span><span Class="bold">-P</span> option. 
+<p class="level0">
+<p class="level0">Note that <span Class="bold">grops</span> doesn't produce a valid document structure (conforming to the Document Structuring Convention) if called with multiple file arguments. 
+<p class="level0">To print such concatenated output it is necessary to deactivate DSC handling in the printing program or previewer. 
+<p class="level0">See section <a class="bold" href="#FONT">FONT INSTALLATION</a> below for a guide how to install fonts for <span Class="manpage">grops .</span>
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">It is possible to have whitespace between a command line option and its parameter. 
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">-b n</span> Provide workarounds for older printers, broken spoolers, and previewers. 
+<p class="level0">Normally <span Class="bold">grops</span> produces output at PostScript LanguageLevel~2 that conforms to the Document Structuring Conventions version 3.0. 
+<p class="level0">Some older printers, spoolers, and previewers can't handle such output. 
+<p class="level0">The value of~c <span Class="emphasis">n</span> controls what <span Class="bold">grops</span> does to make its output acceptable to such programs. 
+<p class="level0">A value of~0 causes grops not to employ any workarounds. 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Add~1 if no <span Class="bold">%%Begin\%Document\%Setup</span> and <span Class="bold">%%End\%Document\%Setup</span> comments should be generated; this is needed for early versions of TranScript that get confused by anything between the <span Class="bold">%%End\%Prolog</span> comment and the first <span Class="bold">%%Page</span> comment. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Add~2 if lines in included files beginning with <a class="bold" href="#">%!\&</a> should be stripped out; this is needed for Sun's pageview previewer. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Add~4 if <span Class="manpage">%%Page</span>, <span Class="manpage">%%Trailer</span>and <span Class="bold">%%End\%Prolog</span> comments should be stripped out of included files; this is needed for spoolers that don't understand the <span Class="bold">%%Begin\%Document</span> and <span Class="bold">%%End\%Document</span> comments. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Add~8 if the first line of the PostScript output should be <span Class="bold">%!PS-Adobe-2.0</span> rather than <span Class="manpage">%!PS-Adobe-3.0 ;</span>this is needed when using Sun's Newsprint with a printer that requires page reversal. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Add~16 if no media size information should be included in the document (this is, neither use <span Class="bold">%%Document\%Media</span> nor the <span Class="bold">setpagedevice</span> PostScript command). 
+<p class="level1">This was the behaviour of groff version 1.18.1 and earlier; it is needed for older printers which don't understand PostScript LanguageLevel~2. 
+<p class="level1">It is also necessary if the output is further processed to get an encapsulated PS (EPS) file [en] see below. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The default value can be specified by a 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">broken\  n</span> 
+<p class="level2">
+<p class="level2">command in the DESC file. 
+<p class="level2">Otherwise the default value is~0. 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-c n</span> Print <span Class="emphasis">n</span> copies of each page. 
+<p class="level1">
+<p class="level1"><span Class="bold">-F dir</span> Prepend directory 
+<p class="level1">to the search path for prologue, font, and device description files; <span Class="emphasis">name</span> is the name of the device, usually <span Class="manpage">ps .</span>
+<p class="level1">
+<p class="level1"><span Class="bold">-g</span> Guess the page length. 
+<p class="level1">This generates PostScript code that guesses the page length. 
+<p class="level1">The guess is correct only if the imageable area is vertically centered on the page. 
+<p class="level1">This option allows you to generate documents that can be printed both on letter (8.5[mu]11) paper and on A4 paper without change. 
+<p class="level1">
+<p class="level1"><span Class="bold">-I dir</span> This option may be used to add a directory to the search path for files on the command line and files named in <span Class="bold">\[rs]X'ps: import'</span> and <span Class="bold">\[rs]X'ps: file'</span> escapes. 
+<p class="level1">The search path is initialized with the current directory. 
+<p class="level1">This option may be specified more than once; the directories are then searched in the order specified (but before the current directory). 
+<p class="level1">If you want to make the current directory be read before other directories, add <span Class="bold">-I.\&</span> at the appropriate place. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">No directory search is performed for files with an absolute file name. 
+<p class="level1">
+<p class="level1"><span Class="bold">-l</span> Print the document in landscape format. 
+<p class="level1">
+<p class="level1"><span Class="bold">-m</span> Turn manual feed on for the document. 
+<p class="level1">
+<p class="level1"><span Class="bold">-p paper-size</span> Set physical dimension of output medium. 
+<p class="level1">This overrides the <span Class="manpage">papersize</span>, <span Class="manpage">paperlength</span>and <span Class="bold">paperwidth</span> commands in the <span Class="bold">DESC</span> file; it accepts the same arguments as the <span Class="bold">papersize</span> command. 
+<p class="level1">See <span Class="bold">groff_font (5)</span> for details. 
+<p class="level1">
+<p class="level1"><span Class="bold">-P prologue-file</span> Use the file <span Class="emphasis">prologue-file</span> (in the font path) as the prologue instead of the default prologue file <span Class="manpage">prologue .</span>
+<p class="level1">This option overrides the environment variable 
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">-w n</span> Lines should be drawn using a thickness of <span Class="emphasis">n \~\c</span> thousandths of an em. 
+<p class="level1">If this option is not given, the line thickness defaults to 0.04~em. 
+<p class="level1">
+<p class="level1"><span Class="bold">-v</span> Print the version number. 
+<p class="level1">
+<p class="level1"><a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">The input to <span Class="bold">grops</span> must be in the format output by <span Class="manpage">troff (1).</span>
+<p class="level0">This is described in <span Class="manpage">groff_out (5).</span>
+<p class="level0">
+<p class="level0">In addition, the device and font description files for the device used must meet certain requirements: 
+<p class="level0">The resolution must be an integer multiple of~72 times the <span Class="manpage">sizescale .</span>
+<p class="level0">The <span Class="bold">ps</span> device uses a resolution of 72000 and a sizescale of 1000. 
+<p class="level0">
+<p class="level0">The device description file must contain a valid paper size; see <span Class="manpage">groff_font (5)</span>for more information. 
+<p class="level0">
+<p class="level0">Each font description file must contain a command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">internalname\  psname</span> 
+<p class="level1">which says that the PostScript name of the font is <span Class="emphasis">psname .</span> 
+<p class="level1">It may also contain a command 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">encoding\  enc_file</span> 
+<p class="level1">which says that the PostScript font should be reencoded using the encoding described in <span Class="emphasis">enc_file ;</span> this file should consist of a sequence of lines of the form: 
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="emphasis" href="#"></a> pschar code 
+<p class="level1">where <span Class="emphasis">pschar</span> is the PostScript name of the character, and <span Class="emphasis">code</span> is its position in the encoding expressed as a decimal integer; valid values are in the range 0 to~255. 
+<p class="level1">Lines starting with <a class="bold" href="#">#</a> and blank lines are ignored. 
+<p class="level1">The code for each character given in the font file must correspond to the code for the character in encoding file, or to the code in the default encoding for the font if the PostScript font is not to be reencoded. 
+<p class="level1">This code can be used with the <span Class="bold">\[rs]N</span> escape sequence in <span Class="bold">troff</span> to select the character, even if the character does not have a groff name. 
+<p class="level1">Every character in the font file must exist in the PostScript font, and the widths given in the font file must match the widths used in the PostScript font. 
+<p class="level1"><span Class="bold">grops</span> assumes that a character with a groff name of <span Class="bold">space</span> is blank (makes no marks on the page); it can make use of such a character to generate more efficient and compact PostScript output. 
+<p class="level1">
+<p class="level1">Note that <span Class="bold">grops</span> is able to display all glyphs in a PostScript font, not only 256. <span Class="emphasis">enc_file</span> (or the default encoding if no encoding file specified) just defines the order of glyphs for the first 256 characters; all other glyphs are accessed with additional encoding vectors which <span Class="bold">grops</span> produces on the fly. 
+<p class="level1">
+<p class="level1"><span Class="bold">grops</span> can automatically include the downloadable fonts necessary to print the document. 
+<p class="level1">Such fonts must be in PFA format. 
+<p class="level1">Use <span Class="manpage">\%pfbtops (1)</span>to convert a Type~1 font in PFB format. 
+<p class="level1">Any downloadable fonts which should, when required, be included by <span Class="bold">grops</span> must be listed in the file <span Class="manpage">/usr/share/groff/1.22.2/font/devps/download ;</span>this should consist of lines of the form 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="emphasis" href="#"></a> font filename 
+<p class="level1">
+<p class="level1">where <span Class="emphasis">font</span> is the PostScript name of the font, and <span Class="emphasis">filename</span> is the name of the file containing the font; lines beginning with <a class="bold" href="#">#</a> and blank lines are ignored; fields may be separated by tabs or spaces; <span Class="emphasis">filename</span> is searched for using the same mechanism that is used for groff font metric files. 
+<p class="level1">The <span Class="bold">download</span> file itself is also searched for using this mechanism; currently, only the first found file in the font path is used. 
+<p class="level1">
+<p class="level1">If the file containing a downloadable font or imported document conforms to the Adobe Document Structuring Conventions, then <span Class="bold">grops</span> interprets any comments in the files sufficiently to ensure that its own output is conforming. 
+<p class="level1">It also supplies any needed font resources that are listed in the <span Class="bold">download</span> file as well as any needed file resources. 
+<p class="level1">It is also able to handle inter-resource dependencies. 
+<p class="level1">For example, suppose that you have a downloadable font called Garamond, and also a downloadable font called Garamond-Outline which depends on Garamond (typically it would be defined to copy Garamond's font dictionary, and change the PaintType), then it is necessary for Garamond to appear before Garamond-Outline in the PostScript document. 
+<p class="level1"><span Class="bold">grops</span> handles this automatically provided that the downloadable font file for Garamond-Outline indicates its dependence on Garamond by means of the Document Structuring Conventions, for example by beginning with the following lines 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> %!PS-Adobe-3.0 Resource-Font <br><a class="bold" href="#"></a> %%DocumentNeededResources: font Garamond <br><a class="bold" href="#"></a> %%EndComments <br><a class="bold" href="#"></a> %%IncludeResource: font Garamond 
+<p class="level1">
+<p class="level1">In this case both Garamond and Garamond-Outline would need to be listed in the <span Class="bold">download</span> file. 
+<p class="level1">A downloadable font should not include its own name in a <span Class="bold">%%Document\%Supplied\%Resources</span> comment. 
+<p class="level1">
+<p class="level1"><span Class="bold">grops</span> does not interpret <span Class="bold">%%Document\%Fonts</span> comments. 
+<p class="level1">The <span Class="manpage">%%Document\%Needed\%Resources</span>, <span Class="manpage">%%Document\%Supplied\%Resources</span>, <span Class="manpage">%%Include\%Resource</span>, <span Class="manpage">%%Begin\%Resource</span>and <span Class="manpage">%%End\%Resource</span>comments (or possibly the old <span Class="manpage">%%Document\%Needed\%Fonts</span>, <span Class="manpage">%%Document\%Supplied\%Fonts</span>, <span Class="manpage">%%Include\%Font</span>, <span Class="manpage">%%Begin\%Font</span>and <span Class="manpage">%%End\%Font</span>comments) should be used. 
+<p class="level1">
+<p class="level1">In the default setup there are styles called <span Class="manpage">R</span>, <span Class="manpage">I</span>, <span Class="manpage">B</span>and <span Class="bold">BI</span> mounted at font positions 1 to~4. 
+<p class="level1">The fonts are grouped into families <span Class="manpage">A</span>, <span Class="manpage">BM</span>, <span Class="manpage">C</span>, <span Class="manpage">H</span>, <span Class="manpage">HN</span>, <span Class="manpage">N</span>, <span Class="manpage">P</span>and~c <span Class="bold">T</span> having members in each of these styles: 
+<p class="level1">
+<p class="level2">
+<p class="level2"><span Class="bold">AR</span> AvantGarde-Book 
+<p class="level2">
+<p class="level2"><span Class="bold">AI</span> AvantGarde-BookOblique 
+<p class="level2">
+<p class="level2"><span Class="bold">AB</span> AvantGarde-Demi 
+<p class="level2">
+<p class="level2"><span Class="bold">ABI</span> AvantGarde-DemiOblique 
+<p class="level2">
+<p class="level2"><span Class="bold">BMR</span> Bookman-Light 
+<p class="level2">
+<p class="level2"><span Class="bold">BMI</span> Bookman-LightItalic 
+<p class="level2">
+<p class="level2"><span Class="bold">BMB</span> Bookman-Demi 
+<p class="level2">
+<p class="level2"><span Class="bold">BMBI</span> Bookman-DemiItalic 
+<p class="level2">
+<p class="level2"><span Class="bold">CR</span> Courier 
+<p class="level2">
+<p class="level2"><span Class="bold">CI</span> Courier-Oblique 
+<p class="level2">
+<p class="level2"><span Class="bold">CB</span> Courier-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">CBI</span> Courier-BoldOblique 
+<p class="level2">
+<p class="level2"><span Class="bold">HR</span> Helvetica 
+<p class="level2">
+<p class="level2"><span Class="bold">HI</span> Helvetica-Oblique 
+<p class="level2">
+<p class="level2"><span Class="bold">HB</span> Helvetica-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">HBI</span> Helvetica-BoldOblique 
+<p class="level2">
+<p class="level2"><span Class="bold">HNR</span> Helvetica-Narrow 
+<p class="level2">
+<p class="level2"><span Class="bold">HNI</span> Helvetica-Narrow-Oblique 
+<p class="level2">
+<p class="level2"><span Class="bold">HNB</span> Helvetica-Narrow-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">HNBI</span> Helvetica-Narrow-BoldOblique 
+<p class="level2">
+<p class="level2"><span Class="bold">NR</span> NewCenturySchlbk-Roman 
+<p class="level2">
+<p class="level2"><span Class="bold">NI</span> NewCenturySchlbk-Italic 
+<p class="level2">
+<p class="level2"><span Class="bold">NB</span> NewCenturySchlbk-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">NBI</span> NewCenturySchlbk-BoldItalic 
+<p class="level2">
+<p class="level2"><span Class="bold">PR</span> Palatino-Roman 
+<p class="level2">
+<p class="level2"><span Class="bold">PI</span> Palatino-Italic 
+<p class="level2">
+<p class="level2"><span Class="bold">PB</span> Palatino-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">PBI</span> Palatino-BoldItalic 
+<p class="level2">
+<p class="level2"><span Class="bold">TR</span> Times-Roman 
+<p class="level2">
+<p class="level2"><span Class="bold">TI</span> Times-Italic 
+<p class="level2">
+<p class="level2"><span Class="bold">TB</span> Times-Bold 
+<p class="level2">
+<p class="level2"><span Class="bold">TBI</span> Times-BoldItalic 
+<p class="level1">
+<p class="level1">
+<p class="level1">There is also the following font which is not a member of a family: 
+<p class="level1">
+<p class="level2">
+<p class="level2"><span Class="bold">ZCMI</span> ZapfChancery-MediumItalic 
+<p class="level1">
+<p class="level1">
+<p class="level1">There are also some special fonts called <span Class="bold">S</span> for the PS Symbol font, and <span Class="manpage">SS</span>containing slanted lowercase Greek letters taken from PS Symbol. 
+<p class="level1">Zapf Dingbats is available as <span Class="manpage">ZD</span>and a reversed version of ZapfDingbats (with symbols pointing in the opposite direction) is available as <span Class="manpage">ZDR ;</span>most characters in these fonts are unnamed and must be accessed using <span Class="manpage">\[rs]N .</span>
+<p class="level1">
+<p class="level1">The default color for <span Class="bold">\[rs]m</span> and <span Class="bold">\[rs]M</span> is black; for colors defined in the `rgb' color space <span Class="bold">setrgbcolor</span> is used, for `cmy' and `cmyk' , <span Class="manpage">setcmykcolor</span>and for `gray' <span Class="manpage">setgray .</span>
+<p class="level1">Note that <span Class="bold">setcmykcolor</span> is a PostScript LanguageLevel~2 command and thus not available on some older printers. 
+<p class="level1">
+<p class="level1"><span Class="bold">grops</span> understands various X~commands produced using the <span Class="bold">\[rs]X</span> escape sequence; <span Class="bold">grops</span> only interprets commands that begin with a <span Class="bold">ps:</span> tag. 
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ exec\  code '</span> This executes the arbitrary PostScript commands in <span Class="emphasis">code .</span> 
+<p class="level1">The PostScript currentpoint is set to the position of the <span Class="bold">\[rs]X</span> command before executing <span Class="emphasis">code .</span> 
+<p class="level1">The origin is at the top left corner of the page, and y~coordinates increase down the page. 
+<p class="level1">A procedure~c <span Class="bold">u</span> is defined that converts groff units to the coordinate system in effect (provided the user doesn't change the scale). 
+<p class="level1">For example, 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><a class="bold" href="#"></a> .nr x 1i <br><a class="bold" href="#"></a> [rs]X'ps: exec [rs]nx u 0 rlineto stroke' <br>
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">draws a horizontal line one inch long. 
+<p class="level1"><span Class="emphasis">code</span> may make changes to the graphics state, but any changes persist only to the end of the page. 
+<p class="level1">A dictionary containing the definitions specified by the <span Class="bold">def</span> and <span Class="bold">mdef</span> is on top of the dictionary stack. 
+<p class="level1">If your code adds definitions to this dictionary, you should allocate space for them using <span Class="bold">\[rs]X'ps\ mdef \ n '.</span> 
+<p class="level1">Any definitions persist only until the end of the page. 
+<p class="level1">If you use the <span Class="bold">\[rs]Y</span> escape sequence with an argument that names a macro, <span Class="emphasis">code</span> can extend over multiple lines. 
+<p class="level1">For example, 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><pre class="level2">
+.nr x 1i
+.de y
+ps: exec
+[rs]nx u 0 rlineto
+stroke
+..
+[rs]Yy
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level2">is another way to draw a horizontal line one inch long. 
+<p class="level2">Note the single backslash before `nx' [en] the only reason to use a number register while defining the macro `y' is to convert a user-specified dimension `1i' to internal groff units which are in turn converted to PS units with the <span Class="bold">u</span> procedure. 
+<p class="level2">
+<p class="level2"><span Class="bold">grops</span> wraps user-specified PostScript code into a dictionary, nothing more. 
+<p class="level2">In particular, it doesn't start and end the inserted code with <span Class="bold">save</span> and <span Class="manpage">restore</span>respectively. 
+<p class="level2">This must be supplied by the user, if necessary. 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ file\  name '</span> This is the same as the <span Class="bold">exec</span> command except that the PostScript code is read from file <span Class="emphasis">name .</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ def\  code '</span> Place a PostScript definition contained in <span Class="emphasis">code</span> in the prologue. 
+<p class="level1">There should be at most one definition per <span Class="bold">\[rs]X</span> command. 
+<p class="level1">Long definitions can be split over several <span Class="bold">\[rs]X</span> commands; all the <span Class="emphasis">code</span> arguments are simply joined together separated by newlines. 
+<p class="level1">The definitions are placed in a dictionary which is automatically pushed on the dictionary stack when an <span Class="bold">exec</span> command is executed. 
+<p class="level1">If you use the <span Class="bold">\[rs]Y</span> escape sequence with an argument that names a macro, <span Class="emphasis">code</span> can extend over multiple lines. 
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ mdef\  n\ code  '</span> Like <span Class="manpage">def</span>except that <span Class="emphasis">code</span> may contain up to <span Class="emphasis">n \~\c</span> definitions. 
+<p class="level1"><span Class="bold">grops</span> needs to know how many definitions <span Class="emphasis">code</span> contains so that it can create an appropriately sized PostScript dictionary to contain them. 
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ import\  file\ llx\ lly\ urx\ ury\ width\ [\ height\ ] '</span> Import a PostScript graphic from <span Class="emphasis">file .</span> 
+<p class="level1">The arguments <span Class="emphasis">llx ,</span> <span Class="emphasis">lly ,</span> <span Class="emphasis">urx ,</span> and <span Class="emphasis">ury</span> give the bounding box of the graphic in the default PostScript coordinate system; they should all be integers; <span Class="emphasis">llx</span> and <span Class="emphasis">lly</span> are the x and y~coordinates of the lower left corner of the graphic; <span Class="emphasis">urx</span> and <span Class="emphasis">ury</span> are the x and y~coordinates of the upper right corner of the graphic; <span Class="emphasis">width</span> and <span Class="emphasis">height</span> are integers that give the desired width and height in groff units of the graphic. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The graphic is scaled so that it has this width and height and translated so that the lower left corner of the graphic is located at the position associated with <span Class="bold">\[rs]X</span> command. 
+<p class="level1">If the height argument is omitted it is scaled uniformly in the x and y~directions so that it has the specified width. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">Note that the contents of the <span Class="bold">\[rs]X</span> command are not interpreted by <span Class="manpage">troff ;</span>so vertical space for the graphic is not automatically added, and the <span Class="emphasis">width</span> and <span Class="emphasis">height</span> arguments are not allowed to have attached scaling indicators. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If the PostScript file complies with the Adobe Document Structuring Conventions and contains a <span Class="bold">%%Bounding\%Box</span> comment, then the bounding box can be automatically extracted from within groff by using the <span Class="bold">psbb</span> request. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">See <span Class="manpage">groff_tmac (5)</span>for a description of the <span Class="bold">PSPIC</span> macro which provides a convenient high-level interface for inclusion of PostScript graphics. 
+<p class="level1">
+<p class="level1"><span Class="bold">\[rs]X'ps:\ invis'</span> 
+<p class="level1"><span Class="bold">\[rs]X'ps:\ endinvis'</span> No output is generated for text and drawing commands that are bracketed with these <span Class="bold">\[rs]X</span> commands. 
+<p class="level1">These commands are intended for use when output from <span Class="bold">troff</span> is previewed before being processed with <span Class="manpage">grops ;</span>if the previewer is unable to display certain characters or other constructs, then other substitute characters or constructs can be used for previewing by bracketing them with these <span Class="bold">\[rs]X</span> commands. 
+<p class="level1">
+<p class="level2">
+<p class="level2">For example, <span Class="bold">\%gxditview</span> is not able to display a proper <span Class="bold">\[rs](em</span> character because the standard X11 fonts do not provide it; this problem can be overcome by executing the following request 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><pre class="level2">
+.char [rs](em [rs]X'ps: invis'[rs]
+[rs]Z'[rs]v'-.25m'[rs]h'.05m'[rs]D'l .9m 0'[rs]h'.05m''[rs]
+[rs]X'ps: endinvis'[rs](em
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level2">In this case, <span Class="bold">\%gxditview</span> is unable to display the <span Class="bold">\[rs](em</span> character and draws the line, whereas <span Class="bold">grops</span> prints the <span Class="bold">\[rs](em</span> character and ignores the line (this code is already in file <span Class="bold">Xps.tmac</span> which is loaded if a document intended for <span Class="bold">grops</span> is previewed with <span Class="manpage">\%gxditview ).</span>
+<p class="level1">
+<p class="level1">
+<p class="level1">If a PostScript procedure <span Class="bold">BPhook</span> has been defined via a 
+<p class="level1">or 
+<p class="level1">device command, it is executed at the beginning of every page (before anything is drawn or written by groff). For example, to underlay the page contents with the word `DRAFT' in light gray, you might use 
+<p class="level2">
+<p class="level2"><pre class="level2">
+.de XX
+ps: def
+/BPhook
+{ gsave .9 setgray clippath pathbbox exch 2 copy
+&nbsp; .5 mul exch .5 mul translate atan rotate pop pop
+&nbsp; /NewCenturySchlbk-Roman findfont 200 scalefont setfont
+&nbsp; (DRAFT) dup stringwidth pop -.5 mul -70 moveto show
+&nbsp; grestore }
+def
+..
+.devicem XX
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level1">Or, to cause lines and polygons to be drawn with square linecaps and mitered linejoins instead of the round linecaps and linejoins normally used by <span Class="manpage">grops</span>use 
+<p class="level2">
+<p class="level2"><pre class="level2">
+.de XX
+ps: def
+/BPhook { 2 setlinecap 0 setlinejoin } def
+..
+.devicem XX
+</pre>
+
+<p class="level2">
+<p class="level1">
+<p class="level1">(square linecaps, as opposed to butt linecaps (0 setlinecap), give true corners in boxed tables even though the lines are drawn unconnected). 
+<p class="level1">
+<p class="level1"><a name="Encapsulated"></a><h2 class="nroffsh">Encapsulated PostScript</h2>
+<p class="level0"><span Class="bold">grops</span> itself doesn't emit bounding box information. 
+<p class="level0">With the help of Ghostscript the following simple script, <span Class="manpage">groff2eps</span>produces an encapsulated PS file. 
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35;! /bin/sh
+groff -P-b16 $1 &gt;$1.ps
+gs -dNOPAUSE -sDEVICE=bbox -- $1.ps 2&gt;$1.bbox
+cat $1.ps [rs]
+| sed -e "/[ha]%%Orientation/r$1.bbox" [rs]
+&nbsp;     -e "/[ha]%!PS-Adobe-3.0/s/$/ EPSF-3.0/" &gt;$1.eps
+rm $1.ps $1.bbox
+</pre>
+
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">Just say 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><a class="bold" href="#"></a> groff2eps foo 
+<p class="level1">
+<p class="level1">to convert file <span Class="bold">foo</span> to <span Class="manpage">foo.eps .</span>
+<p class="level1">
+<p class="level1"><a name="TrueType"></a><h2 class="nroffsh">TrueType and other font formats</h2>
+<p class="level0">TrueType fonts can be used with <span Class="bold">grops</span> if converted first to <span Class="bold">Type\~42</span> format, a special PostScript wrapper equivalent to the PFA format mentioned in <span Class="manpage">\%pfbtops (1).</span>
+<p class="level0">There are several different methods to generate a type42 wrapper and most of them involve the use of a PostScript interpreter such as Ghostscript [en] see <span Class="manpage">gs (1).</span>
+<p class="level0">
+<p class="level0">Yet, the easiest method involves the use of the application <span Class="manpage">ttftot42 (1).</span>
+<p class="level0">This program uses <span Class="manpage">freetype (3)</span>(version 1.3.1) to generate type42 font wrappers and well-formed AFM files that can be fed to the <span Class="manpage">\%afmtodit (1)</span>script to create appropriate metric files. 
+<p class="level0">The resulting font wrappers should be added to the <span Class="bold">download</span> file. <span Class="bold">ttftot42</span> source code can be downloaded from 
+<p class="level0"><a href="ftp://:www.giga.or.at/:pub/:nih/:ttftot42/">ftp://:www.giga.or.at/:pub/:nih/:ttftot42/</a> 
+<p class="level0">
+<p class="level0">
+<p class="level0">Another solution for creating type42 wrappers is to use FontForge, available from 
+<p class="level0"><a href="http://:fontforge.sf.net">http://:fontforge.sf.net</a> 
+<p class="level0">This font editor can convert most outline font formats. 
+<p class="level0">
+<p class="level0"><a name="FONT"></a><h2 class="nroffsh">FONT INSTALLATION</h2>
+<p class="level0">
+<p class="level0">This section gives a summary of the above explanations; it can serve as a step-by-step font installation guide for <span Class="manpage">grops .</span>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">h'-w'*[BU]'u'*[BU]c 
+<p class="level1">Convert your font to something groff understands. 
+<p class="level1">This is either a PostScript Type~1 font in PFA format or a PostScript Type~42 font, together with an AFM file. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The very first characters in a PFA file look like this: 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">%!PS-AdobeFont-1.0:</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">A PFB file has this also in the first line, but the string is preceded with some binary bytes. 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">The very first characters in a Type~42 font file look like this: 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">%!PS-TrueTypeFont</span> 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">This is a wrapper format for TrueType fonts. 
+<p class="level1">Old PS printers might not support it (this is, they don't have a built-in TrueType font interpreter). 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">If your font is in PFB format (such fonts normally have `.pfb' as the file extension), you might use groff's <span Class="manpage">\%pfbtops (1)</span>program to convert it to PFA. 
+<p class="level1">For TrueType fonts, try <span Class="bold">ttftot42</span> or , <span Class="manpage">fontforge .</span>For all other font formats use <span Class="bold">fontforge</span> which can convert most outline font formats. 
+<p class="level1">
+<p class="level1">Convert the AFM file to a groff font description file with the <span Class="manpage">\%afmtodit (1)</span>program. 
+<p class="level1">An example call is 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2">afmtodit Foo-Bar-Bold.afm textmap FBB 
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">which converts the metric file `Foo-Bar-Bold.afm' to the groff font `FBB'. 
+<p class="level1">If you have a font family which comes with normal, bold, italic, and bold italic faces, it is recommended to use the letters <span Class="manpage">R</span>, <span Class="manpage">B</span>, <span Class="manpage">I</span>and <span Class="manpage">BI</span>respectively, as postfixes in the groff font names to make groff's `.fam' request work. 
+<p class="level1">An example is groff's built-in Times-Roman font: The font family name is <span Class="manpage">T</span>and the groff font names are <span Class="manpage">TR</span>, <span Class="manpage">TB</span>, <span Class="manpage">TI</span>and <span Class="manpage">TBI .</span>
+<p class="level1">
+<p class="level1">Install both the groff font description files and the fonts in a `devps' subdirectory of the font path which groff finds. 
+<p class="level1">See the <a class="bold" href="#ENVIRONMENT">ENVIRONMENT</a> section in the <span Class="manpage">troff (1)</span>man page which lists the actual value of the font path. 
+<p class="level1">Note that groff doesn't use the AFM files (but it is a good idea to store them anyway). 
+<p class="level1">
+<p class="level1">Register all fonts which must be downloaded to the printer in the `devps/download' file. 
+<p class="level1">Only the first occurrence of this file in the font path is read. 
+<p class="level1">This means that you should copy the default `download' file to the first directory in your font path and add your fonts there. 
+<p class="level1">To continue the above example we assume that the PS font name for Foo-Bar-Bold.pfa is `XY-Foo-Bar-Bold' (the PS font name is stored in the <span Class="bold">internalname</span> field in the `FBB' file), thus the following line should be added to `download'. 
+<p class="level1">
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip"></span> 
+<p class="level2"><span Class="bold">XY-Foo-Bar-Bold Foo-Bar-Bold.pfa</span> 
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1"><a name="OLD"></a><h2 class="nroffsh">OLD FONTS</h2>
+<p class="level0">
+<p class="level0">groff versions 1.19.2 and earlier contain a slightly different set of the 35 Adobe core fonts; the difference is mainly the lack of the `Euro' glyph and a reduced set of kerning pairs. 
+<p class="level0">For backwards compatibility, these old fonts are installed also in the 
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="manpage">/usr/share/groff/1.22.2/oldfont/devps</span>
+<p class="level1">
+<p class="level1">directory. 
+<p class="level1">
+<p class="level1">To use them, make sure that <span Class="bold">grops</span> finds the fonts before the default system fonts (with the same names): Either add command line option <span Class="bold">-F</span> to <span Class="bold">grops</span> 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">groff -Tps -P-F -P/usr/share/groff/1.22.2/oldfont .\|.\|.</span> 
+<p class="level1">
+<p class="level1">or add the directory to groff's font path environment variable 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1"><span Class="bold">GROFF_FONT_PATH=/usr/share/groff/1.22.2/oldfont</span> 
+<p class="level1">
+<p class="level1"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROPS_PROLOGUE</span> If this is set to <span Class="emphasis">foo ,</span> then <span Class="bold">grops</span> uses the file <span Class="emphasis">foo</span> (in the font path) instead of the default prologue file <span Class="manpage">prologue .</span>
+<p class="level0">The option <span Class="bold">-P</span> overrides this environment variable. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">GROFF_FONT_PATH</span> A list of directories in which to search for the <span Class="bold">dev name</span> directory in addition to the default ones. 
+<p class="level0">See <span Class="manpage">troff (1)</span>and <span Class="manpage">\%groff_font (5)</span>for more details. 
+<p class="level0">
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devps/DESC</span> Device description file. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devps/ F</span> Font description file for font <span Class="emphasis">F .</span> 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devps/download</span> List of downloadable fonts. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/font/devps/text.enc</span> Encoding used for text fonts. 
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/ps.tmac</span> Macros for use with <span Class="manpage">grops ;</span>automatically loaded by <span Class="manpage">troffrc</span>
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/pspic.tmac</span> Definition of <span Class="bold">PSPIC</span> macro, automatically loaded by <span Class="manpage">ps.tmac .</span>
+<p class="level0">
+<p class="level0"><span Class="bold">/usr/share/groff/1.22.2/tmac/psold.tmac</span> Macros to disable use of characters not present in older PostScript printers (e.g., `eth' or `thorn'). 
+<p class="level0">
+<p class="level0"><span Class="bold">/tmp/grops XXXXXX</span> Temporary file. See <span Class="manpage">groff (1)</span>for details on the location of temporary files. 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">\%afmtodit (1)</span>, <span Class="manpage">groff (1)</span>, <span Class="manpage">troff (1)</span>, <span Class="manpage">\%pfbtops (1)</span>, <span Class="manpage">\%groff_out (5)</span>, <span Class="manpage">\%groff_font (5)</span>, <span Class="manpage">\%groff_char (7)</span>, <span Class="manpage">\%groff_tmac (5)</span>
+<p class="level0">
+<p class="level0">
+<p class="level0">PostScript Language Document Structuring Conventions Specification 
+<p class="level0">
+<p class="level0">
+<p class="level0">

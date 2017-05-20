@@ -1,0 +1,47 @@
+fai-do-scripts(1)                                            fai-do-scripts(1)
+
+
+
+NAME
+       fai-do-scripts - call configuration scripts
+
+SYNOPSIS
+       fai-do-scripts [OPTION] DIRECTORY
+
+DESCRIPTION
+       This  command  is only called internally by FAI and not directly by the
+       user.
+
+       fai-do-scripts executes all scripts  in  DIRECTORY  which  are  also  a
+       defined  class.  If  the  name of the class is a directory, all scripts
+       that match `[0-9][0-9].*' (starting with two digits) in this  directory
+       are  executed.   So it is possible to have several scripts of different
+       types (shell, cfengine,...) be executed for one class.
+
+
+OPTIONS
+       -h     Show help, version and summary of options.
+
+       -L DIR Write log files to DIR.
+
+       -n     Show type of scripts that would be executed, but do not  execute
+              them.
+
+
+EXAMPLES
+       In FAI, fai-do-scripts is used in the following way:
+
+          # fai-do-scripts /fai/scripts
+
+
+SEE ALSO
+       This  program  is  part  of FAI (Fully Automatic Installation). The FAI
+       homepage is http:///fai-project.org.
+
+
+AUTHOR
+       Written by Thomas Lange <lange@informatik.uni-koeln.de>
+
+
+
+FAI 4                            8 March 2012                fai-do-scripts(1)

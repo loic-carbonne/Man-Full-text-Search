@@ -1,0 +1,30 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">taskset - retrieve or set a process's CPU affinity <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">taskset</span> 
+<p class="level0"><span Class="emphasis">command\  [ arg ]...</span> <br><span Class="bold">taskset</span> 
+<p class="level0"><span Class="bold">-p</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">taskset</span> is used to set or retrieve the CPU affinity of a running process given its PID or to launch a new COMMAND with a given CPU affinity.  CPU affinity is a scheduler property that "bonds" a process to a given set of CPUs on the system. The Linux scheduler will honor the given CPU affinity and the process will not run on any other CPUs.  Note that the Linux scheduler also supports natural CPU affinity: the scheduler attempts to keep processes on the same CPU as long as practical for performance reasons.  Therefore, forcing a specific CPU affinity is useful only in certain applications. 
+<p class="level0">The CPU affinity is represented as a bitmask, with the lowest order bit corresponding to the first logical CPU and the highest order bit corresponding to the last logical CPU.  Not all CPUs may exist on a given system but a mask may specify more CPUs than are present.  A retrieved mask will reflect only the bits that correspond to CPUs physically on the system.  If an invalid mask is given (i.e., one that corresponds to no valid CPUs on the current system) an error is returned.  The masks are typically given in hexadecimal.  For example, 
+<p class="level0"><span Class="manpage">0x00000001</span>is processor &#35;0 
+<p class="level0"><span Class="manpage">0x00000003</span>is processors &#35;0 and &#35;1 
+<p class="level0"><span Class="manpage">0xFFFFFFFF</span>is all processors (&#35;0 through &#35;31). 
+<p class="level0">When <span Class="manpage">taskset</span>returns, it is guaranteed that the given program has been scheduled to a legal CPU. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="manpage">-a</span>, <span Class="manpage">\  --all-tasks</span>Set or retrieve the CPU affinity of all the tasks (threads) for a given PID. 
+<p class="level0"><span Class="manpage">-p</span>, <span Class="manpage">\  --pid</span>Operate on an existing PID and do not launch a new task. 
+<p class="level0"><span Class="manpage">-c</span>, <span Class="manpage">\  --cpu-list</span>Specify a numerical list of processors instead of a bitmask.  The numbers are separated by commas and may include ranges.  For example: <span Class="manpage">0</span>, <span Class="manpage">5</span>, <span Class="manpage">7</span>, <span Class="manpage">9-11 .</span>
+<p class="level0"><span Class="manpage">-h</span>, <span Class="manpage">\  --help</span>Display help text and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">\  --version</span>Display version information and exit. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">
+<p class="level0">The default behavior is to run a new command with a given affinity mask: <span Class="bold">taskset</span> <span Class="emphasis">mask</span> <span Class="emphasis">command\  [ arguments ]</span> 
+<p class="level0">You can also retrieve the CPU affinity of an existing task: <span Class="bold">taskset -p</span> <span Class="emphasis">pid</span> 
+<p class="level0">Or set it: <span Class="bold">taskset -p</span> <span Class="emphasis">mask pid</span> <a name="PERMISSIONS"></a><h2 class="nroffsh">PERMISSIONS</h2>
+<p class="level0">A user can change the CPU affinity of a process belonging to the same user. A user must possess <span Class="bold">CAP_SYS_NICE</span> to change the CPU affinity of a process belonging to another user. A user can retrieve the affinity mask of any process. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Written by Robert M. Love. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">Copyright &copy; 2004 Robert M. Love <br>This is free software; see the source for copying conditions.  There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">chrt (1)</span>, <span Class="manpage">nice (1)</span>, <span Class="manpage">renice (1)</span>, <span Class="manpage">sched_setaffinity (2)</span>, <span Class="manpage">sched_getaffinity (2)</span>
+<p class="level0">See <span Class="manpage">sched_setscheduler (2)</span>for a description of the Linux scheduling scheme. <a name="AVAILABILITY"></a><h2 class="nroffsh">AVAILABILITY</h2>
+<p class="level0">The taskset command is part of the util-linux package and is available from <a href="ftp://ftp.kernel.org/pub/linux/utils/util-linux/.">ftp://ftp.kernel.org/pub/linux/utils/util-linux/.</a> 

@@ -1,0 +1,44 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gftodvi - make proof sheets from generic font files <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">gftodvi</span> 
+<p class="level0">
+<p class="level0"><span Class="emphasis">gf_file_name</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of *(TX can be found in the info file or manual <span Class="emphasis">Web2C: A TeX implementation .</span> 
+<p class="level0">The <span Class="bold">gftodvi</span> program converts a generic font 
+<p class="level0">file output by, for example, <span Class="manpage">mf (1)</span>to a device independent (DVI) file (that can then be typeset using the same software that has already been written for *(TX). The characters in the <span Class="emphasis">gf</span> file will appear one per page, with labels, titles, and annotations as specified in Appendix H (Hardcopy Proofs) of <span Class="emphasis">The \*(MFbook .</span> 
+<p class="level0"><span Class="bold">gftodvi</span> uses other fonts in addition to the main <span Class="emphasis">gf</span> file. A `gray' font is used to typeset the pixels that actually make up the character. (We wouldn't want all the pixels to be simply black, since then labels, key points, and other information would be lost.)  A `title' font is used for the information at the top of the page. A `label' font is used for the labels on key points of the figure. A `slant' font is used to typeset diagonal lines, which otherwise have to be simulated using horizontal and vertical rules. The default gray, title, and label fonts are <span Class="emphasis">gray ,</span> <span Class="emphasis">cmr8 ,</span> and <span Class="emphasis">cmtt10 ,</span> respectively; there is no default slant font. 
+<p class="level0">To change the default fonts, you can give <span Class="manpage">special</span>commands in your *(MF source file, or you can change the fonts online. An online dialog ensues if you end the <span Class="emphasis">gf_file_name</span> with a `/'. For example, <br>
+<p class="level0">gftodvi cmr10.300gf/ <br>
+<p class="level0">Special font substitution: grayfont black <br>
+<p class="level0">OK; any more? grayfontarea /home/art/don/ <br>
+<p class="level0">OK; any more? slantfont /home/fonts/slantimagen6 <br>
+<p class="level0">OK; any more? &lt;RET&gt; <br>will use <span Class="emphasis">/home/art/don/black</span> as the `gray' font and <span Class="emphasis">/home/fonts/slantimagen6</span> as the `slant' font (this name indicates a font for lines with slope 1/6 at the resolution of an Imagen printer). 
+<p class="level0">The <span Class="emphasis">gf_file_name</span> on the command line must be complete.  Because the resolution is part of the extension, it would not make sense to append a default extension as is done with *(TX or DVI-reading software. The output file name uses the same root as the <span Class="emphasis">gf</span> file, with the <span Class="bold">.dvi</span> extension added. For example, the input file <span Class="emphasis">cmr10.2602gf</span> would become <span Class="emphasis">cmr10.dvi .</span> 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">The argument to <span Class="bold">-overflow-label-offset</span> specifies the distance from the right edge of the character bounding box at which the overflow equations (if any) are typeset. The value is given in *(TX points.  The default is a little over two inches. 
+<p class="level0">Without the <span Class="bold">-verbose</span> option, <span Class="bold">gftodvi</span> operates silently.  With it, a banner and progress report are printed on <span Class="emphasis">stdout .</span> 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0"><span Class="bold">gftodvi</span> looks for <span Class="emphasis">gf_file_name</span> using the environment variable GFFONTS.  If that is not set, it uses the variable TEXFONTS. If that is not set, it uses the system default. 
+<p class="level0">See <span Class="manpage">tex (1)</span>for the details of the searching. 
+<p class="level0"><a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">{gray.tfm,.\|.\|.}</span> The default fonts. 
+<p class="level0"><span Class="emphasis">{gray.mf,.\|.\|.}</span> The *(MF sources. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tex (1)</span>, <span Class="manpage">mf (1).</span><br>Donald E. Knuth, <span Class="emphasis">The \*(MFbook</span> (Volume C of <span Class="emphasis">Computers and Typesetting ),</span> Addison-Wesley, 1986, ISBN 0-201-13445-4. <br>Donald E. Knuth et al., <span Class="emphasis">\*(MFware .</span> 
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Donald E. Knuth wrote the program. It was published as part of the <span Class="emphasis">\*(MFware</span> technical report, available from the *(TX Users Group. Paul Richards ported it to Unix. 

@@ -1,0 +1,57 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-upload-archive - Send archive back to git-archive <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git upload-archive</span> &lt;directory&gt;
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Invoked by <span Class="emphasis">git archive --remote</span> and sends a generated archive to the other end over the Git protocol. 
+<p class="level0">This command is usually not invoked directly by the end user. The UI for the protocol is on the <span Class="emphasis">git archive</span> side, and the program pair is meant to be used to get an archive from a remote repository. <a name="SECURITY"></a><h2 class="nroffsh">SECURITY</h2>
+<p class="level0">
+<p class="level0">In order to protect the privacy of objects that have been removed from history but may not yet have been pruned, git-upload-archive avoids serving archives for commits and trees that are not reachable from the repository(cqs refs. However, because calculating object reachability is computationally expensive, git-upload-archive implements a stricter but easier-to-check set of rules: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">Clients may request a commit or tree that is pointed to directly by a ref. E.g., git archive --remote=origin v1.0. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">Clients may request a sub-tree within a commit or tree using the ref:path syntax. E.g., git archive --remote=origin v1.0:Documentation. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">Clients may <span Class="emphasis">not</span> use other sha1 expressions, even if the end result is reachable. E.g., neither a relative commit like master^ nor a literal sha1 like abcd1234 is allowed, even if the result is reachable from the refs. 
+<p class="level0">
+<p class="level0">Note that rule 3 disallows many cases that do not have any privacy implications. These rules are subject to change in future versions of git, and the server accessed by git archive --remote may or may not follow these exact rules. 
+<p class="level0">If the config option uploadArchive.allowUnreachable is true, these rules are ignored, and clients may use arbitrary sha1 expressions. This is useful if you do not care about the privacy of unreachable objects, or if your object database is already publicly available for access via non-smart-http. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">&lt;directory&gt; 
+<p class="level1">The repository to get a tar archive from. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

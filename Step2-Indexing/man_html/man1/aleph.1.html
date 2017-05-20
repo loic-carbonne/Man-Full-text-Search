@@ -1,0 +1,65 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aleph - extended Unicode TeX <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">aleph</span> 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">Run the Aleph typesetter on <span Class="emphasis">file ,</span> usually creating <span Class="emphasis">file.dvi .</span> If the file argument has no extension, ".tex" will be appended to it.  Instead of a filename, a set of Aleph commands can be given, the first of which must start with a backslash. With a  <span Class="bold">& format</span> argument Aleph uses a different set of precompiled commands, contained in <span Class="emphasis">format\fB.fmt\fP ;</span> it is usually better to use the <span Class="bold">-fmt</span> <span Class="emphasis">format</span> option instead. 
+<p class="level0">Aleph is a version of the *(TX program modified for multilingual typesetting.  It uses Unicode, and has additional primitives for (among other things) bidirectional typesetting. 
+<p class="level0">Aleph's command line options are similar to those of *(TX. 
+<p class="level0">Aleph is no longer being actively developed; see LuaTeX for current activity. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">Run aleph --help to see the complete list of options; this is not exhaustive. 
+<p class="level0"><span Class="bold">--fmt \ format</span> Use <span Class="emphasis">format</span> as the name of the format to be used, instead of the name by which Aleph was called or a <span Class="emphasis">%&</span> line. 
+<p class="level0"><span Class="bold">--halt-on-error</span> Exit with an error code when an error is encountered during processing. 
+<p class="level0"><span Class="bold">--help</span> Print help message and exit. 
+<p class="level0"><span Class="bold">--ini</span> Be `initial' Aleph for dumping formats; this is implicitly true if the program is called as <span Class="manpage">inialeph .</span>
+<p class="level0"><span Class="bold">--interaction \ mode</span> Sets the interaction mode.  The mode can be one of <span Class="emphasis">batchmode ,</span> <span Class="emphasis">nonstopmode ,</span> <span Class="emphasis">scrollmode ,</span> and <span Class="emphasis">errorstopmode .</span> The meaning of these modes is the same as that of the corresponding ecommands. 
+<p class="level0"><span Class="bold">--ipc</span> Send DVI output to a socket as well as the usual output file.  Whether this option is available is the choice of the installer. 
+<p class="level0"><span Class="bold">--ipc-start</span> As <span Class="manpage">--ipc</span>and starts the server at the other end as well.  Whether this option is available is the choice of the installer. 
+<p class="level0"><span Class="bold">--kpathsea-debug \ bitmask</span> Sets path searching debugging flags according to the bitmask.  See the <span Class="emphasis">Kpathsea</span> manual for details. 
+<p class="level0"><span Class="bold">--maketex \ fmt</span> Enable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be one of <span Class="emphasis">tex</span> or <span Class="emphasis">tfm .</span> 
+<p class="level0"><span Class="bold">--no-maketex \ fmt</span> Disable 
+<p class="level0">where <span Class="emphasis">fmt</span> must be one of <span Class="emphasis">tex</span> or <span Class="emphasis">tfm .</span> 
+<p class="level0"><span Class="bold">--output-comment \ string</span> Use <span Class="emphasis">string</span> for the DVI file comment instead of the date. 
+<p class="level0"><span Class="bold">--output-directory \ directory</span> Write output files in <span Class="emphasis">directory</span> instead of the current directory.  Look up input files in <span Class="emphasis">directory</span> first, the along the normal search path. 
+<p class="level0"><span Class="bold">--parse-first-line</span> If the first line of the main input file begins with <span Class="emphasis">%&</span> parse it to look for a dump name. 
+<p class="level0"><span Class="bold">--progname \ name</span> Pretend to be program <span Class="emphasis">name .</span> This affects both the format used and the search paths. 
+<p class="level0"><span Class="bold">--recorder</span> Enable the filename recorder.  This leaves a trace of the files opened for input and output in a file with extension <span Class="emphasis">.ofl .</span> (This option is always on.) 
+<p class="level0"><span Class="bold">--shell-escape</span> Enable the <span Class="bold">\ewrite18{ command }</span> construct.  The <span Class="emphasis">command</span> can be any Bourne shell command.  By default, this construct is  enabled in a restricted mode, for security reasons. 
+<p class="level0"><span Class="bold">--version</span> Print version information and exit. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">See the Kpathsearch library documentation (the `Path specifications' node) for precise details of how the environment variables are used. The <span Class="bold">kpsewhich</span> utility can be used to query the values of the variables. 
+<p class="level0">One caveat: In most Aleph formats, you cannot use ~ in a filename you give directly to Aleph, because ~ is an active character, and hence is expanded, not taken as part of the filename.  Other programs, such as *(MF, do not have this problem. 
+<p class="level0">
+<p class="level0"><span Class="bold">TEXMFOUTPUT</span> Normally, Aleph puts its output files in the current directory.  If any output file cannot be opened there, it tries to open it in the directory specified in the environment variable TEXMFOUTPUT. There is no default value for that variable.  For example, if you say <span Class="emphasis">tex paper</span> and the current directory is not writable, if TEXMFOUTPUT has the value <span Class="emphasis">/tmp ,</span> Aleph attempts to create <span Class="emphasis">/tmp/paper.log</span> (and <span Class="emphasis">/tmp/paper.dvi ,</span> if any output is produced.)  TEXMFOUTPUT is also checked for input files, as *(TX often generates files that need to be subsequently read; for input, no suffixes (such as ``.tex'') are added by default, the input name is simply checked as given. 
+<p class="level0"><span Class="bold">TEXINPUTS</span> Search path for <span Class="emphasis">\einput</span> and <span Class="emphasis">\eopenin</span> files. This should start with ``.'', so that user files are found before system files.  An empty path component will be replaced with the paths defined in the <span Class="emphasis">texmf.cnf</span> file.  For example, set TEXINPUTS to ".:/home/user/tex:" to prepend the current direcory and ``/home/user/tex'' to the standard search path. 
+<p class="level0"><span Class="bold">TEXEDIT</span> Command template for switching to editor.  The default, usually <span Class="manpage">vi</span>is set when Aleph is compiled. 
+<p class="level0"><a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">This manual page is not meant to be exhaustive.  The complete documentation for this version of Aleph can be found in the info manual <span Class="emphasis">Web2C: A TeX implementation .</span> See <a href="http://tug/org/web2c.">http://tug/org/web2c.</a> 
+<p class="level0"><a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">This version of Aleph implements a number of optional extensions. In fact, many of these extensions conflict to a greater or lesser extent with the definition of Aleph.  When such extensions are enabled, the banner printed when Aleph starts is changed to print <span Class="bold">Alephk</span> instead of <span Class="manpage">Aleph .</span>
+<p class="level0">This version of Aleph fails to trap arithmetic overflow when dimensions are added or subtracted.  Cases where this occurs are rare, but when it does the generated <span Class="emphasis">DVI</span> file will be invalid. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">tex (1)</span>, <span Class="manpage">mf (1)</span>
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">The primary authors of Aleph are John Plaice and Yannis Haralambous. It is currently maintained (for severe bug fixes only) by Taco Hoekwater. 

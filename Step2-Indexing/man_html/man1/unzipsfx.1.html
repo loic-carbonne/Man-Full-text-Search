@@ -1,0 +1,117 @@
+
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">unzipsfx - self-extracting stub for prepending to ZIP archives 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">&lt;name of unzipsfx+archive combo&gt;</span> [<span Class="bold">-cfptuz</span>[<span Class="bold">ajnoqsCLV$</span>]] [<span Class="emphasis">file(s)</span>&nbsp;.|.|. [<span Class="bold">-x</span>&nbsp;<span Class="emphasis">xfile(s)</span>&nbsp;.|.|.]] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="emphasis">unzipsfx</span> is a modified version of <span Class="emphasis">unzip</span>(1) designed to be prepended to existing ZIP archives in order to form self-extracting archives. Instead of taking its first non-flag argument to be the zipfile(s) to be extracted, <span Class="emphasis">unzipsfx</span> seeks itself under the name by which it was invoked and tests or extracts the contents of the appended archive.  Because the executable stub adds bulk to the archive (the whole purpose of which is to be as small as possible), a number of the less-vital capabilities in regular <span Class="emphasis">unzip</span> have been removed.  Among these are the usage (or help) screen, the listing and diagnostic functions (<span Class="bold">-l</span> and <span Class="bold">-v</span>), the ability to decompress older compression formats (the ``reduce,'' ``shrink'' and ``implode'' methods).  The ability to extract to a directory other than the current one can be selected as a compile-time option, which is now enabled by default since UnZipSFX version 5.5.  Similarly, decryption is supported as a compile-time option but should be avoided unless the attached archive contains encrypted files. Starting with release 5.5, another compile-time option adds a simple ``run command after extraction'' feature.  This feature is currently incompatible with the ``extract to different directory'' feature and remains disabled by default. 
+<p class="level0"><span class="bold">Note that self-extracting archives made with</span> <span Class="emphasis">unzipsfx</span> <span class="bold">are no more (or less) portable across different operating systems than is the</span> <span Class="emphasis">unzip</span> <span Class="bold">executable itself.</span>  In general a self-extracting archive made on a particular Unix system, for example, will only self-extract under the same flavor of Unix.  Regular <span Class="emphasis">unzip</span> may still be used to extract the embedded archive as with any normal zipfile, although it will generate a harmless warning about extra bytes at the beginning of the zipfile. <span Class="emphasis">Despite this</span>, however, the self-extracting archive is technically <span Class="emphasis">not</span> a valid ZIP archive, and PKUNZIP may be unable to test or extract it.  This limitation is due to the simplistic manner in which the archive is created; the internal directory structure is not updated to reflect the extra bytes prepended to the original zipfile. 
+<p class="level0"><a name="ARGUMENTS"></a><h2 class="nroffsh">ARGUMENTS</h2>
+<p class="level0">
+<p class="level0"><a name="fIfilesfP"></a><span class="nroffip">[\fIfile(s)\fP]</span> 
+<p class="level1">An optional list of archive members to be processed. Regular expressions (wildcards) similar to those in Unix <span Class="emphasis">egrep</span>(1) may be used to match multiple members.  These wildcards may contain: 
+<p class="level2">
+<p class="level1"><a name=""></a><span class="nroffip">*</span> 
+<p class="level2">matches a sequence of 0 or more characters 
+<p class="level1"><a name=""></a><span class="nroffip">?</span> 
+<p class="level2">matches exactly 1 character 
+<p class="level1"><a name=""></a><span class="nroffip">[.\|.\|.]</span> 
+<p class="level2">matches any single character found inside the brackets; ranges are specified by a beginning character, a hyphen, and an ending character.  If an exclamation point or a caret (`!' or `^') follows the left bracket, then the range of characters within the brackets is complemented (that is, anything <span Class="emphasis">except</span> the characters inside the brackets is considered a match). 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"></span> 
+<p class="level1">(Be sure to quote any character that might otherwise be interpreted or modified by the operating system, particularly under Unix and VMS.) 
+<p class="level0"><a name="fB-xfP"></a><span class="nroffip">[\fB-x\fP\ \fIxfile(s)\fP]</span> 
+<p class="level1">An optional list of archive members to be excluded from processing. Since wildcard characters match directory separators (`/'), this option may be used to exclude any files that are in subdirectories.  For example, ``fCfoosfx *.[ch] -x */*</span>'' would extract all C source files in the main directory, but none in any subdirectories.  Without the <span Class="bold">-x</span> option, all C source files in all directories within the zipfile would be extracted. 
+<p class="level1">If <span Class="emphasis">unzipsfx</span> is compiled with SFX_EXDIR defined, the following option is also enabled: 
+<p class="level0"><a name="fB-dfP"></a><span class="nroffip">[\fB-d\fP\ \fIexdir\fP]</span> 
+<p class="level1">An optional directory to which to extract files.  By default, all files and subdirectories are recreated in the current directory; the <span Class="bold">-d</span> option allows extraction in an arbitrary directory (always assuming one has permission to write to the directory).  The option and directory may be concatenated without any white space between them, but note that this may cause normal shell behavior to be suppressed.  In particular, ``fC-d&nbsp;~</span>'' (tilde) is expanded by Unix C shells into the name of the user's home directory, but ``fC-d~</span>'' is treated as a literal subdirectory ``<a class="bold" href="#">~</a>'' of the current directory. 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0"><span Class="emphasis">unzipsfx</span> supports the following <span Class="emphasis">unzip</span>(1) options:  <span Class="bold">-c</span> and <span Class="bold">-p</span> (extract to standard output/screen), <span Class="bold">-f</span> and <span Class="bold">-u</span> (freshen and update existing files upon extraction), <span Class="bold">-t</span> (test archive) and <span Class="bold">-z</span> (print archive comment).  All normal listing options (<span Class="bold">-l</span>, <span Class="bold">-v</span> and <span Class="bold">-Z</span>) have been removed, but the testing option (<span Class="bold">-t</span>) may be used as a ``poor man's'' listing.  Alternatively, those creating self-extracting archives may wish to include a short listing in the zipfile comment. 
+<p class="level0">See <span Class="emphasis">unzip</span>(1) for a more complete description of these options. 
+<p class="level0"><a name="MODIFIERS"></a><h2 class="nroffsh">MODIFIERS</h2>
+<p class="level0"><span Class="emphasis">unzipsfx</span> currently supports all <span Class="emphasis">unzip</span>(1) modifiers:  <span Class="bold">-a</span> (convert text files), <span Class="bold">-n</span> (never overwrite), <span Class="bold">-o</span> (overwrite without prompting), <span Class="bold">-q</span> (operate quietly), <span Class="bold">-C</span> (match names case-insensitively), <span Class="bold">-L</span> (convert uppercase-OS names to lowercase), <span Class="bold">-j</span> (junk paths) and <span Class="bold">-V</span> (retain version numbers); plus the following operating-system specific options:  <span Class="bold">-X</span> (restore VMS owner/protection info), <span Class="bold">-s</span> (convert spaces in filenames to underscores [DOS, OS/2, NT]) and <span Class="bold">-$</span> (restore volume label [DOS, OS/2, NT, Amiga]). 
+<p class="level0">(Support for regular ASCII text-conversion may be removed in future versions, since it is simple enough for the archive's creator to ensure that text files have the appropriate format for the local OS.  EBCDIC conversion will of course continue to be supported since the zipfile format implies ASCII storage of text files.) 
+<p class="level0">See <span Class="emphasis">unzip</span>(1) for a more complete description of these modifiers. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT OPTIONS</h2>
+<p class="level0"><span Class="emphasis">unzipsfx</span> uses the same environment variables as <span Class="emphasis">unzip</span>(1) does, although this is likely to be an issue only for the person creating and testing the self-extracting archive.  See <span Class="emphasis">unzip</span>(1) for details. 
+<p class="level0"><a name="DECRYPTION"></a><h2 class="nroffsh">DECRYPTION</h2>
+<p class="level0">Decryption is supported exactly as in <span Class="emphasis">unzip</span>(1); that is, interactively with a non-echoing prompt for the password(s).  See <span Class="emphasis">unzip</span>(1) for details.  Once again, note that if the archive has no encrypted files there is no reason to use a version of <span Class="emphasis">unzipsfx</span> with decryption support; that only adds to the size of the archive. 
+<p class="level0"><a name="AUTORUN"></a><h2 class="nroffsh">AUTORUN COMMAND</h2>
+<p class="level0">When <span Class="emphasis">unzipsfx</span> was compiled with CHEAP_SFX_AUTORUN defined, a simple ``command autorun'' feature is supported. You may enter a command into the Zip archive comment, using the following format: 
+<p class="level0">
+<p class="level0">$AUTORUN$&gt;[command line string] 
+<p class="level0">
+<p class="level0">When <span Class="emphasis">unzipsfx</span> recognizes the ``$AUTORUN$&gt;'' token at the beginning of the Zip archive comment, the remainder of the first line of the comment (until the first newline character) is passed as a shell command to the operating system using the C rtl ``system'' function. Before executing the command, <span Class="emphasis">unzipsfx</span> displays the command on the console and prompts the user for confirmation.  When the user has switched off prompting by specifying the <span Class="bold">-q</span> option, autorun commands are never executed. 
+<p class="level0">In case the archive comment contains additional lines of text, the remainder of the archive comment following the first line is displayed normally, unless quiet operation was requested by supplying a <span Class="bold">-q</span> option. 
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">To create a self-extracting archive <span Class="emphasis">letters</span> from a regular zipfile <span Class="emphasis">letters.zip</span> and change the new archive's permissions to be world-executable under Unix: 
+<p class="level0">
+<p class="level0">cat unzipsfx letters.zip &gt; letters chmod 755 letters zip -A letters 
+<p class="level0">
+<p class="level0">To create the same archive under MS-DOS, OS/2 or NT (note the use of the <span Class="bold">/b</span> [binary] option to the <span Class="emphasis">copy</span> command): 
+<p class="level0">
+<p class="level0">copy /b unzipsfx.exe+letters.zip letters.exe zip -A letters.exe 
+<p class="level0">
+<p class="level0">Under VMS: 
+<p class="level0">
+<p class="level0">copy unzipsfx.exe,letters.zip letters.exe letters == "$currentdisk:[currentdir]letters.exe" zip -A letters.exe 
+<p class="level0">
+<p class="level0">(The VMS <span Class="emphasis">append</span> command may also be used.  The second command installs the new program as a ``foreign command'' capable of taking arguments.  The third line assumes that Zip is already installed as a foreign command.) Under AmigaDOS: 
+<p class="level0">
+<p class="level0">MakeSFX letters letters.zip UnZipSFX 
+<p class="level0">
+<p class="level0">(MakeSFX is included with the UnZip source distribution and with Amiga binary distributions.  ``fCzip -A</span>'' doesn't work on Amiga self-extracting archives.) To test (or list) the newly created self-extracting archive: 
+<p class="level0">
+<p class="level0">letters -t 
+<p class="level0">
+<p class="level0">To test <span Class="emphasis">letters</span> quietly, printing only a summary message indicating whether the archive is OK or not: 
+<p class="level0">
+<p class="level0">letters -tqq 
+<p class="level0">
+<p class="level0">To extract the complete contents into the current directory, recreating all files and subdirectories as necessary: 
+<p class="level0">
+<p class="level0">letters 
+<p class="level0">
+<p class="level0">To extract all fC*.txt</span> files (in Unix quote the `*'): 
+<p class="level0">
+<p class="level0">letters *.txt 
+<p class="level0">
+<p class="level0">To extract everything <span Class="emphasis">except</span> the fC*.txt</span> files: 
+<p class="level0">
+<p class="level0">letters -x *.txt 
+<p class="level0">
+<p class="level0">To extract only the README file to standard output (the screen): 
+<p class="level0">
+<p class="level0">letters -c README 
+<p class="level0">
+<p class="level0">To print only the zipfile comment: 
+<p class="level0">
+<p class="level0">letters -z 
+<p class="level0">
+<p class="level0"><a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS</h2>
+<p class="level0">The principle and fundamental limitation of <span Class="emphasis">unzipsfx</span> is that it is not portable across architectures or operating systems, and therefore neither are the resulting archives.  For some architectures there is limited portability, however (e.g., between some flavors of Intel-based Unix). 
+<p class="level0">Another problem with the current implementation is that any archive with ``junk'' prepended to the beginning technically is no longer a zipfile (unless <span Class="emphasis">zip</span>(1) is used to adjust the zipfile offsets appropriately, as noted above).  <span Class="emphasis">unzip</span>(1) takes note of the prepended bytes and ignores them since some file-transfer protocols, notably MacBinary, are also known to prepend junk.  But PKWARE's archiver suite may not be able to deal with the modified archive unless its offsets have been adjusted. 
+<p class="level0"><span Class="emphasis">unzipsfx</span> has no knowledge of the user's PATH, so in general an archive must either be in the current directory when it is invoked, or else a full or relative path must be given.  If a user attempts to extract the archive from a directory in the PATH other than the current one, <span Class="emphasis">unzipsfx</span> will print a warning to the effect, ``can't find myself.''  This is always true under Unix and may be true in some cases under MS-DOS, depending on the compiler used (Microsoft C fully qualifies the program name, but other compilers may not).  Under OS/2 and NT there are operating-system calls available that provide the full path name, so the archive may be invoked from anywhere in the user's path.  The situation is not known for AmigaDOS, Atari TOS, MacOS, etc. 
+<p class="level0">As noted above, a number of the normal <span Class="emphasis">unzip</span>(1) functions have been removed in order to make <span Class="emphasis">unzipsfx</span> smaller:  usage and diagnostic info, listing functions and extraction to other directories.  Also, only stored and deflated files are supported.  The latter limitation is mainly relevant to those who create SFX archives, however. 
+<p class="level0">VMS users must know how to set up self-extracting archives as foreign commands in order to use any of <span Class="emphasis">unzipsfx</span>'s options.  This is not necessary for simple extraction, but the command to do so then becomes, e.g., ``fCrun letters</span>'' (to continue the examples given above). 
+<p class="level0"><span Class="emphasis">unzipsfx</span> on the Amiga requires the use of a special program, MakeSFX, in order to create working self-extracting archives; simple concatenation does not work.  (For technically oriented users, the attached archive is defined as a ``debug hunk.'')  There may be compatibility problems between the ROM levels of older Amigas and newer ones. 
+<p class="level0">All current bugs in <span Class="emphasis">unzip</span>(1) exist in <span Class="emphasis">unzipsfx</span> as well. 
+<p class="level0"><a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0"><span Class="emphasis">unzipsfx</span>'s exit status (error level) is identical to that of <span Class="emphasis">unzip</span>(1); see the corresponding man page. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="emphasis">funzip</span>(1), <span Class="emphasis">unzip</span>(1), <span Class="emphasis">zip</span>(1), <span Class="emphasis">zipcloak</span>(1), <span Class="emphasis">zipgrep</span>(1), <span Class="emphasis">zipinfo</span>(1), <span Class="emphasis">zipnote</span>(1), <span Class="emphasis">zipsplit</span>(1) 
+<p class="level0">
+<p class="level0"><a name="URL"></a><h2 class="nroffsh">URL</h2>
+<p class="level0">The Info-ZIP home page is currently at 
+<p class="level0">fChttp://www.info-zip.org/pub/infozip/</span> 
+<p class="level0">or 
+<p class="level0">fCftp://ftp.info-zip.org/pub/infozip/</span> . 
+<p class="level0">
+<p class="level0"><a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">Greg Roelofs was responsible for the basic modifications to UnZip necessary to create UnZipSFX.  See <span Class="emphasis">unzip</span>(1) for the current list of Zip-Bugs authors, or the file CONTRIBS in the UnZip source distribution for the full list of Info-ZIP contributors. 
+<p class="level0">

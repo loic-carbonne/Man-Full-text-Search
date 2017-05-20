@@ -1,0 +1,444 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">gprof - display call graph profile data <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">gprof [ -[abcDhilLrsTvwxyz] ] [ -[ACeEfFJnNOpPqQZ][<span Class="emphasis">name</span>] ]  &nbsp;[ -I <span Class="emphasis">dirs</span> ] [ -d[<span Class="emphasis">num</span>] ] [ -k <span Class="emphasis">from/to</span> ] &nbsp;[ -m <span Class="emphasis">min-count</span> ] [ -R <span Class="emphasis">map_file</span> ] [ -t <span Class="emphasis">table-length</span> ] &nbsp;[ --[no-]annotated-source[=<span Class="emphasis">name</span>] ]  &nbsp;[ --[no-]exec-counts[=<span Class="emphasis">name</span>] ] &nbsp;[ --[no-]flat-profile[=<span Class="emphasis">name</span>] ] [ --[no-]graph[=<span Class="emphasis">name</span>] ] &nbsp;[ --[no-]time=<span Class="emphasis">name</span>] [ --all-lines ] [ --brief ]  &nbsp;[ --debug[=<span Class="emphasis">level</span>] ] [ --function-ordering ]  &nbsp;[ --file-ordering <span Class="emphasis">map_file</span> ] [ --directory-path=<span Class="emphasis">dirs</span> ] &nbsp;[ --display-unused-functions ] [ --file-format=<span Class="emphasis">name</span> ] &nbsp;[ --file-info ] [ --help ] [ --line ] [ --inline-file-names ] &nbsp;[ --min-count=<span Class="emphasis">n</span> ] [ --no-static ] [ --print-path ] &nbsp;[ --separate-files ] [ --static-call-graph ] [ --sum ] &nbsp;[ --table-length=<span Class="emphasis">len</span> ] [ --traditional ] [ --version ] &nbsp;[ --width=<span Class="emphasis">n</span> ] [ --ignore-non-functions ] &nbsp;[ --demangle[=<span Class="emphasis">s-1STYLEs0</span>] ] [ --no-demangle ] &nbsp;[--external-symbol-table=name] &nbsp;[ <span Class="emphasis">image-file</span> ] [ <span Class="emphasis">profile-file</span> ... ] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">f(CW*(C`gprof*(C'</span> produces an execution profile of C, Pascal, or Fortran77  programs.  The effect of called routines is incorporated in the profile  of each caller.  The profile data is taken from the call graph profile file (<span Class="emphasis">gmon.out</span> default) which is created by programs that are compiled with the <span Class="bold">-pg</span> option of f(CW*(C`cc*(C'</span>, f(CW*(C`pc*(C'</span>, and f(CW*(C`f77*(C'</span>. The <span Class="bold">-pg</span> option also links in versions of the library routines that are compiled for profiling.  f(CW*(C`Gprof*(C'</span> reads the given object  file (the default is f(CW*(C`a.out*(C'</span>) and establishes the relation between its symbol table and the call graph profile from <span Class="emphasis">gmon.out</span>. If more than one profile file is specified, the f(CW*(C`gprof*(C'</span> output shows the sum of the profile information in the given profile files. 
+<p class="level0">If you use gcc 2.95.x or 3.0 to compile your binaries, you may need to add the <span Class="bold">-fprofile-arcs</span> to the compile command line in order for the call graphs to be properly stored in gmon.out. 
+<p class="level0">f(CW*(C`Gprof*(C'</span> calculates the amount of time spent in each routine. Next, these times are propagated along the edges of the call graph. Cycles are discovered, and calls into a cycle are made to share the time of the cycle. 
+<p class="level0">Several forms of output are available from the analysis. 
+<p class="level0">The <span Class="emphasis">flat profile</span> shows how much time your program spent in each function, and how many times that function was called.  If you simply want to know which functions burn most of the cycles, it is stated concisely here. 
+<p class="level0">The <span Class="emphasis">call graph</span> shows, for each function, which functions called it, which other functions it called, and how many times.  There is also an estimate of how much time was spent in the subroutines of each function.  This can suggest places where you might try to eliminate function calls that use a lot of time. 
+<p class="level0">The <span Class="emphasis">annotated source</span> listing is a copy of the program's source code, labeled with the number of times each line of the program was executed. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">These options specify which of several output formats f(CW*(C`gprof*(C'</span> should produce. 
+<p class="level0">Many of these options take an optional <span Class="emphasis">symspec</span> to specify functions to be included or excluded.  These options can be specified multiple times, with different symspecs, to include or exclude sets of symbols. 
+<p class="level0">Specifying any of these options overrides the default (<span Class="bold">-p -q</span>), which prints a flat profile and call graph analysis for all functions. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-A</span> option causes f(CW*(C`gprof*(C'</span> to print annotated source code. If <span Class="emphasis">symspec</span> is specified, print output only for matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If the <span Class="bold">-b</span> option is given, f(CW*(C`gprof*(C'</span> doesn't print the verbose blurbs that try to explain the meaning of all of the fields in the tables.  This is useful if you intend to print out the output, or are tired of seeing the blurbs. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-C</span> option causes f(CW*(C`gprof*(C'</span> to print a tally of functions and the number of times each was called. If <span Class="emphasis">symspec</span> is specified, print tally only for matching symbols. 
+<p class="level0">If the profile data file contains basic-block count records, specifying the <span Class="bold">-l</span> option, along with <span Class="bold">-C</span>, will cause basic-block execution counts to be tallied and displayed. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-i</span> option causes f(CW*(C`gprof*(C'</span> to display summary information about the profile data file(s) and then exit.  The number of histogram, call graph, and basic-block count records is displayed. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-I</span> option specifies a list of search directories in which to find source files.  Environment variable <span Class="emphasis">s-1GPROF_PATHs0</span> can also be used to convey this information. Used mostly for annotated source output. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-J</span> option causes f(CW*(C`gprof*(C'</span> not to print annotated source code. If <span Class="emphasis">symspec</span> is specified, f(CW*(C`gprof*(C'</span> prints annotated source, but excludes matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Normally, source filenames are printed with the path component suppressed.  The <span Class="bold">-L</span> option causes f(CW*(C`gprof*(C'</span> to print the full pathname of source filenames, which is determined from symbolic debugging information in the image file and is relative to the directory in which the compiler was invoked. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-p</span> option causes f(CW*(C`gprof*(C'</span> to print a flat profile. If <span Class="emphasis">symspec</span> is specified, print flat profile only for matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-P</span> option causes f(CW*(C`gprof*(C'</span> to suppress printing a flat profile. If <span Class="emphasis">symspec</span> is specified, f(CW*(C`gprof*(C'</span> prints a flat profile, but excludes matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-q</span> option causes f(CW*(C`gprof*(C'</span> to print the call graph analysis. If <span Class="emphasis">symspec</span> is specified, print call graph only for matching symbols and their children. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-Q</span> option causes f(CW*(C`gprof*(C'</span> to suppress printing the call graph. If <span Class="emphasis">symspec</span> is specified, f(CW*(C`gprof*(C'</span> prints a call graph, but excludes matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-t</span> option causes the <span Class="emphasis">num</span> most active source lines in each source file to be listed when source annotation is enabled.  The default is 10. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This option affects annotated source output only. Normally, f(CW*(C`gprof*(C'</span> prints annotated source files to standard-output.  If this option is specified, annotated source for a file named <span class="emphasis">path/<span class="emphasis">filename<span Class="emphasis"></span> is generated in the file <span class="emphasis"><span class="emphasis">filename<span Class="emphasis">-ann</span>.  If the underlying file system would truncate <span class="emphasis"><span class="emphasis">filename<span Class="emphasis">-ann</span> so that it overwrites the original <span class="emphasis"><span class="emphasis">filename<span Class="emphasis"></span>, f(CW*(C`gprof*(C'</span> generates annotated source in the file <span class="emphasis"><span class="emphasis">filename<span Class="emphasis">.ann</span> instead (if the original file name has an extension, that extension is <span Class="emphasis">replaced</span> with <span Class="emphasis">.ann</span>). 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-Z</span> option causes f(CW*(C`gprof*(C'</span> not to print a tally of functions and the number of times each was called. If <span Class="emphasis">symspec</span> is specified, print tally, but exclude matching symbols. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">--function-ordering</span> option causes f(CW*(C`gprof*(C'</span> to print a suggested function ordering for the program based on profiling data. This option suggests an ordering which may improve paging, tlb and cache behavior for the program on systems which support arbitrary ordering of functions in an executable. 
+<p class="level0">The exact details of how to force the linker to place functions in a particular order is system dependent and out of the scope of this manual. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">--file-ordering</span> option causes f(CW*(C`gprof*(C'</span> to print a suggested .o link line ordering for the program based on profiling data. This option suggests an ordering which may improve paging, tlb and cache behavior for the program on systems which do not support arbitrary ordering of functions in an executable. 
+<p class="level0">Use of the <span Class="bold">-a</span> argument is highly recommended with this option. 
+<p class="level0">The <span Class="emphasis">map_file</span> argument is a pathname to a file which provides function name to object file mappings.  The format of the file is similar to the output of the program f(CW*(C`nm*(C'</span>. 
+<p class="level0">
+<p class="level0">&nbsp;       c-parse.o:00000000 T yyparse &nbsp;       c-parse.o:00000004 C yyerrflag &nbsp;       c-lang.o:00000000 T maybe_objc_method_name &nbsp;       c-lang.o:00000000 T print_lang_statistics &nbsp;       c-lang.o:00000000 T recognize_objc_keyword &nbsp;       c-decl.o:00000000 T print_lang_identifier &nbsp;       c-decl.o:00000000 T print_lang_type &nbsp;       ... 
+<p class="level0">
+<p class="level0">To create a <span Class="emphasis">map_file</span> with s-1GNU s0f(CW*(C`nm*(C'</span>, type a command like f(CW*(C`nm --extern-only --defined-only -v --print-file-name program-name*(C'</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-T</span> option causes f(CW*(C`gprof*(C'</span> to print its output in *(L"traditional*(R" s-1BSDs0 style. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Sets width of output lines to <span Class="emphasis">width</span>. Currently only used when printing the function index at the bottom of the call graph. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This option affects annotated source output only. By default, only the lines at the beginning of a basic-block are annotated.  If this option is specified, every line in a basic-block is annotated by repeating the annotation for the first line.  This behavior is similar to f(CW*(C`tcov*(C'</span>'s <span Class="bold">-a</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">These options control whether *(C+ symbol names should be demangled when printing output.  The default is to demangle symbols.  The f(CW*(C`--no-demangle*(C'</span> option may be used to turn off demangling. Different  compilers have different mangling styles.  The optional demangling style  argument can be used to choose an appropriate demangling style for your  compiler. <a name="Analysis"></a><h2 class="nroffsh">Analysis Options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-a</span> option causes f(CW*(C`gprof*(C'</span> to suppress the printing of statically declared (private) functions.  (These are functions whose names are not listed as global, and which are not visible outside the file/function/block where they were defined.)  Time spent in these functions, calls to/from them, etc., will all be attributed to the function that was loaded directly before it in the executable file. This option affects both the flat profile and the call graph. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-c</span> option causes the call graph of the program to be augmented by a heuristic which examines the text space of the object file and identifies function calls in the binary machine code. Since normal call graph records are only generated when functions are entered, this option identifies children that could have been called, but never were.  Calls to functions that were not compiled with profiling enabled are also identified, but only if symbol table entries are present for them. Calls to dynamic library routines are typically <span Class="emphasis">not</span> found by this option. Parents or children identified via this heuristic are indicated in the call graph with call counts of <span Class="bold">0</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-D</span> option causes f(CW*(C`gprof*(C'</span> to ignore symbols which are not known to be functions.  This option will give more accurate profile data on systems where it is supported (Solaris and s-1HPUXs0 for example). 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-k</span> option allows you to delete from the call graph any arcs from symbols matching symspec <span Class="emphasis">from</span> to those matching symspec <span Class="emphasis">to</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-l</span> option enables line-by-line profiling, which causes histogram hits to be charged to individual source code lines, instead of functions.  This feature only works with programs compiled by older versions of the f(CW*(C`gcc*(C'</span> compiler.  Newer versions of f(CW*(C`gcc*(C'</span> are designed to work with the f(CW*(C`gcov*(C'</span> tool instead. 
+<p class="level0">If the program was compiled with basic-block counting enabled, this option will also identify how many times each line of code was executed. While line-by-line profiling can help isolate where in a large function a program is spending its time, it also significantly increases the running time of f(CW*(C`gprof*(C'</span>, and magnifies statistical inaccuracies. 
+<p class="level0">
+<p class="level0">
+<p class="level0">This option causes f(CW*(C`gprof*(C'</span> to print the source file after each symbol in both the flat profile and the call graph. The full path to the file is printed if used with the <span Class="bold">-L</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">This option affects execution count output only. Symbols that are executed less than <span Class="emphasis">num</span> times are suppressed. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-n</span> option causes f(CW*(C`gprof*(C'</span>, in its call graph analysis, to only propagate times for symbols matching <span Class="emphasis">symspec</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-n</span> option causes f(CW*(C`gprof*(C'</span>, in its call graph analysis, not to propagate times for symbols matching <span Class="emphasis">symspec</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-S</span> option causes f(CW*(C`gprof*(C'</span> to read an external symbol table file, such as <span Class="emphasis">/proc/kallsyms</span>, rather than read the symbol table  from the given object file (the default is f(CW*(C`a.out*(C'</span>). This is useful  for profiling kernel modules. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If you give the <span Class="bold">-z</span> option, f(CW*(C`gprof*(C'</span> will mention all functions in the flat profile, even those that were never called, and that had no time spent in them.  This is useful in conjunction with the <span Class="bold">-c</span> option for discovering which routines were never called. <a name="Miscellaneous"></a><h2 class="nroffsh">Miscellaneous Options</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-d</span> <span Class="emphasis">num</span> option specifies debugging options. If <span Class="emphasis">num</span> is not specified, enable all debugging. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-h</span> option prints command line usage. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Selects the format of the profile data files.  Recognized formats are <span Class="bold">auto</span> (the default), <span Class="bold">bsd</span>, <span Class="bold">4.4bsd</span>, <span Class="bold">magic</span>, and <span Class="bold">prof</span> (not yet supported). 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-s</span> option causes f(CW*(C`gprof*(C'</span> to summarize the information in the profile data files it read in, and write out a profile data file called <span Class="emphasis">gmon.sum</span>, which contains all the information from the profile data files that f(CW*(C`gprof*(C'</span> read in.  The file <span Class="emphasis">gmon.sum</span> may be one of the specified input files; the effect of this is to merge the data in the other input files into <span Class="emphasis">gmon.sum</span>. 
+<p class="level0">Eventually you can run f(CW*(C`gprof*(C'</span> again without <span Class="bold">-s</span> to analyze the cumulative data in the file <span Class="emphasis">gmon.sum</span>. 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-v</span> flag causes f(CW*(C`gprof*(C'</span> to print the current version number, and then exit. <a name="Deprecated"></a><h2 class="nroffsh">Deprecated Options</h2>
+<p class="level0">
+<p class="level0">These options have been replaced with newer versions that use symspecs. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-e</span> <span Class="emphasis">function</span> option tells f(CW*(C`gprof*(C'</span> to not print information about the function <span Class="emphasis">function_name</span> (and its children...) in the call graph.  The function will still be listed as a child of any functions that call it, but its index number will be shown as <span Class="bold">[not printed]</span>.  More than one <span Class="bold">-e</span> option may be given; only one <span Class="emphasis">function_name</span> may be indicated with each <span Class="bold">-e</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The f(CW*(C`-E f(CIfunctionf(CW*(C'</span> option works like the f(CW*(C`-e*(C'</span> option, but time spent in the function (and children who were not called from anywhere else), will not be used to compute the percentages-of-time for the call graph.  More than one <span Class="bold">-E</span> option may be given; only one <span Class="emphasis">function_name</span> may be indicated with each <span Class="bold">-E</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-f</span> <span Class="emphasis">function</span> option causes f(CW*(C`gprof*(C'</span> to limit the call graph to the function <span Class="emphasis">function_name</span> and its children (and their children...).  More than one <span Class="bold">-f</span> option may be given; only one <span Class="emphasis">function_name</span> may be indicated with each <span Class="bold">-f</span> option. 
+<p class="level0">
+<p class="level0">
+<p class="level0">The <span Class="bold">-F</span> <span Class="emphasis">function</span> option works like the f(CW*(C`-f*(C'</span> option, but only time spent in the function and its children (and their children...) will be used to determine total-time and percentages-of-time for the call graph.  More than one <span Class="bold">-F</span> option may be given; only one <span Class="emphasis">function_name</span> may be indicated with each <span Class="bold">-F</span> option.  The <span Class="bold">-F</span> option overrides the <span Class="bold">-E</span> option. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">the namelist and text space. 
+<p class="level0">
+<p class="level0">
+<p class="level0">dynamic call graph and profile. 
+<p class="level0">
+<p class="level0">
+<p class="level0">summarized dynamic call graph and profile. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">
+<p class="level0">The granularity of the sampling is shown, but remains statistical at best. We assume that the time for each execution of a function can be expressed by the total time for the function divided by the number of times the function is called. Thus the time propagated along the call graph arcs to the function's parents is directly proportional to the number of times that arc is traversed. 
+<p class="level0">Parents that are not themselves profiled will have the time of their profiled children propagated to them, but they will appear to be spontaneously invoked in the call graph listing, and will not have their time propagated further. Similarly, signal catchers, even though profiled, will appear to be spontaneous (although for more obscure reasons). Any profiled children of signal catchers should have their times propagated properly, unless the signal catcher was invoked during the execution of the profiling routine, in which case all is lost. 
+<p class="level0">The profiled program must call f(CW*(C`exit*(C'</span>(2) or return normally for the profiling information to be saved in the <span Class="emphasis">gmon.out</span> file. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">cc</span>|(1), <span Class="emphasis">prof</span>|(1), and the Info entry for <span Class="emphasis">gprof</span>. 
+<p class="level0">*(L"An Execution Profiler for Modular Programs*(R", by S. Graham, P. Kessler, M. McKusick; Software - Practice and Experience, Vol. 13, pp. 671-685, 1983. 
+<p class="level0">*(L"gprof: A Call Graph Execution Profiler*(R", by S. Graham, P. Kessler, M. McKusick; Proceedings of the s-1SIGPLAN s0'82 Symposium on Compiler Construction, s-1SIGPLANs0 Notices, Vol. 17, No  6, pp. 120-126, June 1982. <a name="COPYRIGHT"></a><h2 class="nroffsh">COPYRIGHT</h2>
+<p class="level0">
+<p class="level0">Copyright (c) 1988-2014 Free Software Foundation, Inc. 
+<p class="level0">Permission is granted to copy, distribute and/or modify this document under the terms of the s-1GNUs0 Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the license is included in the section entitled *(L"s-1GNUs0 Free Documentation License*(R". 

@@ -1,0 +1,14 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">setvtrgb - customize the console color map <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">setvtrgb</span> vga 
+<p class="level0"><span Class="bold">setvtrgb</span> <span Class="emphasis">FILE</span>|- <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold"></span> setvtrgb sets the console color map in all virtual terminals according to custom values specified in a file or standard input.  With the `vga' parameter, it can also be used to restore the settings built into the kernel. 
+<p class="level0">When invoked with a filename or `-', <span Class="bold"></span> setvtrgb expects input as follows: 
+<p class="level0">&nbsp; color0_r,color1_r,...,color15_r &nbsp; color0_g,color1_g,...,color15_g &nbsp; color0_b,color1_b,...,color15_b 
+<p class="level0">where colorN_{r,g,b} is the red/green/blue portion of the respective color in decimal notation in the 0..255 range.  To pre-seed a file in the correct format, you can use 
+<p class="level0">&nbsp; cat /sys/module/vt/parameters/default_{red,grn,blu} 
+<p class="level0">The meanings of the color values are defined as follows: 
+<p class="level0">&nbsp; +--------+--------+---------+ &nbsp; | Normal | Bright | Color   | &nbsp; +--------+--------+---------+ &nbsp; |      0 |      8 | Black   | &nbsp; |      1 |      9 | Red     | &nbsp; |      2 |     10 | Green   | &nbsp; |      3 |     11 | Yellow  | &nbsp; |      4 |     12 | Blue    | &nbsp; |      5 |     13 | Magenta | &nbsp; |      6 |     14 | Cyan    | &nbsp; |      7 |     15 | White   | &nbsp; +---------------------------+ <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">setvtrgb is Copyright &copy; 2011 Alexey Gladkov &lt;gladkov.alexey@gmail.com&gt;, with portions by Dustin Kirkland &lt;kirkland@canonical.com&gt; and Seth Forshee &lt;seth.forshee@canonical.com&gt; at Canonical Ltd. 
+<p class="level0">This manual page was written by Michael Schutte &lt;michi@debian.org&gt; for the Debian GNU/Linux system (but may be used by others). 

@@ -1,0 +1,67 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-instaweb - Instantly browse your working repository in gitweb <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git instaweb</span> [--local] [--httpd=&lt;httpd&gt;] [--port=&lt;port&gt;]
+&nbsp;              [--browser=&lt;browser&gt;]
+<span class="emphasis">git instaweb</span> [--start] [--stop] [--restart]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">A simple script to set up gitweb and a web server for browsing the local repository. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">-l, --local 
+<p class="level1">Only bind the web server to the local IP (127.0.0.1). 
+<p class="level0">
+<p class="level0">-d, --httpd 
+<p class="level1">The HTTP daemon command-line that will be executed. Command-line options may be specified here, and the configuration file will be added at the end of the command-line. Currently apache2, lighttpd, mongoose, plackup and webrick are supported. (Default: lighttpd) 
+<p class="level0">
+<p class="level0">-m, --module-path 
+<p class="level1">The module path (only needed if httpd is Apache). (Default: /usr/lib/apache2/modules) 
+<p class="level0">
+<p class="level0">-p, --port 
+<p class="level1">The port number to bind the httpd to. (Default: 1234) 
+<p class="level0">
+<p class="level0">-b, --browser 
+<p class="level1">The web browser that should be used to view the gitweb page. This will be passed to the <span Class="emphasis">git web--browse</span> helper script along with the URL of the gitweb instance. See <span Class="bold">git-web--browse</span>(1) for more information about this. If the script fails, the URL will be printed to stdout. 
+<p class="level0">
+<p class="level0">start, --start 
+<p class="level1">Start the httpd instance and exit. Regenerate configuration files as necessary for spawning a new instance. 
+<p class="level0">
+<p class="level0">stop, --stop 
+<p class="level1">Stop the httpd instance and exit. This does not generate any of the configuration files for spawning a new instance, nor does it close the browser. 
+<p class="level0">
+<p class="level0">restart, --restart 
+<p class="level1">Restart the httpd instance and exit. Regenerate configuration files as necessary for spawning a new instance. 
+<p class="level0"><a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">You may specify configuration in your .git/config 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+[instaweb]
+&nbsp;       local = true
+&nbsp;       httpd = apache2 -f
+&nbsp;       port = 4321
+&nbsp;       browser = konqueror
+&nbsp;       modulepath = /usr/lib/apache2/modules
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">If the configuration variable <span Class="emphasis">instaweb.browser</span> is not set, <span Class="emphasis">web.browser</span> will be used instead if it is defined. See <span Class="bold">git-web--browse</span>(1) for more information about this. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">gitweb</span>(1) <a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 

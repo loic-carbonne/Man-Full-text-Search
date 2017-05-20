@@ -1,0 +1,208 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">systemd-nspawn - Spawn a namespace container for debugging, testing and building <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-nspawn</span> [OPTIONS...] [<span Class="emphasis">COMMAND</span>&nbsp;[ARGS...]] 
+<p class="level0"><span Class="bold">systemd-nspawn</span> -b [OPTIONS...] [ARGS...] <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd-nspawn</span> may be used to run a command or OS in a light-weight namespace container. In many ways it is similar to <span Class="bold">chroot</span>(1), but more powerful since it fully virtualizes the file system hierarchy, as well as the process tree, the various IPC subsystems and the host and domain name. 
+<p class="level0"><span Class="bold">systemd-nspawn</span> limits access to various kernel interfaces in the container to read-only, such as /sys, /proc/sys or /sys/fs/selinux. Network interfaces and the system clock may not be changed from within the container. Device nodes may not be created. The host system cannot be rebooted and kernel modules may not be loaded from within the container. 
+<p class="level0">Note that even though these security precautions are taken <span Class="bold">systemd-nspawn</span> is not suitable for secure container setups. Many of the security features may be circumvented and are hence primarily useful to avoid accidental changes to the host system from the container. The intended use of this program is debugging and testing as well as building of packages, distributions and software involved with boot and systems management. 
+<p class="level0">In contrast to <span Class="bold">chroot</span>(1)&nbsp;<span Class="bold">systemd-nspawn</span> may be used to boot full Linux-based operating systems in a container. 
+<p class="level0">Use a tool like <span Class="bold">yum</span>(8), <span Class="bold">debootstrap</span>(8), or <span Class="bold">pacman</span>(8) to set up an OS directory tree suitable as file system hierarchy for <span Class="bold">systemd-nspawn</span> containers. 
+<p class="level0">Note that <span Class="bold">systemd-nspawn</span> will mount file systems private to the container to /dev, /run and similar. These will not be visible outside of the container, and their contents will be lost when the container exits. 
+<p class="level0">Note that running two <span Class="bold">systemd-nspawn</span> containers from the same directory tree will not make processes in them see each other. The PID namespace separation of the two containers is complete and the containers will share very few runtime objects except for the underlying file system. Use <span Class="bold">machinectl</span>(1)*(Aqs <span Class="bold">login</span> command to request an additional login prompt in a running container. 
+<p class="level0"><span Class="bold">systemd-nspawn</span> implements the m[blue]<span Class="bold">Container Interface</span>m[]s-2u[1]ds+2 specification. 
+<p class="level0">As a safety check <span Class="bold">systemd-nspawn</span> will verify the existence of /usr/lib/os-release or /etc/os-release in the container tree before starting the container (see <span Class="bold">os-release</span>(5)). It might be necessary to add this file to the container tree manually if the OS of the container is too old to contain this file out-of-the-box. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">If option <span Class="bold">-b</span> is specified, the arguments are used as arguments for the init binary. Otherwise, <span Class="emphasis">COMMAND</span> specifies the program to launch in the container, and the remaining arguments are used as arguments for this program. If <span Class="bold">-b</span> is not used and no arguments are specifed, a shell is launched in the container. 
+<p class="level0">The following options are understood: 
+<p class="level0"><span Class="bold">-D</span>, <span Class="bold">--directory=</span> 
+<p class="level1">Directory to use as file system root for the container. If neither <span Class="bold">--directory=</span> nor <span Class="bold">--image=</span> are specified, the current directory will be used. May not be specified together with <span Class="bold">--image=</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-i</span>, <span Class="bold">--image=</span> 
+<p class="level1">Disk image to mount the root directory for the container from. Takes a path to a regular file or to a block device node. The file or block device must contain a GUID Partition Table with a root partition which is mounted as the root directory of the container. Optionally, it may contain a home and/or a server data partition which are mounted to the appropriate places in the container. All these partitions must be identified by the partition types defined by the m[blue]<span Class="bold">Discoverable Partitions Specification</span>m[]s-2u[2]ds+2. Any other partitions, such as foreign partitions, swap partitions or EFI system partitions are not mounted. May not be specified together with <span Class="bold">--directory=</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-b</span>, <span Class="bold">--boot</span> 
+<p class="level1">Automatically search for an init binary and invoke it instead of a shell or a user supplied program. If this option is used, arguments specified on the command line are used as arguments for the init binary. This option may not be combined with <span Class="bold">--share-system</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">-u</span>, <span Class="bold">--user=</span> 
+<p class="level1">After transitioning into the container, change to the specified user-defined in the container*(Aqs user database. Like all other systemd-nspawn features, this is not a security feature and provides protection against accidental destructive operations only. 
+<p class="level0">
+<p class="level0"><span Class="bold">-M</span>, <span Class="bold">--machine=</span> 
+<p class="level1">Sets the machine name for this container. This name may be used to identify this container on the host, and is used to initialize the container*(Aqs hostname (which the container can choose to override, however). If not specified, the last component of the root directory of the container is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">--uuid=</span> 
+<p class="level1">Set the specified UUID for the container. The init system will initialize /etc/machine-id from this if this file is not set yet. 
+<p class="level0">
+<p class="level0"><span Class="bold">--slice=</span> 
+<p class="level1">Make the container part of the specified slice, instead of the default machine.slice. 
+<p class="level0">
+<p class="level0"><span Class="bold">--private-network</span> 
+<p class="level1">Disconnect networking of the container from the host. This makes all network interfaces unavailable in the container, with the exception of the loopback device and those specified with <span Class="bold">--network-interface=</span> and configured with <span Class="bold">--network-veth</span>. If this option is specified, the CAP_NET_ADMIN capability will be added to the set of capabilities the container retains. The latter may be disabled by using <span Class="bold">--drop-capability=</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--network-interface=</span> 
+<p class="level1">Assign the specified network interface to the container. This will remove the specified interface from the calling namespace and place it in the container. When the container terminates, it is moved back to the host namespace. Note that <span Class="bold">--network-interface=</span> implies <span Class="bold">--private-network</span>. This option may be used more than once to add multiple network interfaces to the container. 
+<p class="level0">
+<p class="level0"><span Class="bold">--network-macvlan=</span> 
+<p class="level1">Create a "macvlan" interface of the specified Ethernet network interface and add it to the container. A "macvlan" interface is a virtual interface that adds a second MAC address to an existing physical Ethernet link. The interface in the container will be named after the interface on the host, prefixed with "mv-". Note that <span Class="bold">--network-macvlan=</span> implies <span Class="bold">--private-network</span>. This option may be used more than once to add multiple network interfaces to the container. 
+<p class="level0">
+<p class="level0"><span Class="bold">--network-veth</span> 
+<p class="level1">Create a virtual Ethernet link ("veth") between host and container. The host side of the Ethernet link will be available as a network interface named after the container*(Aqs name (as specified with <span Class="bold">--machine=</span>), prefixed with "ve-". The container side of the Ethernet link will be named "host0". Note that <span Class="bold">--network-veth</span> implies <span Class="bold">--private-network</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--network-bridge=</span> 
+<p class="level1">Adds the host side of the Ethernet link created with <span Class="bold">--network-veth</span> to the specified bridge. Note that <span Class="bold">--network-bridge=</span> implies <span Class="bold">--network-veth</span>. If this option is used, the host side of the Ethernet link will use the "vb-" prefix instead of "ve-". 
+<p class="level0">
+<p class="level0"><span Class="bold">-Z</span>, <span Class="bold">--selinux-context=</span> 
+<p class="level1">Sets the SELinux security context to be used to label processes in the container. 
+<p class="level0">
+<p class="level0"><span Class="bold">-L</span>, <span Class="bold">--selinux-apifs-context=</span> 
+<p class="level1">Sets the SELinux security context to be used to label files in the virtual API file systems in the container. 
+<p class="level0">
+<p class="level0"><span Class="bold">--capability=</span> 
+<p class="level1">List one or more additional capabilities to grant the container. Takes a comma-separated list of capability names, see <span Class="bold">capabilities</span>(7) for more information. Note that the following capabilities will be granted in any way: CAP_CHOWN, CAP_DAC_OVERRIDE, CAP_DAC_READ_SEARCH, CAP_FOWNER, CAP_FSETID, CAP_IPC_OWNER, CAP_KILL, CAP_LEASE, CAP_LINUX_IMMUTABLE, CAP_NET_BIND_SERVICE, CAP_NET_BROADCAST, CAP_NET_RAW, CAP_SETGID, CAP_SETFCAP, CAP_SETPCAP, CAP_SETUID, CAP_SYS_ADMIN, CAP_SYS_CHROOT, CAP_SYS_NICE, CAP_SYS_PTRACE, CAP_SYS_TTY_CONFIG, CAP_SYS_RESOURCE, CAP_SYS_BOOT, CAP_AUDIT_WRITE, CAP_AUDIT_CONTROL. Also CAP_NET_ADMIN is retained if <span Class="bold">--private-network</span> is specified. If the special value "all" is passed, all capabilities are retained. 
+<p class="level0">
+<p class="level0"><span Class="bold">--drop-capability=</span> 
+<p class="level1">Specify one or more additional capabilities to drop for the container. This allows running the container with fewer capabilities than the default (see above). 
+<p class="level0">
+<p class="level0"><span Class="bold">--link-journal=</span> 
+<p class="level1">Control whether the container*(Aqs journal shall be made visible to the host system. If enabled, allows viewing the container*(Aqs journal files from the host (but not vice versa). Takes one of "no", "host", "try-host", "guest", "try-guest", "auto". If "no", the journal is not linked. If "host", the journal files are stored on the host file system (beneath /var/log/journal/<span Class="emphasis">machine-id</span>) and the subdirectory is bind-mounted into the container at the same location. If "guest", the journal files are stored on the guest file system (beneath /var/log/journal/<span Class="emphasis">machine-id</span>) and the subdirectory is symlinked into the host at the same location. "try-host" and "try-guest" do the same but do not fail if the host does not have persistant journalling enabled. If "auto" (the default), and the right subdirectory of /var/log/journal exists, it will be bind mounted into the container. If the subdirectory does not exist, no linking is performed. Effectively, booting a container once with "guest" or "host" will link the journal persistently if further on the default of "auto" is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-j</span> 
+<p class="level1">Equivalent to <span Class="bold">--link-journal=try-guest</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--read-only</span> 
+<p class="level1">Mount the root file system read-only for the container. 
+<p class="level0">
+<p class="level0"><span Class="bold">--bind=</span>, <span Class="bold">--bind-ro=</span> 
+<p class="level1">Bind mount a file or directory from the host into the container. Either takes a path argument -- in which case the specified path will be mounted from the host to the same path in the container --, or a colon-separated pair of paths -- in which case the first specified path is the source in the host, and the second path is the destination in the container. The <span Class="bold">--bind-ro=</span> option creates read-only bind mounts. 
+<p class="level0">
+<p class="level0"><span Class="bold">--tmpfs=</span> 
+<p class="level1">Mount a tmpfs file system into the container. Takes a single absolute path argument that specifies where to mount the tmpfs instance to (in which case the directory access mode will be chosen as 0755, owned by root/root), or optionally a colon-separated pair of path and mount option string, that is used for mounting (in which case the kernel default for access mode and owner will be chosen, unless otherwise specified). This option is particularly useful for mounting directories such as /var as tmpfs, to allow state-less systems, in particular when combined with <span Class="bold">--read-only</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--setenv=</span> 
+<p class="level1">Specifies an environment variable assignment to pass to the init process in the container, in the format "NAME=VALUE". This may be used to override the default variables or to set additional variables. This parameter may be used more than once. 
+<p class="level0">
+<p class="level0"><span Class="bold">--share-system</span> 
+<p class="level1">Allows the container to share certain system facilities with the host. More specifically, this turns off PID namespacing, UTS namespacing and IPC namespacing, and thus allows the guest to see and interact more easily with processes outside of the container. Note that using this option makes it impossible to start up a full Operating System in the container, as an init system cannot operate in this mode. It is only useful to run specific programs or applications this way, without involving an init system in the container. This option implies <span Class="bold">--register=no</span>. This option may not be combined with <span Class="bold">--boot</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--register=</span> 
+<p class="level1">Controls whether the container is registered with <span Class="bold">systemd-machined</span>(8). Takes a boolean argument, defaults to "yes". This option should be enabled when the container runs a full Operating System (more specifically: an init system), and is useful to ensure that the container is accessible via <span Class="bold">machinectl</span>(1) and shown by tools such as <span Class="bold">ps</span>(1). If the container does not run an init system, it is recommended to set this option to "no". Note that <span Class="bold">--share-system</span> implies <span Class="bold">--register=no</span>. 
+<p class="level0">
+<p class="level0"><span Class="bold">--keep-unit</span> 
+<p class="level1">Instead of creating a transient scope unit to run the container in, simply register the service or scope unit <span Class="bold">systemd-nspawn</span> has been invoked in with <span Class="bold">systemd-machined</span>(8). This has no effect if <span Class="bold">--register=no</span> is used. This switch should be used if <span Class="bold">systemd-nspawn</span> is invoked from within a service unit, and the service unit*(Aqs sole purpose is to run a single <span Class="bold">systemd-nspawn</span> container. This option is not available if run from a user session. 
+<p class="level0">
+<p class="level0"><span Class="bold">--personality=</span> 
+<p class="level1">Control the architecture ("personality") reported by <span Class="bold">uname</span>(2) in the container. Currently, only "x86" and "x86-64" are supported. This is useful when running a 32-bit container on a 64-bit host. If this setting is not used, the personality reported in the container is the same as the one reported on the host. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span>, <span Class="bold">--quiet</span> 
+<p class="level1">Turns off any status output by the tool itself. When this switch is used, the only output from nspawn will be the console output of the container OS itself. 
+<p class="level0">
+<p class="level0"><span Class="bold">-h</span>, <span Class="bold">--help</span> 
+<p class="level1">Print a short help text and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">--version</span> 
+<p class="level1">Print a short version string and exit. 
+<p class="level0"><a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 1</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; yum -y --releasever=19 --nogpg --installroot=/srv/mycontainer --disablerepo=*(Aq**(Aq --enablerepo=fedora install systemd passwd yum fedora-release vim-minimal
+&#35; systemd-nspawn -bD /srv/mycontainer
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This installs a minimal Fedora distribution into the directory /srv/mycontainer/ and then boots an OS in a namespace container in it. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 2</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; debootstrap --arch=amd64 unstable ~/debian-tree/
+&#35; systemd-nspawn -D ~/debian-tree/
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This installs a minimal Debian unstable distribution into the directory ~/debian-tree/ and then spawns a shell in a namespace container in it. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 3</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; pacstrap -c -d ~/arch-tree/ base
+&#35; systemd-nspawn -bD ~/arch-tree/
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This installs a mimimal Arch Linux distribution into the directory ~/arch-tree/ and then boots an OS in a namespace container in it. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 4</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; mv ~/arch-tree /var/lib/container/arch
+&#35; systemctl enable systemd-nspawn@arch.service
+&#35; systemctl start systemd-nspawn@arch.service
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This makes the Arch Linux container part of the multi-user.target on the host. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 5</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; btrfs subvolume snapshot / /.tmp
+&#35; systemd-nspawn --private-network -D /.tmp -b
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This runs a copy of the host system in a btrfs snapshot. <a name="EXAMPLE"></a><h2 class="nroffsh">EXAMPLE 6</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&#35; chcon system_u:object_r:svirt_sandbox_file_t:s0:c0,c1 -R /srv/container
+&#35; systemd-nspawn -L system_u:object_r:svirt_sandbox_file_t:s0:c0,c1 -Z system_u:system_r:svirt_lxc_net_t:s0:c0,c1 -D /srv/container /bin/sh
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">This runs a container with SELinux sandbox security contexts. <a name="EXIT"></a><h2 class="nroffsh">EXIT STATUS</h2>
+<p class="level0">
+<p class="level0">The exit code of the program executed in the container is returned. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">systemd</span>(1), <span Class="bold">chroot</span>(1), <span Class="bold">yum</span>(8), <span Class="bold">debootstrap</span>(8), <span Class="bold">pacman</span>(8), <span Class="bold">systemd.slice</span>(5), <span Class="bold">machinectl</span>(1) <a name="NOTES"></a><h2 class="nroffsh">NOTES</h2>
+<p class="level0">
+<p class="level0"><a name=""></a><span class="nroffip"> 1. 4</span> 
+<p class="level1">Container Interface 
+<p class="level2">%http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface 
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip"> 2. 4</span> 
+<p class="level1">Discoverable Partitions Specification 
+<p class="level2">%http://www.freedesktop.org/wiki/Specifications/DiscoverablePartitionsSpec/ 
+<p class="level1">

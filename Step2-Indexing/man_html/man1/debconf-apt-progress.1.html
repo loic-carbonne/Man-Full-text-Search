@@ -1,0 +1,101 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">debconf-apt-progress - install packages using debconf to display a progress bar <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;debconf-apt-progress [--] command [args ...] &nbsp;debconf-apt-progress --config &nbsp;debconf-apt-progress --start &nbsp;debconf-apt-progress --from waypoint --to waypoint [--] command [args ...] &nbsp;debconf-apt-progress --stop 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">debconf-apt-progress</span> installs packages using debconf to display a progress bar. The given <span Class="emphasis">command</span> should be any command-line apt frontend; specifically, it must send progress information to the file descriptor selected by the f(CW*(C`APT::Status-Fd*(C'</span> configuration option, and must keep the file descriptors nominated by the f(CW*(C`APT::Keep-Fds*(C'</span> configuration option open when invoking debconf (directly or indirectly), as those file descriptors will be used for the debconf passthrough protocol. 
+<p class="level0">The arguments to the command you supply should generally include <span Class="bold">-y</span> (for <span Class="bold">apt-get</span> or <span Class="bold">aptitude</span>) or similar to avoid the apt frontend prompting for input. <span Class="bold">debconf-apt-progress</span> cannot do this itself because the appropriate argument may differ between apt frontends. 
+<p class="level0">The <span Class="bold">--start</span>, <span Class="bold">--stop</span>, <span Class="bold">--from</span>, and <span Class="bold">--to</span> options may be used to create a progress bar with multiple segments for different stages of installation, provided that the caller is a debconf confmodule. The caller may also interact with the progress bar itself using the debconf protocol if it so desires. 
+<p class="level0">debconf locks its config database when it starts up, which makes it unfortunately inconvenient to have one instance of debconf displaying the progress bar and another passing through questions from packages being installed. If you're using a multiple-segment progress bar, you'll need to eval the output of the <span Class="bold">--config</span> option before starting the debconf frontend to work around this. See *(L"s-1EXAMPLES*(R"s0 in the s-1EXAMPLESs0 section below. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB--configfR"></a><span class="nroffip">\fB--config\fR 4</span> 
+<p class="level1">
+<p class="level1">Print environment variables necessary to start up a progress bar frontend. 
+<p class="level0"><a name="fB--startfR"></a><span class="nroffip">\fB--start\fR 4</span> 
+<p class="level1">
+<p class="level1">Start up a progress bar, running from 0 to 100 by default. Use <span Class="bold">--from</span> and <span Class="bold">--to</span> to use other endpoints. 
+<p class="level0"><a name="fB--fromfR"></a><span class="nroffip">\fB--from\fR \fIwaypoint\fR 4</span> 
+<p class="level1">
+<p class="level1">If used with <span Class="bold">--start</span>, make the progress bar begin at <span Class="emphasis">waypoint</span> rather than 0. 
+<p class="level1">Otherwise, install packages with their progress bar beginning at this *(L"waypoint*(R". Must be used with <span Class="bold">--to</span>. 
+<p class="level0"><a name="fB--tofR"></a><span class="nroffip">\fB--to\fR \fIwaypoint\fR 4</span> 
+<p class="level1">
+<p class="level1">If used with <span Class="bold">--start</span>, make the progress bar end at <span Class="emphasis">waypoint</span> rather than 100. 
+<p class="level1">Otherwise, install packages with their progress bar ending at this *(L"waypoint*(R". Must be used with <span Class="bold">--from</span>. 
+<p class="level0"><a name="fB--stopfR"></a><span class="nroffip">\fB--stop\fR 4</span> 
+<p class="level1">
+<p class="level1">Stop a running progress bar. 
+<p class="level0"><a name="fB--no-progressfR"></a><span class="nroffip">\fB--no-progress\fR 4</span> 
+<p class="level1">
+<p class="level1">Avoid starting, stopping, or stepping the progress bar. Progress messages from apt, media change events, and debconf questions will still be passed through to debconf. 
+<p class="level0"><a name="fB--dlwaypointfR"></a><span class="nroffip">\fB--dlwaypoint\fR \fIpercentage\fR 4</span> 
+<p class="level1">
+<p class="level1">Specify what percent of the progress bar to use for downloading packages. The remainder will be used for installing packages. The default is to use 15% for downloading and the remaining 85% for installing. 
+<p class="level0"><a name="fB--logfilefR"></a><span class="nroffip">\fB--logfile\fR \fIfile\fR 4</span> 
+<p class="level1">
+<p class="level1">Send the normal output from apt to the given file. 
+<p class="level0"><a name="fB--logstderrfR"></a><span class="nroffip">\fB--logstderr\fR 4</span> 
+<p class="level1">
+<p class="level1">Send the normal output from apt to stderr. If you supply neither <span Class="bold">--logfile</span> nor <span Class="bold">--logstderr</span>, the normal output from apt will be discarded. 
+<p class="level0"><a name="fB--fR"></a><span class="nroffip">\fB--\fR 4</span> 
+<p class="level1">
+<p class="level1">Terminate options. Since you will normally need to give at least the <span Class="bold">-y</span> argument to the command being run, you will usually need to use <span Class="bold">--</span> to prevent that being interpreted as an option to <span Class="bold">debconf-apt-progress</span> itself. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">Install the s-1GNOMEs0 desktop and an X window system development environment within a progress bar: 
+<p class="level0">
+<p class="level0">&nbsp;debconf-apt-progress -- aptitude -y install gnome x-window-system-dev 
+<p class="level0">
+<p class="level0">Install the s-1GNOME, KDE,s0 and s-1XFCEs0 desktops within a single progress bar, allocating 45% of the progress bar for each of s-1GNOMEs0 and s-1KDEs0 and the remaining 10% for s-1XFCE:s0 
+<p class="level0">
+<p class="level0">&nbsp;&#35;! /bin/sh &nbsp;set -e &nbsp;case $1 in &nbsp;  *(Aq*(Aq) &nbsp;    eval "$(debconf-apt-progress --config)" &nbsp;    "$0" debconf &nbsp;    ;; &nbsp;  debconf) &nbsp;    . /usr/share/debconf/confmodule &nbsp;    debconf-apt-progress --start &nbsp;    debconf-apt-progress --from 0 --to 45 -- apt-get -y install gnome &nbsp;    debconf-apt-progress --from 45 --to 90 -- apt-get -y install kde &nbsp;    debconf-apt-progress --from 90 --to 100 -- apt-get -y install xfce4 &nbsp;    debconf-apt-progress --stop &nbsp;    ;; &nbsp;esac 
+<p class="level0"><a name="RETURN"></a><h2 class="nroffsh">RETURN CODE</h2>
+<p class="level0">
+<p class="level0">The exit code of the specified command is returned, unless the user hit the cancel button on the progress bar. If the cancel button was hit, a value of 30 is returned. To avoid ambiguity, if the command returned 30, a value of 3 will be returned. <a name="AUTHORS"></a><h2 class="nroffsh">AUTHORS</h2>
+<p class="level0">
+<p class="level0">Colin Watson &lt;cjwatson@debian.org&gt; 
+<p class="level0">Joey Hess &lt;joeyh@debian.org&gt; 

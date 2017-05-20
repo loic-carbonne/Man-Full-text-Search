@@ -1,0 +1,153 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">jps - Java Virtual Machine Process Status Tool 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+</span>f3jps</span> [ f2options</span> ] [ f2hostid</span> ]
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="PARAMETERS"></a><h2 class="nroffsh">PARAMETERS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Command-line options.  
+<p class="level1">hostid  The host identifier of the host for which the process report should be generated. The f2hostid</span> may include optional components that indicate the communications protocol, port number, and other implementation specific data.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jps</span> tool lists the instrumented HotSpot Java Virtual Machines (JVMs) on the target system. The tool is limited to reporting information on JVMs for which it has the access permissions. 
+<p class="level0">
+<p class="level0">If f3jps</span> is run without specifying a f2hostid</span>, it will look for instrumented JVMs on the local host. If started with a f2hostid</span>, it will look for JVMs on the indicated host, using the specified protocol and port. A f3jstatd</span> process is assumed to be running on the target host. 
+<p class="level0">
+<p class="level0">The f3jps</span> command will report the local VM identifier, or f2lvmid</span>, for each instrumented JVM found on the target system. The f3lvmid</span> is typically, but not necessarily, the operating system's process identifier for the JVM process. With no options, f3jps</span> will list each Java application's f2lvmid</span> followed by the short form of the application's class name or jar file name. The short form of the class name or JAR file name omits the class's package information or the JAR files path information. 
+<p class="level0">
+<p class="level0">The f3jps</span> command uses the f3java</span> launcher to find the class name and arguments passed to the f2main</span> method. If the target JVM is started with a custom launcher, the class name (or JAR file name) and the arguments to the f2main</span> method will not be available. In this case, the f3jps</span> command will output the string f2Unknown</span> for the class name or JAR file name and for the arguments to the main method. 
+<p class="level0">
+<p class="level0">The list of JVMs produced by the f3jps</span> command may be limited by the permissions granted to the principal running the command. The command will only list the JVMs for which the principle has access rights as determined by operating system specific access control mechanisms. 
+<p class="level0">
+<p class="level0">f3NOTE:</span> This utility is unsupported and may not be available in future versions of the JDK. It is not currently available on Windows 98 and Windows ME platforms. 
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3jps</span> command supports a number of options that modify the output of the command. These options are subject to change or removal in the future. 
+<p class="level0">
+<p class="level1">
+<p class="level1">-q  Suppress the output of the class name, JAR file name, and arguments passed to the f2main</span> method, producing only a list of local VM identifiers.  
+<p class="level1">-m  Output the arguments passed to the main method. The output may be null for embedded JVMs.   
+<p class="level1">-l  Output the full package name for the application's main class or the full path name to the application's JAR file.  
+<p class="level1">-v  Output the arguments passed to the JVM.  
+<p class="level1">-V  Output the arguments passed to the JVM through the flags file (the .hotspotrc file or the file specified by the -XX:Flags=&lt;f2filename</span>&gt; argument).  
+<p class="level1">-Joption  Pass f2option</span> to the f3java</span> launcher called by f3jps</span>. For example, f3-J-Xms48m</span> sets the startup memory to 48 megabytes. It is a common convention for f3-J</span> to pass options to the underlying VM executing applications written in Java.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name=""></a><h2 class="nroffsh"></h2>
+<p class="level0">HOST IDENTIFIER 
+<p class="level0">
+<p class="level0">The host identifier, or f2hostid</span> is a string that indicates the target system. The syntax of the f2hostid</span> string largely corresponds to the syntax of a URI: 
+<p class="level0"><pre class="level0">
+f3
+[</span>f4protocol</span>f3:][[//]</span>f4hostname</span>f3][:</span>f4port</span>f3][/</span>f4servername</span>f3]</span>
+<br>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">protocol  The communications protocol. If the f2protocol</span> is omitted and a f2hostname</span> is not specified, the default protocol is a platform specific, optimized, local protocol. If the f2protocol</span> is omitted and a f2hostname</span> is specified, then the default protocol is f3rmi</span>.  
+<p class="level1">hostname  A hostname or IP address indicating the target host. If f2hostname</span> is omitted, then the target host is the local host.  
+<p class="level1">port  The default port for communicating with the remote server. If the f2hostname</span> is omitted or the f2protocol</span> specifies an optimized, local protocol, then f2port</span> is ignored. Otherwise, treatment of the f2port</span> parameter is implementation specific. For the default f3rmi</span> protocol the f2port</span> indicates the port number for the rmiregistry on the remote host. If f2port</span> is omitted, and f2protocol</span> indicates f3rmi</span>, then the default rmiregistry port (1099) is used.  
+<p class="level1">servername  The treatment of this parameter depends on the implementation. For the optimized, local protocol, this field is ignored. For the f3rmi</span> protocol, this parameter is a string representing the name of the RMI remote object on the remote host. See the f3-n</span> option for the jstatd(1) command.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="OUTPUT"></a><h2 class="nroffsh">OUTPUT FORMAT</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The output of the f3jps</span> command follows the following pattern: 
+<p class="level0"><pre class="level0">
+f3
+</span>f4lvmid</span>f3 [ [ </span>f4classname</span>f3 | </span>f4JARfilename</span>f3 | "Unknown"] [ </span>f4arg</span>f3* ] [ </span>f4jvmarg</span>f3* ] ]</span>
+<br>f3
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Where all output tokens are separated by white space. An f2arg</span> that includes embedded white space will introduce ambiguity when attempting to map arguments to their actual positional parameters. <br><br>f3NOTE</span>: You are advised not to write scripts to parse f3jps</span> output since the format may change in future releases. If you choose to write scripts that parse f3jps</span> output, expect to modify them for future releases of this tool. <br>
+<p class="level0">
+<p class="level0"><a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">This section provides examples of the f3jps</span> command. 
+<p class="level0">
+<p class="level0">Listing the instrumented JVMs on the local host: 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jps</span>
+<br>&nbsp;
+18027 Java2Demo.JAR
+<br>&nbsp;
+18032 jps
+<br>&nbsp;
+18005 jstat
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Listing the instrumented JVMs on a remote host: 
+<p class="level0">
+<p class="level0">This example assumes that the f3jstat</span> server and either the its internal RMI registry or a separate external f3rmiregistry</span> process are running on the remote host on the default port (port 1099). It also assumes that the local host has appropriate permissions to access the remote host. This example also includes the f2-l</span> option to output the long form of the class names or JAR file names. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jps -l remote.domain</span>
+<br>&nbsp;
+3002 /opt/jdk1.7.0/demo/jfc/Java2D/Java2Demo.JAR
+<br>&nbsp;
+2857 sun.tools.jstatd.jstatd
+<br>&nbsp;
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">Listing the instrumented JVMs on a remote host with a non-default port for the RMI registry 
+<p class="level0">
+<p class="level0">This example assumes that the f3jstatd</span> server, with an internal RMI registry bound to port 2002, is running on the remote host. This example also uses the f2-m</span> option to include the arguments passed to the f2main</span> method of each of the listed Java applications. 
+<p class="level0"><pre class="level0">
+f3
+</span>f3jps -m remote.domain:2002</span>
+<br>&nbsp;
+3002 /opt/jdk1.7.0/demo/jfc/Java2D/Java2Demo.JAR
+<br>&nbsp;
+3102 sun.tools.jstatd.jstatd -p 2002
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">o java(1) - the Java Application Launcher  
+<p class="level1">o jstat(1) - the Java virtual machine Statistics Monitoring Tool  
+<p class="level1">o jstatd(1) - the jstat daemon  
+<p class="level1">o rmiregistry(1) - the Java Remote Object Registry  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">

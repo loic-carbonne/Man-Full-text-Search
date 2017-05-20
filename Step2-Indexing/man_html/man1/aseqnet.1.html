@@ -1,0 +1,31 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">aseqnet - ALSA sequencer connectors over network 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">aseqnet</span> [remotehost] 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">aseqnet</span> is an ALSA sequencer client which sends and receives event packets over network. Suppose two hosts connected by network, <span Class="emphasis">hostA</span> as a server and <span Class="emphasis">hostB</span> as a client. The ALSA sequencer system must be running on both hosts. For creating the server port, run the following on hostA: 
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">hostA% aseqnet <br>sequencer opened: 128:0 
+<p class="level1">Then a user client 128 with port 0 was opened on hostA. (The client number may vary.) For creating the (network-)client port, run <span Class="bold">aseqnet</span> with the hostname of the server: 
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">hostB% aseqnet hostA <br>sequencer opened: 132:0 
+<p class="level1">Now all events sent to hostA:128:0 are transferred to hostB:132:0, and vice versa. 
+<p class="level1">The ports created by <span Class="bold">aseqnet</span> can be connected arbitrary to other sequencer ports via <span Class="bold">aconnect(1).</span> For example, to connect hostB:132:0 to a MIDI output device 65:0: 
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">hostB% aconnect 132:0 65:0 
+<p class="level1">Then events to hostA:128:0 will be delivered to hostB:65:0. The following command plays MIDI on <span Class="emphasis">hostB.</span> 
+<p class="level0"><a name=""></a><span class="nroffip"> 4</span> 
+<p class="level1">hostA% pmidi -p 128:0 foo.mid 
+<p class="level1">The multiple clients may exist simultaneously.  If <span Class="emphasis">hostC</span> is connected as a client to hostA, events from from hostA are sent to all connected network clients, i.e. hostB and hostC. However, only one connection is allowed from a client to a server. 
+<p class="level1">To disconnect network, stop all clients before server by ctrl-C or sending signal to them.  The server will automatically quit. 
+<p class="level1"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">-p port</span> Specify the TCP port number or TCP service name. 
+<p class="level0"><span Class="bold">-s addr</span> Subscribe to the given address for read automatically. 
+<p class="level0"><span Class="bold">-d addr</span> Subscribe to the given address for write automatically. 
+<p class="level0"><span Class="bold">-v</span> Verbose mode. 
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">aconnect(1), pmidi(1) 
+<p class="level0"><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Takashi Iwai &lt;tiwai@suse.de&gt;. 

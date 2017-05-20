@@ -1,0 +1,308 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><pre class="level0">
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">'br} 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">{\ 
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">h2xs - convert .h C header files to Perl extensions <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">h2xs</span> [<span Class="bold">s-1OPTIONSs0</span> ...] [headerfile ... [extra_libraries]] 
+<p class="level0"><span Class="bold">h2xs</span> <span Class="bold">-h</span>|<span Class="bold">-?</span>|<span Class="bold">--help</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">h2xs</span> builds a Perl extension from C header files.  The extension will include functions which can be used to retrieve the value of any &#35;define statement which was in the C header files. 
+<p class="level0">The <span Class="emphasis">module_name</span> will be used for the name of the extension.  If module_name is not supplied then the name of the first header file will be used, with the first character capitalized. 
+<p class="level0">If the extension might need extra libraries, they should be included here.  The extension Makefile.PL will take care of checking whether the libraries actually exist and how they should be loaded.  The extra libraries should be specified in the form -lm -lposix, etc, just as on the cc command line.  By default, the Makefile.PL will search through the library path determined by Configure.  That path can be augmented by including arguments of the form <span Class="bold">-L/another/library/path</span> in the extra-libraries argument. 
+<p class="level0">In spite of its name, <span Class="emphasis">h2xs</span> may also be used to create a skeleton pure Perl module. See the <span Class="bold">-X</span> option. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="fB-AfR"></a><span class="nroffip">\fB-A\fR, \fB--omit-autoload\fR 5</span> 
+<p class="level1">
+<p class="level1">Omit all autoload facilities.  This is the same as <span Class="bold">-c</span> but also removes the f(CW*(C`use&nbsp;AutoLoader*(C'</span> statement from the .pm file. 
+<p class="level0"><a name="fB-BfR"></a><span class="nroffip">\fB-B\fR, \fB--beta-version\fR 5</span> 
+<p class="level1">
+<p class="level1">Use an alpha/beta style version number.  Causes version number to be *(L"0.00_01*(R" unless <span Class="bold">-v</span> is specified. 
+<p class="level0"><a name="fB-CfR"></a><span class="nroffip">\fB-C\fR, \fB--omit-changes\fR 5</span> 
+<p class="level1">
+<p class="level1">Omits creation of the <span Class="emphasis">Changes</span> file, and adds a s-1HISTORYs0 section to the s-1PODs0 template. 
+<p class="level0"><a name="fB-FfR"></a><span class="nroffip">\fB-F\fR, \fB--cpp-flags\fR=\fIaddflags\fR 5</span> 
+<p class="level1">
+<p class="level1">Additional flags to specify to C preprocessor when scanning header for function declarations.  Writes these options in the generated <span Class="emphasis">Makefile.PL</span> too. 
+<p class="level0"><a name="fB-MfR"></a><span class="nroffip">\fB-M\fR, \fB--func-mask\fR=\fIregular expression\fR 5</span> 
+<p class="level1">
+<p class="level1">selects functions/macros to process. 
+<p class="level0"><a name="fB-OfR"></a><span class="nroffip">\fB-O\fR, \fB--overwrite-ok\fR 5</span> 
+<p class="level1">
+<p class="level1">Allows a pre-existing extension directory to be overwritten. 
+<p class="level0"><a name="fB-PfR"></a><span class="nroffip">\fB-P\fR, \fB--omit-pod\fR 5</span> 
+<p class="level1">
+<p class="level1">Omit the autogenerated stub s-1PODs0 section. 
+<p class="level0"><a name="fB-XfR"></a><span class="nroffip">\fB-X\fR, \fB--omit-XS\fR 5</span> 
+<p class="level1">
+<p class="level1">Omit the s-1XSs0 portion. Used to generate a skeleton pure Perl module. f(CW*(C`-c*(C'</span> and f(CW*(C`-f*(C'</span> are implicitly enabled. 
+<p class="level0"><a name="fB-afR"></a><span class="nroffip">\fB-a\fR, \fB--gen-accessors\fR 5</span> 
+<p class="level1">
+<p class="level1">Generate an accessor method for each element of structs and unions. The generated methods are named after the element name; will return the current value of the element if called without additional arguments; and will set the element to the supplied value (and return the new value) if called with an additional argument. Embedded structures and unions are returned as a pointer rather than the complete structure, to facilitate chained calls. 
+<p class="level1">These methods all apply to the Ptr type for the structure; additionally two methods are constructed for the structure type itself, f(CW*(C`_to_ptr*(C'</span> which returns a Ptr type pointing to the same structure, and a f(CW*(C`new*(C'</span> method to construct and return a new structure, initialised to zeroes. 
+<p class="level0"><a name="fB-bfR"></a><span class="nroffip">\fB-b\fR, \fB--compat-version\fR=\fIversion\fR 5</span> 
+<p class="level1">
+<p class="level1">Generates a .pm file which is backwards compatible with the specified perl version. 
+<p class="level1">For versions &lt; 5.6.0, the changes are. &nbsp;   - no use of 'our' (uses 'use vars' instead) &nbsp;   - no 'use warnings' 
+<p class="level1">Specifying a compatibility version higher than the version of perl you are using to run h2xs will have no effect.  If unspecified h2xs will default to compatibility with the version of perl you are using to run h2xs. 
+<p class="level0"><a name="fB-cfR"></a><span class="nroffip">\fB-c\fR, \fB--omit-constant\fR 5</span> 
+<p class="level1">
+<p class="level1">Omit f(CW*(C`constant()*(C'</span> from the .xs file and corresponding specialised f(CW*(C`AUTOLOAD*(C'</span> from the .pm file. 
+<p class="level0"><a name="fB-dfR"></a><span class="nroffip">\fB-d\fR, \fB--debugging\fR 5</span> 
+<p class="level1">
+<p class="level1">Turn on debugging messages. 
+<p class="level0"><a name="fB-efR"></a><span class="nroffip">\fB-e\fR, \fB--omit-enums\fR=[\fIregular expression\fR] 5</span> 
+<p class="level1">
+<p class="level1">If <span Class="emphasis">regular expression</span> is not given, skip all constants that are defined in a C enumeration. Otherwise skip only those constants that are defined in an enum whose name matches <span Class="emphasis">regular expression</span>. 
+<p class="level1">Since <span Class="emphasis">regular expression</span> is optional, make sure that this switch is followed by at least one other switch if you omit <span Class="emphasis">regular expression</span> and have some pending arguments such as header-file names. This is ok: 
+<p class="level1">
+<p class="level1">&nbsp;   h2xs -e -n Module::Foo foo.h 
+<p class="level1">
+<p class="level1">This is not ok: 
+<p class="level1">
+<p class="level1">&nbsp;   h2xs -n Module::Foo -e foo.h 
+<p class="level1">
+<p class="level1">In the latter, foo.h is taken as <span Class="emphasis">regular expression</span>. 
+<p class="level0"><a name="fB-ffR"></a><span class="nroffip">\fB-f\fR, \fB--force\fR 5</span> 
+<p class="level1">
+<p class="level1">Allows an extension to be created for a header even if that header is not found in standard include directories. 
+<p class="level0"><a name="fB-gfR"></a><span class="nroffip">\fB-g\fR, \fB--global\fR 5</span> 
+<p class="level1">
+<p class="level1">Include code for safely storing static data in the .xs file. Extensions that do no make use of static data can ignore this option. 
+<p class="level0"><a name="fB-hfR"></a><span class="nroffip">\fB-h\fR, \fB-?\fR, \fB--help\fR 5</span> 
+<p class="level1">
+<p class="level1">Print the usage, help and version for this h2xs and exit. 
+<p class="level0"><a name="fB-kfR"></a><span class="nroffip">\fB-k\fR, \fB--omit-const-func\fR 5</span> 
+<p class="level1">
+<p class="level1">For function arguments declared as f(CW*(C`const*(C'</span>, omit the const attribute in the generated s-1XSs0 code. 
+<p class="level0"><a name="fB-mfR"></a><span class="nroffip">\fB-m\fR, \fB--gen-tied-var\fR 5</span> 
+<p class="level1">
+<p class="level1"><span Class="bold">Experimental</span>: for each variable declared in the header file(s), declare a perl variable of the same name magically tied to the C variable. 
+<p class="level0"><a name="fB-nfR"></a><span class="nroffip">\fB-n\fR, \fB--name\fR=\fImodule_name\fR 5</span> 
+<p class="level1">
+<p class="level1">Specifies a name to be used for the extension, e.g., -n&nbsp;s-1RPC::DCEs0 
+<p class="level0"><a name="fB-ofR"></a><span class="nroffip">\fB-o\fR, \fB--opaque-re\fR=\fIregular expression\fR 5</span> 
+<p class="level1">
+<p class="level1">Use *(L"opaque*(R" data type for the C types matched by the regular expression, even if these types are f(CW*(C`typedef*(C'</span>-equivalent to types from typemaps.  Should not be used without <span Class="bold">-x</span>. 
+<p class="level1">This may be useful since, say, types which are f(CW*(C`typedef*(C'</span>-equivalent to integers may represent OS-related handles, and one may want to work with these handles in OO-way, as in f(CW*(C`$handle-&gt;do_something()*(C'</span>. Use f(CW*(C`-o .*(C'</span> if you want to handle all the f(CW*(C`typedef*(C'</span>ed types as opaque types. 
+<p class="level1">The type-to-match is whitewashed (except for commas, which have no whitespace before them, and multiple f(CW*(C`**(C'</span> which have no whitespace between them). 
+<p class="level0"><a name="fB-pfR"></a><span class="nroffip">\fB-p\fR, \fB--remove-prefix\fR=\fIprefix\fR 5</span> 
+<p class="level1">
+<p class="level1">Specify a prefix which should be removed from the Perl function names, e.g., -p&nbsp;sec_rgy_ This sets up the s-1XS s0<span Class="bold">s-1PREFIXs0</span> keyword and removes the prefix from functions that are autoloaded via the f(CW*(C`constant()*(C'</span> mechanism. 
+<p class="level0"><a name="fB-sfR"></a><span class="nroffip">\fB-s\fR, \fB--const-subs\fR=\fIsub1,sub2\fR 5</span> 
+<p class="level1">
+<p class="level1">Create a perl subroutine for the specified macros rather than autoload with the <span Class="emphasis">constant()</span> subroutine.  These macros are assumed to have a return type of <span Class="bold">char *</span>, e.g., -s&nbsp;sec_rgy_wildcard_name,sec_rgy_wildcard_sid. 
+<p class="level0"><a name="fB-tfR"></a><span class="nroffip">\fB-t\fR, \fB--default-type\fR=\fItype\fR 5</span> 
+<p class="level1">
+<p class="level1">Specify the internal type that the <span Class="emphasis">constant()</span> mechanism uses for macros. The default is s-1IV s0(signed integer).  Currently all macros found during the header scanning process will be assumed to have this type.  Future versions of f(CW*(C`h2xs*(C'</span> may gain the ability to make educated guesses. 
+<p class="level0"><a name="fB--use-new-testsfR"></a><span class="nroffip">\fB--use-new-tests\fR 5</span> 
+<p class="level1">
+<p class="level1">When <span Class="bold">--compat-version</span> (<span Class="bold">-b</span>) is present the generated tests will use f(CW*(C`Test::More*(C'</span> rather than f(CW*(C`Test*(C'</span> which is the default for versions before 5.6.2.  f(CW*(C`Test::More*(C'</span> will be added to s-1PREREQ_PMs0 in the generated f(CW*(C`Makefile.PL*(C'</span>. 
+<p class="level0"><a name="fB--use-old-testsfR"></a><span class="nroffip">\fB--use-old-tests\fR 5</span> 
+<p class="level1">
+<p class="level1">Will force the generation of test code that uses the older f(CW*(C`Test*(C'</span> module. 
+<p class="level0"><a name="fB--skip-exporterfR"></a><span class="nroffip">\fB--skip-exporter\fR 5</span> 
+<p class="level1">
+<p class="level1">Do not use f(CW*(C`Exporter*(C'</span> and/or export any symbol. 
+<p class="level0"><a name="fB--skip-ppportfR"></a><span class="nroffip">\fB--skip-ppport\fR 5</span> 
+<p class="level1">
+<p class="level1">Do not use f(CW*(C`Devel::PPPort*(C'</span>: no portability to older version. 
+<p class="level0"><a name="fB--skip-autoloaderfR"></a><span class="nroffip">\fB--skip-autoloader\fR 5</span> 
+<p class="level1">
+<p class="level1">Do not use the module f(CW*(C`AutoLoader*(C'</span>; but keep the <span Class="emphasis">constant()</span> function and f(CW*(C`sub AUTOLOAD*(C'</span> for constants. 
+<p class="level0"><a name="fB--skip-strictfR"></a><span class="nroffip">\fB--skip-strict\fR 5</span> 
+<p class="level1">
+<p class="level1">Do not use the pragma f(CW*(C`strict*(C'</span>. 
+<p class="level0"><a name="fB--skip-warningsfR"></a><span class="nroffip">\fB--skip-warnings\fR 5</span> 
+<p class="level1">
+<p class="level1">Do not use the pragma f(CW*(C`warnings*(C'</span>. 
+<p class="level0"><a name="fB-vfR"></a><span class="nroffip">\fB-v\fR, \fB--version\fR=\fIversion\fR 5</span> 
+<p class="level1">
+<p class="level1">Specify a version number for this extension.  This version number is added to the templates.  The default is 0.01, or 0.00_01 if f(CW*(C`-B*(C'</span> is specified. The version specified should be numeric. 
+<p class="level0"><a name="fB-xfR"></a><span class="nroffip">\fB-x\fR, \fB--autogen-xsubs\fR 5</span> 
+<p class="level1">
+<p class="level1">Automatically generate XSUBs basing on function declarations in the header file.  The package f(CW*(C`C::Scan*(C'</span> should be installed. If this option is specified, the name of the header file may look like f(CW*(C`NAME1,NAME2*(C'</span>. In this case s-1NAME1s0 is used instead of the specified string, but XSUBs are emitted only for the declarations included from file s-1NAME2.s0 
+<p class="level1">Note that some types of arguments/return-values for functions may result in XSUB-declarations/typemap-entries which need hand-editing. Such may be objects which cannot be converted from/to a pointer (like f(CW*(C`long long*(C'</span>), pointers to functions, or arrays.  See also the section on "s-1LIMITATIONSs0 of <span Class="bold">-x</span>". <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">&nbsp;   &#35; Default behavior, extension is Rusers &nbsp;   h2xs rpcsvc/rusers 
+<p class="level0">&nbsp;   &#35; Same, but extension is RUSERS &nbsp;   h2xs -n RUSERS rpcsvc/rusers 
+<p class="level0">&nbsp;   &#35; Extension is rpcsvc::rusers. Still finds &lt;rpcsvc/rusers.h&gt; &nbsp;   h2xs rpcsvc::rusers 
+<p class="level0">&nbsp;   &#35; Extension is ONC::RPC.  Still finds &lt;rpcsvc/rusers.h&gt; &nbsp;   h2xs -n ONC::RPC rpcsvc/rusers 
+<p class="level0">&nbsp;   &#35; Without constant() or AUTOLOAD &nbsp;   h2xs -c rpcsvc/rusers 
+<p class="level0">&nbsp;   &#35; Creates templates for an extension named RPC &nbsp;   h2xs -cfn RPC 
+<p class="level0">&nbsp;   &#35; Extension is ONC::RPC. &nbsp;   h2xs -cfn ONC::RPC 
+<p class="level0">&nbsp;   &#35; Extension is a pure Perl module with no XS code. &nbsp;   h2xs -X My::Module 
+<p class="level0">&nbsp;   &#35; Extension is Lib::Foo which works at least with Perl5.005_03. &nbsp;   &#35; Constants are created for all &#35;defines and enums h2xs can find &nbsp;   &#35; in foo.h. &nbsp;   h2xs -b 5.5.3 -n Lib::Foo foo.h 
+<p class="level0">&nbsp;   &#35; Extension is Lib::Foo which works at least with Perl5.005_03. &nbsp;   &#35; Constants are created for all &#35;defines but only for enums &nbsp;   &#35; whose names do not start with *(Aqbar_*(Aq. &nbsp;   h2xs -b 5.5.3 -e *(Aq^bar_*(Aq -n Lib::Foo foo.h 
+<p class="level0">&nbsp;   &#35; Makefile.PL will look for library -lrpc in &nbsp;   &#35; additional directory /opt/net/lib &nbsp;   h2xs rpcsvc/rusers -L/opt/net/lib -lrpc 
+<p class="level0">&nbsp;   &#35; Extension is DCE::rgynbase &nbsp;   &#35; prefix "sec_rgy_" is dropped from perl function names &nbsp;   h2xs -n DCE::rgynbase -p sec_rgy_ dce/rgynbase 
+<p class="level0">&nbsp;   &#35; Extension is DCE::rgynbase &nbsp;   &#35; prefix "sec_rgy_" is dropped from perl function names &nbsp;   &#35; subroutines are created for sec_rgy_wildcard_name and &nbsp;   &#35; sec_rgy_wildcard_sid &nbsp;   h2xs -n DCE::rgynbase -p sec_rgy_ e &nbsp;   -s sec_rgy_wildcard_name,sec_rgy_wildcard_sid dce/rgynbase 
+<p class="level0">&nbsp;   &#35; Make XS without defines in perl.h, but with function declarations &nbsp;   &#35; visible from perl.h. Name of the extension is perl1. &nbsp;   &#35; When scanning perl.h, define -DEXT=extern -DdEXT= -DINIT(x)= &nbsp;   &#35; Extra backslashes below because the string is passed to shell. &nbsp;   &#35; Note that a directory with perl header files would &nbsp;   &#35;  be added automatically to include path. &nbsp;   h2xs -xAn perl1 -F "-DEXT=extern -DdEXT= -DINITe(xe)=" perl.h 
+<p class="level0">&nbsp;   &#35; Same with function declaration in proto.h as visible from perl.h. &nbsp;   h2xs -xAn perl2 perl.h,proto.h 
+<p class="level0">&nbsp;   &#35; Same but select only functions which match /^av_/ &nbsp;   h2xs -M *(Aq^av_*(Aq -xAn perl2 perl.h,proto.h 
+<p class="level0">&nbsp;   &#35; Same but treat SV* etc as "opaque" types &nbsp;   h2xs -o *(Aq^[S]V e*$*(Aq -M *(Aq^av_*(Aq -xAn perl2 perl.h,proto.h 
+<p class="level0"><a name="Extension"></a><h2 class="nroffsh">Extension based on \fI.h\fP and \fI.c\fP files</h2>
+<p class="level0">
+<p class="level0">Suppose that you have some C files implementing some functionality, and the corresponding header files.  How to create an extension which makes this functionality accessible in Perl?  The example below assumes that the header files are <span Class="emphasis">interface_simple.h</span> and <span Class="emphasis">interface_hairy.h</span>, and you want the perl module be named as f(CW*(C`Ext::Ension*(C'</span>.  If you need some preprocessor directives and/or linking with external libraries, see the flags f(CW*(C`-F*(C'</span>, f(CW*(C`-L*(C'</span> and f(CW*(C`-l*(C'</span> in *(L"s-1OPTIONS*(R"s0. 
+<p class="level0"><a name="Find"></a><span class="nroffip">Find the directory name 4</span> 
+<p class="level1">
+<p class="level1">Start with a dummy run of h2xs: 
+<p class="level1">
+<p class="level1">&nbsp; h2xs -Afn Ext::Ension 
+<p class="level1">
+<p class="level1">The only purpose of this step is to create the needed directories, and let you know the names of these directories.  From the output you can see that the directory for the extension is <span Class="emphasis">Ext/Ension</span>. 
+<p class="level0"><a name="Copy"></a><span class="nroffip">Copy C files 4</span> 
+<p class="level1">
+<p class="level1">Copy your header files and C files to this directory <span Class="emphasis">Ext/Ension</span>. 
+<p class="level0"><a name="Create"></a><span class="nroffip">Create the extension 4</span> 
+<p class="level1">
+<p class="level1">Run h2xs, overwriting older autogenerated files: 
+<p class="level1">
+<p class="level1">&nbsp; h2xs -Oxan Ext::Ension interface_simple.h interface_hairy.h 
+<p class="level1">
+<p class="level1">h2xs looks for header files <span Class="emphasis">after</span> changing to the extension directory, so it will find your header files s-1OK.s0 
+<p class="level0"><a name="Archive"></a><span class="nroffip">Archive and test 4</span> 
+<p class="level1">
+<p class="level1">As usual, run 
+<p class="level1">
+<p class="level1">&nbsp; cd Ext/Ension &nbsp; perl Makefile.PL &nbsp; make dist &nbsp; make &nbsp; make test 
+<p class="level1">
+<p class="level0"><a name="Hints"></a><span class="nroffip">Hints 4</span> 
+<p class="level1">
+<p class="level1">It is important to do f(CW*(C`make dist*(C'</span> as early as possible.  This way you can easily <span Class="emphasis">merge</span>|(1) your changes to autogenerated files if you decide to edit your f(CW*(C`.h*(C'</span> files and rerun h2xs. 
+<p class="level1">Do not forget to edit the documentation in the generated <span Class="emphasis">.pm</span> file. 
+<p class="level1">Consider the autogenerated files as skeletons only, you may invent better interfaces than what h2xs could guess. 
+<p class="level1">Consider this section as a guideline only, some other options of h2xs may better suit your needs. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0">No environment variables are used. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">
+<p class="level0">Larry Wall and others <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">perl, perlxstut, ExtUtils::MakeMaker, and AutoLoader. <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">The usual warnings if it cannot read or write the files involved. <a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS of \fB-x\fP</h2>
+<p class="level0">
+<p class="level0"><span Class="emphasis">h2xs</span> would not distinguish whether an argument to a C function which is of the form, say, f(CW*(C`int **(C'</span>, is an input, output, or input/output parameter.  In particular, argument declarations of the form 
+<p class="level0">
+<p class="level0">&nbsp;   int &nbsp;   foo(n) &nbsp;       int *n 
+<p class="level0">
+<p class="level0">should be better rewritten as 
+<p class="level0">
+<p class="level0">&nbsp;   int &nbsp;   foo(n) &nbsp;       int &n 
+<p class="level0">
+<p class="level0">if f(CW*(C`n*(C'</span> is an input parameter. 
+<p class="level0">Additionally, <span Class="emphasis">h2xs</span> has no facilities to intuit that a function 
+<p class="level0">
+<p class="level0">&nbsp;  int &nbsp;  foo(addr,l) &nbsp;       char *addr &nbsp;       int   l 
+<p class="level0">
+<p class="level0">takes a pair of address and length of data at this address, so it is better to rewrite this function as 
+<p class="level0">
+<p class="level0">&nbsp;   int &nbsp;   foo(sv) &nbsp;           SV *addr &nbsp;       PREINIT: &nbsp;           STRLEN len; &nbsp;           char *s; &nbsp;       CODE: &nbsp;           s = SvPV(sv,len); &nbsp;           RETVAL = foo(s, len); &nbsp;       OUTPUT: &nbsp;           RETVAL 
+<p class="level0">
+<p class="level0">or alternately 
+<p class="level0">
+<p class="level0">&nbsp;   static int &nbsp;   my_foo(SV *sv) &nbsp;   { &nbsp;       STRLEN len; &nbsp;       char *s = SvPV(sv,len); 
+<p class="level0">&nbsp;       return foo(s, len); &nbsp;   } 
+<p class="level0">&nbsp;   MODULE = foo        PACKAGE = foo   PREFIX = my_ 
+<p class="level0">&nbsp;   int &nbsp;   foo(sv) &nbsp;       SV *sv 
+<p class="level0">
+<p class="level0">See perlxs and perlxstut for additional details. 

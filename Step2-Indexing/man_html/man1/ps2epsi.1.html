@@ -1,0 +1,19 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ps2epsi - generate conforming Encapsulated PostScript <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ps2epsi</span> <span Class="emphasis">infile.ps</span> [ <span Class="emphasis">outfile.epsi</span> ] <span Class="bold">(Unix)</span> <br><span Class="bold">ps2epsi</span> <span Class="emphasis">infile.ps</span> [ <span Class="emphasis">outfile.epi</span> ] <span Class="bold">(DOS)</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ps2epsi</span> uses <span Class="bold">gs</span>(1) to process a <span Class="bold">PostScript</span>(tm) file and generate as output a new file which conforms to Adobe's <span class="bold">Encapsulated PostScript Interchange</span> (EPSI) format.  EPSI is a special form of encapsulated PostScript (EPS) which adds to the beginning of the file in the form of PostScript comments a bitmapped version of the final displayed page.  Programs which understand EPSI (usually word processors or DTP programs) can use this bitmap to give a preview version on screen of the PostScript.  The displayed quality is often not very good (e.g., low resolution, no colours), but the final printed version uses the real PostScript, and thus has the normal PostScript quality. <a name="USAGE"></a><h2 class="nroffsh">USAGE</h2>
+<p class="level0">On Unix systems invoke <span Class="bold">ps2epsi</span> like this: 
+<p class="level0"><br>	<span Class="bold">ps2epsi</span> <span Class="emphasis">infile.ps</span> [ <span Class="emphasis">outfile.epsi</span> ] 
+<p class="level0">where "infile.ps" is the input file and "outfile.epsi" is the resulting EPSI file.  If the output filename is omitted, it is generated from the input filename.  When a standard extension (".ps", ".cps", ".eps" or ".epsf") is used, it is replaced with the output extension ".epsi".  On DOS systems the command is: 
+<p class="level0"><br>	<span Class="bold">ps2epsi</span> <span Class="emphasis">infile.ps outfile.epi</span> 
+<p class="level0">where "infile.ps" is the original PostScript file, and "outfile.epi" is the name of the output file. <a name="LIMITATIONS"></a><h2 class="nroffsh">LIMITATIONS</h2>
+<p class="level0">Not every PostScript file can be encapsulated successfully, because there are restrictions on what PostScript constructs a correct encapsulated file may contain.  <span Class="bold">ps2epsi</span> does a little extra work to try to help encapsulation, and it automatically calculates the bounding box required for all encapsulated PostScript files, so most of the time it does a pretty good job. There are certain to be cases, however, where the encapsulation does not work because of the content of the original PostScript file. <a name="COMPATIBILITY"></a><h2 class="nroffsh">COMPATIBILITY</h2>
+<p class="level0">The <span Class="bold">Framemaker</span> DTP system is one application which understands EPSI files, and <span Class="bold">ps2epsi</span> has been tested on a number of PostScript diagrams from a variety of sources, using Framemaker 3.0 on a Sun workstation. Framemaker on other platforms should be able to use these files, although I have not been able to test this. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">
+<p class="level0">tab(&gt;); l l. ps2epsi&gt;Unix shell script ps2epsi.bat&gt;DOS batch file ps2epsi.ps&gt;the Ghostscript program which does the work 
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">gs (1) <a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">This document was last revised for Ghostscript version 9.06. However, the content may be obsolete, or inconsistent with ps2epsi.txt. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">George Cameron 

@@ -1,0 +1,49 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ghc-pkg - GHC Haskell Cabal package manager <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ghc-pkg</span> <span Class="emphasis">action</span> 
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">A package is a library of Haskell modules known to the compiler.  The <span Class="bold">ghc-pkg</span> tool allows adding or removing them from a package database. By default, the system-wide package database is modified, but alternatively the user's local package database or another specified file can be used. 
+<p class="level0">To make a package available for <span Class="manpage">ghc</span><span Class="bold">ghc-pkg</span> can be used to register it.  Unregistering it removes it from the database.  Also, packages can be hidden, to make <span Class="bold">ghc</span> ignore the package by default, without uninstalling it.  Exposing a package makes a hidden package available.  Additionally, <span Class="bold">ghc-pkg</span> has various commands to query the package database. 
+<p class="level0">Where a package name is required, the package can be named in full including the version number (e.g. <span Class="manpage">network-1.0 )</span>or without the version number. Naming a package without the version number matches all versions of the package; the specified action will be applied to all the matching packages. A package specifier that matches all version of the package can also be written <span Class="manpage">pkg-*</span>to make it clearer that multiple packages are being matched. <a name="ACTIONS"></a><h2 class="nroffsh">ACTIONS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">register</span> <span Class="emphasis">filename</span>|<span Class="bold">-</span> Register the package using the specified installed package description. 
+<p class="level0"><span Class="bold">update</span> <span Class="emphasis">filename</span>|<span Class="bold">-</span> Register the package, overwriting any other package with the same name. 
+<p class="level0"><span Class="bold">unregister</span> <span Class="emphasis">pkg-id</span> Unregister the specified package. 
+<p class="level0"><span Class="bold">expose</span> <span Class="emphasis">pkg-id</span> Expose the specified package. 
+<p class="level0"><span Class="bold">hide</span> <span Class="emphasis">pkg-id</span> Hide the specified package 
+<p class="level0"><span Class="bold">list</span> </span>[<span Class="emphasis">pkg</span>]...</span> List registered packages in the global database, and also the user database if <span Class="bold">--user</span> is given. If a package name is given all the registered versions will be listed in ascending order.  Accepts the <span Class="bold">--simple-output</span> flag. 
+<p class="level0"><span Class="bold">dot</span> Generate a graph of the package dependencies in a form suitable for input for the graphviz tools.  For example, to generate a PDF of the dependency graph: <br><span Class="bold">    dot | tred | dot -Tpdf &gt;pkgs.pdf</span> 
+<p class="level0"><span Class="bold">find-module</span> <span Class="emphasis">module</span> List registered packages exposing module <span Class="emphasis">module</span> in the global database, and also the user database if <span Class="bold">--user</span> is given. All the registered versions will be listed in ascending order.  Accepts the <span Class="bold">--simple-output</span> flag. 
+<p class="level0"><span Class="bold">latest</span> <span Class="emphasis">pkg-id</span> Prints the highest registered version of a package. 
+<p class="level0"><span Class="bold">check</span> Check the consistency of package dependencies and list broken packages.  Accepts the <span Class="bold">--simple-output</span> flag. 
+<p class="level0"><span Class="bold">describe</span> <span Class="emphasis">pkg</span> Give the registered description for the specified package. The description is returned in precisely the syntax required by ghc-pkg register. 
+<p class="level0"><span Class="bold">field</span> <span Class="emphasis">pkg field</span> Extract the specified field of the package description for the specified package.  Accepts comma-separated multiple fields. 
+<p class="level0"><span Class="bold">dump</span> Dump the registered description for every package. This is like <span Class="manpage">ghc-pkg\ describe\ '*'</span>expect that it is intended to be used by tools that parse the results, rather than humans. 
+<p class="level0"><span Class="bold">recache</span> Regenerate the package database cache.  This command should only be necessary if you added a package to the database by dropping a file into the database directory manyally.  By default, the global DB is recached; to recache a different DB use <span Class="bold">--user</span> or <span Class="bold">--package-conf</span> as appropriate. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">When asked to modify a database 
+<p class="level0"><span Class="bold">ghc-pkg</span> modifies the global database by default.  Specifying <span Class="bold">--user</span> causes it to act on the user database, or <span Class="bold">--package-conf</span> can be used to act on another database entirely. When multiple of these options are given, the rightmost one is used as the database to act upon. 
+<p class="level0">Commands that query the package database 
+<p class="level0">operate on the list of databases specified by the flags <span Class="manpage">--user</span>, <span Class="manpage">\  --global</span>and <span Class="manpage">--package-conf .</span>If none of these flags are given, the default is <span Class="manpage">--global\ --user .</span>
+<p class="level0"><span Class="bold">--user</span> Use the current user's package database. 
+<p class="level0"><span Class="bold">--global</span> Use the global package database. 
+<p class="level0"><span Class="bold">-f</span> <span Class="emphasis">FILE</span>, <span class="bold">--package-conf=<span Class="emphasis">FILE</span> Use the specified package config file. 
+<p class="level0"><span Class="bold">--global-conf= FILE</span> Location of the global package config. 
+<p class="level0"><span Class="bold">--force</span> Ignore missing dependencies, directories, and libraries. 
+<p class="level0"><span Class="bold">--force-files</span> Ignore missing directories and libraries only. 
+<p class="level0"><span Class="manpage">-g</span>, <span Class="manpage">\  --auto-ghc-libs</span>Automatically build libs for GHCi (with register). 
+<p class="level0"><span Class="manpage">-?</span>, <span Class="manpage">\  --help</span>Display a help message and exit. 
+<p class="level0"><span Class="manpage">-V</span>, <span Class="manpage">\  --version</span>Output version information and exit. 
+<p class="level0"><span Class="bold">--simple-output</span> Print output in easy-to-parse format for some commands. 
+<p class="level0"><span Class="bold">--names-only</span> Only print package names, not versions; can only be used with <span Class="manpage">list\ --simple-output .</span>
+<p class="level0"><span Class="bold">--ignore-case</span> Ignore case for substring matching. <a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT VARIABLES</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">GHC_PACKAGE_PATH</span> The <span Class="bold">GHC_PACKAGE_PATH</span> environment variable may be set to a <span Class="manpage">: -separated</span>list of files containing package databases. This list of package databases is used by <span Class="bold">ghc</span> and <span Class="manpage">ghc-pkg</span>with earlier databases in the list overriding later ones. This order was chosen to match the behaviour of the <span Class="bold">PATH</span> environment variable; think of it as a list of package databases that are searched left-to-right for packages. 
+<p class="level0">If <span Class="bold">GHC_PACKAGE_PATH</span> ends in a separator, then the default user and system package databases are appended, in that order. e.g. to augment the usual set of packages with a database of your own, you could say: 
+<p class="level0"><br><span Class="bold">     export GHC_PACKAGE_PATH=$HOME/.my-ghc-packages.conf:</span> <br>
+<p class="level0">To check whether your <span Class="bold">GHC_PACKAGE_PATH</span> setting is doing the right thing, <span Class="bold">ghc-pkg list</span> will list all the databases in use, in the reverse order they are searched. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">Both of these locations are changed for Debian.  Upstream still keeps these under <span Class="emphasis">/usr .</span> Some programs may refer to that, but look in <span Class="emphasis">/var</span> instead. 
+<p class="level0"><span Class="emphasis">/var/lib/ghc/package.conf</span> Global package.conf file. 
+<p class="level0"><span Class="emphasis">/var/lib/ghc/package.conf.d/</span> Directory for library specific package.conf files.  These are added to the global registry. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="manpage">ghc (1)</span>, <span Class="manpage">runghc (1)</span>, <span Class="manpage">hugs (1).</span><a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">This manual page was written by Kari Pahula &lt;kaol@debian.org&gt;, for the Debian project (and may be used by others). 

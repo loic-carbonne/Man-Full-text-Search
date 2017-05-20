@@ -1,0 +1,172 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="Name"></a><h2 class="nroffsh">Name</h2>
+<p class="level0">javap - The Java Class File Disassembler 
+<p class="level0">
+<p class="level0">Disassembles class files. 
+<p class="level0"><a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+f3
+javap [ </span>f3options</span>f3 ] classes
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">The f3javap</span> command disassembles one or more class files. Its output depends on the options used. If no options are used, f3javap</span> prints out the package, protected, and public fields and methods of the classes passed to it. f3javap</span> prints its output to stdout. 
+<p class="level0">
+<p class="level1">
+<p class="level1">options  Command-line options.  
+<p class="level1">classes  List of one or more classes (separated by spaces) to be processed for annotations (such as f2DocFooter.class</span>). You may specify a class that can be found in the class path, by its file name (for example, f2/home/user/myproject/src/DocFooter.class</span>), or with a URL (for example, f2file:///home/user/myproject/src/DocFooter.class</span>).  
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">For example, compile the following class declaration: 
+<p class="level0"><pre class="level0">
+f3
+import java.awt.*;
+import java.applet.*;
+&nbsp;
+public class DocFooter extends Applet {
+&nbsp;       String date;
+&nbsp;       String email;
+&nbsp;
+&nbsp;       public void init() {
+&nbsp;               resize(500,100);
+&nbsp;               date = getParameter("LAST_UPDATED");
+&nbsp;               email = getParameter("EMAIL");
+&nbsp;       }
+&nbsp;
+&nbsp;       public void paint(Graphics g) {
+&nbsp;               g.drawString(date + " by ",100, 15);
+&nbsp;               g.drawString(email,290,15);
+&nbsp;       }
+}
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The output from f3javap DocFooter.class</span> yields: 
+<p class="level0"><pre class="level0">
+f3
+Compiled from "DocFooter.java"
+public class DocFooter extends java.applet.Applet {
+&nbsp; java.lang.String date;
+&nbsp; java.lang.String email;
+&nbsp; public DocFooter();
+&nbsp; public void init();
+&nbsp; public void paint(java.awt.Graphics);
+}
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The output from f3javap -c DocFooter.class</span> yields: 
+<p class="level0"><pre class="level0">
+f3
+Compiled from "DocFooter.java"
+public class DocFooter extends java.applet.Applet {
+&nbsp; java.lang.String date;
+&nbsp;
+&nbsp; java.lang.String email;
+&nbsp;
+&nbsp; public DocFooter();
+&nbsp;   Code:
+&nbsp;      0: aload_0       
+&nbsp;      1: invokespecial &#35;1                  // Method java/applet/Applet."&lt;init&gt;":()V
+&nbsp;      4: return        
+&nbsp;
+&nbsp; public void init();
+&nbsp;   Code:
+&nbsp;      0: aload_0       
+&nbsp;      1: sipush        500
+&nbsp;      4: bipush        100
+&nbsp;      6: invokevirtual &#35;2                  // Method resize:(II)V
+&nbsp;      9: aload_0       
+&nbsp;     10: aload_0       
+&nbsp;     11: ldc           &#35;3                  // String LAST_UPDATED
+&nbsp;     13: invokevirtual &#35;4                  // Method getParameter:(Ljava/lang/String;)Ljava/lang/String;
+&nbsp;     16: putfield      &#35;5                  // Field date:Ljava/lang/String;
+&nbsp;     19: aload_0       
+&nbsp;     20: aload_0       
+&nbsp;     21: ldc           &#35;6                  // String EMAIL
+&nbsp;     23: invokevirtual &#35;4                  // Method getParameter:(Ljava/lang/String;)Ljava/lang/String;
+&nbsp;     26: putfield      &#35;7                  // Field email:Ljava/lang/String;
+&nbsp;     29: return        
+&nbsp;
+&nbsp; public void paint(java.awt.Graphics);
+&nbsp;   Code:
+&nbsp;      0: aload_1       
+&nbsp;      1: new           &#35;8                  // class java/lang/StringBuilder
+&nbsp;      4: dup           
+&nbsp;      5: invokespecial &#35;9                  // Method java/lang/StringBuilder."&lt;init&gt;":()V
+&nbsp;      8: aload_0       
+&nbsp;      9: getfield      &#35;5                  // Field date:Ljava/lang/String;
+&nbsp;     12: invokevirtual &#35;10                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+&nbsp;     15: ldc           &#35;11                 // String  by 
+&nbsp;     17: invokevirtual &#35;10                 // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
+&nbsp;     20: invokevirtual &#35;12                 // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
+&nbsp;     23: bipush        100
+&nbsp;     25: bipush        15
+&nbsp;     27: invokevirtual &#35;13                 // Method java/awt/Graphics.drawString:(Ljava/lang/String;II)V
+&nbsp;     30: aload_1       
+&nbsp;     31: aload_0       
+&nbsp;     32: getfield      &#35;7                  // Field email:Ljava/lang/String;
+&nbsp;     35: sipush        290
+&nbsp;     38: bipush        15
+&nbsp;     40: invokevirtual &#35;13                 // Method java/awt/Graphics.drawString:(Ljava/lang/String;II)V
+&nbsp;     43: return        
+}
+</span>
+</pre>
+
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">-help --help -?  Prints out help message for f3javap</span>.  
+<p class="level1">-version  Prints out version information.  
+<p class="level1">-l  Prints out line and local variable tables.  
+<p class="level1">-public  Shows only public classes and members.  
+<p class="level1">-protected  Shows only protected and public classes and members.  
+<p class="level1">-package  Shows only package, protected, and public classes and members. This is the default.  
+<p class="level1">-private -p  Shows all classes and members.  
+<p class="level1">-Jflag  Pass f2flag</span> directly to the runtime system. Some examples:  <pre class="level1">
+f3
+javap -J-version
+javap -J-Djava.security.manager -J-Djava.security.policy=MyPolicy MyClassName
+</span>
+</pre>
+
+<p class="level1">
+<p class="level1">-s  Prints internal type signatures.  
+<p class="level1">-sysinfo  Shows system information (path, size, date, MD5 hash) of the class being processed.  
+<p class="level1">-constants  Shows static final constants.  
+<p class="level1">-c  Prints out disassembled code, i.e., the instructions that comprise the Java bytecodes, for each of the methods in the class. These are documented in the  
+<p class="level1">f2Java Virtual Machine Specification</span> @ 
+<p class="level1"><a href="http://docs.oracle.com/javase/specs/.">http://docs.oracle.com/javase/specs/.</a>  
+<p class="level1">-verbose  Prints stack size, number of f2locals</span> and f2args</span> for methods.  
+<p class="level1">-classpath path  Specifies the path f3javap</span> uses to look up classes. Overrides the default or the CLASSPATH environment variable if it is set.  
+<p class="level1">-bootclasspath path  Specifies path from which to load bootstrap classes. By default, the bootstrap classes are the classes implementing the core Java platform located in f2jre/lib/rt.jar</span> and several other jar files.  
+<p class="level1">-extdirs dirs  Overrides location at which installed extensions are searched for. The default location for extensions is the value of f2java.ext.dirs</span>.  
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">javac(1), java(1), jdb(1), javah(1), javadoc(1) 
+<p class="level0">
+<p class="level0">

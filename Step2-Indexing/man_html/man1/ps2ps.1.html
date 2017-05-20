@@ -1,0 +1,12 @@
+
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">ps2ps, eps2eps - Ghostscript PostScript "distiller" <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0"><span Class="bold">ps2ps</span> [ <span Class="emphasis">options</span> ] <span Class="emphasis">input.ps output.ps</span> <br><span Class="bold">eps2eps</span> [ <span Class="emphasis">options</span> ] <span Class="emphasis">input.eps output.eps</span> <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0"><span Class="bold">ps2ps</span> uses <span Class="emphasis">gs</span>(1) to convert <span Class="bold">PostScript</span>(tm) file "input.ps" to simpler, normalized and (usually) faster PostScript in "output.ps".  Normally the output is allowed to use PostScript Level 2 or Level 3 constructs, but the <span Class="bold">-dLanguageLevel=1</span> option restricts the output to Level 1. 
+<p class="level0"><span Class="bold">eps2eps</span> performs the equivalent optimization for Encapsulated PostScript (EPS) files. 
+<p class="level0">Both accept any general Ghostscript command line options, and respectively options specific to the pswrite and epswrite devices. <a name="FILES"></a><h2 class="nroffsh">FILES</h2>
+<p class="level0">Run "<span Class="bold">gs -h</span>" to find the location of Ghostscript documentation on your system, from which you can get more details. <a name="BUGS"></a><h2 class="nroffsh">BUGS</h2>
+<p class="level0">The pswrite device used by both <span Class="bold">ps2ps</span> and <span Class="bold">eps2eps</span> produces much lower level output than is desirable. Use with caution. <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0">ps2pdf(1), ps2ascii(1), ps2epsi(1) <a name="VERSION"></a><h2 class="nroffsh">VERSION</h2>
+<p class="level0">This document was last revised for Ghostscript version 9.06. <a name="AUTHOR"></a><h2 class="nroffsh">AUTHOR</h2>
+<p class="level0">Artifex Software, Inc. are the  primary maintainers of Ghostscript. 

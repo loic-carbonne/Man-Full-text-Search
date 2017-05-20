@@ -1,0 +1,96 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">clusterdb - cluster a PostgreSQL database <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">clusterdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="bold">--verbose</span> | <span Class="bold">-v</span>] [&nbsp;<span Class="bold">--table</span>&nbsp;|&nbsp;<span Class="bold">-t</span>&nbsp;<span Class="emphasis">table</span>&nbsp;]...  [<span Class="emphasis">dbname</span>] 
+<p class="level0"><span Class="bold">clusterdb</span> [<span Class="emphasis">connection-option</span>...] [<span Class="bold">--verbose</span> | <span Class="bold">-v</span>] <span Class="bold">--all</span> | <span Class="bold">-a</span>  <a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">clusterdb is a utility for reclustering tables in a PostgreSQL database. It finds tables that have previously been clustered, and clusters them again on the same index that was last used. Tables that have never been clustered are not affected. 
+<p class="level0">
+<p class="level0">clusterdb is a wrapper around the SQL command <span Class="bold">CLUSTER</span>(7). There is no effective difference between clustering databases via this utility and via other methods for accessing the server. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">
+<p class="level0">clusterdb accepts the following command-line arguments: 
+<p class="level0"><span Class="bold">-a</span> <br><span Class="bold">--all</span> 
+<p class="level1">Cluster all databases. 
+<p class="level0">
+<p class="level0"><span Class="bold">[-d]</span><span Class="bold"> </span><span class="bold"><span Class="emphasis">dbname</span></span> <br><span Class="bold">[--dbname=]</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to be clustered. If this is not specified and <span Class="bold">-a</span> (or <span Class="bold">--all</span>) is not used, the database name is read from the environment variable <span Class="bold">PGDATABASE</span>. If that is not set, the user name specified for the connection is used. 
+<p class="level0">
+<p class="level0"><span Class="bold">-e</span> <br><span Class="bold">--echo</span> 
+<p class="level1">Echo the commands that clusterdb generates and sends to the server. 
+<p class="level0">
+<p class="level0"><span Class="bold">-q</span> <br><span Class="bold">--quiet</span> 
+<p class="level1">Do not display progress messages. 
+<p class="level0">
+<p class="level0"><span Class="bold">-t </span><span class="bold"><span Class="emphasis">table</span></span> <br><span Class="bold">--table=</span><span class="bold"><span Class="emphasis">table</span></span> 
+<p class="level1">Cluster <span Class="emphasis">table</span> only. Multiple tables can be clustered by writing multiple <span Class="bold">-t</span> switches. 
+<p class="level0">
+<p class="level0"><span Class="bold">-v</span> <br><span Class="bold">--verbose</span> 
+<p class="level1">Print detailed information during processing. 
+<p class="level0">
+<p class="level0"><span Class="bold">-V</span> <br><span Class="bold">--version</span> 
+<p class="level1">Print the clusterdb version and exit. 
+<p class="level0">
+<p class="level0"><span Class="bold">-?</span> <br><span Class="bold">--help</span> 
+<p class="level1">Show help about clusterdb command line arguments, and exit. 
+<p class="level0">
+<p class="level0">
+<p class="level0">clusterdb also accepts the following command-line arguments for connection parameters: 
+<p class="level0"><span Class="bold">-h </span><span class="bold"><span Class="emphasis">host</span></span> <br><span Class="bold">--host=</span><span class="bold"><span Class="emphasis">host</span></span> 
+<p class="level1">Specifies the host name of the machine on which the server is running. If the value begins with a slash, it is used as the directory for the Unix domain socket. 
+<p class="level0">
+<p class="level0"><span Class="bold">-p </span><span class="bold"><span Class="emphasis">port</span></span> <br><span Class="bold">--port=</span><span class="bold"><span Class="emphasis">port</span></span> 
+<p class="level1">Specifies the TCP port or local Unix domain socket file extension on which the server is listening for connections. 
+<p class="level0">
+<p class="level0"><span Class="bold">-U </span><span class="bold"><span Class="emphasis">username</span></span> <br><span Class="bold">--username=</span><span class="bold"><span Class="emphasis">username</span></span> 
+<p class="level1">User name to connect as. 
+<p class="level0">
+<p class="level0"><span Class="bold">-w</span> <br><span Class="bold">--no-password</span> 
+<p class="level1">Never issue a password prompt. If the server requires password authentication and a password is not available by other means such as a .pgpass file, the connection attempt will fail. This option can be useful in batch jobs and scripts where no user is present to enter a password. 
+<p class="level0">
+<p class="level0"><span Class="bold">-W</span> <br><span Class="bold">--password</span> 
+<p class="level1">Force clusterdb to prompt for a password before connecting to a database. 
+<p class="level1">This option is never essential, since clusterdb will automatically prompt for a password if the server demands password authentication. However, clusterdb will waste a connection attempt finding out that the server wants a password. In some cases it is worth typing <span Class="bold">-W</span> to avoid the extra connection attempt. 
+<p class="level0">
+<p class="level0"><span Class="bold">--maintenance-db=</span><span class="bold"><span Class="emphasis">dbname</span></span> 
+<p class="level1">Specifies the name of the database to connect to discover what other databases should be clustered. If not specified, the postgres database will be used, and if that does not exist, template1 will be used. 
+<p class="level0"><a name="ENVIRONMENT"></a><h2 class="nroffsh">ENVIRONMENT</h2>
+<p class="level0">
+<p class="level0"><span Class="bold">PGDATABASE</span> <br><span Class="bold">PGHOST</span> <br><span Class="bold">PGPORT</span> <br><span Class="bold">PGUSER</span> 
+<p class="level1">Default connection parameters 
+<p class="level0">
+<p class="level0">This utility, like most other PostgreSQL utilities, also uses the environment variables supported by libpq (see Section 31.14, (lqEnvironment Variables(rq, in the documentation). <a name="DIAGNOSTICS"></a><h2 class="nroffsh">DIAGNOSTICS</h2>
+<p class="level0">
+<p class="level0">In case of difficulty, see <span Class="bold">CLUSTER</span>(7) and <span Class="bold">psql</span>(1) for discussions of potential problems and error messages. The database server must be running at the targeted host. Also, any default connection settings and environment variables used by the libpq front-end library will apply. <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">To cluster the database test: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">clusterdb test</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">To cluster a single table foo in a database named xyzzy: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+$ <span class="bold">clusterdb --table foo xyzzy</span>
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0"><a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
+<p class="level0"><span Class="bold">CLUSTER</span>(7) 

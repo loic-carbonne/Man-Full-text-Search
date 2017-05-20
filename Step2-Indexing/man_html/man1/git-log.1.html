@@ -1,0 +1,2179 @@
+
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0"><a name="NAME"></a><h2 class="nroffsh">NAME</h2>
+<p class="level0">git-log - Show commit logs <a name="SYNOPSIS"></a><h2 class="nroffsh">SYNOPSIS</h2>
+<p class="level0">
+<p class="level0"><pre class="level0">
+<span class="emphasis">git log</span> [&lt;options&gt;] [&lt;revision range&gt;] [[--] &lt;path&gt;...]
+</pre>
+
+<p class="level0">
+<p class="level0"><a name="DESCRIPTION"></a><h2 class="nroffsh">DESCRIPTION</h2>
+<p class="level0">
+<p class="level0">Shows the commit logs. 
+<p class="level0">The command takes options applicable to the git rev-list command to control what is shown and how, and options applicable to the git diff-* commands to control how the changes each commit introduces are shown. <a name="OPTIONS"></a><h2 class="nroffsh">OPTIONS</h2>
+<p class="level0">
+<p class="level0">--follow 
+<p class="level1">Continue listing the history of a file beyond renames (works only for a single file). 
+<p class="level0">
+<p class="level0">--no-decorate, --decorate[=short|full|no] 
+<p class="level1">Print out the ref names of any commits that are shown. If <span Class="emphasis">short</span> is specified, the ref name prefixes <span Class="emphasis">refs/heads/</span>, <span Class="emphasis">refs/tags/</span> and <span Class="emphasis">refs/remotes/</span> will not be printed. If <span Class="emphasis">full</span> is specified, the full ref name (including prefix) will be printed. The default option is <span Class="emphasis">short</span>. 
+<p class="level0">
+<p class="level0">--source 
+<p class="level1">Print out the ref name given on the command line by which each commit was reached. 
+<p class="level0">
+<p class="level0">--use-mailmap 
+<p class="level1">Use mailmap file to map author and committer names and email addresses to canonical real names and email addresses. See <span Class="bold">git-shortlog</span>(1). 
+<p class="level0">
+<p class="level0">--full-diff 
+<p class="level1">Without this flag, git log -p &lt;path&gt;... shows commits that touch the specified paths, and diffs about the same specified paths. With this, the full diff is shown for commits that touch the specified paths; this means that "&lt;path&gt;..." limits only commits, and doesn(cqt limit diff for those commits. 
+<p class="level1">Note that this affects all diff-based output types, e.g. those produced by --stat, etc. 
+<p class="level0">
+<p class="level0">--log-size 
+<p class="level1">Include a line (lqlog size &lt;number&gt;(rq in the output for each commit, where &lt;number&gt; is the length of that commit(cqs message in bytes. Intended to speed up tools that read log messages from git log output by allowing them to allocate space in advance. 
+<p class="level0">
+<p class="level0">-L &lt;start&gt;,&lt;end&gt;:&lt;file&gt;, -L :&lt;regex&gt;:&lt;file&gt; 
+<p class="level1">Trace the evolution of the line range given by "&lt;start&gt;,&lt;end&gt;" (or the funcname regex &lt;regex&gt;) within the &lt;file&gt;. You may not give any pathspec limiters. This is currently limited to a walk starting from a single revision, i.e., you may only give zero or one positive revision arguments. You can specify this option more than once. 
+<p class="level1">&lt;start&gt; and &lt;end&gt; can take one of these forms: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">number 
+<p class="level2">If &lt;start&gt; or &lt;end&gt; is a number, it specifies an absolute line number (lines count from 1). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">/regex/ 
+<p class="level2">This form will use the first line matching the given POSIX regex. If &lt;start&gt; is a regex, it will search from the end of the previous -L range, if any, otherwise from the start of file. If &lt;start&gt; is (lq^/regex/(rq, it will search from the start of file. If &lt;end&gt; is a regex, it will search starting at the line given by &lt;start&gt;. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">+offset or -offset 
+<p class="level2">This is only valid for &lt;end&gt; and will specify a number of lines before or after the line given by &lt;start&gt;. 
+<p class="level1">
+<p class="level1">If (lq:&lt;regex&gt;(rq is given in place of &lt;start&gt; and &lt;end&gt;, it denotes the range from the first funcname line that matches &lt;regex&gt;, up to the next funcname line. (lq:&lt;regex&gt;(rq searches from the end of the previous -L range, if any, otherwise from the start of file. (lq^:&lt;regex&gt;(rq searches from the start of file. 
+<p class="level0">
+<p class="level0">&lt;revision range&gt; 
+<p class="level1">Show only commits in the specified revision range. When no &lt;revision range&gt; is specified, it defaults to HEAD (i.e. the whole history leading to the current commit). origin..HEAD specifies all the commits reachable from the current commit (i.e. HEAD), but not from origin. For a complete list of ways to spell &lt;revision range&gt;, see the <span Class="emphasis">Specifying Ranges</span> section of <span Class="bold">gitrevisions</span>(7). 
+<p class="level0">
+<p class="level0">[--] &lt;path&gt;... 
+<p class="level1">Show only commits that are enough to explain how the files that match the specified paths came to be. See <a class="emphasis" href="#History">History Simplification</a> below for details and other simplification modes. 
+<p class="level1">Paths may need to be prefixed with (oq`-- *(Aq(cq to separate them from options or the revision range, when confusion arises. 
+<p class="level0"><a name="Commit"></a><h2 class="nroffsh">Commit Limiting</h2>
+<p class="level0">
+<p class="level0">Besides specifying a range of commits that should be listed using the special notations explained in the description, additional commit limiting may be applied. 
+<p class="level0">Using more options generally further limits the output (e.g. --since=&lt;date1&gt; limits to commits newer than &lt;date1&gt;, and using it with --grep=&lt;pattern&gt; further limits to commits whose log message has a line that matches &lt;pattern&gt;), unless otherwise noted. 
+<p class="level0">Note that these are applied before commit ordering and formatting options, such as --reverse. 
+<p class="level0">-&lt;number&gt;, -n &lt;number&gt;, --max-count=&lt;number&gt; 
+<p class="level1">Limit the number of commits to output. 
+<p class="level0">
+<p class="level0">--skip=&lt;number&gt; 
+<p class="level1">Skip <span Class="emphasis">number</span> commits before starting to show the commit output. 
+<p class="level0">
+<p class="level0">--since=&lt;date&gt;, --after=&lt;date&gt; 
+<p class="level1">Show commits more recent than a specific date. 
+<p class="level0">
+<p class="level0">--until=&lt;date&gt;, --before=&lt;date&gt; 
+<p class="level1">Show commits older than a specific date. 
+<p class="level0">
+<p class="level0">--author=&lt;pattern&gt;, --committer=&lt;pattern&gt; 
+<p class="level1">Limit the commits output to ones with author/committer header lines that match the specified pattern (regular expression). With more than one --author=&lt;pattern&gt;, commits whose author matches any of the given patterns are chosen (similarly for multiple --committer=&lt;pattern&gt;). 
+<p class="level0">
+<p class="level0">--grep-reflog=&lt;pattern&gt; 
+<p class="level1">Limit the commits output to ones with reflog entries that match the specified pattern (regular expression). With more than one --grep-reflog, commits whose reflog message matches any of the given patterns are chosen. It is an error to use this option unless --walk-reflogs is in use. 
+<p class="level0">
+<p class="level0">--grep=&lt;pattern&gt; 
+<p class="level1">Limit the commits output to ones with log message that matches the specified pattern (regular expression). With more than one --grep=&lt;pattern&gt;, commits whose message matches any of the given patterns are chosen (but see --all-match). 
+<p class="level1">When --show-notes is in effect, the message from the notes as if it is part of the log message. 
+<p class="level0">
+<p class="level0">--all-match 
+<p class="level1">Limit the commits output to ones that match all given --grep, instead of ones that match at least one. 
+<p class="level0">
+<p class="level0">-i, --regexp-ignore-case 
+<p class="level1">Match the regular expression limiting patterns without regard to letter case. 
+<p class="level0">
+<p class="level0">--basic-regexp 
+<p class="level1">Consider the limiting patterns to be basic regular expressions; this is the default. 
+<p class="level0">
+<p class="level0">-E, --extended-regexp 
+<p class="level1">Consider the limiting patterns to be extended regular expressions instead of the default basic regular expressions. 
+<p class="level0">
+<p class="level0">-F, --fixed-strings 
+<p class="level1">Consider the limiting patterns to be fixed strings (don(cqt interpret pattern as a regular expression). 
+<p class="level0">
+<p class="level0">--perl-regexp 
+<p class="level1">Consider the limiting patterns to be Perl-compatible regular expressions. Requires libpcre to be compiled in. 
+<p class="level0">
+<p class="level0">--remove-empty 
+<p class="level1">Stop when a given path disappears from the tree. 
+<p class="level0">
+<p class="level0">--merges 
+<p class="level1">Print only merge commits. This is exactly the same as --min-parents=2. 
+<p class="level0">
+<p class="level0">--no-merges 
+<p class="level1">Do not print commits with more than one parent. This is exactly the same as --max-parents=1. 
+<p class="level0">
+<p class="level0">--min-parents=&lt;number&gt;, --max-parents=&lt;number&gt;, --no-min-parents, --no-max-parents 
+<p class="level1">Show only commits which have at least (or at most) that many parent commits. In particular, --max-parents=1 is the same as --no-merges, --min-parents=2 is the same as --merges. --max-parents=0 gives all root commits and --min-parents=3 all octopus merges. 
+<p class="level1">--no-min-parents and --no-max-parents reset these limits (to no limit) again. Equivalent forms are --min-parents=0 (any commit has 0 or more parents) and --max-parents=-1 (negative numbers denote no upper limit). 
+<p class="level0">
+<p class="level0">--first-parent 
+<p class="level1">Follow only the first parent commit upon seeing a merge commit. This option can give a better overview when viewing the evolution of a particular topic branch, because merges into a topic branch tend to be only about adjusting to updated upstream from time to time, and this option allows you to ignore the individual commits brought in to your history by such a merge. 
+<p class="level0">
+<p class="level0">--not 
+<p class="level1">Reverses the meaning of the <a class="emphasis" href="#">^</a> prefix (or lack thereof) for all following revision specifiers, up to the next --not. 
+<p class="level0">
+<p class="level0">--all 
+<p class="level1">Pretend as if all the refs in refs/ are listed on the command line as <span Class="emphasis">&lt;commit&gt;</span>. 
+<p class="level0">
+<p class="level0">--branches[=&lt;pattern&gt;] 
+<p class="level1">Pretend as if all the refs in refs/heads are listed on the command line as <span Class="emphasis">&lt;commit&gt;</span>. If <span Class="emphasis">&lt;pattern&gt;</span> is given, limit branches to ones matching given shell glob. If pattern lacks <a class="emphasis" href="#">?</a>, <a class="emphasis" href="#">*</a>, or <a class="emphasis" href="#">[</a>, <a class="emphasis" href="#">/*</a> at the end is implied. 
+<p class="level0">
+<p class="level0">--tags[=&lt;pattern&gt;] 
+<p class="level1">Pretend as if all the refs in refs/tags are listed on the command line as <span Class="emphasis">&lt;commit&gt;</span>. If <span Class="emphasis">&lt;pattern&gt;</span> is given, limit tags to ones matching given shell glob. If pattern lacks <a class="emphasis" href="#">?</a>, <a class="emphasis" href="#">*</a>, or <a class="emphasis" href="#">[</a>, <a class="emphasis" href="#">/*</a> at the end is implied. 
+<p class="level0">
+<p class="level0">--remotes[=&lt;pattern&gt;] 
+<p class="level1">Pretend as if all the refs in refs/remotes are listed on the command line as <span Class="emphasis">&lt;commit&gt;</span>. If <span Class="emphasis">&lt;pattern&gt;</span> is given, limit remote-tracking branches to ones matching given shell glob. If pattern lacks <a class="emphasis" href="#">?</a>, <a class="emphasis" href="#">*</a>, or <a class="emphasis" href="#">[</a>, <a class="emphasis" href="#">/*</a> at the end is implied. 
+<p class="level0">
+<p class="level0">--glob=&lt;glob-pattern&gt; 
+<p class="level1">Pretend as if all the refs matching shell glob <span Class="emphasis">&lt;glob-pattern&gt;</span> are listed on the command line as <span Class="emphasis">&lt;commit&gt;</span>. Leading <span Class="emphasis">refs/</span>, is automatically prepended if missing. If pattern lacks <a class="emphasis" href="#">?</a>, <a class="emphasis" href="#">*</a>, or <a class="emphasis" href="#">[</a>, <a class="emphasis" href="#">/*</a> at the end is implied. 
+<p class="level0">
+<p class="level0">--exclude=&lt;glob-pattern&gt; 
+<p class="level1">Do not include refs matching <span Class="emphasis">&lt;glob-pattern&gt;</span> that the next --all, --branches, --tags, --remotes, or --glob would otherwise consider. Repetitions of this option accumulate exclusion patterns up to the next --all, --branches, --tags, --remotes, or --glob option (other options or arguments do not clear accumlated patterns). 
+<p class="level1">The patterns given should not begin with refs/heads, refs/tags, or refs/remotes when applied to --branches, --tags, or --remotes, respectively, and they must begin with refs/ when applied to --glob or --all. If a trailing <a class="emphasis" href="#">/*</a> is intended, it must be given explicitly. 
+<p class="level0">
+<p class="level0">--ignore-missing 
+<p class="level1">Upon seeing an invalid object name in the input, pretend as if the bad input was not given. 
+<p class="level0">
+<p class="level0">--bisect 
+<p class="level1">Pretend as if the bad bisection ref refs/bisect/bad was listed and as if it was followed by --not and the good bisection refs refs/bisect/good-* on the command line. 
+<p class="level0">
+<p class="level0">--stdin 
+<p class="level1">In addition to the <span Class="emphasis">&lt;commit&gt;</span> listed on the command line, read them from the standard input. If a <span Class="emphasis">--</span> separator is seen, stop reading commits and start reading paths to limit the result. 
+<p class="level0">
+<p class="level0">--cherry-mark 
+<p class="level1">Like --cherry-pick (see below) but mark equivalent commits with = rather than omitting them, and inequivalent ones with +. 
+<p class="level0">
+<p class="level0">--cherry-pick 
+<p class="level1">Omit any commit that introduces the same change as another commit on the (lqother side(rq when the set of commits are limited with symmetric difference. 
+<p class="level1">For example, if you have two branches, A and B, a usual way to list all commits on only one side of them is with --left-right (see the example below in the description of the --left-right option). However, it shows the commits that were cherry-picked from the other branch (for example, (lq3rd on b(rq may be cherry-picked from branch A). With this option, such pairs of commits are excluded from the output. 
+<p class="level0">
+<p class="level0">--left-only, --right-only 
+<p class="level1">List only commits on the respective side of a symmetric range, i.e. only those which would be marked &lt; resp. &gt; by --left-right. 
+<p class="level1">For example, --cherry-pick --right-only A...B omits those commits from B which are in A or are patch-equivalent to a commit in A. In other words, this lists the + commits from git cherry A B. More precisely, --cherry-pick --right-only --no-merges gives the exact list. 
+<p class="level0">
+<p class="level0">--cherry 
+<p class="level1">A synonym for --right-only --cherry-mark --no-merges; useful to limit the output to the commits on our side and mark those that have been applied to the other side of a forked history with git log --cherry upstream...mybranch, similar to git cherry upstream mybranch. 
+<p class="level0">
+<p class="level0">-g, --walk-reflogs 
+<p class="level1">Instead of walking the commit ancestry chain, walk reflog entries from the most recent one to older ones. When this option is used you cannot specify commits to exclude (that is, <span Class="emphasis">^commit</span>, <span Class="emphasis">commit1..commit2</span>, and <span Class="emphasis">commit1...commit2</span> notations cannot be used). 
+<p class="level1">With --pretty format other than oneline (for obvious reasons), this causes the output to have two extra lines of information taken from the reflog. By default, <span Class="emphasis">commit@{Nth}</span> notation is used in the output. When the starting commit is specified as <span Class="emphasis">commit@{now}</span>, output also uses <span Class="emphasis">commit@{timestamp}</span> notation instead. Under --pretty=oneline, the commit message is prefixed with this information on the same line. This option cannot be combined with --reverse. See also <span Class="bold">git-reflog</span>(1). 
+<p class="level0">
+<p class="level0">--merge 
+<p class="level1">After a failed merge, show refs that touch files having a conflict and don(cqt exist on all heads to merge. 
+<p class="level0">
+<p class="level0">--boundary 
+<p class="level1">Output excluded boundary commits. Boundary commits are prefixed with -. 
+<p class="level0"><a name="History"></a><h2 class="nroffsh">History Simplification</h2>
+<p class="level0">
+<p class="level0">Sometimes you are only interested in parts of the history, for example the commits modifying a particular &lt;path&gt;. But there are two parts of <a class="emphasis" href="#History">History Simplification</a>, one part is selecting the commits and the other is how to do it, as there are various strategies to simplify the history. 
+<p class="level0">The following options select the commits to be shown: 
+<p class="level0">&lt;paths&gt; 
+<p class="level1">Commits modifying the given &lt;paths&gt; are selected. 
+<p class="level0">
+<p class="level0">--simplify-by-decoration 
+<p class="level1">Commits that are referred by some branch or tag are selected. 
+<p class="level0">
+<p class="level0">Note that extra commits can be shown to give a meaningful history. 
+<p class="level0">The following options affect the way the simplification is performed: 
+<p class="level0">Default mode 
+<p class="level1">Simplifies the history to the simplest history explaining the final state of the tree. Simplest because it prunes some side branches if the end result is the same (i.e. merging branches with the same content) 
+<p class="level0">
+<p class="level0">--full-history 
+<p class="level1">Same as the default mode, but does not prune some history. 
+<p class="level0">
+<p class="level0">--dense 
+<p class="level1">Only the selected commits are shown, plus some to have a meaningful history. 
+<p class="level0">
+<p class="level0">--sparse 
+<p class="level1">All commits in the simplified history are shown. 
+<p class="level0">
+<p class="level0">--simplify-merges 
+<p class="level1">Additional option to --full-history to remove some needless merges from the resulting history, as there are no selected commits contributing to this merge. 
+<p class="level0">
+<p class="level0">--ancestry-path 
+<p class="level1">When given a range of commits to display (e.g. <span Class="emphasis">commit1..commit2</span> or <span Class="emphasis">commit2 ^commit1</span>), only display commits that exist directly on the ancestry chain between the <span Class="emphasis">commit1</span> and <span Class="emphasis">commit2</span>, i.e. commits that are both descendants of <span Class="emphasis">commit1</span>, and ancestors of <span Class="emphasis">commit2</span>. 
+<p class="level0">
+<p class="level0">A more detailed explanation follows. 
+<p class="level0">Suppose you specified foo as the &lt;paths&gt;. We shall call commits that modify foo !TREESAME, and the rest TREESAME. (In a diff filtered for foo, they look different and equal, respectively.) 
+<p class="level0">In the following, we will always refer to the same example history to illustrate the differences between simplification settings. We assume that you are filtering for a file foo in this commit graph: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+&nbsp;         .-A---M---N---O---P---Q
+&nbsp;        /     /   /   /   /   /
+&nbsp;       I     B   C   D   E   Y
+&nbsp;        e   /   /   /   /   /
+&nbsp;         `-------------*(Aq   X
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">The horizontal line of history A---Q is taken to be the first parent of each merge. The commits are: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">I is the initial commit, in which foo exists with contents (lqasdf(rq, and a file quux exists with contents (lqquux(rq. Initial commits are compared to an empty tree, so I is !TREESAME. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">In A, foo contains just (lqfoo(rq. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">B contains the same change as A. Its merge M is trivial and hence TREESAME to all parents. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">C does not change foo, but its merge N changes it to (lqfoobar(rq, so it is not TREESAME to any parent. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">D sets foo to (lqbaz(rq. Its merge O combines the strings from N and D to (lqfoobarbaz(rq; i.e., it is not TREESAME to any parent. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">E changes quux to (lqxyzzy(rq, and its merge P combines the strings to (lqquux xyzzy(rq. P is TREESAME to O, but not to E. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">X is an independent root commit that added a new file side, and Y modified it. Y is TREESAME to X. Its merge Q added side to P, and Q is TREESAME to P, but not to Y. 
+<p class="level0">
+<p class="level0">rev-list walks backwards through history, including or excluding commits based on whether --full-history and/or parent rewriting (via --parents or --children) are used. The following settings are available. 
+<p class="level0">Default mode 
+<p class="level1">Commits are included if they are not TREESAME to any parent (though this can be changed, see --sparse below). If the commit was a merge, and it was TREESAME to one parent, follow only that parent. (Even if there are several TREESAME parents, follow only one of them.) Otherwise, follow all parents. 
+<p class="level1">This results in: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;         .-A---N---O
+&nbsp;        /     /   /
+&nbsp;       I---------D
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Note how the rule to only follow the TREESAME parent, if one is available, removed B from consideration entirely. C was considered via N, but is TREESAME. Root commits are compared to an empty tree, so I is !TREESAME. 
+<p class="level1">Parent/child relations are only visible with --parents, but that does not affect the commits selected in default mode, so we have shown the parent lines. 
+<p class="level0">
+<p class="level0">--full-history without parent rewriting 
+<p class="level1">This mode differs from the default in one point: always follow all parents of a merge, even if it is TREESAME to one of them. Even if more than one side of the merge has commits that are included, this does not imply that the merge itself is! In the example, we get 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;       I  A  B  N  D  O  P  Q
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">M was excluded because it is TREESAME to both parents. E, C and B were all walked, but only B was !TREESAME, so the others do not appear. 
+<p class="level1">Note that without parent rewriting, it is not really possible to talk about the parent/child relationships between the commits, so we show them disconnected. 
+<p class="level0">
+<p class="level0">--full-history with parent rewriting 
+<p class="level1">Ordinary commits are only included if they are !TREESAME (though this can be changed, see --sparse below). 
+<p class="level1">Merges are always included. However, their parent list is rewritten: Along each parent, prune away commits that are not included themselves. This results in 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;         .-A---M---N---O---P---Q
+&nbsp;        /     /   /   /   /
+&nbsp;       I     B   /   D   /
+&nbsp;        e   /   /   /   /
+&nbsp;         `-------------*(Aq
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Compare to --full-history without rewriting above. Note that E was pruned away because it is TREESAME, but the parent list of P was rewritten to contain E*(Aqs parent I. The same happened for C and N, and X, Y and Q. 
+<p class="level0">
+<p class="level0">In addition to the above settings, you can change whether TREESAME affects inclusion: 
+<p class="level0">--dense 
+<p class="level1">Commits that are walked are included if they are not TREESAME to any parent. 
+<p class="level0">
+<p class="level0">--sparse 
+<p class="level1">All commits that are walked are included. 
+<p class="level1">Note that without --full-history, this still simplifies merges: if one of the parents is TREESAME, we follow only that one, so the other sides of the merge are never walked. 
+<p class="level0">
+<p class="level0">--simplify-merges 
+<p class="level1">First, build a history graph in the same way that --full-history with parent rewriting does (see above). 
+<p class="level1">Then simplify each commit C to its replacement C*(Aq in the final history according to the following rules: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Set C*(Aq to C. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Replace each parent P of C*(Aq with its simplification P*(Aq. In the process, drop parents that are ancestors of other parents or that are root commits TREESAME to an empty tree, and remove duplicates, but take care to never drop all parents that we are TREESAME to. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">If after this parent rewriting, C*(Aq is a root or merge commit (has zero or &gt;1 parents), a boundary commit, or !TREESAME, it remains. Otherwise, it is replaced with its only parent. 
+<p class="level1">
+<p class="level1">The effect of this is best shown by way of comparing to --full-history with parent rewriting. The example turns into: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;         .-A---M---N---O
+&nbsp;        /     /       /
+&nbsp;       I     B       D
+&nbsp;        e   /       /
+&nbsp;         `---------*(Aq
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Note the major differences in N, P, and Q over --full-history: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">N*(Aqs parent list had I removed, because it is an ancestor of the other parent M. Still, N remained because it is !TREESAME. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">P*(Aqs parent list similarly had I removed. P was then removed completely, because it had one parent and is TREESAME. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2">Q*(Aqs parent list had Y simplified to X. X was then removed, because it was a TREESAME root. Q was then removed completely, because it had one parent and is TREESAME. 
+<p class="level1">
+<p class="level0">
+<p class="level0">Finally, there is a fifth simplification mode available: 
+<p class="level0">--ancestry-path 
+<p class="level1">Limit the displayed commits to those directly on the ancestry chain between the (lqfrom(rq and (lqto(rq commits in the given commit range. I.e. only display commits that are ancestor of the (lqto(rq commit and descendants of the (lqfrom(rq commit. 
+<p class="level1">As an example use case, consider the following commit history: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;           D---E-------F
+&nbsp;          /     e       e
+&nbsp;         B---C---G---H---I---J
+&nbsp;        /                     e
+&nbsp;       A-------K---------------L--M
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">A regular <span Class="emphasis">D..M</span> computes the set of commits that are ancestors of M, but excludes the ones that are ancestors of D. This is useful to see what happened to the history leading to M since D, in the sense that (lqwhat does M have that did not exist in D(rq. The result in this example would be all the commits, except A and B (and D itself, of course). 
+<p class="level1">When we want to find out what commits in M are contaminated with the bug introduced by D and need fixing, however, we might want to view only the subset of <span Class="emphasis">D..M</span> that are actually descendants of D, i.e. excluding C and K. This is exactly what the --ancestry-path option does. Applied to the <span Class="emphasis">D..M</span> range, it results in: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;               E-------F
+&nbsp;                e       e
+&nbsp;                 G---H---I---J
+&nbsp;                              e
+&nbsp;                               L--M
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">The --simplify-by-decoration option allows you to view only the big picture of the topology of the history, by omitting commits that are not referenced by tags. Commits are marked as !TREESAME (in other words, kept after history simplification rules described above) if (1) they are referenced by tags, or (2) they change the contents of the paths given on the command line. All other commits are marked as TREESAME (subject to be simplified away). <a name="Commit"></a><h2 class="nroffsh">Commit Ordering</h2>
+<p class="level0">
+<p class="level0">By default, the commits are shown in reverse chronological order. 
+<p class="level0">--date-order 
+<p class="level1">Show no parents before all of its children are shown, but otherwise show commits in the commit timestamp order. 
+<p class="level0">
+<p class="level0">--author-date-order 
+<p class="level1">Show no parents before all of its children are shown, but otherwise show commits in the author timestamp order. 
+<p class="level0">
+<p class="level0">--topo-order 
+<p class="level1">Show no parents before all of its children are shown, and avoid showing commits on multiple lines of history intermixed. 
+<p class="level1">For example, in a commit history like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;   ---1----2----4----7
+&nbsp;       e              e
+&nbsp;        3----5----6----8---
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">where the numbers denote the order of commit timestamps, git rev-list and friends with --date-order show the commits in the timestamp order: 8 7 6 5 4 3 2 1. 
+<p class="level1">With --topo-order, they would show 8 6 5 3 7 4 2 1 (or 8 7 4 2 6 5 3 1); some older commits are shown before newer ones in order to avoid showing the commits from two parallel development track mixed together. 
+<p class="level0">
+<p class="level0">--reverse 
+<p class="level1">Output the commits in reverse order. Cannot be combined with --walk-reflogs. 
+<p class="level0"><a name="Object"></a><h2 class="nroffsh">Object Traversal</h2>
+<p class="level0">
+<p class="level0">These options are mostly targeted for packing of Git repositories. 
+<p class="level0">--objects 
+<p class="level1">Print the object IDs of any object referenced by the listed commits. --objects foo ^bar thus means (lqsend me all object IDs which I need to download if I have the commit object <span Class="emphasis">bar</span> but not <span Class="emphasis">foo</span>(rq. 
+<p class="level0">
+<p class="level0">--objects-edge 
+<p class="level1">Similar to --objects, but also print the IDs of excluded commits prefixed with a (lq-(rq character. This is used by <span Class="bold">git-pack-objects</span>(1) to build (lqthin(rq pack, which records objects in deltified form based on objects contained in these excluded commits to reduce network traffic. 
+<p class="level0">
+<p class="level0">--unpacked 
+<p class="level1">Only useful with --objects; print the object IDs that are not in packs. 
+<p class="level0">
+<p class="level0">--no-walk[=(sorted|unsorted)] 
+<p class="level1">Only show the given commits, but do not traverse their ancestors. This has no effect if a range is specified. If the argument unsorted is given, the commits are shown in the order they were given on the command line. Otherwise (if sorted or no argument was given), the commits are shown in reverse chronological order by commit time. 
+<p class="level0">
+<p class="level0">--do-walk 
+<p class="level1">Overrides a previous --no-walk. 
+<p class="level0"><a name="Commit"></a><h2 class="nroffsh">Commit Formatting</h2>
+<p class="level0">
+<p class="level0">--pretty[=&lt;format&gt;], --format=&lt;format&gt; 
+<p class="level1">Pretty-print the contents of the commit logs in a given format, where <span Class="emphasis">&lt;format&gt;</span> can be one of <span Class="emphasis">oneline</span>, <span Class="emphasis">short</span>, <span Class="emphasis">medium</span>, <span Class="emphasis">full</span>, <span Class="emphasis">fuller</span>, <span Class="emphasis">email</span>, <span Class="emphasis">raw</span> and <span Class="emphasis">format:&lt;string&gt;</span>. See the "PRETTY FORMATS" section for some additional details for each format. When omitted, the format defaults to <span Class="emphasis">medium</span>. 
+<p class="level1">Note: you can specify the default pretty format in the repository configuration (see <span Class="bold">git-config</span>(1)). 
+<p class="level0">
+<p class="level0">--abbrev-commit 
+<p class="level1">Instead of showing the full 40-byte hexadecimal commit object name, show only a partial prefix. Non default number of digits can be specified with "--abbrev=&lt;n&gt;" (which also modifies diff output, if it is displayed). 
+<p class="level1">This should make "--pretty=oneline" a whole lot more readable for people using 80-column terminals. 
+<p class="level0">
+<p class="level0">--no-abbrev-commit 
+<p class="level1">Show the full 40-byte hexadecimal commit object name. This negates --abbrev-commit and those options which imply it such as "--oneline". It also overrides the <span Class="emphasis">log.abbrevCommit</span> variable. 
+<p class="level0">
+<p class="level0">--oneline 
+<p class="level1">This is a shorthand for "--pretty=oneline --abbrev-commit" used together. 
+<p class="level0">
+<p class="level0">--encoding=&lt;encoding&gt; 
+<p class="level1">The commit objects record the encoding used for the log message in their encoding header; this option can be used to tell the command to re-code the commit log message in the encoding preferred by the user. For non plumbing commands this defaults to UTF-8. 
+<p class="level0">
+<p class="level0">--notes[=&lt;ref&gt;] 
+<p class="level1">Show the notes (see <span Class="bold">git-notes</span>(1)) that annotate the commit, when showing the commit log message. This is the default for git log, git show and git whatchanged commands when there is no --pretty, --format, or --oneline option given on the command line. 
+<p class="level1">By default, the notes shown are from the notes refs listed in the <span Class="emphasis">core.notesRef</span> and <span Class="emphasis">notes.displayRef</span> variables (or corresponding environment overrides). See <span Class="bold">git-config</span>(1) for more details. 
+<p class="level1">With an optional <span Class="emphasis">&lt;ref&gt;</span> argument, show this notes ref instead of the default notes ref(s). The ref is taken to be in refs/notes/ if it is not qualified. 
+<p class="level1">Multiple --notes options can be combined to control which notes are being displayed. Examples: "--notes=foo" will show only notes from "refs/notes/foo"; "--notes=foo --notes" will show both notes from "refs/notes/foo" and from the default notes ref(s). 
+<p class="level0">
+<p class="level0">--no-notes 
+<p class="level1">Do not show notes. This negates the above --notes option, by resetting the list of notes refs from which notes are shown. Options are parsed in the order given on the command line, so e.g. "--notes --notes=foo --no-notes --notes=bar" will only show notes from "refs/notes/bar". 
+<p class="level0">
+<p class="level0">--show-notes[=&lt;ref&gt;], --[no-]standard-notes 
+<p class="level1">These options are deprecated. Use the above --notes/--no-notes options instead. 
+<p class="level0">
+<p class="level0">--show-signature 
+<p class="level1">Check the validity of a signed commit object by passing the signature to gpg --verify and show the output. 
+<p class="level0">
+<p class="level0">--relative-date 
+<p class="level1">Synonym for --date=relative. 
+<p class="level0">
+<p class="level0">--date=(relative|local|default|iso|rfc|short|raw) 
+<p class="level1">Only takes effect for dates shown in human-readable format, such as when using --pretty. log.date config variable sets a default value for the log command(cqs --date option. 
+<p class="level1">--date=relative shows dates relative to the current time, e.g. (lq2 hours ago(rq. 
+<p class="level1">--date=local shows timestamps in user(cqs local time zone. 
+<p class="level1">--date=iso (or --date=iso8601) shows timestamps in ISO 8601 format. 
+<p class="level1">--date=rfc (or --date=rfc2822) shows timestamps in <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> format, often found in email messages. 
+<p class="level1">--date=short shows only the date, but not the time, in YYYY-MM-DD format. 
+<p class="level1">--date=raw shows the date in the internal raw Git format %s %z format. 
+<p class="level1">--date=default shows timestamps in the original time zone (either committer(cqs or author(cqs). 
+<p class="level0">
+<p class="level0">--parents 
+<p class="level1">Print also the parents of the commit (in the form "commit parent..."). Also enables parent rewriting, see <a class="emphasis" href="#History">History Simplification</a> below. 
+<p class="level0">
+<p class="level0">--children 
+<p class="level1">Print also the children of the commit (in the form "commit child..."). Also enables parent rewriting, see <a class="emphasis" href="#History">History Simplification</a> below. 
+<p class="level0">
+<p class="level0">--left-right 
+<p class="level1">Mark which side of a symmetric diff a commit is reachable from. Commits from the left side are prefixed with &lt; and those from the right with &gt;. If combined with --boundary, those commits are prefixed with -. 
+<p class="level1">For example, if you have this topology: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;            y---b---b  branch B
+&nbsp;           / e /
+&nbsp;          /   .
+&nbsp;         /   / e
+&nbsp;        o---x---a---a  branch A
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">you would get an output like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&nbsp;       $ git rev-list --left-right --boundary --pretty=oneline A...B
+&nbsp;
+&nbsp;       &gt;bbbbbbb... 3rd on b
+&nbsp;       &gt;bbbbbbb... 2nd on b
+&nbsp;       &lt;aaaaaaa... 3rd on a
+&nbsp;       &lt;aaaaaaa... 2nd on a
+&nbsp;       -yyyyyyy... 1st on b
+&nbsp;       -xxxxxxx... 1st on a
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">--graph 
+<p class="level1">Draw a text-based graphical representation of the commit history on the left hand side of the output. This may cause extra lines to be printed in between commits, in order for the graph history to be drawn properly. 
+<p class="level1">This enables parent rewriting, see <a class="emphasis" href="#History">History Simplification</a> below. 
+<p class="level1">This implies the --topo-order option by default, but the --date-order option may also be specified. 
+<p class="level0">
+<p class="level0">--show-linear-break[=&lt;barrier&gt;] 
+<p class="level1">When --graph is not used, all history branches are flattened which can make it hard to see that the two consecutive commits do not belong to a linear branch. This option puts a barrier in between them in that case. If &lt;barrier&gt; is specified, it is the string that will be shown instead of the default one. 
+<p class="level0"><a name="Diff"></a><h2 class="nroffsh">Diff Formatting</h2>
+<p class="level0">
+<p class="level0">Listed below are options that control the formatting of diff output. Some of them are specific to <span Class="bold">git-rev-list</span>(1), however other diff options may be given. See <span Class="bold">git-diff-files</span>(1) for more options. 
+<p class="level0">-c 
+<p class="level1">With this option, diff output for a merge commit shows the differences from each of the parents to the merge result simultaneously instead of showing pairwise diff between a parent and the result one at a time. Furthermore, it lists only files which were modified from all parents. 
+<p class="level0">
+<p class="level0">--cc 
+<p class="level1">This flag implies the -c option and further compresses the patch output by omitting uninteresting hunks whose contents in the parents have only two variants and the merge result picks one of them without modification. 
+<p class="level0">
+<p class="level0">-m 
+<p class="level1">This flag makes the merge commits show the full diff like regular commits; for each merge parent, a separate log entry and diff is generated. An exception is that only diff against the first parent is shown when --first-parent option is given; in that case, the output represents the changes the merge brought <span Class="emphasis">into</span> the then-current branch. 
+<p class="level0">
+<p class="level0">-r 
+<p class="level1">Show recursive diffs. 
+<p class="level0">
+<p class="level0">-t 
+<p class="level1">Show the tree objects in the diff output. This implies -r. 
+<p class="level0"><a name="PRETTY"></a><h2 class="nroffsh">PRETTY FORMATS</h2>
+<p class="level0">
+<p class="level0">If the commit is a merge, and if the pretty-format is not <span Class="emphasis">oneline</span>, <span Class="emphasis">email</span> or <span Class="emphasis">raw</span>, an additional line is inserted before the <span Class="emphasis">Author:</span> line. This line begins with "Merge: " and the sha1s of ancestral commits are printed, separated by spaces. Note that the listed commits may not necessarily be the list of the <span Class="bold">direct</span> parent commits if you have limited your view of history: for example, if you are only interested in changes related to a certain directory or file. 
+<p class="level0">There are several built-in formats, and you can define additional formats by setting a pretty.&lt;name&gt; config option to either another format name, or a <span Class="emphasis">format:</span> string, as described below (see <span Class="bold">git-config</span>(1)). Here are the details of the built-in formats: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">oneline</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;sha1&gt; &lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">This is designed to be as compact as possible. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">short</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+commit &lt;sha1&gt;
+Author: &lt;author&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">medium</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+commit &lt;sha1&gt;
+Author: &lt;author&gt;
+Date:   &lt;author date&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;full commit message&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">full</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+commit &lt;sha1&gt;
+Author: &lt;author&gt;
+Commit: &lt;committer&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;full commit message&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">fuller</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+commit &lt;sha1&gt;
+Author:     &lt;author&gt;
+AuthorDate: &lt;author date&gt;
+Commit:     &lt;committer&gt;
+CommitDate: &lt;committer date&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;full commit message&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">email</span> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+From &lt;sha1&gt; &lt;date&gt;
+From: &lt;author&gt;
+Date: &lt;author date&gt;
+Subject: [PATCH] &lt;title line&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+&lt;full commit message&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">raw</span> 
+<p class="level1">The <span Class="emphasis">raw</span> format shows the entire commit exactly as stored in the commit object. Notably, the SHA-1s are displayed in full, regardless of whether --abbrev or --no-abbrev are used, and <span Class="emphasis">parents</span> information show the true parent commits, without taking grafts or history simplification into account. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">format:&lt;string&gt;</span> 
+<p class="level1">The <span Class="emphasis">format:&lt;string&gt;</span> format allows you to specify which information you want to show. It works a little bit like printf format, with the notable exception that you get a newline with <span Class="emphasis">%n</span> instead of <span Class="emphasis">en</span>. 
+<p class="level1">E.g, <span Class="emphasis">format:"The author of %h was %an, %ar%nThe title was &gt;&gt;%s&lt;&lt;%n"</span> would show something like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+The author of fe6e0ee was Junio C Hamano, 23 hours ago
+The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff input.&lt;&lt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">The placeholders are: 
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%H</span>: commit hash 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%h</span>: abbreviated commit hash 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%T</span>: tree hash 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%t</span>: abbreviated tree hash 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%P</span>: parent hashes 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%p</span>: abbreviated parent hashes 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%an</span>: author name 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%aN</span>: author name (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ae</span>: author email 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%aE</span>: author email (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ad</span>: author date (format respects --date= option) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%aD</span>: author date, <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> style 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ar</span>: author date, relative 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%at</span>: author date, UNIX timestamp 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ai</span>: author date, ISO 8601 format 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cn</span>: committer name 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cN</span>: committer name (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ce</span>: committer email 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cE</span>: committer email (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cd</span>: committer date 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cD</span>: committer date, <a href="http://www.ietf.org/rfc/rfc2822.txt">RFC 2822</a> style 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%cr</span>: committer date, relative 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ct</span>: committer date, UNIX timestamp 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ci</span>: committer date, ISO 8601 format 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%d</span>: ref names, like the --decorate option of <span Class="bold">git-log</span>(1) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%e</span>: encoding 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%s</span>: subject 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%f</span>: sanitized subject line, suitable for a filename 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%b</span>: body 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%B</span>: raw body (unwrapped subject and body) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%N</span>: commit notes 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%GG</span>: raw verification message from GPG for a signed commit 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%G?</span>: show "G" for a Good signature, "B" for a Bad signature, "U" for a good, untrusted signature and "N" for no signature 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%GS</span>: show the name of the signer for a signed commit 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%GK</span>: show the key used to sign a signed commit 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gD</span>: reflog selector, e.g., refs/stash@{1} 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gd</span>: shortened reflog selector, e.g., stash@{1} 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gn</span>: reflog identity name 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gN</span>: reflog identity name (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%ge</span>: reflog identity email 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gE</span>: reflog identity email (respecting .mailmap, see <span Class="bold">git-shortlog</span>(1) or <span Class="bold">git-blame</span>(1)) 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%gs</span>: reflog subject 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%Cred</span>: switch color to red 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%Cgreen</span>: switch color to green 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%Cblue</span>: switch color to blue 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%Creset</span>: reset color 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%C(...)</span>: color specification, as described in color.branch.* config option; adding auto, at the beginning will emit color only when colors are enabled for log output (by color.diff, color.ui, or --color, and respecting the auto settings of the former if we are going to a terminal). auto alone (i.e. %C(auto)) will turn on auto coloring on the next placeholders until the color is switched again. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%m</span>: left, right or boundary mark 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%n</span>: newline 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><a class="emphasis" href="#">%%</a>: a raw <a class="emphasis" href="#">%</a> 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%x00</span>: print a byte from a hex code 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%w([&lt;w&gt;[,&lt;i1&gt;[,&lt;i2&gt;]]])</span>: switch line wrapping, like the -w option of <span Class="bold">git-shortlog</span>(1). 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%&lt;(&lt;N&gt;[,trunc|ltrunc|mtrunc])</span>: make the next placeholder take at least N columns, padding spaces on the right if necessary. Optionally truncate at the beginning (ltrunc), the middle (mtrunc) or the end (trunc) if the output is longer than N columns. Note that truncating only works correctly with N &gt;= 2. 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%&lt;|(&lt;N&gt;)</span>: make the next placeholder take at least until Nth columns, padding spaces on the right if necessary 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%&gt;(&lt;N&gt;)</span>, <span Class="emphasis">%&gt;|(&lt;N&gt;)</span>: similar to <span Class="emphasis">%&lt;(&lt;N&gt;)</span>, <span Class="emphasis">%&lt;|(&lt;N&gt;)</span> respectively, but padding spaces on the left 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%&gt;&gt;(&lt;N&gt;)</span>, <span Class="emphasis">%&gt;&gt;|(&lt;N&gt;)</span>: similar to <span Class="emphasis">%&gt;(&lt;N&gt;)</span>, <span Class="emphasis">%&gt;|(&lt;N&gt;)</span> respectively, except that if the next placeholder takes more spaces than given and there are spaces on its left, use those spaces 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2">h'-04'(buh'+03'c 
+<p class="level2">
+<p class="level2">
+<p class="level2">
+<p class="level1"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level2">
+<p class="level2"><span Class="emphasis">%&gt;&lt;(&lt;N&gt;)</span>, <span Class="emphasis">%&gt;&lt;|(&lt;N&gt;)</span>: similar to <a class="emphasis" href="#">% &lt;(&lt;N&gt;)</a>, <span Class="emphasis">%&lt;|(&lt;N&gt;)</span> respectively, but padding both sides (i.e. the text is centered) 
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level1"><br>
+<p class="level1"><span Class="bold">Note</span> 
+<p class="level1"><br>
+<p class="level1">Some placeholders may depend on other options given to the revision traversal engine. For example, the %g* reflog options will insert an empty string unless we are traversing reflog entries (e.g., by git log -g). The %d placeholder will use the "short" decoration format if --decorate was not already provided on the command line. 
+<p class="level1">
+<p class="level0">
+<p class="level0">If you add a + (plus sign) after <a class="emphasis" href="#">%</a> of a placeholder, a line-feed is inserted immediately before the expansion if and only if the placeholder expands to a non-empty string. 
+<p class="level0">If you add a - (minus sign) after <a class="emphasis" href="#">%</a> of a placeholder, line-feeds that immediately precede the expansion are deleted if and only if the placeholder expands to an empty string. 
+<p class="level0">If you add a ` ` (space) after <a class="emphasis" href="#">%</a> of a placeholder, a space is inserted immediately before the expansion if and only if the placeholder expands to a non-empty string. 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">tformat:</span> 
+<p class="level1">The <span Class="emphasis">tformat:</span> format works exactly like <span Class="emphasis">format:</span>, except that it provides "terminator" semantics instead of "separator" semantics. In other words, each commit has the message terminator character (usually a newline) appended, rather than a separator placed between entries. This means that the final entry of a single-line format will be properly terminated with a new line, just as the "oneline" format does. For example: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git log -2 --pretty=format:%h 4da45bef e
+&nbsp; | perl -pe *(Aq$_ .= " -- NO NEWLINEen" unless /en/*(Aq
+4da45be
+7134973 -- NO NEWLINE
+&nbsp;
+$ git log -2 --pretty=tformat:%h 4da45bef e
+&nbsp; | perl -pe *(Aq$_ .= " -- NO NEWLINEen" unless /en/*(Aq
+4da45be
+7134973
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">In addition, any unrecognized string that has a % in it is interpreted as if it has tformat: in front of it. For example, these two are equivalent: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+$ git log -2 --pretty=tformat:%h 4da45bef
+$ git log -2 --pretty=%h 4da45bef
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="COMMON"></a><h2 class="nroffsh">COMMON DIFF OPTIONS</h2>
+<p class="level0">
+<p class="level0">-p, -u, --patch 
+<p class="level1">Generate patch (see section on generating patches). 
+<p class="level0">
+<p class="level0">-s, --no-patch 
+<p class="level1">Suppress diff output. Useful for commands like git show that show the patch by default, or to cancel the effect of --patch. 
+<p class="level0">
+<p class="level0">-U&lt;n&gt;, --unified=&lt;n&gt; 
+<p class="level1">Generate diffs with &lt;n&gt; lines of context instead of the usual three. Implies -p. 
+<p class="level0">
+<p class="level0">--raw 
+<p class="level1">Generate the raw format. 
+<p class="level0">
+<p class="level0">--patch-with-raw 
+<p class="level1">Synonym for -p --raw. 
+<p class="level0">
+<p class="level0">--minimal 
+<p class="level1">Spend extra time to make sure the smallest possible diff is produced. 
+<p class="level0">
+<p class="level0">--patience 
+<p class="level1">Generate a diff using the "patience diff" algorithm. 
+<p class="level0">
+<p class="level0">--histogram 
+<p class="level1">Generate a diff using the "histogram diff" algorithm. 
+<p class="level0">
+<p class="level0">--diff-algorithm={patience|minimal|histogram|myers} 
+<p class="level1">Choose a diff algorithm. The variants are as follows: 
+<p class="level1">default, myers 
+<p class="level2">The basic greedy diff algorithm. Currently, this is the default. 
+<p class="level1">
+<p class="level1">minimal 
+<p class="level2">Spend extra time to make sure the smallest possible diff is produced. 
+<p class="level1">
+<p class="level1">patience 
+<p class="level2">Use "patience diff" algorithm when generating patches. 
+<p class="level1">
+<p class="level1">histogram 
+<p class="level2">This algorithm extends the patience algorithm to "support low-occurrence common elements". 
+<p class="level1">
+<p class="level1">For instance, if you configured diff.algorithm variable to a non-default value and want to use the default one, then you have to use --diff-algorithm=default option. 
+<p class="level0">
+<p class="level0">--stat[=&lt;width&gt;[,&lt;name-width&gt;[,&lt;count&gt;]]] 
+<p class="level1">Generate a diffstat. By default, as much space as necessary will be used for the filename part, and the rest for the graph part. Maximum width defaults to terminal width, or 80 columns if not connected to a terminal, and can be overridden by &lt;width&gt;. The width of the filename part can be limited by giving another width &lt;name-width&gt; after a comma. The width of the graph part can be limited by using --stat-graph-width=&lt;width&gt; (affects all commands generating a stat graph) or by setting diff.statGraphWidth=&lt;width&gt; (does not affect git format-patch). By giving a third parameter &lt;count&gt;, you can limit the output to the first &lt;count&gt; lines, followed by ... if there are more. 
+<p class="level1">These parameters can also be set individually with --stat-width=&lt;width&gt;, --stat-name-width=&lt;name-width&gt; and --stat-count=&lt;count&gt;. 
+<p class="level0">
+<p class="level0">--numstat 
+<p class="level1">Similar to --stat, but shows number of added and deleted lines in decimal notation and pathname without abbreviation, to make it more machine friendly. For binary files, outputs two - instead of saying 0 0. 
+<p class="level0">
+<p class="level0">--shortstat 
+<p class="level1">Output only the last line of the --stat format containing total number of modified files, as well as number of added and deleted lines. 
+<p class="level0">
+<p class="level0">--dirstat[=&lt;param1,param2,...&gt;] 
+<p class="level1">Output the distribution of relative amount of changes for each sub-directory. The behavior of --dirstat can be customized by passing it a comma separated list of parameters. The defaults are controlled by the diff.dirstat configuration variable (see <span Class="bold">git-config</span>(1)). The following parameters are available: 
+<p class="level1">changes 
+<p class="level2">Compute the dirstat numbers by counting the lines that have been removed from the source, or added to the destination. This ignores the amount of pure code movements within a file. In other words, rearranging lines in a file is not counted as much as other changes. This is the default behavior when no parameter is given. 
+<p class="level1">
+<p class="level1">lines 
+<p class="level2">Compute the dirstat numbers by doing the regular line-based diff analysis, and summing the removed/added line counts. (For binary files, count 64-byte chunks instead, since binary files have no natural concept of lines). This is a more expensive --dirstat behavior than the changes behavior, but it does count rearranged lines within a file as much as other changes. The resulting output is consistent with what you get from the other --*stat options. 
+<p class="level1">
+<p class="level1">files 
+<p class="level2">Compute the dirstat numbers by counting the number of files changed. Each changed file counts equally in the dirstat analysis. This is the computationally cheapest --dirstat behavior, since it does not have to look at the file contents at all. 
+<p class="level1">
+<p class="level1">cumulative 
+<p class="level2">Count changes in a child directory for the parent directory as well. Note that when using cumulative, the sum of the percentages reported may exceed 100%. The default (non-cumulative) behavior can be specified with the noncumulative parameter. 
+<p class="level1">
+<p class="level1">&lt;limit&gt; 
+<p class="level2">An integer parameter specifies a cut-off percent (3% by default). Directories contributing less than this percentage of the changes are not shown in the output. 
+<p class="level1">
+<p class="level1">Example: The following will count changed files, while ignoring directories with less than 10% of the total amount of changed files, and accumulating child directory counts in the parent directories: --dirstat=files,10,cumulative. 
+<p class="level0">
+<p class="level0">--summary 
+<p class="level1">Output a condensed summary of extended header information such as creations, renames and mode changes. 
+<p class="level0">
+<p class="level0">--patch-with-stat 
+<p class="level1">Synonym for -p --stat. 
+<p class="level0">
+<p class="level0">-z 
+<p class="level1">Separate the commits with NULs instead of with new newlines. 
+<p class="level1">Also, when --raw or --numstat has been given, do not munge pathnames and use NULs as output field terminators. 
+<p class="level1">Without this option, each pathname output will have TAB, LF, double quotes, and backslash characters replaced with et, en, e", and ee, respectively, and the pathname will be enclosed in double quotes if any of those replacements occurred. 
+<p class="level0">
+<p class="level0">--name-only 
+<p class="level1">Show only names of changed files. 
+<p class="level0">
+<p class="level0">--name-status 
+<p class="level1">Show only names and status of changed files. See the description of the --diff-filter option on what the status letters mean. 
+<p class="level0">
+<p class="level0">--submodule[=&lt;format&gt;] 
+<p class="level1">Specify how differences in submodules are shown. When --submodule or --submodule=log is given, the <span Class="emphasis">log</span> format is used. This format lists the commits in the range like <span Class="bold">git-submodule</span>(1)summary does. Omitting the --submodule option or specifying --submodule=short, uses the <span Class="emphasis">short</span> format. This format just shows the names of the commits at the beginning and end of the range. Can be tweaked via the diff.submodule configuration variable. 
+<p class="level0">
+<p class="level0">--color[=&lt;when&gt;] 
+<p class="level1">Show colored diff. --color (i.e. without <span Class="emphasis">=&lt;when&gt;</span>) is the same as --color=always. <span Class="emphasis">&lt;when&gt;</span> can be one of always, never, or auto. 
+<p class="level0">
+<p class="level0">--no-color 
+<p class="level1">Turn off colored diff. It is the same as --color=never. 
+<p class="level0">
+<p class="level0">--word-diff[=&lt;mode&gt;] 
+<p class="level1">Show a word diff, using the &lt;mode&gt; to delimit changed words. By default, words are delimited by whitespace; see --word-diff-regex below. The &lt;mode&gt; defaults to <span Class="emphasis">plain</span>, and must be one of: 
+<p class="level1">color 
+<p class="level2">Highlight changed words using only colors. Implies --color. 
+<p class="level1">
+<p class="level1">plain 
+<p class="level2">Show words as [-removed-] and {+added+}. Makes no attempts to escape the delimiters if they appear in the input, so the output may be ambiguous. 
+<p class="level1">
+<p class="level1">porcelain 
+<p class="level2">Use a special line-based format intended for script consumption. Added/removed/unchanged runs are printed in the usual unified diff format, starting with a +/-/` ` character at the beginning of the line and extending to the end of the line. Newlines in the input are represented by a tilde ~ on a line of its own. 
+<p class="level1">
+<p class="level1">none 
+<p class="level2">Disable word diff again. 
+<p class="level1">
+<p class="level1">Note that despite the name of the first mode, color is used to highlight the changed parts in all modes if enabled. 
+<p class="level0">
+<p class="level0">--word-diff-regex=&lt;regex&gt; 
+<p class="level1">Use &lt;regex&gt; to decide what a word is, instead of considering runs of non-whitespace to be a word. Also implies --word-diff unless it was already enabled. 
+<p class="level1">Every non-overlapping match of the &lt;regex&gt; is considered a word. Anything between these matches is considered whitespace and ignored(!) for the purposes of finding differences. You may want to append |[^[:space:]] to your regular expression to make sure that it matches all non-whitespace characters. A match that contains a newline is silently truncated(!) at the newline. 
+<p class="level1">The regex can also be set via a diff driver or configuration option, see <span Class="bold">gitattributes</span>(1) or <span Class="bold">git-config</span>(1). Giving it explicitly overrides any diff driver or configuration setting. Diff drivers override configuration settings. 
+<p class="level0">
+<p class="level0">--color-words[=&lt;regex&gt;] 
+<p class="level1">Equivalent to --word-diff=color plus (if a regex was specified) --word-diff-regex=&lt;regex&gt;. 
+<p class="level0">
+<p class="level0">--no-renames 
+<p class="level1">Turn off rename detection, even when the configuration file gives the default to do so. 
+<p class="level0">
+<p class="level0">--check 
+<p class="level1">Warn if changes introduce whitespace errors. What are considered whitespace errors is controlled by core.whitespace configuration. By default, trailing whitespaces (including lines that solely consist of whitespaces) and a space character that is immediately followed by a tab character inside the initial indent of the line are considered whitespace errors. Exits with non-zero status if problems are found. Not compatible with --exit-code. 
+<p class="level0">
+<p class="level0">--full-index 
+<p class="level1">Instead of the first handful of characters, show the full pre- and post-image blob object names on the "index" line when generating patch format output. 
+<p class="level0">
+<p class="level0">--binary 
+<p class="level1">In addition to --full-index, output a binary diff that can be applied with git-apply. 
+<p class="level0">
+<p class="level0">--abbrev[=&lt;n&gt;] 
+<p class="level1">Instead of showing the full 40-byte hexadecimal object name in diff-raw format output and diff-tree header lines, show only a partial prefix. This is independent of the --full-index option above, which controls the diff-patch output format. Non default number of digits can be specified with --abbrev=&lt;n&gt;. 
+<p class="level0">
+<p class="level0">-B[&lt;n&gt;][/&lt;m&gt;], --break-rewrites[=[&lt;n&gt;][/&lt;m&gt;]] 
+<p class="level1">Break complete rewrite changes into pairs of delete and create. This serves two purposes: 
+<p class="level1">It affects the way a change that amounts to a total rewrite of a file not as a series of deletion and insertion mixed together with a very few lines that happen to match textually as the context, but as a single deletion of everything old followed by a single insertion of everything new, and the number m controls this aspect of the -B option (defaults to 60%). -B/70% specifies that less than 30% of the original should remain in the result for Git to consider it a total rewrite (i.e. otherwise the resulting patch will be a series of deletion and insertion mixed together with context lines). 
+<p class="level1">When used with -M, a totally-rewritten file is also considered as the source of a rename (usually -M only considers a file that disappeared as the source of a rename), and the number n controls this aspect of the -B option (defaults to 50%). -B20% specifies that a change with addition and deletion compared to 20% or more of the file(cqs size are eligible for being picked up as a possible source of a rename to another file. 
+<p class="level0">
+<p class="level0">-M[&lt;n&gt;], --find-renames[=&lt;n&gt;] 
+<p class="level1">If generating diffs, detect and report renames for each commit. For following files across renames while traversing history, see --follow. If n is specified, it is a threshold on the similarity index (i.e. amount of addition/deletions compared to the file(cqs size). For example, -M90% means Git should consider a delete/add pair to be a rename if more than 90% of the file hasn(cqt changed. Without a % sign, the number is to be read as a fraction, with a decimal point before it. I.e., -M5 becomes 0.5, and is thus the same as -M50%. Similarly, -M05 is the same as -M5%. To limit detection to exact renames, use -M100%. The default similarity index is 50%. 
+<p class="level0">
+<p class="level0">-C[&lt;n&gt;], --find-copies[=&lt;n&gt;] 
+<p class="level1">Detect copies as well as renames. See also --find-copies-harder. If n is specified, it has the same meaning as for -M&lt;n&gt;. 
+<p class="level0">
+<p class="level0">--find-copies-harder 
+<p class="level1">For performance reasons, by default, -C option finds copies only if the original file of the copy was modified in the same changeset. This flag makes the command inspect unmodified files as candidates for the source of copy. This is a very expensive operation for large projects, so use it with caution. Giving more than one -C option has the same effect. 
+<p class="level0">
+<p class="level0">-D, --irreversible-delete 
+<p class="level1">Omit the preimage for deletes, i.e. print only the header but not the diff between the preimage and /dev/null. The resulting patch is not meant to be applied with patch or git apply; this is solely for people who want to just concentrate on reviewing the text after the change. In addition, the output obviously lack enough information to apply such a patch in reverse, even manually, hence the name of the option. 
+<p class="level1">When used together with -B, omit also the preimage in the deletion part of a delete/create pair. 
+<p class="level0">
+<p class="level0">-l&lt;num&gt; 
+<p class="level1">The -M and -C options require O(n^2) processing time where n is the number of potential rename/copy targets. This option prevents rename/copy detection from running if the number of rename/copy targets exceeds the specified number. 
+<p class="level0">
+<p class="level0">--diff-filter=[(A|C|D|M|R|T|U|X|B)...[*]] 
+<p class="level1">Select only files that are Added (A), Copied (C), Deleted (D), Modified (M), Renamed (R), have their type (i.e. regular file, symlink, submodule, ...) changed (T), are Unmerged (U), are Unknown (X), or have had their pairing Broken (B). Any combination of the filter characters (including none) can be used. When * (All-or-none) is added to the combination, all paths are selected if there is any file that matches other criteria in the comparison; if there is no file that matches other criteria, nothing is selected. 
+<p class="level0">
+<p class="level0">-S&lt;string&gt; 
+<p class="level1">Look for differences that change the number of occurrences of the specified string (i.e. addition/deletion) in a file. Intended for the scripter(cqs use. 
+<p class="level1">It is useful when you(cqre looking for an exact block of code (like a struct), and want to know the history of that block since it first came into being: use the feature iteratively to feed the interesting block in the preimage back into -S, and keep going until you get the very first version of the block. 
+<p class="level0">
+<p class="level0">-G&lt;regex&gt; 
+<p class="level1">Look for differences whose patch text contains added/removed lines that match &lt;regex&gt;. 
+<p class="level1">To illustrate the difference between -S&lt;regex&gt; --pickaxe-regex and -G&lt;regex&gt;, consider a commit with the following diff in the same file: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
++    return !regexec(regexp, two-&gt;ptr, 1, &regmatch, 0);
+...
+-    hit = !regexec(regexp, mf2.ptr, 1, &regmatch, 0);
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">While git log -G"regexece(regexp" will show this commit, git log -S"regexece(regexp" --pickaxe-regex will not (because the number of occurrences of that string did not change). 
+<p class="level1">See the <span Class="emphasis">pickaxe</span> entry in <span Class="bold">gitdiffcore</span>(7) for more information. 
+<p class="level0">
+<p class="level0">--pickaxe-all 
+<p class="level1">When -S or -G finds a change, show all the changes in that changeset, not just the files that contain the change in &lt;string&gt;. 
+<p class="level0">
+<p class="level0">--pickaxe-regex 
+<p class="level1">Treat the &lt;string&gt; given to -S as an extended POSIX regular expression to match. 
+<p class="level0">
+<p class="level0">-O&lt;orderfile&gt; 
+<p class="level1">Output the patch in the order specified in the &lt;orderfile&gt;, which has one shell glob pattern per line. This overrides the diff.orderfile configuration variable (see <span Class="bold">git-config</span>(1)). To cancel diff.orderfile, use -O/dev/null. 
+<p class="level0">
+<p class="level0">-R 
+<p class="level1">Swap two inputs; that is, show differences from index or on-disk file to tree contents. 
+<p class="level0">
+<p class="level0">--relative[=&lt;path&gt;] 
+<p class="level1">When run from a subdirectory of the project, it can be told to exclude changes outside the directory and show pathnames relative to it with this option. When you are not in a subdirectory (e.g. in a bare repository), you can name which subdirectory to make the output relative to by giving a &lt;path&gt; as an argument. 
+<p class="level0">
+<p class="level0">-a, --text 
+<p class="level1">Treat all files as text. 
+<p class="level0">
+<p class="level0">--ignore-space-at-eol 
+<p class="level1">Ignore changes in whitespace at EOL. 
+<p class="level0">
+<p class="level0">-b, --ignore-space-change 
+<p class="level1">Ignore changes in amount of whitespace. This ignores whitespace at line end, and considers all other sequences of one or more whitespace characters to be equivalent. 
+<p class="level0">
+<p class="level0">-w, --ignore-all-space 
+<p class="level1">Ignore whitespace when comparing lines. This ignores differences even if one line has whitespace where the other line has none. 
+<p class="level0">
+<p class="level0">--ignore-blank-lines 
+<p class="level1">Ignore changes whose lines are all blank. 
+<p class="level0">
+<p class="level0">--inter-hunk-context=&lt;lines&gt; 
+<p class="level1">Show the context between diff hunks, up to the specified number of lines, thereby fusing hunks that are close to each other. 
+<p class="level0">
+<p class="level0">-W, --function-context 
+<p class="level1">Show whole surrounding functions of changes. 
+<p class="level0">
+<p class="level0">--ext-diff 
+<p class="level1">Allow an external diff helper to be executed. If you set an external diff driver with <span Class="bold">gitattributes</span>(5), you need to use this option with <span Class="bold">git-log</span>(1) and friends. 
+<p class="level0">
+<p class="level0">--no-ext-diff 
+<p class="level1">Disallow external diff drivers. 
+<p class="level0">
+<p class="level0">--textconv, --no-textconv 
+<p class="level1">Allow (or disallow) external text conversion filters to be run when comparing binary files. See <span Class="bold">gitattributes</span>(5) for details. Because textconv filters are typically a one-way conversion, the resulting diff is suitable for human consumption, but cannot be applied. For this reason, textconv filters are enabled by default only for <span Class="bold">git-diff</span>(1) and <span Class="bold">git-log</span>(1), but not for <span Class="bold">git-format-patch</span>(1) or diff plumbing commands. 
+<p class="level0">
+<p class="level0">--ignore-submodules[=&lt;when&gt;] 
+<p class="level1">Ignore changes to submodules in the diff generation. &lt;when&gt; can be either "none", "untracked", "dirty" or "all", which is the default. Using "none" will consider the submodule modified when it either contains untracked or modified files or its HEAD differs from the commit recorded in the superproject and can be used to override any settings of the <span Class="emphasis">ignore</span> option in <span Class="bold">git-config</span>(1) or <span Class="bold">gitmodules</span>(5). When "untracked" is used submodules are not considered dirty when they only contain untracked content (but they are still scanned for modified content). Using "dirty" ignores all changes to the work tree of submodules, only changes to the commits stored in the superproject are shown (this was the behavior until 1.7.0). Using "all" hides all changes to submodules. 
+<p class="level0">
+<p class="level0">--src-prefix=&lt;prefix&gt; 
+<p class="level1">Show the given source prefix instead of "a/". 
+<p class="level0">
+<p class="level0">--dst-prefix=&lt;prefix&gt; 
+<p class="level1">Show the given destination prefix instead of "b/". 
+<p class="level0">
+<p class="level0">--no-prefix 
+<p class="level1">Do not show any source or destination prefix. 
+<p class="level0">
+<p class="level0">For more detailed explanation on these common options, see also <span Class="bold">gitdiffcore</span>(7). <a name="GENERATING"></a><h2 class="nroffsh">GENERATING PATCHES WITH -P</h2>
+<p class="level0">
+<p class="level0">When "git-diff-index", "git-diff-tree", or "git-diff-files" are run with a <span Class="emphasis">-p</span> option, "git diff" without the <span Class="emphasis">--raw</span> option, or "git log" with the "-p" option, they do not produce the output described above; instead they produce a patch file. You can customize the creation of such patches via the GIT_EXTERNAL_DIFF and the GIT_DIFF_OPTS environment variables. 
+<p class="level0">What the -p option produces is slightly different from the traditional diff format: 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">It is preceded with a "git diff" header that looks like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+diff --git a/file1 b/file2
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">The a/ and b/ filenames are the same unless rename/copy is involved. Especially, even for a creation or a deletion, /dev/null is <span Class="emphasis">not</span> used in place of the a/ or b/ filenames. 
+<p class="level1">When rename/copy is involved, file1 and file2 show the name of the source file of the rename/copy and the name of the file that rename/copy produces, respectively. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">It is followed by one or more extended header lines: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+old mode &lt;mode&gt;
+new mode &lt;mode&gt;
+deleted file mode &lt;mode&gt;
+new file mode &lt;mode&gt;
+copy from &lt;path&gt;
+copy to &lt;path&gt;
+rename from &lt;path&gt;
+rename to &lt;path&gt;
+similarity index &lt;number&gt;
+dissimilarity index &lt;number&gt;
+index &lt;hash&gt;..&lt;hash&gt; &lt;mode&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">File modes are printed as 6-digit octal numbers including the file type and file permission bits. 
+<p class="level1">Path names in extended headers do not include the a/ and b/ prefixes. 
+<p class="level1">The similarity index is the percentage of unchanged lines, and the dissimilarity index is the percentage of changed lines. It is a rounded down integer, followed by a percent sign. The similarity index value of 100% is thus reserved for two equal files, while 100% dissimilarity means that no line from the old file made it into the new one. 
+<p class="level1">The index line includes the SHA-1 checksum before and after the change. The &lt;mode&gt; is included if the file mode does not change; otherwise, separate lines indicate the old and the new mode. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">TAB, LF, double quote and backslash characters in pathnames are represented as et, en, e" and ee, respectively. If there is need for such substitution then the whole pathname is put in double quotes. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">All the file1 files in the output refer to files before the commit, and all the file2 files refer to files after the commit. It is incorrect to apply each change to each file sequentially. For example, this patch will swap a and b: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+diff --git a/a b/b
+rename from a
+rename to b
+diff --git a/b b/a
+rename from b
+rename to a
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="COMBINED"></a><h2 class="nroffsh">COMBINED DIFF FORMAT</h2>
+<p class="level0">
+<p class="level0">Any diff-generating command can take the (oq-c` or --cc option to produce a <span Class="emphasis">combined diff</span> when showing a merge. This is the default format when showing merges with <span Class="bold">git-diff</span>(1) or <span Class="bold">git-show</span>(1). Note also that you can give the `-m(cq option to any of these commands to force generation of diffs with individual parents of a merge. 
+<p class="level0">A <span Class="emphasis">combined diff</span> format looks like this: 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1"><pre class="level1">
+diff --combined describe.c
+index fabadb8,cc95eb0..4866510
+--- a/describe.c
++++ b/describe.c
+@@@ -98,20 -98,12 +98,20 @@@
+&nbsp;       return (a_date &gt; b_date) ? -1 : (a_date == b_date) ? 0 : 1;
+&nbsp; }
+&nbsp;
+- static void describe(char *arg)
+&nbsp;-static void describe(struct commit *cmit, int last_one)
+++static void describe(char *arg, int last_one)
+&nbsp; {
+&nbsp;+      unsigned char sha1[20];
+&nbsp;+      struct commit *cmit;
+&nbsp;       struct commit_list *list;
+&nbsp;       static int initialized = 0;
+&nbsp;       struct commit_name *n;
+&nbsp;
+&nbsp;+      if (get_sha1(arg, sha1) &lt; 0)
+&nbsp;+              usage(describe_usage);
+&nbsp;+      cmit = lookup_commit_reference(sha1);
+&nbsp;+      if (!cmit)
+&nbsp;+              usage(describe_usage);
+&nbsp;+
+&nbsp;       if (!initialized) {
+&nbsp;               initialized = 1;
+&nbsp;               for_each_ref(get_name);
+</pre>
+
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1">It is preceded with a "git diff" header, that looks like this (when <span Class="emphasis">-c</span> option is used): 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+diff --combined file
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">or like this (when <span Class="emphasis">--cc</span> option is used): 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+diff --cc file
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1">It is followed by one or more extended header lines (this example shows a merge with two parents): 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+index &lt;hash&gt;,&lt;hash&gt;..&lt;hash&gt;
+mode &lt;mode&gt;,&lt;mode&gt;..&lt;mode&gt;
+new file mode &lt;mode&gt;
+deleted file mode &lt;mode&gt;,&lt;mode&gt;
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">The mode &lt;mode&gt;,&lt;mode&gt;..&lt;mode&gt; line appears only if at least one of the &lt;mode&gt; is different from the rest. Extended headers with information about detected contents movement (renames and copying detection) are designed to work with diff of two &lt;tree-ish&gt; and are not used by combined diff format. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 3.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  3. 4.2</span> 
+<p class="level1">
+<p class="level1">It is followed by two-line from-file/to-file header 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+--- a/file
++++ b/file
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Similar to two-line header for traditional <span Class="emphasis">unified</span> diff format, /dev/null is used to signal created or deleted files. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 4.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  4. 4.2</span> 
+<p class="level1">
+<p class="level1">Chunk header format is modified to prevent people from accidentally feeding it to patch -p1. Combined diff format was created for review of merge commit changes, and was not meant for apply. The change is similar to the change in the extended <span Class="emphasis">index</span> header: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+@@@ &lt;from-file-range&gt; &lt;from-file-range&gt; &lt;to-file-range&gt; @@@
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">There are (number of parents + 1) @ characters in the chunk header for combined diff format. 
+<p class="level0">
+<p class="level0">Unlike the traditional <span Class="emphasis">unified</span> diff format, which shows two files A and B with a single column that has - (minus (em appears in A but removed in B), + (plus (em missing in A but added to B), or " " (space (em unchanged) prefix, this format compares two or more files file1, file2,... with one file X, and shows how X differs from each of fileN. One column for each of fileN is prepended to the output line to note how X(cqs line is different from it. 
+<p class="level0">A - character in the column N means that the line appears in fileN but it does not appear in the result. A + character in the column N means that the line appears in the result, and fileN does not have that line (in other words, the line was added, from the point of view of that parent). 
+<p class="level0">In the above example output, the function signature was changed from both files (hence two - removals from both file1 and file2, plus ++ to mean one line that was added does not appear in either file1 or file2). Also eight other lines are the same from file1 but do not appear in file2 (hence prefixed with +). 
+<p class="level0">When shown by git diff-tree -c, it compares the parents of a merge commit with the merge result (i.e. file1..fileN are the parents). When shown by git diff-files -c, it compares the two unresolved merge parents with the working tree file (i.e. file1 is stage 2 aka "our version", file2 is stage 3 aka "their version"). <a name="EXAMPLES"></a><h2 class="nroffsh">EXAMPLES</h2>
+<p class="level0">
+<p class="level0">git log --no-merges 
+<p class="level1">Show the whole commit history, but skip any merges 
+<p class="level0">
+<p class="level0">git log v2.6.12.. include/scsi drivers/scsi 
+<p class="level1">Show all commits since version <span Class="emphasis">v2.6.12</span> that changed any file in the include/scsi or drivers/scsi subdirectories 
+<p class="level0">
+<p class="level0">git log --since="2 weeks ago" -- gitk 
+<p class="level1">Show the changes during the last two weeks to the file <span Class="emphasis">gitk</span>. The (lq--(rq is necessary to avoid confusion with the <span Class="bold">branch</span> named <span Class="emphasis">gitk</span> 
+<p class="level0">
+<p class="level0">git log --name-status release..test 
+<p class="level1">Show the commits that are in the "test" branch but not yet in the "release" branch, along with the list of paths each commit modifies. 
+<p class="level0">
+<p class="level0">git log --follow builtin/rev-list.c 
+<p class="level1">Shows the commits that changed builtin/rev-list.c, including those commits that occurred before the file was given its present name. 
+<p class="level0">
+<p class="level0">git log --branches --not --remotes=origin 
+<p class="level1">Shows all commits that are in any of local branches but not in any of remote-tracking branches for <span Class="emphasis">origin</span> (what you have that origin doesn(cqt). 
+<p class="level0">
+<p class="level0">git log master --not --remotes=*/master 
+<p class="level1">Shows all commits that are in local master but not in any remote repository master branches. 
+<p class="level0">
+<p class="level0">git log -p -m --first-parent 
+<p class="level1">Shows the history including change diffs, but only from the (lqmain branch(rq perspective, skipping commits that come from merged branches, and showing full diffs of changes introduced by the merges. This makes sense only when following a strict policy of merging all topic branches when staying on a single integration branch. 
+<p class="level0">
+<p class="level0">git log -L *(Aq/int main/*(Aq,/^}/:main.c 
+<p class="level1">Shows how the function main() in the file main.c evolved over time. 
+<p class="level0">
+<p class="level0">git log -3 
+<p class="level1">Limits the number of commits to show to 3. 
+<p class="level0"><a name="DISCUSSION"></a><h2 class="nroffsh">DISCUSSION</h2>
+<p class="level0">
+<p class="level0">At the core level, Git is character encoding agnostic. 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The pathnames recorded in the index and in the tree objects are treated as uninterpreted sequences of non-NUL bytes. What readdir(2) returns are what are recorded and compared with the data Git keeps track of, which in turn are expected to be what lstat(2) and creat(2) accepts. There is no such thing as pathname encoding translation. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The contents of the blob objects are uninterpreted sequences of bytes. There is no encoding translation at the core level. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04'(buh'+03'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name="bu"></a><span class="nroffip">\(bu 2.3</span> 
+<p class="level1">
+<p class="level1">The commit log messages are uninterpreted sequences of non-NUL bytes. 
+<p class="level0">
+<p class="level0">Although we encourage that the commit log messages are encoded in UTF-8, both the core and Git Porcelain are designed not to force UTF-8 on projects. If all participants of a particular project find it more convenient to use legacy encodings, Git does not forbid it. However, there are a few things to keep in mind. 
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 1.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  1. 4.2</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">git commit</span> and <span Class="emphasis">git commit-tree</span> issues a warning if the commit log message given to it does not look like a valid UTF-8 string, unless you explicitly say your project uses a legacy encoding. The way to say this is to have i18n.commitencoding in .git/config file, like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+[i18n]
+&nbsp;       commitencoding = ISO-8859-1
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">Commit objects created with the above setting record the value of i18n.commitencoding in its encoding header. This is to help other people who look at them later. Lack of this header implies that the commit log message is encoded in UTF-8. 
+<p class="level0">
+<p class="level0">
+<p class="level1">
+<p class="level1">h'-04' 2.h'+01'c 
+<p class="level1">
+<p class="level1">
+<p class="level1">
+<p class="level0"><a name=""></a><span class="nroffip">  2. 4.2</span> 
+<p class="level1">
+<p class="level1"><span Class="emphasis">git log</span>, <span Class="emphasis">git show</span>, <span Class="emphasis">git blame</span> and friends look at the encoding header of a commit object, and try to re-code the log message into UTF-8 unless otherwise specified. You can specify the desired output encoding with i18n.logoutputencoding in .git/config file, like this: 
+<p class="level1">
+<p class="level1">
+<p class="level2">
+<p class="level2"><pre class="level2">
+[i18n]
+&nbsp;       logoutputencoding = ISO-8859-1
+</pre>
+
+<p class="level2">
+<p class="level2">
+<p class="level1">
+<p class="level1">
+<p class="level1">If you do not have this configuration variable, the value of i18n.commitencoding is used instead. 
+<p class="level0">
+<p class="level0">Note that we deliberately chose not to re-code the commit log message when a commit is made to force UTF-8 at the commit object level, because re-coding to UTF-8 is not necessarily a reversible operation. <a name="CONFIGURATION"></a><h2 class="nroffsh">CONFIGURATION</h2>
+<p class="level0">
+<p class="level0">See <span Class="bold">git-config</span>(1) for core variables and <span Class="bold">git-diff</span>(1) for settings related to diff generation. 
+<p class="level0">format.pretty 
+<p class="level1">Default for the --format option. (See <span Class="emphasis">Pretty Formats</span> above.) Defaults to medium. 
+<p class="level0">
+<p class="level0">i18n.logOutputEncoding 
+<p class="level1">Encoding to use when displaying logs. (See <span Class="emphasis">Discussion</span> above.) Defaults to the value of i18n.commitEncoding if set, and UTF-8 otherwise. 
+<p class="level0">
+<p class="level0">log.date 
+<p class="level1">Default format for human-readable dates. (Compare the --date option.) Defaults to "default", which means to write dates like Sat May 8 19:35:34 2010 -0500. 
+<p class="level0">
+<p class="level0">log.showroot 
+<p class="level1">If false, git log and related commands will not treat the initial commit as a big creation event. Any root commits in git log -p output would be shown without a diff attached. The default is true. 
+<p class="level0">
+<p class="level0">mailmap.* 
+<p class="level1">See <span Class="bold">git-shortlog</span>(1). 
+<p class="level0">
+<p class="level0">notes.displayRef 
+<p class="level1">Which refs, in addition to the default set by core.notesRef or <span Class="emphasis">GIT_NOTES_REF</span>, to read notes from when showing commit messages with the log family of commands. See <span Class="bold">git-notes</span>(1). 
+<p class="level1">May be an unabbreviated ref name or a glob and may be specified multiple times. A warning will be issued for refs that do not exist, but a glob that does not match any refs is silently ignored. 
+<p class="level1">This setting can be disabled by the --no-notes option, overridden by the <span Class="emphasis">GIT_NOTES_DISPLAY_REF</span> environment variable, and overridden by the --notes=&lt;ref&gt; option. 
+<p class="level0"><a name="GIT"></a><h2 class="nroffsh">GIT</h2>
+<p class="level0">
+<p class="level0">Part of the <span Class="bold">git</span>(1) suite 
