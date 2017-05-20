@@ -16,7 +16,15 @@ The installation is in three steps
 
 #### Step 1 : Formating man pages
 
-The first step is to transform the man pages from their basic form (.gz) to a more human-readable version (.txt and .html)
+The first step is to transform the man pages from their basic nroff format to a more human-readable version (.txt and .html)
+Standard location for man pages is /usr/share/man
+
+You can find two script *mit.sh* and *mih.sh* who respectively convert man pages to .txt and .html files.
+You just have to place the scripts in the same folder as the man pages and run it.
+mit.sh use groff linux command
+mih.sh use [roffit](https://github.com/bagder/roffit), a nice nroff convertor tool that you have to install before running the script
+
+The folder *result* contains exemples of converted man files
 
 #### Step 2 : Indexing Man pages
 
