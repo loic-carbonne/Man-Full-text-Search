@@ -5,6 +5,8 @@ The final result is a web page where you can type a request with a question or s
 
 A basic exemple is : how to copy a file ? , then the website will return you the cp command and its description.
 
+![example](https://raw.githubusercontent.com/loic-carbonne/Man-fulltext-search/master/example.png)
+
 ### Pre-requisites
 
 - PostgreSQL  >= 8.3
@@ -24,12 +26,22 @@ You just have to place the scripts in the same folder as the man pages and run i
 - mit.sh use groff linux command
 - mih.sh use [roffit](https://github.com/bagder/roffit), a nice nroff convertor tool that you have to install before running the script
 
-The folder *result* contains exemples of converted man files
+The folder *results* contains exemples of converted man files
 
 #### Step 2 : Indexing Man pages
 
 The second step is to create a table containing the man pages in postgreSQL
 
+To do this you have to create the table where we will index the man pages by connecting to your Postgres database and executing SQL script *create_db.sql*.
+
+Then fill the file *bdd.php* with your connection to database informations, and run the script *export_to_db.php* to index man pages to the database.
+
 #### Step 3 : Build the web interface
 
 The third step is to build an web page permitting to request the postgreSQL database.
+
+Fill the file *bdd.php* with your connection to database informations, then drop *bdd.php*, *css_file.css* and *index.php* in your web php server.
+
+Now you can use the man full text search web page !
+
+
